@@ -1,13 +1,13 @@
 <div *ngIf="movie">
 	<h2>D&eacute;tails de {{movie.title}} : </h2>
 	<div>
-		<a href="https://image.tmdb.org/t/p/original/{{movie.affiche}}"> 
-		<img *ngIf="movie.affiche" class="affiche" src="https://image.tmdb.org/t/p/w150/{{movie.affiche}}">
+		<a href="https://image.tmdb.org/t/p/original/{{movie.affiche}}" target="_blank"> 
+		<img *ngIf="movie.affiche" class="affiche" src="https://image.tmdb.org/t/p/w154/{{movie.affiche}}">
 		</a>
 	</div>
 	<div class="contenu">
 		<div>
-			<label>id: </label>{{movie.id}}
+			<label>Id: </label>{{movie.id}}
 		</div>
 		<div>
 			<label>Title: </label>{{movie.title | titlecase}}
@@ -17,6 +17,14 @@
 			<div *ngIf="movie.synopsis">
 				<label>Synopsis: </label>
 				<div class="synopsis">{{movie.synopsis}}</div>
+			</div>
+			<div *ngIf="movie.actors.length > 0">
+				<label>Acteurs: </label>
+				<div>
+					<span *ngFor="let actor of movie.actors; let last=last;">
+						{{actor.name| titlecase}}<span *ngIf="!last">,</span>
+					</span>
+				</div>
 			</div>
 			<div *ngIf="movie.videos.length > 0">
                 <label>Vid&eacute;o(s): </label>

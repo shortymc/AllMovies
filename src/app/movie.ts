@@ -6,7 +6,8 @@ export class Movie {
     affiche: string;
     adult: boolean;
     videos: string[];
-    constructor(id: number, title: string, date: string, synopsis: string, affiche: string, adult: boolean, videos: string []) {
+    actors: string[];
+    constructor(id: number, title: string, date: string, synopsis: string, affiche: string, adult: boolean, videos: string [], actors: string[]) {
         this.id = id;
         this.title = title;
         this.date = date;
@@ -14,5 +15,6 @@ export class Movie {
         this.affiche = affiche;
         this.adult = adult;
         this.videos = videos;
+        this.actors = actors;
     }
 }
