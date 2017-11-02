@@ -31,11 +31,51 @@ button:disabled {
 	float: left;
     display: inline-block;
     max-width: 90%;
-    margin: 0px 30px 0px 0px;
+    margin: 0px 30px 0px 10px;
     -webkit-box-shadow: 1px 1px 20px #000000;
     -moz-box-shadow: 1px 1px 20px #000000;
     box-shadow: 1px 1px 20px #000000;
 }
 .synopsis {
 	width: 70%;
+}
+.contenu {
+	margin-left: 180px;
+}
+.videos {
+  margin: 10px 0 0 0;
+  list-style-type: none;
+  padding: 0;
+  width: 20em;
+}
+.videos li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  margin: .5em;
+  padding: .3em 0;
+  height: 1.6em;
+  border-radius: 4px;
+}
+.videos li:hover {
+  color: #607D8B !important;
+  left: .1em;
+}
+.videos .text {
+  position: relative;
+  top: -3px;
+}
+.videos .badge {
+  display: inline-block;
+  font-size: small;
+  padding: 0.8em 0.7em 0 0.7em;
+  background-color: #89B5CB;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 1.8em;
+  margin-right: .8em;
+  border-radius: 4px 4px 4px 4px;
+  width: 100%;
 }
