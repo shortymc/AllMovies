@@ -1,5 +1,5 @@
 import { Injectable }    from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, Response } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -9,6 +9,9 @@ import { Movie } from './movie';
 export class MovieService {
     private moviesUrl = 'api/movies';  // URL to web api
     private headers = new Headers({ 'Content-Type': 'application/json' });
+    private api_key = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
+    private movieUrl = 'https://api.themoviedb.org/3/movie';
+    private langue = '&language=fr';
 
     constructor(private http: Http) { }
 
@@ -25,10 +28,10 @@ export class MovieService {
     }
 
     getMovie(id: number): Promise<Movie> {
-        const url = `${this.moviesUrl}/${id}`;
+        const url = `${this.movieUrl}/${id}?${this.api_key}&${this.langue}`;
         return this.http.get(url)
             .toPromise()
-            .then(response => response.json().data as Movie)
+            .then(response => this.mapMovie(response))
             .catch(this.handleError);
     }
 
@@ -53,5 +56,12 @@ export class MovieService {
             .toPromise()
             .then(() => null)
             .catch(this.handleError);
+    }
+            
+   mapMovie(response: Response): Movie {
+        // The response of the API has a results
+        // property with the actual results
+        let r = response.json();
+        return new Movie(r.id, r.original_title, r.release_date, r.overview, r.poster_path);
     }
 }

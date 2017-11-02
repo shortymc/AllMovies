@@ -14,11 +14,28 @@ require("rxjs/add/operator/map");
 var MovieSearchService = (function () {
     function MovieSearchService(http) {
         this.http = http;
+        this.api_key = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
+        this.movieUrl = 'https://api.themoviedb.org/3/search/movie?';
     }
     MovieSearchService.prototype.search = function (term) {
-        return this.http
-            .get("api/movies/?title=" + term)
-            .map(function (response) { return response.json().data; });
+        var movies = this.http
+            .get(this.movieUrl + this.api_key + ("&include_adult=true&query=" + term), { headers: this.getHeaders() })
+            .map(this.mapMovies);
+        return movies;
+    };
+    MovieSearchService.prototype.getHeaders = function () {
+        var headers = new http_1.Headers();
+        headers.append('Accept', 'application/json');
+        return headers;
+    };
+    MovieSearchService.prototype.mapMovies = function (response) {
+        // The response of the API has a results
+        // property with the actual results
+        return response.json().results.map(function (r) { return ({
+            id: r.id,
+            title: r.original_title,
+            date: r.release_date,
+        }); });
     };
     return MovieSearchService;
 }());
