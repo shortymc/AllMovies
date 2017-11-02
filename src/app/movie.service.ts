@@ -74,7 +74,7 @@ export class MovieService {
         // The response of the API has a results
         // property with the actual results
         let r = response.json();
-        let cast = r.credits.cast.sort(function(a1, a2) {
+        let cast = r.credits.cast.sort(function(a1: any, a2: any) {
             if(a1.cast_id<a2.cast_id){
                return -1; 
             } else if(a1.cast_id>a2.cast_id) {
@@ -82,7 +82,7 @@ export class MovieService {
             } else {
                return 0; 
             }
-        }
+        });
         return new Movie(r.id, r.title, r.release_date, r.overview, r.poster_path, false, r.videos.results, cast.slice(0,6));
     }
 }
