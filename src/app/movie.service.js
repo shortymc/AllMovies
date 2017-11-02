@@ -11,11 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
+var movie_1 = require("./movie");
 var MovieService = (function () {
     function MovieService(http) {
         this.http = http;
         this.moviesUrl = 'api/movies'; // URL to web api
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.api_key = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
+        this.movieUrl = 'https://api.themoviedb.org/3/movie';
+        this.langue = '&language=fr';
     }
     MovieService.prototype.getMovies = function () {
         return this.http.get(this.moviesUrl)
@@ -28,10 +32,11 @@ var MovieService = (function () {
         return Promise.reject(error.message || error);
     };
     MovieService.prototype.getMovie = function (id) {
-        var url = this.moviesUrl + "/" + id;
+        var _this = this;
+        var url = this.movieUrl + "/" + id + "?" + this.api_key + "&" + this.langue;
         return this.http.get(url)
             .toPromise()
-            .then(function (response) { return response.json().data; })
+            .then(function (response) { return _this.mapMovie(response); })
             .catch(this.handleError);
     };
     MovieService.prototype.update = function (movie) {
@@ -55,6 +60,12 @@ var MovieService = (function () {
             .toPromise()
             .then(function () { return null; })
             .catch(this.handleError);
+    };
+    MovieService.prototype.mapMovie = function (response) {
+        // The response of the API has a results
+        // property with the actual results
+        var r = response.json();
+        return new movie_1.Movie(r.id, r.original_title, r.release_date, r.overview, r.poster_path);
     };
     return MovieService;
 }());
