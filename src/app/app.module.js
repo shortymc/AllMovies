@@ -11,8 +11,8 @@ var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var app_routing_module_1 = require("./app-routing.module");
 // Imports for loading & configuring the in-memory web api
-var angular_in_memory_web_api_1 = require("angular-in-memory-web-api");
-var in_memory_data_service_1 = require("./in-memory-data.service");
+//import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+//import { InMemoryDataService }  from './in-memory-data.service';
 var app_component_1 = require("./app.component");
 var movie_detail_component_1 = require("./movie-detail.component");
 var movies_component_1 = require("./movies.component");
@@ -20,6 +20,7 @@ var dashboard_component_1 = require("./dashboard.component");
 var movie_service_1 = require("./movie.service");
 var movie_search_component_1 = require("./movie-search.component");
 var api_key = '81c50d6514fbd578f0c796f8f6ecdafd';
+var movieUrl = 'https://api.themoviedb.org/3/search/movie?api_key=' + api_key;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -31,7 +32,7 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
             http_1.HttpModule,
-            angular_in_memory_web_api_1.InMemoryWebApiModule.forRoot(in_memory_data_service_1.InMemoryDataService),
+            //    InMemoryWebApiModule.forRoot(InMemoryDataService),
             app_routing_module_1.AppRoutingModule
         ],
         declarations: [
