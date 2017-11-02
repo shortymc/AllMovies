@@ -14,6 +14,7 @@ export class MovieService {
     private langue = '&language=fr';
     private append = '&append_to_response=';
     private videos = 'videos';
+    private credits = 'credits';
     private mostPopular = 'https://api.themoviedb.org/3/discover/movie?api_key=81c50d6514fbd578f0c796f8f6ecdafd&sort_by=popularity.desc';
 
     constructor(private http: Http) { }
@@ -31,7 +32,7 @@ export class MovieService {
     }
 
     getMovie(id: number): Promise<Movie> {
-        const url = `${this.movieUrl}/${id}?${this.api_key}${this.langue}${this.append}${this.videos}`;
+        const url = `${this.movieUrl}/${id}?${this.api_key}${this.langue}${this.append}${this.videos},${this.credits}`;
         return this.http.get(url)
             .toPromise()
             .then(response => this.mapMovie(response))
@@ -73,6 +74,15 @@ export class MovieService {
         // The response of the API has a results
         // property with the actual results
         let r = response.json();
-        return new Movie(r.id, r.title, r.release_date, r.overview, r.poster_path, false, r.videos.results);
+        let cast = r.credits.cast.sort(function(a1, a2) {
+            if(a1.cast_id<a2.cast_id){
+               return -1; 
+            } else if(a1.cast_id>a2.cast_id) {
+               return 1; 
+            } else {
+               return 0; 
+            }
+        }
+        return new Movie(r.id, r.title, r.release_date, r.overview, r.poster_path, false, r.videos.results, cast.slice(0,6));
     }
 }

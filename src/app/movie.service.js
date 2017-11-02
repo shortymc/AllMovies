@@ -22,6 +22,7 @@ var MovieService = (function () {
         this.langue = '&language=fr';
         this.append = '&append_to_response=';
         this.videos = 'videos';
+        this.credits = 'credits';
         this.mostPopular = 'https://api.themoviedb.org/3/discover/movie?api_key=81c50d6514fbd578f0c796f8f6ecdafd&sort_by=popularity.desc';
     }
     MovieService.prototype.getMovies = function () {
@@ -37,7 +38,7 @@ var MovieService = (function () {
     };
     MovieService.prototype.getMovie = function (id) {
         var _this = this;
-        var url = this.movieUrl + "/" + id + "?" + this.api_key + this.langue + this.append + this.videos;
+        var url = this.movieUrl + "/" + id + "?" + this.api_key + this.langue + this.append + this.videos + "," + this.credits;
         return this.http.get(url)
             .toPromise()
             .then(function (response) { return _this.mapMovie(response); })
@@ -76,7 +77,18 @@ var MovieService = (function () {
         // The response of the API has a results
         // property with the actual results
         var r = response.json();
-        return new movie_1.Movie(r.id, r.title, r.release_date, r.overview, r.poster_path, false, r.videos.results);
+        var cast = r.credits.cast.sort(function (a1, a2) {
+            if (a1.cast_id < a2.cast_id) {
+                return -1;
+            }
+            else if (a1.cast_id > a2.cast_id) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        });
+        return new movie_1.Movie(r.id, r.title, r.release_date, r.overview, r.poster_path, false, r.videos.results, cast.slice(0, 6));
     };
     return MovieService;
 }());
