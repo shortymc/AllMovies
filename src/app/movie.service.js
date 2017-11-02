@@ -20,11 +20,15 @@ var MovieService = (function () {
         this.api_key = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
         this.movieUrl = 'https://api.themoviedb.org/3/movie';
         this.langue = '&language=fr';
+        this.append = '&append_to_response=';
+        this.videos = 'videos';
+        this.mostPopular = 'https://api.themoviedb.org/3/discover/movie?api_key=81c50d6514fbd578f0c796f8f6ecdafd&sort_by=popularity.desc';
     }
     MovieService.prototype.getMovies = function () {
-        return this.http.get(this.moviesUrl)
+        var _this = this;
+        return this.http.get(this.mostPopular)
             .toPromise()
-            .then(function (response) { return response.json().data; })
+            .then(function (response) { return _this.mapMovies(response); })
             .catch(this.handleError);
     };
     MovieService.prototype.handleError = function (error) {
@@ -33,7 +37,7 @@ var MovieService = (function () {
     };
     MovieService.prototype.getMovie = function (id) {
         var _this = this;
-        var url = this.movieUrl + "/" + id + "?" + this.api_key + "&" + this.langue;
+        var url = this.movieUrl + "/" + id + "?" + this.api_key + this.langue + this.append + this.videos;
         return this.http.get(url)
             .toPromise()
             .then(function (response) { return _this.mapMovie(response); })
@@ -61,11 +65,18 @@ var MovieService = (function () {
             .then(function () { return null; })
             .catch(this.handleError);
     };
+    MovieService.prototype.mapMovies = function (response) {
+        return response.json().results.map(function (r) { return ({
+            id: r.id,
+            title: r.title,
+            date: r.release_date
+        }); });
+    };
     MovieService.prototype.mapMovie = function (response) {
         // The response of the API has a results
         // property with the actual results
         var r = response.json();
-        return new movie_1.Movie(r.id, r.original_title, r.release_date, r.overview, r.poster_path);
+        return new movie_1.Movie(r.id, r.title, r.release_date, r.overview, r.poster_path, false, r.videos.results);
     };
     return MovieService;
 }());

@@ -32,8 +32,9 @@ export class MovieSearchService {
         // property with the actual results
         return response.json().results.map((r: any) =>  <Movie>({
         id: r.id,
-        title: r.original_title,
+        title: r.title,
         date: r.release_date,
+        adult: r.adult
       }));
     }
 

@@ -33,8 +33,9 @@ var MovieSearchService = (function () {
         // property with the actual results
         return response.json().results.map(function (r) { return ({
             id: r.id,
-            title: r.original_title,
+            title: r.title,
             date: r.release_date,
+            adult: r.adult
         }); });
     };
     return MovieSearchService;
