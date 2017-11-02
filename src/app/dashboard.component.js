@@ -18,7 +18,7 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.movieService.getMovies()
-            .then(function (movies) { return _this.movies = movies.slice(1, 5); });
+            .then(function (movies) { return _this.movies = movies.slice(0, 4); });
     };
     return DashboardComponent;
 }());

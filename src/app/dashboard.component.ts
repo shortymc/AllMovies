@@ -14,6 +14,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.movieService.getMovies()
-      .then(movies => this.movies = movies.slice(1, 5));
+      .then(movies => this.movies = movies.slice(0, 4));
   }
 }

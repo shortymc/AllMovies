@@ -12,13 +12,16 @@ export class MovieService {
     private api_key = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
     private movieUrl = 'https://api.themoviedb.org/3/movie';
     private langue = '&language=fr';
+    private append = '&append_to_response=';
+    private videos = 'videos';
+    private mostPopular = 'https://api.themoviedb.org/3/discover/movie?api_key=81c50d6514fbd578f0c796f8f6ecdafd&sort_by=popularity.desc';
 
     constructor(private http: Http) { }
 
     getMovies(): Promise<Movie[]> {
-        return this.http.get(this.moviesUrl)
+        return this.http.get(this.mostPopular)
             .toPromise()
-            .then(response => response.json().data as Movie[])
+            .then(response => this.mapMovies(response))
             .catch(this.handleError);
     }
 
@@ -28,7 +31,7 @@ export class MovieService {
     }
 
     getMovie(id: number): Promise<Movie> {
-        const url = `${this.movieUrl}/${id}?${this.api_key}&${this.langue}`;
+        const url = `${this.movieUrl}/${id}?${this.api_key}${this.langue}${this.append}${this.videos}`;
         return this.http.get(url)
             .toPromise()
             .then(response => this.mapMovie(response))
@@ -58,10 +61,18 @@ export class MovieService {
             .catch(this.handleError);
     }
             
+   mapMovies(response: Response): Movie[] {
+        return response.json().results.map((r: any) =>  <Movie>({
+        id: r.id,
+        title: r.title,
+        date: r.release_date
+      }));
+    }
+            
    mapMovie(response: Response): Movie {
         // The response of the API has a results
         // property with the actual results
         let r = response.json();
-        return new Movie(r.id, r.original_title, r.release_date, r.overview, r.poster_path);
+        return new Movie(r.id, r.title, r.release_date, r.overview, r.poster_path, false, r.videos.results);
     }
 }

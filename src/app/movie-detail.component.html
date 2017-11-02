@@ -1,23 +1,33 @@
 <div *ngIf="movie">
-	<h2>{{movie.title}} details!</h2>
+	<h2>D&eacute;tails de {{movie.title}} : </h2>
 	<div>
 		<a href="https://image.tmdb.org/t/p/original/{{movie.affiche}}"> 
-		     <img *ngIf="movie.affiche" class="affiche" src="https://image.tmdb.org/t/p/w150/{{movie.affiche}}">
+		<img *ngIf="movie.affiche" class="affiche" src="https://image.tmdb.org/t/p/w150/{{movie.affiche}}">
 		</a>
 	</div>
-	<div>
-		<label>id: </label>{{movie.id}}
-	</div>
-	<div>
-		<label>Title: </label> <input [(ngModel)]="movie.title" placeholder="title" />
+	<div class="contenu">
 		<div>
-			<label>Date: </label>{{movie.date}}
+			<label>id: </label>{{movie.id}}
 		</div>
 		<div>
-			<label>Synopsis: </label>
-			<div class="synopsis">{{movie.synopsis}}</div>
+			<label>Title: </label>{{movie.title | titlecase}}
+			<div>
+				<label>Date: </label>{{movie.date | date : "dd/MM/yyyy"}}
+			</div>
+			<div *ngIf="movie.synopsis">
+				<label>Synopsis: </label>
+				<div class="synopsis">{{movie.synopsis}}</div>
+			</div>
+			<div *ngIf="movie.videos.length > 0">
+                <label>Vid&eacute;o(s): </label>
+				<ul class="videos">
+					<li *ngFor="let video of movie.videos">
+					   <a href="https://www.youtube.com/watch?v={{video.key}}" class="badge" target="_blank">{{video.name | titlecase}}</a>
+					</li>
+				</ul>
+			</div>
 		</div>
+		<button (click)="goBack()">Back</button>
+		<button (click)="save()">Save</button>
 	</div>
-	<button (click)="goBack()">Back</button>
-	<button (click)="save()">Save</button>
 </div>
