@@ -21,4 +21,19 @@ ConvertToHHmmPipe = __decorate([
     core_1.Pipe({ name: 'convertToHHmm' })
 ], ConvertToHHmmPipe);
 exports.ConvertToHHmmPipe = ConvertToHHmmPipe;
+var CapitalizeWordPipe = (function () {
+    function CapitalizeWordPipe() {
+    }
+    CapitalizeWordPipe.prototype.transform = function (str) {
+        str = str.replace(/([^\W_]+[^\s-]*) */g, function (s) {
+            return s.charAt(0).toUpperCase() + s.substr(1).toLowerCase();
+        });
+        return str;
+    };
+    return CapitalizeWordPipe;
+}());
+CapitalizeWordPipe = __decorate([
+    core_1.Pipe({ name: 'capitalizeWord' })
+], CapitalizeWordPipe);
+exports.CapitalizeWordPipe = CapitalizeWordPipe;
 //# sourceMappingURL=custom.pipe.js.map

@@ -38,11 +38,13 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             dashboard_component_1.DashboardComponent,
             custom_pipe_1.ConvertToHHmmPipe,
+            custom_pipe_1.CapitalizeWordPipe,
             movie_detail_component_1.MovieDetailComponent,
             movies_component_1.MoviesComponent,
             movie_search_component_1.MovieSearchComponent
         ],
-        providers: [movie_service_1.MovieService],
+        providers: [movie_service_1.MovieService,
+            { provide: core_1.LOCALE_ID, useValue: "fr" }],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);
