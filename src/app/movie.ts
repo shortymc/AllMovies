@@ -7,11 +7,12 @@ export class Movie {
     thumbnail: string;
     adult: boolean;
     time: number;
+    note: number;
     videos: string[];
     actors: string[];
     recommendations: Movie[];
     constructor(id: number, title: string, date: string, synopsis: string, affiche: string, thumbnail: string, 
-        adult: boolean, time: number, videos: string[], actors: string[], recommendations: Movie[]) {
+        adult: boolean, time: number, note: number, videos: string[], actors: string[], recommendations: Movie[]) {
         this.id = id;
         this.title = title;
         this.date = date;
@@ -20,6 +21,7 @@ export class Movie {
         this.thumbnail = thumbnail;
         this.adult = adult;
         this.time = time;
+        this.note = note;
         this.videos = videos;
         this.actors = actors;
         this.recommendations = recommendations;
