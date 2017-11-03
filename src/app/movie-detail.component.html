@@ -24,8 +24,18 @@
 					</span>
 				</div>
 			</div>
-			<div *ngIf="movie.time > 0">
-				<label>Dur&eacute;e: </label>{{movie.time | convertToHHmm}}
+            <div *ngIf="movie.time > 0">
+                <label>Dur&eacute;e: </label>{{movie.time | convertToHHmm}}
+            </div>
+			<div *ngIf="movie.note > 0">
+				<label>Note: </label>{{movie.note}} / 10
+			</div>
+			<div *ngIf="movie.note > 0">
+				<label>Note: </label>
+				<rating [(ngModel)]="movie.note" [readonly]="true"></rating>
+			</div>
+			<div *ngIf="movie.note > 0">
+				<star-rating-comp [starType]="'svg'" [rating]="movie.note"></star-rating-comp>
 			</div>
 			<div *ngIf="movie.videos.length > 0">
 				<label>Vid&eacute;o(s): </label>
