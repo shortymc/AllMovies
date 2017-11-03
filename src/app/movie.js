@@ -1,6 +1,6 @@
 "use strict";
 var Movie = (function () {
-    function Movie(id, title, date, synopsis, affiche, thumbnail, adult, time, note, budget, recette, videos, actors, recommendations) {
+    function Movie(id, title, date, synopsis, affiche, thumbnail, adult, time, note, budget, recette, videos, actors, crew, recommendations) {
         this.id = id;
         this.title = title;
         this.date = date;
@@ -12,6 +12,7 @@ var Movie = (function () {
         this.note = note;
         this.videos = videos;
         this.actors = actors;
+        this.crew = crew;
         this.budget = budget;
         this.recette = recette;
         this.recommendations = recommendations;
