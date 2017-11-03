@@ -6,27 +6,27 @@ import 'rxjs/add/operator/switchMap';
 import { Movie } from './movie';
 
 @Component({
-	selector: 'movie-detail',
-    styleUrls: [ './movie-detail.component.css' ],
-	templateUrl: './movie-detail.component.html',
+    selector: 'movie-detail',
+    styleUrls: ['./movie-detail.component.css'],
+    templateUrl: './movie-detail.component.html',
 })
 export class MovieDetailComponent implements OnInit {
-	movie: Movie;
+    movie: Movie;
     constructor(
-      private movieService: MovieService,
-      private route: ActivatedRoute,
-      private location: Location
-    ) {}
+        private movieService: MovieService,
+        private route: ActivatedRoute,
+        private location: Location
+    ) { }
     ngOnInit(): void {
-      this.route.paramMap
-        .switchMap((params: ParamMap) => this.movieService.getMovie(+params.get('id')))
-        .subscribe(movie => this.movie = movie);
+        this.route.paramMap
+            .switchMap((params: ParamMap) => this.movieService.getMovie(+params.get('id')))
+            .subscribe(movie => this.movie = movie);
     }
     goBack(): void {
         this.location.back();
     }
     save(): void {
         this.movieService.update(this.movie)
-        .then(() => this.goBack());
+            .then(() => this.goBack());
     }
 }
