@@ -4,11 +4,13 @@ import { Component } from '@angular/core';
     selector: 'my-app',
     styleUrls: ['./app.component.css'],
     template: `
-    <h1>{{title}}</h1>
-   <nav>
-     <a routerLink="/dashboard">Dashboard</a>
-     <a routerLink="/movies">Movies</a>
-   </nav>
+	<div class="header">
+		<h1>{{title}}</h1>
+	   <nav>
+		 <a routerLink="/dashboard">Dashboard</a>
+		 <a routerLink="/movies">Movies</a>
+	   </nav>
+	</div>
    <router-outlet></router-outlet>
     `
 })
