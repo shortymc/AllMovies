@@ -29,13 +29,7 @@
             </div>
 			<div *ngIf="movie.note > 0">
 				<label>Note: </label>{{movie.note}} / 10
-			</div>
-			<div *ngIf="movie.note > 0">
-				<label>Note: </label>
-				<rating [(ngModel)]="movie.note" [readonly]="true"></rating>
-			</div>
-			<div *ngIf="movie.note > 0">
-				<star-rating-comp [starType]="'svg'" [rating]="movie.note"></star-rating-comp>
+				<rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
 			</div>
 			<div *ngIf="movie.videos.length > 0">
 				<label>Vid&eacute;o(s): </label>
