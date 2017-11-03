@@ -9,9 +9,9 @@
 			<label>Id: </label>{{movie.id}}
 		</div>
 		<div>
-			<label>Title: </label>{{movie.title | titlecase}}
+			<label>Titre: </label>{{movie.title | capitalizeWord}}
 			<div>
-				<label>Date: </label>{{movie.date | date : "dd/MM/yyyy"}}
+				<label>Date: </label>{{movie.date | date:'EEEE dd MMMM yyyy' | capitalizeWord}}
 			</div>
 			<div *ngIf="movie.synopsis">
 				<label>Synopsis: </label>
@@ -20,26 +20,33 @@
 			<div *ngIf="movie.actors.length > 0">
 				<label>Acteurs: </label>
 				<div>
-					<span *ngFor="let actor of movie.actors; let last=last;"> {{actor.name| titlecase}}<span *ngIf="!last">,</span>
+					<span *ngFor="let actor of movie.actors; let last=last;"> {{actor.name| capitalizeWord}}<span *ngIf="!last">,</span>
 					</span>
 				</div>
 			</div>
             <div *ngIf="movie.time > 0">
                 <label>Dur&eacute;e: </label>{{movie.time | convertToHHmm}}
             </div>
+            <div *ngIf="movie.budget > 0">
+                <label>Budget: </label>{{movie.budget | currency:'USD':'':'1.0-0'}}
+            </div>
+            <div *ngIf="movie.recette > 0">
+                <label>Recette: </label>{{movie.recette | currency:'USD':'':'1.0-0'}}
+            </div>
 			<div *ngIf="movie.note > 0">
 				<label>Note: </label>{{movie.note}} / 10
 				<rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
 			</div>
 			<div *ngIf="movie.videos.length > 0">
-				<label>Vid&eacute;o(s): </label>
+				<div class="labelLong">Vid&eacute;o(s): </div>
 				<ul class="videos">
-					<li *ngFor="let video of movie.videos"><a href="https://www.youtube.com/watch?v={{video.key}}" class="badge" target="_blank">{{video.name | titlecase}}</a></li>
+					<li *ngFor="let video of movie.videos"><a href="https://www.youtube.com/watch?v={{video.key}}" class="badge" target="_blank">{{video.name | capitalizeWord}}</a></li>
 				</ul>
 			</div>
+			<div *ngIf="movie.recommendations.length > 0" class="labelLong">Vous aimerez aussi: </div>
 			<div *ngIf="movie.recommendations.length > 0" class="reco">
-				<a *ngFor="let reco of movie.recommendations;" class="affiche" [routerLink]="['/detail', reco.id]"> <img src="{{reco.thumbnail}}"
-						alt="{{reco.title| titlecase}}">
+				<a *ngFor="let reco of movie.recommendations;" class="affiche" [routerLink]="['/detail', reco.id]"  data-toggle="tooltip" title="{{reco.title | capitalizeWord}}"> 
+					<img src="{{reco.thumbnail}}" alt="{{reco.title| capitalizeWord}}">
 				</a>
 			</div>
 		</div>

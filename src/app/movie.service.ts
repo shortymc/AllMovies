@@ -67,7 +67,8 @@ export class MovieService {
         return response.json().results.map((r: any) =>  <Movie>({
         id: r.id,
         title: r.title,
-        date: r.release_date
+        date: r.release_date,
+        note: r.vote_average
       }));
     }
     
@@ -104,7 +105,7 @@ export class MovieService {
             thumbnail = "https://image.tmdb.org/t/p/w154/" + thumbnail;
         }
         let reco = r.recommendations.results.slice(0,6);
-        return new Movie(r.id, r.title, r.release_date, r.overview, poster_path, thumbnail, false, r.runtime, r.vote_average, 
+        return new Movie(r.id, r.title, r.release_date, r.overview, poster_path, thumbnail, false, r.runtime, r.vote_average, r.budget, r.revenue, 
             r.videos.results, cast.slice(0,6), this.recommendationsToMovies(reco));
     }
 }

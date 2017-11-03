@@ -9,3 +9,14 @@ export class ConvertToHHmmPipe implements PipeTransform {
         return result;
     }
 }
+
+
+@Pipe({ name: 'capitalizeWord' })
+export class CapitalizeWordPipe implements PipeTransform {
+    transform(str: string): string {
+    	str = str.replace(/([^\W_]+[^\s-]*) */g, function(s) {
+    		return s.charAt(0).toUpperCase() + s.substr(1).toLowerCase();
+    	});
+    	return str;
+    }
+}

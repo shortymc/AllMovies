@@ -5,7 +5,13 @@ label {
 	color: #607D8B;
 	font-weight: bold;
 }
-
+.labelLong {
+	display: inline-block;
+	width: 9em;
+	margin: .5em 0;
+	color: #607D8B;
+	font-weight: bold;
+}
 input {
 	height: 2em;
 	font-size: 1em;
@@ -104,6 +110,7 @@ button:disabled {
 }
 
 .videos .badge {
+    text-align: center;
 	display: inline-block;
 	font-size: small;
 	padding: 0.8em 0.7em 0 0.7em;

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
@@ -11,7 +11,7 @@ import { MoviesComponent } from './movies.component';
 import { DashboardComponent } from './dashboard.component';
 import { MovieService } from './movie.service';
 import { MovieSearchComponent } from './movie-search.component';
-import { ConvertToHHmmPipe } from './custom.pipe';
+import { ConvertToHHmmPipe, CapitalizeWordPipe } from './custom.pipe';
 import {RatingModule} from "ngx-rating";
 
 @NgModule({
@@ -27,11 +27,13 @@ import {RatingModule} from "ngx-rating";
         AppComponent,
         DashboardComponent,
         ConvertToHHmmPipe,
+        CapitalizeWordPipe,
         MovieDetailComponent,
         MoviesComponent,
         MovieSearchComponent
     ], 
-  providers: [MovieService],
+  providers: [MovieService,
+              { provide: LOCALE_ID, useValue: "fr" }],
   bootstrap: [AppComponent]
 })
     
