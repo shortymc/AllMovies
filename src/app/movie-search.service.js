@@ -16,10 +16,11 @@ var MovieSearchService = (function () {
         this.http = http;
         this.api_key = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
         this.movieUrl = 'https://api.themoviedb.org/3/search/movie?';
+        this.langue = '&language=fr';
     }
     MovieSearchService.prototype.search = function (term) {
         var movies = this.http
-            .get(this.movieUrl + this.api_key + ("&include_adult=true&query=" + term), { headers: this.getHeaders() })
+            .get(this.movieUrl + this.api_key + ("&include_adult=true&query=" + term + this.langue), { headers: this.getHeaders() })
             .map(this.mapMovies);
         return movies;
     };
