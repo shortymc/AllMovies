@@ -14,6 +14,7 @@ var star_rating_component_1 = require("./star-rating.component");
 var star_rating_config_1 = require("./star-rating-config");
 __export(require("./star-rating.component"));
 __export(require("./star-rating-config"));
+__export(require("./star-rating-struct"));
 var EXPORTS = [star_rating_component_1.StarRatingComponent];
 var StarRatingModule = StarRatingModule_1 = (function () {
     function StarRatingModule() {
