@@ -1,8 +1,8 @@
 <div *ngIf="movie">
 	<h2>D&eacute;tails de {{movie.title}} : </h2>
 	<div>
-		<a href="https://image.tmdb.org/t/p/original/{{movie.affiche}}" target="_blank"> 
-		<img *ngIf="movie.affiche" class="affiche" src="https://image.tmdb.org/t/p/w154/{{movie.affiche}}">
+		<a class="affiche" href="{{movie.affiche}}" target="_blank"> 
+		<img *ngIf="movie.affiche" src="{{movie.thumbnail}}">
 		</a>
 	</div>
 	<div class="contenu">
@@ -26,6 +26,7 @@
 					</span>
 				</div>
 			</div>
+            <div *ngIf="movie.time > 0"><label>Dur&eacute;e: </label>{{movie.time | convertToHHmm}}</div>
 			<div *ngIf="movie.videos.length > 0">
                 <label>Vid&eacute;o(s): </label>
 				<ul class="videos">

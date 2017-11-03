@@ -35,6 +35,23 @@ button:disabled {
     -webkit-box-shadow: 1px 1px 20px #000000;
     -moz-box-shadow: 1px 1px 20px #000000;
     box-shadow: 1px 1px 20px #000000;
+    border: 3px solid #000;
+    position: relative;
+    vertical-align: bottom;
+}
+.affiche img {
+    border: 0;
+    vertical-align: top;
+}
+.affiche:hover::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #000;
+    background-color: rgba(0,0,0,.5);
 }
 .synopsis {
 	width: 70%;

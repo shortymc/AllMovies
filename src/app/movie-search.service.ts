@@ -11,12 +11,13 @@ export class MovieSearchService {
 
     private api_key = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
     private movieUrl = 'https://api.themoviedb.org/3/search/movie?';
+    private langue = '&language=fr';
 
     constructor(private http: Http) { }
 
     search(term: string): Observable<Movie[]> {
         let movies = this.http
-            .get(this.movieUrl+this.api_key+`&include_adult=true&query=${term}`, { headers: this.getHeaders() })
+            .get(this.movieUrl+this.api_key+`&include_adult=true&query=${term}${this.langue}`, { headers: this.getHeaders() })
             .map(this.mapMovies);
         return movies;
     }

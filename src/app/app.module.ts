@@ -15,9 +15,7 @@ import { MoviesComponent } from './movies.component';
 import { DashboardComponent } from './dashboard.component';
 import { MovieService } from './movie.service';
 import { MovieSearchComponent } from './movie-search.component';
-
-const api_key = '81c50d6514fbd578f0c796f8f6ecdafd';
-const movieUrl = 'https://api.themoviedb.org/3/search/movie?api_key='+api_key;
+import { ConvertToHHmmPipe } from './custom.pipe'; // import our pipe here
 
 @NgModule({
   imports: [
@@ -30,6 +28,7 @@ const movieUrl = 'https://api.themoviedb.org/3/search/movie?api_key='+api_key;
     declarations: [
         AppComponent,
         DashboardComponent,
+        ConvertToHHmmPipe,
         MovieDetailComponent,
         MoviesComponent,
         MovieSearchComponent

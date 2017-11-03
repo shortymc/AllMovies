@@ -19,8 +19,7 @@ var movies_component_1 = require("./movies.component");
 var dashboard_component_1 = require("./dashboard.component");
 var movie_service_1 = require("./movie.service");
 var movie_search_component_1 = require("./movie-search.component");
-var api_key = '81c50d6514fbd578f0c796f8f6ecdafd';
-var movieUrl = 'https://api.themoviedb.org/3/search/movie?api_key=' + api_key;
+var custom_pipe_1 = require("./custom.pipe"); // import our pipe here
 var AppModule = (function () {
     function AppModule() {
     }
@@ -38,6 +37,7 @@ AppModule = __decorate([
         declarations: [
             app_component_1.AppComponent,
             dashboard_component_1.DashboardComponent,
+            custom_pipe_1.ConvertToHHmmPipe,
             movie_detail_component_1.MovieDetailComponent,
             movies_component_1.MoviesComponent,
             movie_search_component_1.MovieSearchComponent

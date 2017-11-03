@@ -88,7 +88,19 @@ var MovieService = (function () {
                 return 0;
             }
         });
-        return new movie_1.Movie(r.id, r.title, r.release_date, r.overview, r.poster_path, false, r.videos.results, cast.slice(0, 6));
+        var poster_path = r.poster_path;
+        var thumbnail = r.poster_path;
+        console.log(poster_path);
+        if (poster_path === null) {
+            poster_path = './app/img/empty.jpg';
+            thumbnail = './app/img/empty.jpg';
+        }
+        else {
+            poster_path = "https://image.tmdb.org/t/p/original/" + poster_path;
+            thumbnail = "https://image.tmdb.org/t/p/w154/" + thumbnail;
+        }
+        console.log(poster_path);
+        return new movie_1.Movie(r.id, r.title, r.release_date, r.overview, poster_path, thumbnail, false, r.runtime, r.videos.results, cast.slice(0, 6));
     };
     return MovieService;
 }());
