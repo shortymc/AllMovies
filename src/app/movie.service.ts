@@ -15,6 +15,7 @@ export class MovieService {
     private append = '&append_to_response=';
     private videos = 'videos';
     private credits = 'credits';
+    private recommendations = 'recommendations';
     private mostPopular = 'https://api.themoviedb.org/3/discover/movie?api_key=81c50d6514fbd578f0c796f8f6ecdafd&sort_by=popularity.desc';
 
     constructor(private http: Http) { }
@@ -32,7 +33,7 @@ export class MovieService {
     }
 
     getMovie(id: number): Promise<Movie> {
-        const url = `${this.movieUrl}/${id}?${this.api_key}${this.langue}${this.append}${this.videos},${this.credits}`;
+        const url = `${this.movieUrl}/${id}?${this.api_key}${this.langue}${this.append}${this.videos},${this.credits},${this.recommendations}`;
         return this.http.get(url)
             .toPromise()
             .then(response => this.mapMovie(response))
@@ -69,6 +70,16 @@ export class MovieService {
         date: r.release_date
       }));
     }
+    
+    recommendationsToMovies(reco: any): Movie[] {
+        return reco.map((r: any) =>  <Movie>({
+        id: r.id,
+        title: r.title,
+        date: r.release_date,
+        thumbnail: "https://image.tmdb.org/t/p/w92/" + r.poster_path
+      }));
+        
+    }
             
    mapMovie(response: Response): Movie {
         // The response of the API has a results
@@ -85,7 +96,6 @@ export class MovieService {
         });
         let poster_path = r.poster_path;
         let thumbnail = r.poster_path;
-       console.log(poster_path);
         if(poster_path === null) {
             poster_path = './app/img/empty.jpg';
             thumbnail = './app/img/empty.jpg';
@@ -93,7 +103,7 @@ export class MovieService {
             poster_path = "https://image.tmdb.org/t/p/original/" + poster_path;
             thumbnail = "https://image.tmdb.org/t/p/w154/" + thumbnail;
         }
-        console.log(poster_path);
-        return new Movie(r.id, r.title, r.release_date, r.overview, poster_path, thumbnail, false, r.runtime, r.videos.results, cast.slice(0,6));
+        let reco = r.recommendations.results.slice(0,6);
+        return new Movie(r.id, r.title, r.release_date, r.overview, poster_path, thumbnail, false, r.runtime, r.videos.results, cast.slice(0,6), this.recommendationsToMovies(reco));
     }
 }

@@ -23,6 +23,7 @@ var MovieService = (function () {
         this.append = '&append_to_response=';
         this.videos = 'videos';
         this.credits = 'credits';
+        this.recommendations = 'recommendations';
         this.mostPopular = 'https://api.themoviedb.org/3/discover/movie?api_key=81c50d6514fbd578f0c796f8f6ecdafd&sort_by=popularity.desc';
     }
     MovieService.prototype.getMovies = function () {
@@ -38,7 +39,7 @@ var MovieService = (function () {
     };
     MovieService.prototype.getMovie = function (id) {
         var _this = this;
-        var url = this.movieUrl + "/" + id + "?" + this.api_key + this.langue + this.append + this.videos + "," + this.credits;
+        var url = this.movieUrl + "/" + id + "?" + this.api_key + this.langue + this.append + this.videos + "," + this.credits + "," + this.recommendations;
         return this.http.get(url)
             .toPromise()
             .then(function (response) { return _this.mapMovie(response); })
@@ -73,6 +74,14 @@ var MovieService = (function () {
             date: r.release_date
         }); });
     };
+    MovieService.prototype.recommendationsToMovies = function (reco) {
+        return reco.map(function (r) { return ({
+            id: r.id,
+            title: r.title,
+            date: r.release_date,
+            thumbnail: "https://image.tmdb.org/t/p/w92/" + r.poster_path
+        }); });
+    };
     MovieService.prototype.mapMovie = function (response) {
         // The response of the API has a results
         // property with the actual results
@@ -90,7 +99,6 @@ var MovieService = (function () {
         });
         var poster_path = r.poster_path;
         var thumbnail = r.poster_path;
-        console.log(poster_path);
         if (poster_path === null) {
             poster_path = './app/img/empty.jpg';
             thumbnail = './app/img/empty.jpg';
@@ -99,8 +107,8 @@ var MovieService = (function () {
             poster_path = "https://image.tmdb.org/t/p/original/" + poster_path;
             thumbnail = "https://image.tmdb.org/t/p/w154/" + thumbnail;
         }
-        console.log(poster_path);
-        return new movie_1.Movie(r.id, r.title, r.release_date, r.overview, poster_path, thumbnail, false, r.runtime, r.videos.results, cast.slice(0, 6));
+        var reco = r.recommendations.results.slice(0, 6);
+        return new movie_1.Movie(r.id, r.title, r.release_date, r.overview, poster_path, thumbnail, false, r.runtime, r.videos.results, cast.slice(0, 6), this.recommendationsToMovies(reco));
     };
     return MovieService;
 }());

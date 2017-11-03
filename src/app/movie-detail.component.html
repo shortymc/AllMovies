@@ -1,8 +1,7 @@
 <div *ngIf="movie">
-	<h2>D&eacute;tails de {{movie.title}} : </h2>
+	<h2>D&eacute;tails de {{movie.title}} :</h2>
 	<div>
-		<a class="affiche" href="{{movie.affiche}}" target="_blank"> 
-		<img *ngIf="movie.affiche" src="{{movie.thumbnail}}">
+		<a class="affiche" href="{{movie.affiche}}" target="_blank"> <img src="{{movie.thumbnail}}">
 		</a>
 	</div>
 	<div class="contenu">
@@ -21,21 +20,27 @@
 			<div *ngIf="movie.actors.length > 0">
 				<label>Acteurs: </label>
 				<div>
-					<span *ngFor="let actor of movie.actors; let last=last;">
-						{{actor.name| titlecase}}<span *ngIf="!last">,</span>
+					<span *ngFor="let actor of movie.actors; let last=last;"> {{actor.name| titlecase}}<span *ngIf="!last">,</span>
 					</span>
 				</div>
 			</div>
-            <div *ngIf="movie.time > 0"><label>Dur&eacute;e: </label>{{movie.time | convertToHHmm}}</div>
+			<div *ngIf="movie.time > 0">
+				<label>Dur&eacute;e: </label>{{movie.time | convertToHHmm}}
+			</div>
 			<div *ngIf="movie.videos.length > 0">
-                <label>Vid&eacute;o(s): </label>
+				<label>Vid&eacute;o(s): </label>
 				<ul class="videos">
-					<li *ngFor="let video of movie.videos">
-					   <a href="https://www.youtube.com/watch?v={{video.key}}" class="badge" target="_blank">{{video.name | titlecase}}</a>
-					</li>
+					<li *ngFor="let video of movie.videos"><a href="https://www.youtube.com/watch?v={{video.key}}" class="badge" target="_blank">{{video.name | titlecase}}</a></li>
 				</ul>
 			</div>
+			<div *ngIf="movie.recommendations.length > 0" class="reco">
+				<a *ngFor="let reco of movie.recommendations;" class="affiche" [routerLink]="['/detail', reco.id]"> <img src="{{reco.thumbnail}}"
+						alt="{{reco.title| titlecase}}">
+				</a>
+			</div>
 		</div>
+	</div>
+	<div class="btn">
 		<button (click)="goBack()">Back</button>
 		<button (click)="save()">Save</button>
 	</div>
