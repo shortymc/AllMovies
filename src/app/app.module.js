@@ -17,10 +17,8 @@ var movies_component_1 = require("./movies.component");
 var dashboard_component_1 = require("./dashboard.component");
 var movie_service_1 = require("./movie.service");
 var movie_search_component_1 = require("./movie-search.component");
-var rating_component_1 = require("./rating.component");
 var custom_pipe_1 = require("./custom.pipe");
-//import { StarRatingComponent } from './star-rating.component';
-var angular_star_rating_1 = require("angular-star-rating");
+var ngx_rating_1 = require("ngx-rating");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -33,7 +31,7 @@ AppModule = __decorate([
             forms_1.FormsModule,
             http_1.HttpModule,
             common_1.CommonModule,
-            angular_star_rating_1.StarRatingModule.forRoot(),
+            ngx_rating_1.RatingModule,
             app_routing_module_1.AppRoutingModule
         ],
         declarations: [
@@ -41,12 +39,9 @@ AppModule = __decorate([
             dashboard_component_1.DashboardComponent,
             custom_pipe_1.ConvertToHHmmPipe,
             movie_detail_component_1.MovieDetailComponent,
-            //        StarRatingComponent,
-            rating_component_1.RatingComponent,
             movies_component_1.MoviesComponent,
             movie_search_component_1.MovieSearchComponent
         ],
-        exports: [rating_component_1.RatingComponent],
         providers: [movie_service_1.MovieService],
         bootstrap: [app_component_1.AppComponent]
     })

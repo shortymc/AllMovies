@@ -11,10 +11,8 @@ import { MoviesComponent } from './movies.component';
 import { DashboardComponent } from './dashboard.component';
 import { MovieService } from './movie.service';
 import { MovieSearchComponent } from './movie-search.component';
-import {RatingComponent} from './rating.component';
 import { ConvertToHHmmPipe } from './custom.pipe';
-//import { StarRatingComponent } from './star-rating.component';
-import { StarRatingModule } from 'angular-star-rating';
+import {RatingModule} from "ngx-rating";
 
 @NgModule({
   imports: [
@@ -22,7 +20,7 @@ import { StarRatingModule } from 'angular-star-rating';
 	FormsModule,    
     HttpModule,
     CommonModule,
-    StarRatingModule.forRoot(),
+    RatingModule,
     AppRoutingModule
     ],
     declarations: [
@@ -30,12 +28,9 @@ import { StarRatingModule } from 'angular-star-rating';
         DashboardComponent,
         ConvertToHHmmPipe,
         MovieDetailComponent,
-//        StarRatingComponent,
-        RatingComponent,
         MoviesComponent,
         MovieSearchComponent
     ], 
-    exports: [RatingComponent],
   providers: [MovieService],
   bootstrap: [AppComponent]
 })
