@@ -44,6 +44,24 @@
 				<div *ngIf="(movie.crew | filterCrew:'Compositors') as compositors">
 					<label class="label">Compositeur: </label>{{compositors}}
 				</div>
+				<div *ngIf="(movie.crew | filterCrew:'screenplay') as screenplay">
+					<label class="label">Sc&eacute;nariste: </label>{{screenplay}}
+				</div>
+				<div *ngIf="(movie.crew | filterCrew:'novel') as novel">
+					<label class="label">Romancier: </label>{{novel}}
+				</div>
+				<div *ngIf="(movie.crew | filterCrew:'cameo') as cameo">
+					<label class="label">Cameo: </label>{{cameo}}
+				</div>
+				<div *ngIf="(movie.crew | filterCrew:'special Guest') as guest">
+					<label class="label">Guest-Star: </label>{{guest}}
+				</div>
+				<div *ngIf="(movie.crew | filterCrew:'songs') as songs">
+					<label class="label">Chansons: </label>{{songs}}
+				</div>
+				<div *ngIf="(movie.crew | filterCrew:'music') as music">
+					<label class="label">Musique: </label>{{music}}
+				</div>
 			</div>
 			<div *ngIf="movie.budget > 0">
 				<label>Budget: </label>{{movie.budget | currency:'USD':'':'1.0-0'}}

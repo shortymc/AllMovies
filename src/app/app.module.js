@@ -39,6 +39,7 @@ AppModule = __decorate([
             dashboard_component_1.DashboardComponent,
             custom_pipe_1.ConvertToHHmmPipe,
             custom_pipe_1.CapitalizeWordPipe,
+            custom_pipe_1.FilterCrewPipe,
             movie_detail_component_1.MovieDetailComponent,
             movies_component_1.MoviesComponent,
             movie_search_component_1.MovieSearchComponent
