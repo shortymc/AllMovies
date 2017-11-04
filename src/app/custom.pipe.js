@@ -36,4 +36,16 @@ CapitalizeWordPipe = __decorate([
     core_1.Pipe({ name: 'capitalizeWord' })
 ], CapitalizeWordPipe);
 exports.CapitalizeWordPipe = CapitalizeWordPipe;
+var FilterCrewPipe = (function () {
+    function FilterCrewPipe() {
+    }
+    FilterCrewPipe.prototype.transform = function (str, args) {
+        return str.filter(function (h) { return h.job.toLowerCase() == args.toLowerCase(); }).map(function (s) { return s.name; }).join(', ');
+    };
+    return FilterCrewPipe;
+}());
+FilterCrewPipe = __decorate([
+    core_1.Pipe({ name: 'filterCrew' })
+], FilterCrewPipe);
+exports.FilterCrewPipe = FilterCrewPipe;
 //# sourceMappingURL=custom.pipe.js.map
