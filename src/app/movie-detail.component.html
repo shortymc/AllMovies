@@ -6,7 +6,7 @@
 	</div>
 	<div class="contenu">
 		<div>
-			<label>Id: </label>{{movie.id}}
+			<label>Id:</label>{{movie.id}}
 		</div>
 		<div>
 			<label>Titre: </label>{{movie.title | capitalizeWord}}
@@ -19,16 +19,14 @@
 			</div>
 			<div *ngIf="movie.actors.length > 0">
 				<label>Acteurs: </label>
-				<div>
+				<div class="block">
 					<span *ngFor="let actor of movie.actors; let last=last;"> {{actor.name| capitalizeWord}}<span *ngIf="!last">,</span>
 					</span>
 				</div>
 			</div>
 			<div *ngIf="movie.crew.length > 0">
 				<label class="label">R&eacute;alisateur: </label>
-				<div *ngFor="let c of movie.crew;" class="block"> 
-					<div *ngIf="c.job==='Director'">{{c.name| capitalizeWord}}</div>
-				</div>
+				<div class="block">{{movie.crew | filterCrew:'director'}}</div>
 			</div>
             <div *ngIf="movie.time > 0">
                 <label>Dur&eacute;e: </label>{{movie.time | convertToHHmm}}
