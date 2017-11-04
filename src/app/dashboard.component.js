@@ -14,6 +14,7 @@ var DashboardComponent = (function () {
     function DashboardComponent(movieService) {
         this.movieService = movieService;
         this.movies = [];
+        this.show = false;
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
