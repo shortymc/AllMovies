@@ -10,7 +10,6 @@ export class ConvertToHHmmPipe implements PipeTransform {
     }
 }
 
-
 @Pipe({ name: 'capitalizeWord' })
 export class CapitalizeWordPipe implements PipeTransform {
     transform(str: string): string {
@@ -19,4 +18,11 @@ export class CapitalizeWordPipe implements PipeTransform {
     	});
     	return str;
     }
+}
+
+@Pipe({ name: 'filterCrew' })
+export class FilterCrewPipe implements PipeTransform {
+	transform(str: any[], args: any): string {
+        return str.filter(h => h.job.toLowerCase().indexOf(args.toLowerCase()) !== -1).map(s => s.name).join(', ');
+	}
 }
