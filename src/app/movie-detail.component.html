@@ -1,7 +1,8 @@
 <div *ngIf="movie">
 	<h2>D&eacute;tails de {{movie.title}} :</h2>
 	<div>
-		<a class="affiche" href="{{movie.affiche}}" target="_blank"> <img src="{{movie.thumbnail}}">
+		<a class="affiche" href="{{movie.affiche}}" target="_blank"> <img
+			src="{{movie.thumbnail}}">
 		</a>
 	</div>
 	<div class="contenu">
@@ -11,7 +12,11 @@
 		<div>
 			<label>Titre: </label>{{movie.title | capitalizeWord}}
 			<div>
-				<label>Date: </label>{{movie.date | date:'EEEE dd MMMM yyyy' | capitalizeWord}}
+				<label>Date: </label>{{movie.date | date:'EEEE dd MMMM yyyy' |
+				capitalizeWord}}
+			</div>
+			<div *ngIf="movie.time > 0">
+				<label>Dur&eacute;e: </label>{{movie.time | convertToHHmm}}
 			</div>
 			<div *ngIf="movie.synopsis">
 				<label>Synopsis: </label>
@@ -20,37 +25,53 @@
 			<div *ngIf="movie.actors.length > 0">
 				<label>Acteurs: </label>
 				<div class="block">
-					<span *ngFor="let actor of movie.actors; let last=last;"> {{actor.name| capitalizeWord}}<span *ngIf="!last">,</span>
+					<span *ngFor="let actor of movie.actors; let last=last;">
+						{{actor.name| capitalizeWord}}<span *ngIf="!last">,</span>
 					</span>
 				</div>
 			</div>
 			<div *ngIf="movie.crew.length > 0">
-				<label class="label">R&eacute;alisateur: </label>
-				<div class="block">{{movie.crew | filterCrew:'director'}}</div>
+				<div *ngIf="(movie.crew | filterCrew:'director') as director">
+					<label class="label">R&eacute;alisateur: </label>{{director}}
+				</div>
+				<div *ngIf="(movie.crew | filterCrew:'producer') as producer">
+					<label class="label">Producteur: </label>{{producer}}
+				</div>
+				<div
+					*ngIf="(movie.crew | filterCrew:'Original Music Composer') as composer">
+					<label class="label">Compositeur: </label>{{composer}}
+				</div>
+				<div *ngIf="(movie.crew | filterCrew:'Compositors') as compositors">
+					<label class="label">Compositeur: </label>{{compositors}}
+				</div>
 			</div>
-            <div *ngIf="movie.time > 0">
-                <label>Dur&eacute;e: </label>{{movie.time | convertToHHmm}}
-            </div>
-            <div *ngIf="movie.budget > 0">
-                <label>Budget: </label>{{movie.budget | currency:'USD':'':'1.0-0'}}
-            </div>
-            <div *ngIf="movie.recette > 0">
-                <label>Recette: </label>{{movie.recette | currency:'USD':'':'1.0-0'}}
-            </div>
+			<div *ngIf="movie.budget > 0">
+				<label>Budget: </label>{{movie.budget | currency:'USD':'':'1.0-0'}}
+			</div>
+			<div *ngIf="movie.recette > 0">
+				<label>Recette: </label>{{movie.recette |
+				currency:'USD':'':'1.0-0'}}
+			</div>
 			<div *ngIf="movie.note > 0">
 				<label>Note: </label>{{movie.note}} / 10
-				<rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
+				<rating [(ngModel)]="movie.note" [max]="10" [readonly]="true"
+					[float]="true"></rating>
 			</div>
 			<div *ngIf="movie.videos.length > 0">
-				<div class="labelLong">Vid&eacute;o(s): </div>
+				<div class="labelLong">Vid&eacute;o(s):</div>
 				<ul class="videos">
-					<li *ngFor="let video of movie.videos"><a href="https://www.youtube.com/watch?v={{video.key}}" class="badge" target="_blank">{{video.name | capitalizeWord}}</a></li>
+					<li *ngFor="let video of movie.videos"><a
+						href="https://www.youtube.com/watch?v={{video.key}}" class="badge"
+						target="_blank">{{video.name | capitalizeWord}}</a></li>
 				</ul>
 			</div>
-			<div *ngIf="movie.recommendations.length > 0" class="labelLong">Vous aimerez aussi: </div>
+			<div *ngIf="movie.recommendations.length > 0" class="labelLong">Vous
+				aimerez aussi:</div>
 			<div *ngIf="movie.recommendations.length > 0" class="reco">
-				<a *ngFor="let reco of movie.recommendations;" class="affiche" [routerLink]="['/detail', reco.id]"  data-toggle="tooltip" title="{{reco.title | capitalizeWord}}"> 
-					<img src="{{reco.thumbnail}}" alt="{{reco.title| capitalizeWord}}">
+				<a *ngFor="let reco of movie.recommendations;" class="affiche"
+					[routerLink]="['/detail', reco.id]" data-toggle="tooltip"
+					title="{{reco.title | capitalizeWord}}"> <img
+					src="{{reco.thumbnail}}" alt="{{reco.title| capitalizeWord}}">
 				</a>
 			</div>
 		</div>
