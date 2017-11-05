@@ -10,7 +10,7 @@
 			placeholder="Rechercher des films" (click)="show = !show"
 			(blur)="show = !show; searchBox.value=''" />
 	</div>
-	<div id="res" *ngIf="show">
+<div id="res"><!-- 	 *ngIf="show" -->
 		<div id="result" *ngFor="let movie of movies | async"
 			(click)="gotoDetail(movie)" class="search-result"
 			[ngClass]="{'adult': movie.adult}">{{movie.title |

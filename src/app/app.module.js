@@ -13,9 +13,11 @@ var http_1 = require("@angular/http");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var movie_detail_component_1 = require("./movie-detail.component");
+var person_detail_component_1 = require("./person-detail.component");
 var movies_component_1 = require("./movies.component");
 var dashboard_component_1 = require("./dashboard.component");
 var movie_service_1 = require("./movie.service");
+var person_service_1 = require("./person.service");
 var movie_search_component_1 = require("./movie-search.component");
 var custom_pipe_1 = require("./custom.pipe");
 var ngx_rating_1 = require("ngx-rating");
@@ -42,9 +44,10 @@ AppModule = __decorate([
             custom_pipe_1.FilterCrewPipe,
             movie_detail_component_1.MovieDetailComponent,
             movies_component_1.MoviesComponent,
+            person_detail_component_1.PersonDetailComponent,
             movie_search_component_1.MovieSearchComponent
         ],
-        providers: [movie_service_1.MovieService,
+        providers: [movie_service_1.MovieService, person_service_1.PersonService,
             { provide: core_1.LOCALE_ID, useValue: "fr" }],
         bootstrap: [app_component_1.AppComponent]
     })

@@ -14,10 +14,11 @@ var common_1 = require("@angular/common");
 var movie_service_1 = require("./movie.service");
 require("rxjs/add/operator/switchMap");
 var MovieDetailComponent = (function () {
-    function MovieDetailComponent(movieService, route, location) {
+    function MovieDetailComponent(movieService, route, location, router) {
         this.movieService = movieService;
         this.route = route;
         this.location = location;
+        this.router = router;
     }
     MovieDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -33,6 +34,10 @@ var MovieDetailComponent = (function () {
         this.movieService.update(this.movie)
             .then(function () { return _this.goBack(); });
     };
+    MovieDetailComponent.prototype.gotoPerson = function (person) {
+        var link = ['/person', person.id];
+        this.router.navigate(link);
+    };
     return MovieDetailComponent;
 }());
 MovieDetailComponent = __decorate([
@@ -43,7 +48,8 @@ MovieDetailComponent = __decorate([
     }),
     __metadata("design:paramtypes", [movie_service_1.MovieService,
         router_1.ActivatedRoute,
-        common_1.Location])
+        common_1.Location,
+        router_1.Router])
 ], MovieDetailComponent);
 exports.MovieDetailComponent = MovieDetailComponent;
 //# sourceMappingURL=movie-detail.component.js.map

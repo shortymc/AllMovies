@@ -26,7 +26,7 @@
 				<label>Acteurs: </label>
 				<div class="block">
 					<span *ngFor="let actor of movie.actors; let last=last;">
-						{{actor.name| capitalizeWord}}<span *ngIf="!last">,</span>
+						<a (click)="gotoPerson(actor)" class="pointer">{{actor.name| capitalizeWord}}</a><span *ngIf="!last">,</span>
 					</span>
 				</div>
 			</div>

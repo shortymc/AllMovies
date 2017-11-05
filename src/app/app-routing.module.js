@@ -10,10 +10,12 @@ var router_1 = require("@angular/router");
 var dashboard_component_1 = require("./dashboard.component");
 var movies_component_1 = require("./movies.component");
 var movie_detail_component_1 = require("./movie-detail.component");
+var person_detail_component_1 = require("./person-detail.component");
 var routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
     { path: 'detail/:id', component: movie_detail_component_1.MovieDetailComponent },
+    { path: 'person/:id', component: person_detail_component_1.PersonDetailComponent },
     { path: 'movies', component: movies_component_1.MoviesComponent }
 ];
 var AppRoutingModule = (function () {
