@@ -19,10 +19,10 @@ var MovieSearchService = (function () {
         this.langue = '&language=fr';
     }
     MovieSearchService.prototype.search = function (term) {
-        var movies = this.http
+        return this.http
             .get(this.movieUrl + this.api_key + ("&include_adult=true&query=" + term + this.langue), { headers: this.getHeaders() })
-            .map(this.mapMovies);
-        return movies;
+            .map(this.mapMovies)
+            .map(function (data) { return data.slice(0, 10); });
     };
     MovieSearchService.prototype.getHeaders = function () {
         var headers = new http_1.Headers();

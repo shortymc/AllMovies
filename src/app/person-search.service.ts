@@ -18,7 +18,8 @@ export class PersonSearchService {
 	search(term: string): Observable<Person[]> {
 		return this.http
 		.get(this.personUrl+this.api_key+`&include_adult=true&query=${term}`, { headers: this.getHeaders() })
-		.map(this.mapPersons);
+		.map(this.mapPersons)
+		.map(data => data.slice(0,10));
 	}
 
 	getHeaders() {
