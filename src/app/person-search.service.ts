@@ -16,10 +16,9 @@ export class PersonSearchService {
 	constructor(private http: Http) { }
 
 	search(term: string): Observable<Person[]> {
-		let persons = this.http
+		return this.http
 		.get(this.personUrl+this.api_key+`&include_adult=true&query=${term}`, { headers: this.getHeaders() })
 		.map(this.mapPersons);
-		return persons;
 	}
 
 	getHeaders() {
