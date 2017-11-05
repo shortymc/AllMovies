@@ -1,0 +1,30 @@
+<div *ngIf="person">
+	<h2>D&eacute;tails de {{person.name}} :</h2>
+	<div>
+		<a class="profile" href="{{person.profile}}" target="_blank"> <img
+			src="{{person.thumbnail}}">
+		</a>
+	</div>
+	<div class="contenu">
+		<div>
+			<label>Id:</label>{{person.id}}
+		</div>
+		<div>
+			<label>Nom: </label>{{person.name | capitalizeWord}}
+			<div>
+				<label class="label">Naissance: </label>{{person.birthday | date:'dd MMMM yyyy' |
+				capitalizeWord}}
+			</div>
+			<div *ngIf="person.deathday">
+				<label class="label">Mort: </label>{{person.deathday | date:'dd MMMM yyyy' |
+				capitalizeWord}}
+			</div>
+			<div *ngIf="person.biography">
+				<label class="label">Biographie: </label><div class="biography">{{person.biography}}</div>
+			</div>
+		</div>
+	</div>
+	<div class="btn">
+		<button (click)="goBack()">Back</button>
+	</div>
+</div>

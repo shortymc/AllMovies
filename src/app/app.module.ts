@@ -7,9 +7,11 @@ import { HttpModule }    from '@angular/http';
 import { AppRoutingModule } from './app-routing.module'; 
 import { AppComponent } from './app.component';
 import { MovieDetailComponent } from './movie-detail.component';
+import { PersonDetailComponent } from './person-detail.component';
 import { MoviesComponent } from './movies.component';
 import { DashboardComponent } from './dashboard.component';
 import { MovieService } from './movie.service';
+import { PersonService } from './person.service';
 import { MovieSearchComponent } from './movie-search.component';
 import { ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './custom.pipe';
 import {RatingModule} from "ngx-rating";
@@ -31,9 +33,10 @@ import {RatingModule} from "ngx-rating";
         FilterCrewPipe,
         MovieDetailComponent,
         MoviesComponent,
+        PersonDetailComponent,
         MovieSearchComponent
     ], 
-  providers: [MovieService,
+  providers: [MovieService, PersonService, 
               { provide: LOCALE_ID, useValue: "fr" }],
   bootstrap: [AppComponent]
 })
