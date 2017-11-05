@@ -13,6 +13,7 @@ import { DashboardComponent } from './dashboard.component';
 import { MovieService } from './movie.service';
 import { PersonService } from './person.service';
 import { MovieSearchComponent } from './movie-search.component';
+import { PersonSearchComponent } from './person-search.component';
 import { ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './custom.pipe';
 import {RatingModule} from "ngx-rating";
 
@@ -34,7 +35,8 @@ import {RatingModule} from "ngx-rating";
         MovieDetailComponent,
         MoviesComponent,
         PersonDetailComponent,
-        MovieSearchComponent
+        MovieSearchComponent,
+        PersonSearchComponent
     ], 
   providers: [MovieService, PersonService, 
               { provide: LOCALE_ID, useValue: "fr" }],

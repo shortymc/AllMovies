@@ -42,6 +42,6 @@ export class PersonService {
 		   profile_path = "https://image.tmdb.org/t/p/original/" + profile_path;
 		   thumbnail = "https://image.tmdb.org/t/p/w154/" + thumbnail;
 	   }
-	   return new Person(r.id, r.name, r.birthday, r.deathday, profile_path, thumbnail, r.biography);
+	   return new Person(r.id, r.name, r.birthday, r.deathday, profile_path, thumbnail, r.biography, r.adult);
    }
 }
