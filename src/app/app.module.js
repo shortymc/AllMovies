@@ -19,6 +19,7 @@ var dashboard_component_1 = require("./dashboard.component");
 var movie_service_1 = require("./movie.service");
 var person_service_1 = require("./person.service");
 var movie_search_component_1 = require("./movie-search.component");
+var person_search_component_1 = require("./person-search.component");
 var custom_pipe_1 = require("./custom.pipe");
 var ngx_rating_1 = require("ngx-rating");
 var AppModule = (function () {
@@ -45,7 +46,8 @@ AppModule = __decorate([
             movie_detail_component_1.MovieDetailComponent,
             movies_component_1.MoviesComponent,
             person_detail_component_1.PersonDetailComponent,
-            movie_search_component_1.MovieSearchComponent
+            movie_search_component_1.MovieSearchComponent,
+            person_search_component_1.PersonSearchComponent
         ],
         providers: [movie_service_1.MovieService, person_service_1.PersonService,
             { provide: core_1.LOCALE_ID, useValue: "fr" }],
