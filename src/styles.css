@@ -9,6 +9,11 @@ h1 {
 	font-size: 250%;
 }
 
+.icon img {
+	height: 32px;
+	background-color: rgb(246, 246, 246);	
+}
+
 .pointer {
 	cursor: pointer;
 }
@@ -48,7 +53,7 @@ h1 {
 	font-size: 16px;
 	height: 100%;
 	outline: 0;
-	padding: 8px 15px;
+	padding: 8px 5px 8px 15px;
 	position: relative;
 	width: 70%; 
 }
