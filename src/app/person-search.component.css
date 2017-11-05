@@ -1,39 +1,10 @@
-.search-result {
-	border: 1px solid gray;
-	width: calc(30% - 180px);
-	padding: 5px;
-	background-color: white;
-	cursor: pointer;
-	border-radius: 8px;
-	cursor: pointer;
-	padding: 10px;
-	transition: background-color .3s,color .3s;
-    margin-bottom: 1px;
-}
-
-.search-result:hover {
-    background-color: #0ad06f;
-    color: #fff;
-}
-
-.search-box {
-	background-color: rgb(246, 246, 246);
-	border-radius: 8px;
-	border: 0;
-	color: #484848;
-	font-size: 16px;
-	height: 100%;
-	outline: 0;
-	padding: 8px 15px;
-	position: relative;
-	width: 20%;
-}
-input {
-	width: calc(80% - 8px) !important;
-}
 .res {
     padding-left: 36px;
 }
 .adult {
 	background-color: pink;
+}
+
+h4 {
+	text-align: center;
 }
