@@ -16,3 +16,7 @@ h1 {
 .pointer:hover {
 	text-decoration: underline;
 }
+
+.block {
+	display: inline-block;
+}
