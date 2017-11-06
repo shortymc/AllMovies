@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
 
 @Pipe({ name: 'convertToHHmm' })
 export class ConvertToHHmmPipe implements PipeTransform {
