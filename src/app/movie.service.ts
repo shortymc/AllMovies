@@ -15,7 +15,11 @@ export class MovieService {
     private append = '&append_to_response=';
     private videos = 'videos';
     private credits = 'credits';
+    private images = 'images';
     private recommendations = 'recommendations';
+    private original = "https://image.tmdb.org/t/p/original";
+    private thumb = "https://image.tmdb.org/t/p/w154";
+    private empty = './app/img/empty.jpg';
     private mostPopular = 'https://api.themoviedb.org/3/discover/movie?api_key=81c50d6514fbd578f0c796f8f6ecdafd&sort_by=popularity.desc';
 
     constructor(private http: Http) { }
@@ -33,7 +37,8 @@ export class MovieService {
     }
 
     getMovie(id: number): Promise<Movie> {
-        const url = `${this.movieUrl}/${id}?${this.api_key}${this.langue}${this.append}${this.videos},${this.credits},${this.recommendations}`;
+//        const url = `${this.movieUrl}/${id}?${this.api_key}${this.langue}${this.append}${this.videos},${this.credits},${this.recommendations},${this.images}`;
+        const url = `${this.movieUrl}/${id}?${this.api_key}${this.append}${this.videos},${this.credits},${this.recommendations},${this.images}`;
         return this.http.get(url)
             .toPromise()
             .then(response => this.mapMovie(response))
@@ -95,18 +100,9 @@ export class MovieService {
                return 0; 
             }
         });
-        let poster_path = r.poster_path;
-        let thumbnail = r.poster_path;
-        if(poster_path === null) {
-            poster_path = './app/img/empty.jpg';
-            thumbnail = './app/img/empty.jpg';
-        } else {
-            poster_path = "https://image.tmdb.org/t/p/original/" + poster_path;
-            thumbnail = "https://image.tmdb.org/t/p/w154/" + thumbnail;
-        }
-        let reco = r.recommendations.results.slice(0,6);
         return new Movie(r.id, r.title, r.original_title === r.title ? '' : r.original_title, r.release_date, 
-            r.overview, poster_path, thumbnail, false, r.runtime, r.vote_average, r.budget, r.revenue, 
-            r.videos.results, cast.slice(0,6), r.credits.crew, this.recommendationsToMovies(reco));
+            r.overview, r.poster_path === null ? empty : this.original + r.poster_path,  r.poster_path === null ? empty : this.thumb + r.poster_path, 
+            false, r.runtime, r.vote_average, r.budget, r.revenue, 
+            r.videos.results, cast.slice(0,6), r.credits.crew, this.recommendationsToMovies(r.recommendations.results.slice(0,6)), r.images.backdrops.map(i => this.thumb + i.file_path));
     }
 }
