@@ -135,8 +135,8 @@
 			</div>
             <div *ngIf="movie.images.length > 0" class="labelLong">Images:</div>
             <div *ngIf="movie.images.length > 0" class="reco">
-                <a *ngFor="let ima of movie.images;" class="affiche" href="{{ima}}" > 
-                    <img src="{{ima}}">
+                <a *ngFor="let ima of movie.images;" class="affiche" href="{{original.concat(ima)}}" target="_blank"> 
+                    <img src="{{thumb.concat(ima)}}">
                 </a>
             </div>
 			<div *ngIf="movie.recommendations.length > 0" class="labelLong">Vous

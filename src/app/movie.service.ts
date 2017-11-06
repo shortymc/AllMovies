@@ -82,7 +82,7 @@ export class MovieService {
         id: r.id,
         title: r.title,
         date: r.release_date,
-        thumbnail: "https://image.tmdb.org/t/p/w92/" + r.poster_path
+        thumbnail: "https://image.tmdb.org/t/p/w92" + r.poster_path
       }));
         
     }
@@ -103,6 +103,6 @@ export class MovieService {
         return new Movie(r.id, r.title, r.original_title === r.title ? '' : r.original_title, r.release_date, 
             r.overview, r.poster_path === null ? empty : this.original + r.poster_path,  r.poster_path === null ? empty : this.thumb + r.poster_path, 
             false, r.runtime, r.vote_average, r.budget, r.revenue, 
-            r.videos.results, cast.slice(0,6), r.credits.crew, this.recommendationsToMovies(r.recommendations.results.slice(0,6)), r.images.backdrops.map(i => this.thumb + i.file_path));
+            r.videos.results, cast.slice(0,6), r.credits.crew, this.recommendationsToMovies(r.recommendations.results.slice(0,6)), r.images.backdrops.map(i => i.file_path));
     }
 }
