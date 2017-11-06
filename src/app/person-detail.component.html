@@ -23,6 +23,14 @@
 				<label class="label">Biographie: </label><div class="biography">{{person.biography}}</div>
 			</div>
 		</div>
+        <div *ngIf="person.moviesCast.length > 0" class="labelLong">Films notables:</div>
+        <div *ngIf="person.moviesCast.length > 0" class="reco">
+            <a *ngFor="let movie of person.moviesCast;" class="affiche"
+                [routerLink]="['/detail', movie.id]" data-toggle="tooltip"
+                title="{{movie.title | capitalizeWord}}"> <img
+                src="{{movie.thumbnail}}" alt="{{movie.title| capitalizeWord}}">
+            </a>
+        </div>
 	</div>
 	<div class="btn">
 		<button (click)="goBack()">Back</button>

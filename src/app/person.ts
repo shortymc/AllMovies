@@ -7,7 +7,8 @@ export class Person {
 	thumbnail: string;
 	biography: string;
 	adult: boolean;
-    constructor(id: number, name: string, birthday: string, deathday: string, profile: string, thumbnail: string, biography: string, adult: boolean) {
+    moviesCast: Movie[];
+    constructor(id: number, name: string, birthday: string, deathday: string, profile: string, thumbnail: string, biography: string, adult: boolean, moviesCast: Movie[]) {
         this.id = id;
         this.name = name;
         this.birthday = birthday;
@@ -16,5 +17,6 @@ export class Person {
         this.adult = adult;
         this.thumbnail = thumbnail;
         this.biography = biography;
+        this.moviesCast = moviesCast;
     }
 }
