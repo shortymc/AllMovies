@@ -35,7 +35,8 @@ export class MovieSearchService {
 				id: r.id,
 				title: r.title,
 				date: r.release_date,
-				adult: r.adult
+				adult: r.adult,
+                original_title: r.original_title === r.title ? '' : r.original_title
 			}));
 	}
 
