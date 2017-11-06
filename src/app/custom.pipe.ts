@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { FormsModule }   from '@angular/forms';
 
 @Pipe({ name: 'convertToHHmm' })
 export class ConvertToHHmmPipe implements PipeTransform {
@@ -22,7 +23,7 @@ export class CapitalizeWordPipe implements PipeTransform {
 
 @Pipe({ name: 'filterCrew' })
 export class FilterCrewPipe implements PipeTransform {
-	transform(str: any[], args: any): string {
-		return str.filter(h => h.job.toLowerCase() == args.toLowerCase()).map(s => s.name).join(', ');
+	transform(str: any[], args: any): any[] {
+		return str.filter(h => h.job.toLowerCase() == args.toLowerCase());
 	}
 }

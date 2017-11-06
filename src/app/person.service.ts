@@ -17,8 +17,8 @@ export class PersonService {
     private videos = 'videos';
     private credits = 'credits';
     private recommendations = 'recommendations';
-    private original = "https://image.tmdb.org/t/p/original/";
-    private thumb = "https://image.tmdb.org/t/p/w154/";
+    private original = "https://image.tmdb.org/t/p/original";
+    private thumb = "https://image.tmdb.org/t/p/w154";
     private empty = './app/img/empty.jpg';
 
     constructor(private http: Http) { }
@@ -27,14 +27,6 @@ export class PersonService {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     }
-    
-//    getPerson(id: number): Promise<Person> {
-//    	const url = `${this.personUrl}/${id}?${this.api_key}${this.langue}`;
-//    	return this.http.get(url)
-//    	.toPromise()
-//    	.then(response => this.mapPerson(response))
-//    	.catch(this.handleError);
-//    }
     
     getPerson(id: number): Promise<Person> {
         const url = `${this.personUrl}/${id}?${this.api_key}${this.langue}`;
@@ -45,10 +37,11 @@ export class PersonService {
         ).map(responses => {
             return [].concat(...responses);
         }).map(response => this.mapPerson(response))
+          .toPromise()
           .catch(this.handleError);
     }
 
-    mapPerson(response: Response): Person {
+    mapPerson(response: any[]): Person {
         let r = response[0];
         let profile_path = r.profile_path;
         let thumbnail = r.profile_path;

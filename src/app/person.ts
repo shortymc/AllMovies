@@ -1,3 +1,5 @@
+import { Movie } from './movie';
+
 export class Person {
     id: number;
 	name: string;

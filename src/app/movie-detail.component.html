@@ -32,35 +32,85 @@
 			</div>
 			<div *ngIf="movie.crew.length > 0">
 				<div *ngIf="(movie.crew | filterCrew:'director') as director">
-					<label class="label">R&eacute;alisateur: </label>{{director}}
+                    <div *ngIf="director.length > 0">
+					<label class="label">R&eacute;alisateur: </label>
+                    <span *ngFor="let d of director; let last=last;">
+                        <a (click)="gotoPerson(d)" class="pointer">{{d.name| capitalizeWord}}</a><span *ngIf="!last">,</span>
+                    </span>
+                </div>
 				</div>
 				<div *ngIf="(movie.crew | filterCrew:'producer') as producer">
-					<label class="label">Producteur: </label>{{producer}}
+                    <div *ngIf="producer.length > 0">
+					<label class="label">Producteur: </label>
+                    <span *ngFor="let p of producer; let last=last;">
+                        <a (click)="gotoPerson(p)" class="pointer">{{p.name| capitalizeWord}}</a><span *ngIf="!last">,</span>
+                    </span>
+                </div>
 				</div>
 				<div
 					*ngIf="(movie.crew | filterCrew:'Original Music Composer') as composer">
-					<label class="label">Compositeur: </label>{{composer}}
+                    <div *ngIf="composer.length > 0">
+					<label class="label">Compositeur: </label>
+                    <span *ngFor="let c of composer; let last=last;">
+                        <a (click)="gotoPerson(c)" class="pointer">{{c.name| capitalizeWord}}</a><span *ngIf="!last">,</span>
+                    </span>
+                </div>
 				</div>
 				<div *ngIf="(movie.crew | filterCrew:'Compositors') as compositors">
-					<label class="label">Compositeur: </label>{{compositors}}
+                    <div *ngIf="compositors.length > 0">
+					<label class="label">Compositeur: </label>
+                    <span *ngFor="let c of compositors; let last=last;">
+                        <a (click)="gotoPerson(c)" class="pointer">{{c.name| capitalizeWord}}</a><span *ngIf="!last">,</span>
+                    </span>
+                </div>
 				</div>
 				<div *ngIf="(movie.crew | filterCrew:'screenplay') as screenplay">
-					<label class="label">Sc&eacute;nariste: </label>{{screenplay}}
+                    <div *ngIf="screenplay.length > 0">
+					<label class="label">Sc&eacute;nariste: </label>
+                    <span *ngFor="let s of screenplay; let last=last;">
+                        <a (click)="gotoPerson(s)" class="pointer">{{s.name| capitalizeWord}}</a><span *ngIf="!last">,</span>
+                    </span>
+                </div>
 				</div>
 				<div *ngIf="(movie.crew | filterCrew:'novel') as novel">
-					<label class="label">Romancier: </label>{{novel}}
+					<div *ngIf="novel.length > 0">
+						<label class="label">Romancier: </label> 
+						<span *ngFor="let n of novel; let last=last;"> 
+						  <a (click)="gotoPerson(n)" class="pointer">{{n.name| capitalizeWord}}</a><span *ngIf="!last">,</span>
+						</span>
+					</div>
 				</div>
 				<div *ngIf="(movie.crew | filterCrew:'cameo') as cameo">
-					<label class="label">Cameo: </label>{{cameo}}
+                    <div *ngIf="cameo.length > 0">
+					<label class="label">Cameo: </label>
+                    <span *ngFor="let c of cameo; let last=last;">
+                        <a (click)="gotoPerson(c)" class="pointer">{{c.name| capitalizeWord}}</a><span *ngIf="!last">,</span>
+                    </span>
+                </div>
 				</div>
 				<div *ngIf="(movie.crew | filterCrew:'special Guest') as guest">
-					<label class="label">Guest-Star: </label>{{guest}}
+                    <div *ngIf="guest.length > 0">
+					<label class="label">Guest-Star: </label>
+                    <span *ngFor="let g of guest; let last=last;">
+                        <a (click)="gotoPerson(g)" class="pointer">{{g.name| capitalizeWord}}</a><span *ngIf="!last">,</span>
+                    </span>
+                </div>
 				</div>
 				<div *ngIf="(movie.crew | filterCrew:'songs') as songs">
-					<label class="label">Chansons: </label>{{songs}}
+                    <div *ngIf="songs.length > 0">
+					<label class="label">Chansons: </label>
+                    <span *ngFor="let song of songs; let last=last;">
+                        <a (click)="gotoPerson(song)" class="pointer">{{song.name| capitalizeWord}}</a><span *ngIf="!last">,</span>
+                    </span>
+                </div>
 				</div>
 				<div *ngIf="(movie.crew | filterCrew:'music') as music">
-					<label class="label">Musique: </label>{{music}}
+                    <div *ngIf="music.length > 0">
+					<label class="label">Musique: </label>
+                    <span *ngFor="let m of music; let last=last;">
+                        <a (click)="gotoPerson(m)" class="pointer">{{m.name| capitalizeWord}}</a><span *ngIf="!last">,</span>
+                    </span>
+                </div>
 				</div>
 			</div>
 			<div *ngIf="movie.budget > 0">
@@ -83,6 +133,12 @@
 						target="_blank">{{video.name | capitalizeWord}}</a></li>
 				</ul>
 			</div>
+            <div *ngIf="movie.images.length > 0" class="labelLong">Images:</div>
+            <div *ngIf="movie.images.length > 0" class="reco">
+                <a *ngFor="let ima of movie.images;" class="affiche" href="{{ima}}" > 
+                    <img src="{{ima}}">
+                </a>
+            </div>
 			<div *ngIf="movie.recommendations.length > 0" class="labelLong">Vous
 				aimerez aussi:</div>
 			<div *ngIf="movie.recommendations.length > 0" class="reco">

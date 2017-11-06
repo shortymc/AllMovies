@@ -14,9 +14,11 @@ export class Movie {
     videos: string[];
     actors: string[];
 	crew: string[];
+    images: string[];
     recommendations: Movie[];
     constructor(id: number, title: string, original_title: string, date: string, synopsis: string, affiche: string, thumbnail: string, 
-        adult: boolean, time: number, note: number, budget: number, recette: number, videos: string[], actors: string[], crew: string[], recommendations: Movie[]) {
+        adult: boolean, time: number, note: number, budget: number, recette: number, videos: string[], actors: string[], crew: string[], 
+        recommendations: Movie[], images: string[]) {
         this.id = id;
         this.title = title;
         this.original_title = original_title;
@@ -33,5 +35,6 @@ export class Movie {
         this.budget = budget;
         this.recette = recette;
         this.recommendations = recommendations;
+        this.images = images;
     }
 }
