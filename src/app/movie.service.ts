@@ -105,7 +105,8 @@ export class MovieService {
             thumbnail = "https://image.tmdb.org/t/p/w154/" + thumbnail;
         }
         let reco = r.recommendations.results.slice(0,6);
-        return new Movie(r.id, r.title, r.release_date, r.overview, poster_path, thumbnail, false, r.runtime, r.vote_average, r.budget, r.revenue, 
+        return new Movie(r.id, r.title, r.original_title === r.title ? '' : r.original_title, r.release_date, 
+            r.overview, poster_path, thumbnail, false, r.runtime, r.vote_average, r.budget, r.revenue, 
             r.videos.results, cast.slice(0,6), r.credits.crew, this.recommendationsToMovies(reco));
     }
 }

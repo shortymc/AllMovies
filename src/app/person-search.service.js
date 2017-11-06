@@ -11,40 +11,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
-var MovieSearchService = (function () {
-    function MovieSearchService(http) {
+var PersonSearchService = (function () {
+    function PersonSearchService(http) {
         this.http = http;
         this.api_key = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
-        this.movieUrl = 'https://api.themoviedb.org/3/search/movie?';
+        this.personUrl = 'https://api.themoviedb.org/3/search/person?';
         this.langue = '&language=fr';
     }
-    MovieSearchService.prototype.search = function (term) {
+    PersonSearchService.prototype.search = function (term) {
         return this.http
-            .get(this.movieUrl + this.api_key + ("&include_adult=true&query=" + term + this.langue), { headers: this.getHeaders() })
-            .map(this.mapMovies)
+            .get(this.personUrl + this.api_key + ("&include_adult=true&query=" + term), { headers: this.getHeaders() })
+            .map(this.mapPersons)
             .map(function (data) { return data.slice(0, 10); });
     };
-    MovieSearchService.prototype.getHeaders = function () {
+    PersonSearchService.prototype.getHeaders = function () {
         var headers = new http_1.Headers();
         headers.append('Accept', 'application/json');
         return headers;
     };
-    MovieSearchService.prototype.mapMovies = function (response) {
+    PersonSearchService.prototype.mapPersons = function (response) {
         // The response of the API has a results
         // property with the actual results
         return response.json().results.map(function (r) { return ({
             id: r.id,
-            title: r.title,
-            date: r.release_date,
-            adult: r.adult,
-            original_title: r.original_title === r.title ? '' : r.original_title
+            name: r.name,
+            adult: r.adult
         }); });
     };
-    return MovieSearchService;
+    return PersonSearchService;
 }());
-MovieSearchService = __decorate([
+PersonSearchService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], MovieSearchService);
-exports.MovieSearchService = MovieSearchService;
-//# sourceMappingURL=movie-search.service.js.map
+], PersonSearchService);
+exports.PersonSearchService = PersonSearchService;
+//# sourceMappingURL=person-search.service.js.map
