@@ -101,8 +101,8 @@ export class MovieService {
             }
         });
         return new Movie(r.id, r.title, r.original_title === r.title ? '' : r.original_title, r.release_date, 
-            r.overview, r.poster_path === null ? empty : this.original + r.poster_path,  r.poster_path === null ? empty : this.thumb + r.poster_path, 
+            r.overview, r.poster_path === null ? this.empty : this.original + r.poster_path,  r.poster_path === null ? this.empty : this.thumb + r.poster_path, 
             false, r.runtime, r.vote_average, r.budget, r.revenue, 
-            r.videos.results, cast.slice(0,6), r.credits.crew, this.recommendationsToMovies(r.recommendations.results.slice(0,6)), r.images.backdrops.map(i => i.file_path));
+            r.videos.results, cast.slice(0,6), r.credits.crew, this.recommendationsToMovies(r.recommendations.results.slice(0,6)), r.images.backdrops.map((i: any) => i.file_path));
     }
 }

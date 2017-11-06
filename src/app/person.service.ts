@@ -43,16 +43,6 @@ export class PersonService {
 
     mapPerson(response: any[]): Person {
         let r = response[0];
-        let profile_path = r.profile_path;
-        let thumbnail = r.profile_path;
-        if (profile_path === null) {
-            profile_path = this.empty;
-            thumbnail = this.empty;
-        } else {
-            profile_path = this.original + profile_path;
-            thumbnail = this.thumb + thumbnail;
-        }
-
         let cast = response[1].cast.slice(0, 6);
         let moviesCast = cast.map((r: any) => <Movie>({
             id: r.id, title: r.title, original_title: (r.original_title === r.title ? '' : r.original_title), date: r.release_date,
@@ -60,6 +50,7 @@ export class PersonService {
             thumbnail: (r.poster_path === null ? this.empty : this.thumb + r.poster_path), adult: false, note: r.vote_average
         }));
 
-        return new Person(r.id, r.name, r.birthday, r.deathday, profile_path, thumbnail, r.biography, r.adult, moviesCast);
+        return new Person(r.id, r.name, r.birthday, r.deathday, r.profile_path === null ? this.empty : this.original + r.profile_path, 
+            r.profile_path === null ? this.empty : this.thumb + r.profile_path, r.biography, r.adult, moviesCast);
     }
 }
