@@ -15,6 +15,8 @@ export class MovieDetailComponent implements OnInit {
     movie: Movie;
     private original = "https://image.tmdb.org/t/p/original";
     private thumb = "https://image.tmdb.org/t/p/w154";
+    private preview = "https://image.tmdb.org/t/p/w92";
+
     constructor(
         private movieService: MovieService,
         private route: ActivatedRoute,
