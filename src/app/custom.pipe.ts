@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer} from '@angular/platform-browser';
 
 @Pipe({ name: 'convertToHHmm' })
 export class ConvertToHHmmPipe implements PipeTransform {
