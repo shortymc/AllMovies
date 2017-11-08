@@ -12,6 +12,10 @@ import { Person } from './person';
 })
 export class PersonDetailComponent implements OnInit {
     person: Person;
+    private original = "https://image.tmdb.org/t/p/original";
+    private thumb = "https://image.tmdb.org/t/p/w154";
+    private preview = "https://image.tmdb.org/t/p/w92";
+
     constructor(
         private personService: PersonService,
         private route: ActivatedRoute,

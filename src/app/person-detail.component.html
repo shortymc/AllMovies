@@ -23,6 +23,12 @@
 				<label class="label">Biographie: </label><div class="biography">{{person.biography}}</div>
 			</div>
 		</div>
+        <div *ngIf="person.images.length > 0" class="labelLong">Images:</div>
+        <div *ngIf="person.images.length > 0" class="reco">
+            <a *ngFor="let ima of person.images;" class="affiche" href="{{original.concat(ima)}}" target="_blank"> 
+                <img src="{{thumb.concat(ima)}}">
+            </a>
+        </div>
         <div *ngIf="person.moviesCast.length > 0" class="labelLong">Films notables:</div>
         <div *ngIf="person.moviesCast.length > 0" class="reco">
             <a *ngFor="let movie of person.moviesCast;" class="affiche"
