@@ -16,6 +16,7 @@ export class PersonService {
     private append = '&append_to_response=';
     private videos = 'videos';
     private credits = 'credits';
+    private images = 'images';
     private recommendations = 'recommendations';
     private original = "https://image.tmdb.org/t/p/original";
     private thumb = "https://image.tmdb.org/t/p/w154";
@@ -29,7 +30,8 @@ export class PersonService {
     }
     
     getPerson(id: number): Promise<Person> {
-        const url = `${this.personUrl}/${id}?${this.api_key}${this.langue}`;
+//        const url = `${this.personUrl}/${id}?${this.api_key}${this.langue},${this.images}`;
+        const url = `${this.personUrl}/${id}?${this.api_key}${this.append}${this.images}`;
         const urlMovies = `${this.personUrl}/${id}/movie_credits?${this.api_key}${this.langue}`;
         return Observable.forkJoin(
             this.http.get(url).map((res: Response) => res.json()),
@@ -49,8 +51,8 @@ export class PersonService {
             synopsis: r.overview, affiche: (r.poster_path === null ? this.empty : this.original + r.poster_path),
             thumbnail: (r.poster_path === null ? this.empty : this.thumb + r.poster_path), adult: false, note: r.vote_average
         }));
-
         return new Person(r.id, r.name, r.birthday, r.deathday, r.profile_path === null ? this.empty : this.original + r.profile_path, 
-            r.profile_path === null ? this.empty : this.thumb + r.profile_path, r.biography, r.adult, moviesCast);
+            r.profile_path === null ? this.empty : this.thumb + r.profile_path, r.biography, r.adult, 
+            r.images.profiles.map((i: any) => i.file_path).filter((i: any) => i != r.profile_path), moviesCast);
     }
 }

@@ -9,3 +9,7 @@ h4 {
 .adult {
 	background-color: pink;
 }
+
+.form-check-inline {
+	display: ruby !important;
+}

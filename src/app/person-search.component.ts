@@ -24,6 +24,7 @@ import { Person } from './person';
 export class PersonSearchComponent implements OnInit {
     persons: Observable<Person[]>;
     private searchTerms = new Subject<string>();
+    adult = false;
 
     constructor(
         private personSearchService: PersonSearchService,
@@ -37,10 +38,10 @@ export class PersonSearchComponent implements OnInit {
     ngOnInit(): void {
         this.persons = this.searchTerms
             .debounceTime(300)        // wait 300ms after each keystroke before considering the term
-            .distinctUntilChanged()   // ignore if next search term is same as previous
+            //.distinctUntilChanged()   // ignore if next search term is same as previous
             .switchMap(term => term   // switch to new observable each time the term changes
                 // return the http search observable
-                ? this.personSearchService.search(term)
+                ? this.personSearchService.search(term, this.adult)
                 // or the observable of empty persons if there was no search term
                 : Observable.of<Person[]>([]))
             .catch(error => {
