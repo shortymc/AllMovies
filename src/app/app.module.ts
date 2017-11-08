@@ -3,6 +3,7 @@ import { NgModule, ModuleWithProviders, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module'; 
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import {RatingModule} from "ngx-rating";
 
 @NgModule({
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
 	FormsModule,    
     HttpModule,

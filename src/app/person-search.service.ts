@@ -12,12 +12,16 @@ export class PersonSearchService {
 	private api_key = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
 	private personUrl = 'https://api.themoviedb.org/3/search/person?';
 	private langue = '&language=fr';
+    private adultUrl = '&include_adult=true';
 
 	constructor(private http: Http) { }
 
-	search(term: string): Observable<Person[]> {
+	search(term: string, adult: boolean): Observable<Person[]> {
+        let url = this.personUrl+this.api_key;
+        if(adult) {url+=this.adultUrl;}
+        url+=`&query=${term}`;
 		return this.http
-		.get(this.personUrl+this.api_key+`&include_adult=true&query=${term}`, { headers: this.getHeaders() })
+		.get(url, { headers: this.getHeaders() })
 		.map(this.mapPersons)
 		.map(data => data.slice(0,10));
 	}

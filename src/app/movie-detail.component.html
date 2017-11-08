@@ -26,7 +26,7 @@
 				<label>Acteurs: </label>
 				<div class="block">
 					<span *ngFor="let actor of movie.actors; let last=last;">
-						<a (click)="gotoPerson(actor)" class="pointer tooltip" >{{actor.name| capitalizeWord}}<span *ngIf="!last">,</span>
+						<a (click)="gotoPerson(actor)" class="pointer myTooltip" >{{actor.name| capitalizeWord}}<span *ngIf="!last">,</span>
                             <img class="profile" [src]="preview.concat(actor.profile_path)" *ngIf="actor.profile_path"/>
 						</a>
 					</span>
@@ -37,7 +37,7 @@
                     <div *ngIf="director.length > 0">
 					<label class="label">R&eacute;alisateur: </label>
                     <span *ngFor="let d of director; let last=last;">
-                        <a (click)="gotoPerson(d)" class="pointer tooltip" >{{d.name| capitalizeWord}}<span *ngIf="!last">,</span>
+                        <a (click)="gotoPerson(d)" class="pointer myTooltip" >{{d.name| capitalizeWord}}<span *ngIf="!last">,</span>
                             <img class="profile" [src]="preview.concat(d.profile_path)" *ngIf="d.profile_path"/>
                         </a>
                     </span>
@@ -47,7 +47,7 @@
                     <div *ngIf="producer.length > 0">
 					<label class="label">Producteur: </label>
                     <span *ngFor="let p of producer; let last=last;">
-                        <a (click)="gotoPerson(p)" class="pointer tooltip" >{{p.name| capitalizeWord}}<span *ngIf="!last">,</span>
+                        <a (click)="gotoPerson(p)" class="pointer myTooltip" >{{p.name| capitalizeWord}}<span *ngIf="!last">,</span>
                             <img class="profile" [src]="preview.concat(p.profile_path)" *ngIf="p.profile_path"/>
                         </a>
                     </span>
@@ -58,7 +58,7 @@
                     <div *ngIf="composer.length > 0">
 					<label class="label">Compositeur: </label>
                     <span *ngFor="let c of composer; let last=last;">
-                        <a (click)="gotoPerson(c)" class="pointer tooltip" >{{c.name| capitalizeWord}}<span *ngIf="!last">,</span>
+                        <a (click)="gotoPerson(c)" class="pointer myTooltip" >{{c.name| capitalizeWord}}<span *ngIf="!last">,</span>
                             <img class="profile" [src]="preview.concat(c.profile_path)" *ngIf="c.profile_path"/>
                         </a>
                     </span>
@@ -68,7 +68,7 @@
                     <div *ngIf="compositors.length > 0">
 					<label class="label">Compositeur: </label>
                     <span *ngFor="let c of compositors; let last=last;">
-                        <a (click)="gotoPerson(c)" class="pointer tooltip" >{{c.name| capitalizeWord}}<span *ngIf="!last">,</span>
+                        <a (click)="gotoPerson(c)" class="pointer myTooltip" >{{c.name| capitalizeWord}}<span *ngIf="!last">,</span>
                             <img class="profile" [src]="preview.concat(c.profile_path)" *ngIf="c.profile_path"/>
                         </a>
                     </span>
@@ -78,7 +78,7 @@
                     <div *ngIf="screenplay.length > 0">
 					<label class="label">Sc&eacute;nariste: </label>
                     <span *ngFor="let s of screenplay; let last=last;">
-                        <a (click)="gotoPerson(s)" class="pointer tooltip" >{{s.name| capitalizeWord}}<span *ngIf="!last">,</span>
+                        <a (click)="gotoPerson(s)" class="pointer myTooltip" >{{s.name| capitalizeWord}}<span *ngIf="!last">,</span>
                             <img class="profile" [src]="preview.concat(s.profile_path)" *ngIf="s.profile_path"/>
                         </a>
                     </span>
@@ -88,7 +88,7 @@
 					<div *ngIf="novel.length > 0">
 						<label class="label">Romancier: </label> 
 						<span *ngFor="let n of novel; let last=last;"> 
-                        <a (click)="gotoPerson(n)" class="pointer tooltip" >{{n.name| capitalizeWord}}<span *ngIf="!last">,</span>
+                        <a (click)="gotoPerson(n)" class="pointer myTooltip" >{{n.name| capitalizeWord}}<span *ngIf="!last">,</span>
                             <img class="profile" [src]="preview.concat(n.profile_path)" *ngIf="n.profile_path"/>
                         </a>
 						</span>
@@ -98,7 +98,7 @@
                     <div *ngIf="cameo.length > 0">
 					<label class="label">Cameo: </label>
                     <span *ngFor="let c of cameo; let last=last;">
-                        <a (click)="gotoPerson(c)" class="pointer tooltip" >{{c.name| capitalizeWord}}<span *ngIf="!last">,</span>
+                        <a (click)="gotoPerson(c)" class="pointer myTooltip" >{{c.name| capitalizeWord}}<span *ngIf="!last">,</span>
                             <img class="profile" [src]="preview.concat(c.profile_path)" *ngIf="c.profile_path"/>
                         </a>
                     </span>
@@ -108,7 +108,7 @@
                     <div *ngIf="guest.length > 0">
 					<label class="label">Guest-Star: </label>
                     <span *ngFor="let g of guest; let last=last;">
-                        <a (click)="gotoPerson(g)" class="pointer tooltip" >{{g.name| capitalizeWord}}<span *ngIf="!last">,</span>
+                        <a (click)="gotoPerson(g)" class="pointer myTooltip" >{{g.name| capitalizeWord}}<span *ngIf="!last">,</span>
                             <img class="profile" [src]="preview.concat(g.profile_path)" *ngIf="g.profile_path"/>
                         </a>
                     </span>
@@ -118,7 +118,7 @@
                     <div *ngIf="songs.length > 0">
 					<label class="label">Chansons: </label>
                     <span *ngFor="let song of songs; let last=last;">
-                        <a (click)="gotoPerson(song)" class="pointer tooltip" >{{song.name| capitalizeWord}}<span *ngIf="!last">,</span>
+                        <a (click)="gotoPerson(song)" class="pointer myTooltip" >{{song.name| capitalizeWord}}<span *ngIf="!last">,</span>
                             <img class="profile" [src]="preview.concat(song.profile_path)" *ngIf="song.profile_path"/>
                         </a>
                     </span>
@@ -128,7 +128,7 @@
                     <div *ngIf="music.length > 0">
 					<label class="label">Musique: </label>
                     <span *ngFor="let m of music; let last=last;">
-                        <a (click)="gotoPerson(m)" class="pointer tooltip" >{{m.name| capitalizeWord}}<span *ngIf="!last">,</span>
+                        <a (click)="gotoPerson(m)" class="pointer myTooltip" >{{m.name| capitalizeWord}}<span *ngIf="!last">,</span>
                             <img class="profile" [src]="preview.concat(m.profile_path)" *ngIf="m.profile_path"/>
                         </a>
                     </span>
