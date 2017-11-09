@@ -1,26 +1,8 @@
 import { Movie } from './movie';
 
 export class Person {
-    id: number;
-	name: string;
-	birthday: string;
-	deathday: string;
-	profile: string;
-	thumbnail: string;
-	biography: string;
-	adult: boolean;
-    images: string[];
-    moviesCast: Movie[];
-    constructor(id: number, name: string, birthday: string, deathday: string, profile: string, thumbnail: string, biography: string, adult: boolean, images: string[], moviesCast: Movie[]) {
-        this.id = id;
-        this.name = name;
-        this.birthday = birthday;
-        this.deathday = deathday;
-        this.profile = profile;
-        this.adult = adult;
-        this.thumbnail = thumbnail;
-        this.biography = biography;
-        this.images = images;
-        this.moviesCast = moviesCast;
+    constructor(public id: number, public name: string, public birthday: string, public deathday: string, public profile: string, public thumbnail: string, 
+        public biography: string, public adult: boolean, public images: string[], public asActor: Movie[], public asDirector: Movie[], 
+        public asProducer: Movie[], public asCompositors: Movie[], public asScreenplay: Movie[], public asNovel: Movie[]) {
     }
 }
