@@ -19,6 +19,14 @@ h1, h2, h3, h4 {
 	text-align: center !important;
 }
 
+label {
+    display: inline-block;
+    margin-right: 5px !important;
+    margin: .5em 0 !important;
+    color: #607D8B;
+    font-weight: bold;
+}
+
 .icon img {
 	height: 30px;
 	background-color: rgb(246, 246, 246);
@@ -31,7 +39,7 @@ h1, h2, h3, h4 {
 }
 
 .pointer:hover {
-	text-decoration: underline;
+	text-decoration: underline !important;
 }
 
 .small {
