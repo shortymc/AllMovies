@@ -16,6 +16,7 @@ export class MovieDetailComponent implements OnInit {
     private original = "https://image.tmdb.org/t/p/original";
     private thumb = "https://image.tmdb.org/t/p/w154";
     private preview = "https://image.tmdb.org/t/p/w92";
+    isImagesCollapsed = false;
 
     constructor(
         private movieService: MovieService,
