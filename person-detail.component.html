@@ -1,0 +1,85 @@
+<div *ngIf="person">
+	<h2>D&eacute;tails de {{person.name}} :</h2>
+	<div>
+		<a class="profile" href="{{person.profile}}" target="_blank"> <img src="{{person.thumbnail}}">
+		</a>
+	</div>
+	<div class="contenu">
+		<div>
+			<label>Id:</label>{{person.id}}
+		</div>
+		<div>
+			<label>Nom: </label>{{person.name | capitalizeWord}}
+			<div *ngIf="person.birthday">
+				<label>Naissance: </label>{{person.birthday | date:'dd MMMM yyyy' | capitalizeWord}}
+			</div>
+			<div *ngIf="person.deathday">
+				<label>Mort: </label>{{person.deathday | date:'dd MMMM yyyy' | capitalizeWord}}
+			</div>
+			<div *ngIf="person.biography">
+				<label>Biographie: </label>
+				<div class="biography">{{person.biography}}</div>
+			</div>
+		</div>
+		<div *ngIf="person.images.length > 0">Images:</div>
+		<div *ngIf="person.images.length > 0" class="reco">
+			<a *ngFor="let ima of person.images;" class="affiche" href="{{original.concat(ima)}}"
+				target="_blank"> <img src="{{thumb.concat(ima)}}">
+			</a>
+		</div>
+		<figure *ngIf="person.asActor.length > 0 || person.asDirector.length > 0">
+			<figcaption>Films notables:</figcaption>
+			<ul>
+				<li *ngIf="person.asActor.length > 0"><label>En tant qu'acteur:</label>
+					<div class="reco">
+						<a *ngFor="let movie of person.asActor;" class="affiche" [routerLink]="['/detail', movie.id]"
+							data-toggle="tooltip" title="{{movie.title | capitalizeWord}}"> <img
+							src="{{movie.thumbnail}}" alt="{{movie.title| capitalizeWord}}">
+						</a>
+					</div></li>
+				<li *ngIf="person.asDirector.length > 0"><label>En tant que r&eacute;alisateur:</label>
+					<div class="reco">
+						<a *ngFor="let movie of person.asDirector;" class="affiche"
+							[routerLink]="['/detail', movie.id]" data-toggle="tooltip"
+							title="{{movie.title | capitalizeWord}}"> <img src="{{movie.thumbnail}}"
+							alt="{{movie.title| capitalizeWord}}">
+						</a>
+					</div></li>
+				<li *ngIf="person.asProducer.length > 0"><label>En tant que producteur:</label>
+					<div class="reco">
+						<a *ngFor="let movie of person.asProducer;" class="affiche"
+							[routerLink]="['/detail', movie.id]" data-toggle="tooltip"
+							title="{{movie.title | capitalizeWord}}"> <img src="{{movie.thumbnail}}"
+							alt="{{movie.title| capitalizeWord}}">
+						</a>
+					</div></li>
+				<li *ngIf="person.asCompositors.length > 0"><label>En tant que compositeur:</label>
+					<div class="reco">
+						<a *ngFor="let movie of person.asCompositors;" class="affiche"
+							[routerLink]="['/detail', movie.id]" data-toggle="tooltip"
+							title="{{movie.title | capitalizeWord}}"> <img src="{{movie.thumbnail}}"
+							alt="{{movie.title| capitalizeWord}}">
+						</a>
+					</div></li>
+				<li *ngIf="person.asScreenplay.length > 0"><label>En tant que sc&eacute;nariste:</label>
+					<div class="reco">
+						<a *ngFor="let movie of person.asScreenplay;" class="affiche"
+							[routerLink]="['/detail', movie.id]" data-toggle="tooltip"
+							title="{{movie.title | capitalizeWord}}"> <img src="{{movie.thumbnail}}"
+							alt="{{movie.title| capitalizeWord}}">
+						</a>
+					</div></li>
+				<li *ngIf="person.asNovel.length > 0"><label>En tant qu'&eacute;crivain:</label>
+					<div class="reco">
+						<a *ngFor="let movie of person.asNovel;" class="affiche" [routerLink]="['/detail', movie.id]"
+							data-toggle="tooltip" title="{{movie.title | capitalizeWord}}"> <img
+							src="{{movie.thumbnail}}" alt="{{movie.title| capitalizeWord}}">
+						</a>
+					</div></li>
+			</ul>
+		</figure>
+	</div>
+	<div class="btn">
+		<button (click)="goBack()">Back</button>
+	</div>
+</div>

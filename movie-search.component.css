@@ -1,0 +1,15 @@
+h4 {
+	text-align: center;
+}
+
+#res {
+	padding-left: 36px;
+}
+
+.adult {
+	background-color: pink;
+}
+
+.form-check-inline {
+	display: ruby !important;
+}
