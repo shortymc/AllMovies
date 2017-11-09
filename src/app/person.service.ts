@@ -7,6 +7,7 @@ import 'rxjs/add/operator/toPromise';
 import { Movie } from './movie';
 import { Person } from './person';
 
+
 @Injectable()
 export class PersonService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
@@ -16,9 +17,9 @@ export class PersonService {
     private append = '&append_to_response=';
     private videos = 'videos';
     private credits = 'credits';
+    private original = "https://image.tmdb.org/t/p/original";
     private images = 'images';
     private recommendations = 'recommendations';
-    private original = "https://image.tmdb.org/t/p/original";
     private thumb = "https://image.tmdb.org/t/p/w154";
     private empty = './app/img/empty.jpg';
 
@@ -45,14 +46,26 @@ export class PersonService {
 
     mapPerson(response: any[]): Person {
         let r = response[0];
-        let cast = response[1].cast.slice(0, 6);
-        let moviesCast = cast.map((r: any) => <Movie>({
-            id: r.id, title: r.title, original_title: (r.original_title === r.title ? '' : r.original_title), date: r.release_date,
-            synopsis: r.overview, affiche: (r.poster_path === null ? this.empty : this.original + r.poster_path),
-            thumbnail: (r.poster_path === null ? this.empty : this.thumb + r.poster_path), adult: false, note: r.vote_average
-        }));
+        let crew = response[1].crew;
+
+        let asActor = response[1].cast.slice(0, 6).map(r => toMovie(r, this.thumb, this.empty, this.original));
+        let asDirector = crew.filter(r => r.job.toLowerCase() == 'Director'.toLowerCase()).slice(0, 6).map(r => toMovie(r, this.thumb, this.empty, this.original));
+        let asProducer = crew.filter(r => r.job.toLowerCase() == 'Producer'.toLowerCase()).slice(0, 6).map(r => toMovie(r, this.thumb, this.empty, this.original));
+        let asCompositors = crew.filter(r => (r.job.toLowerCase() == 'Compositors'.toLowerCase() || r.job.toLowerCase() == 'Original Music Composer'.toLowerCase()))
+        .slice(0, 6).map(r => toMovie(r, this.thumb, this.empty, this.original));
+        let asScreenplay = crew.filter(r => (r.job.toLowerCase() == 'Screenplay'.toLowerCase() || r.job.toLowerCase() == 'Writer'.toLowerCase()))
+        .slice(0, 6).map(r => toMovie(r, this.thumb, this.empty, this.original));
+        let asNovel = crew.filter(r => r.job.toLowerCase() == 'Novel'.toLowerCase()).slice(0, 6).map(r => toMovie(r, this.thumb, this.empty, this.original));
         return new Person(r.id, r.name, r.birthday, r.deathday, r.profile_path === null ? this.empty : this.original + r.profile_path, 
             r.profile_path === null ? this.empty : this.thumb + r.profile_path, r.biography, r.adult, 
-            r.images.profiles.map((i: any) => i.file_path).filter((i: any) => i != r.profile_path), moviesCast);
+            r.images.profiles.map((i: any) => i.file_path).filter((i: any) => i != r.profile_path), asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel);
     }
+
+    let toMovie = function(r: any, thumb: string, empty: string, original: string): any {
+        return ({
+            id: r.id, title: r.title, original_title: (r.original_title === r.title ? '' : r.original_title), date: r.release_date,
+            synopsis: r.overview, affiche: (r.poster_path === null ? empty : original + r.poster_path),
+            thumbnail: (r.poster_path === null ? empty : thumb + r.poster_path), adult: false, note: r.vote_average
+        }); 
+    };
 }
