@@ -21,6 +21,10 @@ export class MovieService {
     private thumb = "https://image.tmdb.org/t/p/w154";
     private empty = './app/img/empty.jpg';
     private mostPopular = 'https://api.themoviedb.org/3/discover/movie?api_key=81c50d6514fbd578f0c796f8f6ecdafd&sort_by=popularity.desc';
+    private discoverUrl = 'https://api.themoviedb.org/3/discover/movie?api_key=81c50d6514fbd578f0c796f8f6ecdafd&language=fr&region=FR';
+    private release_date_gte = '&release_date.gte=';
+    private release_date_lte = '&release_date.lte=';
+    private release_type = '&with_release_type=2|3';
 
     constructor(private http: Http) { }
 
@@ -42,6 +46,14 @@ export class MovieService {
         return this.http.get(url)
             .toPromise()
             .then(response => this.mapMovie(response))
+            .catch(this.handleError);
+    }
+
+    getMoviesByReleaseDates(debut: string, fin: string): Promise<Movie[]> {
+        const url = `${this.discoverUrl}${this.release_date_gte}${debut}${this.release_date_lte}${fin}${this.release_type}`;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => this.mapMovies(response))
             .catch(this.handleError);
     }
 
