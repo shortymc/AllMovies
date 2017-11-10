@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { Movie } from './movie';
 import { MovieService } from './movie.service';
 import { Router } from '@angular/router';
@@ -7,49 +7,12 @@ import { MyNgbDate } from "./my-ngb-date";
 
 const now = new Date();
 
-@Component({
-    selector: 'release',
-    templateUrl: './release.component.html',
-    styleUrls: ['./release.component.css',
-//    providers: [I18n, {provide: ReleaseComponent, useClass: CustomDatepickerI18n}]
-})
-export class ReleaseComponent {
-    movies: Movie[];
-    selectedMovie: Movie;
-    model: NgbDateStruct;
-    date: {year: number, month: number};
-
-    constructor(private movieService: MovieService, private router: Router, 
-        private formatter: MyNgbDate) { 
-        this.selectToday(); 
-        this.getMoviesByReleaseDates();
-    }
-
-    getMovies(): void {
-        this.movieService.getMovies().then(movies => this.movies = movies);
-    }
-    getMoviesByReleaseDates(): void { 
-        console.log(this.model);
-        if(this.model !== null && this.model !== undefined) {
-            let debut = this.formatter.format(this.model); 
-            let fin = new Date(debut+'T00:00:00');
-            fin.setDate( fin.getDate() + 6 );
-            let finString = this.formatter.dateToString(fin, 'yyyy-MM-dd');
-            this.movieService.getMoviesByReleaseDates(debut, finString).then(movies => this.movies = movies);
-        }
-    }
-    selectToday() {
-        this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
-    }
-    ngOnInit(): void {
-    }
-    onSelect(movie: Movie): void {
-        this.selectedMovie = movie;
-    };
-    gotoDetail(): void {
-        this.router.navigate(['/detail', this.selectedMovie.id]);
-    }
-}
+const I18N_VALUES = {
+  'fr': {
+    weekdays: ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'],
+    months: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Déc'],
+  }
+};
 
 @Injectable()
 export class I18n {
@@ -71,4 +34,48 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   getMonthFullName(month: number): string {
     return this.getMonthShortName(month);
   }
+}
+
+@Component({
+    selector: 'release',
+    templateUrl: './release.component.html',
+    styleUrls: ['./release.component.css'],
+    providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}]
+})
+export class ReleaseComponent {
+    movies: Movie[];
+    selectedMovie: Movie;
+    model: NgbDateStruct;
+    date: {year: number, month: number};
+
+    constructor(private movieService: MovieService, private router: Router, 
+        private formatter: MyNgbDate) { 
+    }
+
+    getMovies(): void {
+        this.movieService.getMovies().then(movies => this.movies = movies);
+    }
+    getMoviesByReleaseDates(): void { 
+        console.log(this.model);
+        if(this.model !== null && this.model !== undefined) {
+            let debut = this.formatter.format(this.model); 
+            let fin = new Date(debut+'T00:00:00');
+            fin.setDate( fin.getDate() + 6 );
+            let finString = this.formatter.dateToString(fin, 'yyyy-MM-dd');
+            this.movieService.getMoviesByReleaseDates(debut, finString).then(movies => this.movies = movies);
+        }
+    }
+    selectToday() {
+        this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
+    }
+    ngOnInit(): void {
+    	this.selectToday(); 
+    	this.getMoviesByReleaseDates();
+    }
+    onSelect(movie: Movie): void {
+        this.selectedMovie = movie;
+    };
+    gotoDetail(): void {
+        this.router.navigate(['/detail', this.selectedMovie.id]);
+    }
 }

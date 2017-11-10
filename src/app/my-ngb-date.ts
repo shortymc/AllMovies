@@ -18,14 +18,6 @@ function toInteger(value: any): number {
     return parseInt(`${value}`, 10);
 }
 
-const I18N_VALUES = {
-  'fr': {
-    weekdays: ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'],
-    months: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Déc'],
-  }
-  // other languages you would support
-};
-
 @Injectable()
 export class MyNgbDate extends NgbDateParserFormatter { 
     constructor(private datePipe: DatePipe) { 
@@ -59,4 +51,8 @@ export class MyNgbDate extends NgbDateParserFormatter {
     dateToString(date: Date, format: string): string {
         return this.datePipe.transform(date, format);
     }
+    
+//    getPreviousMonday(date: Date) {
+//    	return date - (date.day + 6) % 7;
+//    }
 }
