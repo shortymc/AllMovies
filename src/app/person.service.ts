@@ -48,21 +48,26 @@ export class PersonService {
         let r = response[0];
         let crew = response[1].crew;
 
-        let asActor = response[1].cast.slice(0, 6).map(r => toMovie(r, this.thumb, this.empty, this.original));
-        let asDirector = crew.filter(r => r.job.toLowerCase() == 'Director'.toLowerCase()).slice(0, 6).map(r => toMovie(r, this.thumb, this.empty, this.original));
-        let asProducer = crew.filter(r => r.job.toLowerCase() == 'Producer'.toLowerCase()).slice(0, 6).map(r => toMovie(r, this.thumb, this.empty, this.original));
-        let asCompositors = crew.filter(r => (r.job.toLowerCase() == 'Compositors'.toLowerCase() || r.job.toLowerCase() == 'Original Music Composer'.toLowerCase()))
-        .slice(0, 6).map(r => toMovie(r, this.thumb, this.empty, this.original));
-        let asScreenplay = crew.filter(r => (r.job.toLowerCase() == 'Screenplay'.toLowerCase() || r.job.toLowerCase() == 'Writer'.toLowerCase()))
-        .slice(0, 6).map(r => toMovie(r, this.thumb, this.empty, this.original));
-        let asNovel = crew.filter(r => r.job.toLowerCase() == 'Novel'.toLowerCase()).slice(0, 6).map(r => toMovie(r, this.thumb, this.empty, this.original));
+        let asActor = response[1].cast.slice(0, 6).map((r: any) => this.toMovie(r, this.thumb, this.empty, this.original));
+        let asDirector = crew.filter((r: any) => this.jobEquals(r.job, 'Director')).slice(0, 6).map((r: any) => this.toMovie(r, this.thumb, this.empty, this.original));
+        let asProducer = crew.filter((r: any) => this.jobEquals(r.job, 'Producer')).slice(0, 6).map((r: any) => this.toMovie(r, this.thumb, this.empty, this.original));
+        let asCompositors = crew.filter((r: any) => (this.jobEquals(r.job, 'Compositors') || this.jobEquals(r.job, 'Original Music Composer'))).slice(0, 6)
+        .map((r: any) => this.toMovie(r, this.thumb, this.empty, this.original));
+        let asScreenplay = crew.filter((r: any) => (this.jobEquals(r.job, 'Screenplay') || this.jobEquals(r.job, 'Writer'))).slice(0, 6)
+        .map((r: any) => this.toMovie(r, this.thumb, this.empty, this.original));
+        let asNovel = crew.filter((r: any) => this.jobEquals(r.job, 'Novel')).slice(0, 6).map((r: any) => this.toMovie(r, this.thumb, this.empty, this.original));
+        
         return new Person(r.id, r.name, r.birthday, r.deathday, r.profile_path === null ? this.empty : this.original + r.profile_path, 
             r.profile_path === null ? this.empty : this.thumb + r.profile_path, r.biography, r.adult, 
             r.images.profiles.map((i: any) => i.file_path).filter((i: any) => i != r.profile_path), asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel);
     }
 
-    let toMovie = function(r: any, thumb: string, empty: string, original: string): any {
-        return ({
+    jobEquals(job: string, filter: string): boolean {
+        return job.toLowerCase() === filter.toLowerCase();
+    }
+
+    toMovie(r: any, thumb: string, empty: string, original: string): any {
+        return <Movie>({
             id: r.id, title: r.title, original_title: (r.original_title === r.title ? '' : r.original_title), date: r.release_date,
             synopsis: r.overview, affiche: (r.poster_path === null ? empty : original + r.poster_path),
             thumbnail: (r.poster_path === null ? empty : thumb + r.poster_path), adult: false, note: r.vote_average
