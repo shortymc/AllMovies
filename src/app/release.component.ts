@@ -2,7 +2,7 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { Movie } from './movie';
 import { MovieService } from './movie.service';
 import { Router } from '@angular/router';
-import {NgbDateStruct, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
 import { MyNgbDate } from "./my-ngb-date";
 
 const now = new Date();
@@ -40,29 +40,34 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
     selector: 'release',
     templateUrl: './release.component.html',
     styleUrls: ['./release.component.css'],
-    providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}]
+    providers: [I18n, NgbDatepickerConfig, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}]
 })
 export class ReleaseComponent {
     movies: Movie[];
     selectedMovie: Movie;
     model: NgbDateStruct;
     date: {year: number, month: number};
+    monday: Date;
+    sunday: Date;
 
     constructor(private movieService: MovieService, private router: Router, 
-        private formatter: MyNgbDate) { 
+        private formatter: MyNgbDate, config: NgbDatepickerConfig) { 
+    	// Other days than wednesday are disabled
+        config.markDisabled = (date: NgbDateStruct) => {
+          const d = new Date(date.year, date.month - 1, date.day);
+          return d.getDay() !== 3;
+        };
     }
 
     getMovies(): void {
         this.movieService.getMovies().then(movies => this.movies = movies);
     }
     getMoviesByReleaseDates(): void { 
-        console.log(this.model);
         if(this.model !== null && this.model !== undefined) {
-            let debut = this.formatter.format(this.model); 
-            let fin = new Date(debut+'T00:00:00');
-            fin.setDate( fin.getDate() + 6 );
-            let finString = this.formatter.dateToString(fin, 'yyyy-MM-dd');
-            this.movieService.getMoviesByReleaseDates(debut, finString).then(movies => this.movies = movies);
+        	this.monday = this.formatter.getPreviousMonday(this.model);
+        	this.sunday = this.formatter.getFollowingSunday(this.model);
+            this.movieService.getMoviesByReleaseDates(this.formatter.dateToString(this.monday, 'yyyy-MM-dd'), this.formatter.dateToString(this.sunday, 'yyyy-MM-dd'))
+            .then(movies => this.movies = movies);
         }
     }
     selectToday() {

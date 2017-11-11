@@ -1,12 +1,12 @@
 <br />
-<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" (ngModelChange)="getMoviesByReleaseDates()"></ngb-datepicker>
 <!--  ngDefaultControl -->
 <hr/>
 <button class="btn btn-sm btn-outline-primary" (click)="selectToday()">Select Today</button>
-<button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo()">To current month</button>
 <button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button>
 <button class="btn btn-sm btn-outline-primary" (click)="getMoviesByReleaseDates()">Update</button>
 <hr/>
+<div>Films sortis du {{monday | date : "dd/MM/yyyy"}} au {{sunday | date : "dd/MM/yyyy"}}:</div>
 <div class="list-group" style="width: 40%;">
     <a *ngFor="let movie of movies" (click)="onSelect(movie)" [class.active]="movie === selectedMovie" 
         class="list-group-item list-group-item-action">
