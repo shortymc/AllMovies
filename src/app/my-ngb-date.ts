@@ -52,7 +52,25 @@ export class MyNgbDate extends NgbDateParserFormatter {
         return this.datePipe.transform(date, format);
     }
     
-//    getPreviousMonday(date: Date) {
-//    	return date - (date.day + 6) % 7;
-//    }
+    ngbDateToDate(date: NgbDateStruct): Date {
+        let dateS = this.format(date); 
+        return new Date(dateS+'T00:00:00');
+    }
+    
+    addDays(date: Date, nbDays: number): Date {
+    	date.setDate(date.getDate() + 6 );
+    	return date;
+    }
+    
+    getPreviousMonday(date: NgbDateStruct): Date {
+        let dateD = this.ngbDateToDate(date); 
+    	dateD.setDate(dateD.getDate() - (dateD.getDay() + 6) % 7);
+    	return dateD;
+    }
+    
+    getFollowingSunday(date: NgbDateStruct): Date {
+    	let dateD = this.ngbDateToDate(date); 
+    	dateD.setDate(dateD.getDate() - (dateD.getDay() + 6) % 7);
+    	return this.addDays(dateD, 6);
+    }
 }
