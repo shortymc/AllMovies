@@ -2,7 +2,7 @@
 <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" (ngModelChange)="getMoviesByReleaseDates()"></ngb-datepicker>
 <!--  ngDefaultControl -->
 <hr/>
-<button class="btn btn-sm btn-outline-primary" (click)="selectToday()">Select Today</button>
+<button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo(selectPreviousWednesday())">Select current week</button>
 <button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button>
 <button class="btn btn-sm btn-outline-primary" (click)="getMoviesByReleaseDates()">Update</button>
 <hr/>
