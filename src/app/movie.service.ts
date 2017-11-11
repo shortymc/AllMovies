@@ -19,6 +19,7 @@ export class MovieService {
     private recommendations = 'recommendations';
     private original = "https://image.tmdb.org/t/p/original";
     private thumb = "https://image.tmdb.org/t/p/w154";
+    private small = "https://image.tmdb.org/t/p/w92";
     private empty = './app/img/empty.jpg';
     private mostPopular = 'https://api.themoviedb.org/3/discover/movie?api_key=81c50d6514fbd578f0c796f8f6ecdafd&sort_by=popularity.desc';
     private discoverUrl = 'https://api.themoviedb.org/3/discover/movie?api_key=81c50d6514fbd578f0c796f8f6ecdafd&language=fr&region=FR';
@@ -85,7 +86,11 @@ export class MovieService {
         id: r.id,
         title: r.title,
         date: r.release_date,
-        note: r.vote_average
+        note: r.vote_average,
+        thumbnail: this.small + r.poster_path,
+        affiche: this.original + r.poster_path,
+        synopsis: r.overview,
+        time: r.runtime
       }));
     }
     
@@ -94,7 +99,7 @@ export class MovieService {
         id: r.id,
         title: r.title,
         date: r.release_date,
-        thumbnail: "https://image.tmdb.org/t/p/w92" + r.poster_path
+        thumbnail: this.small + r.poster_path
       }));
         
     }
@@ -103,18 +108,20 @@ export class MovieService {
         // The response of the API has a results
         // property with the actual results
         let r = response.json();
-        let cast = r.credits.cast.sort(function(a1: any, a2: any) {
-            if(a1.cast_id<a2.cast_id){
-               return -1; 
-            } else if(a1.cast_id>a2.cast_id) {
-               return 1; 
-            } else {
-               return 0; 
-            }
-        });
+        let cast = r.credits.cast.sort((a1: any, a2: any) => this.sortCast(a1, a2));
         return new Movie(r.id, r.title, r.original_title === r.title ? '' : r.original_title, r.release_date, 
             r.overview, r.poster_path === null ? this.empty : this.original + r.poster_path,  r.poster_path === null ? this.empty : this.thumb + r.poster_path, 
             false, r.runtime, r.vote_average, r.budget, r.revenue, 
             r.videos.results, cast.slice(0,6), r.credits.crew, this.recommendationsToMovies(r.recommendations.results.slice(0,6)), r.images.backdrops.map((i: any) => i.file_path));
     }
+   
+   sortCast(a1: any, a2: any) {
+       if(a1.cast_id<a2.cast_id){
+          return -1; 
+       } else if(a1.cast_id>a2.cast_id) {
+          return 1; 
+       } else {
+          return 0; 
+       }
+   }
 }
