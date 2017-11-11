@@ -70,11 +70,14 @@ export class ReleaseComponent {
             .then(movies => this.movies = movies);
         }
     }
-    selectToday() {
-        this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
+    selectPreviousWednesday(): NgbDateStruct {
+    	let date = now;
+    	date.setDate(date.getDate() - (date.getDay() + 4) % 7);
+        this.model = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
+        return this.model;
     }
     ngOnInit(): void {
-    	this.selectToday(); 
+    	this.selectPreviousWednesday(); 
     	this.getMoviesByReleaseDates();
     }
     onSelect(movie: Movie): void {
