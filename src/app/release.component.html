@@ -1,21 +1,35 @@
 <br />
-<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" (ngModelChange)="getMoviesByReleaseDates()"></ngb-datepicker>
-<!--  ngDefaultControl -->
-<hr/>
-<button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo(selectPreviousWednesday())">Select current week</button>
-<button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button>
-<button class="btn btn-sm btn-outline-primary" (click)="getMoviesByReleaseDates()">Update</button>
-<hr/>
-<div>Films sortis du {{monday | date : "dd/MM/yyyy"}} au {{sunday | date : "dd/MM/yyyy"}}:</div>
-<div class="list-group" style="width: 40%;">
-    <a *ngFor="let movie of movies" (click)="onSelect(movie)" [class.active]="movie === selectedMovie" 
-        class="list-group-item list-group-item-action">
-        <span>{{movie.title.slice(0,40) | capitalizeWord}}</span>
-    </a>
-</div>
-<hr/>
-<div *ngIf="selectedMovie">
-	<h2>{{selectedMovie.title | capitalizeWord}}</h2>
-	<h3>Release year: {{selectedMovie.date | date : "dd/MM/yyyy"}}</h3>
-	<button (click)="gotoDetail()">View Details</button>
+<div>
+	<div class="row">
+		<div class="col-sm-2">
+			<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" (ngModelChange)="getMoviesByReleaseDates(); selectedMovie = null;"></ngb-datepicker>
+			<button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo(selectPreviousWednesday())">Select
+				current week</button>
+		</div>
+		<div class="col-sm-3">
+			Films sortis du {{monday | date : "dd/MM/yyyy"}} au {{sunday | date : "dd/MM/yyyy"}}:
+			<div class="list-group" style="width: 40%;">
+				<a *ngFor="let movie of movies" (click)="onSelect(movie)" [class.active]="movie === selectedMovie"
+					class="list-group-item list-group-item-action"> <span>{{movie.title.slice(0,40) | capitalizeWord}}</span>
+				</a>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div *ngIf="selectedMovie">
+				<h2>{{selectedMovie.title | capitalizeWord}}</h2>
+				<div><a class="affiche" href="{{selectedMovie.affiche}}" target="_blank"> <img src="{{selectedMovie.thumbnail}}" /></a></div>
+				<div><label>Date: </label>{{selectedMovie.date | date:'EEEE dd MMMM yyyy' | capitalizeWord}}</div>
+				<div *ngIf="selectedMovie.synopsis">
+					<label>Synopsis: </label>
+					<div class="synopsis text-justify">{{selectedMovie.synopsis}}</div>
+				</div>
+				<div *ngIf="selectedMovie.note > 0">
+					<label>Note: </label>{{selectedMovie.note}} / 10
+					<rating [(ngModel)]="selectedMovie.note" [max]="10" [readonly]="true" [float]="true"></rating>
+				</div>
+				<button (click)="gotoDetail()">View Details</button>
+			</div>
+			<br />
+		</div>
+	</div>
 </div>
