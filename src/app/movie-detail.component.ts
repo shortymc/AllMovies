@@ -26,7 +26,7 @@ export class MovieDetailComponent implements OnInit {
     ) { }
     ngOnInit(): void {
         this.route.paramMap
-            .switchMap((params: ParamMap) => this.movieService.getMovie(+params.get('id')))
+            .switchMap((params: ParamMap) => this.movieService.getMovie(+params.get('id'), true, true, true, true))
             .subscribe(movie => this.movie = movie);
     }
     goBack(): void {
