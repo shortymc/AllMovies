@@ -41,9 +41,26 @@ export class MovieService {
         return Promise.reject(error.message || error);
     }
 
-    getMovie(id: number): Promise<Movie> {
+    getMovie(id: number, video: boolean, credit: boolean, reco: boolean, image: boolean): Promise<Movie> {
 //        const url = `${this.movieUrl}/${id}?${this.api_key}${this.langue}${this.append}${this.videos},${this.credits},${this.recommendations},${this.images}`;
-        const url = `${this.movieUrl}/${id}?${this.api_key}${this.append}${this.videos},${this.credits},${this.recommendations},${this.images}`;
+        let url = `${this.movieUrl}/${id}?${this.api_key}`;
+        if(video || credit || reco || image) {
+            url+=`${this.append}`;
+            let parametres = [];
+            if(video) {
+                parametres.push(`${this.videos}`);
+            }
+            if(credit) {
+                parametres.push(`${this.credits}`); 
+            }
+            if(reco) {
+                parametres.push(`${this.recommendations}`); 
+            }
+            if(image) {
+                parametres.push(`${this.images}`); 
+            }
+            url+=parametres.join(',');
+        }  
         return this.http.get(url)
             .toPromise()
             .then(response => this.mapMovie(response))
@@ -104,15 +121,30 @@ export class MovieService {
         
     }
             
-   mapMovie(response: Response): Movie {
+    mapMovie(response: Response): Movie {
         // The response of the API has a results
         // property with the actual results
         let r = response.json();
-        let cast = r.credits.cast.sort((a1: any, a2: any) => this.sortCast(a1, a2));
-        return new Movie(r.id, r.title, r.original_title === r.title ? '' : r.original_title, r.release_date, 
-            r.overview, r.poster_path === null ? this.empty : this.original + r.poster_path,  r.poster_path === null ? this.empty : this.thumb + r.poster_path, 
-            false, r.runtime, r.vote_average, r.budget, r.revenue, 
-            r.videos.results, cast.slice(0,6), r.credits.crew, this.recommendationsToMovies(r.recommendations.results.slice(0,6)), r.images.backdrops.map((i: any) => i.file_path));
+        let cast;
+        if(r.credits !== null && r.credits !== undefined){
+            cast = r.credits.cast.sort((a1: any, a2: any) => this.sortCast(a1, a2));
+        }
+        let videos;
+        if (r.videos !== null && r.videos !== undefined) {
+            videos = r.videos.results;
+        }
+        let reco;
+        if(r.recommendations !== null && r.recommendations !== undefined) {
+            reco = this.recommendationsToMovies(r.recommendations.results.slice(0, 6));
+        }
+        let img;
+        if(r.images  !== null && r.images !== undefined) {
+           img = r.images.backdrops.map((i: any) => i.file_path); 
+        }
+        return new Movie(r.id, r.title, r.original_title === r.title ? '' : r.original_title, r.release_date,
+            r.overview, r.poster_path === null ? this.empty : this.original + r.poster_path, r.poster_path === null ? this.empty : this.thumb + r.poster_path,
+            false, r.runtime, r.vote_average, r.budget, r.revenue,
+            videos, cast.slice(0, 6), r.credits.crew, reco, img);
     }
    
    sortCast(a1: any, a2: any) {

@@ -49,6 +49,8 @@ export class ReleaseComponent {
     date: {year: number, month: number};
     monday: Date;
     sunday: Date;
+    private preview = "https://image.tmdb.org/t/p/w92";
+    private original = "https://image.tmdb.org/t/p/original";
 
     constructor(private movieService: MovieService, private router: Router, 
         private formatter: MyNgbDate, config: NgbDatepickerConfig) { 
@@ -81,9 +83,15 @@ export class ReleaseComponent {
     	this.getMoviesByReleaseDates();
     }
     onSelect(movie: Movie): void {
-        this.selectedMovie = movie;
+//        this.selectedMovie = movie;
+         this.movieService.getMovie(movie.id, false, true, false, false).then(movie => this.selectedMovie = movie);
     };
     gotoDetail(): void {
         this.router.navigate(['/detail', this.selectedMovie.id]);
+    }
+    
+    gotoPerson(person: any): void {
+        let link = ['/person', person.id];
+        this.router.navigate(link);
     }
 }
