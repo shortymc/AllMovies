@@ -8,9 +8,9 @@
 		</div>
 		<div class="col-sm-3">
 			Films sortis du {{monday | date : "dd/MM/yyyy"}} au {{sunday | date : "dd/MM/yyyy"}}:
-			<div class="list-group" style="width: 40%;">
-				<a *ngFor="let movie of movies" (click)="onSelect(movie)" [class.active]="movie === selectedMovie"
-					class="list-group-item list-group-item-action"> <span>{{movie.title.slice(0,40) | capitalizeWord}}</span>
+			<div class="list-group">
+				<a *ngFor="let movie of movies" (click)="onSelect(movie)" [class.active]="selectedMovie !==null && movie.id === selectedMovie.id"
+					class="list-group-item list-group-item-action pointer"> <span>{{movie.title.slice(0,40) | capitalizeWord}}</span>
 				</a>
 			</div>
 		</div>
@@ -23,6 +23,16 @@
 					<label>Synopsis: </label>
 					<div class="synopsis text-justify">{{selectedMovie.synopsis}}</div>
 				</div>
+	            <div *ngIf="selectedMovie.actors.length > 0">
+	                <label>Acteurs: </label>
+	                <div class="block">
+	                    <span *ngFor="let actor of selectedMovie.actors; let last=last;"> <a (click)="gotoPerson(actor)"
+	                        class="pointer myTooltip">{{actor.name| capitalizeWord}}<span *ngIf="!last">,</span> <img
+	                            class="profile" [src]="preview.concat(actor.profile_path)" *ngIf="actor.profile_path" />
+	                    </a>
+	                    </span>
+	                </div>
+	            </div>
 				<div *ngIf="selectedMovie.note > 0">
 					<label>Note: </label>{{selectedMovie.note}} / 10
 					<rating [(ngModel)]="selectedMovie.note" [max]="10" [readonly]="true" [float]="true"></rating>
