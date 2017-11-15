@@ -51,6 +51,7 @@ export class ReleaseComponent {
     sunday: Date;
     private preview = "https://image.tmdb.org/t/p/w92";
     private original = "https://image.tmdb.org/t/p/original";
+    score: string;
 
     constructor(private movieService: MovieService, private router: Router, 
         private formatter: MyNgbDate, config: NgbDatepickerConfig) { 
@@ -63,6 +64,9 @@ export class ReleaseComponent {
 
     getMovies(): void {
         this.movieService.getMovies().then(movies => this.movies = movies);
+    }
+    meta(title: string): void {
+        this.score = this.movieService.getMetaScore(title);
     }
     getMoviesByReleaseDates(): void { 
         if(this.model !== null && this.model !== undefined) {

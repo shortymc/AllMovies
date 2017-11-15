@@ -2,7 +2,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule, ModuleWithProviders, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
-import { HttpModule }    from '@angular/http';
+import { HttpModule, JsonpModule }    from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module'; 
@@ -26,6 +26,7 @@ import {RatingModule} from "ngx-rating";
     BrowserModule,
 	FormsModule,    
     HttpModule,
+    JsonpModule,
     CommonModule,
     RatingModule,
     AppRoutingModule
