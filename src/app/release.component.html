@@ -37,6 +37,8 @@
 					<label>Note: </label>{{selectedMovie.note}} / 10
 					<rating [(ngModel)]="selectedMovie.note" [max]="10" [readonly]="true" [float]="true"></rating>
 				</div>
+				<div *ngIf="score">{{score}}</div>
+                <button class="btn btn-sm btn-outline-primary" (click)="meta(selectedMovie.title)">TEST</button>
 				<button (click)="gotoDetail()">View Details</button>
 			</div>
 			<br />
