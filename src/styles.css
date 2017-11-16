@@ -147,3 +147,14 @@ input {
 .myTooltip:hover .profile {
   display: inline-block;  
 }
+
+.borderStyle > a {
+    border: 1px solid gray;
+    border-radius: 8px;
+    margin-bottom: 6px !important;
+}
+
+.borderStyle > a:hover {
+	background-color: #007bff;
+	color: #fff;
+}
