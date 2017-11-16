@@ -52,6 +52,11 @@ export class ReleaseComponent {
     private preview = "https://image.tmdb.org/t/p/w92";
     private original = "https://image.tmdb.org/t/p/original";
     score: string;
+    metacritic: string;
+    senscritique: string;
+    imdb: string;
+    wikiEN: string;
+    wikiFR: string;
 
     constructor(private movieService: MovieService, private router: Router, 
         private formatter: MyNgbDate, config: NgbDatepickerConfig) { 
@@ -61,12 +66,11 @@ export class ReleaseComponent {
           return d.getDay() !== 3;
         };
     }
-
     getMovies(): void {
         this.movieService.getMovies().then(movies => this.movies = movies);
     }
     meta(title: string): void {
-        this.score = this.movieService.getMetaScore(title);
+//        this.score = this.movieService.getMetaScore(title);
     }
     getMoviesByReleaseDates(): void { 
         if(this.model !== null && this.model !== undefined) {
@@ -87,9 +91,19 @@ export class ReleaseComponent {
     	this.getMoviesByReleaseDates();
     }
     onSelect(movie: Movie): void {
-//        this.selectedMovie = movie;
-         this.movieService.getMovie(movie.id, false, true, false, false).then(movie => this.selectedMovie = movie);
-    };
+        //        this.selectedMovie = movie;
+        this.movieService.getMovie(movie.id, false, true, false, false).then(movie => {
+            this.selectedMovie = movie;
+            let title = this.selectedMovie.title;
+            let original = this.selectedMovie.original_title;
+            let searchTitle = original === '' ? title : original;
+            this.movieService.getLinkScore(searchTitle, "metacritic").then(result => this.metacritic = result);
+            this.movieService.getLinkScore(searchTitle, "scq").then(result => this.senscritique = result);
+            this.movieService.getLinkScore(searchTitle, "imdb").then(result => this.imdb = result);
+            this.movieService.getLinkScore(searchTitle, "wen").then(result => this.wikiEN = result);
+            this.movieService.getLinkScore(searchTitle, "wikifr").then(result => this.wikiFR = result);
+        });
+};
     gotoDetail(): void {
         this.router.navigate(['/detail', this.selectedMovie.id]);
     }

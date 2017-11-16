@@ -45,6 +45,21 @@ export class MovieService {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     }
+    
+    getLinkScore(title: string, site: string): Promise<string> {
+        let url = 'https://api.duckduckgo.com/?q=!' + site + '+';
+        //        url += title.split(' ').join('+') + 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
+        url += title.split(' ').join('+') + '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
+        console.log("url: " + url);
+        return this.jsonp.request(url).toPromise()
+            .then((data: Response) => {
+                console.log("coucou");
+                console.log(data.json());
+                console.log(data.json().Redirect);
+                return <string> data.json().Redirect;
+            })
+            .catch(this.handleError);
+    }
 
     getMeta(title: string): Promise<void> {
         let url = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyDEM7hrrBdfYC8ygSW85jbSOiqiB7z309s&cx=012455488159958509456:n8jpj1vlffy&q='
@@ -69,40 +84,40 @@ export class MovieService {
             });
     }
 
-    getMetaScore(title: string): Promise<string> {
-        let url = 'https://api.duckduckgo.com/?q=!metacritic+';
-        //        url += title.split(' ').join('+') + 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
-        url += title.split(' ').join('+') + '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
-        console.log("url: " + url);
-        return this.jsonp.request(url).toPromise()
-            .then((data: Response) => {
-                console.log("coucou");
-                console.log(data.json());
-                console.log(data.json().Redirect);
-                this.metaUrl = data.json().Redirect;
-                return this.http.request(this.metaUrl)
-                .subscribe(
-                    data => {
-                        console.log("Hello: ");
-                        console.log(data);
-                        data.addHeader("Access-Control-Allow-Origin","*");
-                        let htmlR = $.parseHTML(data);
-                        let result = $(htmlR).find($('.main_stats'));
-                        for (let res of result) {
-                            console.log(res);
-                            if(res.children[0].innerText.toLowerCase() === title.toLowerCase()) {
-                                console.log(res.children[1].innerText);
-                                this.score = res.children[1].innerText;
-                            }
-                        }   
-                        return this.score;
-                    },
-                    err => this.handleError(err),
-                    () => console.log('get actual visits complete')
-                 );
-            });
-    }
-//
+//    getMetaScore(title: string): Promise<string> {
+//        let url = 'https://api.duckduckgo.com/?q=!metacritic+';
+//        //        url += title.split(' ').join('+') + 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
+//        url += title.split(' ').join('+') + '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
+//        console.log("url: " + url);
+//        return this.jsonp.request(url).toPromise()
+//            .then((data: Response) => {
+//                console.log("coucou");
+//                console.log(data.json());
+//                console.log(data.json().Redirect);
+//                this.metaUrl = data.json().Redirect;
+//                return this.http.request(this.metaUrl)
+//                .subscribe(
+//                    data => {
+//                        console.log("Hello: ");
+//                        console.log(data);
+//                        data.addHeader("Access-Control-Allow-Origin","*");
+//                        let htmlR = $.parseHTML(data);
+//                        let result = $(htmlR).find($('.main_stats'));
+//                        for (let res of result) {
+//                            console.log(res);
+//                            if(res.children[0].innerText.toLowerCase() === title.toLowerCase()) {
+//                                console.log(res.children[1].innerText);
+//                                this.score = res.children[1].innerText;
+//                            }
+//                        }   
+//                        return this.score;
+//                    },
+//                    err => this.handleError(err),
+//                    () => console.log('get actual visits complete')
+//                 );
+//            });
+//    }
+
 //    getMetaScore(title: string): Promise<string> {
 //        let url = 'https://api.duckduckgo.com/?q=!metacritic+';
 //        //        url += title.split(' ').join('+') + 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
