@@ -177,11 +177,11 @@
 				</div>
 			</div>
 			<br/>
-			<div class="panel panel-default" *ngIf="movie.recommendations.length > 0">
-				<div class="panel-heading">
+			<div class="card" *ngIf="movie.recommendations.length > 0">
+				<div class="card-header">
 					<label>Vous aimerez aussi:</label>
 				</div>
-				<div class="panel-body">
+				<div class="card-body">
 					<div class="reco">
 						<a *ngFor="let reco of movie.recommendations;" class="affiche"
 							[routerLink]="['/detail', reco.id]" data-toggle="tooltip"
