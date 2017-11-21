@@ -26,6 +26,7 @@
 
       // other libraries
       'rxjs':                      'npm:rxjs',
+	  'moment': 'node_modules/moment',
 	  '@ng-bootstrap/ng-bootstrap': 'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
     },
@@ -42,7 +43,8 @@
       rxjs: {
         defaultExtension: 'js'
       },
-	  "ngx-rating": { "main": "index.js", "defaultExtension": "js" }
+	  "ngx-rating": { "main": "index.js", "defaultExtension": "js" },
+	  'moment': { main: 'moment.js', defaultExtension: 'js' }
     }
   });
 })(this);
