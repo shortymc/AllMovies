@@ -130,7 +130,6 @@ We've captured many of the most useful commands in npm scripts defined in the `p
 [John Papa](https://github.com/johnpapa) and
 [Christopher Martin](https://github.com/cgmartin)
 with excellent support for Angular apps that use routing.
-
-Here are the test related scripts:
-* `npm test` - compiles, runs and watches the karma unit tests
-* `npm run e2e` - compiles and run protractor e2e tests, written in Typescript (*e2e-spec.ts)
+ 
+ [travis-badge]: https://travis-ci.org/angular/quickstart.svg?branch=master
+ [travis-badge-url]: https://travis-ci.org/angular/quickstart
