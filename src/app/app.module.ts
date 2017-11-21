@@ -17,7 +17,7 @@ import { MovieService } from './movie.service';
 import { PersonService } from './person.service';
 import { MovieSearchComponent } from './movie-search.component';
 import { PersonSearchComponent } from './person-search.component';
-import { ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './custom.pipe';
+import { substractDatePipe, ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './custom.pipe';
 import {RatingModule} from "ngx-rating";
 
 @NgModule({
@@ -35,6 +35,7 @@ import {RatingModule} from "ngx-rating";
         AppComponent,
         DashboardComponent,
         ConvertToHHmmPipe,
+        substractDatePipe,
         CapitalizeWordPipe,
         FilterCrewPipe,
         MovieDetailComponent,
