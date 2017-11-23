@@ -27,6 +27,10 @@ export class PersonDetailComponent implements OnInit {
             .subscribe(person => this.person = person);
     }
     goBack(): void {
-        this.location.back();
+        if(this.location._baseHref !== "") {
+            this.location.back();
+        } else {
+            this.router.navigate(['/']);    
+        }
     }
 }

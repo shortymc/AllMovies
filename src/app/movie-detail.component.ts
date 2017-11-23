@@ -30,7 +30,11 @@ export class MovieDetailComponent implements OnInit {
             .subscribe(movie => this.movie = movie);
     }
     goBack(): void {
-        this.location.back();
+        if(this.location._baseHref !== "") {
+            this.location.back();
+        } else {
+            this.router.navigate(['/']);    
+        }
     }
     save(): void {
         this.movieService.update(this.movie)
