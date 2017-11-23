@@ -23,7 +23,7 @@
 			<div *ngIf="movie.actors.length > 0">
 				<label>Acteurs: </label>
 				<div class="block">
-					<span *ngFor="let actor of movie.actors; let last=last;"> <a (click)="gotoPerson(actor)"
+					<span *ngFor="let actor of movie.actors; let last=last;"> <a [routerLink]="['/person', actor.id]"
 						class="pointer myTooltip">{{actor.name| capitalizeWord}}<span *ngIf="!last">,</span> <img
 							class="profile" [src]="preview.concat(actor.profile_path)" *ngIf="actor.profile_path" />
 					</a>
@@ -34,7 +34,7 @@
 				<div *ngIf="(movie.crew | filterCrew:'director') as director">
 					<div *ngIf="director.length > 0">
 						<label>R&eacute;alisateur: </label> <span
-							*ngFor="let d of director; let last=last;"> <a (click)="gotoPerson(d)"
+							*ngFor="let d of director; let last=last;"> <a [routerLink]="['/person', d.id]"
 							class="pointer myTooltip">{{d.name| capitalizeWord}}<span *ngIf="!last">,</span> <img
 								class="profile" [src]="preview.concat(d.profile_path)" *ngIf="d.profile_path" />
 						</a>
@@ -44,7 +44,7 @@
 				<div *ngIf="(movie.crew | filterCrew:'producer') as producer">
 					<div *ngIf="producer.length > 0">
 						<label>Producteur: </label> <span *ngFor="let p of producer; let last=last;">
-							<a (click)="gotoPerson(p)" class="pointer myTooltip">{{p.name| capitalizeWord}}<span
+							<a [routerLink]="['/person', p.id]" class="pointer myTooltip">{{p.name| capitalizeWord}}<span
 								*ngIf="!last">,</span> <img class="profile" [src]="preview.concat(p.profile_path)"
 								*ngIf="p.profile_path" />
 						</a>
@@ -54,7 +54,7 @@
 				<div *ngIf="(movie.crew | filterCrew:'Original Music Composer') as composer">
 					<div *ngIf="composer.length > 0">
 						<label>Compositeur: </label> <span *ngFor="let c of composer; let last=last;">
-							<a (click)="gotoPerson(c)" class="pointer myTooltip">{{c.name| capitalizeWord}}<span
+							<a [routerLink]="['/person', c.id]" class="pointer myTooltip">{{c.name| capitalizeWord}}<span
 								*ngIf="!last">,</span> <img class="profile" [src]="preview.concat(c.profile_path)"
 								*ngIf="c.profile_path" />
 						</a>
@@ -64,7 +64,7 @@
 				<div *ngIf="(movie.crew | filterCrew:'Compositors') as compositors">
 					<div *ngIf="compositors.length > 0">
 						<label>Compositeur: </label> <span *ngFor="let c of compositors; let last=last;">
-							<a (click)="gotoPerson(c)" class="pointer myTooltip">{{c.name| capitalizeWord}}<span
+							<a [routerLink]="['/person', c.id]" class="pointer myTooltip">{{c.name| capitalizeWord}}<span
 								*ngIf="!last">,</span> <img class="profile" [src]="preview.concat(c.profile_path)"
 								*ngIf="c.profile_path" />
 						</a>
@@ -74,7 +74,7 @@
 				<div *ngIf="(movie.crew | filterCrew:'screenplay') as screenplay">
 					<div *ngIf="screenplay.length > 0">
 						<label>Sc&eacute;nariste: </label> <span
-							*ngFor="let s of screenplay; let last=last;"> <a (click)="gotoPerson(s)"
+							*ngFor="let s of screenplay; let last=last;"> <a [routerLink]="['/person', s.id]"
 							class="pointer myTooltip">{{s.name| capitalizeWord}}<span *ngIf="!last">,</span> <img
 								class="profile" [src]="preview.concat(s.profile_path)" *ngIf="s.profile_path" />
 						</a>
@@ -84,7 +84,7 @@
 				<div *ngIf="(movie.crew | filterCrew:'writer') as screenplay">
 					<div *ngIf="screenplay.length > 0">
 						<label>Sc&eacute;nariste: </label> <span
-							*ngFor="let s of screenplay; let last=last;"> <a (click)="gotoPerson(s)"
+							*ngFor="let s of screenplay; let last=last;"> <a [routerLink]="['/person', s.id]"
 							class="pointer myTooltip">{{s.name| capitalizeWord}}<span *ngIf="!last">,</span> <img
 								class="profile" [src]="preview.concat(s.profile_path)" *ngIf="s.profile_path" />
 						</a>
@@ -94,7 +94,7 @@
 				<div *ngIf="(movie.crew | filterCrew:'novel') as novel">
 					<div *ngIf="novel.length > 0">
 						<label>Romancier: </label> <span *ngFor="let n of novel; let last=last;">
-							<a (click)="gotoPerson(n)" class="pointer myTooltip">{{n.name| capitalizeWord}}<span
+							<a [routerLink]="['/person', n.id]" class="pointer myTooltip">{{n.name| capitalizeWord}}<span
 								*ngIf="!last">,</span> <img class="profile" [src]="preview.concat(n.profile_path)"
 								*ngIf="n.profile_path" />
 						</a>
@@ -104,7 +104,7 @@
 				<div *ngIf="(movie.crew | filterCrew:'cameo') as cameo">
 					<div *ngIf="cameo.length > 0">
 						<label>Cameo: </label> <span *ngFor="let c of cameo; let last=last;"> <a
-							(click)="gotoPerson(c)" class="pointer myTooltip">{{c.name| capitalizeWord}}<span
+							[routerLink]="['/person', c.id]" class="pointer myTooltip">{{c.name| capitalizeWord}}<span
 								*ngIf="!last">,</span> <img class="profile" [src]="preview.concat(c.profile_path)"
 								*ngIf="c.profile_path" />
 						</a>
@@ -114,7 +114,7 @@
 				<div *ngIf="(movie.crew | filterCrew:'special Guest') as guest">
 					<div *ngIf="guest.length > 0">
 						<label>Guest-Star: </label> <span *ngFor="let g of guest; let last=last;">
-							<a (click)="gotoPerson(g)" class="pointer myTooltip">{{g.name| capitalizeWord}}<span
+							<a [routerLink]="['/person', g.id]" class="pointer myTooltip">{{g.name| capitalizeWord}}<span
 								*ngIf="!last">,</span> <img class="profile" [src]="preview.concat(g.profile_path)"
 								*ngIf="g.profile_path" />
 						</a>
@@ -124,7 +124,7 @@
 				<div *ngIf="(movie.crew | filterCrew:'songs') as songs">
 					<div *ngIf="songs.length > 0">
 						<label>Chansons: </label> <span *ngFor="let song of songs; let last=last;">
-							<a (click)="gotoPerson(song)" class="pointer myTooltip">{{song.name| capitalizeWord}}<span
+							<a [routerLink]="['/person', song.id]" class="pointer myTooltip">{{song.name| capitalizeWord}}<span
 								*ngIf="!last">,</span> <img class="profile" [src]="preview.concat(song.profile_path)"
 								*ngIf="song.profile_path" />
 						</a>
@@ -134,7 +134,7 @@
 				<div *ngIf="(movie.crew | filterCrew:'music') as music">
 					<div *ngIf="music.length > 0">
 						<label>Musique: </label> <span *ngFor="let m of music; let last=last;"> <a
-							(click)="gotoPerson(m)" class="pointer myTooltip">{{m.name| capitalizeWord}}<span
+							 [routerLink]="['/person', m.id]" class="pointer myTooltip">{{m.name| capitalizeWord}}<span
 								*ngIf="!last">,</span> <img class="profile" [src]="preview.concat(m.profile_path)"
 								*ngIf="m.profile_path" />
 						</a>
