@@ -36,9 +36,4 @@ export class MovieDetailComponent implements OnInit {
         this.movieService.update(this.movie)
             .then(() => this.goBack());
     }
-    
-    gotoPerson(person: any): void {
-    	let link = ['/person', person.id];
-    	this.router.navigate(link);
-    }
 }
