@@ -9,23 +9,19 @@ h1 {
 
 h1, h2, h3, h4 {
 	box-sizing: border-box !important;
-	font-family: Arial,"Helvetica Neue",Helvetica,sans-serif !important;
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
 	margin-bottom: 8px !important;
 	margin-top: 0px !important;
 	position: relative !important;
 	text-align: center !important;
 }
 
-a {
-    color: #607D8B !important;
-}
-
 label {
-    display: inline-block;
-    margin-right: 5px !important;
-    margin: .5em 0 !important;
-    color: #007bff;
-    font-weight: bold;
+	display: inline-block;
+	padding-right: 5px !important;
+	margin: .5em 0 !important;
+	color: #007bff;
+	font-weight: bold;
 }
 
 .icon img {
@@ -35,18 +31,24 @@ label {
 	padding-bottom: 4px;
 }
 
-button {
-    margin-top: 20px;
-    cursor: pointer;
-    font-family: Arial;
-    background-color: #eee;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
+.card-deck {
+	display: inline-flex !important;
+    flex-wrap: nowrap !important;
 }
+
+button {
+	cursor: pointer;
+	font-family: Arial;
+	background-color: #eee;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 4px;
+}
+
 button:hover {
 	background-color: #007bff !important;
 }
+
 .pointer {
 	cursor: pointer;
 }
@@ -58,8 +60,8 @@ button:hover {
 .small {
 	color: #8d8d8d;
 	font-size: 12px;
-    top: calc(50% - 17px);
-    position: relative;
+	top: calc(50% - 17px);
+	position: relative;
 }
 
 .block {
@@ -113,61 +115,61 @@ input {
 }
 
 .affiche {
-    float: left;
-    display: inline-block;
-    max-width: 90%;
-    margin: 0px 30px 0px 10px;
-    -webkit-box-shadow: 1px 1px 20px #000000;
-    -moz-box-shadow: 1px 1px 20px #000000;
-    box-shadow: 1px 1px 20px #000000;
-    border: 3px solid #000;
-    position: relative;
-    vertical-align: bottom;
+	float: left;
+	display: inline-block;
+	max-width: 90%;
+	margin: 0px 30px 0px 10px;
+	-webkit-box-shadow: 1px 1px 20px #000000;
+	-moz-box-shadow: 1px 1px 20px #000000;
+	box-shadow: 1px 1px 20px #000000;
+	border: 3px solid #000;
+	position: relative;
+	vertical-align: bottom;
 }
 
 .affiche img {
-    border: 0;
-    vertical-align: top;
+	border: 0;
+	vertical-align: top;
 }
 
 .affiche:hover::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    background-color: #000;
-    background-color: rgba(0, 0, 0, .5);
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #000;
+	background-color: rgba(0, 0, 0, .5);
 }
 
 .reco a {
-    margin: 20px 8px 10px 8px;
-    float: none;
+	margin: 20px 8px 10px 8px;
+	float: none;
 }
 
 .profile {
-  display: none;
-  position: absolute;
-  z-index: 99;
-  margin: 25px 0px 0px -92px;
-  border: 3px solid #000;
-  -webkit-box-shadow: 1px 1px 20px #000000;
-  -moz-box-shadow: 1px 1px 20px #000000;
-  box-shadow: 1px 1px 20px #000000;
+	display: none;
+	position: absolute;
+	z-index: 99;
+	margin: 25px 0px 0px -92px;
+	border: 3px solid #000;
+	-webkit-box-shadow: 1px 1px 20px #000000;
+	-moz-box-shadow: 1px 1px 20px #000000;
+	box-shadow: 1px 1px 20px #000000;
 }
 
 .myTooltip:hover .profile {
-  display: inline-block;  
+	display: inline-block;
 }
 
-.borderStyle > a {
-    border: 1px solid gray;
-    border-radius: 8px;
-    margin-bottom: 6px !important;
+.borderStyle>a {
+	border: 1px solid gray;
+	border-radius: 8px;
+	margin-bottom: 6px !important;
 }
 
-.borderStyle > a:hover {
+.borderStyle>a:hover {
 	background-color: #007bff;
 	color: #fff;
 }
