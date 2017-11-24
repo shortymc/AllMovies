@@ -14,9 +14,8 @@ input {
 }
 
 #btn {
-	clear: both;
-	margin-left: 180px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .videos {

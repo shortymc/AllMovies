@@ -39,9 +39,9 @@
 							<label>Acteurs: </label>
 							<div class="block">
 								<span *ngFor="let actor of selectedMovie.actors; let last=last;"> <a
-									(click)="gotoPerson(actor)" class="pointer myTooltip">{{actor.name| capitalizeWord}}<span
-										*ngIf="!last">,</span> <img class="profile" [src]="preview.concat(actor.profile_path)"
-										*ngIf="actor.profile_path" />
+									(click)="gotoPerson(actor)" class="myTooltip"> <span class="pointer">{{actor.name|
+											capitalizeWord}}</span> <span *ngIf="!last">/</span> <img class="profile"
+										[src]="preview.concat(actor.profile_path)" *ngIf="actor.profile_path" />
 								</a>
 								</span>
 							</div>
