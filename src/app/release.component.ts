@@ -103,7 +103,7 @@ export class ReleaseComponent {
             this.movieService.getLinkScore(searchTitle, "wen").then(result => this.wikiEN = result);
             this.movieService.getLinkScore(searchTitle, "wikifr").then(result => this.wikiFR = result);
         });
-};
+    };
     gotoDetail(): void {
         this.router.navigate(['/detail', this.selectedMovie.id]);
     }

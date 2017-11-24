@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location }                 from '@angular/common';
 import { PersonService } from './person.service';
 import 'rxjs/add/operator/switchMap';
@@ -12,6 +12,7 @@ import { Person } from './person';
 })
 export class PersonDetailComponent implements OnInit {
     person: Person;
+    isImagesCollapsed = false;
     private original = "https://image.tmdb.org/t/p/original";
     private thumb = "https://image.tmdb.org/t/p/w154";
     private preview = "https://image.tmdb.org/t/p/w92";
@@ -19,7 +20,8 @@ export class PersonDetailComponent implements OnInit {
     constructor(
         private personService: PersonService,
         private route: ActivatedRoute,
-        private location: Location
+        private location: Location,
+        private router: Router
     ) { }
     ngOnInit(): void {
         this.route.paramMap
@@ -27,10 +29,9 @@ export class PersonDetailComponent implements OnInit {
             .subscribe(person => this.person = person);
     }
     goBack(): void {
-        if(this.location._baseHref !== "") {
-            this.location.back();
-        } else {
-            this.router.navigate(['/']);    
+        let back = this.location.back();
+        if (back === undefined) {
+            this.router.navigate(['/']);
         }
     }
 }

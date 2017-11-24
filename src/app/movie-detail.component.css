@@ -4,11 +4,6 @@ input {
 	padding-left: .4em;
 }
 
-button {
-	margin-top: 20px;
-	cursor: pointer;
-}
-
 .synopsis {
 	width: 70%;
 }
