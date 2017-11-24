@@ -1,29 +1,30 @@
 body {
 	font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif !important;
-	font-size: 13px !important;
 }
 
 h1 {
 	color: #369;
 	font-family: Arial, Helvetica, sans-serif !important;
-	font-size: 250% !important;
 }
 
 h1, h2, h3, h4 {
 	box-sizing: border-box !important;
 	font-family: Arial,"Helvetica Neue",Helvetica,sans-serif !important;
-	font-size: 13px !important;
 	margin-bottom: 8px !important;
 	margin-top: 0px !important;
 	position: relative !important;
 	text-align: center !important;
 }
 
+a {
+    color: #607D8B !important;
+}
+
 label {
     display: inline-block;
     margin-right: 5px !important;
     margin: .5em 0 !important;
-    color: #607D8B;
+    color: #007bff;
     font-weight: bold;
 }
 
@@ -34,6 +35,18 @@ label {
 	padding-bottom: 4px;
 }
 
+button {
+    margin-top: 20px;
+    cursor: pointer;
+    font-family: Arial;
+    background-color: #eee;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+button:hover {
+	background-color: #007bff !important;
+}
 .pointer {
 	cursor: pointer;
 }
