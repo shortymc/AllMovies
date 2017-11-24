@@ -4,7 +4,7 @@
 		<div class="col-sm-2">
 			<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"
 				(ngModelChange)="getMoviesByReleaseDates(); selectedMovie = null;"></ngb-datepicker>
-			<button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo(selectPreviousWednesday())">Select
+			<button class="btn btn-outline-primary" (click)="dp.navigateTo(selectPreviousWednesday())">Select
 				current week</button>
 		</div>
 		<div class="col-sm-3">
@@ -58,8 +58,8 @@
 								class="nav-item nav-link" href="{{wikiEN}}" target="_blank">Wiki EN</a> <a
 								class="nav-item nav-link" href="{{wikiFR}}" target="_blank">Wiki FR</a>
 						</nav>
-						<button class="btn btn-sm btn-outline-primary" (click)="meta(selectedMovie.title)">TEST</button>
-						<button (click)="gotoDetail()">View Details</button>
+						<button class="btn btn-outline-primary" (click)="meta(selectedMovie.title)">TEST</button>
+						<button class="btn btn-outline-primary" (click)="gotoDetail()">View Details</button>
 					</div>
 				</div>
 			</div>

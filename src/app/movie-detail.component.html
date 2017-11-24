@@ -152,6 +152,13 @@
 				<label>Note: </label>{{movie.note}} / 10
 				<rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
 			</div>
+            <nav class="nav nav-pills nav-fill borderStyle">
+                <a class="nav-item nav-link" href="{{metacritic}}" target="_blank">Metacritic</a> <a
+                    class="nav-item nav-link" href="{{senscritique}}" target="_blank">SensCritique</a> <a
+                    class="nav-item nav-link" href="{{imdb}}" target="_blank">IMDB</a> <a
+                    class="nav-item nav-link" href="{{wikiEN}}" target="_blank">Wiki EN</a> <a
+                    class="nav-item nav-link" href="{{wikiFR}}" target="_blank">Wiki FR</a>
+            </nav>
 			<div *ngIf="movie.videos.length > 0">
 				<label>Vid&eacute;o(s):</label>
 				<ul class="videos">

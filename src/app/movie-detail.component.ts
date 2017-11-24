@@ -17,6 +17,11 @@ export class MovieDetailComponent implements OnInit {
     private thumb = "https://image.tmdb.org/t/p/w154";
     private preview = "https://image.tmdb.org/t/p/w92";
     isImagesCollapsed = false;
+    metacritic: string;
+    senscritique: string;
+    imdb: string;
+    wikiEN: string;
+    wikiFR: string;
 
     constructor(
         private movieService: MovieService,
@@ -27,13 +32,21 @@ export class MovieDetailComponent implements OnInit {
     ngOnInit(): void {
         this.route.paramMap
             .switchMap((params: ParamMap) => this.movieService.getMovie(+params.get('id'), true, true, true, true))
-            .subscribe(movie => this.movie = movie);
+            .subscribe(movie => {this.movie = movie
+        let title = this.movie.title;
+        let original = this.movie.original_title;
+        let searchTitle = original === '' ? title : original;
+        this.movieService.getLinkScore(searchTitle, "metacritic").then(result => this.metacritic = result);
+        this.movieService.getLinkScore(searchTitle, "scq").then(result => this.senscritique = result);
+        this.movieService.getLinkScore(searchTitle, "imdb").then(result => this.imdb = result);
+        this.movieService.getLinkScore(searchTitle, "wen").then(result => this.wikiEN = result);
+        this.movieService.getLinkScore(searchTitle, "wikifr").then(result => this.wikiFR = result);
+                });
     }
     goBack(): void {
-        if(this.location._baseHref !== "") {
-            this.location.back();
-        } else {
-            this.router.navigate(['/']);    
+        let back = this.location.back();
+        if (back === undefined) {
+            this.router.navigate(['/']);
         }
     }
     save(): void {
