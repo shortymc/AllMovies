@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
 	<div class="header">
 		<h1>{{title}}</h1>
 	   <nav>
-		 <a routerLink="/dashboard">Dashboard</a>
-		 <a routerLink="/movies">Movies</a>
-		 <a routerLink="/release">Sorties</a>
+         <button class="btn btn-outline-primary" routerLink="/dashboard">Dashboard</button>
+		 <button class="btn btn-outline-primary" routerLink="/movies">Movies</button>
+		 <button class="btn btn-outline-primary" routerLink="/release">Sorties</button>
 	   </nav>
 	</div>
    <router-outlet></router-outlet>
