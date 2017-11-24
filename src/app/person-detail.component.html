@@ -24,11 +24,20 @@
 				<div class="biography">{{person.biography}}</div>
 			</div>
 		</div>
-		<div *ngIf="person.images.length > 0"><label>Images:</label></div>
-		<div *ngIf="person.images.length > 0" class="reco">
-			<a *ngFor="let ima of person.images;" class="affiche" href="{{original.concat(ima)}}"
-				target="_blank"> <img src="{{thumb.concat(ima)}}">
-			</a>
+		<div *ngIf="person.images.length > 0">
+			<button type="button" class="btn btn-outline-primary"
+				(click)="isImagesCollapsed = !isImagesCollapsed">Images:</button>
+			<div *ngIf="isImagesCollapsed">
+				<div class="card">
+					<div class="card-body">
+						<div class="reco">
+							<a *ngFor="let ima of person.images;" class="affiche" href="{{original.concat(ima)}}"
+								target="_blank"> <img src="{{thumb.concat(ima)}}">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<figure *ngIf="person.asActor.length > 0 || person.asDirector.length > 0">
 			<label>Films notables:</label>
@@ -82,7 +91,7 @@
 			</ul>
 		</figure>
 	</div>
-	<div class="btn">
-		<button (click)="goBack()">Back</button>
+	<div id="bottomBtn">
+		<button class="btn btn-outline-primary" (click)="goBack()">Back</button>
 	</div>
 </div>
