@@ -58,7 +58,18 @@ export class MoviesComponent implements OnInit {
                 { data: "title", title: "Titre" },
                 { data: "date", title: "Date" }
             ],
-            "lengthMenu": [[25, 50, -1], [25, 50, "Tous"]]
+            "lengthMenu": [[25, 50, -1], [25, 50, "Tous"]],
+            "scrollY":        "500px",
+            "scrollCollapse": true,
+            "language": {
+                "lengthMenu": "Affiche _MENU_ films par page",
+                "zeroRecords": "Aucun film trouv&eacute;",
+                "info": "_PAGE_ page sur _PAGES_ pages",
+                "infoEmpty": "Aucun film trouv&eacute;",
+                "infoFiltered": "(filtr&eacute; sur _MAX_ au total)",
+                "decimal": ",",
+                "thousands": " "
+            }
     	});
     }
 }
