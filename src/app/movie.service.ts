@@ -48,12 +48,8 @@ export class MovieService {
         let url = 'https://api.duckduckgo.com/?q=!' + site + '+';
         //        url += title.split(' ').join('+') + 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
         url += title.split(' ').join('+') + '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
-        console.log("url: " + url);
         return this.jsonp.request(url).toPromise()
             .then((data: Response) => {
-                console.log("coucou");
-                console.log(data.json());
-                console.log(data.json().Redirect);
                 return <string> data.json().Redirect;
             })
             .catch(this.handleError);
@@ -227,7 +223,10 @@ export class MovieService {
 		   return response.json().results.map((r: any) =>  <Movie>({
 			   id: r.id,
 			   title: r.title,
-			   date: r.release_date
+			   date: r.release_date,
+			   note: r.vote_average,
+			   language: r.original_language,
+			   thumbnail: r.poster_path === null ? this.empty : this.small + r.poster_path
 		   }));
    }
     
@@ -263,7 +262,7 @@ export class MovieService {
         }
         return new Movie(r.id, r.title, r.original_title === r.title ? '' : r.original_title, r.release_date,
             r.overview, r.poster_path === null ? this.empty : this.original + r.poster_path, r.poster_path === null ? this.empty : this.thumb + r.poster_path,
-            false, r.runtime, r.vote_average, r.budget, r.revenue,
+            false, r.runtime, r.vote_average, r.budget, r.revenue, r.original_language,
             videos, cast.slice(0, 6), r.credits.crew, reco, img);
     }
    
