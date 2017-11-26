@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 export class MoviesComponent implements OnInit {
     movies: Movie[];
 	public tableWidget: any;
-    selectedMovie: Movie;
     constructor(private movieService: MovieService, private router: Router) { }
     getMovies(): void {
         this.movieService.getMovies().then(movies => {
@@ -25,11 +24,8 @@ export class MoviesComponent implements OnInit {
     ngOnInit(): void {
         this.getMovies();
     }
-    onSelect(movie: Movie): void {
-        this.selectedMovie = movie;
-    };
-    gotoDetail(): void {
-        this.router.navigate(['/detail', this.selectedMovie.id]);
+    gotoDetail(id: number): void {
+        this.router.navigate(['/detail', id]);
     }
     add(name: string): void {
         name = name.trim();
@@ -50,14 +46,20 @@ export class MoviesComponent implements OnInit {
     }
     
     private initDatatable(): void {
-//        this.tableWidget = exampleId.DataTable();
-    	$('#example').DataTable({
+        var tableWidget = $('#example').DataTable({
             data: this.movies,
+            select: true,
             columns: [
                 { data: "id", title: "Id" },
                 { data: "title", title: "Titre" },
-                { data: "date", title: "Date" }
+                { data: "date", title: "Date" },
+                { data: null, title: "" }
             ],
+            "columnDefs": [ {
+                "targets": -1,
+                "data": null,
+            	"defaultContent": "<button class='btn btn-outline-primary detail'>View Details</button>"
+            } ],
             "lengthMenu": [[25, 50, -1], [25, 50, "Tous"]],
             "scrollY":        "500px",
             "scrollCollapse": true,
@@ -66,10 +68,11 @@ export class MoviesComponent implements OnInit {
                 "zeroRecords": "Aucun film trouv&eacute;",
                 "info": "_PAGE_ page sur _PAGES_ pages",
                 "infoEmpty": "Aucun film trouv&eacute;",
-                "infoFiltered": "(filtr&eacute; sur _MAX_ au total)",
-                "decimal": ",",
-                "thousands": " "
+                "infoFiltered": "(filtr&eacute; sur _MAX_ au total)"
             }
     	});
+        $(document).on('click', '.detail', ($event) => {
+            this.gotoDetail($($event)[0].currentTarget.parentElement.parentElement.children[0].innerText);
+        });
     }
 }
