@@ -27,8 +27,12 @@
       // other libraries
       'rxjs':                      'npm:rxjs',
 	  'moment': 'node_modules/moment',
+	  'tether': 'npm:tether/dist/js/tether.min.js',
 	  '@ng-bootstrap/ng-bootstrap': 'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
-      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
+	  'jquery' : 'npm:jquery/dist/jquery.min.js',
+	  'bootstrap': 'node_modules/bootstrap/dist/js/bootstrap.min.js"',
+      'datatables.net': 'npm:datatables.net/js/jquery.dataTables.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {

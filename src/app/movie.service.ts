@@ -5,8 +5,6 @@ import 'rxjs/add/operator/toPromise';
 
 import { Movie } from './movie';
 
-declare var $: any;
-
 @Injectable()
 export class MovieService {
     private moviesUrl = 'api/movies';  // URL to web api
@@ -37,7 +35,7 @@ export class MovieService {
     getMovies(): Promise<Movie[]> {
         return this.http.get(this.mostPopular)
             .toPromise()
-            .then(response => this.mapMovies(response))
+            .then(response => this.mapMoviesDT(response))
             .catch(this.handleError);
     }
 
@@ -224,6 +222,14 @@ export class MovieService {
         time: r.runtime
       }));
     }
+   
+   mapMoviesDT(response: Response): Movie[] {
+		   return response.json().results.map((r: any) =>  <Movie>({
+			   id: r.id,
+			   title: r.title,
+			   date: r.release_date
+		   }));
+   }
     
     recommendationsToMovies(reco: any): Movie[] {
         return reco.map((r: any) =>  <Movie>({
