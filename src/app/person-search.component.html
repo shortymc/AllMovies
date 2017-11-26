@@ -10,7 +10,7 @@
 				(click)="showPerson = !showPerson; searchBox.value=''"> <img src="./app/img/exit.png" />
 			</a>
 		</div>
-		<label ngbButtonLabel> <input type="checkbox" ngbButton [(ngModel)]="adult" (click)="search(searchBox.value)">Adult
+		<label ngbButtonLabel class="adultBox"> <input type="checkbox" ngbButton [(ngModel)]="adult" (click)="search(searchBox.value)">Adult
 		</label>
 	</div>
 	<div id="res" *ngIf="showPerson">
