@@ -11,10 +11,16 @@ import { Router } from '@angular/router';
 
 export class MoviesComponent implements OnInit {
     movies: Movie[];
+	public tableWidget: any;
     selectedMovie: Movie;
     constructor(private movieService: MovieService, private router: Router) { }
     getMovies(): void {
-        this.movieService.getMovies().then(movies => this.movies = movies);
+        this.movieService.getMovies().then(movies => {
+        	this.movies = movies;
+        	this.initDatatable();
+        });
+    }
+    ngAfterViewInit() {
     }
     ngOnInit(): void {
         this.getMovies();
@@ -41,5 +47,18 @@ export class MoviesComponent implements OnInit {
                 this.movies = this.movies.filter(h => h !== movie);
                 if (this.selectedMovie === movie) { this.selectedMovie = null; }
             });
+    }
+    
+    private initDatatable(): void {
+//        this.tableWidget = exampleId.DataTable();
+    	$('#example').DataTable({
+            data: this.movies,
+            columns: [
+                { data: "id", title: "Id" },
+                { data: "title", title: "Titre" },
+                { data: "date", title: "Date" }
+            ],
+            "lengthMenu": [[25, 50, -1], [25, 50, "Tous"]]
+    	});
     }
 }

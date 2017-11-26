@@ -20,6 +20,9 @@ import { PersonSearchComponent } from './person-search.component';
 import { substractDatePipe, ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './custom.pipe';
 import {RatingModule} from "ngx-rating";
 
+import * as $ from 'jquery';
+import 'datatables.net';
+
 @NgModule({
   imports: [
     NgbModule.forRoot(),
