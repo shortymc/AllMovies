@@ -39,10 +39,18 @@
 							<label>Acteurs: </label>
 							<div class="block">
 								<span *ngFor="let actor of selectedMovie.actors; let last=last;"> <a
-									(click)="gotoPerson(actor)" class="myTooltip"> <span class="pointer">{{actor.name|
-											capitalizeWord}}</span> <span *ngIf="!last">/</span> <img class="profile"
-										[src]="preview.concat(actor.profile_path)" *ngIf="actor.profile_path" />
-								</a>
+									[routerLink]="['/person', actor.id]" class="myTooltip"><span class="pointer">{{actor.name|
+											capitalizeWord}}</span><img class="profile" [src]="preview.concat(actor.profile_path)"
+										*ngIf="actor.profile_path" /> </a> <span *ngIf="!last">/</span>
+								</span>
+							</div>
+						</div>
+						<div *ngIf="(selectedMovie.crew | filterCrew:'director') as director">
+							<div *ngIf="director.length > 0">
+								<label>R&eacute;alisateur: </label> <span *ngFor="let d of director; let last=last;"> <a
+									[routerLink]="['/person', d.id]" class="myTooltip"><span class="pointer">{{d.name|
+											capitalizeWord}}</span> <img class="profile" [src]="preview.concat(d.profile_path)"
+										*ngIf="d.profile_path" /> </a> <span *ngIf="!last">/</span>
 								</span>
 							</div>
 						</div>
@@ -50,7 +58,6 @@
 							<label>Note: </label>{{selectedMovie.note}} / 10
 							<rating [(ngModel)]="selectedMovie.note" [max]="10" [readonly]="true" [float]="true"></rating>
 						</div>
-						<div>{{score}}</div>
 						<nav class="nav nav-pills nav-fill borderStyle">
 							<a class="nav-item nav-link" href="{{metacritic}}" target="_blank">Metacritic</a> <a
 								class="nav-item nav-link" href="{{senscritique}}" target="_blank">SensCritique</a> <a
