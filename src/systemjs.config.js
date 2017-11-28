@@ -32,7 +32,8 @@
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
 	  'jquery' : 'npm:jquery/dist/jquery.min.js',
 	  'bootstrap': 'node_modules/bootstrap/dist/js/bootstrap.min.js"',
-      'datatables.net': 'npm:datatables.net/js/jquery.dataTables.js'
+      'datatables.net': 'npm:datatables.net/js/jquery.dataTables.js',
+	  'dropbox': 'npm:dropbox/dist/Dropbox-sdk.min.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
