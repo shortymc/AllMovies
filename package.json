@@ -43,6 +43,7 @@
     "datatables.net-dt": "^1.10.16",
     "datatables.net-select": "^1.2.3",
     "datatables.net-select-bs": "^1.2.3",
+    "dropbox": "^2.5.12",
     "jquery": "^3.2.1",
     "moment": "^2.19.2",
     "ng-bootstrap": "^1.6.3",
