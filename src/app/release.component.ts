@@ -1,6 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Movie } from './movie';
 import { MovieService } from './movie.service';
+import { DropboxService } from './dropbox.service';
 import { Router } from '@angular/router';
 import {NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
 import { MyNgbDate } from "./my-ngb-date";
@@ -59,7 +60,7 @@ export class ReleaseComponent {
     wikiFR: string;
 
     constructor(private movieService: MovieService, private router: Router, 
-        private formatter: MyNgbDate, config: NgbDatepickerConfig) { 
+        private formatter: MyNgbDate, config: NgbDatepickerConfig, private dropboxService: DropboxService) { 
     	// Other days than wednesday are disabled
         config.markDisabled = (date: NgbDateStruct) => {
           const d = new Date(date.year, date.month - 1, date.day);
@@ -71,6 +72,10 @@ export class ReleaseComponent {
     }
     meta(title: string): void {
 //        this.score = this.movieService.getMetaScore(title);
+        let theJSON = JSON.stringify({'foo':'bar'});
+        let blob = new Blob([theJSON], { type: 'text/json' });
+        this.dropboxService.listFiles();
+        this.dropboxService.uploadFile(blob, "ex.json");
     }
     getMoviesByReleaseDates(): void { 
         if(this.model !== null && this.model !== undefined) {
