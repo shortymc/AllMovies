@@ -58,6 +58,7 @@ export class ReleaseComponent {
     imdb: string;
     wikiEN: string;
     wikiFR: string;
+    res:Movie[];
 
     constructor(private movieService: MovieService, private router: Router, 
         private formatter: MyNgbDate, config: NgbDatepickerConfig, private dropboxService: DropboxService) { 
@@ -72,10 +73,24 @@ export class ReleaseComponent {
     }
     meta(title: string): void {
 //        this.score = this.movieService.getMetaScore(title);
-        let theJSON = JSON.stringify({'foo':'bar'});
-        let blob = new Blob([theJSON], { type: 'text/json' });
-        this.dropboxService.listFiles();
-        this.dropboxService.uploadFile(blob, "ex.json");
+//        let theJSON = JSON.stringify({'foo':'bar'});
+//        this.dropboxService.listFiles();
+        this.dropboxService.downloadFile("ex.json").then(resp => {
+             this.res = JSON.parse(resp);  
+            this.res.push(this.selectedMovie);
+            this.dropboxService.uploadFile(this.movieToBlob(this.res), "ex.json");
+        }).catch((error: any) => console.error(error));
+    }
+        
+    movieToBlob(movies: Movie[]): any {
+        let theJSON = JSON.stringify(movies, this.removeFields);
+        return new Blob([theJSON], { type: 'text/json' });
+    }      
+    removeFields(key: any, value: any): any {
+        if(['synopsis', 'actors', 'crew'].includes(key)) {
+            return undefined;
+        }
+        return value;
     }
     getMoviesByReleaseDates(): void { 
         if(this.model !== null && this.model !== undefined) {
