@@ -38,7 +38,15 @@ export class DropboxService {
     downloadFile(fileName: string): Promise<string> {
         return this.getDbx().filesDownload({ path: this.getPath(fileName) })
             .then((response: any) => {
-                return new Promise((resolve, reject) => {                    const fileReader = new FileReader()                    fileReader.onload = (event) => resolve(fileReader.result as string)                    fileReader.onabort = (event) => reject(event)                    fileReader.onerror = (event) => reject(event)                    fileReader.readAsText(response.fileBlob)                }) as Promise<string[]>            })            .catch((error: any) => console.error(error));
+                return new Promise((resolve, reject) => {
+                    const fileReader = new FileReader()
+                    fileReader.onload = (event) => resolve(fileReader.result as string)
+                    fileReader.onabort = (event) => reject(event)
+                    fileReader.onerror = (event) => reject(event)
+                    fileReader.readAsText(response.fileBlob)
+                }) as Promise<string[]>
+            })
+            .catch((error: any) => console.error(error));
     }
 
     addMovie(movie: Movie, fileName: string): void {
