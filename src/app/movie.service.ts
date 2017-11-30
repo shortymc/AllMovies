@@ -47,12 +47,19 @@ export class MovieService {
     getLinkScore(title: string, site: string): Promise<string> {
         let url = 'https://api.duckduckgo.com/?q=!' + site + '+';
         //        url += title.split(' ').join('+') + 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
-        url += title.split(' ').join('+') + '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
+//        url += title.split(' ').join('+') + '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
+        url += this.encodeQueryUrl(title) + '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
         return this.jsonp.request(url).toPromise()
             .then((data: Response) => {
                 return <string> data.json().Redirect;
             })
             .catch(this.handleError);
+    }
+
+    encodeQueryUrl(query: string): string {
+        return encodeURIComponent(query).replace(/[!'()*]/g, function(c) {
+            return '%' + c.charCodeAt(0).toString(16);
+        });
     }
 
     getMeta(title: string): Promise<void> {

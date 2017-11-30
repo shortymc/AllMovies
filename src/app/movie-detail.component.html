@@ -5,6 +5,7 @@
 		</a>
 	</div>
 	<div class="contenu">
+       <button class="btn btn-outline-primary" (click)="add(movie)">Add to collection</button>
 		<div>
 			<label>Id:</label>{{movie.id}}
 		</div>
@@ -192,6 +193,5 @@
 		</div>
 		<div id="btn">
 			<button class="btn btn-outline-primary" (click)="goBack()">Back</button>
-			<button class="btn btn-outline-primary" (click)="save()">Save</button>
 		</div>
 	</div>
