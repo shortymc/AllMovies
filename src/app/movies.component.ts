@@ -60,14 +60,23 @@ export class MoviesComponent implements OnInit {
                 { data: "date", title: "Date" },
                 { data: "note", title: "Note" },
                 { data: "language", title: "Langue" },
+                { data: null, title: "" },
                 { data: null, title: "" }
             ],
-            "columnDefs": [{
-                "targets": -1,
-                "orderable": false,
-                "data": null,
-                "defaultContent": "<button class='btn btn-outline-primary detail'>Voir d&eacute;tails</button>"
-            }],
+            "columnDefs": [
+                {
+                    "targets": -1,
+                    "orderable": false,
+                    "data": null,
+                    "defaultContent": "<button class='btn btn-outline-primary detail'>Voir d&eacute;tails</button>"
+                },
+                {
+                    "targets": -2,
+                    "orderable": false,
+                    "data": null,
+                    "defaultContent": "<button class='btn btn-outline-primary remove'>Remove</button>"
+                }
+                ],
             "order": [[4, "desc"]],
             "lengthMenu": [[15, 30, 50, -1], [15, 30, 50, "Tous"]],
             "scrollY": "70vh",
@@ -98,6 +107,12 @@ export class MoviesComponent implements OnInit {
 
         $(document).on('click', '.detail', ($event) => {
             this.gotoDetail((<any>$($event)[0]).currentTarget.parentElement.parentElement.children[0].innerText);
+        });
+        $(document).on('click', '.remove', ($event) => {
+            let tr = (<any>$($event)[0]).currentTarget.parentElement.parentElement;
+            let id = tr.children[0].innerText;
+            this.dropboxService.removeMovie(id, "ex.json");
+             tableWidget.row(tr).remove().draw();
         });
         $('th').not(":lt(2),:gt(2)").each(function() {
             var title = $('th').eq($(this).index()).text();
