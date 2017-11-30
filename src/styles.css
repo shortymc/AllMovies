@@ -86,7 +86,6 @@ button:hover {
 	border-radius: 8px;
 	cursor: pointer;
 	padding: 5px 10px 5px 10px;
-	height: 35px;
 	transition: background-color .3s, color .3s;
 	margin-top: 1px;
 	margin-left: calc(10% + 10px);
@@ -197,4 +196,11 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover,
 	padding: 3px;
 	box-sizing: border-box;
 }
+
+.posterDT {
+	width: 10%;
+}
+
+.posterDT:hover {
+	width: 50%;
 }
