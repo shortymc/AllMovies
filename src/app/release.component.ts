@@ -75,23 +75,9 @@ export class ReleaseComponent {
 //        this.score = this.movieService.getMetaScore(title);
 //        let theJSON = JSON.stringify({'foo':'bar'});
 //        this.dropboxService.listFiles();
-        this.dropboxService.downloadFile("ex.json").then(resp => {
-             this.res = JSON.parse(resp);  
-            this.res.push(this.selectedMovie);
-            this.dropboxService.uploadFile(this.movieToBlob(this.res), "ex.json");
-        }).catch((error: any) => console.error(error));
+        this.dropboxService.addMovie(this.selectedMovie, "ex.json");
     }
-        
-    movieToBlob(movies: Movie[]): any {
-        let theJSON = JSON.stringify(movies, this.removeFields);
-        return new Blob([theJSON], { type: 'text/json' });
-    }      
-    removeFields(key: any, value: any): any {
-        if(['synopsis', 'actors', 'crew'].includes(key)) {
-            return undefined;
-        }
-        return value;
-    }
+      
     getMoviesByReleaseDates(): void { 
         if(this.model !== null && this.model !== undefined) {
         	this.monday = this.formatter.getPreviousMonday(this.model);

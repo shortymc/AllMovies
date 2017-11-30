@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Movie } from './movie';
 import { MovieService } from './movie.service';
 import { Router } from '@angular/router';
+import { DropboxService } from './dropbox.service';
 
 @Component({
     selector: 'my-movies',
@@ -12,9 +13,9 @@ import { Router } from '@angular/router';
 export class MoviesComponent implements OnInit {
     movies: Movie[];
     public tableWidget: any;
-    constructor(private movieService: MovieService, private router: Router) { }
+    constructor(private movieService: MovieService, private router: Router, private dropboxService: DropboxService) { }
     getMovies(): void {
-        this.movieService.getMovies().then(movies => {
+        this.dropboxService.getAllMovies("ex.json").then(movies => {
             this.movies = movies;
             this.initDatatable();
         });
@@ -52,7 +53,7 @@ export class MoviesComponent implements OnInit {
                 { data: "id", title: "Id", "orderable": false },
                 {
                     data: "thumbnail", title: "Affiche", "orderable": false, "render": function(url, type, full) {
-                        return '<img style="width: 20%;" src="' + url + '"/>';
+                        return '<img class="posterDT" src="' + url + '"/>';
                     }
                 },
                 { data: "title", title: "Titre", "orderable": false },
@@ -68,7 +69,7 @@ export class MoviesComponent implements OnInit {
                 "defaultContent": "<button class='btn btn-outline-primary detail'>Voir d&eacute;tails</button>"
             }],
             "order": [[4, "desc"]],
-            "lengthMenu": [[25, 50, -1], [25, 50, "Tous"]],
+            "lengthMenu": [[15, 30, 50, -1], [15, 30, 50, "Tous"]],
             "scrollY": "70vh",
             "scrollCollapse": true,
             "language": {
