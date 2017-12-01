@@ -51,7 +51,13 @@ export class MovieService {
         url += this.encodeQueryUrl(title) + '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
         return this.jsonp.request(url).toPromise()
             .then((data: Response) => {
-                return <string> data.json().Redirect;
+                let result = <string> data.json().Redirect;
+                if(site === 'metacritic') {
+                   result = result.replace('/all/', '/movie/');
+                } else if(site === 'scq') {
+                    result += '&filter=movies';
+                }
+                return result;
             })
             .catch(this.handleError);
     }

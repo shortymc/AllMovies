@@ -5,7 +5,10 @@
 		</a>
 	</div>
 	<div class="contenu">
-       <button class="btn btn-outline-primary" (click)="add(movie)">Add to collection</button>
+		<button class="btn btn-outline-primary" (click)="goBack()">Previous Page <i class="fa fa-chevron-circle-left" aria-hidden="true"></i></button>
+		<button class="btn btn-outline-primary" (click)="add(movie)">
+			<span class="fa fa-star" aria-hidden="true"></span> Add To Collection
+		</button>
 		<div>
 			<label>Id:</label>{{movie.id}}
 		</div>
@@ -142,12 +145,15 @@
 				<label>Note: </label>{{movie.note}} / 10
 				<rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
 			</div>
-			<nav class="nav nav-pills nav-fill borderStyle">
-				<a class="nav-item nav-link" href="{{metacritic}}" target="_blank">Metacritic</a> <a
-					class="nav-item nav-link" href="{{senscritique}}" target="_blank">SensCritique</a> <a
-					class="nav-item nav-link" href="{{imdb}}" target="_blank">IMDB</a> <a class="nav-item nav-link"
-					href="{{wikiEN}}" target="_blank">Wiki EN</a> <a class="nav-item nav-link" href="{{wikiFR}}"
-					target="_blank">Wiki FR</a>
+			<nav class="nav nav-pills nav-fill borderStyle" style="width: 50%;">
+				<a class="nav-item nav-link" href="{{metacritic}}" target="_blank"><i
+					class="fa fa-database fa-3x" aria-hidden="true"></i> Metacritic</a> <a class="nav-item nav-link"
+					href="{{senscritique}}" target="_blank"><i class="fa fa-film fa-3x" aria-hidden="true"></i>
+					SensCritique</a> <a class="nav-item nav-link" href="{{imdb}}" target="_blank"><i
+					class="fa fa-imdb fa-3x" aria-hidden="true"></i></a> <a class="nav-item nav-link" href="{{wikiEN}}"
+					target="_blank"><i class="fa fa-wikipedia-w fa-3x" aria-hidden="true"></i> EN</a> <a
+					class="nav-item nav-link" href="{{wikiFR}}" target="_blank"><i
+					class="fa fa-wikipedia-w fa-3x" aria-hidden="true"></i> FR</a>
 			</nav>
 			<div *ngIf="movie.videos.length > 0">
 				<label>Vid&eacute;o(s):</label>
@@ -160,7 +166,10 @@
 			<!-- Images du film -->
 			<div *ngIf="movie.images.length > 0">
 				<button type="button" class="btn btn-outline-primary"
-					(click)="isImagesCollapsed = !isImagesCollapsed">Images du film</button>
+					(click)="isImagesCollapsed = !isImagesCollapsed">
+                <i class="fa fa-plus-square" aria-hidden="true" [ngClass]="{'display-none' : isImagesCollapsed}"></i>
+                <i class="fa fa-minus-square" aria-hidden="true" [ngClass]="{'display-none' : !isImagesCollapsed}"></i>
+                Images du film</button>
 				<div *ngIf="isImagesCollapsed">
 					<div class="card">
 						<div class="card-body">
@@ -190,8 +199,5 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div id="btn">
-			<button class="btn btn-outline-primary" (click)="goBack()">Back</button>
 		</div>
 	</div>

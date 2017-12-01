@@ -5,6 +5,7 @@
 		</a>
 	</div>
 	<div class="contenu">
+        <button class="btn btn-outline-primary" (click)="goBack()"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Previous Page</button>
 		<div>
 			<label>Id:</label>{{person.id}}
 		</div>
@@ -26,7 +27,10 @@
 		</div>
 		<div *ngIf="person.images.length > 0">
 			<button type="button" class="btn btn-outline-primary"
-				(click)="isImagesCollapsed = !isImagesCollapsed">Images:</button>
+				(click)="isImagesCollapsed = !isImagesCollapsed">
+				<i class="fa fa-plus-square" aria-hidden="true" [ngClass]="{'display-none' : isImagesCollapsed}"></i>
+				<i class="fa fa-minus-square" aria-hidden="true" [ngClass]="{'display-none' : !isImagesCollapsed}"></i>
+				Images:</button>
 			<div *ngIf="isImagesCollapsed">
 				<div class="card">
 					<div class="card-body">
@@ -90,8 +94,5 @@
 					</div></li>
 			</ul>
 		</figure>
-	</div>
-	<div id="bottomBtn">
-		<button class="btn btn-outline-primary" (click)="goBack()">Back</button>
 	</div>
 </div>
