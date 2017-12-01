@@ -89,7 +89,17 @@ export class ReleaseComponent {
     selectPreviousWednesday(): NgbDateStruct {
     	let date = now;
     	date.setDate(date.getDate() - (date.getDay() + 4) % 7);
-        this.model = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
+        this.model = this.formatter.dateToNgbDateStruct(date);
+        return this.model;
+    }
+    removeOneWeek(): NgbDateStruct{
+        let date = this.formatter.addNgbDays(this.model, -7);
+        this.model = this.formatter.dateToNgbDateStruct(date);
+        return this.model;
+    }
+    addOneWeek(): NgbDateStruct{
+        let date = this.formatter.addNgbDays(this.model, 7);
+        this.model = this.formatter.dateToNgbDateStruct(date);
         return this.model;
     }
     ngOnInit(): void {

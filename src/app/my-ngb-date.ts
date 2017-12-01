@@ -58,7 +58,7 @@ export class MyNgbDate extends NgbDateParserFormatter {
     }
     
     addDays(date: Date, nbDays: number): Date {
-    	date.setDate(date.getDate() + 6 );
+    	date.setDate(date.getDate() + nbDays );
     	return date;
     }
     
@@ -68,9 +68,19 @@ export class MyNgbDate extends NgbDateParserFormatter {
     	return dateD;
     }
     
+    addNgbDays(date: NgbDateStruct, days: number): Date {
+        let dateD = this.ngbDateToDate(date); 
+        dateD.setDate(dateD.getDate() + days);
+    	return dateD;
+    }
+    
     getFollowingSunday(date: NgbDateStruct): Date {
     	let dateD = this.ngbDateToDate(date); 
     	dateD.setDate(dateD.getDate() - (dateD.getDay() + 6) % 7);
     	return this.addDays(dateD, 6);
+    }
+    
+    dateToNgbDateStruct(date: Date): NgbDateStruct {
+        return {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
     }
 }
