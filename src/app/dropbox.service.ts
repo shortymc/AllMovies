@@ -82,7 +82,7 @@ export class DropboxService {
     }
 
     removeFields(key: any, value: any): any {
-        if (['synopsis', 'actors', 'crew'].includes(key)) {
+        if (['synopsis', 'actors', 'crew', 'recommendations', 'videos', 'images'].includes(key)) {
             return undefined;
         }
         return value;
