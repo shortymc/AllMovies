@@ -13,7 +13,6 @@ import { DropboxService } from './dropbox.service';
 export class MoviesComponent implements OnInit {
     movies: Movie[];
     public tableWidget: any;
-    sort: any[];
     constructor(private movieService: MovieService, private router: Router, private dropboxService: DropboxService) { }
     getMovies(): void {
         this.dropboxService.getAllMovies("ex.json").then(movies => {
@@ -114,12 +113,8 @@ export class MoviesComponent implements OnInit {
             let id = tr.children[0].innerText;
             this.dropboxService.removeMovie(id, "ex.json");
             tableWidget.row(tr).remove();
-            tableWidget.sort(this.sort);
             tableWidget.draw();
         });
-        $(document).on('click', 'th', ($event) => {
-            this.sort = tableWidget.order();
-        }
         $('th').not(":lt(2),:gt(2)").each(function() {
             var title = $('th').eq($(this).index()).text();
             $(this).append('<br/><input type="text" class="align-center myFilter" placeholder="Rechercher dans les ' + title.toLowerCase() + 's" />');
