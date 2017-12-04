@@ -52,6 +52,12 @@ export class MovieDetailComponent implements OnInit {
             this.router.navigate(['/']);
         }
     }
+    openAll(): void {
+        window.open(this.metacritic);
+        window.open(this.senscritique);
+        window.open(this.wikiEN);
+        window.open(this.wikiFR);
+    }    
     save(): void {
         this.movieService.update(this.movie)
             .then(() => this.goBack());
