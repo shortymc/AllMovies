@@ -248,9 +248,15 @@ export class MovieService {
         id: r.id,
         title: r.title,
         date: r.release_date,
-        thumbnail: this.small + r.poster_path
+        thumbnail: this.small + r.poster_path,
+        original_title: r.original_title,
+        adult: r.adult,
+        time: r.runtime,
+        note: r.vote_average,
+        budget: r.budget,
+        recette: r.revenue,
+        language: r.original_language     
       }));
-        
     }
             
     mapMovie(response: Response): Movie {
@@ -275,8 +281,8 @@ export class MovieService {
         }
         return new Movie(r.id, r.title, r.original_title === r.title ? '' : r.original_title, r.release_date,
             r.overview, r.poster_path === null ? this.empty : this.original + r.poster_path, r.poster_path === null ? this.empty : this.thumb + r.poster_path,
-            false, r.runtime, r.vote_average, r.budget, r.revenue, r.original_language,
-            videos, cast.slice(0, 6), r.credits.crew, reco, img);
+            r.adult, r.runtime, r.vote_average, r.budget, r.revenue, r.original_language,
+            videos, cast.slice(0, 6), r.credits.crew, reco, img, false);
     }
    
    sortCast(a1: any, a2: any) {
