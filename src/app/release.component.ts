@@ -120,6 +120,12 @@ export class ReleaseComponent {
             this.movieService.getLinkScore(searchTitle, "wikifr").then(result => this.wikiFR = result);
         });
     };
+    openAll(): void {
+        window.open(this.metacritic);
+        window.open(this.senscritique);
+        window.open(this.wikiEN);
+        window.open(this.wikiFR);
+    }    
     gotoDetail(): void {
         this.router.navigate(['/detail', this.selectedMovie.id]);
     }
