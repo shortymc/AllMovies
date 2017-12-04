@@ -145,15 +145,16 @@
 				<label>Note: </label>{{movie.note}} / 10
 				<rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
 			</div>
-			<nav class="nav nav-pills nav-fill borderStyle" style="width: 50%;">
+			<nav class="nav nav-pills nav-fill borderStyle" style="width: 80%;">
 				<a class="nav-item nav-link" href="{{metacritic}}" target="_blank"><i
 					class="fa fa-database fa-3x" aria-hidden="true"></i> Metacritic</a> <a class="nav-item nav-link"
 					href="{{senscritique}}" target="_blank"><i class="fa fa-film fa-3x" aria-hidden="true"></i>
-					SensCritique</a> <a class="nav-item nav-link" href="{{imdb}}" target="_blank"><i
-					class="fa fa-imdb fa-3x" aria-hidden="true"></i></a> <a class="nav-item nav-link" href="{{wikiEN}}"
-					target="_blank"><i class="fa fa-wikipedia-w fa-3x" aria-hidden="true"></i> EN</a> <a
-					class="nav-item nav-link" href="{{wikiFR}}" target="_blank"><i
-					class="fa fa-wikipedia-w fa-3x" aria-hidden="true"></i> FR</a>
+					SensCritique</a> <a class="nav-item nav-link" href="{{wikiEN}}" target="_blank"><i
+					class="fa fa-wikipedia-w fa-3x" aria-hidden="true"></i> EN</a> <a class="nav-item nav-link"
+					href="{{wikiFR}}" target="_blank"><i class="fa fa-wikipedia-w fa-3x" aria-hidden="true"></i>
+					FR</a><button class="btn btn-outline-primary" (click)="openAll()">Open the 4 links</button> 
+					<a class="nav-item nav-link" href="{{imdb}}" target="_blank"><i class="fa fa-imdb fa-3x"
+					aria-hidden="true"></i></a>
 			</nav>
 			<div *ngIf="movie.videos.length > 0">
 				<label>Vid&eacute;o(s):</label>
