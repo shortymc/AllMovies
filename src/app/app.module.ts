@@ -49,7 +49,7 @@ import 'datatables.net';
         MovieSearchComponent,
         PersonSearchComponent
     ], 
-  providers: [MovieService, PersonService, DatePipe, DropboxService,
+  providers: [MovieService, PersonService, DatePipe, DropboxService, ConvertToHHmmPipe,
               { provide: LOCALE_ID, useValue: "fr"},
               {provide: MyNgbDate, useClass: MyNgbDate}],
   bootstrap: [AppComponent]
