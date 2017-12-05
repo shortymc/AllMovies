@@ -57,13 +57,38 @@ export class MoviesComponent implements OnInit {
                     }
                 },
                 { data: "title", title: "Titre", "orderable": false },
+                { data: "original_title", title: "Titre VO", "orderable": false },
                 { data: "date", title: "Date" },
                 { data: "note", title: "Note" },
                 { data: "language", title: "Langue" },
+                { data: null, title: "Dur&eacute;e" },
                 { data: null, title: "" },
                 { data: null, title: "" }
             ],
             "columnDefs": [
+                {
+                    "targets": -3,
+                    "orderable": true,
+                    "render": function(data, type, row) {
+                        if (data.time != undefined && data.time != null) {
+                            if (type === 'display') {
+                                try {
+                                    let minute = <number>data.time;
+                                    let result = "";
+                                    result += Math.floor(minute / 60) + " heures ";
+                                    result += minute % 60 + " minutes";
+                                    return result;
+                                } catch (e) {
+                                    console.error("error", e.message);
+                                }
+                            } else {
+                                return data.time;
+                            }
+                        } else {
+                            return "0";
+                        }
+                    }
+                },
                 {
                     "targets": -1,
                     "orderable": false,
@@ -76,7 +101,7 @@ export class MoviesComponent implements OnInit {
                     "data": null,
                     "defaultContent": "<button class='btn btn-outline-primary remove'>Remove <i class='fa fa-times' aria-hidden='true'></i></button>"
                 }
-                ],
+            ],
             "order": [[4, "desc"]],
             "lengthMenu": [[15, 30, 50, -1], [15, 30, 50, "Tous"]],
             "scrollY": "70vh",
