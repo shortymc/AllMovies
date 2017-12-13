@@ -83,6 +83,17 @@ export class DropboxService {
         }).catch((error: any) => console.error(error));
     }
 
+    removeMovieList(idToRemove: number[], fileName: string): void {
+        this.downloadFile(fileName).then(file => {
+            let movieList = <Movie[]>JSON.parse(file);
+            
+            if (idToRemove.length > 0) {
+                idToRemove.forEach((id: number) => movieList = movieList.filter((film: Movie) => film.id != id));
+                this.uploadFile(this.movieToBlob(movieList), fileName);
+            }
+        }).catch((error: any) => console.error(error));
+    }
+
     getAllMovies(fileName: string): Promise<Movie[]> {
         return this.downloadFile(fileName).then(file => {
             return <Movie[]>JSON.parse(file);

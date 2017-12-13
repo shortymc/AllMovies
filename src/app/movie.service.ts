@@ -264,8 +264,13 @@ export class MovieService {
         // property with the actual results
         let r = response.json();
         let cast;
+        let crew;
         if(r.credits !== null && r.credits !== undefined){
             cast = r.credits.cast.sort((a1: any, a2: any) => this.sortCast(a1, a2));
+            crew = r.credits.crew;
+        }
+        if(cast !== undefined) {
+            cast = cast.slice(0, 6);
         }
         let videos;
         if (r.videos !== null && r.videos !== undefined) {
@@ -282,7 +287,7 @@ export class MovieService {
         return new Movie(r.id, r.title, r.original_title === r.title ? '' : r.original_title, r.release_date,
             r.overview, r.poster_path === null ? this.empty : this.original + r.poster_path, r.poster_path === null ? this.empty : this.thumb + r.poster_path,
             r.adult, r.runtime, r.vote_average, r.budget, r.revenue, r.original_language,
-            videos, cast.slice(0, 6), r.credits.crew, reco, img, false);
+            videos, cast, crew, reco, img, false);
     }
    
    sortCast(a1: any, a2: any) {
