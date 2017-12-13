@@ -17,6 +17,7 @@ export class MoviesComponent implements OnInit {
     getMovies(): void {
         this.dropboxService.getAllMovies("ex.json").then(movies => {
             this.movies = movies;
+            this.checkAndFixData();
             this.initDatatable();
         });
     }
@@ -24,6 +25,25 @@ export class MoviesComponent implements OnInit {
     }
     ngOnInit(): void {
         this.getMovies();
+    }
+    checkAndFixData(): void {
+        let idIncomplete = new Set();
+        for(let movie of this.movies) {
+            if(movie.time == undefined && movie.time == null) {
+                idIncomplete.add(movie.id);
+            }
+        } 
+//        idIncomplete.forEach((id: number) => this.movies = this.movies.filter((film: Movie) => film.id != id));
+//        this.dropboxService.removeMovieList([...idIncomplete], "ex.json")
+//        let complete:Movie[] = [];
+//        for(let id of idIncomplete) {
+//            this.movieService.getMovie(id, false, false, false, false).then(data => complete.push(data));
+//        }
+//        console.log(complete);
+//        if(complete != undefined) {
+//            this.movies.concat(complete);
+//            this.dropboxService.addMovieList(complete, "ex.json");
+//        }
     }
     gotoDetail(id: number): void {
         this.router.navigate(['/detail', id]);
