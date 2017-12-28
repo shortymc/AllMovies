@@ -11,6 +11,9 @@
 		</div>
 		<div>
 			<label>Nom: </label>{{person.name | capitalizeWord}}
+			<div *ngIf="person.birthPlace">
+				<label>Lieu de naissance: </label>{{person.birthPlace | capitalizeWord}}
+			</div>
 			<div *ngIf="person.birthday">
 				<label>Naissance: </label>{{person.birthday | date:'dd MMMM yyyy' | capitalizeWord}}
 			</div>
