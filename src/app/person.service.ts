@@ -58,7 +58,7 @@ export class PersonService {
         let asNovel = crew.filter((r: any) => this.jobEquals(r.job, 'Novel')).slice(0, 6).map((r: any) => this.toMovie(r, this.thumb, this.empty, this.original));
         
         return new Person(r.id, r.name, r.birthday, r.deathday, r.profile_path === null ? this.empty : this.original + r.profile_path, 
-            r.profile_path === null ? this.empty : this.thumb + r.profile_path, r.biography, r.adult, 
+            r.profile_path === null ? this.empty : this.thumb + r.profile_path, r.biography, r.adult, r.place_of_birth,
             r.images.profiles.map((i: any) => i.file_path).filter((i: any) => i != r.profile_path), asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel);
     }
 
