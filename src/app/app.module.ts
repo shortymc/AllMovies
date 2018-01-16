@@ -5,21 +5,21 @@ import { FormsModule }   from '@angular/forms';
 import { HttpModule, JsonpModule }    from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { AppRoutingModule } from './app-routing.module'; 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MovieDetailComponent } from './movie-detail.component';
-import { PersonDetailComponent } from './person-detail.component';
-import { MoviesComponent } from './movies.component';
-import { DashboardComponent } from './dashboard.component';
-import { MyNgbDate } from "./my-ngb-date";
-import { ReleaseComponent } from './release.component';
+import { DashboardComponent }   from './component/dashboard/dashboard.component';
+import { MoviesComponent }      from './component/movies/movies.component';
+import { MovieDetailComponent }  from './component/movie-detail/movie-detail.component';
+import { PersonDetailComponent }  from './component/person-detail/person-detail.component';
+import { ReleaseComponent }  from './component/release/release.component';
+import { MovieSearchComponent } from './component/movie-search/movie-search.component';
+import { PersonSearchComponent } from './component/person-search/person-search.component';
+import { MyNgbDate } from './my-ngb-date';
 import { MovieService } from './movie.service';
 import { DropboxService } from './dropbox.service';
 import { PersonService } from './person.service';
-import { MovieSearchComponent } from './movie-search.component';
-import { PersonSearchComponent } from './person-search.component';
 import { substractDatePipe, ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './custom.pipe';
-import {RatingModule} from "ngx-rating";
+import {RatingModule} from 'ngx-rating';
 
 import * as $ from 'jquery';
 import 'datatables.net';
@@ -28,7 +28,7 @@ import 'datatables.net';
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
-	FormsModule,    
+    FormsModule,
     HttpModule,
     JsonpModule,
     CommonModule,
@@ -48,11 +48,11 @@ import 'datatables.net';
         PersonDetailComponent,
         MovieSearchComponent,
         PersonSearchComponent
-    ], 
+    ],
   providers: [MovieService, PersonService, DatePipe, DropboxService, ConvertToHHmmPipe,
-              { provide: LOCALE_ID, useValue: "fr"},
+              { provide: LOCALE_ID, useValue: 'fr'},
               {provide: MyNgbDate, useClass: MyNgbDate}],
   bootstrap: [AppComponent]
 })
-    
+
 export class AppModule { }

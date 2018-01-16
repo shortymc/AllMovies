@@ -1,11 +1,11 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { DashboardComponent }   from './dashboard.component';
-import { MoviesComponent }      from './movies.component';
-import { MovieDetailComponent }  from './movie-detail.component';
-import { PersonDetailComponent }  from './person-detail.component';
-import { ReleaseComponent }  from './release.component';
+import { DashboardComponent }   from './component/dashboard/dashboard.component';
+import { MoviesComponent }      from './component/movies/movies.component';
+import { MovieDetailComponent }  from './component/movie-detail/movie-detail.component';
+import { PersonDetailComponent }  from './component/person-detail/person-detail.component';
+import { ReleaseComponent }  from './component/release/release.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
