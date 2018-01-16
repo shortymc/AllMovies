@@ -12,8 +12,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
-import { MovieSearchService } from './movie-search.service';
-import { Movie } from './movie';
+import { MovieSearchService } from '../../movie-search.service';
+import { Movie } from '../../movie';
 
 @Component({
     selector: 'movie-search',
