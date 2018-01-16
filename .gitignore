@@ -2,6 +2,8 @@ node_modules/
 *.class
 *.js.map
 src/app/*.js
+src/app/*/*.js
+src/app/*/*/*.js
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
