@@ -29,7 +29,7 @@ export class MoviesComponent implements OnInit {
     checkAndFixData(): void {
         let idIncomplete = new Set();
         for (let movie of this.movies) {
-            if (movie.time == undefined && movie.time == null) {
+            if (movie.time === undefined && movie.time == null) {
                 idIncomplete.add(movie.id);
             }
         }
