@@ -38,7 +38,7 @@ export class PersonSearchComponent implements OnInit {
     ngOnInit(): void {
         this.persons = this.searchTerms
             .debounceTime(300)        // wait 300ms after each keystroke before considering the term
-            //.distinctUntilChanged()   // ignore if next search term is same as previous
+            // .distinctUntilChanged()   // ignore if next search term is same as previous
             .switchMap(term => term   // switch to new observable each time the term changes
                 // return the http search observable
                 ? this.personSearchService.search(term, this.adult)
