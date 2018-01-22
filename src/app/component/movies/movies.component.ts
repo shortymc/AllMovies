@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from '../../movie';
-import { MovieService } from '../../movie.service';
+import { Movie } from '../../model/movie';
+import { MovieService } from '../../service/movie.service';
 import { Router } from '@angular/router';
-import { DropboxService } from '../../dropbox.service';
+import { DropboxService } from '../../service/dropbox.service';
 
 @Component({
     selector: 'my-movies',

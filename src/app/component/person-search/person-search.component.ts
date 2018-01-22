@@ -12,8 +12,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
-import { PersonSearchService } from '../../person-search.service';
-import { Person } from '../../person';
+import { PersonSearchService } from '../../service/person-search.service';
+import { Person } from '../../model/person';
 
 @Component({
     selector: 'person-search',

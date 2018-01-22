@@ -3,9 +3,9 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location }                 from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 
-import { MovieService } from '../../movie.service';
-import { DropboxService } from '../../dropbox.service';
-import { Movie } from '../../movie';
+import { MovieService } from '../../service/movie.service';
+import { DropboxService } from '../../service/dropbox.service';
+import { Movie } from '../../model/movie';
 
 @Component({
     selector: 'movie-detail',

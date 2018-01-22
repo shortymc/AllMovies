@@ -15,10 +15,10 @@ import { ReleaseComponent }  from './component/release/release.component';
 import { MovieSearchComponent } from './component/movie-search/movie-search.component';
 import { PersonSearchComponent } from './component/person-search/person-search.component';
 import { MyNgbDate } from './my-ngb-date';
-import { MovieService } from './movie.service';
-import { DropboxService } from './dropbox.service';
-import { PersonService } from './person.service';
-import { substractDatePipe, ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './custom.pipe';
+import { MovieService } from './service/movie.service';
+import { DropboxService } from './service/dropbox.service';
+import { PersonService } from './service/person.service';
+import { SubstractDatePipe, ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './custom.pipe';
 import {RatingModule} from 'ngx-rating';
 
 import * as $ from 'jquery';
@@ -39,7 +39,7 @@ import 'datatables.net';
         AppComponent,
         DashboardComponent,
         ConvertToHHmmPipe,
-        substractDatePipe,
+        SubstractDatePipe,
         CapitalizeWordPipe,
         FilterCrewPipe,
         MovieDetailComponent,
