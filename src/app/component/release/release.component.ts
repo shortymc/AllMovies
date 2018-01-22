@@ -1,7 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { Movie } from '../../movie';
-import { MovieService } from '../../movie.service';
-import { DropboxService } from '../../dropbox.service';
+import { Movie } from '../../model/movie';
+import { MovieService } from '../../service/movie.service';
+import { DropboxService } from '../../service/dropbox.service';
 import { Router } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { MyNgbDate } from '../../my-ngb-date';
