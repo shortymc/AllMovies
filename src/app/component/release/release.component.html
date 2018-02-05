@@ -46,7 +46,7 @@
 							<div class="block">
 								<span *ngFor="let actor of selectedMovie.actors; let last=last;"> <a
 									[routerLink]="['/person', actor.id]" class="myTooltip"><span class="pointer">{{actor.name|
-											capitalizeWord}}</span><img class="profile" [src]="preview.concat(actor.profile_path)"
+											capitalizeWord}}</span><img class="profile" [src]="Url.IMAGE_URL_92.concat(actor.profile_path)"
 										*ngIf="actor.profile_path" /> </a> <span *ngIf="!last">/</span>
 								</span>
 							</div>
@@ -55,7 +55,7 @@
 							<div *ngIf="director.length > 0">
 								<label>R&eacute;alisateur: </label> <span *ngFor="let d of director; let last=last;">
 									<a [routerLink]="['/person', d.id]" class="myTooltip"><span class="pointer">{{d.name|
-											capitalizeWord}}</span> <img class="profile" [src]="preview.concat(d.profile_path)"
+											capitalizeWord}}</span> <img class="profile" [src]="Url.IMAGE_URL_92.concat(d.profile_path)"
 										*ngIf="d.profile_path" /> </a> <span *ngIf="!last">/</span>
 								</span>
 							</div>

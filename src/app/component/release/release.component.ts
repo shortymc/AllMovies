@@ -5,6 +5,7 @@ import { DropboxService } from '../../service/dropbox.service';
 import { Router } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { MyNgbDate } from '../../my-ngb-date';
+import { Url } from '../../constant/url';
 
 const now = new Date();
 
@@ -50,8 +51,7 @@ export class ReleaseComponent {
     date: { year: number, month: number };
     monday: Date;
     sunday: Date;
-    private preview = 'https://image.tmdb.org/t/p/w92';
-    private original = 'https://image.tmdb.org/t/p/original';
+    Url = Url;
     score: string;
     metacritic: string;
     senscritique: string;
@@ -82,7 +82,8 @@ export class ReleaseComponent {
         if (this.model !== null && this.model !== undefined) {
             this.monday = this.formatter.getPreviousMonday(this.model);
             this.sunday = this.formatter.getFollowingSunday(this.model);
-            this.movieService.getMoviesByReleaseDates(this.formatter.dateToString(this.monday, 'yyyy-MM-dd'), this.formatter.dateToString(this.sunday, 'yyyy-MM-dd'))
+            this.movieService.getMoviesByReleaseDates(this.formatter.dateToString(this.monday, 'yyyy-MM-dd'),
+                this.formatter.dateToString(this.sunday, 'yyyy-MM-dd'))
                 .then(movies => this.movies = movies);
         }
     }
@@ -113,11 +114,11 @@ export class ReleaseComponent {
             let title = this.selectedMovie.title;
             let original = this.selectedMovie.original_title;
             let searchTitle = original === '' ? title : original;
-            this.movieService.getLinkScore(searchTitle, 'metacritic').then(result => this.metacritic = result);
-            this.movieService.getLinkScore(searchTitle, 'scq').then(result => this.senscritique = result);
-            this.movieService.getLinkScore(searchTitle, 'imdb').then(result => this.imdb = result);
-            this.movieService.getLinkScore(searchTitle, 'wen').then(result => this.wikiEN = result);
-            this.movieService.getLinkScore(searchTitle, 'wikifr').then(result => this.wikiFR = result);
+            this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_METACRITIC).then(result => this.metacritic = result);
+            this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_SENSCRITIQUE).then(result => this.senscritique = result);
+            this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_IMDB).then(result => this.imdb = result);
+            this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_EN).then(result => this.wikiEN = result);
+            this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_FR).then(result => this.wikiFR = result);
         });
     };
     openAll(): void {
