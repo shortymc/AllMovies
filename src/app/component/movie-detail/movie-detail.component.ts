@@ -1,3 +1,4 @@
+import { Url } from './../../constant/url';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location }                 from '@angular/common';
@@ -14,15 +15,13 @@ import { Movie } from '../../model/movie';
 })
 export class MovieDetailComponent implements OnInit {
     movie: Movie;
-    private original = 'https://image.tmdb.org/t/p/original';
-    private thumb = 'https://image.tmdb.org/t/p/w154';
-    private preview = 'https://image.tmdb.org/t/p/w92';
     isImagesCollapsed = false;
     metacritic: string;
     senscritique: string;
     imdb: string;
     wikiEN: string;
     wikiFR: string;
+    Url = Url;
 
     constructor(
         private movieService: MovieService,
@@ -39,11 +38,11 @@ export class MovieDetailComponent implements OnInit {
                 let title = this.movie.title;
                 let original = this.movie.original_title;
                 let searchTitle = original === '' ? title : original;
-                this.movieService.getLinkScore(searchTitle, 'metacritic').then(result => this.metacritic = result);
-                this.movieService.getLinkScore(searchTitle, 'scq').then(result => this.senscritique = result);
-                this.movieService.getLinkScore(searchTitle, 'imdb').then(result => this.imdb = result);
-                this.movieService.getLinkScore(searchTitle, 'wen').then(result => this.wikiEN = result);
-                this.movieService.getLinkScore(searchTitle, 'wikifr').then(result => this.wikiFR = result);
+                this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_METACRITIC).then(result => this.metacritic = result);
+                this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_SENSCRITIQUE).then(result => this.senscritique = result);
+                this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_IMDB).then(result => this.imdb = result);
+                this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_EN).then(result => this.wikiEN = result);
+                this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_FR).then(result => this.wikiFR = result);
             });
     }
     goBack(): void {

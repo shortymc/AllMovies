@@ -29,7 +29,7 @@
 				<div class="block">
 					<span *ngFor="let actor of movie.actors; let last=last;"> <a
 						[routerLink]="['/person', actor.id]" class="myTooltip"><span class="pointer">{{actor.name|
-								capitalizeWord}}</span><img class="profile" [src]="preview.concat(actor.profile_path)"
+								capitalizeWord}}</span><img class="profile" [src]="Url.IMAGE_URL_92.concat(actor.profile_path)"
 							*ngIf="actor.profile_path" /> </a> <span *ngIf="!last">/</span>
 					</span>
 				</div>
@@ -39,7 +39,7 @@
 					<div *ngIf="director.length > 0">
 						<label>R&eacute;alisateur: </label> <span *ngFor="let d of director; let last=last;"> <a
 							[routerLink]="['/person', d.id]" class="myTooltip"><span class="pointer">{{d.name|
-									capitalizeWord}}</span> <img class="profile" [src]="preview.concat(d.profile_path)"
+									capitalizeWord}}</span> <img class="profile" [src]="Url.IMAGE_URL_92.concat(d.profile_path)"
 								*ngIf="d.profile_path" /> </a> <span *ngIf="!last">/</span>
 						</span>
 					</div>
@@ -48,7 +48,7 @@
 					<div *ngIf="producer.length > 0">
 						<label>Producteur: </label> <span *ngFor="let p of producer; let last=last;"> <a
 							[routerLink]="['/person', p.id]" class="myTooltip"><span class="pointer">{{p.name|
-									capitalizeWord}}</span> <img class="profile" [src]="preview.concat(p.profile_path)"
+									capitalizeWord}}</span> <img class="profile" [src]="Url.IMAGE_URL_92.concat(p.profile_path)"
 								*ngIf="p.profile_path" /></a> <span *ngIf="!last">/</span>
 						</span>
 					</div>
@@ -57,7 +57,7 @@
 					<div *ngIf="composer.length > 0">
 						<label>Compositeur: </label> <span *ngFor="let c of composer; let last=last;"> <a
 							[routerLink]="['/person', c.id]" class="myTooltip"><span class="pointer">{{c.name|
-									capitalizeWord}}</span> <img class="profile" [src]="preview.concat(c.profile_path)"
+									capitalizeWord}}</span> <img class="profile" [src]="Url.IMAGE_URL_92.concat(c.profile_path)"
 								*ngIf="c.profile_path" /></a> <span *ngIf="!last">/</span>
 						</span>
 					</div>
@@ -66,7 +66,7 @@
 					<div *ngIf="compositors.length > 0">
 						<label>Compositeur: </label> <span *ngFor="let c of compositors; let last=last;"> <a
 							[routerLink]="['/person', c.id]" class="myTooltip"><span class="pointer">{{c.name|
-									capitalizeWord}}</span> <img class="profile" [src]="preview.concat(c.profile_path)"
+									capitalizeWord}}</span> <img class="profile" [src]="Url.IMAGE_URL_92.concat(c.profile_path)"
 								*ngIf="c.profile_path" /></a> <span *ngIf="!last">/</span>
 						</span>
 					</div>
@@ -75,7 +75,7 @@
 					<div *ngIf="screenplay.length > 0">
 						<label>Sc&eacute;nariste: </label> <span *ngFor="let s of screenplay; let last=last;">
 							<a [routerLink]="['/person', s.id]" class="myTooltip"><span class="pointer">{{s.name|
-									capitalizeWord}}</span> <img class="profile" [src]="preview.concat(s.profile_path)"
+									capitalizeWord}}</span> <img class="profile" [src]="Url.IMAGE_URL_92.concat(s.profile_path)"
 								*ngIf="s.profile_path" /> </a> <span *ngIf="!last">/</span>
 						</span>
 					</div>
@@ -84,7 +84,7 @@
 					<div *ngIf="screenplay.length > 0">
 						<label>Sc&eacute;nariste: </label> <span *ngFor="let s of screenplay; let last=last;">
 							<a [routerLink]="['/person', s.id]" class="myTooltip"><span class="pointer">{{s.name|
-									capitalizeWord}}</span><img class="profile" [src]="preview.concat(s.profile_path)"
+									capitalizeWord}}</span><img class="profile" [src]="Url.IMAGE_URL_92.concat(s.profile_path)"
 								*ngIf="s.profile_path" /> </a> <span *ngIf="!last">/</span>
 						</span>
 					</div>
@@ -93,7 +93,7 @@
 					<div *ngIf="novel.length > 0">
 						<label>Romancier: </label> <span *ngFor="let n of novel; let last=last;"> <a
 							[routerLink]="['/person', n.id]" class="myTooltip"><span class="pointer">{{n.name|
-									capitalizeWord}}</span> <img class="profile" [src]="preview.concat(n.profile_path)"
+									capitalizeWord}}</span> <img class="profile" [src]="Url.IMAGE_URL_92.concat(n.profile_path)"
 								*ngIf="n.profile_path" /></a> <span *ngIf="!last">/</span>
 						</span>
 					</div>
@@ -102,7 +102,7 @@
 					<div *ngIf="cameo.length > 0">
 						<label>Cameo: </label> <span *ngFor="let c of cameo; let last=last;"> <a
 							[routerLink]="['/person', c.id]" class="myTooltip"><span class="pointer">{{c.name|
-									capitalizeWord}}</span><img class="profile" [src]="preview.concat(c.profile_path)"
+									capitalizeWord}}</span><img class="profile" [src]="Url.IMAGE_URL_92.concat(c.profile_path)"
 								*ngIf="c.profile_path" /></a> <span *ngIf="!last">/</span>
 						</span>
 					</div>
@@ -111,7 +111,7 @@
 					<div *ngIf="guest.length > 0">
 						<label>Guest-Star: </label> <span *ngFor="let g of guest; let last=last;"> <a
 							[routerLink]="['/person', g.id]" class="myTooltip"><span class="pointer">{{g.name|
-									capitalizeWord}}</span><img class="profile" [src]="preview.concat(g.profile_path)"
+									capitalizeWord}}</span><img class="profile" [src]="Url.IMAGE_URL_92.concat(g.profile_path)"
 								*ngIf="g.profile_path" /></a> <span *ngIf="!last">/</span>
 						</span>
 					</div>
@@ -120,7 +120,7 @@
 					<div *ngIf="songs.length > 0">
 						<label>Chansons: </label> <span *ngFor="let song of songs; let last=last;"> <a
 							[routerLink]="['/person', song.id]" class="myTooltip"><span class="pointer">{{song.name|
-									capitalizeWord}}</span> <img class="profile" [src]="preview.concat(song.profile_path)"
+									capitalizeWord}}</span> <img class="profile" [src]="Url.IMAGE_URL_92.concat(song.profile_path)"
 								*ngIf="song.profile_path" /></a> <span *ngIf="!last">/</span>
 						</span>
 					</div>
@@ -129,7 +129,7 @@
 					<div *ngIf="music.length > 0">
 						<label>Musique: </label> <span *ngFor="let m of music; let last=last;"> <a
 							[routerLink]="['/person', m.id]" class="myTooltip"><span class="pointer">{{m.name|
-									capitalizeWord}}</span> <img class="profile" [src]="preview.concat(m.profile_path)"
+									capitalizeWord}}</span> <img class="profile" [src]="Url.IMAGE_URL_92.concat(m.profile_path)"
 								*ngIf="m.profile_path" /></a> <span *ngIf="!last">/</span>
 						</span>
 					</div>
@@ -175,8 +175,8 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="reco">
-								<a *ngFor="let ima of movie.images;" class="affiche" href="{{original.concat(ima)}}"
-									target="_blank"> <img src="{{thumb.concat(ima)}}">
+								<a *ngFor="let ima of movie.images;" class="affiche" href="{{Url.IMAGE_URL_ORIGINAL.concat(ima)}}"
+									target="_blank"> <img src="{{Url.IMAGE_URL_154.concat(ima)}}">
 								</a>
 							</div>
 						</div>

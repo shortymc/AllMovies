@@ -1,39 +1,24 @@
-import {Injectable} from '@angular/core';
-import {Headers, Http, Response, Jsonp} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Headers, Http, Response, Jsonp } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import {Movie} from '../model/movie';
+import { Movie } from '../model/movie';
+import { Url } from '../constant/url';
 
 @Injectable()
 export class MovieService {
   private moviesUrl = 'api/movies';  // URL to web api
-  private headers = new Headers({'Content-Type': 'application/json'});
-  //    private headers = new Headers({ 'Content-Type': 'text/html; charset=UTF-8' }, {'Access-Control-Allow-Origin': '*'}, {'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT, OPTIONS, HEAD'});
-  private api_key = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
-  private movieUrl = 'https://api.themoviedb.org/3/movie';
-  private langue = '&language=fr';
-  private append = '&append_to_response=';
-  private videos = 'videos';
-  private credits = 'credits';
-  private images = 'images';
-  private recommendations = 'recommendations';
-  private original = 'https://image.tmdb.org/t/p/original';
-  private thumb = 'https://image.tmdb.org/t/p/w154';
-  private small = 'https://image.tmdb.org/t/p/w92';
-  private empty = './app/img/empty.jpg';
-  private mostPopular = 'https://api.themoviedb.org/3/discover/movie?api_key=81c50d6514fbd578f0c796f8f6ecdafd&sort_by=popularity.desc';
-  private discoverUrl = 'https://api.themoviedb.org/3/discover/movie?api_key=81c50d6514fbd578f0c796f8f6ecdafd&language=fr&region=FR';
-  private release_date_gte = '&release_date.gte=';
-  private release_date_lte = '&release_date.lte=';
-  private release_type = '&with_release_type=2|3';
+  private headers = new Headers({ 'Content-Type': 'application/json' });
+  //    private headers = new Headers({ 'Content-Type': 'text/html; charset=UTF-8' },
+  // {'Access-Control-Allow-Origin': '*'}, {'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT, OPTIONS, HEAD'});
   private score: string;
   private metaUrl: string;
 
-  constructor(private http: Http, private jsonp: Jsonp) {}
+  constructor(private http: Http, private jsonp: Jsonp) { }
 
   getMovies(): Promise<Movie[]> {
-    return this.http.get(this.mostPopular)
+    return this.http.get(Url.MOST_POPULAR_URL)
       .toPromise()
       .then(response => this.mapMoviesDT(response))
       .catch(this.handleError);
@@ -45,7 +30,7 @@ export class MovieService {
   }
 
   getLinkScore(title: string, site: string): Promise<string> {
-    let url = 'https://api.duckduckgo.com/?q=!' + site + '+';
+    let url = Url.DUCKDUCKGO_URL + site + '+';
     //        url += title.split(' ').join('+') + 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
     //        url += title.split(' ').join('+') + '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
     url += this.encodeQueryUrl(title) + '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
@@ -63,26 +48,27 @@ export class MovieService {
   }
 
   encodeQueryUrl(query: string): string {
-    return encodeURIComponent(query).replace(/[!'()*]/g, function(c) {
+    return encodeURIComponent(query).replace(/[!'()*]/g, function (c) {
       return '%' + c.charCodeAt(0).toString(16);
     });
   }
 
   getMeta(title: string): Promise<void> {
-    let url = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyDEM7hrrBdfYC8ygSW85jbSOiqiB7z309s&cx=012455488159958509456:n8jpj1vlffy&q='
+    let url =
+      'https://www.googleapis.com/customsearch/v1?key=AIzaSyDEM7hrrBdfYC8ygSW85jbSOiqiB7z309s&cx=012455488159958509456:n8jpj1vlffy&q='
     //        url += title.split(' ').join('+') + 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
     url += title.split(' ').join('+') + 'siteSearch=metacritic.com';
     console.log(url);
-    return this.http.get(url, {headers: this.headers}).toPromise()
+    return this.http.get(url, { headers: this.headers }).toPromise()
       .then((data: any) => {
         console.log(data.json());
         if (data.json().items !== null && data.json().items !== undefined) {
           return data.json().items[0].formattedUrl;
         } else {
-          return; ;
+          return;;
         }
       }).then((metaUrl: any) => {
-        this.http.get(metaUrl, {headers: this.headers})
+        this.http.get(metaUrl, { headers: this.headers })
           .map((metaUrl: any) => {
             let htmlR = $.parseHTML(metaUrl._body);
             this.score = $(htmlR).find('.metascore_w.larger.movie.positive')[0].innerText;
@@ -163,22 +149,23 @@ export class MovieService {
   }
 
   getMovie(id: number, video: boolean, credit: boolean, reco: boolean, image: boolean): Promise<Movie> {
-    //        const url = `${this.movieUrl}/${id}?${this.api_key}${this.langue}${this.append}${this.videos},${this.credits},${this.recommendations},${this.images}`;
-    let url = `${this.movieUrl}/${id}?${this.api_key}`;
+    //        const url = `${Url.MOVIE_URl}/${id}?${Url.API_KEY}${this.langue}${Url.APPEND}${Url.APPEND_VIDEOS},
+    // ${Url.APPEND_CREDITS},${Url.APPEND_RECOMMENDATIONS},${Url.APPEND_IMAGES}`;
+    let url = `${Url.MOVIE_URl}/${id}?${Url.API_KEY}`;
     if (video || credit || reco || image) {
-      url += `${this.append}`;
+      url += `${Url.APPEND}`;
       let parametres = [];
       if (video) {
-        parametres.push(`${this.videos}`);
+        parametres.push(`${Url.APPEND_VIDEOS}`);
       }
       if (credit) {
-        parametres.push(`${this.credits}`);
+        parametres.push(`${Url.APPEND_CREDITS}`);
       }
       if (reco) {
-        parametres.push(`${this.recommendations}`);
+        parametres.push(`${Url.APPEND_RECOMMENDATIONS}`);
       }
       if (image) {
-        parametres.push(`${this.images}`);
+        parametres.push(`${Url.APPEND_IMAGES}`);
       }
       url += parametres.join(',');
     }
@@ -189,7 +176,7 @@ export class MovieService {
   }
 
   getMoviesByReleaseDates(debut: string, fin: string): Promise<Movie[]> {
-    const url = `${this.discoverUrl}${this.release_date_gte}${debut}${this.release_date_lte}${fin}${this.release_type}`;
+    const url = `${Url.DISCOVER_URL}${Url.RELEASE_DATE_GTE_URL}${debut}${Url.RELEASE_DATE_LTE_URL}${fin}${Url.RELEASE_TYPE_URL}`;
     return this.http.get(url)
       .toPromise()
       .then(response => this.mapMovies(response))
@@ -199,21 +186,21 @@ export class MovieService {
   update(movie: Movie): Promise<Movie> {
     const url = `${this.moviesUrl}/${movie.id}`;
     return this.http
-      .put(url, JSON.stringify(movie), {headers: this.headers})
+      .put(url, JSON.stringify(movie), { headers: this.headers })
       .toPromise()
       .then(() => movie)
       .catch(this.handleError);
   }
   create(title: string): Promise<Movie> {
     return this.http
-      .post(this.moviesUrl, JSON.stringify({title: title}), {headers: this.headers})
+      .post(this.moviesUrl, JSON.stringify({ title: title }), { headers: this.headers })
       .toPromise()
       .then(res => res.json().data as Movie)
       .catch(this.handleError);
   }
   delete(id: number): Promise<void> {
     const url = `${this.moviesUrl}/${id}`;
-    return this.http.delete(url, {headers: this.headers})
+    return this.http.delete(url, { headers: this.headers })
       .toPromise()
       .then(() => null)
       .catch(this.handleError);
@@ -225,8 +212,8 @@ export class MovieService {
       title: r.title,
       date: r.release_date,
       note: r.vote_average,
-      thumbnail: this.small + r.poster_path,
-      affiche: this.original + r.poster_path,
+      thumbnail: Url.IMAGE_URL_92 + r.poster_path,
+      affiche: Url.IMAGE_URL_ORIGINAL + r.poster_path,
       synopsis: r.overview,
       time: r.runtime
     }));
@@ -239,7 +226,7 @@ export class MovieService {
       date: r.release_date,
       note: r.vote_average,
       language: r.original_language,
-      thumbnail: r.poster_path === null ? this.empty : this.small + r.poster_path
+      thumbnail: r.poster_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_92 + r.poster_path
     }));
   }
 
@@ -248,7 +235,7 @@ export class MovieService {
       id: r.id,
       title: r.title,
       date: r.release_date,
-      thumbnail: this.small + r.poster_path,
+      thumbnail: Url.IMAGE_URL_92 + r.poster_path,
       original_title: r.original_title,
       adult: r.adult,
       time: r.runtime,
@@ -284,8 +271,9 @@ export class MovieService {
     if (r.images !== null && r.images !== undefined) {
       img = r.images.backdrops.map((i: any) => i.file_path);
     }
-    return new Movie(r.id, r.title, r.original_title === r.title ? '' : r.original_title, r.release_date,
-      r.overview, r.poster_path === null ? this.empty : this.original + r.poster_path, r.poster_path === null ? this.empty : this.thumb + r.poster_path,
+    return new Movie(r.id, r.title, r.original_title === r.title ? '' : r.original_title, r.release_date, r.overview,
+      r.poster_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + r.poster_path,
+      r.poster_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + r.poster_path,
       r.adult, r.runtime, r.vote_average, r.budget, r.revenue, r.original_language,
       videos, cast, crew, reco, img, false);
   }
