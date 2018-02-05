@@ -4,6 +4,7 @@ import { Location }                 from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import { PersonService } from '../../service/person.service';
 import { Person } from '../../model/person';
+import { Url } from '../../constant/url';
 
 @Component({
     selector: 'person-detail',
@@ -13,9 +14,7 @@ import { Person } from '../../model/person';
 export class PersonDetailComponent implements OnInit {
     person: Person;
     isImagesCollapsed = false;
-    private original = 'https://image.tmdb.org/t/p/original';
-    private thumb = 'https://image.tmdb.org/t/p/w154';
-    private preview = 'https://image.tmdb.org/t/p/w92';
+    Url = Url;
 
     constructor(
         private personService: PersonService,
