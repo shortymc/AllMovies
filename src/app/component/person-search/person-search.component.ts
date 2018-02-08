@@ -46,7 +46,7 @@ export class PersonSearchComponent implements OnInit {
                 : Observable.of<Person[]>([]))
             .catch(error => {
                 // TODO: add real error handling
-                console.log(error);
+                console.error(error);
                 return Observable.of<Person[]>([]);
             });
     }

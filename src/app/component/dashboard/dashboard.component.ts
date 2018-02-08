@@ -9,8 +9,8 @@ import { MovieService } from '../../service/movie.service';
 })
 export class DashboardComponent implements OnInit {
   movies: Movie[] = [];
-  showMovie: boolean = false;
-  showPerson: boolean = false;
+  showMovie = false;
+  showPerson = false;
 
   constructor(private movieService: MovieService) { }
 
