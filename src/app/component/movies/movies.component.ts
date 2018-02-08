@@ -3,6 +3,8 @@ import { Movie } from '../../model/movie';
 import { MovieService } from '../../service/movie.service';
 import { Router } from '@angular/router';
 import { DropboxService } from '../../service/dropbox.service';
+import { Subject } from 'rxjs/Subject';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
     selector: 'my-movies',
@@ -27,23 +29,25 @@ export class MoviesComponent implements OnInit {
         this.getMovies();
     }
     checkAndFixData(): void {
-        let idIncomplete = new Set();
+        let incomplete: number[] = []
+        let movieList = this.movies;
         for (let movie of this.movies) {
             if (movie.time === undefined && movie.time == null) {
-                idIncomplete.add(movie.id);
+                incomplete.push(movie.id);
             }
         }
-        //        idIncomplete.forEach((id: number) => this.movies = this.movies.filter((film: Movie) => film.id != id));
-        //        this.dropboxService.removeMovieList([...idIncomplete], 'ex.json')
-        //        let complete:Movie[] = [];
-        //        for(let id of idIncomplete) {
-        //            this.movieService.getMovie(id, false, false, false, false).then(data => complete.push(data));
-        //        }
-        //        console.log(complete);
-        //        if(complete != undefined) {
-        //            this.movies.concat(complete);
-        //            this.dropboxService.addMovieList(complete, 'ex.json');
-        //        }
+        incomplete = incomplete.slice(0, 20);
+        let obs = incomplete.map((id: number) => {
+            return this.movieService.getMovie(id, false, false, false, false);
+        })
+
+        forkJoin(obs).subscribe(
+            data => {
+                console.log(data);
+                this.dropboxService.replaceMovies(data, 'ex.json');
+            },
+            err => console.error(err)
+        );
     }
     gotoDetail(id: number): void {
         this.router.navigate(['/detail', id]);
