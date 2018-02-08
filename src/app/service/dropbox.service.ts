@@ -1,17 +1,15 @@
-import { Injectable }    from '@angular/core';
+import { Injectable } from '@angular/core';
 import Dropbox = require('dropbox');
 import 'rxjs/add/operator/toPromise';
-
-var token = 'G-_ZeiEAvB0AAAAAAAANQd4IMHRr7Y9aTvAiivg-8LImbDKmo9pdu95_SIioW3lR';
-var folder = '/MyMovies/';
 import { Movie } from '../model/movie';
+import { Url } from '../constant/url';
 
 @Injectable()
 export class DropboxService {
     constructor() { }
 
     getDbx(): any {
-        return new Dropbox({ accessToken: token });
+        return new Dropbox({ accessToken: Url.DROPBOX_TOKEN });
     }
 
     listFiles(): void {
@@ -21,7 +19,7 @@ export class DropboxService {
     }
 
     getPath(fileName: string): string {
-        return folder + fileName;
+        return Url.DROPBOX_FOLDER + fileName;
     }
 
     uploadFile(fichier: any, fileName: string): void {
@@ -52,7 +50,7 @@ export class DropboxService {
     addMovie(movie: Movie, fileName: string): void {
         this.downloadFile(fileName).then(file => {
             let movieList = <Movie[]>JSON.parse(file);
-            let found = movieList.find(function(film) {
+            let found = movieList.find(function (film) {
                 return film.id === movie.id;
             });
             if (!found) {
@@ -67,7 +65,7 @@ export class DropboxService {
         this.downloadFile(fileName).then(file => {
             let movieList = <Movie[]>JSON.parse(file);
             let found = moviesToAdd.filter((add: Movie) => !movieList.map((movie: Movie) => movie.id).includes(add.id));
-            
+
             if (found.length > 0) {
                 found.forEach((movie: Movie) => movieList.push(movie));
                 movieList.sort(this.compareMovie);
@@ -79,16 +77,16 @@ export class DropboxService {
     removeMovie(id: number, fileName: string): void {
         this.downloadFile(fileName).then(file => {
             let movieList = <Movie[]>JSON.parse(file);
-            this.uploadFile(this.movieToBlob(movieList.filter((film: Movie) => film.id != id)), fileName);
+            this.uploadFile(this.movieToBlob(movieList.filter((film: Movie) => film.id !== id)), fileName);
         }).catch((error: any) => console.error(error));
     }
 
     removeMovieList(idToRemove: number[], fileName: string): void {
         this.downloadFile(fileName).then(file => {
             let movieList = <Movie[]>JSON.parse(file);
-            
+
             if (idToRemove.length > 0) {
-                idToRemove.forEach((id: number) => movieList = movieList.filter((film: Movie) => film.id != id));
+                idToRemove.forEach((id: number) => movieList = movieList.filter((film: Movie) => film.id !== id));
                 this.uploadFile(this.movieToBlob(movieList), fileName);
             }
         }).catch((error: any) => console.error(error));
@@ -113,10 +111,12 @@ export class DropboxService {
     }
 
     compareMovie(a: Movie, b: Movie): number {
-        if (a.id < b.id)
+        if (a.id < b.id) {
             return -1;
-        if (a.id > b.id)
+        }
+        if (a.id > b.id) {
             return 1;
+        }
         return 0;
     }
 }
