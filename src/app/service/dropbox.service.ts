@@ -95,9 +95,15 @@ export class DropboxService {
     getAllMovies(fileName: string): Promise<Movie[]> {
         return this.downloadFile(fileName).then(file => {
             return <Movie[]>JSON.parse(file);
-        }).catch((error: any) => console.error(error));
+        }).catch((error: any) => {
+            console.error(error);
+            return new Promise((resolve, reject) => { });
+        });
     }
-
+    /**
+     * @param  {Movie[]} movies
+     * @returns any
+     */
     movieToBlob(movies: Movie[]): any {
         let theJSON = JSON.stringify(movies, this.removeFields);
         return new Blob([theJSON], { type: 'text/json' });
@@ -108,6 +114,23 @@ export class DropboxService {
             return undefined;
         }
         return value;
+    }
+
+    /**
+     * Replace the movies contains in the given file by the given movies.
+     * @param  {Movie[]} moviesToReplace
+     * @param  {string} fileName
+     * @returns void
+     */
+    replaceMovies(moviesToReplace: Movie[], fileName: string): void {
+        this.downloadFile(fileName).then(file => {
+            let movieList = <Movie[]>JSON.parse(file);
+            movieList = movieList.filter((m: Movie) => !moviesToReplace.map((movie: Movie) => movie.id).includes(m.id));
+
+            moviesToReplace.forEach((movie: Movie) => movieList.push(movie));
+            movieList.sort(this.compareMovie);
+            this.uploadFile(this.movieToBlob(movieList), fileName);
+        }).catch((error: any) => console.error(error));
     }
 
     compareMovie(a: Movie, b: Movie): number {
