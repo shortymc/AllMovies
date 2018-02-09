@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response, Jsonp } from '@angular/http';
-
-import 'rxjs/add/operator/toPromise';
-
 import { Movie } from '../model/movie';
 import { Url } from '../constant/url';
 
