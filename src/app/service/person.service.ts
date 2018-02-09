@@ -1,7 +1,7 @@
 import { Url } from './../constant/url';
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/toPromise';
 
