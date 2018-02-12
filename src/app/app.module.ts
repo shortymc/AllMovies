@@ -20,10 +20,8 @@ import { DropboxService } from './service/dropbox.service';
 import { PersonService } from './service/person.service';
 import { SubstractDatePipe, ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './custom.pipe';
 import { RatingModule } from 'ngx-rating';
-
-import * as $ from 'jquery';
-import 'datatables.net';
 import './shared/rxjs-operators';
+import 'bootstrap';
 
 @NgModule({
   imports: [
@@ -51,7 +49,7 @@ import './shared/rxjs-operators';
     PersonSearchComponent
   ],
   providers: [MovieService, PersonService, DatePipe, DropboxService, ConvertToHHmmPipe,
-    { provide: LOCALE_ID, useValue: 'fr' },
+    { provide: LOCALE_ID, useValue: 'en' },
     { provide: MyNgbDate, useClass: MyNgbDate }],
   bootstrap: [AppComponent]
 })

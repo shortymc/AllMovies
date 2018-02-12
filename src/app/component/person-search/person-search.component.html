@@ -4,7 +4,7 @@
 		<div class="search-box">
 			<i class="fa fa-search fa-2x" aria-hidden="true"></i>
 			<input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="Rechercher des personnes" (click)="showPerson = true" /> <a class="icon pointer"
-				(click)="showPerson = !showPerson; searchBox.value=''"> <img src="./app/img/exit.png" />
+				(click)="showPerson = !showPerson; searchBox.value=''"> <img src="./assets/exit.png" />
 			</a>
 		</div>
 		<label ngbButtonLabel class="adultBox"> <input type="checkbox" ngbButton [(ngModel)]="adult" (click)="search(searchBox.value)">Adult
