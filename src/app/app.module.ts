@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
@@ -14,11 +13,11 @@ import { PersonDetailComponent } from './component/person-detail/person-detail.c
 import { ReleaseComponent } from './component/release/release.component';
 import { MovieSearchComponent } from './component/movie-search/movie-search.component';
 import { PersonSearchComponent } from './component/person-search/person-search.component';
-import { MyNgbDate } from './my-ngb-date';
+import { MyNgbDate } from './Shared/my-ngb-date';
 import { MovieService } from './service/movie.service';
 import { DropboxService } from './service/dropbox.service';
 import { PersonService } from './service/person.service';
-import { SubstractDatePipe, ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './custom.pipe';
+import { SubstractDatePipe, ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './Shared/custom.pipe';
 import { RatingModule } from 'ngx-rating';
 import './shared/rxjs-operators';
 import 'bootstrap';
