@@ -4,7 +4,7 @@ import { MovieService } from '../../service/movie.service';
 import { DropboxService } from '../../service/dropbox.service';
 import { Router } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { MyNgbDate } from '../../my-ngb-date';
+import { MyNgbDate } from '../../Shared/my-ngb-date';
 import { Url } from '../../constant/url';
 
 const now = new Date();
