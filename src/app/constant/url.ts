@@ -3,7 +3,7 @@ export class Url {
     static readonly IMAGE_URL_ORIGINAL = 'https://image.tmdb.org/t/p/original';
     static readonly IMAGE_URL_154 = 'https://image.tmdb.org/t/p/w154';
     static readonly IMAGE_URL_92 = 'https://image.tmdb.org/t/p/w92';
-    static readonly IMAGE_URL_EMPTY = './app/img/empty.jpg';
+    static readonly IMAGE_URL_EMPTY = './assets/empty.jpg';
 
     // DUCK DUCK GO
     static readonly SEARCH_BANG_METACRITIC = 'metacritic';
@@ -11,7 +11,7 @@ export class Url {
     static readonly SEARCH_BANG_IMDB = 'imdb';
     static readonly SEARCH_BANG_WIKI_EN = 'wen';
     static readonly SEARCH_BANG_WIKI_FR = 'wikifr';
-    static readonly DUCKDUCKGO_URL = 'https://api.duckduckgo.com/?q=!'
+    static readonly DUCKDUCKGO_URL = 'https://api.duckduckgo.com/?q=!';
 
     // API MovieDB request
     static readonly API_KEY = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
