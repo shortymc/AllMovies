@@ -50,7 +50,7 @@ export class MoviesComponent implements OnInit {
     );
   }
   gotoDetail(id: number): void {
-    this.router.navigate(['/detail', id]);
+    window.open('/detail/' + id);
   }
   //    add(name: string): void {
   //        name = name.trim();
