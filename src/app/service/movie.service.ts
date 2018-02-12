@@ -66,8 +66,8 @@ export class MovieService {
         }
       }).then((metaUrl: any) => {
         this.http.get(metaUrl, { headers: this.headers })
-          .map((metaUrl: any) => {
-            let htmlR = $.parseHTML(metaUrl._body);
+          .map((res: any) => {
+            const htmlR = $.parseHTML(res._body);
             this.score = $(htmlR).find('.metascore_w.larger.movie.positive')[0].innerText;
             console.log(this.score);
           });
@@ -151,7 +151,7 @@ export class MovieService {
     let url = `${Url.MOVIE_URl}/${id}?${Url.API_KEY}`;
     if (video || credit || reco || image) {
       url += `${Url.APPEND}`;
-      let parametres = [];
+      const parametres = [];
       if (video) {
         parametres.push(`${Url.APPEND_VIDEOS}`);
       }
@@ -246,7 +246,7 @@ export class MovieService {
   mapMovie(response: Response): Movie {
     // The response of the API has a results
     // property with the actual results
-    let r = response.json();
+    const r = response.json();
     let cast;
     let crew;
     if (r.credits !== null && r.credits !== undefined) {

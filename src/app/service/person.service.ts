@@ -32,20 +32,21 @@ export class PersonService {
   }
 
   mapPerson(response: any[]): Person {
-    let resp = response[0];
-    let crew = response[1].crew;
+    const resp = response[0];
+    const crew = response[1].crew;
 
-    let asActor = response[1].cast.slice(0, 6).map((r: any) =>
+    const asActor = response[1].cast.slice(0, 6).map((r: any) =>
       this.toMovie(r, Url.IMAGE_URL_154, Url.IMAGE_URL_EMPTY, Url.IMAGE_URL_ORIGINAL));
-    let asDirector = crew.filter((r: any) => this.jobEquals(r.job, 'Director')).slice(0, 6)
+    const asDirector = crew.filter((r: any) => this.jobEquals(r.job, 'Director')).slice(0, 6)
       .map((r: any) => this.toMovie(r, Url.IMAGE_URL_154, Url.IMAGE_URL_EMPTY, Url.IMAGE_URL_ORIGINAL));
-    let asProducer = crew.filter((r: any) => this.jobEquals(r.job, 'Producer')).slice(0, 6)
+    const asProducer = crew.filter((r: any) => this.jobEquals(r.job, 'Producer')).slice(0, 6)
       .map((r: any) => this.toMovie(r, Url.IMAGE_URL_154, Url.IMAGE_URL_EMPTY, Url.IMAGE_URL_ORIGINAL));
-    let asCompositors = crew.filter((r: any) => (this.jobEquals(r.job, 'Compositors') || this.jobEquals(r.job, 'Original Music Composer')))
+    const asCompositors = crew
+      .filter((r: any) => (this.jobEquals(r.job, 'Compositors') || this.jobEquals(r.job, 'Original Music Composer')))
       .slice(0, 6).map((r: any) => this.toMovie(r, Url.IMAGE_URL_154, Url.IMAGE_URL_EMPTY, Url.IMAGE_URL_ORIGINAL));
-    let asScreenplay = crew.filter((r: any) => (this.jobEquals(r.job, 'Screenplay') || this.jobEquals(r.job, 'Writer'))).slice(0, 6)
+    const asScreenplay = crew.filter((r: any) => (this.jobEquals(r.job, 'Screenplay') || this.jobEquals(r.job, 'Writer'))).slice(0, 6)
       .map((r: any) => this.toMovie(r, Url.IMAGE_URL_154, Url.IMAGE_URL_EMPTY, Url.IMAGE_URL_ORIGINAL));
-    let asNovel = crew.filter((r: any) => this.jobEquals(r.job, 'Novel')).slice(0, 6)
+    const asNovel = crew.filter((r: any) => this.jobEquals(r.job, 'Novel')).slice(0, 6)
       .map((r: any) => this.toMovie(r, Url.IMAGE_URL_154, Url.IMAGE_URL_EMPTY, Url.IMAGE_URL_ORIGINAL));
 
     return new Person(resp.id, resp.name, resp.birthday, resp.deathday,
@@ -65,5 +66,5 @@ export class PersonService {
       synopsis: r.overview, affiche: (r.poster_path === null ? empty : original + r.poster_path),
       thumbnail: (r.poster_path === null ? empty : thumb + r.poster_path), adult: false, note: r.vote_average
     });
-  };
+  }
 }
