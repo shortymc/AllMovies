@@ -1,0 +1,223 @@
+@import "~bootstrap/scss/bootstrap";
+@import "~datatables.net-buttons-dt/css/buttons.dataTables.min.css";
+@import "~datatables.net-select-bs/css/select.bootstrap.css";
+@import "~datatables.net-dt/css/jquery.dataTables.css";
+// "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+// "../node_modules/bootstrap/dist/css/bootstrap-theme.min.css",
+// "../node_modules/datatables.net-bs/css/dataTables.bootstrap.css",
+// "../node_modules/datatables.net-select-bs/css/select.bootstrap.css"
+@import "./font-awesome.min";
+
+body {
+	font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif !important;
+}
+
+h1 {
+	color: #369;
+	font-family: Arial, Helvetica, sans-serif !important;
+}
+
+h1, h2, h3, h4 {
+	box-sizing: border-box !important;
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+	margin-bottom: 8px !important;
+	margin-top: 0px !important;
+	position: relative !important;
+	text-align: center !important;
+}
+
+label {
+	display: inline-block;
+	padding-right: 5px !important;
+	margin: .5em 0 !important;
+	color: #007bff;
+	font-weight: bold;
+}
+
+.icon img {
+	height: 30px;
+	background-color: rgb(246, 246, 246);
+	vertical-align: middle;
+	padding-bottom: 4px;
+}
+
+.card-deck {
+	display: inline-flex !important;
+	flex-wrap: nowrap !important;
+}
+
+.align-center {
+	text-align: center;
+}
+
+button {
+	cursor: pointer;
+	font-family: Arial;
+	background-color: #eee;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 4px;
+}
+
+button:hover {
+	background-color: #007bff !important;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.pointer:hover {
+	text-decoration: underline !important;
+}
+
+.small {
+	color: #8d8d8d;
+	font-size: 12px;
+	top: calc(50% - 17px);
+	position: relative;
+}
+
+.block {
+	display: inline-block;
+}
+
+.item-result {
+	top: calc(50% - 9px);
+	position: relative;
+}
+
+.search-result {
+	border: 1px solid gray;
+	width: calc(70% - 18px);
+	padding: 5px;
+	background-color: white;
+	cursor: pointer;
+	border-radius: 8px;
+	cursor: pointer;
+	padding: 5px 10px 5px 10px;
+	transition: background-color .3s, color .3s;
+	margin-top: 1px;
+	margin-left: calc(10% + 10px);
+}
+
+.search-result:hover {
+	background-color: #0ad06f;
+	color: #fff;
+}
+
+.search-box, .input-box {
+	background-color: rgb(246, 246, 246);
+	border-radius: 8px;
+	border: 0;
+	color: #484848;
+	font-size: 16px;
+	height: 100%;
+	outline: 0;
+	padding: 8px 5px 8px 15px;
+	position: relative;
+	width: 70%;
+}
+
+.search-box {
+	margin-left: 10%;
+}
+
+input {
+	width: calc(80% - 8px) !important;
+}
+
+.affiche {
+	float: left;
+	display: inline-block;
+	max-width: 90%;
+	margin: 0px 30px 0px 10px;
+	-webkit-box-shadow: 1px 1px 20px #000000;
+	-moz-box-shadow: 1px 1px 20px #000000;
+	box-shadow: 1px 1px 20px #000000;
+	border: 3px solid #000;
+	position: relative;
+	vertical-align: bottom;
+}
+
+.affiche img {
+	border: 0;
+	vertical-align: top;
+}
+
+.affiche:hover::after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #000;
+	background-color: rgba(0, 0, 0, .5);
+}
+
+.reco a {
+	margin: 20px 8px 10px 8px;
+	float: none;
+}
+
+.profile {
+	display: none;
+	position: absolute;
+	z-index: 99;
+	margin: 25px 0px 0px -92px;
+	border: 3px solid #000;
+	-webkit-box-shadow: 1px 1px 20px #000000;
+	-moz-box-shadow: 1px 1px 20px #000000;
+	box-shadow: 1px 1px 20px #000000;
+}
+
+.myTooltip:hover .profile {
+	display: inline-block;
+}
+
+.borderStyle>a {
+	border: 1px solid gray;
+	border-radius: 8px;
+	margin-bottom: 6px !important;
+}
+
+.borderStyle>a:hover {
+	background-color: #007bff;
+	color: #fff;
+}
+
+table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover,
+	table.dataTable.order-column.hover tbody tr:hover>.sorting_1 {
+	background-color: #cfcfcf !important;
+}
+
+.dataTables_filter {
+	float: left !important;
+	margin-left: 100px !important;
+}
+
+.dataTables_filter>label {
+	display: flex;
+}
+
+.myFilter {
+	width: 100%;
+	padding: 3px;
+	box-sizing: border-box;
+}
+
+.posterDT {
+	width: 10%;
+}
+
+.posterDT:hover {
+	width: 50%;
+}
+
+.display-none {
+	display: none !important;
+}
+.adultBox  {
+	display: none !important;
+}

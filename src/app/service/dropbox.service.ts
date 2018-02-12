@@ -37,7 +37,7 @@ export class DropboxService {
             .then((response: any) => {
                 return new Promise((resolve, reject) => {
                     const fileReader = new FileReader()
-                    fileReader.onload = (event) => resolve(fileReader.result as string)
+                    fileReader.onload = (event) => resolve(fileReader.result as string[])
                     fileReader.onabort = (event) => reject(event)
                     fileReader.onerror = (event) => reject(event)
                     fileReader.readAsText(response.fileBlob)
