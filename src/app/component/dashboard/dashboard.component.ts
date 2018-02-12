@@ -3,7 +3,7 @@ import { Movie } from '../../model/movie';
 import { MovieService } from '../../service/movie.service';
 
 @Component({
-  selector: 'my-dashboard',
+  selector: 'app-dashboard',
   styleUrls: ['./dashboard.component.css'],
   templateUrl: './dashboard.component.html'
 })

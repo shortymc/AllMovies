@@ -6,7 +6,7 @@ import { Person } from '../../model/person';
 import { Url } from '../../constant/url';
 
 @Component({
-    selector: 'person-detail',
+    selector: 'app-person-detail',
     styleUrls: ['./person-detail.component.css'],
     templateUrl: './person-detail.component.html',
 })
@@ -29,7 +29,7 @@ export class PersonDetailComponent implements OnInit {
     }
 
     goBack(): void {
-        let back = this.location.back();
+        const back = this.location.back();
         if (back === undefined) {
             this.router.navigate(['/']);
         }

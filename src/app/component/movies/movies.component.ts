@@ -9,7 +9,7 @@ import * as $ from 'jquery';
 import 'datatables.net';
 
 @Component({
-  selector: 'my-movies',
+  selector: 'app-my-movies',
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.css']
 })
@@ -71,7 +71,7 @@ export class MoviesComponent implements OnInit {
   //    }
 
   private initDatatable(): void {
-    let tableWidget = $('#example').DataTable({
+    const tableWidget = $('#example').DataTable({
       data: this.movies,
       columns: [
         { data: 'id', title: 'Id', 'orderable': false },
@@ -97,7 +97,7 @@ export class MoviesComponent implements OnInit {
             if (data.time !== undefined && data.time != null) {
               if (type === 'display') {
                 try {
-                  let minute = <number>data.time;
+                  const minute = <number>data.time;
                   let result = '';
                   result += Math.floor(minute / 60) + ' heures ';
                   result += minute % 60 + ' minutes';
@@ -158,14 +158,14 @@ export class MoviesComponent implements OnInit {
       this.gotoDetail((<any>$($event)[0]).currentTarget.parentElement.parentElement.children[0].innerText);
     });
     $(document).on('click', '.remove', ($event) => {
-      let tr = (<any>$($event)[0]).currentTarget.parentElement.parentElement;
-      let id = tr.children[0].innerText;
+      const tr = (<any>$($event)[0]).currentTarget.parentElement.parentElement;
+      const id = tr.children[0].innerText;
       this.dropboxService.removeMovie(id, 'ex.json');
       tableWidget.row(tr).remove();
       tableWidget.draw();
     });
     $('th').not(':lt(2),:gt(2)').each(function () {
-      let title = $('th').eq($(this).index()).text();
+      const title = $('th').eq($(this).index()).text();
       $(this).append('<br/><input type="text" class="align-center myFilter" placeholder="Rechercher dans les " + title.toLowerCase() + "s" />');
     });
     tableWidget.columns().eq(0).each(function (colIdx) {
