@@ -22,7 +22,7 @@ export class DropboxService {
     }
 
     uploadFile(fichier: any, fileName: string): void {
-        let pathFile = this.getPath(fileName);
+        const pathFile = this.getPath(fileName);
         this.getDbx().filesDeleteV2({ path: pathFile })
             .then((response: any) => {
                 this.getDbx().filesUpload({ path: pathFile, contents: fichier })
@@ -36,20 +36,20 @@ export class DropboxService {
         return this.getDbx().filesDownload({ path: this.getPath(fileName) })
             .then((response: any) => {
                 return new Promise((resolve, reject) => {
-                    const fileReader = new FileReader()
-                    fileReader.onload = (event) => resolve(fileReader.result as string[])
-                    fileReader.onabort = (event) => reject(event)
-                    fileReader.onerror = (event) => reject(event)
-                    fileReader.readAsText(response.fileBlob)
-                }) as Promise<string[]>
+                    const fileReader = new FileReader();
+                    fileReader.onload = (event) => resolve(fileReader.result as string[]);
+                    fileReader.onabort = (event) => reject(event);
+                    fileReader.onerror = (event) => reject(event);
+                    fileReader.readAsText(response.fileBlob);
+                }) as Promise<string[]>;
             })
             .catch((error: any) => console.error(error));
     }
 
     addMovie(movie: Movie, fileName: string): void {
         this.downloadFile(fileName).then(file => {
-            let movieList = <Movie[]>JSON.parse(file);
-            let found = movieList.find(function (film) {
+            const movieList = <Movie[]>JSON.parse(file);
+            const found = movieList.find(function (film) {
                 return film.id === movie.id;
             });
             if (!found) {
@@ -62,8 +62,8 @@ export class DropboxService {
 
     addMovieList(moviesToAdd: Movie[], fileName: string): void {
         this.downloadFile(fileName).then(file => {
-            let movieList = <Movie[]>JSON.parse(file);
-            let found = moviesToAdd.filter((add: Movie) => !movieList.map((movie: Movie) => movie.id).includes(add.id));
+            const movieList = <Movie[]>JSON.parse(file);
+            const found = moviesToAdd.filter((add: Movie) => !movieList.map((movie: Movie) => movie.id).includes(add.id));
 
             if (found.length > 0) {
                 found.forEach((movie: Movie) => movieList.push(movie));
@@ -75,7 +75,7 @@ export class DropboxService {
 
     removeMovie(id: number, fileName: string): void {
         this.downloadFile(fileName).then(file => {
-            let movieList = <Movie[]>JSON.parse(file);
+            const movieList = <Movie[]>JSON.parse(file);
             this.uploadFile(this.movieToBlob(movieList.filter((film: Movie) => film.id !== id)), fileName);
         }).catch((error: any) => console.error(error));
     }
@@ -104,7 +104,7 @@ export class DropboxService {
      * @returns any
      */
     movieToBlob(movies: Movie[]): any {
-        let theJSON = JSON.stringify(movies, this.removeFields);
+        const theJSON = JSON.stringify(movies, this.removeFields);
         return new Blob([theJSON], { type: 'text/json' });
     }
 
