@@ -1,79 +1,79 @@
 .selected {
-	background-color: #CFD8DC !important;
-	color: white;
+  color: white;
+  background-color: #cfd8dc !important;
 }
 
 .movies {
-	margin: 0 0 2em 0;
-	list-style-type: none;
-	padding: 0;
-	width: 25em;
+  width: 25em;
+  margin: 0 0 2em 0;
+  padding: 0;
+  list-style-type: none;
 }
 
 .movies li {
-	cursor: pointer;
-	position: relative;
-	left: 0;
-	background-color: #EEE;
-	margin: .5em;
-	padding: .3em 0;
-	height: 1.6em;
-	border-radius: 4px;
+  position: relative;
+  left: 0;
+  height: 1.6em;
+  margin: 0.5em;
+  padding: 0.3em 0;
+  background-color: #eee;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .movies li:hover {
-	color: #607D8B;
-	background-color: #DDD;
-	left: .1em;
+  left: 0.1em;
+  color: #607d8b;
+  background-color: #ddd;
 }
 
 .movies li.selected:hover {
-	background-color: #BBD8DC !important;
-	color: white;
+  color: white;
+  background-color: #bbd8dc !important;
 }
 
 .movies .text {
-	position: relative;
-	top: -3px;
+  position: relative;
+  top: -3px;
 }
 
 .movies .badge {
-	display: inline-block;
-	font-size: small;
-	color: white;
-	padding: 0.8em 0.7em 0 0.7em;
-	background-color: #607D8B;
-	line-height: 1em;
-	position: relative;
-	left: -1px;
-	top: -4px;
-	height: 1.8em;
-	margin-right: .8em;
-	border-radius: 4px 0 0 4px;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  display: inline-block;
+  height: 1.8em;
+  margin-right: 0.8em;
+  padding: 0.8em 0.7em 0 0.7em;
+  font-size: small;
+  line-height: 1em;
+  color: white;
+  background-color: #607d8b;
+  border-radius: 4px 0 0 4px;
 }
 
 button {
-	font-family: Arial;
-	background-color: #eee;
-	border: none;
-	padding: 5px 10px;
-	border-radius: 4px;
-	cursor: pointer;
-	cursor: hand;
+  padding: 5px 10px;
+  font-family: Arial, sans-serif;
+  background-color: #eee;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
 }
 
 button:hover {
-	background-color: #cfd8dc;
+  background-color: #cfd8dc;
 }
 
 button.delete {
-	float: right;
-	margin-top: 2px;
-	margin-right: .8em;
-	background-color: gray !important;
-	color: white;
+  float: right;
+  margin-top: 2px;
+  margin-right: 0.8em;
+  color: white;
+  background-color: gray !important;
 }
 
 #example {
-	width: 99% !important;
+  width: 99% !important;
 }

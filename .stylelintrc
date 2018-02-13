@@ -3,6 +3,7 @@
   "plugins": [
     "stylelint-order"
   ],
+  "ignoreFiles": ["./src/app/styles/font-awesome.min.scss"],
   "rules": {
     "indentation": 2,
     "color-hex-case": "lower",
