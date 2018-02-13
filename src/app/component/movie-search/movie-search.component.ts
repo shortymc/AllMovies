@@ -10,7 +10,7 @@ import { Movie } from '../../model/movie';
 @Component({
   selector: 'app-movie-search',
   templateUrl: './movie-search.component.html',
-  styleUrls: ['./movie-search.component.css'],
+  styleUrls: ['./movie-search.component.scss'],
   providers: [MovieSearchService]
 })
 export class MovieSearchComponent implements OnInit {
