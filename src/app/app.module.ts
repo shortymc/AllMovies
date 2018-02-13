@@ -2,7 +2,6 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule, ModuleWithProviders, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +18,7 @@ import { DropboxService } from './service/dropbox.service';
 import { PersonService } from './service/person.service';
 import { SubstractDatePipe, ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './Shared/custom.pipe';
 import { RatingModule } from 'ngx-rating';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import './shared/rxjs-operators';
 import 'bootstrap';
 
@@ -27,8 +27,8 @@ import 'bootstrap';
     NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
-    HttpModule,
-    JsonpModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
     CommonModule,
     RatingModule,
     AppRoutingModule

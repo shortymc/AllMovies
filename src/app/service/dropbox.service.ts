@@ -26,7 +26,7 @@ export class DropboxService {
         this.getDbx().filesDeleteV2({ path: pathFile })
             .then((response: any) => {
                 this.getDbx().filesUpload({ path: pathFile, contents: fichier })
-                    .then((response: any) => console.log(response))
+                    .then((res: any) => console.log(res))
                     .catch((error: any) => console.error(error));
             })
             .catch((error: any) => console.error(error));

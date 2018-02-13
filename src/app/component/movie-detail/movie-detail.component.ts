@@ -56,10 +56,6 @@ export class MovieDetailComponent implements OnInit {
     window.open(this.wikiEN);
     window.open(this.wikiFR);
   }
-  save(): void {
-    this.movieService.update(this.movie)
-      .then(() => this.goBack());
-  }
   add(movie: Movie): void {
     this.dropboxService.addMovie(movie, 'ex.json');
   }

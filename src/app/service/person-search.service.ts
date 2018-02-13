@@ -1,15 +1,13 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Url } from './../constant/url';
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
-
 import { Observable } from 'rxjs/Observable';
-
 import { Person } from '../model/person';
 
 @Injectable()
 export class PersonSearchService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   search(term: string, adult: boolean): Observable<Person[]> {
     let url = Url.PERSON_SEARCH_URL + Url.API_KEY;
@@ -22,15 +20,15 @@ export class PersonSearchService {
   }
 
   getHeaders() {
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     headers.append('Accept', 'application/json');
     return headers;
   }
 
-  mapPersons(response: Response): Person[] {
+  mapPersons(response: any): Person[] {
     // The response of the API has a results
     // property with the actual results
-    return response.json().results.map((r: any) => <Person>({
+    return response.results.map((r: any) => <Person>({
       id: r.id,
       name: r.name,
       adult: r.adult

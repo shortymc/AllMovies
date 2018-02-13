@@ -1,5 +1,5 @@
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Movie } from '../model/movie';
 import { Url } from '../constant/url';
@@ -7,7 +7,7 @@ import { Url } from '../constant/url';
 @Injectable()
 export class MovieSearchService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   search(term: string, adult: boolean): Observable<Movie[]> {
     let url = Url.MOVIE_SEARCH_URL + Url.API_KEY;
@@ -20,15 +20,15 @@ export class MovieSearchService {
   }
 
   getHeaders() {
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     headers.append('Accept', 'application/json');
     return headers;
   }
 
-  mapMovies(response: Response): Movie[] {
+  mapMovies(response: any): Movie[] {
     // The response of the API has a results
     // property with the actual results
-    return response.json().results.map((r: any) => <Movie>({
+    return response.results.map((r: any) => <Movie>({
       id: r.id,
       title: r.title,
       date: r.release_date,

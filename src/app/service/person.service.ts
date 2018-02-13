@@ -1,6 +1,6 @@
 import { Url } from './../constant/url';
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Movie } from '../model/movie';
 import { Person } from '../model/person';
@@ -8,9 +8,9 @@ import { Person } from '../model/person';
 
 @Injectable()
 export class PersonService {
-  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
@@ -22,8 +22,8 @@ export class PersonService {
     const url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}${Url.APPEND}${Url.APPEND_IMAGES}`;
     const urlMovies = `${Url.PERSON_URL}/${id}/${Url.MOVIE_CREDITS_URL}?${Url.API_KEY}${Url.LANGUE_FR}`;
     return Observable.forkJoin(
-      this.http.get(url).map((res: Response) => res.json()),
-      this.http.get(urlMovies).map((res: Response) => res.json())
+      this.http.get(url),
+      this.http.get(urlMovies)
     ).map(responses => {
       return [].concat(...responses);
     }).map(response => this.mapPerson(response))
