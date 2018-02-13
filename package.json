@@ -4,10 +4,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4242",
+    "start": "ng serve --port 4242 --open",
     "build": "ng build --prod",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "run-p lint:**",
+    "lint:ts": "ng lint",
+    "lint:stylelint": "stylelint --syntax scss 'src/**/*.scss'",
     "e2e": "ng e2e"
   },
   "private": true,
@@ -57,7 +59,11 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "npm-run-all": "^4.1.2",
     "protractor": "~5.1.2",
+    "stylelint": "^8.4.0",
+    "stylelint-config-standard": "^18.0.0",
+    "stylelint-order": "^0.8.0",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "typescript": "~2.5.3"
