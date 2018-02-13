@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response, Jsonp } from '@angular/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Movie } from '../model/movie';
 import { Url } from '../constant/url';
 
 @Injectable()
 export class MovieService {
-  private moviesUrl = 'api/movies';  // URL to web api
-  private headers = new Headers({ 'Content-Type': 'application/json' });
-  //    private headers = new Headers({ 'Content-Type': 'text/html; charset=UTF-8' },
-  // {'Access-Control-Allow-Origin': '*'}, {'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT, OPTIONS, HEAD'});
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   private score: string;
   private metaUrl: string;
 
-  constructor(private http: Http, private jsonp: Jsonp) { }
+  constructor(private http: HttpClient) { }
 
   getMovies(): Promise<Movie[]> {
     return this.http.get(Url.MOST_POPULAR_URL)
@@ -28,12 +25,12 @@ export class MovieService {
 
   getLinkScore(title: string, site: string): Promise<string> {
     let url = Url.DUCKDUCKGO_URL + site + '+';
-    //        url += title.split(' ').join('+') + 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
-    //        url += title.split(' ').join('+') + '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
-    url += this.encodeQueryUrl(title) + '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
-    return this.jsonp.request(url).toPromise()
-      .then((data: Response) => {
-        let result = <string>data.json().Redirect;
+    // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
+    // '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
+    url += this.encodeQueryUrl(title) + '&format=json&no_redirect=1';
+    return this.http.jsonp(url, 'callback').toPromise()
+      .then((data: any) => {
+        let result = <string>data.Redirect;
         if (site === 'metacritic') {
           result = result.replace('/all/', '/movie/');
         } else if (site === 'scq') {
@@ -52,15 +49,14 @@ export class MovieService {
 
   getMeta(title: string): Promise<void> {
     let url =
-      'https://www.googleapis.com/customsearch/v1?key=AIzaSyDEM7hrrBdfYC8ygSW85jbSOiqiB7z309s&cx=012455488159958509456:n8jpj1vlffy&q='
-    //        url += title.split(' ').join('+') + 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
+      'https://www.googleapis.com/customsearch/v1?key=AIzaSyDEM7hrrBdfYC8ygSW85jbSOiqiB7z309s&cx=012455488159958509456:n8jpj1vlffy&q=';
+    // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
     url += title.split(' ').join('+') + 'siteSearch=metacritic.com';
     console.log(url);
     return this.http.get(url, { headers: this.headers }).toPromise()
       .then((data: any) => {
-        console.log(data.json());
-        if (data.json().items !== null && data.json().items !== undefined) {
-          return data.json().items[0].formattedUrl;
+        if (data.items !== null && data.items !== undefined) {
+          return data.items[0].formattedUrl;
         } else {
           return;;
         }
@@ -76,8 +72,8 @@ export class MovieService {
 
   //    getMetaScore(title: string): Promise<string> {
   //        let url = 'https://api.duckduckgo.com/?q=!metacritic+';
-  //        //        url += title.split(' ').join('+') + 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
-  //        url += title.split(' ').join('+') + '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
+  //        // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
+  // '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
   //        console.log('url: ' + url);
   //        return this.jsonp.request(url).toPromise()
   //            .then((data: Response) => {
@@ -110,8 +106,8 @@ export class MovieService {
 
   //    getMetaScore(title: string): Promise<string> {
   //        let url = 'https://api.duckduckgo.com/?q=!metacritic+';
-  //        //        url += title.split(' ').join('+') + 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
-  //        url += title.split(' ').join('+') + '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
+  //        // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
+  // '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
   //        console.log('url: ' + url);
   //        return this.jsonp.request(url).toPromise()
   //            .then((data: Response) => {
@@ -180,31 +176,8 @@ export class MovieService {
       .catch(this.handleError);
   }
 
-  update(movie: Movie): Promise<Movie> {
-    const url = `${this.moviesUrl}/${movie.id}`;
-    return this.http
-      .put(url, JSON.stringify(movie), { headers: this.headers })
-      .toPromise()
-      .then(() => movie)
-      .catch(this.handleError);
-  }
-  create(title: string): Promise<Movie> {
-    return this.http
-      .post(this.moviesUrl, JSON.stringify({ title: title }), { headers: this.headers })
-      .toPromise()
-      .then(res => res.json().data as Movie)
-      .catch(this.handleError);
-  }
-  delete(id: number): Promise<void> {
-    const url = `${this.moviesUrl}/${id}`;
-    return this.http.delete(url, { headers: this.headers })
-      .toPromise()
-      .then(() => null)
-      .catch(this.handleError);
-  }
-
-  mapMovies(response: Response): Movie[] {
-    return response.json().results.map((r: any) => <Movie>({
+  mapMovies(response: any): Movie[] {
+    return response.results.map((r: any) => <Movie>({
       id: r.id,
       title: r.title,
       date: r.release_date,
@@ -216,8 +189,8 @@ export class MovieService {
     }));
   }
 
-  mapMoviesDT(response: Response): Movie[] {
-    return response.json().results.map((r: any) => <Movie>({
+  mapMoviesDT(response: any): Movie[] {
+    return response.results.map((r: any) => <Movie>({
       id: r.id,
       title: r.title,
       date: r.release_date,
@@ -243,10 +216,7 @@ export class MovieService {
     }));
   }
 
-  mapMovie(response: Response): Movie {
-    // The response of the API has a results
-    // property with the actual results
-    const r = response.json();
+  mapMovie(r: any): Movie {
     let cast;
     let crew;
     if (r.credits !== null && r.credits !== undefined) {
