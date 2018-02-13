@@ -41,6 +41,18 @@
 							<label>Synopsis: </label>
 							<div class="synopsis text-justify">{{selectedMovie.synopsis}}</div>
 						</div>
+            <div *ngIf="selectedMovie.time > 0">
+              <label>Dur&eacute;e: </label>{{selectedMovie.time | convertToHHmm}}
+            </div>
+            <div *ngIf="selectedMovie.genres.length > 0">
+              <label>Genres: </label>
+              <div class="block">
+                <span *ngFor="let genre of selectedMovie.genres; let last=last;">
+                  <span>{{genre| capitalizeWord}}</span>
+                  <span *ngIf="!last">/</span>
+                </span>
+              </div>
+            </div>
 						<div *ngIf="selectedMovie.actors.length > 0">
 							<label>Acteurs: </label>
 							<div class="block">

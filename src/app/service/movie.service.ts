@@ -268,11 +268,15 @@ export class MovieService {
     if (r.images !== null && r.images !== undefined) {
       img = r.images.backdrops.map((i: any) => i.file_path);
     }
+    let genres;
+    if (r.genres !== null && r.genres !== undefined) {
+      genres = r.genres.map(genre => genre.name);
+    }
     return new Movie(r.id, r.title, r.original_title === r.title ? '' : r.original_title, r.release_date, r.overview,
       r.poster_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + r.poster_path,
       r.poster_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + r.poster_path,
       r.adult, r.runtime, r.vote_average, r.budget, r.revenue, r.original_language,
-      videos, cast, crew, reco, img, false);
+      videos, cast, crew, reco, img, false, genres);
   }
 
   sortCast(a1: any, a2: any) {
