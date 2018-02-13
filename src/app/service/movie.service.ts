@@ -58,7 +58,7 @@ export class MovieService {
         if (data.items !== null && data.items !== undefined) {
           return data.items[0].formattedUrl;
         } else {
-          return;;
+          return;
         }
       }).then((metaUrl: any) => {
         this.http.get(metaUrl, { headers: this.headers })
