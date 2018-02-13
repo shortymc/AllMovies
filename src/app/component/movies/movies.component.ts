@@ -32,7 +32,8 @@ export class MoviesComponent implements OnInit {
     let incomplete: number[] = [];
     const movieList = this.movies;
     for (const movie of this.movies) {
-      if (movie.time === undefined && movie.time == null) {
+      if ((movie.time === undefined && movie.time == null)
+        || (movie.genres === undefined && movie.genres == null)) {
         incomplete.push(movie.id);
       }
     }
@@ -85,6 +86,11 @@ export class MoviesComponent implements OnInit {
         { data: 'date', title: 'Date' },
         { data: 'note', title: 'Note' },
         { data: 'language', title: 'Langue' },
+        {
+          data: 'genres', title: 'Genres', 'render': function (genres, type, full) {
+            return `<div>` + genres + `</div>`;
+          }
+        },
         { data: null, title: 'Dur&eacute;e' },
         { data: null, title: '' },
         { data: null, title: '' }
@@ -117,7 +123,9 @@ export class MoviesComponent implements OnInit {
           'targets': -1,
           'orderable': false,
           'data': null,
-          'defaultContent': '<button class="btn btn-outline-primary detail">Voir d&eacute;tails <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>'
+          'defaultContent': `<button class="btn btn-outline-primary detail">
+                                Voir d&eacute;tails <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+                             </button>`
         },
         {
           'targets': -2,
@@ -166,7 +174,8 @@ export class MoviesComponent implements OnInit {
     });
     $('th').not(':lt(2),:gt(2)').each(function () {
       const title = $('th').eq($(this).index()).text();
-      $(this).append('<br/><input type="text" class="align-center myFilter" placeholder="Rechercher dans les " + title.toLowerCase() + "s" />');
+      $(this).append(`<br/>
+        <input type="text" class="align-center myFilter" placeholder="Rechercher dans les " + title.toLowerCase() + "s" />`);
     });
     tableWidget.columns().eq(0).each(function (colIdx) {
       $('input', tableWidget.column(colIdx).header()).on('keyup change', function () {
