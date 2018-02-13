@@ -7,7 +7,7 @@ import { Url } from '../../constant/url';
 
 @Component({
     selector: 'app-person-detail',
-    styleUrls: ['./person-detail.component.css'],
+    styleUrls: ['./person-detail.component.scss'],
     templateUrl: './person-detail.component.html',
 })
 export class PersonDetailComponent implements OnInit {

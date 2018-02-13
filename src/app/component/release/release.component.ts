@@ -41,7 +41,7 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
 @Component({
   selector: 'app-release',
   templateUrl: './release.component.html',
-  styleUrls: ['./release.component.css'],
+  styleUrls: ['./release.component.scss'],
   providers: [I18n, NgbDatepickerConfig, { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }]
 })
 export class ReleaseComponent implements OnInit {

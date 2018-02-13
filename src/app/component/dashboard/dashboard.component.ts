@@ -4,7 +4,7 @@ import { MovieService } from '../../service/movie.service';
 
 @Component({
   selector: 'app-dashboard',
-  styleUrls: ['./dashboard.component.css'],
+  styleUrls: ['./dashboard.component.scss'],
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {

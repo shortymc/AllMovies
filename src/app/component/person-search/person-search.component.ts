@@ -10,7 +10,7 @@ import { Person } from '../../model/person';
 @Component({
   selector: 'app-person-search',
   templateUrl: './person-search.component.html',
-  styleUrls: ['./person-search.component.css'],
+  styleUrls: ['./person-search.component.scss'],
   providers: [PersonSearchService]
 })
 export class PersonSearchComponent implements OnInit {
