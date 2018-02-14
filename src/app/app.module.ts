@@ -1,3 +1,4 @@
+import { MetaComponent } from './component/meta/meta.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule, ModuleWithProviders, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -45,7 +46,8 @@ import 'bootstrap';
     MoviesComponent,
     PersonDetailComponent,
     MovieSearchComponent,
-    PersonSearchComponent
+    PersonSearchComponent,
+    MetaComponent
   ],
   providers: [MovieService, PersonService, DatePipe, DropboxService, ConvertToHHmmPipe,
     { provide: LOCALE_ID, useValue: 'en' },
