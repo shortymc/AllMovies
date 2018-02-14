@@ -49,30 +49,9 @@
                 </span>
               </div>
             </div>
-            <div *ngIf="selectedMovie.actors.length > 0">
-              <label>Acteurs: </label>
-              <div class="block">
-                <span *ngFor="let actor of selectedMovie.actors; let last=last;">
-                  <a [routerLink]="['/person', actor.id]" class="myTooltip">
-                    <span class="pointer">{{actor.name| capitalizeWord}}
-                    </span>
-                    <img class="profile" [src]="Url.IMAGE_URL_92.concat(actor.profile_path)" *ngIf="actor.profile_path"
-                    /> </a>
-                  <span *ngIf="!last">/</span>
-                </span>
-              </div>
-            </div>
+            <app-list-persons [persons]="selectedMovie.actors" [label]="'Acteurs: '"></app-list-persons>
             <div *ngIf="(selectedMovie.crew | filterCrew:'director') as director">
-              <div *ngIf="director.length > 0">
-                <label>R&eacute;alisateur: </label>
-                <span *ngFor="let d of director; let last=last;">
-                  <a [routerLink]="['/person', d.id]" class="myTooltip">
-                    <span class="pointer">{{d.name| capitalizeWord}}
-                    </span>
-                    <img class="profile" [src]="Url.IMAGE_URL_92.concat(d.profile_path)" *ngIf="d.profile_path" /> </a>
-                  <span *ngIf="!last">/</span>
-                </span>
-              </div>
+              <app-list-persons [persons]="director" [label]="'R&eacute;alisateur: '"></app-list-persons>
             </div>
             <div *ngIf="selectedMovie.note > 0">
               <label>Note: </label>{{selectedMovie.note}} / 10
