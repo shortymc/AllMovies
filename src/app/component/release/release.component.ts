@@ -68,13 +68,16 @@ export class ReleaseComponent implements OnInit {
       return d.getDay() !== 3;
     };
   }
+
   ngOnInit(): void {
     this.selectPreviousWednesday();
     this.getMoviesByReleaseDates();
   }
+
   getMovies(): void {
     this.movieService.getMovies().then(movies => this.movies = movies);
   }
+
   meta(title: string): void {
     //        this.score = this.movieService.getMetaScore(title);
     //        let theJSON = JSON.stringify({'foo':'bar'});
@@ -91,42 +94,32 @@ export class ReleaseComponent implements OnInit {
         .then(movies => this.movies = movies);
     }
   }
+
   selectPreviousWednesday(): NgbDateStruct {
     const date = now;
     date.setDate(date.getDate() - (date.getDay() + 4) % 7);
     this.model = this.formatter.dateToNgbDateStruct(date);
     return this.model;
   }
+
   removeOneWeek(): NgbDateStruct {
     const date = this.formatter.addNgbDays(this.model, -7);
     this.model = this.formatter.dateToNgbDateStruct(date);
     return this.model;
   }
+
   addOneWeek(): NgbDateStruct {
     const date = this.formatter.addNgbDays(this.model, 7);
     this.model = this.formatter.dateToNgbDateStruct(date);
     return this.model;
   }
+
   onSelect(movie: Movie): void {
-    //        this.selectedMovie = movie;
     this.movieService.getMovie(movie.id, false, true, false, false).then(selectedMovie => {
       this.selectedMovie = selectedMovie;
-      const title = this.selectedMovie.title;
-      const original = this.selectedMovie.original_title;
-      const searchTitle = original === '' ? title : original;
-      this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_METACRITIC).then(result => this.metacritic = result);
-      this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_SENSCRITIQUE).then(result => this.senscritique = result);
-      this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_IMDB).then(result => this.imdb = result);
-      this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_EN).then(result => this.wikiEN = result);
-      this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_FR).then(result => this.wikiFR = result);
     });
   }
-  openAll(): void {
-    window.open(this.metacritic);
-    window.open(this.senscritique);
-    window.open(this.wikiEN);
-    window.open(this.wikiFR);
-  }
+
   gotoDetail(): void {
     this.router.navigate(['/detail', this.selectedMovie.id]);
   }
