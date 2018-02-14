@@ -1,0 +1,12 @@
+<div *ngIf="persons.length > 0">
+  <label>{{label}}</label>
+  <div class="block">
+    <span *ngFor="let person of persons; let last=last;">
+      <a [routerLink]="['/person', person.id]" class="myTooltip">
+        <span class="pointer">{{person.name| capitalizeWord}}
+        </span>
+        <img class="profile" [src]="Url.IMAGE_URL_92.concat(person.profile_path)" *ngIf="person.profile_path" /> </a>
+      <span *ngIf="!last">/</span>
+    </span>
+  </div>
+</div>
