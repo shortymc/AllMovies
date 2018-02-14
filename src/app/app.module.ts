@@ -22,6 +22,7 @@ import { RatingModule } from 'ngx-rating';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import './shared/rxjs-operators';
 import 'bootstrap';
+import { ListPersonsComponent } from './component/list-persons/list-persons.component';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import 'bootstrap';
     PersonDetailComponent,
     MovieSearchComponent,
     PersonSearchComponent,
-    MetaComponent
+    MetaComponent,
+    ListPersonsComponent
   ],
   providers: [MovieService, PersonService, DatePipe, DropboxService, ConvertToHHmmPipe,
     { provide: LOCALE_ID, useValue: 'en' },
