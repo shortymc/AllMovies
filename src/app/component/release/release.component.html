@@ -12,15 +12,13 @@
     <div class="col-sm-3">
       Films sortis du {{monday | date : "dd/MM/yyyy"}} au {{sunday | date : "dd/MM/yyyy"}}:
       <div class="list-group">
-        <a *ngFor="let movie of movies" (click)="onSelect(movie)"
-          class="list-group-item list-group-item-action"
-          [ngClass]="{
-          'bg-primary': selectedMovie !==null && movie.id === selectedMovie.id,
-          'bg-info': movie.vote_count > 10 && (movie.popularity > 40 || movie.vote_count > 100) && ((selectedMovie !==null && movie.id !== selectedMovie.id) || selectedMovie === null),
-          'bg-success': movie.note > 7 && movie.vote_count > 10 && ((selectedMovie !==null && movie.id !== selectedMovie.id) || selectedMovie === null),
-          'bg-danger': movie.note < 5 && movie.vote_count > 10 && ((selectedMovie !==null && movie.id !== selectedMovie.id) || selectedMovie === null)}">
+        <a *ngFor="let movie of movies" (click)="onSelect(movie)" class="list-group-item list-group-item-action"
+          [class.active]="selectedMovie !==null && movie.id === selectedMovie.id">
           <span *ngIf="movie.language">{{movie.language | capitalizeWord}} - </span>
-          <span class="pointer">{{movie.title.slice(0,40) | capitalizeWord}}</span>
+          <span class="pointer font-weight-bold"
+          [ngClass]="{'text-info': movie.vote_count > 10 && (movie.popularity > 40 || movie.vote_count > 100),
+            'text-success': movie.note > 7 && movie.vote_count > 10,
+            'text-danger': movie.note < 5 && movie.vote_count > 10}">{{movie.title.slice(0,40) | capitalizeWord}}</span>
           <span *ngIf="movie.note > 0"> - {{movie.note}}/10</span>
           <span *ngIf="movie.vote_count > 0">({{movie.vote_count}})</span>
           <span *ngIf="movie.popularity > 0"> - {{movie.popularity | number: '1.0-0'}}</span>
