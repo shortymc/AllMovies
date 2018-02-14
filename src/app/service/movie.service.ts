@@ -182,10 +182,13 @@ export class MovieService {
       title: r.title,
       date: r.release_date,
       note: r.vote_average,
+      language: r.original_language,
       thumbnail: Url.IMAGE_URL_92 + r.poster_path,
       affiche: Url.IMAGE_URL_ORIGINAL + r.poster_path,
       synopsis: r.overview,
-      time: r.runtime
+      time: r.runtime,
+      popularity: r.popularity,
+      vote_count: r.vote_count
     }));
   }
 
