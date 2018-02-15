@@ -177,6 +177,7 @@ export class MovieService {
   }
 
   mapMovies(response: any): Movie[] {
+    console.log(response.results);
     return response.results.map((r: any) => <Movie>({
       id: r.id,
       title: r.title,
@@ -220,6 +221,7 @@ export class MovieService {
   }
 
   mapMovie(r: any): Movie {
+    console.log(r);
     let cast;
     let crew;
     if (r.credits !== null && r.credits !== undefined) {
@@ -249,7 +251,7 @@ export class MovieService {
       r.poster_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + r.poster_path,
       r.poster_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + r.poster_path,
       r.adult, r.runtime, r.vote_average, r.budget, r.revenue, r.original_language,
-      videos, cast, crew, reco, img, false, genres);
+      videos, cast, crew, reco, img, false, genres, undefined, undefined, r.production_countries);
   }
 
   sortCast(a1: any, a2: any) {
