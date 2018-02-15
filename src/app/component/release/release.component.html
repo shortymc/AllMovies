@@ -16,9 +16,8 @@
         [class.active]="selectedMovie !==null && movie.id === selectedMovie.id">
           <span *ngIf="movie.language">{{movie.language | uppercase}} - </span>
           <span class="pointer font-weight-bold"
-          [ngClass]="{'text-info': movie.vote_count > 10 && (movie.popularity > 40 || movie.vote_count > 100),
-            'text-success': movie.note > 7 && movie.vote_count > 10,
-            'text-danger': movie.note < 5 && movie.vote_count > 10}">{{movie.title.slice(0,40) | capitalizeWord}}</span>
+          [ngClass]="{'text-info': isInfo(movie), 'text-success': isSuccess(movie), 'text-danger': isDanger(movie)}">
+            {{movie.title.slice(0,40) | capitalizeWord}}</span>
           <span *ngIf="movie.note > 0"> - {{movie.note}}/10</span>
           <span *ngIf="movie.vote_count > 0">({{movie.vote_count}})</span>
           <span *ngIf="movie.popularity > 0"> - {{movie.popularity | number: '1.0-0'}}</span>
