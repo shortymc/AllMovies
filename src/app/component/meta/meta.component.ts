@@ -10,8 +10,15 @@ import { Movie } from '../../model/movie';
   styleUrls: ['./meta.component.scss']
 })
 export class MetaComponent implements OnInit {
+  _movie = new BehaviorSubject<Movie>(null);
   @Input()
-  movie: Movie;
+  set movie(value) {
+    this._movie.next(value);
+  };
+
+  get movie() {
+    return this._movie.getValue();
+  }
   metacritic: string;
   senscritique: string;
   imdb: string;
@@ -21,14 +28,17 @@ export class MetaComponent implements OnInit {
   constructor(private movieService: MovieService) { }
 
   ngOnInit() {
-    const title = this.movie.title;
-    const original = this.movie.original_title;
-    const searchTitle = original === '' ? title : original;
-    this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_METACRITIC).then(result => this.metacritic = result);
-    this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_SENSCRITIQUE).then(result => this.senscritique = result);
-    this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_IMDB).then(result => this.imdb = result);
-    this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_EN).then(result => this.wikiEN = result);
-    this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_FR).then(result => this.wikiFR = result);
+    this._movie
+      .subscribe(x => {
+        const title = this.movie.title;
+        const original = this.movie.original_title;
+        const searchTitle = original === '' ? title : original;
+        this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_METACRITIC).then(result => this.metacritic = result);
+        this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_SENSCRITIQUE).then(result => this.senscritique = result);
+        this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_IMDB).then(result => this.imdb = result);
+        this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_EN).then(result => this.wikiEN = result);
+        this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_FR).then(result => this.wikiFR = result);
+      });
   }
 
   openAll(): void {
