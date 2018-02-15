@@ -17,6 +17,12 @@
     <div>
       <label>Titre: </label>{{movie.title | capitalizeWord}}
       <div>
+        <label>Pays: </label>
+        <span *ngFor="let country of movie.production_countries">
+          <h1 class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}"></h1>
+        </span>
+      </div>
+      <div>
         <label>Date: </label>{{movie.date | date:'EEEE dd MMMM yyyy' | capitalizeWord}}
       </div>
       <div *ngIf="movie.time > 0">
