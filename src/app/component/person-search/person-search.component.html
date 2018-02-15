@@ -1,17 +1,26 @@
 <div id="search-component">
-	<h4>Person Search</h4>
-	<div class="form-check form-check-inline">
-		<div class="search-box">
-			<i class="fa fa-search fa-2x" aria-hidden="true"></i>
-			<input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="Rechercher des personnes" (click)="showPerson = true" /> <a class="icon pointer"
-				(click)="showPerson = !showPerson; searchBox.value=''"> <img src="./assets/exit.png" />
-			</a>
-		</div>
-		<label ngbButtonLabel class="adultBox"> <input type="checkbox" ngbButton [(ngModel)]="adult" (click)="search(searchBox.value)">Adult
-		</label>
-	</div>
-	<div id="res" *ngIf="showPerson">
-		<div class="result" *ngFor="let person of persons | async" (click)="gotoPerson(person)" class="search-result" [ngClass]="{'adult': person.adult}">{{person.name |
-			capitalizeWord}}</div>
-	</div>
+  <h4>Person Search</h4>
+  <div class="form-check form-check-inline">
+    <div class="search-box">
+      <i class="fa fa-search fa-2x" aria-hidden="true"></i>
+      <input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="Rechercher des personnes" (click)="showPerson = true"
+      />
+      <a class="icon pointer" (click)="showPerson = !showPerson; searchBox.value=''">
+        <img src="./assets/exit.png" />
+      </a>
+    </div>
+    <label ngbButtonLabel class="adultBox">
+      <input type="checkbox" ngbButton [(ngModel)]="adult" (click)="search(searchBox.value)">Adult
+    </label>
+  </div>
+  <div id="res" *ngIf="showPerson">
+    <div class="result" *ngFor="let person of persons | async" (click)="gotoPerson(person)" class="search-result" [ngClass]="{'adult': person.adult}">
+      <div class="media">
+        <img class="mr-2" *ngIf="person.thumbnail" src="{{person.thumbnail}}" style="width: 5%;">
+        <div class="media-body">
+          <p>{{person.name | capitalizeWord}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
