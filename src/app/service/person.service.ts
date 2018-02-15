@@ -32,6 +32,7 @@ export class PersonService {
   }
 
   mapPerson(response: any[]): Person {
+    console.log(response);
     const resp = response[0];
     const crew = response[1].crew;
 
@@ -49,7 +50,7 @@ export class PersonService {
     const asNovel = crew.filter((r: any) => this.jobEquals(r.job, 'Novel')).slice(0, 6)
       .map((r: any) => this.toMovie(r, Url.IMAGE_URL_154, Url.IMAGE_URL_EMPTY, Url.IMAGE_URL_ORIGINAL));
 
-    return new Person(resp.id, resp.name, resp.birthday, resp.deathday,
+    return new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday,
       resp.profile_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + resp.profile_path,
       resp.profile_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + resp.profile_path, resp.biography,
       resp.adult, resp.place_of_birth, resp.images.profiles.map((i: any) => i.file_path).filter((i: any) => i !== resp.profile_path),

@@ -12,7 +12,7 @@
       <label>Id:</label>{{person.id}}
     </div>
     <div>
-      <label>Nom: </label>{{person.name | capitalizeWord}}
+      <label>Nom: </label><span [ngClass]="{'woman': person.gender === 1, 'men': person.gender === 2}">{{person.name | capitalizeWord}}</span>
       <div *ngIf="person.birthPlace">
         <label>Lieu de naissance: </label>{{person.birthPlace | capitalizeWord}}
       </div>
