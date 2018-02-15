@@ -28,12 +28,14 @@ export class MovieSearchService {
   mapMovies(response: any): Movie[] {
     // The response of the API has a results
     // property with the actual results
+    console.log(response.results);
     return response.results.map((r: any) => <Movie>({
       id: r.id,
       title: r.title,
       date: r.release_date,
       adult: r.adult,
-      original_title: r.original_title === r.title ? '' : r.original_title
+      original_title: r.original_title === r.title ? '' : r.original_title,
+      thumbnail: r.poster_path === null ? null : Url.IMAGE_URL_ORIGINAL + r.poster_path
     }));
   }
 

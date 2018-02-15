@@ -28,10 +28,12 @@ export class PersonSearchService {
   mapPersons(response: any): Person[] {
     // The response of the API has a results
     // property with the actual results
+    console.log(response.results);
     return response.results.map((r: any) => <Person>({
       id: r.id,
       name: r.name,
-      adult: r.adult
+      adult: r.adult,
+      thumbnail: r.profile_path === null ? null : Url.IMAGE_URL_92 + r.profile_path
     }));
   }
 
