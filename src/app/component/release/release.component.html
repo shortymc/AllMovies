@@ -13,8 +13,8 @@
       Films sortis du {{monday | date : "dd/MM/yyyy"}} au {{sunday | date : "dd/MM/yyyy"}}:
       <div class="list-group">
         <a *ngFor="let movie of movies" (click)="onSelect(movie)" class="list-group-item list-group-item-action"
-          [class.active]="selectedMovie !==null && movie.id === selectedMovie.id">
-          <span *ngIf="movie.language">{{movie.language | capitalizeWord}} - </span>
+        [class.active]="selectedMovie !==null && movie.id === selectedMovie.id">
+          <span *ngIf="movie.language">{{movie.language | uppercase}} - </span>
           <span class="pointer font-weight-bold"
           [ngClass]="{'text-info': movie.vote_count > 10 && (movie.popularity > 40 || movie.vote_count > 100),
             'text-success': movie.note > 7 && movie.vote_count > 10,
@@ -36,7 +36,10 @@
             </div>
           </div>
           <div class="col-sm-9">
-            <h2>{{selectedMovie.title | capitalizeWord}}</h2>
+            <h2>
+              <span *ngFor="let country of selectedMovie.production_countries">
+                <span class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}"></span>
+              </span>{{selectedMovie.title | capitalizeWord}}</h2>
             <div>
               <label>Date: </label>{{selectedMovie.date | date:'EEEE dd MMMM yyyy' | capitalizeWord}}
             </div>
