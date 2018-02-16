@@ -123,7 +123,7 @@
           <div class="card-body">
             <div class="reco d-flex">
               <div *ngFor="let reco of movie.recommendations;">
-                <a class="affiche" [routerLink]="['/detail', reco.id]" data-toggle="tooltip" title="{{reco.title | capitalizeWord}}">
+                <a class="affiche" [routerLink]="['/detail', reco.id]" ngbTooltip="{{reco.title | capitalizeWord}}">
                   <img src="{{reco.thumbnail}}" alt="{{reco.title| capitalizeWord}}">
                 </a>
                 <input [(ngModel)]="reco.checked" type="checkbox">
