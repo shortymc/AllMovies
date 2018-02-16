@@ -1,4 +1,6 @@
-@media all and (max-width: 480px) {
+@import "../../styles/styles";
+
+@media all and (max-width: #{$smallscreen}) {
   :host,
   .list-group,
   .row {

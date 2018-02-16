@@ -1,3 +1,5 @@
+@import "../../styles/styles";
+
 h4 {
   text-align: center;
 }
@@ -14,7 +16,7 @@ h4 {
   display: ruby !important;
 }
 
-@media (max-width: 480px) {
+@media all and (max-width: #{$smallscreen}) {
   :host,
   .search-box {
     width: 100vw !important;

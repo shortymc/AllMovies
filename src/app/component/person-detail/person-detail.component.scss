@@ -1,3 +1,5 @@
+@import "../../styles/styles";
+
 ul {
   list-style-type: none;
 }
@@ -51,7 +53,7 @@ input {
   margin-left: 180px;
 }
 
-@media all and (max-width: 480px) {
+@media all and (max-width: #{$smallscreen}) {
   .movies {
     padding-left: 0;
   }
