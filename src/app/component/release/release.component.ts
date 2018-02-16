@@ -135,15 +135,6 @@ export class ReleaseComponent implements OnInit {
     });
   }
 
-  gotoDetail(): void {
-    this.router.navigate(['/detail', this.selectedMovie.id]);
-  }
-
-  gotoPerson(person: any): void {
-    const link = ['/person', person.id];
-    this.router.navigate(link);
-  }
-
   isInfo(movie: Movie): boolean {
     return movie.vote_count > 10 && (movie.popularity >= 40 || movie.vote_count >= 100) && !this.isSuccess(movie) && !this.isDanger(movie);
   }
