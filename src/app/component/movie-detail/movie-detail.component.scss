@@ -59,3 +59,9 @@ input {
   background-color: #89b5cb;
   border-radius: 4px 4px 4px 4px;
 }
+
+@media all and (max-width: 480px) {
+  .videos {
+    width: 100vw !important;
+  }
+}
