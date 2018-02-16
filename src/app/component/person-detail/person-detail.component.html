@@ -12,7 +12,8 @@
       <label>Id:</label>{{person.id}}
     </div>
     <div>
-      <label>Nom: </label><span [ngClass]="{'woman': person.gender === 1, 'men': person.gender === 2, 'unknown': person.gender === 0}">{{person.name | capitalizeWord}}</span>
+      <label>Nom: </label>
+      <span [ngClass]="{'woman': person.gender === 1, 'men': person.gender === 2, 'unknown': person.gender === 0}">{{person.name | capitalizeWord}}</span>
       <div *ngIf="person.birthPlace">
         <label>Lieu de naissance: </label>{{person.birthPlace | capitalizeWord}}
       </div>
@@ -50,54 +51,12 @@
     <figure>
       <label>Films notables:</label>
       <ul>
-        <li *ngIf="person.asActor.length > 0">
-          <label>En tant qu'acteur:</label>
-          <div class="reco">
-            <a *ngFor="let movie of person.asActor;" class="affiche" [routerLink]="['/detail', movie.id]" ngbTooltip="{{movie.title | capitalizeWord}}">
-              <img src="{{movie.thumbnail}}" alt="{{movie.title| capitalizeWord}}">
-            </a>
-          </div>
-        </li>
-        <li *ngIf="person.asDirector.length > 0">
-          <label>En tant que r&eacute;alisateur:</label>
-          <div class="reco">
-            <a *ngFor="let movie of person.asDirector;" class="affiche" [routerLink]="['/detail', movie.id]" ngbTooltip="{{movie.title | capitalizeWord}}">
-              <img src="{{movie.thumbnail}}" alt="{{movie.title| capitalizeWord}}">
-            </a>
-          </div>
-        </li>
-        <li *ngIf="person.asProducer.length > 0">
-          <label>En tant que producteur:</label>
-          <div class="reco">
-            <a *ngFor="let movie of person.asProducer;" class="affiche" [routerLink]="['/detail', movie.id]" ngbTooltip="{{movie.title | capitalizeWord}}">
-              <img src="{{movie.thumbnail}}" alt="{{movie.title| capitalizeWord}}">
-            </a>
-          </div>
-        </li>
-        <li *ngIf="person.asCompositors.length > 0">
-          <label>En tant que compositeur:</label>
-          <div class="reco">
-            <a *ngFor="let movie of person.asCompositors;" class="affiche" [routerLink]="['/detail', movie.id]" ngbTooltip="{{movie.title | capitalizeWord}}">
-              <img src="{{movie.thumbnail}}" alt="{{movie.title| capitalizeWord}}">
-            </a>
-          </div>
-        </li>
-        <li *ngIf="person.asScreenplay.length > 0">
-          <label>En tant que sc&eacute;nariste:</label>
-          <div class="reco">
-            <a *ngFor="let movie of person.asScreenplay;" class="affiche" [routerLink]="['/detail', movie.id]" ngbTooltip="{{movie.title | capitalizeWord}}">
-              <img src="{{movie.thumbnail}}" alt="{{movie.title| capitalizeWord}}">
-            </a>
-          </div>
-        </li>
-        <li *ngIf="person.asNovel.length > 0">
-          <label>En tant qu'&eacute;crivain:</label>
-          <div class="reco">
-            <a *ngFor="let movie of person.asNovel;" class="affiche" [routerLink]="['/detail', movie.id]" ngbTooltip="{{movie.title | capitalizeWord}}">
-              <img src="{{movie.thumbnail}}" alt="{{movie.title| capitalizeWord}}">
-            </a>
-          </div>
-        </li>
+        <li><app-list-movies [movies]="person.asActor" [label]="'En tant qu\'acteur:'"></app-list-movies></li>
+        <li><app-list-movies [movies]="person.asDirector" [label]="'En tant que r&eacute;alisateur:'"></app-list-movies></li>
+        <li><app-list-movies [movies]="person.asProducer" [label]="'En tant que producteur:'"></app-list-movies></li>
+        <li><app-list-movies [movies]="person.asCompositors" [label]="'En tant que compositeur:'"></app-list-movies></li>
+        <li><app-list-movies [movies]="person.asScreenplay" [label]="'En tant que sc&eacute;nariste:'"></app-list-movies></li>
+        <li><app-list-movies [movies]="person.asNovel" [label]="'En tant qu\'&eacute;crivain:'"></app-list-movies></li>
       </ul>
     </figure>
   </div>

@@ -115,27 +115,6 @@
         </div>
       </div>
       <br />
-      <div class="card-deck">
-        <div class="card card-outline-primary" *ngIf="movie.recommendations.length > 0">
-          <div class="card-header">
-            <label>Vous aimerez aussi:</label>
-          </div>
-          <div class="card-body">
-            <div class="reco d-flex">
-              <div *ngFor="let reco of movie.recommendations;">
-                <a class="affiche" [routerLink]="['/detail', reco.id]" ngbTooltip="{{reco.title | capitalizeWord}}">
-                  <img src="{{reco.thumbnail}}" alt="{{reco.title| capitalizeWord}}">
-                </a>
-                <input [(ngModel)]="reco.checked" type="checkbox">
-              </div>
-            </div>
-          </div>
-          <div class="card-footer text-center">
-            <button class="btn btn-outline-primary" (click)="addList()">
-              <span class="fa fa-star" aria-hidden="true"></span> Add Selected Movies To Collection
-            </button>
-          </div>
-        </div>
-      </div>
+      <app-list-movies [movies]="movie.recommendations" [label]="'Vous aimerez aussi:'"></app-list-movies>
     </div>
   </div>
