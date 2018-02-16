@@ -3,11 +3,7 @@
 @import "~datatables.net-buttons-dt/css/buttons.dataTables.min.css";
 @import "~datatables.net-select-bs/css/select.bootstrap.css";
 @import "~datatables.net-dt/css/jquery.dataTables.css";
-@import "./font-awesome.min";
-
-:root {
-  --smallscreen: 480px;
-}
+$smallscreen: 550px;
 
 body {
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif !important;
@@ -240,7 +236,7 @@ table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
   color: #7abb51;
 }
 
-@media all and (max-width: 480px) {
+@media all and (max-width: #{$smallscreen}) {
   button {
     font-size: 0.8em !important;
   }

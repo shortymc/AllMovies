@@ -1,4 +1,4 @@
-@import "~bootstrap/scss/bootstrap";
+@import "../../styles/styles";
 
 .content {
   @extend .d-flex;
@@ -8,7 +8,7 @@
   @extend .d-inline-flex;
 }
 
-@media all and (max-width: 480px) {
+@media all and (max-width: #{$smallscreen}) {
   .content {
     display: inherit !important;
   }
