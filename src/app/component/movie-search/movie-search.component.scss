@@ -13,3 +13,20 @@ h4 {
 .form-check-inline {
   display: ruby !important;
 }
+
+@media (max-width: 480px) {
+  :host,
+  .search-box {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: 0 !important;
+  }
+
+  .form-check-inline {
+    margin-right: 0 !important;
+  }
+
+  .icon {
+    display: none;
+  }
+}
