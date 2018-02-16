@@ -38,8 +38,4 @@ export class MovieDetailComponent implements OnInit {
   add(movie: Movie): void {
     this.dropboxService.addMovie(movie, 'ex.json');
   }
-
-  addList(): void {
-    this.dropboxService.addMovieList(this.movie.recommendations.filter((reco: Movie) => reco.checked), 'ex.json');
-  }
 }
