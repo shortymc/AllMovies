@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-sm-2">
       <div class="btn-group-vertical ml-4 mt-4" role="group">
-        <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="getMoviesByReleaseDates(); selectedMovie = null;"></ngb-datepicker>
+        <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="getMoviesByReleaseDates(); selectedMovie = null;" [routerLink]="['/release']" [queryParams]="{ date: parseDate()}"></ngb-datepicker>
         <button class="btn btn-outline-primary" (click)="dp.navigateTo(removeOneWeek())" [routerLink]="['/release']" [queryParams]="{ date: addDays(-7)}">Select previous week</button>
         <button class="btn btn-outline-primary" (click)="dp.navigateTo(selectPreviousWednesday())" [routerLink]="['/release']">Select current week</button>
         <button class="btn btn-outline-primary" (click)="dp.navigateTo(addOneWeek())" [routerLink]="['/release']" [queryParams]="{ date: addDays(7)}">Select next week</button>

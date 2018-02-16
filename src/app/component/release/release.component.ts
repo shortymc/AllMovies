@@ -127,6 +127,11 @@ export class ReleaseComponent implements OnInit {
     return this.formatter.dateToString(date, 'dd/MM/yyyy');
   }
 
+  parseDate() {
+    let date = this.formatter.ngbDateToDate(this.model);
+    return this.formatter.dateToString(date, 'dd/MM/yyyy');
+  }
+
   onSelect(movie: Movie): void {
     this.movieService.getMovie(movie.id, false, true, false, false).then(selectedMovie => {
       this.selectedMovie = selectedMovie;
