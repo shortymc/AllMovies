@@ -1,8 +1,8 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { Movie } from '../../model/movie';
 import { MovieService } from '../../service/movie.service';
 import { DropboxService } from '../../service/dropbox.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { MyNgbDate } from '../../Shared/my-ngb-date';
 import { Url } from '../../constant/url';
@@ -45,6 +45,7 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   providers: [I18n, NgbDatepickerConfig, { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }]
 })
 export class ReleaseComponent implements OnInit {
+  @ViewChild('dp') dp;
   movies: Movie[];
   selectedMovie: Movie;
   model: NgbDateStruct;
@@ -52,7 +53,7 @@ export class ReleaseComponent implements OnInit {
   sunday: Date;
   Url = Url;
 
-  constructor(private movieService: MovieService, private router: Router,
+  constructor(private movieService: MovieService, private router: Router, private route: ActivatedRoute,
     private formatter: MyNgbDate, config: NgbDatepickerConfig, private dropboxService: DropboxService) {
     // Other days than wednesday are disabled
     config.markDisabled = (date: NgbDateStruct) => {
@@ -62,7 +63,16 @@ export class ReleaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectPreviousWednesday();
+    this.route.queryParams.subscribe(
+      params => {
+        let date = params['date'];
+        if (date === null || date === undefined) {
+          this.selectPreviousWednesday();
+        } else {
+          this.dp.startDate = this.selectDate(date);
+        }
+      }
+    );
     this.getMoviesByReleaseDates();
   }
 
@@ -104,6 +114,17 @@ export class ReleaseComponent implements OnInit {
     const date = this.formatter.addNgbDays(this.model, 7);
     this.model = this.formatter.dateToNgbDateStruct(date);
     return this.model;
+  }
+
+  selectDate(date: string): NgbDateStruct {
+    this.model = this.formatter.parse(date);
+    return this.model;
+  }
+
+  addDays(days: number) {
+    let date = this.formatter.ngbDateToDate(this.model);
+    date = this.formatter.addNgbDays(this.model, days);
+    return this.formatter.dateToString(date, 'dd/MM/yyyy');
   }
 
   onSelect(movie: Movie): void {
