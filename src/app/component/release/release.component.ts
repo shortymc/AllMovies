@@ -48,17 +48,9 @@ export class ReleaseComponent implements OnInit {
   movies: Movie[];
   selectedMovie: Movie;
   model: NgbDateStruct;
-  date: { year: number, month: number };
   monday: Date;
   sunday: Date;
   Url = Url;
-  score: string;
-  metacritic: string;
-  senscritique: string;
-  imdb: string;
-  wikiEN: string;
-  wikiFR: string;
-  res: Movie[];
 
   constructor(private movieService: MovieService, private router: Router,
     private formatter: MyNgbDate, config: NgbDatepickerConfig, private dropboxService: DropboxService) {
