@@ -80,10 +80,7 @@ export class ReleaseComponent implements OnInit {
     this.movieService.getMovies().then(movies => this.movies = movies);
   }
 
-  meta(title: string): void {
-    //        this.score = this.movieService.getMetaScore(title);
-    //        let theJSON = JSON.stringify({'foo':'bar'});
-    //        this.dropboxService.listFiles();
+  addToCollection(title: string) {
     this.dropboxService.addMovie(this.selectedMovie, 'ex.json');
   }
 
