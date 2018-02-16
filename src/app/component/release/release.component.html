@@ -12,9 +12,9 @@
     <div class="col-sm-3">
       Films sortis du {{monday | date : "dd/MM/yyyy"}} au {{sunday | date : "dd/MM/yyyy"}}:
       <div class="list-group">
-        <a *ngFor="let movie of movies" (click)="onSelect(movie)" class="list-group-item list-group-item-action" [class.active]="selectedMovie !==null && movie.id === selectedMovie.id">
+        <a *ngFor="let movie of movies" (click)="onSelect(movie)" class="list-group-item list-group-item-action pointer" [class.active]="selectedMovie !==null && movie.id === selectedMovie.id">
           <span *ngIf="movie.language">{{movie.language | uppercase}} - </span>
-          <span class="pointer font-weight-bold" [ngClass]="{'text-info': isInfo(movie), 'text-success': isSuccess(movie), 'text-danger': isDanger(movie)}">
+          <span class="font-weight-bold" [ngClass]="{'text-info': isInfo(movie), 'text-success': isSuccess(movie), 'text-danger': isDanger(movie)}">
             {{movie.title.slice(0,40) | capitalizeWord}}</span>
           <span *ngIf="movie.note > 0"> - {{movie.note}}/10</span>
           <span *ngIf="movie.vote_count > 0">({{movie.vote_count}})</span>
@@ -65,7 +65,7 @@
               <rating [(ngModel)]="selectedMovie.note" [max]="10" [readonly]="true" [float]="true"></rating>
             </div>
             <app-meta [movie]="selectedMovie"></app-meta>
-            <button class="btn btn-outline-primary" (click)="meta(selectedMovie)">
+            <button class="btn btn-outline-primary" (click)="addToCollection(selectedMovie)">
               <span class="fa fa-star" aria-hidden="true"></span> Add To Collection
             </button>
             <a class="btn btn-outline-primary" [routerLink]="['/detail', selectedMovie.id]"> View Details
