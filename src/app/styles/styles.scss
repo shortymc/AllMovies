@@ -5,6 +5,10 @@
 @import "~datatables.net-dt/css/jquery.dataTables.css";
 @import "./font-awesome.min";
 
+:root {
+  --smallscreen: 480px;
+}
+
 body {
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif !important;
 }
@@ -234,4 +238,18 @@ table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
 
 .unknown {
   color: #7abb51;
+}
+
+@media all and (max-width: 480px) {
+  button {
+    font-size: 0.8em !important;
+  }
+
+  .contenu {
+    margin-left: 0 !important;
+  }
+
+  .synopsis {
+    width: 100vw !important;
+  }
 }

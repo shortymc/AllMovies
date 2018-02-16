@@ -1,0 +1,23 @@
+@import "~bootstrap/scss/bootstrap";
+
+.content {
+  @extend .d-flex;
+}
+
+.movie {
+  @extend .d-inline-flex;
+}
+
+@media all and (max-width: 480px) {
+  .content {
+    display: inherit !important;
+  }
+
+  %movie {
+    //
+  }
+
+  .card-deck {
+    width: 100vw !important;
+  }
+}
