@@ -1,0 +1,22 @@
+<div class="card-deck" *ngIf="movies.length > 0">
+  <div class="card card-outline-primary">
+    <div class="card-header">
+      <label>{{label}}</label>
+    </div>
+    <div class="card-body">
+      <div class="reco d-flex">
+        <div *ngFor="let reco of movies;">
+          <a class="affiche" [routerLink]="['/detail', reco.id]" ngbTooltip="{{reco.title | capitalizeWord}}">
+            <img src="{{reco.thumbnail}}" alt="{{reco.title| capitalizeWord}}">
+          </a>
+          <input [(ngModel)]="reco.checked" type="checkbox">
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-center">
+      <button class="btn btn-outline-primary" (click)="addList()">
+        <span class="fa fa-star" aria-hidden="true"></span> Add Selected Movies To Collection
+      </button>
+    </div>
+  </div>
+</div>

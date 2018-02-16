@@ -23,6 +23,7 @@ import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import './shared/rxjs-operators';
 import 'bootstrap';
 import { ListPersonsComponent } from './component/list-persons/list-persons.component';
+import { ListMoviesComponent } from './component/list-movies/list-movies.component';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import { ListPersonsComponent } from './component/list-persons/list-persons.comp
     MoviesComponent,
     PersonDetailComponent,
     MovieSearchComponent,
+    ListMoviesComponent,
     PersonSearchComponent,
     MetaComponent,
     ListPersonsComponent
