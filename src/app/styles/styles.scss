@@ -1,12 +1,7 @@
-$smallscreen: 550px;
+@import './imports.scss';
 
 body {
-  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif !important;
-}
-
-h1 {
-  font-family: Arial, Helvetica, sans-serif !important;
-  color: #369;
+  font-family: $font-family !important;
 }
 
 h1,
@@ -17,8 +12,16 @@ h4 {
   position: relative !important;
   margin-bottom: 8px !important;
   margin-top: 0 !important;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+  font-family: $font-family !important;
   text-align: center !important;
+}
+
+.display-flex {
+  @extend .d-flex;
+}
+
+.display-inline-flex {
+  @extend .d-inline-flex;
 }
 
 label {
@@ -26,14 +29,14 @@ label {
   margin: 0.5em 0 !important;
   padding-right: 5px !important;
   font-weight: bold;
-  color: #007bff;
+  color: $blue;
 }
 
 .icon img {
   vertical-align: middle;
   height: 30px;
   padding-bottom: 4px;
-  background-color: rgb(246, 246, 246);
+  background-color: $white;
 }
 
 .card-deck {
@@ -57,7 +60,7 @@ label {
   top: calc(50% - 17px);
   position: relative;
   font-size: 12px;
-  color: #8d8d8d;
+  color: $light_gray;
 }
 
 .block {
@@ -75,16 +78,16 @@ label {
   margin-left: calc(10% + 10px);
   padding: 5px;
   padding: 5px 10px 5px 10px;
-  background-color: white;
-  border: 1px solid gray;
+  background-color: $true_white;
+  border: 1px solid $gray;
   border-radius: 8px;
   transition: background-color 0.3s, color 0.3s;
   cursor: pointer;
 }
 
 .search-result:hover {
-  color: #fff;
-  background-color: #0ad06f;
+  color: $true_white;
+  background-color: $green;
 }
 
 .search-box,
@@ -94,8 +97,8 @@ label {
   height: 100%;
   padding: 8px 5px 8px 15px;
   font-size: 16px;
-  color: #484848;
-  background-color: rgb(246, 246, 246);
+  color: $dark_gray;
+  background-color: $white;
   border: 0;
   border-radius: 8px;
   outline: 0;
@@ -116,10 +119,10 @@ input {
   vertical-align: bottom;
   max-width: 90%;
   margin: 0 30px 0 10px;
-  border: 3px solid #000;
-  -webkit-box-shadow: 1px 1px 20px #000;
-  -moz-box-shadow: 1px 1px 20px #000;
-  box-shadow: 1px 1px 20px #000;
+  border: 3px solid $black;
+  -webkit-box-shadow: 1px 1px 20px $black;
+  -moz-box-shadow: 1px 1px 20px $black;
+  box-shadow: 1px 1px 20px $black;
 }
 
 .affiche img {
@@ -134,7 +137,7 @@ input {
   display: block;
   height: 100%;
   width: 100%;
-  background-color: #000;
+  background-color: $black;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -148,10 +151,10 @@ input {
   z-index: 99;
   display: none;
   margin: 25px 0 0 -92px;
-  border: 3px solid #000;
-  -webkit-box-shadow: 1px 1px 20px #000;
-  -moz-box-shadow: 1px 1px 20px #000;
-  box-shadow: 1px 1px 20px #000;
+  border: 3px solid $black;
+  -webkit-box-shadow: 1px 1px 20px $black;
+  -moz-box-shadow: 1px 1px 20px $black;
+  box-shadow: 1px 1px 20px $black;
 }
 
 .myTooltip:hover .profile {
@@ -160,19 +163,19 @@ input {
 
 .borderStyle > a {
   margin-bottom: 6px !important;
-  border: 1px solid gray;
+  border: 1px solid $gray;
   border-radius: 8px;
 }
 
 .borderStyle > a:hover {
-  color: #fff;
-  background-color: #007bff;
+  color: $true_white;
+  background-color: $blue;
 }
 
 table.dataTable.hover tbody tr:hover,
 table.dataTable.display tbody tr:hover,
 table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
-  background-color: #cfcfcf !important;
+  background-color: $gray_hover !important;
 }
 
 .dataTables_filter {
@@ -207,15 +210,15 @@ table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
 }
 
 .woman {
-  color: #ff637e;
+  color: $pink;
 }
 
 .men {
-  color: #007bff;
+  color: $blue;
 }
 
 .unknown {
-  color: #7abb51;
+  color: $green;
 }
 
 @media all and (max-width: #{$smallscreen}) {
