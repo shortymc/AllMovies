@@ -4,8 +4,8 @@
       <label>{{label}}</label>
     </div>
     <div class="card-body">
-      <div class="reco content">
-        <div *ngFor="let reco of movies;" class="movie">
+      <div class="reco display-flex">
+        <div *ngFor="let reco of movies;" class="display-inline-flex">
           <a class="affiche" [routerLink]="['/detail', reco.id]" ngbTooltip="{{reco.title | capitalizeWord}}">
             <img src="{{reco.thumbnail}}" alt="{{reco.title| capitalizeWord}}">
           </a>
