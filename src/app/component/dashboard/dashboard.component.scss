@@ -44,16 +44,16 @@ h4 {
   max-height: 120px;
   min-width: 120px;
   padding: 20px;
-  color: #007bff;
+  color: $blue;
   text-align: center;
-  background-color: #fff;
-  border: 1px solid #0275d8;
+  background-color: $true_white;
+  border: 1px solid $blue;
   border-radius: 1.5em;
 }
 
 .module:hover {
-  color: #fff;
-  background-color: #007bff;
+  color: $true_white;
+  background-color: $blue;
   cursor: pointer;
 }
 
