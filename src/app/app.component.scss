@@ -1,34 +1,4 @@
-h1 {
-  margin-bottom: 0;
-  font-size: 1.2em;
-  color: #999;
-}
-
-h2 {
-  margin-top: 0;
-  padding-top: 0;
-  font-size: 2em;
-}
-
-nav a {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 5px 10px;
-  text-decoration: none;
-  background-color: #eee;
-  border-radius: 4px;
-}
-
-a:link,
-nav a:visited {
-  color: #607d8b;
-}
-
-nav a:hover {
-  color: #039be5;
-  background-color: #cfd8dc;
-}
-
-nav a.active {
-  color: #039be5;
+.header {
+  padding-top: 10px;
+  padding-left: 10px;
 }
