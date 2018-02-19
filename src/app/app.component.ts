@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
   template: `
 	<div class="header">
-	  <h1>{{title}}</h1>
     <nav>
       <button class="btn btn-outline-primary" routerLink="/dashboard">Dashboard</button>
       <button class="btn btn-outline-primary" routerLink="/movies">Movies</button>
@@ -17,5 +16,4 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  title = 'Mon Appli';
 }
