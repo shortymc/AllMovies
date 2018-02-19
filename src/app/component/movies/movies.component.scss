@@ -52,28 +52,6 @@
   border-radius: 4px 0 0 4px;
 }
 
-button {
-  padding: 5px 10px;
-  font-family: Arial, sans-serif;
-  background-color: #eee;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  cursor: hand;
-}
-
-button:hover {
-  background-color: #cfd8dc;
-}
-
-button.delete {
-  float: right;
-  margin-top: 2px;
-  margin-right: 0.8em;
-  color: white;
-  background-color: gray !important;
-}
-
 #example {
   width: 99% !important;
 }

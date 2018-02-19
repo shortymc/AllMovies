@@ -1,8 +1,3 @@
-@import "~flag-icon-css/css/flag-icon.css";
-@import "~bootstrap/scss/bootstrap";
-@import "~datatables.net-buttons-dt/css/buttons.dataTables.min.css";
-@import "~datatables.net-select-bs/css/select.bootstrap.css";
-@import "~datatables.net-dt/css/jquery.dataTables.css";
 $smallscreen: 550px;
 
 body {
@@ -48,19 +43,6 @@ label {
 
 .align-center {
   text-align: center;
-}
-
-button {
-  padding: 5px 10px;
-  font-family: Arial, sans-serif;
-  background-color: #eee;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #007bff !important;
 }
 
 .pointer {
