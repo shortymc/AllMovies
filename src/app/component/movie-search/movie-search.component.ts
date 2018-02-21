@@ -44,6 +44,6 @@ export class MovieSearchComponent implements OnInit {
   }
 
   gotoDetail(movie: Movie): void {
-    this.router.navigate(['/detail', movie.id]);
+    this.router.navigate(['/movie', movie.id]);
   }
 }
