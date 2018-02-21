@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { MoviesComponent } from './component/movies/movies.component';
-import { PersonDetailComponent } from './component/person-detail/person-detail.component';
 import { ReleaseComponent } from './component/release/release.component';
 import { MovieSearchComponent } from './component/movie-search/movie-search.component';
 import { PersonSearchComponent } from './component/person-search/person-search.component';
@@ -38,7 +37,6 @@ import 'bootstrap';
     DashboardComponent,
     ReleaseComponent,
     MoviesComponent,
-    PersonDetailComponent,
     MovieSearchComponent,
     PersonSearchComponent
   ],
