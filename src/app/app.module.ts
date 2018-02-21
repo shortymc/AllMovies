@@ -1,4 +1,4 @@
-import { MetaComponent } from './component/meta/meta.component';
+import { SharedModule } from './shared/shared.module';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule, ModuleWithProviders, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { MoviesComponent } from './component/movies/movies.component';
-import { MovieDetailComponent } from './component/movie-detail/movie-detail.component';
 import { PersonDetailComponent } from './component/person-detail/person-detail.component';
 import { ReleaseComponent } from './component/release/release.component';
 import { MovieSearchComponent } from './component/movie-search/movie-search.component';
@@ -17,13 +16,10 @@ import { MyNgbDate } from './Shared/my-ngb-date';
 import { MovieService } from './service/movie.service';
 import { DropboxService } from './service/dropbox.service';
 import { PersonService } from './service/person.service';
-import { SubstractDatePipe, ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './Shared/custom.pipe';
 import { RatingModule } from 'ngx-rating';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import './shared/rxjs-operators';
 import 'bootstrap';
-import { ListPersonsComponent } from './component/list-persons/list-persons.component';
-import { ListMoviesComponent } from './component/list-movies/list-movies.component';
 
 @NgModule({
   imports: [
@@ -34,26 +30,19 @@ import { ListMoviesComponent } from './component/list-movies/list-movies.compone
     HttpClientJsonpModule,
     CommonModule,
     RatingModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule
   ],
   declarations: [
     AppComponent,
     DashboardComponent,
-    ConvertToHHmmPipe,
-    SubstractDatePipe,
-    CapitalizeWordPipe,
-    FilterCrewPipe,
-    MovieDetailComponent,
     ReleaseComponent,
     MoviesComponent,
     PersonDetailComponent,
     MovieSearchComponent,
-    ListMoviesComponent,
-    PersonSearchComponent,
-    MetaComponent,
-    ListPersonsComponent
+    PersonSearchComponent
   ],
-  providers: [MovieService, PersonService, DatePipe, DropboxService, ConvertToHHmmPipe,
+  providers: [MovieService, PersonService, DatePipe, DropboxService,
     { provide: LOCALE_ID, useValue: 'en' },
     { provide: MyNgbDate, useClass: MyNgbDate }],
   bootstrap: [AppComponent]
