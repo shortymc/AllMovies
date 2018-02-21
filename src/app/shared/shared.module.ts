@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ListPersonsComponent } from './list-persons/list-persons.component';
 import { ListMoviesComponent } from './list-movies/list-movies.component';
 import { MetaComponent } from './meta/meta.component';
-
+import './rxjs-operators';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { MetaComponent } from './meta/meta.component';
     FilterCrewPipe,
     ListMoviesComponent,
     MetaComponent,
-    ListPersonsComponent
+    ListPersonsComponent,
   ],
   imports: [
     CommonModule,
@@ -32,7 +32,7 @@ import { MetaComponent } from './meta/meta.component';
     FilterCrewPipe,
     ListMoviesComponent,
     MetaComponent,
-    ListPersonsComponent
+    ListPersonsComponent,
   ],
   providers: [
   ]
