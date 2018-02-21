@@ -1,11 +1,11 @@
 import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
-import { Movie } from '../../model/movie';
-import { MovieService } from '../../service/movie.service';
-import { DropboxService } from '../../service/dropbox.service';
+import { Movie } from '../../../model/movie';
+import { MovieService } from '../../../service/movie.service';
+import { DropboxService } from '../../../service/dropbox.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { MyNgbDate } from '../../Shared/my-ngb-date';
-import { Url } from '../../constant/url';
+import { MyNgbDate } from '../../../shared/my-ngb-date';
+import { Url } from '../../../constant/url';
 
 const now = new Date();
 

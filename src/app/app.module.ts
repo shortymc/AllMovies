@@ -8,16 +8,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { MoviesComponent } from './component/movies/movies.component';
-import { ReleaseComponent } from './component/release/release.component';
 import { MovieSearchComponent } from './component/movie-search/movie-search.component';
 import { PersonSearchComponent } from './component/person-search/person-search.component';
-import { MyNgbDate } from './Shared/my-ngb-date';
 import { MovieService } from './service/movie.service';
 import { DropboxService } from './service/dropbox.service';
 import { PersonService } from './service/person.service';
-import { RatingModule } from 'ngx-rating';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import './shared/rxjs-operators';
 import 'bootstrap';
 
 @NgModule({
@@ -28,21 +24,18 @@ import 'bootstrap';
     HttpClientModule,
     HttpClientJsonpModule,
     CommonModule,
-    RatingModule,
     AppRoutingModule,
     SharedModule
   ],
   declarations: [
     AppComponent,
     DashboardComponent,
-    ReleaseComponent,
     MoviesComponent,
     MovieSearchComponent,
     PersonSearchComponent
   ],
   providers: [MovieService, PersonService, DatePipe, DropboxService,
-    { provide: LOCALE_ID, useValue: 'en' },
-    { provide: MyNgbDate, useClass: MyNgbDate }],
+    { provide: LOCALE_ID, useValue: 'en' },],
   bootstrap: [AppComponent]
 })
 
