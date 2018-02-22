@@ -18,25 +18,23 @@ input {
   max-width: 90%;
   margin: 0 30px 0 10px;
   border: 3px solid $black;
-  -webkit-box-shadow: 1px 1px 20px $black;
-  -moz-box-shadow: 1px 1px 20px $black;
-  box-shadow: 1px 1px 20px $black;
-}
+  @include box-shadow;
 
-.profile img {
-  vertical-align: top;
-  border: 0;
-}
+  & img {
+    vertical-align: top;
+    border: 0;
+  }
 
-.profile:hover::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  display: block;
-  height: 100%;
-  width: 100%;
-  background-color: $black;
-  background-color: rgba(0, 0, 0, 0.5);
+  &:hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: $black;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 }
 
 .biography {

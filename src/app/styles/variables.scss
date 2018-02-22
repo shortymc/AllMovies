@@ -14,6 +14,10 @@ $gray: #6c757d;
 $light_gray: #8d8d8d;
 $gray_hover: #cfcfcf;
 $true_white: #fff;
-$green: #0ad06f;
 $black: #000;
-$pink: #ff637e;
+
+$gender: (
+  'woman': #ff637e,
+  'man': $blue,
+  'unknown': #0ad06f,
+);

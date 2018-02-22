@@ -76,7 +76,6 @@ label {
   width: calc(70% - 18px);
   margin-top: 1px;
   margin-left: calc(10% + 10px);
-  padding: 5px;
   padding: 5px 10px 5px 10px;
   background-color: $true_white;
   border: 1px solid $gray;
@@ -120,9 +119,7 @@ input {
   max-width: 90%;
   margin: 0 30px 0 10px;
   border: 3px solid $black;
-  -webkit-box-shadow: 1px 1px 20px $black;
-  -moz-box-shadow: 1px 1px 20px $black;
-  box-shadow: 1px 1px 20px $black;
+  @include box-shadow;
 }
 
 .affiche img {
@@ -152,9 +149,7 @@ input {
   display: none;
   margin: 25px 0 0 -92px;
   border: 3px solid $black;
-  -webkit-box-shadow: 1px 1px 20px $black;
-  -moz-box-shadow: 1px 1px 20px $black;
-  box-shadow: 1px 1px 20px $black;
+  @include box-shadow;
 }
 
 .myTooltip:hover .profile {
@@ -210,15 +205,15 @@ table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
 }
 
 .woman {
-  color: $pink;
+  color: map-get($gender, 'woman');
 }
 
 .men {
-  color: $blue;
+  color: map-get($gender, 'man');
 }
 
 .unknown {
-  color: $green;
+  color: map-get($gender, 'unknown');
 }
 
 @include media(#{$smallscreen}) {
