@@ -10,33 +10,6 @@ input {
   font-size: 1em;
 }
 
-.profile {
-  position: relative;
-  float: left;
-  vertical-align: bottom;
-  display: inline-block;
-  max-width: 90%;
-  margin: 0 30px 0 10px;
-  border: 3px solid $black;
-  @include box-shadow;
-
-  & img {
-    vertical-align: top;
-    border: 0;
-  }
-
-  &:hover::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    display: block;
-    height: 100%;
-    width: 100%;
-    background-color: $black;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-}
-
 .biography {
   width: 70%;
 }
