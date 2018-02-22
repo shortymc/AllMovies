@@ -50,10 +50,10 @@ label {
 
 .pointer {
   cursor: pointer;
-}
 
-.pointer:hover {
-  text-decoration: underline !important;
+  &:hover {
+    text-decoration: underline !important;
+  }
 }
 
 .small {
@@ -82,11 +82,11 @@ label {
   border-radius: 8px;
   transition: background-color 0.3s, color 0.3s;
   cursor: pointer;
-}
 
-.search-result:hover {
-  color: $true_white;
-  background-color: $green;
+  &:hover {
+    color: $true_white;
+    background-color: $green;
+  }
 }
 
 .search-box,
@@ -120,22 +120,22 @@ input {
   margin: 0 30px 0 10px;
   border: 3px solid $black;
   @include box-shadow;
-}
 
-.affiche img {
-  vertical-align: top;
-  border: 0;
-}
+  & img {
+    vertical-align: top;
+    border: 0;
+  }
 
-.affiche:hover::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  display: block;
-  height: 100%;
-  width: 100%;
-  background-color: $black;
-  background-color: rgba(0, 0, 0, 0.5);
+  &:hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: $black;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 }
 
 .reco a {
@@ -190,10 +190,10 @@ table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
 
 .posterDT {
   width: 10%;
-}
 
-.posterDT:hover {
-  width: 60%;
+  &:hover {
+    width: 60%;
+  }
 }
 
 .display-none {
