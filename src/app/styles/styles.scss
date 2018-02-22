@@ -221,7 +221,7 @@ table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
   color: $green;
 }
 
-@media all and (max-width: #{$smallscreen}) {
+@include media(#{$smallscreen}) {
   button {
     font-size: 0.8em !important;
   }

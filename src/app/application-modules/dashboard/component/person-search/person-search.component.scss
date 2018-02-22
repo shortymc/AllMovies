@@ -16,7 +16,7 @@ h4 {
   display: block !important;
 }
 
-@media all and (max-width: #{$smallscreen}) {
+@include media(#{$smallscreen}) {
   :host,
   .search-box {
     width: 100vw !important;
