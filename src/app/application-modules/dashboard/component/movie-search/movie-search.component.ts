@@ -4,22 +4,22 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-import { PersonSearchService } from '../../service/person-search.service';
-import { Person } from '../../model/person';
+import { MovieSearchService } from '../../service/movie-search.service';
+import { Movie } from '../../../../model/movie';
 
 @Component({
-  selector: 'app-person-search',
-  templateUrl: './person-search.component.html',
-  styleUrls: ['./person-search.component.scss'],
-  providers: [PersonSearchService]
+  selector: 'app-movie-search',
+  templateUrl: './movie-search.component.html',
+  styleUrls: ['./movie-search.component.scss'],
+  providers: [MovieSearchService]
 })
-export class PersonSearchComponent implements OnInit {
-  persons: Observable<Person[]>;
+export class MovieSearchComponent implements OnInit {
+  movies: Observable<Movie[]>;
   private searchTerms = new Subject<string>();
   adult = false;
 
   constructor(
-    private personSearchService: PersonSearchService,
+    private movieSearchService: MovieSearchService,
     private router: Router) { }
 
   // Push a search term into the observable stream.
@@ -28,22 +28,22 @@ export class PersonSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.persons = this.searchTerms
+    this.movies = this.searchTerms
       .debounceTime(300)        // wait 300ms after each keystroke before considering the term
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap(term => term   // switch to new observable each time the term changes
         // return the http search observable
-        ? this.personSearchService.search(term, this.adult)
-        // or the observable of empty persons if there was no search term
-        : Observable.of<Person[]>([]))
+        ? this.movieSearchService.search(term, this.adult)
+        // or the observable of empty movies if there was no search term
+        : Observable.of<Movie[]>([]))
       .catch(error => {
         // TODO: add real error handling
-        console.error(error);
-        return Observable.of<Person[]>([]);
+        console.log(error);
+        return Observable.of<Movie[]>([]);
       });
   }
 
-  gotoPerson(person: Person): void {
-    this.router.navigate(['/person', person.id]);
+  gotoDetail(movie: Movie): void {
+    this.router.navigate(['/movie', movie.id]);
   }
 }
