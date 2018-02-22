@@ -1,6 +1,6 @@
 @import "../../styles/styles";
 
-@media all and (max-width: #{$smallscreen}) {
+@include media(#{$smallscreen}) {
   :host {
     width: 100vw !important;
   }
