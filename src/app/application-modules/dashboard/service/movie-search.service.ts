@@ -1,8 +1,8 @@
+import { Movie } from './../../../model/movie';
+import { Url } from './../../../constant/url';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Movie } from '../model/movie';
-import { Url } from '../constant/url';
 
 @Injectable()
 export class MovieSearchService {

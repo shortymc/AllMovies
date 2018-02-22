@@ -1,8 +1,8 @@
+import { Person } from './../../../model/person';
+import { Url } from './../../../constant/url';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Url } from './../constant/url';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Person } from '../model/person';
 
 @Injectable()
 export class PersonSearchService {
