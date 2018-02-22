@@ -6,7 +6,7 @@
     <div class="card-body">
       <div class="reco display-flex">
         <div *ngFor="let reco of movies;" class="display-inline-flex">
-          <a class="affiche" [routerLink]="['/movie', reco.id]" ngbTooltip="{{reco.title | capitalizeWord}}">
+          <a class="frame" [routerLink]="['/movie', reco.id]" ngbTooltip="{{reco.title | capitalizeWord}}">
             <img src="{{reco.thumbnail}}" alt="{{reco.title| capitalizeWord}}">
           </a>
           <input [(ngModel)]="reco.checked" type="checkbox">
