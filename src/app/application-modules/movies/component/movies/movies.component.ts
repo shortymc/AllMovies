@@ -51,7 +51,7 @@ export class MoviesComponent implements OnInit {
     );
   }
   gotoDetail(id: number): void {
-    window.open('/detail/' + id);
+    window.open('/movie/' + id);
   }
   //    add(name: string): void {
   //        name = name.trim();
