@@ -1,8 +1,8 @@
+import { DropboxService } from './../../../../service/dropbox.service';
+import { Movie } from './../../../../model/movie';
+import { MovieService } from './../../../../service/movie.service';
 import { Component, OnInit } from '@angular/core';
-import { Movie } from '../../model/movie';
-import { MovieService } from '../../service/movie.service';
 import { Router } from '@angular/router';
-import { DropboxService } from '../../service/dropbox.service';
 import { Subject } from 'rxjs/Subject';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import * as $ from 'jquery';
