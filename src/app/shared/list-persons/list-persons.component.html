@@ -5,7 +5,7 @@
       <a [routerLink]="['/person', person.id]" class="myTooltip" [ngClass]="{'woman': person.gender === 1, 'men': person.gender === 2, 'unknown': person.gender === 0}">
         <span class="pointer">{{person.name| capitalizeWord}}
         </span>
-        <img class="frame" [src]="Url.IMAGE_URL_92.concat(person.profile_path)" *ngIf="person.profile_path" /> </a>
+        <img class="frame profile" [src]="Url.IMAGE_URL_92.concat(person.profile_path)" *ngIf="person.profile_path" /> </a>
       <span *ngIf="!last">/</span>
     </span>
   </div>
