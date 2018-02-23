@@ -1,7 +1,7 @@
 <br />
 <div class="display-inline-flex">
   <!-- Date Picker -->
-  <div class="column" role="group">
+  <div class="column">
     <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="getMoviesByReleaseDates(); selectedMovie = null;" [routerLink]="['/release']"
       [queryParams]="{ date: parseDate()}"></ngb-datepicker>
     <button class="btn btn-outline-primary" (click)="dp.navigateTo(removeOneWeek())" [routerLink]="['/release']" [queryParams]="{ date: addDays(-7)}">Select previous week</button>

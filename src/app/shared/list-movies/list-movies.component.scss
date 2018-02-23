@@ -10,6 +10,6 @@
   }
 
   .card-deck {
-    width: 100vw !important;
+    @include full_width;
   }
 }
