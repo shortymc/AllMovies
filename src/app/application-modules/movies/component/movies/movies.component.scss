@@ -18,7 +18,7 @@
   }
 
   & #example_filter > label {
-    display: flex;
+    @extend .d-flex;
   }
 
   & .myFilter {

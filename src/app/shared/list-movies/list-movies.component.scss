@@ -1,12 +1,13 @@
 @import "../../styles/styles";
 
-@include media(#{$smallscreen}) {
-  .display-flex {
-    display: inherit !important;
-  }
+.reco {
+  @extend .d-flex;
+}
 
-  %display-inline-flex {
-    //
+@include media(#{$smallscreen}) {
+  .reco {
+    display: inline-flex !important;
+    flex-wrap: wrap;
   }
 
   .card-deck {
