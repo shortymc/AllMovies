@@ -32,6 +32,12 @@ label {
   color: $blue;
 }
 
+.column {
+  display: grid;
+  align-content: start;
+  grid-template-columns: auto;
+}
+
 .icon img {
   vertical-align: middle;
   height: 30px;
@@ -173,6 +179,10 @@ table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
   background-color: $gray_hover !important;
 }
 
+.synopsis {
+  width: 70%;
+}
+
 .dataTables_filter {
   float: left !important;
   margin-left: 100px !important;
@@ -227,5 +237,9 @@ table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
 
   .synopsis {
     width: 100vw !important;
+  }
+
+  .column {
+    display: inline-grid;
   }
 }
