@@ -1,8 +1,12 @@
 @import "../../../styles/styles";
 
-.display-inline-flex > div {
-  padding-left: 5px;
-  padding-right: 5px;
+:host {
+  display: inline-flex;
+
+  > div {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }
 
 @include media(#{$smallscreen}) {
@@ -12,7 +16,7 @@
     @include full_width;
   }
 
-  .display-inline-flex {
+  :host {
     display: inherit !important;
 
     > div {
