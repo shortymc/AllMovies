@@ -1,5 +1,18 @@
 @import "../../styles/styles";
 
+.profile {
+  position: absolute;
+  z-index: 99;
+  display: none;
+  margin: 25px 0 0 -92px;
+  border: 3px solid $black;
+  @include box-shadow;
+
+  .myTooltip:hover & {
+    display: inline-block;
+  }
+}
+
 @include media(#{$smallscreen}) {
   :host {
     display: inherit !important;
