@@ -19,9 +19,9 @@ h4 {
 @include media(#{$smallscreen}) {
   :host,
   .search-box {
-    width: 100vw !important;
     max-width: 100vw !important;
     margin-left: 0 !important;
+    @include full_width;
   }
 
   .form-check-inline {
