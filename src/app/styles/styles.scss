@@ -162,48 +162,8 @@ input {
   display: inline-block;
 }
 
-.borderStyle > a {
-  margin-bottom: 6px !important;
-  border: 1px solid $gray;
-  border-radius: 8px;
-}
-
-.borderStyle > a:hover {
-  color: $true_white;
-  background-color: $blue;
-}
-
-table.dataTable.hover tbody tr:hover,
-table.dataTable.display tbody tr:hover,
-table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
-  background-color: $gray_hover !important;
-}
-
 .synopsis {
   width: 70%;
-}
-
-.dataTables_filter {
-  float: left !important;
-  margin-left: 100px !important;
-}
-
-.dataTables_filter > label {
-  display: flex;
-}
-
-.myFilter {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 3px;
-}
-
-.posterDT {
-  width: 10%;
-
-  &:hover {
-    width: 60%;
-  }
 }
 
 .display-none {
