@@ -1,7 +1,7 @@
 @import "../../styles/styles";
 
 .reco {
-  @extend .d-flex;
+  display: flex;
 }
 
 @include media(#{$smallscreen}) {
