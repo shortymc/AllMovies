@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4242 --open",
+    "mobile": "ng serve --host 0.0.0.0",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "run-p lint:**",
