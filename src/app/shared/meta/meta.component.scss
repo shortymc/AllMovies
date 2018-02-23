@@ -1,5 +1,18 @@
 @import "../../styles/styles";
 
+.borderStyle {
+  & > a {
+    margin-bottom: 6px !important;
+    border: 1px solid $blue;
+    border-radius: 8px !important;
+
+    &:hover {
+      color: $true_white;
+      background-color: $blue;
+    }
+  }
+}
+
 @include media(#{$smallscreen}) {
   :host {
     width: 100vw !important;
