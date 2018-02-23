@@ -9,15 +9,22 @@
   :host,
   .list-group,
   .row {
-    width: 100vw;
+    @include full_width;
   }
 
   .display-inline-flex {
     display: inherit !important;
 
-    & > div {
+    > div {
       padding-left: 0;
       padding-right: 0;
+    }
+  }
+
+  /* stylelint-disable */
+  ngb-datepicker {
+    ~ .btn {
+      @include full_width;
     }
   }
 }

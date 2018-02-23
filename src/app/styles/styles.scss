@@ -186,6 +186,10 @@ input {
   color: map-get($gender, 'unknown');
 }
 
+@mixin full_width {
+  width: 100vw !important;
+}
+
 @include media(#{$smallscreen}) {
   button {
     font-size: 0.8em !important;
@@ -196,10 +200,12 @@ input {
   }
 
   .synopsis {
-    width: 100vw !important;
+    @include full_width;
   }
 
   .column {
-    display: inline-grid;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 }

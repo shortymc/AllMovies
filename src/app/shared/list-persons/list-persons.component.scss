@@ -3,6 +3,6 @@
 @include media(#{$smallscreen}) {
   :host {
     display: inherit !important;
-    width: 100vw !important;
+    @include full_width;
   }
 }
