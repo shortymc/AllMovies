@@ -5,13 +5,18 @@
     </div>
     <div class="card-body">
       <div class="reco">
-        <div *ngFor="let reco of movies;">
+        <div *ngFor="let reco of moviesToShow;">
           <a class="frame" [routerLink]="['/movie', reco.id]" ngbTooltip="{{reco.title | capitalizeWord}}">
             <img src="{{reco.thumbnail}}" alt="{{reco.title| capitalizeWord}}">
           </a>
           <input [(ngModel)]="reco.checked" type="checkbox">
         </div>
       </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <ngb-pagination (pageChange)="pageChanged($event)" [collectionSize]="movies.length" [(page)]="page" [maxSize]="5" [rotate]="true"
+        [boundaryLinks]="true" [pageSize]="pageSize"></ngb-pagination>
+        <span class="total">Total: {{movies.length}}</span>
     </div>
     <div class="card-footer text-center">
       <button class="btn btn-outline-primary" (click)="addList()">

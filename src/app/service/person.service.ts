@@ -36,18 +36,18 @@ export class PersonService {
     const resp = response[0];
     const crew = response[1].crew;
 
-    const asActor = response[1].cast.slice(0, 6).map((r: any) =>
+    const asActor = response[1].cast.map((r: any) =>
       this.toMovie(r, Url.IMAGE_URL_154, Url.IMAGE_URL_EMPTY, Url.IMAGE_URL_ORIGINAL));
-    const asDirector = crew.filter((r: any) => this.jobEquals(r.job, 'Director')).slice(0, 6)
+    const asDirector = crew.filter((r: any) => this.jobEquals(r.job, 'Director'))
       .map((r: any) => this.toMovie(r, Url.IMAGE_URL_154, Url.IMAGE_URL_EMPTY, Url.IMAGE_URL_ORIGINAL));
-    const asProducer = crew.filter((r: any) => this.jobEquals(r.job, 'Producer')).slice(0, 6)
+    const asProducer = crew.filter((r: any) => this.jobEquals(r.job, 'Producer'))
       .map((r: any) => this.toMovie(r, Url.IMAGE_URL_154, Url.IMAGE_URL_EMPTY, Url.IMAGE_URL_ORIGINAL));
     const asCompositors = crew
       .filter((r: any) => (this.jobEquals(r.job, 'Compositors') || this.jobEquals(r.job, 'Original Music Composer')))
-      .slice(0, 6).map((r: any) => this.toMovie(r, Url.IMAGE_URL_154, Url.IMAGE_URL_EMPTY, Url.IMAGE_URL_ORIGINAL));
-    const asScreenplay = crew.filter((r: any) => (this.jobEquals(r.job, 'Screenplay') || this.jobEquals(r.job, 'Writer'))).slice(0, 6)
       .map((r: any) => this.toMovie(r, Url.IMAGE_URL_154, Url.IMAGE_URL_EMPTY, Url.IMAGE_URL_ORIGINAL));
-    const asNovel = crew.filter((r: any) => this.jobEquals(r.job, 'Novel')).slice(0, 6)
+    const asScreenplay = crew.filter((r: any) => (this.jobEquals(r.job, 'Screenplay') || this.jobEquals(r.job, 'Writer')))
+      .map((r: any) => this.toMovie(r, Url.IMAGE_URL_154, Url.IMAGE_URL_EMPTY, Url.IMAGE_URL_ORIGINAL));
+    const asNovel = crew.filter((r: any) => this.jobEquals(r.job, 'Novel'))
       .map((r: any) => this.toMovie(r, Url.IMAGE_URL_154, Url.IMAGE_URL_EMPTY, Url.IMAGE_URL_ORIGINAL));
 
     return new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday,

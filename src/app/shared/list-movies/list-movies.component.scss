@@ -4,6 +4,16 @@
   display: flex;
 }
 
+.total {
+  position: relative;
+  display: block;
+  margin-left: -1px;
+  padding: 0.5rem 0.75rem;
+  line-height: 1.25;
+  color: $blue;
+  border: 1px solid #dee2e6;
+}
+
 @include media(#{$smallscreen}) {
   .reco {
     display: inline-flex !important;
