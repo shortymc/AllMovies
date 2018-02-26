@@ -237,7 +237,7 @@ export class MovieService {
     }
     let reco;
     if (r.recommendations !== null && r.recommendations !== undefined) {
-      reco = this.recommendationsToMovies(r.recommendations.results.slice(0, 6));
+      reco = this.recommendationsToMovies(r.recommendations.results);
     }
     let img;
     if (r.images !== null && r.images !== undefined) {
