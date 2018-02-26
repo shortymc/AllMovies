@@ -14,7 +14,7 @@ const childRoutes: Routes = [
   {
     path: '', component: ReleaseComponent
   },
-]
+];
 
 @NgModule({
   imports: [

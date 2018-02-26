@@ -65,7 +65,7 @@ export class ReleaseComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(
       params => {
-        let date = params['date'];
+        const date = params['date'];
         if (date === null || date === undefined) {
           this.selectPreviousWednesday();
         } else {
@@ -125,7 +125,7 @@ export class ReleaseComponent implements OnInit {
   }
 
   parseDate() {
-    let date = this.formatter.ngbDateToDate(this.model);
+    const date = this.formatter.ngbDateToDate(this.model);
     return this.formatter.dateToString(date, 'dd/MM/yyyy');
   }
 
