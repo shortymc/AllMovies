@@ -11,7 +11,7 @@ const childRoutes: Routes = [
   {
     path: '', component: MoviesComponent
   },
-]
+];
 
 @NgModule({
   imports: [
