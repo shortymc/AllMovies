@@ -11,7 +11,7 @@ const childRoutes: Routes = [
   {
     path: ':id', component: PersonDetailComponent
   },
-]
+];
 
 @NgModule({
   imports: [

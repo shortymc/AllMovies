@@ -14,7 +14,7 @@ export class MetaComponent implements OnInit {
   @Input()
   set movie(value) {
     this._movie.next(value);
-  };
+  }
 
   get movie() {
     return this._movie.getValue();

@@ -12,7 +12,7 @@ const childRoutes: Routes = [
   {
     path: ':id', component: MovieDetailComponent
   },
-]
+];
 
 @NgModule({
   imports: [

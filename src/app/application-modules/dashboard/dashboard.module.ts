@@ -13,7 +13,7 @@ const childRoutes: Routes = [
   {
     path: '', component: DashboardComponent
   },
-]
+];
 
 @NgModule({
   imports: [
