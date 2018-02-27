@@ -9,7 +9,7 @@ import { Url } from '../../constant/url';
 })
 export class ListPersonsComponent implements OnInit {
   @Input()
-  persons: Person;
+  persons: Person[];
   @Input()
   label: string;
   Url = Url;
