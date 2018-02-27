@@ -13,8 +13,3 @@ ul {
   margin-left: 180px;
 }
 
-@include media(#{$smallscreen}) {
-  .movies {
-    padding-left: 0;
-  }
-}

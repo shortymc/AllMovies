@@ -1,6 +1,7 @@
 @import './imports.scss';
 
 body {
+  margin-bottom: 50vh;
   font-family: $font-family !important;
 }
 
@@ -200,5 +201,17 @@ input {
   .card-deck {
     display: inherit !important;
     flex-wrap: inherit !important;
+  }
+
+  .movies {
+    padding-left: 0;
+    list-style-type: none;
+  }
+
+  .page-link[aria-label="Next"],
+  .page-link[aria-label="Previous"],
+  .page-link[aria-label="First"],
+  .page-link[aria-label="Last"] {
+    display: none !important;
   }
 }
