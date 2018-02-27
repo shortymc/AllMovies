@@ -11,6 +11,7 @@
     "lint": "run-p lint:**",
     "lint:ts": "ng lint",
     "lint:stylelint": "stylelint --syntax scss 'src/**/*.scss'",
+    "analyze": "ng build --prod --stats-json && webpack-bundle-analyzer dist/stats.json",
     "e2e": "ng e2e"
   },
   "private": true,
@@ -38,7 +39,7 @@
     "dropbox": "^2.5.12",
     "flag-icon-css": "^2.9.0",
     "jquery": "^3.3.1",
-    "moment": "^2.20.1",
+    "moment": "2.18.1",
     "ng-bootstrap": "^1.6.3",
     "ngx-rating": "0.0.9",
     "popper": "^1.0.1",
@@ -47,8 +48,8 @@
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
-    "@angular/cli": "1.6.8",
-    "@angular/compiler-cli": "^5.2.0",
+    "@angular/cli": "^1.7.1",
+    "@angular/compiler-cli": "^5.2.6",
     "@angular/language-service": "^5.2.0",
     "@types/datatables.net": "^1.10.8",
     "@types/jasmine": "~2.8.3",
@@ -70,6 +71,7 @@
     "stylelint-order": "^0.8.0",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "~2.5.3"
+    "typescript": "~2.5.3",
+    "webpack-bundle-analyzer": "^2.11.0"
   }
 }
