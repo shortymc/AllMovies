@@ -15,6 +15,7 @@ export class PersonSearchComponent implements OnInit {
   persons: Observable<Person[]>;
   private searchTerms = new Subject<string>();
   adult = false;
+  showPerson = false;
 
   constructor(
     private personSearchService: PersonSearchService,
