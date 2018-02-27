@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Dropbox = require('dropbox');
+import Dropbox from 'dropbox';
 import { Movie } from '../model/movie';
 import { Url } from '../constant/url';
 
