@@ -17,6 +17,7 @@ export class MovieSearchComponent implements OnInit {
   movies: Observable<Movie[]>;
   private searchTerms = new Subject<string>();
   adult = false;
+  showMovie = false;
 
   constructor(
     private movieSearchService: MovieSearchService,
