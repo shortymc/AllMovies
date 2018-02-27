@@ -1,12 +1,20 @@
 <div *ngIf="persons.length > 0">
   <label>{{label}}</label>
   <div class="block">
-    <span *ngFor="let person of persons; let last=last;">
-      <a [routerLink]="['/person', person.id]" class="myTooltip" [ngClass]="{'woman': person.gender === 1, 'men': person.gender === 2, 'unknown': person.gender === 0}">
-        <span class="pointer">{{person.name| capitalizeWord}}
-        </span>
-        <img class="frame profile" [src]="Url.IMAGE_URL_92.concat(person.profile_path)" *ngIf="person.profile_path" /> </a>
-      <span *ngIf="!last">/</span>
+
+    <span *ngFor="let person of persons; let last=last; let i = index">
+      <span *ngIf="i<(limit+1) || showAll">
+        <a [routerLink]="['/person', person.id]" class="myTooltip" [ngClass]="{'woman': person.gender === 1, 'men': person.gender === 2, 'unknown': person.gender === 0}">
+          <span class="pointer">{{person.name| capitalizeWord}}
+          </span>
+          <img class="frame profile" [src]="Url.IMAGE_URL_92.concat(person.profile_path)" *ngIf="person.profile_path" /> </a>
+        <span *ngIf="i != limit && !last">/</span>
+      </span>
     </span>
+
+    <button *ngIf="persons.length > limit" class="btn btn-primary" (click)="showAll=!showAll">
+      <span *ngIf="!showAll">Show all {{label | lowercase}}</span>
+      <span *ngIf="showAll">Hide {{label | lowercase}}</span>
+    </button>
   </div>
 </div>
