@@ -229,7 +229,7 @@ export class MovieService {
       crew = r.credits.crew;
     }
     if (cast !== undefined) {
-      cast = cast.slice(0, 6);
+      cast = cast;
     }
     let videos;
     if (r.videos !== null && r.videos !== undefined) {

@@ -13,6 +13,8 @@ export class ListPersonsComponent implements OnInit {
   @Input()
   label: string;
   Url = Url;
+  limit = 6;
+  showAll = false;
 
   constructor() { }
 
