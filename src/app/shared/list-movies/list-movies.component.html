@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-center">
-      <ngb-pagination (pageChange)="pageChanged($event)" [collectionSize]="movies.length" [(page)]="page" [maxSize]="5" [rotate]="true"
+      <ngb-pagination (pageChange)="pageChanged($event)" [collectionSize]="movies.length" [(page)]="page" [maxSize]="3" [rotate]="true"
         [boundaryLinks]="true" [pageSize]="pageSize"></ngb-pagination>
         <span class="total">Total: {{movies.length}}</span>
     </div>
