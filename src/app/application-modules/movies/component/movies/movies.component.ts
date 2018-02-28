@@ -39,7 +39,7 @@ export class MoviesComponent implements OnInit {
     }
     incomplete = incomplete.slice(0, 20);
     const obs = incomplete.map((id: number) => {
-      return this.movieService.getMovie(id, false, false, false, false);
+      return this.movieService.getMovie(id, false, false, false, false, undefined);
     });
 
     forkJoin(obs).subscribe(

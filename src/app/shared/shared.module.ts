@@ -10,6 +10,7 @@ import { ListMoviesComponent } from './list-movies/list-movies.component';
 import { MetaComponent } from './meta/component/meta.component';
 import './rxjs-operators';
 import { ServiceUtils } from '../service/serviceUtils';
+import { DropdownLanguageComponent } from './dropdown-language/dropdown-language.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ServiceUtils } from '../service/serviceUtils';
     ListMoviesComponent,
     MetaComponent,
     ListPersonsComponent,
-  ],
+    DropdownLanguageComponent
+],
   imports: [
     CommonModule,
     FormsModule,
@@ -35,6 +37,7 @@ import { ServiceUtils } from '../service/serviceUtils';
     ListMoviesComponent,
     MetaComponent,
     ListPersonsComponent,
+    DropdownLanguageComponent
   ],
   providers: [
     MetaService, ServiceUtils

@@ -20,6 +20,7 @@ export class Url {
     static readonly MOVIE_SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?';
     static readonly PERSON_SEARCH_URL = 'https://api.themoviedb.org/3/search/person?';
     static readonly MOVIE_CREDITS_URL = 'movie_credits';
+    static readonly LANGUE = '&language=';
     static readonly LANGUE_FR = '&language=fr';
     static readonly ADULT_URL = '&include_adult=true';
     static readonly QUERY_URL = '&query=';
