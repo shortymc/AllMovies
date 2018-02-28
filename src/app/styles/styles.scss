@@ -175,6 +175,10 @@ input {
   color: map-get($gender, 'unknown');
 }
 
+.movies {
+  list-style-type: none;
+}
+
 @mixin full_width {
   width: 100vw !important;
 }
@@ -205,7 +209,6 @@ input {
 
   .movies {
     padding-left: 0;
-    list-style-type: none;
   }
 
   .page-link[aria-label="Next"],
