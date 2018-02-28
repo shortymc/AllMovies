@@ -1,8 +1,8 @@
+import { MetaService } from './../service/meta.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { MovieService } from './../../service/movie.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Url } from '../../constant/url';
-import { Movie } from '../../model/movie';
+import { Url } from '../../../constant/url';
+import { Movie } from '../../../model/movie';
 
 @Component({
   selector: 'app-meta',
@@ -25,7 +25,7 @@ export class MetaComponent implements OnInit {
   wikiEN: string;
   wikiFR: string;
 
-  constructor(private movieService: MovieService) { }
+  constructor(private metaService: MetaService) { }
 
   ngOnInit() {
     this._movie
@@ -33,11 +33,11 @@ export class MetaComponent implements OnInit {
         const title = this.movie.title;
         const original = this.movie.original_title;
         const searchTitle = original === '' ? title : original;
-        this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_METACRITIC).then(result => this.metacritic = result);
-        this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_SENSCRITIQUE).then(result => this.senscritique = result);
-        this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_IMDB).then(result => this.imdb = result);
-        this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_EN).then(result => this.wikiEN = result);
-        this.movieService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_FR).then(result => this.wikiFR = result);
+        this.metaService.getLinkScore(searchTitle, Url.SEARCH_BANG_METACRITIC).then(result => this.metacritic = result);
+        this.metaService.getLinkScore(searchTitle, Url.SEARCH_BANG_SENSCRITIQUE).then(result => this.senscritique = result);
+        this.metaService.getLinkScore(searchTitle, Url.SEARCH_BANG_IMDB).then(result => this.imdb = result);
+        this.metaService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_EN).then(result => this.wikiEN = result);
+        this.metaService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_FR).then(result => this.wikiFR = result);
       });
   }
 
