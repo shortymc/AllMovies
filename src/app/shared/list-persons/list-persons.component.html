@@ -1,5 +1,5 @@
 <div *ngIf="persons.length > 0">
-  <label>{{label}}</label>
+  <label>{{label}}: </label>
   <div class="block">
 
     <span *ngFor="let person of persons; let last=last; let i = index">
@@ -8,7 +8,7 @@
           <span class="pointer">{{person.name| capitalizeWord}}
           </span>
           <img class="frame profile" [src]="Url.IMAGE_URL_92.concat(person.profile_path)" *ngIf="person.profile_path" /> </a>
-        <span *ngIf="i != limit && !last">/</span>
+        <span *ngIf="(i !== limit && !showAll) || (!last && showAll)">/</span>
       </span>
     </span>
 
