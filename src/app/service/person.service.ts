@@ -1,3 +1,4 @@
+import { ServiceUtils } from './serviceUtils';
 import { Url } from './../constant/url';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -5,30 +6,24 @@ import { Observable } from 'rxjs/Observable';
 import { Movie } from '../model/movie';
 import { Person } from '../model/person';
 
-
 @Injectable()
 export class PersonService {
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: HttpClient) { }
-
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
-  }
+  constructor(private utils: ServiceUtils) { }
 
   getPerson(id: number): Promise<Person> {
     //        const url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}${Url.LANGUE_FR},${Url.APPEND_IMAGES}`;
     const url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}${Url.APPEND}${Url.APPEND_IMAGES}`;
     const urlMovies = `${Url.PERSON_URL}/${id}/${Url.MOVIE_CREDITS_URL}?${Url.API_KEY}${Url.LANGUE_FR}`;
     return Observable.forkJoin(
-      this.http.get(url),
-      this.http.get(urlMovies)
+      this.utils.http.get(url),
+      this.utils.http.get(urlMovies)
     ).map(responses => {
       return [].concat(...responses);
     }).map(response => this.mapPerson(response))
       .toPromise()
-      .catch(this.handleError);
+      .catch(this.utils.handleError);
   }
 
   mapPerson(response: any[]): Person {
