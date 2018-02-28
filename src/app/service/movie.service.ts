@@ -1,144 +1,18 @@
+import { ServiceUtils } from './serviceUtils';
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Movie } from '../model/movie';
 import { Url } from '../constant/url';
 
 @Injectable()
 export class MovieService {
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  private score: string;
-  private metaUrl: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private utils: ServiceUtils) { }
 
   getMovies(): Promise<Movie[]> {
-    return this.http.get(Url.MOST_POPULAR_URL)
+    return this.utils.http.get(Url.MOST_POPULAR_URL)
       .toPromise()
       .then(response => this.mapMoviesDT(response))
-      .catch(this.handleError);
-  }
-
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
-  }
-
-  getLinkScore(title: string, site: string): Promise<string> {
-    let url = Url.DUCKDUCKGO_URL + site + '+';
-    // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
-    // '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
-    url += this.encodeQueryUrl(title) + '&format=json&no_redirect=1';
-    return this.http.jsonp(url, 'callback').toPromise()
-      .then((data: any) => {
-        let result = <string>data.Redirect;
-        if (site === 'metacritic') {
-          result = result.replace('/all/', '/movie/');
-        } else if (site === 'scq') {
-          result += '&filter=movies';
-        }
-        return result;
-      })
-      .catch(this.handleError);
-  }
-
-  encodeQueryUrl(query: string): string {
-    return encodeURIComponent(query).replace(/[!'()*]/g, function (c) {
-      return '%' + c.charCodeAt(0).toString(16);
-    });
-  }
-
-  getMeta(title: string): Promise<void> {
-    let url =
-      'https://www.googleapis.com/customsearch/v1?key=AIzaSyDEM7hrrBdfYC8ygSW85jbSOiqiB7z309s&cx=012455488159958509456:n8jpj1vlffy&q=';
-    // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
-    url += title.split(' ').join('+') + 'siteSearch=metacritic.com';
-    console.log(url);
-    return this.http.get(url, { headers: this.headers }).toPromise()
-      .then((data: any) => {
-        if (data.items !== null && data.items !== undefined) {
-          return data.items[0].formattedUrl;
-        } else {
-          return;
-        }
-      }).then((metaUrl: any) => {
-        this.http.get(metaUrl, { headers: this.headers })
-          .map((res: any) => {
-            const htmlR = $.parseHTML(res._body);
-            this.score = $(htmlR).find('.metascore_w.larger.movie.positive')[0].innerText;
-            console.log(this.score);
-          });
-      });
-  }
-
-  //    getMetaScore(title: string): Promise<string> {
-  //        let url = 'https://api.duckduckgo.com/?q=!metacritic+';
-  //        // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
-  // '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
-  //        console.log('url: ' + url);
-  //        return this.jsonp.request(url).toPromise()
-  //            .then((data: Response) => {
-  //                console.log('coucou');
-  //                console.log(data.json());
-  //                console.log(data.json().Redirect);
-  //                this.metaUrl = data.json().Redirect;
-  //                return this.http.request(this.metaUrl)
-  //                .subscribe(
-  //                    data => {
-  //                        console.log('Hello: ');
-  //                        console.log(data);
-  //                        data.addHeader('Access-Control-Allow-Origin','*');
-  //                        let htmlR = $.parseHTML(data);
-  //                        let result = $(htmlR).find($('.main_stats'));
-  //                        for (let res of result) {
-  //                            console.log(res);
-  //                            if(res.children[0].innerText.toLowerCase() === title.toLowerCase()) {
-  //                                console.log(res.children[1].innerText);
-  //                                this.score = res.children[1].innerText;
-  //                            }
-  //                        }
-  //                        return this.score;
-  //                    },
-  //                    err => this.handleError(err),
-  //                    () => console.log('get actual visits complete')
-  //                 );
-  //            });
-  //    }
-
-  //    getMetaScore(title: string): Promise<string> {
-  //        let url = 'https://api.duckduckgo.com/?q=!metacritic+';
-  //        // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
-  // '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
-  //        console.log('url: ' + url);
-  //        return this.jsonp.request(url).toPromise()
-  //            .then((data: Response) => {
-  //                console.log('coucou');
-  //                console.log(data.json());
-  //                console.log(data.json().Redirect);
-  //                this.metaUrl = data.json().Redirect;
-  //                return this.http.request(this.metaUrl)
-  //                        .map((donnee: Response) => {
-  //                        console.log('Hello: ');
-  //                        console.log(donnee);
-  //                        donnee.addHeader('Access-Control-Allow-Origin','*');
-  //                        let htmlR = $.parseHTML(donnee);
-  //                        let result = $(htmlR).find($('.main_stats'));
-  //                        for (let res of result) {
-  //                            console.log(res);
-  //                            if(res.children[0].innerText.toLowerCase() === title.toLowerCase()) {
-  //                                console.log(res.children[1].innerText);
-  //                                return res.children[1].innerText;
-  //                            }
-  //                        }
-  //                }).subscribe(
-  //                    data => this.score = data,
-  //                    err => this.handleError(err),
-  //                    () => console.log('get actual visits complete')
-  //                 );
-  //            });
-  //    }
-
-  public getScore(): string {
-    return this.score;
+      .catch(this.utils.handleError);
   }
 
   getMovie(id: number, video: boolean, credit: boolean, reco: boolean, image: boolean): Promise<Movie> {
@@ -162,18 +36,18 @@ export class MovieService {
       }
       url += parametres.join(',');
     }
-    return this.http.get(url)
+    return this.utils.http.get(url)
       .toPromise()
       .then(response => this.mapMovie(response))
-      .catch(this.handleError);
+      .catch(this.utils.handleError);
   }
 
   getMoviesByReleaseDates(debut: string, fin: string): Promise<Movie[]> {
     const url = `${Url.DISCOVER_URL}${Url.RELEASE_DATE_GTE_URL}${debut}${Url.RELEASE_DATE_LTE_URL}${fin}${Url.RELEASE_TYPE_URL}`;
-    return this.http.get(url)
+    return this.utils.http.get(url)
       .toPromise()
       .then(response => this.mapMovies(response))
-      .catch(this.handleError);
+      .catch(this.utils.handleError);
   }
 
   mapMovies(response: any): Movie[] {
