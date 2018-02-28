@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import * as moment from 'moment-mini-ts'
+import * as moment from 'moment-mini-ts';
 
 @Pipe({ name: 'convertToHHmm' })
 export class ConvertToHHmmPipe implements PipeTransform {
