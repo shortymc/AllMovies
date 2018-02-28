@@ -15,7 +15,7 @@ export class MovieService {
       .catch(this.utils.handleError);
   }
 
-  getMovie(id: number, video: boolean, credit: boolean, reco: boolean, image: boolean): Promise<Movie> {
+  getMovie(id: number, video: boolean, credit: boolean, reco: boolean, image: boolean, language: string): Promise<Movie> {
     //        const url = `${Url.MOVIE_URl}/${id}?${Url.API_KEY}${this.langue}${Url.APPEND}${Url.APPEND_VIDEOS},
     // ${Url.APPEND_CREDITS},${Url.APPEND_RECOMMENDATIONS},${Url.APPEND_IMAGES}`;
     let url = `${Url.MOVIE_URl}/${id}?${Url.API_KEY}`;
@@ -35,6 +35,9 @@ export class MovieService {
         parametres.push(`${Url.APPEND_IMAGES}`);
       }
       url += parametres.join(',');
+    }
+    if(language) {
+      url += `${Url.LANGUE}${language}`;
     }
     return this.utils.http.get(url)
       .toPromise()
