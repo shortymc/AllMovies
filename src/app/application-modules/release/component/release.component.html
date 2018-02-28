@@ -51,9 +51,9 @@
         </span>
       </div>
     </div>
-    <app-list-persons [persons]="selectedMovie.actors" [label]="'Acteurs: '"></app-list-persons>
+    <app-list-persons [persons]="selectedMovie.actors" [label]="'Acteurs'"></app-list-persons>
     <div *ngIf="(selectedMovie.crew | filterCrew:'director') as director">
-      <app-list-persons [persons]="director" [label]="'R&eacute;alisateur: '"></app-list-persons>
+      <app-list-persons [persons]="director" [label]="'R&eacute;alisateur'"></app-list-persons>
     </div>
     <div *ngIf="selectedMovie.note > 0">
       <label>Note: </label>{{selectedMovie.note}} / 10
