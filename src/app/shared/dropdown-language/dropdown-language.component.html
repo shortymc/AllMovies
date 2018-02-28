@@ -1,0 +1,18 @@
+<div class="dropdown">
+  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+    aria-expanded="false">
+    Change Language
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" [ngClass]="{'active': in === 'fr'}" (click)="change('fr')">
+      <span class="flag-icon flag-icon-fr"></span> Fançais</a>
+    <a class="dropdown-item" [ngClass]="{'active': in === 'en'}" (click)="change('en')">
+      <span class="flag-icon flag-icon-gb"></span> English</a>
+    <a class="dropdown-item" [ngClass]="{'active': in === 'es'}" (click)="change('es')">
+      <span class="flag-icon flag-icon-es"></span> Español</a>
+    <a class="dropdown-item" [ngClass]="{'active': in === 'de'}" (click)="change('de')">
+      <span class="flag-icon flag-icon-de"></span> Deutsch</a>
+    <a class="dropdown-item" [ngClass]="{'active': in === 'it'}" (click)="change('it')">
+      <span class="flag-icon flag-icon-it"></span> Italiano</a>
+  </div>
+</div>
