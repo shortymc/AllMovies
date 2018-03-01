@@ -5,7 +5,6 @@
       <img src="{{movie.thumbnail}}">
     </a>
   </div>
-  <app-dropdown-language [in]="language" (out)="getMovie(movie.id, $event)"></app-dropdown-language>
   <div class="contenu">
     <button class="btn btn-outline-primary" (click)="goBack()">
       <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Previous Page</button>

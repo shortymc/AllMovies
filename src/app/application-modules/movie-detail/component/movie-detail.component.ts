@@ -1,3 +1,4 @@
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Url } from './../../../constant/url';
 import { Component, OnInit } from '@angular/core';
@@ -18,12 +19,15 @@ export class MovieDetailComponent implements OnInit {
   Url = Url;
   language: string;
 
-  constructor(private movieService: MovieService, private route: ActivatedRoute,
+  constructor(private movieService: MovieService, private route: ActivatedRoute,private translate: TranslateService,
     private location: Location, private router: Router, private dropboxService: DropboxService) { }
 
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.getMovie(id, 'fr');
+    this.getMovie(id, this.translate.getBrowserLang());
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.getMovie(this.movie.id, event.lang);
+    });
   }
 
   getMovie(id: number, language: string) {
