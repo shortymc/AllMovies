@@ -90,5 +90,33 @@
     "RESET_PASSWORD_REQUEST_SUCCESS": "Demande de réinitialisation envoyée",
     "RESET_PASSWORD_REQUEST_ERROR": "Utilisateur inconnu",
     "RESET_PASSWORD_CONNECTION_ERROR": "Erreur lors de la connexion"
+  },
+  "movie": {
+    "header": "Détails de",
+    "previous": "Page précédente",
+    "add_collection": "Ajouter à la collection",
+    "id": "Id",
+    "title": "Titre",
+    "country": "Pays",
+    "date": "Date de sortie",
+    "length": "Durée",
+    "genres": "Genres",
+    "synopsis": "Synopsis",
+    "actors": "Acteurs",
+    "directors": "Réalisateur",
+    "producers": "Producteur",
+    "composers": "Compositeur",
+    "screenwriters": "Scénariste",
+    "novelists": "Romancier",
+    "cameos": "Cameo",
+    "guests": "Guest-Star",
+    "song": "Chansons",
+    "music": "Musique",
+    "budget": "Budget",
+    "revenu": "Recette",
+    "rating": "Note",
+    "video": "Vidéo(s)",
+    "image": "Images du film",
+    "reco": "Vous aimerez aussi"
   }
 }
