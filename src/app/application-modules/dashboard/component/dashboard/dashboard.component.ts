@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import { Movie } from '../../../../model/movie';
 import { MovieService } from '../../../../service/movie.service';
@@ -10,7 +11,7 @@ import { MovieService } from '../../../../service/movie.service';
 export class DashboardComponent implements OnInit {
   movies: Movie[] = [];
 
-  constructor(private movieService: MovieService) { }
+  constructor(private movieService: MovieService, private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.movieService.getMovies()

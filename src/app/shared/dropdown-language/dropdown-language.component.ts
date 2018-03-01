@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
@@ -6,18 +7,17 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
   styleUrls: ['./dropdown-language.component.scss']
 })
 export class DropdownLanguageComponent implements OnInit {
-  @Input()
-  in: string;
-  @Output()
-  out: EventEmitter<string> = new EventEmitter<string>();
+  language: string;
 
-  constructor() { }
+  constructor(private translate: TranslateService) { }
 
   ngOnInit() {
+    this.language = this.translate.getBrowserLang();
   }
 
   change(language: string) {
-    this.out.emit(language);
+    this.language = language;
+    this.translate.use(language);
   }
 
 }
