@@ -172,5 +172,13 @@
       "sortAscending": "activer pour trier la colonne par ordre croissant",
       "sortDescending": "activer pour trier la colonne par ordre d&eacute;croissant"
     }
+  },
+  "release": {
+    "header": "Films sortis du {{begin}} au {{end}}",
+    "date": {
+      "previous": "Semaine précédente",
+      "next": "Semaine suivante",
+      "current": "Semaine courante"
+    }
   }
 }

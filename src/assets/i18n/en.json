@@ -172,5 +172,13 @@
       "sortAscending": "activate to sort column ascending",
       "sortDescending": "activate to sort column descending"
     }
+  },
+  "release": {
+    "header": "Movies released from {{begin}} to {{end}}",
+    "date": {
+      "previous": "Previous week",
+      "next": "Next week",
+      "current": "Current week"
+    }
   }
 }
