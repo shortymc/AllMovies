@@ -1,19 +1,17 @@
 {
-  "GLOBAL": {
-    "add_invoice": "Envoyer",
-    "select_invoice": "Sélectionner une facture",
+  "global": {
     "add_picture": "Ajouter une image",
     "add_contact": "Ajouter un contact",
     "edit_picture": "Modifier l'image",
+    "previous": "Page précédente",
+    "add_collection": "Ajouter à la collection",
     "continue": "Continuer",
     "activate": "Activer",
     "deactivate": "Désactiver",
     "delete": "Supprimer",
     "cancel": "Annuler",
     "done": "Terminer",
-    "provider": "Fournisseur",
     "email": "E-mail",
-    "phoneNumber": "N° téléphone",
     "firstname": "Prénom",
     "lastname": "Nom",
     "username": "Pseudo",
@@ -22,10 +20,6 @@
     "edit": "Modifier",
     "save": "Sauvegarder",
     "finish": "Terminer",
-    "company": "Société",
-    "phone": "Téléphone",
-    "last_connection": "Dernière connexion",
-    "status": "Statut",
     "download": "Télécharger",
     "return": "Retour",
     "pageNotFound": "Page introuvable"
@@ -51,10 +45,6 @@
   },
   "TOASTER_MESSAGES": {
     "APP_PROPERTIES_LOADING_ERROR": "Erreur de chargement du paramétrage",
-    "CUSTOMIZATION_LOADING_ERROR": "Erreur de chargement du thème",
-    "ADD_INVOICE_SUCCESS": "Facture ajoutée",
-    "ADD_INVOICE_ERROR": "Erreur en ajout d'une Facture",
-    "ADD_INVOICE_ERROR_DOUBLEID": "Identifiant de facture déjà utilisé",
     "ADD_COMMENT_SUCCESS": "Commentaire ajouté",
     "ADD_COMMENT_ERROR": "Erreur en ajout d'un commentaire",
     "ADD_COMMENT_ERROR_MISSING_TEXT": "Texte manquant",
@@ -74,9 +64,6 @@
     "DEACTIVATE_MULTIPLE_MEMBERSS_ERROR": "Erreur lors de la désactivation du contact ",
     "DELETE_MEMBERS_SUCCESS": "Membre supprimé",
     "DELETE_MEMBERS_SUCCESS_MANY": "Membres supprimés",
-    "DELETE_MEMBERS_ERROR": "Erreur lors de la suppression des contacts",
-    "LOAD_MEMBERSS_ERROR": "Erreur lors de la récupération des contacts",
-    "LOAD_COMPANIES_ERROR": "Erreur lors de la récupération des fournisseurs",
     "ADD_LOGO_SUCCESS": "Logo enregistré",
     "ADD_LOGO_ERROR": "Erreur lors de la modification du logo",
     "SAVE_THEME_ERROR": "Erreur lors de l'enregistrement du thème",
@@ -93,8 +80,6 @@
   },
   "movie": {
     "header": "Détails de",
-    "previous": "Page précédente",
-    "add_collection": "Ajouter à la collection",
     "id": "Id",
     "title": "Titre",
     "country": "Pays",
@@ -102,6 +87,34 @@
     "length": "Durée",
     "genres": "Genres",
     "synopsis": "Synopsis",
+    "budget": "Budget",
+    "revenu": "Recette",
+    "rating": "Note",
+    "video": "Vidéo(s)",
+    "image": "Images du film",
+    "reco": "Vous aimerez aussi"
+  },
+  "movie-list": {
+    "actor": "En tant qu'acteur",
+    "director": "En tant que réalisateur",
+    "producer": "En tant que producteur",
+    "composer": "En tant que compositeur",
+    "screenwriter": "En tant que scénariste",
+    "novelist": "En tant qu'écrivain"
+  },
+  "person": {
+    "header": "Détails de",
+    "id": "Id",
+    "name": "Nom",
+    "birthplace": "Lieu de naissance",
+    "age": "Age",
+    "birth": "Naissance",
+    "death": "Mort",
+    "bio": "Biographie",
+    "image": "Images",
+    "films": "Films notables"
+  },
+  "person-list": {
     "actors": "Acteurs",
     "directors": "Réalisateur",
     "producers": "Producteur",
@@ -111,12 +124,6 @@
     "cameos": "Cameo",
     "guests": "Guest-Star",
     "song": "Chansons",
-    "music": "Musique",
-    "budget": "Budget",
-    "revenu": "Recette",
-    "rating": "Note",
-    "video": "Vidéo(s)",
-    "image": "Images du film",
-    "reco": "Vous aimerez aussi"
+    "music": "Musique"
   }
 }

@@ -7,9 +7,9 @@
   </div>
   <div class="contenu">
     <button class="btn btn-outline-primary" (click)="goBack()">
-      <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Previous Page</button>
+      <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> {{'global.previous' | translate}}</button>
     <button class="btn btn-outline-primary" (click)="add(movie)">
-      <span class="fa fa-star" aria-hidden="true"></span> Add To Collection
+      <span class="fa fa-star" aria-hidden="true"></span> {{'global.add_collection' | translate}}
     </button>
     <div>
       <label>{{'movie.id' | translate}}:</label>{{movie.id}}
@@ -41,40 +41,40 @@
         <label>{{'movie.synopsis' | translate}}: </label>
         <div class="synopsis">{{movie.synopsis}}</div>
       </div>
-      <app-list-persons [persons]="movie.actors" [label]="'movie.actors' | translate"></app-list-persons>
+      <app-list-persons [persons]="movie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
       <div *ngIf="movie.crew.length > 0">
         <div *ngIf="(movie.crew | filterCrew:'director') as director">
-          <app-list-persons [persons]="director" [label]="'movie.directors' | translate"></app-list-persons>
+          <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
         </div>
         <div *ngIf="(movie.crew | filterCrew:'producer') as producer">
-          <app-list-persons [persons]="producer" [label]="'movie.producers' | translate"></app-list-persons>
+          <app-list-persons [persons]="producer" [label]="'person-list.producers' | translate"></app-list-persons>
         </div>
         <div *ngIf="(movie.crew | filterCrew:'Original Music Composer') as composer">
-          <app-list-persons [persons]="composer" [label]="'movie.composers' | translate"></app-list-persons>
+          <app-list-persons [persons]="composer" [label]="'person-list.composers' | translate"></app-list-persons>
         </div>
         <div *ngIf="(movie.crew | filterCrew:'Compositors') as compositors">
-          <app-list-persons [persons]="compositors" [label]="'movie.composers' | translate"></app-list-persons>
+          <app-list-persons [persons]="compositors" [label]="'person-list.composers' | translate"></app-list-persons>
         </div>
         <div *ngIf="(movie.crew | filterCrew:'screenplay') as screenplay">
-          <app-list-persons [persons]="screenplay" [label]="'movie.screenwriters' | translate"></app-list-persons>
+          <app-list-persons [persons]="screenplay" [label]="'person-list.screenwriters' | translate"></app-list-persons>
         </div>
         <div *ngIf="(movie.crew | filterCrew:'writer') as screenplay">
-          <app-list-persons [persons]="screenplay" [label]="'movie.screenwriters' | translate"></app-list-persons>
+          <app-list-persons [persons]="screenplay" [label]="'person-list.screenwriters' | translate"></app-list-persons>
         </div>
         <div *ngIf="(movie.crew | filterCrew:'novel') as novel">
-          <app-list-persons [persons]="novel" [label]="'movie.novelists' | translate"></app-list-persons>
+          <app-list-persons [persons]="novel" [label]="'person-list.novelists' | translate"></app-list-persons>
         </div>
         <div *ngIf="(movie.crew | filterCrew:'cameo') as cameo">
-          <app-list-persons [persons]="cameo" [label]="'movie.cameos' | translate"></app-list-persons>
+          <app-list-persons [persons]="cameo" [label]="'person-list.cameos' | translate"></app-list-persons>
         </div>
         <div *ngIf="(movie.crew | filterCrew:'special Guest') as guest">
-          <app-list-persons [persons]="guest" [label]="'movie.guests' | translate"></app-list-persons>
+          <app-list-persons [persons]="guest" [label]="'person-list.guests' | translate"></app-list-persons>
         </div>
         <div *ngIf="(movie.crew | filterCrew:'songs') as songs">
-          <app-list-persons [persons]="songs" [label]="'movie.song' | translate"></app-list-persons>
+          <app-list-persons [persons]="songs" [label]="'person-list.song' | translate"></app-list-persons>
         </div>
         <div *ngIf="(movie.crew | filterCrew:'music') as music">
-          <app-list-persons [persons]="music" [label]="'movie.music' | translate"></app-list-persons>
+          <app-list-persons [persons]="music" [label]="'person-list.music' | translate"></app-list-persons>
         </div>
       </div>
       <div *ngIf="movie.budget > 0">
@@ -117,7 +117,7 @@
       <br />
       <ul class="movies">
         <li>
-          <app-list-movies [movies]="movie.recommendations" [label]="'movie.reco' | translate"></app-list-movies>
+          <app-list-movies [movies]="movie.recommendations" [label]="('movie.reco' | translate).concat(':')"></app-list-movies>
         </li>
       </ul>
     </div>

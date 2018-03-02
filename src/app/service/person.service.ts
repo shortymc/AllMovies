@@ -12,10 +12,10 @@ export class PersonService {
 
   constructor(private utils: ServiceUtils) { }
 
-  getPerson(id: number): Promise<Person> {
+  getPerson(id: number, language: string): Promise<Person> {
     //        const url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}${Url.LANGUE_FR},${Url.APPEND_IMAGES}`;
-    const url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}${Url.APPEND}${Url.APPEND_IMAGES}`;
-    const urlMovies = `${Url.PERSON_URL}/${id}/${Url.MOVIE_CREDITS_URL}?${Url.API_KEY}${Url.LANGUE_FR}`;
+    const url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}${Url.LANGUE}${language}${Url.APPEND}${Url.APPEND_IMAGES}`;
+    const urlMovies = `${Url.PERSON_URL}/${id}/${Url.MOVIE_CREDITS_URL}?${Url.API_KEY}${Url.LANGUE}${language}`;
     return Observable.forkJoin(
       this.utils.http.get(url),
       this.utils.http.get(urlMovies)
