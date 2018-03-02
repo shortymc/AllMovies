@@ -5,6 +5,8 @@
     "edit_picture": "Edit the picture",
     "previous": "Previous Page",
     "add_collection": "Add To Collection",
+    "go_detail": "See Details",
+    "remove": "Remove",
     "continue": "Continue",
     "activate": "Activate",
     "deactivate": "Deactivate",
@@ -24,9 +26,10 @@
     "return": "Back",
     "pageNotFound": "Page not found"
   },
-  "TIME": {
+  "time": {
     "now": "now",
     "hour": "hour",
+    "minute": "minute",
     "day": "day",
     "week": "week",
     "month": "month"
@@ -115,8 +118,8 @@
     "films": "Filmography"
   },
   "person-list": {
-    "hide":"Hide",
-    "show":"Show all",
+    "hide": "Hide",
+    "show": "Show all",
     "actors": "Actors",
     "directors": "Directors",
     "producers": "Producers",
@@ -129,10 +132,41 @@
     "music": "Music"
   },
   "meta": {
-    "meta":"Metacritic",
-    "sc":"SensCritique",
-    "wiki_fr":"FR",
-    "wiki_en":"EN",
-    "links":"Open the 4 links"
+    "meta": "Metacritic",
+    "sc": "SensCritique",
+    "wiki_fr": "FR",
+    "wiki_en": "EN",
+    "links": "Open the 4 links"
+  },
+  "movies": {
+    "header": "My Movies",
+    "id": "Id",
+    "poster": "Poster",
+    "title": "Title",
+    "original_title": "Original Title",
+    "date": "Release Date",
+    "rating": "Ratings",
+    "language": "Languages",
+    "genres": "Genres",
+    "length": "Running Time",
+    "search_title": "Search in {{param}}s",
+    "dt": {
+      "processing": "Processing...",
+      "search": "Search:",
+      "lengthMenu": "Show _MENU_ entries",
+      "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+      "infoEmpty": "Showing 0 to 0 of 0 entries",
+      "infoFiltered": "(filtered from _MAX_ total entries)",
+      "infoPostFix": "",
+      "loadingRecords": "Loading...",
+      "zeroRecords": "No matching records found",
+      "emptyTable": "No data available in table",
+      "first": "First",
+      "previous": "Previous",
+      "next": "Next",
+      "last": "Last",
+      "sortAscending": "activate to sort column ascending",
+      "sortDescending": "activate to sort column descending"
+    }
   }
 }
