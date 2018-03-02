@@ -18,7 +18,7 @@ export class MovieDetailComponent implements OnInit {
   isImagesCollapsed = false;
   Url = Url;
 
-  constructor(private movieService: MovieService, private route: ActivatedRoute,private translate: TranslateService,
+  constructor(private movieService: MovieService, private route: ActivatedRoute, private translate: TranslateService,
     private location: Location, private router: Router, private dropboxService: DropboxService) { }
 
   ngOnInit(): void {
