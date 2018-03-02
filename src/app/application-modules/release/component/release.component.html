@@ -2,13 +2,13 @@
 <div class="column">
   <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="getMoviesByReleaseDates(); selectedMovie = null;" [routerLink]="['/release']"
     [queryParams]="{ date: parseDate()}"></ngb-datepicker>
-  <button class="btn btn-outline-primary" (click)="dp.navigateTo(removeOneWeek())" [routerLink]="['/release']" [queryParams]="{ date: addDays(-7)}">Select previous week</button>
-  <button class="btn btn-outline-primary" (click)="dp.navigateTo(selectPreviousWednesday())" [routerLink]="['/release']">Select current week</button>
-  <button class="btn btn-outline-primary" (click)="dp.navigateTo(addOneWeek())" [routerLink]="['/release']" [queryParams]="{ date: addDays(7)}">Select next week</button>
+  <button class="btn btn-outline-primary" (click)="dp.navigateTo(removeOneWeek())" [routerLink]="['/release']" [queryParams]="{ date: addDays(-7)}">{{'release.date.previous' | translate}}</button>
+  <button class="btn btn-outline-primary" (click)="dp.navigateTo(selectPreviousWednesday())" [routerLink]="['/release']">{{'release.date.current' | translate}}</button>
+  <button class="btn btn-outline-primary" (click)="dp.navigateTo(addOneWeek())" [routerLink]="['/release']" [queryParams]="{ date: addDays(7)}">{{'release.date.next' | translate}}</button>
 </div>
 <!-- Movie list -->
 <div>
-  Films sortis du {{monday | date : "dd/MM/yyyy"}} au {{sunday | date : "dd/MM/yyyy"}}:
+  {{'release.header' | translate:{begin:monday | date : "dd/MM/yyyy", end:sunday | date : "dd/MM/yyyy"} }}:
   <div class="list-group">
     <a *ngFor="let movie of movies" (click)="onSelect(movie)" class="list-group-item list-group-item-action pointer" [class.active]="selectedMovie !==null && movie.id === selectedMovie.id">
       <span *ngIf="movie.language">{{movie.language | uppercase}} - </span>
@@ -33,17 +33,17 @@
         <span class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}"></span>
       </span>{{selectedMovie.title | capitalizeWord}}</h2>
     <div>
-      <label>Date: </label>{{selectedMovie.date | date:'EEEE dd MMMM yyyy' | capitalizeWord}}
+      <label>{{'movie.date' | translate}}: </label>{{selectedMovie.date | date:'EEEE dd MMMM yyyy' | capitalizeWord}}
     </div>
     <div *ngIf="selectedMovie.synopsis">
-      <label>Synopsis: </label>
+      <label>{{'movie.synopsis' | translate}}: </label>
       <div class="synopsis text-justify">{{selectedMovie.synopsis}}</div>
     </div>
     <div *ngIf="selectedMovie.time > 0">
-      <label>Dur&eacute;e: </label>{{selectedMovie.time | convertToHHmm}}
+      <label>{{'movie.length' | translate}}: </label>{{selectedMovie.time | convertToHHmm}}
     </div>
     <div *ngIf="selectedMovie.genres.length > 0">
-      <label>Genres: </label>
+      <label>{{'movie.genres' | translate}}: </label>
       <div class="block">
         <span *ngFor="let genre of selectedMovie.genres; let last=last;">
           <span>{{genre| capitalizeWord}}</span>
@@ -51,19 +51,19 @@
         </span>
       </div>
     </div>
-    <app-list-persons [persons]="selectedMovie.actors" [label]="'Acteurs'"></app-list-persons>
+    <app-list-persons [persons]="selectedMovie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
     <div *ngIf="(selectedMovie.crew | filterCrew:'director') as director">
-      <app-list-persons [persons]="director" [label]="'R&eacute;alisateur'"></app-list-persons>
+      <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
     </div>
     <div *ngIf="selectedMovie.note > 0">
-      <label>Note: </label>{{selectedMovie.note}} / 10
+      <label>{{'movie.rating' | translate}}: </label>{{selectedMovie.note}} / 10
       <rating [(ngModel)]="selectedMovie.note" [max]="10" [readonly]="true" [float]="true"></rating>
     </div>
     <app-meta [movie]="selectedMovie"></app-meta>
     <button class="btn btn-outline-primary" (click)="addToCollection(selectedMovie)">
-      <span class="fa fa-star" aria-hidden="true"></span> Add To Collection
+      <span class="fa fa-star" aria-hidden="true"></span> {{'global.add_collection' | translate}}
     </button>
-    <a class="btn btn-outline-primary" [routerLink]="['/movie', selectedMovie.id]"> View Details
+    <a class="btn btn-outline-primary" [routerLink]="['/movie', selectedMovie.id]"> {{'global.go_detail' | translate}}
       <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
     </a>
   </div>
