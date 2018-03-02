@@ -36,15 +36,8 @@
   },
   "nav_bar": {
     "dashboard": "Tableau de Bord",
-    "members": "Membres",
-    "activity": "Activité",
-    "search": "Recherche",
-    "settings": "Réglages",
-    "member": {
-      "edit": "Edit",
-      "status": "Status",
-      "delete": "Delete"
-    }
+    "movies": "Films",
+    "release": "Sorties"
   },
   "toaster_messages": {
     "app_properties_loading_error": "Erreur de chargement du paramétrage",
