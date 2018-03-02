@@ -17,21 +17,19 @@ export class MovieDetailComponent implements OnInit {
   movie: Movie;
   isImagesCollapsed = false;
   Url = Url;
-  language: string;
 
   constructor(private movieService: MovieService, private route: ActivatedRoute,private translate: TranslateService,
     private location: Location, private router: Router, private dropboxService: DropboxService) { }
 
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.getMovie(id, this.translate.getBrowserLang());
+    this.getMovie(id, this.translate.currentLang);
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.getMovie(this.movie.id, event.lang);
     });
   }
 
   getMovie(id: number, language: string) {
-    this.language = language;
     this.movieService.getMovie(id, true, true, true, true, language)
       .then(movie => {
         this.movie = movie;
