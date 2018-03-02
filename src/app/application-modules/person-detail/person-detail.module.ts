@@ -23,6 +23,6 @@ const childRoutes: Routes = [
     TranslateModule.forChild(),
   ],
   declarations: [PersonDetailComponent],
-  providers: [PersonService, DropboxService,TranslateService]
+  providers: [PersonService, DropboxService, TranslateService]
 })
 export class PersonDetailModule { }

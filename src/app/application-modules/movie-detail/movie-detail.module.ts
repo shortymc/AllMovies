@@ -25,6 +25,6 @@ const childRoutes: Routes = [
     TranslateModule.forChild(),
   ],
   declarations: [MovieDetailComponent],
-  providers: [MovieService, DropboxService,TranslateService]
+  providers: [MovieService, DropboxService, TranslateService]
 })
 export class MovieDetailModule { }
