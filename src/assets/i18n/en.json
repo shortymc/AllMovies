@@ -103,7 +103,9 @@
     "producer": "As producer",
     "composer": "As composer",
     "screenwriter": "As screenwriter",
-    "novelist": "As novelist"
+    "novelist": "As novelist",
+    "add": "Add Selected Movies To Collection",
+    "total":"Total"
   },
   "person": {
     "header": "Details of",
