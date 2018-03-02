@@ -8,8 +8,8 @@ export class MovieService {
 
   constructor(private utils: ServiceUtils) { }
 
-  getMovies(): Promise<Movie[]> {
-    return this.utils.http.get(Url.MOST_POPULAR_URL)
+  getMovies(language: string): Promise<Movie[]> {
+    return this.utils.http.get(`${Url.MOST_POPULAR_URL}${Url.LANGUE}${language}`)
       .toPromise()
       .then(response => this.mapMoviesDT(response))
       .catch(this.utils.handleError);
