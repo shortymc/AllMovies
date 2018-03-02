@@ -9,14 +9,14 @@ export class MovieSearchService {
 
   constructor(private http: HttpClient) { }
 
-  search(term: string, adult: boolean): Observable<Movie[]> {
+  search(term: string, adult: boolean, language: string): Observable<Movie[]> {
     let url = Url.MOVIE_SEARCH_URL + Url.API_KEY;
     if (adult) { url += Url.ADULT_URL; }
-    url += `${Url.QUERY_URL}${term}${Url.LANGUE_FR}`;
+    url += `${Url.QUERY_URL}${term}${Url.LANGUE}${language}`;
     return this.http
       .get(url, { headers: this.getHeaders() })
       .map(this.mapMovies)
-      .map(data => data.slice(0, 10));
+      .map(data => data.slice(0, 5));
   }
 
   getHeaders() {
@@ -28,7 +28,7 @@ export class MovieSearchService {
   mapMovies(response: any): Movie[] {
     // The response of the API has a results
     // property with the actual results
-    console.log(response.results);
+    // console.log(response.results);
     return response.results.map((r: any) => <Movie>({
       id: r.id,
       title: r.title,
