@@ -1,9 +1,9 @@
 <div id="search-component">
-  <h4>Movie Search</h4>
+  <h4>{{'movie-search.header'|translate}}</h4>
   <div class="form-check form-check-inline">
     <div class="search-box">
       <i class="fa fa-search fa-2x" aria-hidden="true"></i>
-      <input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="Rechercher des films" (click)="showMovie = true"
+      <input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="{{'movie-search.placeholder'|translate}}" (click)="showMovie = true"
       />
       <a class="icon pointer" (click)="showMovie = !showMovie; searchBox.value=''">
         <img src="./assets/exit.png" />
