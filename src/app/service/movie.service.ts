@@ -36,7 +36,7 @@ export class MovieService {
       }
       url += parametres.join(',');
     }
-    if(language) {
+    if (language) {
       url += `${Url.LANGUE}${language}`;
     }
     return this.utils.http.get(url)
