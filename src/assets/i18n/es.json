@@ -5,6 +5,8 @@
     "edit_picture": "Edit the picture",
     "previous": "Previous Page",
     "add_collection": "Add To Collection",
+    "go_detail": "See Details",
+    "remove": "Remove",
     "continue": "Continue",
     "activate": "Activate",
     "deactivate": "Deactivate",
@@ -24,26 +26,20 @@
     "return": "Back",
     "pageNotFound": "Page not found"
   },
-  "TIME": {
+  "time": {
     "now": "now",
     "hour": "hour",
+    "minute": "minute",
     "day": "day",
     "week": "week",
     "month": "month"
   },
-  "NAV_BAR": {
+  "nav_bar": {
     "dashboard": "Dashboard",
-    "members": "Members",
-    "activity": "Activity",
-    "search": "Search",
-    "settings": "Settings",
-    "member": {
-      "edit": "Edit",
-      "status": "Status",
-      "delete": "Delete"
-    }
+    "movies": "Movies",
+    "release": "Releases"
   },
-  "TOASTER_MESSAGES": {
+  "toaster_messages": {
     "APP_PROPERTIES_LOADING_ERROR": "Error loading settings",
     "ADD_COMMENT_SUCCESS": "Comment added",
     "ADD_COMMENT_ERROR": "Error while adding the comment",
@@ -78,6 +74,9 @@
     "RESET_PASSWORD_REQUEST_ERROR": "Unknown user",
     "RESET_PASSWORD_CONNECTION_ERROR": "Error during connection"
   },
+  "dashboard": {
+    "header": "Top Movies"
+  },
   "movie": {
     "header": "Details of",
     "id": "Id",
@@ -94,13 +93,19 @@
     "image": "Movie images",
     "reco": "You should like also"
   },
+  "movie-search": {
+    "header": "Movie Search",
+    "placeholder": "Search movies"
+  },
   "movie-list": {
     "actor": "As actors",
     "director": "As director",
     "producer": "As producer",
     "composer": "As composer",
     "screenwriter": "As screenwriter",
-    "novelist": "As novelist"
+    "novelist": "As novelist",
+    "add": "Add Selected Movies To Collection",
+    "total":"Total"
   },
   "person": {
     "header": "Details of",
@@ -114,7 +119,13 @@
     "image": "Images",
     "films": "Filmography"
   },
+  "person-search": {
+    "header": "Person Search",
+    "placeholder": "Search people"
+  },
   "person-list": {
+    "hide": "Hide",
+    "show": "Show all",
     "actors": "Actors",
     "directors": "Directors",
     "producers": "Producers",
@@ -125,5 +136,51 @@
     "guests": "Guests",
     "song": "Songs",
     "music": "Music"
+  },
+  "meta": {
+    "meta": "Metacritic",
+    "sc": "SensCritique",
+    "wiki_fr": "FR",
+    "wiki_en": "EN",
+    "links": "Open the 4 links"
+  },
+  "movies": {
+    "header": "My Movies",
+    "id": "Id",
+    "poster": "Poster",
+    "title": "Title",
+    "original_title": "Original Title",
+    "date": "Release Date",
+    "rating": "Ratings",
+    "language": "Languages",
+    "genres": "Genres",
+    "length": "Running Time",
+    "search_title": "Search in {{param}}s",
+    "dt": {
+      "processing": "Processing...",
+      "search": "Search:",
+      "lengthMenu": "Show _MENU_ entries",
+      "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+      "infoEmpty": "Showing 0 to 0 of 0 entries",
+      "infoFiltered": "(filtered from _MAX_ total entries)",
+      "infoPostFix": "",
+      "loadingRecords": "Loading...",
+      "zeroRecords": "No matching records found",
+      "emptyTable": "No data available in table",
+      "first": "First",
+      "previous": "Previous",
+      "next": "Next",
+      "last": "Last",
+      "sortAscending": "activate to sort column ascending",
+      "sortDescending": "activate to sort column descending"
+    }
+  },
+  "release": {
+    "header": "Movies released from {{begin}} to {{end}}",
+    "date": {
+      "previous": "Previous week",
+      "next": "Next week",
+      "current": "Current week"
+    }
   }
 }
