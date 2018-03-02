@@ -1,3 +1,4 @@
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { MetaService } from './meta/service/meta.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
@@ -28,6 +29,7 @@ import { DropdownLanguageComponent } from './dropdown-language/dropdown-language
     FormsModule,
     RouterModule,
     NgbModule,
+    TranslateModule.forChild()
   ],
   exports: [
     ConvertToHHmmPipe,
@@ -40,7 +42,7 @@ import { DropdownLanguageComponent } from './dropdown-language/dropdown-language
     DropdownLanguageComponent
   ],
   providers: [
-    MetaService, ServiceUtils
+    MetaService, ServiceUtils, TranslateService
   ]
 })
 

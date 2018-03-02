@@ -125,5 +125,12 @@
     "guests": "Guests",
     "song": "Songs",
     "music": "Music"
+  },
+  "meta": {
+    "meta":"Metacritic",
+    "sc":"SensCritique",
+    "wiki_fr":"FR",
+    "wiki_en":"EN",
+    "links":"Open the 4 links"
   }
 }

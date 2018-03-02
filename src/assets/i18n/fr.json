@@ -125,5 +125,12 @@
     "guests": "Guest-Star",
     "song": "Chansons",
     "music": "Musique"
+  },
+  "meta": {
+    "meta":"Metacritic",
+    "sc":"SensCritique",
+    "wiki_fr":"FR",
+    "wiki_en":"EN",
+    "links":"Ouvrir les 4 liens"
   }
 }
