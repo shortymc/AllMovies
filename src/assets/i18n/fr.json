@@ -5,6 +5,8 @@
     "edit_picture": "Modifier l'image",
     "previous": "Page précédente",
     "add_collection": "Ajouter à la collection",
+    "go_detail": "Voir Détails",
+    "remove": "Supprimer",
     "continue": "Continuer",
     "activate": "Activer",
     "deactivate": "Désactiver",
@@ -24,14 +26,15 @@
     "return": "Retour",
     "pageNotFound": "Page introuvable"
   },
-  "TIME": {
+  "time": {
     "now": "maintenant",
     "hour": "heure",
+    "minute": "minute",
     "day": "jour",
     "week": "semaine",
     "month": "mois"
   },
-  "NAV_BAR": {
+  "nav_bar": {
     "dashboard": "Tableau de Bord",
     "members": "Membres",
     "activity": "Activité",
@@ -43,22 +46,22 @@
       "delete": "Delete"
     }
   },
-  "TOASTER_MESSAGES": {
-    "APP_PROPERTIES_LOADING_ERROR": "Erreur de chargement du paramétrage",
-    "ADD_COMMENT_SUCCESS": "Commentaire ajouté",
-    "ADD_COMMENT_ERROR": "Erreur en ajout d'un commentaire",
-    "ADD_COMMENT_ERROR_MISSING_TEXT": "Texte manquant",
-    "REACHED_END_INVOICES_LIST": "Vous êtes en fin de la liste",
-    "REACHED_BEGIN_INVOICES_LIST": "Vous êtes en debut de la liste",
-    "ADD_MEMBERS_SUCCESS": "Membre ajouté",
-    "ADD_MEMBERS_ERROR": "Erreur lors de l'ajout du contact",
-    "UPDATE_MEMBERS_SUCCESS": "Membre modifié",
-    "UPDATE_MEMBERS_ERROR": "Erreur lors de la modification du contact",
-    "ACTIVATE_MEMBERS_SUCCESS": "Membre activé",
-    "ACTIVATE_MEMBERS_ERROR": "Erreur lors de l'activation du contact",
-    "ACTIVATE_MULTIPLE_MEMBERSS": " contact(s) activé(s)",
-    "ACTIVATE_MULTIPLE_MEMBERSS_ERROR": "Erreur lors de l'activation du contact ",
-    "DEACTIVATE_MEMBERS_SUCCESS": "Membre désactivé",
+  "toaster_messages": {
+    "app_properties_loading_error": "Erreur de chargement du paramétrage",
+    "add_comment_success": "Commentaire ajouté",
+    "add_comment_error": "Erreur en ajout d'un commentaire",
+    "add_comment_error_missing_text": "Texte manquant",
+    "reached_end_invoices_list": "Vous êtes en fin de la liste",
+    "reached_begin_invoices_list": "Vous êtes en debut de la liste",
+    "add_members_success": "Membre ajouté",
+    "add_members_error": "Erreur lors de l'ajout du contact",
+    "update_members_success": "Membre modifié",
+    "update_members_error": "Erreur lors de la modification du contact",
+    "activate_members_success": "Membre activé",
+    "activate_members_error": "Erreur lors de l'activation du contact",
+    "activate_multiple_memberss": " contact(s) activé(s)",
+    "activate_multiple_memberss_error": "Erreur lors de l'activation du contact ",
+    "deactivate_members_success": "Membre désactivé",
     "DEACTIVATE_MEMBERS_ERROR": "Erreur lors de la désactivation du contact",
     "DEACTIVATE_MULTIPLE_MEMBERSS": " contact(s) désactivé(s)",
     "DEACTIVATE_MULTIPLE_MEMBERSS_ERROR": "Erreur lors de la désactivation du contact ",
@@ -115,8 +118,8 @@
     "films": "Films notables"
   },
   "person-list": {
-    "hide":"Cacher les",
-    "show":"Afficher tous les",
+    "hide": "Cacher les",
+    "show": "Afficher tous les",
     "actors": "Acteurs",
     "directors": "Réalisateur",
     "producers": "Producteur",
@@ -129,10 +132,41 @@
     "music": "Musique"
   },
   "meta": {
-    "meta":"Metacritic",
-    "sc":"SensCritique",
-    "wiki_fr":"FR",
-    "wiki_en":"EN",
-    "links":"Ouvrir les 4 liens"
+    "meta": "Metacritic",
+    "sc": "SensCritique",
+    "wiki_fr": "FR",
+    "wiki_en": "EN",
+    "links": "Ouvrir les 4 liens"
+  },
+  "movies": {
+    "header": "Mes Films",
+    "id": "Id",
+    "poster": "Affiche",
+    "title": "Titre",
+    "original_title": "Titre VO",
+    "date": "Date",
+    "rating": "Note",
+    "language": "Langues",
+    "genres": "Genres",
+    "length": "Durée",
+    "search_title": "Rechercher dans les {{param}}s",
+    "dt": {
+      "processing": "Traitement en cours...",
+      "search": "Rechercher:",
+      "lengthMenu": "Afficher _MENU_ éléments",
+      "info": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+      "infoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+      "infoFiltered": "(filtré de _MAX_ éléments au total)",
+      "infoPostFix": "",
+      "loadingRecords": "Chargement en cours...",
+      "zeroRecords": "Aucun élément à afficher",
+      "emptyTable": "Aucune donnée disponible dans le tableau",
+      "first": "Premier",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "last": "Dernier",
+      "sortAscending": "activer pour trier la colonne par ordre croissant",
+      "sortDescending": "activer pour trier la colonne par ordre d&eacute;croissant"
+    }
   }
 }

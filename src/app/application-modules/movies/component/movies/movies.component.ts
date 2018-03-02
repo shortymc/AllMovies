@@ -1,3 +1,4 @@
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { DropboxService } from './../../../../service/dropbox.service';
 import { Movie } from './../../../../model/movie';
 import { MovieService } from './../../../../service/movie.service';
@@ -13,21 +14,27 @@ import 'datatables.net';
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss']
 })
-
 export class MoviesComponent implements OnInit {
   movies: Movie[];
   public tableWidget: any;
-  constructor(private movieService: MovieService, private router: Router, private dropboxService: DropboxService) { }
+  constructor(private movieService: MovieService, private router: Router, private dropboxService: DropboxService, private translate: TranslateService) { }
+
   getMovies(): void {
     this.dropboxService.getAllMovies('ex.json').then(movies => {
       this.movies = movies;
       this.checkAndFixData();
+      this.addAnchor();
       this.initDatatable();
     });
   }
+
   ngOnInit(): void {
     this.getMovies();
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.getMovies();
+    });
   }
+
   checkAndFixData(): void {
     let incomplete: number[] = [];
     const movieList = this.movies;
@@ -50,48 +57,38 @@ export class MoviesComponent implements OnInit {
       err => console.error(err)
     );
   }
+
   gotoDetail(id: number): void {
     window.open('/movie/' + id);
   }
-  //    add(name: string): void {
-  //        name = name.trim();
-  //        if (!name) { return; }
-  //        this.movieService.create(name)
-  //            .then(movie => {
-  //                this.movies.push(movie);
-  //                this.selectedMovie = null;
-  //            });
-  //    }
-  //    delete(movie: Movie): void {
-  //        this.movieService
-  //            .delete(movie.id)
-  //            .then(() => {
-  //                this.movies = this.movies.filter(h => h !== movie);
-  //                if (this.selectedMovie === movie) { this.selectedMovie = null; }
-  //            });
-  //    }
+
+  addAnchor() {
+    $('#example_wrapper').remove();
+    $("h2").after("<table id='example' class='table table-striped table-bordered compact hover order-column align-center' cellspacing='0'></table>");
+  }
 
   private initDatatable(): void {
+    const comp = this;
     const tableWidget = $('#example').DataTable({
       data: this.movies,
       columns: [
-        { data: 'id', title: 'Id', 'orderable': false },
+        { data: 'id', title: comp.translate.instant('movies.id'), 'orderable': false },
         {
-          data: 'thumbnail', title: 'Affiche', 'orderable': false, 'render': function (url, type, full) {
+          data: 'thumbnail', title: comp.translate.instant('movies.poster'), 'orderable': false, 'render': function (url, type, full) {
             return '<img class="posterDT" src="' + url + '"/>';
           }
         },
-        { data: 'title', title: 'Titre', 'orderable': false },
-        { data: 'original_title', title: 'Titre VO', 'orderable': false },
-        { data: 'date', title: 'Date' },
-        { data: 'note', title: 'Note' },
-        { data: 'language', title: 'Langue' },
+        { data: 'title', title: comp.translate.instant('movies.title'), 'orderable': false },
+        { data: 'original_title', title: comp.translate.instant('movies.original_title'), 'orderable': false },
+        { data: 'date', title: comp.translate.instant('movies.date') },
+        { data: 'note', title: comp.translate.instant('movies.rating') },
+        { data: 'language', title: comp.translate.instant('movies.language') },
         {
-          data: 'genres', title: 'Genres', 'render': function (genres, type, full) {
+          data: 'genres', title: comp.translate.instant('movies.genres'), 'render': function (genres, type, full) {
             return `<div>` + genres + `</div>`;
           }
         },
-        { data: null, title: 'Dur&eacute;e' },
+        { data: null, title: comp.translate.instant('movies.length') },
         { data: null, title: '' },
         { data: null, title: '' }
       ],
@@ -105,8 +102,8 @@ export class MoviesComponent implements OnInit {
                 try {
                   const minute = <number>data.time;
                   let result = '';
-                  result += Math.floor(minute / 60) + ' heures ';
-                  result += minute % 60 + ' minutes';
+                  result += Math.floor(minute / 60) + ' ' + comp.translate.instant('time.hour') + ' ';
+                  result += minute % 60 + ' ' + comp.translate.instant('time.minute') + ' ';
                   return result;
                 } catch (e) {
                   console.error('error', e.message);
@@ -123,15 +120,16 @@ export class MoviesComponent implements OnInit {
           'targets': -1,
           'orderable': false,
           'data': null,
-          'defaultContent': `<button class="btn btn-outline-primary detail">
-                                Voir d&eacute;tails <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+          'defaultContent': `<button class="btn btn-outline-primary detail">` +
+            comp.translate.instant('global.go_detail') + ` <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
                              </button>`
         },
         {
           'targets': -2,
           'orderable': false,
           'data': null,
-          'defaultContent': '<button class="btn btn-outline-primary remove">Remove <i class="fa fa-times" aria-hidden="true"></i></button>'
+          'defaultContent': `<button class="btn btn-outline-primary remove">` +
+            comp.translate.instant('global.remove') + ` <i class="fa fa-times" aria-hidden="true"></i></button>`
         }
       ],
       'order': [[4, 'desc']],
@@ -139,25 +137,25 @@ export class MoviesComponent implements OnInit {
       'scrollY': '70vh',
       'scrollCollapse': true,
       'language': {
-        'processing': 'Traitement en cours...',
-        'search': 'Rechercher&nbsp;:',
-        'lengthMenu': 'Afficher _MENU_ &eacute;l&eacute;ments',
-        'info': 'Affichage de l\'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments',
-        'infoEmpty': 'Affichage de l\'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment',
-        'infoFiltered': '(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)',
-        'infoPostFix': '',
-        'loadingRecords': 'Chargement en cours...',
-        'zeroRecords': 'Aucun &eacute;l&eacute;ment &agrave; afficher',
-        'emptyTable': 'Aucune donn&eacute;e disponible dans le tableau',
+        'processing': comp.translate.instant('movies.dt.processing'),
+        'search': comp.translate.instant('movies.dt.search'),
+        'lengthMenu': comp.translate.instant('movies.dt.lengthMenu'),
+        'info': comp.translate.instant('movies.dt.info'),
+        'infoEmpty': comp.translate.instant('movies.dt.infoEmpty'),
+        'infoFiltered': comp.translate.instant('movies.dt.infoFiltered'),
+        'infoPostFix': comp.translate.instant('movies.dt.infoPostFix'),
+        'loadingRecords': comp.translate.instant('movies.dt.loadingRecords'),
+        'zeroRecords': comp.translate.instant('movies.dt.zeroRecords'),
+        'emptyTable': comp.translate.instant('movies.dt.emptyTable'),
         'paginate': {
-          'first': 'Premier',
-          'previous': 'Pr&eacute;c&eacute;dent',
-          'next': 'Suivant',
-          'last': 'Dernier'
+          'first': comp.translate.instant('movies.dt.first'),
+          'previous': comp.translate.instant('movies.dt.previous'),
+          'next': comp.translate.instant('movies.dt.next'),
+          'last': comp.translate.instant('movies.dt.last')
         },
         'aria': {
-          'sortAscending': ': activer pour trier la colonne par ordre croissant',
-          'sortDescending': ': activer pour trier la colonne par ordre d&eacute;croissant'
+          'sortAscending': comp.translate.instant('movies.dt.sortAscending'),
+          'sortDescending': comp.translate.instant('movies.dt.sortDescending')
         }
       }
     });
@@ -175,7 +173,7 @@ export class MoviesComponent implements OnInit {
     $('th').not(':lt(2),:gt(2)').each(function () {
       const title = $('th').eq($(this).index()).text();
       $(this).append(`<br/>
-        <input type="text" class="align-center myFilter" placeholder="Rechercher dans les " + title.toLowerCase() + "s" />`);
+        <input type="text" class="align-center myFilter" placeholder="` + comp.translate.instant('movies.search_title', {param: title.toLowerCase()}) + `" />`);
     });
     tableWidget.columns().eq(0).each(function (colIdx) {
       $('input', tableWidget.column(colIdx).header()).on('keyup change', function () {
