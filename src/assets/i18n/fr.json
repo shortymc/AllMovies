@@ -103,7 +103,9 @@
     "producer": "En tant que producteur",
     "composer": "En tant que compositeur",
     "screenwriter": "En tant que scénariste",
-    "novelist": "En tant qu'écrivain"
+    "novelist": "En tant qu'écrivain",
+    "add": "Ajouter les films sélectionnés à la Collection",
+    "total":"Total"
   },
   "person": {
     "header": "Détails de",

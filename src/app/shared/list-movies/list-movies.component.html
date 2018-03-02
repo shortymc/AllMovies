@@ -16,11 +16,11 @@
     <div class="d-flex justify-content-center">
       <ngb-pagination (pageChange)="pageChanged($event)" [collectionSize]="movies.length" [(page)]="page" [maxSize]="3" [rotate]="true"
         [boundaryLinks]="true" [pageSize]="pageSize"></ngb-pagination>
-        <span class="total">Total: {{movies.length}}</span>
+        <span class="total">{{'movie-list.total' | translate}}: {{movies.length}}</span>
     </div>
     <div class="card-footer text-center">
       <button class="btn btn-outline-primary" (click)="addList()">
-        <span class="fa fa-star" aria-hidden="true"></span> Add Selected Movies To Collection
+        <span class="fa fa-star" aria-hidden="true"></span> {{'movie-list.add' | translate}}
       </button>
     </div>
   </div>
