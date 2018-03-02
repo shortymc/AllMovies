@@ -97,6 +97,10 @@
     "image": "Movie images",
     "reco": "You should like also"
   },
+  "movie-search": {
+    "header":"Movie Search",
+    "placeholder":"Search movies"
+  },
   "movie-list": {
     "actor": "As actors",
     "director": "As director",
@@ -116,6 +120,10 @@
     "bio": "Biography",
     "image": "Images",
     "films": "Filmography"
+  },
+  "person-search": {
+    "header":"Person Search",
+    "placeholder":"Search people"
   },
   "person-list": {
     "hide": "Hide",

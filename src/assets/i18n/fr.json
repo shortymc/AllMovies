@@ -97,6 +97,10 @@
     "image": "Images du film",
     "reco": "Vous aimerez aussi"
   },
+  "movie-search": {
+    "header":"Recherche de films",
+    "placeholder":"Rechercher des films"
+  },
   "movie-list": {
     "actor": "En tant qu'acteur",
     "director": "En tant que réalisateur",
@@ -130,6 +134,10 @@
     "guests": "Guest-Star",
     "song": "Chansons",
     "music": "Musique"
+  },
+  "person-search": {
+    "header":"Recherche de personnes",
+    "placeholder":"Rechercher des personnes"
   },
   "meta": {
     "meta": "Metacritic",
