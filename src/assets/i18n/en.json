@@ -115,6 +115,8 @@
     "films": "Filmography"
   },
   "person-list": {
+    "hide":"Hide",
+    "show":"Show all",
     "actors": "Actors",
     "directors": "Directors",
     "producers": "Producers",
