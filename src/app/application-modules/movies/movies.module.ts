@@ -1,3 +1,4 @@
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DropboxService } from './../../service/dropbox.service';
 import { MovieService } from './../../service/movie.service';
 import { SharedModule } from './../../shared/shared.module';
@@ -19,10 +20,12 @@ const childRoutes: Routes = [
     FormsModule,
     RouterModule.forChild(childRoutes),
     SharedModule,
+    TranslateModule.forChild()
   ],
   providers: [
     MovieService,
-    DropboxService
+    DropboxService,
+    TranslateService
   ],
   declarations: [MoviesComponent]
 })
