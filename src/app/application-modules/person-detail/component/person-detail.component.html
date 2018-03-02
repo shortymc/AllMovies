@@ -18,13 +18,13 @@
         <label>{{'person.birthplace' | translate}}: </label>{{person.birthPlace | capitalizeWord}}
       </div>
       <div *ngIf="person.birthday">
-        <label>{{'person.birth' | translate}}: </label>{{person.birthday | date:'dd MMMM yyyy' | capitalizeWord}}
+        <label>{{'person.birth' | translate}}: </label>{{person.birthday | date:'dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}
       </div>
       <div *ngIf="person.birthday | substractDate:person.deathday as age">
         <label>{{'person.age' | translate}}: </label>{{age}}
       </div>
       <div *ngIf="person.deathday">
-        <label>{{'person.death' | translate}}: </label>{{person.deathday | date:'dd MMMM yyyy' | capitalizeWord}}
+        <label>{{'person.death' | translate}}: </label>{{person.deathday | date:'dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}
       </div>
       <div *ngIf="person.biography">
         <label>{{'person.bio' | translate}}: </label>
