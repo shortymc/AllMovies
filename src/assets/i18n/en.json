@@ -34,7 +34,7 @@
     "week": "week",
     "month": "month"
   },
-  "NAV_BAR": {
+  "nav_bar": {
     "dashboard": "Dashboard",
     "members": "Members",
     "activity": "Activity",
@@ -46,7 +46,7 @@
       "delete": "Delete"
     }
   },
-  "TOASTER_MESSAGES": {
+  "toaster_messages": {
     "APP_PROPERTIES_LOADING_ERROR": "Error loading settings",
     "ADD_COMMENT_SUCCESS": "Comment added",
     "ADD_COMMENT_ERROR": "Error while adding the comment",
@@ -81,6 +81,9 @@
     "RESET_PASSWORD_REQUEST_ERROR": "Unknown user",
     "RESET_PASSWORD_CONNECTION_ERROR": "Error during connection"
   },
+  "dashboard": {
+    "header": "Top Movies"
+  },
   "movie": {
     "header": "Details of",
     "id": "Id",
@@ -98,8 +101,8 @@
     "reco": "You should like also"
   },
   "movie-search": {
-    "header":"Movie Search",
-    "placeholder":"Search movies"
+    "header": "Movie Search",
+    "placeholder": "Search movies"
   },
   "movie-list": {
     "actor": "As actors",
@@ -122,8 +125,8 @@
     "films": "Filmography"
   },
   "person-search": {
-    "header":"Person Search",
-    "placeholder":"Search people"
+    "header": "Person Search",
+    "placeholder": "Search people"
   },
   "person-list": {
     "hide": "Hide",
