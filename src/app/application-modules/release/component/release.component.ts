@@ -1,3 +1,4 @@
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { Movie } from '../../../model/movie';
 import { MovieService } from '../../../service/movie.service';
@@ -52,9 +53,11 @@ export class ReleaseComponent implements OnInit {
   monday: Date;
   sunday: Date;
   Url = Url;
+  language: string;
 
   constructor(private movieService: MovieService, private router: Router, private route: ActivatedRoute,
-    private formatter: MyNgbDate, config: NgbDatepickerConfig, private dropboxService: DropboxService) {
+    private formatter: MyNgbDate, config: NgbDatepickerConfig, private dropboxService: DropboxService,
+    private translate: TranslateService) {
     // Other days than wednesday are disabled
     config.markDisabled = (date: NgbDateStruct) => {
       const d = new Date(date.year, date.month - 1, date.day);
@@ -63,6 +66,14 @@ export class ReleaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.language = this.translate.currentLang;
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.language = event.lang;
+      this.getMoviesByReleaseDates();
+      if (this.selectedMovie) {
+        this.onSelect(this.selectedMovie);
+      }
+    });
     this.route.queryParams.subscribe(
       params => {
         const date = params['date'];
@@ -76,10 +87,6 @@ export class ReleaseComponent implements OnInit {
     this.getMoviesByReleaseDates();
   }
 
-  getMovies(): void {
-    this.movieService.getMovies().then(movies => this.movies = movies);
-  }
-
   addToCollection(title: string) {
     this.dropboxService.addMovie(this.selectedMovie, 'ex.json');
   }
@@ -89,7 +96,7 @@ export class ReleaseComponent implements OnInit {
       this.monday = this.formatter.getPreviousMonday(this.model);
       this.sunday = this.formatter.getFollowingSunday(this.model);
       this.movieService.getMoviesByReleaseDates(this.formatter.dateToString(this.monday, 'yyyy-MM-dd'),
-        this.formatter.dateToString(this.sunday, 'yyyy-MM-dd'))
+        this.formatter.dateToString(this.sunday, 'yyyy-MM-dd'), this.language)
         .then(movies => this.movies = movies);
     }
   }
@@ -130,7 +137,7 @@ export class ReleaseComponent implements OnInit {
   }
 
   onSelect(movie: Movie): void {
-    this.movieService.getMovie(movie.id, false, true, false, false, 'fr').then(selectedMovie => {
+    this.movieService.getMovie(movie.id, false, true, false, false, this.language).then(selectedMovie => {
       this.selectedMovie = selectedMovie;
     });
   }
