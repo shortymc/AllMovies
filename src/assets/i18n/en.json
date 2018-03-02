@@ -36,15 +36,8 @@
   },
   "nav_bar": {
     "dashboard": "Dashboard",
-    "members": "Members",
-    "activity": "Activity",
-    "search": "Search",
-    "settings": "Settings",
-    "member": {
-      "edit": "Edit",
-      "status": "Status",
-      "delete": "Delete"
-    }
+    "movies": "Movies",
+    "release": "Releases"
   },
   "toaster_messages": {
     "APP_PROPERTIES_LOADING_ERROR": "Error loading settings",
