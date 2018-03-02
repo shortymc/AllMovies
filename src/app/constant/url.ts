@@ -35,7 +35,7 @@ export class Url {
   static readonly MOST_POPULAR_URL =
     'https://api.themoviedb.org/3/discover/movie?' + Url.API_KEY + '&sort_by=popularity.desc';
   static readonly DISCOVER_URL =
-    'https://api.themoviedb.org/3/discover/movie?' + Url.API_KEY + '&' + Url.LANGUE_FR + '&region=FR';
+    'https://api.themoviedb.org/3/discover/movie?' + Url.API_KEY + Url.LANGUE_FR + '&region=FR';
 
   // DropBox
   static readonly DROPBOX_TOKEN = 'G-_ZeiEAvB0AAAAAAAANQd4IMHRr7Y9aTvAiivg-8LImbDKmo9pdu95_SIioW3lR';

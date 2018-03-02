@@ -81,6 +81,9 @@
     "RESET_PASSWORD_REQUEST_ERROR": "Utilisateur inconnu",
     "RESET_PASSWORD_CONNECTION_ERROR": "Erreur lors de la connexion"
   },
+  "dashboard": {
+    "header": "Top Films"
+  },
   "movie": {
     "header": "Détails de",
     "id": "Id",
@@ -98,8 +101,8 @@
     "reco": "Vous aimerez aussi"
   },
   "movie-search": {
-    "header":"Recherche de films",
-    "placeholder":"Rechercher des films"
+    "header": "Recherche de films",
+    "placeholder": "Rechercher des films"
   },
   "movie-list": {
     "actor": "En tant qu'acteur",
@@ -136,8 +139,8 @@
     "music": "Musique"
   },
   "person-search": {
-    "header":"Recherche de personnes",
-    "placeholder":"Rechercher des personnes"
+    "header": "Recherche de personnes",
+    "placeholder": "Rechercher des personnes"
   },
   "meta": {
     "meta": "Metacritic",
