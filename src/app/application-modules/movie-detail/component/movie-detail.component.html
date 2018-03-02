@@ -23,7 +23,7 @@
         </span>
       </div>
       <div>
-        <label>{{'movie.date' | translate}}: </label>{{movie.date | date:'EEEE dd MMMM yyyy' | capitalizeWord}}
+        <label>{{'movie.date' | translate}}: </label>{{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}
       </div>
       <div *ngIf="movie.time > 0">
         <label>{{'movie.length' | translate}}: </label>{{movie.time | convertToHHmm}}

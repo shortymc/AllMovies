@@ -1,5 +1,10 @@
 import { SharedModule } from './shared/shared.module';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import localeEn from '@angular/common/locales/en';
+import localeDe from '@angular/common/locales/de';
+import localeEs from '@angular/common/locales/es';
+import localeIt from '@angular/common/locales/it';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -42,5 +47,10 @@ export class AppModule {
   constructor(translate: TranslateService) {
     translate.setDefaultLang('en');
     translate.use(translate.getBrowserLang());
+    registerLocaleData(localeFr);
+    registerLocaleData(localeEn);
+    registerLocaleData(localeDe);
+    registerLocaleData(localeIt);
+    registerLocaleData(localeEs);
   }
 }

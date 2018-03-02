@@ -33,7 +33,7 @@
         <span class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}"></span>
       </span>{{selectedMovie.title | capitalizeWord}}</h2>
     <div>
-      <label>{{'movie.date' | translate}}: </label>{{selectedMovie.date | date:'EEEE dd MMMM yyyy' | capitalizeWord}}
+      <label>{{'movie.date' | translate}}: </label>{{selectedMovie.date | date:'EEEE dd MMMM yyyy':'':language | capitalizeWord}}
     </div>
     <div *ngIf="selectedMovie.synopsis">
       <label>{{'movie.synopsis' | translate}}: </label>

@@ -36,6 +36,9 @@ export class SubstractDatePipe implements PipeTransform {
 @Pipe({ name: 'capitalizeWord' })
 export class CapitalizeWordPipe implements PipeTransform {
     transform(str: string): string {
+      if(!str) {
+        return str;
+      }
         str = str.replace(/([^\W_]+[^\s-]*) */g, function (s) {
             return s.charAt(0).toUpperCase() + s.substr(1).toLowerCase();
         });
