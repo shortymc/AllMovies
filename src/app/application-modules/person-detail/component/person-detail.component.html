@@ -1,5 +1,5 @@
 <div *ngIf="person">
-  <h2>D&eacute;tails de {{person.name}} :</h2>
+  <h2>{{'person.header' | translate}} {{person.name}}:</h2>
   <div>
     <a class="frame" href="{{person.profile}}" target="_blank">
       <img src="{{person.thumbnail}}">
@@ -7,27 +7,27 @@
   </div>
   <div class="contenu">
     <button class="btn btn-outline-primary" (click)="goBack()">
-      <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Previous Page</button>
+      <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> {{'global.previous' | translate}}</button>
     <div>
-      <label>Id:</label>{{person.id}}
+      <label>{{'person.id' | translate}}:</label>{{person.id}}
     </div>
     <div>
-      <label>Nom: </label>
+      <label>{{'person.name' | translate}}: </label>
       <span [ngClass]="{'woman': person.gender === 1, 'men': person.gender === 2, 'unknown': person.gender === 0}">{{person.name | capitalizeWord}}</span>
       <div *ngIf="person.birthPlace">
-        <label>Lieu de naissance: </label>{{person.birthPlace | capitalizeWord}}
+        <label>{{'person.birthplace' | translate}}: </label>{{person.birthPlace | capitalizeWord}}
       </div>
       <div *ngIf="person.birthday">
-        <label>Naissance: </label>{{person.birthday | date:'dd MMMM yyyy' | capitalizeWord}}
+        <label>{{'person.birth' | translate}}: </label>{{person.birthday | date:'dd MMMM yyyy' | capitalizeWord}}
       </div>
       <div *ngIf="person.birthday | substractDate:person.deathday as age">
-        <label>Age: </label>{{age}}
+        <label>{{'person.age' | translate}}: </label>{{age}}
       </div>
       <div *ngIf="person.deathday">
-        <label>Mort: </label>{{person.deathday | date:'dd MMMM yyyy' | capitalizeWord}}
+        <label>{{'person.death' | translate}}: </label>{{person.deathday | date:'dd MMMM yyyy' | capitalizeWord}}
       </div>
       <div *ngIf="person.biography">
-        <label>Biographie: </label>
+        <label>{{'person.bio' | translate}}: </label>
         <div class="biography">{{person.biography}}</div>
       </div>
     </div>
@@ -35,7 +35,7 @@
       <button type="button" class="btn btn-outline-primary" (click)="isImagesCollapsed = !isImagesCollapsed">
         <i class="fa fa-plus-square" aria-hidden="true" [ngClass]="{'display-none' : isImagesCollapsed}"></i>
         <i class="fa fa-minus-square" aria-hidden="true" [ngClass]="{'display-none' : !isImagesCollapsed}"></i>
-        Images:</button>
+        {{'person.image' | translate}}:</button>
       <div *ngIf="isImagesCollapsed">
         <div class="card">
           <div class="card-body">
@@ -49,14 +49,26 @@
       </div>
     </div>
     <figure>
-      <label>Films notables:</label>
+      <label>{{'person.films' | translate}}:</label>
       <ul class="movies">
-        <li><app-list-movies [movies]="person.asActor" [label]="'En tant qu\'acteur:'"></app-list-movies></li>
-        <li><app-list-movies [movies]="person.asDirector" [label]="'En tant que r&eacute;alisateur:'"></app-list-movies></li>
-        <li><app-list-movies [movies]="person.asProducer" [label]="'En tant que producteur:'"></app-list-movies></li>
-        <li><app-list-movies [movies]="person.asCompositors" [label]="'En tant que compositeur:'"></app-list-movies></li>
-        <li><app-list-movies [movies]="person.asScreenplay" [label]="'En tant que sc&eacute;nariste:'"></app-list-movies></li>
-        <li><app-list-movies [movies]="person.asNovel" [label]="'En tant qu\'&eacute;crivain:'"></app-list-movies></li>
+        <li>
+          <app-list-movies [movies]="person.asActor" [label]="('movie-list.actor' | translate).concat(':')"></app-list-movies>
+        </li>
+        <li>
+          <app-list-movies [movies]="person.asDirector" [label]="('movie-list.director' | translate).concat(':')"></app-list-movies>
+        </li>
+        <li>
+          <app-list-movies [movies]="person.asProducer" [label]="('movie-list.producer' | translate).concat(':')"></app-list-movies>
+        </li>
+        <li>
+          <app-list-movies [movies]="person.asCompositors" [label]="('movie-list.composer' | translate).concat(':')"></app-list-movies>
+        </li>
+        <li>
+          <app-list-movies [movies]="person.asScreenplay" [label]="('movie-list.screenwriter' | translate).concat(':')"></app-list-movies>
+        </li>
+        <li>
+          <app-list-movies [movies]="person.asNovel" [label]="('movie-list.novelist' | translate).concat(':')"></app-list-movies>
+        </li>
       </ul>
     </figure>
   </div>

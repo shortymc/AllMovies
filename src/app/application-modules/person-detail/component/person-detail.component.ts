@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { PersonService } from '../../../service/person.service';
 import { Person } from '../../../model/person';
 import { Url } from '../../../constant/url';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-person-detail',
@@ -19,13 +20,21 @@ export class PersonDetailComponent implements OnInit {
         private personService: PersonService,
         private route: ActivatedRoute,
         private location: Location,
-        private router: Router
+        private router: Router,
+        private translate: TranslateService
     ) { }
 
     ngOnInit(): void {
-        this.route.paramMap
-            .switchMap((params: ParamMap) => this.personService.getPerson(+params.get('id')))
-            .subscribe(person => this.person = person);
+      const id = +this.route.snapshot.paramMap.get('id');
+      this.getPerson(id, this.translate.currentLang);
+      this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+        this.getPerson(this.person.id, event.lang);
+      });
+    }
+
+    getPerson(id: number, language: string) {
+      this.personService.getPerson(id, language)
+          .then(person => this.person = person);
     }
 
     goBack(): void {
