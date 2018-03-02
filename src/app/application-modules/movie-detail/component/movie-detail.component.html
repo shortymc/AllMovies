@@ -78,10 +78,10 @@
         </div>
       </div>
       <div *ngIf="movie.budget > 0">
-        <label>{{'movie.budget' | translate}}: </label>{{movie.budget | currency:'USD':'':'1.0-0'}}
+        <label>{{'movie.budget' | translate}}: </label>{{movie.budget | currency:'USD':'':'1.0-0':translate.currentLang}}
       </div>
       <div *ngIf="movie.recette > 0">
-        <label>{{'movie.revenu' | translate}}: </label>{{movie.recette | currency:'USD':'':'1.0-0'}}
+        <label>{{'movie.revenu' | translate}}: </label>{{movie.recette | currency:'USD':'':'1.0-0':translate.currentLang}}
       </div>
       <div *ngIf="movie.note > 0">
         <label>{{'movie.rating' | translate}}: </label>{{movie.note}} / 10
