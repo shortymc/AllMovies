@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -14,14 +15,18 @@ import { Movie } from '../../../../model/movie';
   providers: [MovieSearchService]
 })
 export class MovieSearchComponent implements OnInit {
+  @ViewChild('searchBox')
+  inputSearch: HTMLFormElement;
   movies: Observable<Movie[]>;
   private searchTerms = new Subject<string>();
   adult = false;
   showMovie = false;
+  language: string;
 
   constructor(
     private movieSearchService: MovieSearchService,
-    private router: Router) { }
+    private router: Router,
+    private translate: TranslateService) { }
 
   // Push a search term into the observable stream.
   search(term: string): void {
@@ -29,12 +34,17 @@ export class MovieSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.language = this.translate.currentLang;
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.language = event.lang;
+      this.search(this.inputSearch.nativeElement.value);
+    });
     this.movies = this.searchTerms
       .debounceTime(300)        // wait 300ms after each keystroke before considering the term
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap(term => term   // switch to new observable each time the term changes
         // return the http search observable
-        ? this.movieSearchService.search(term, this.adult)
+        ? this.movieSearchService.search(term, this.adult, this.language)
         // or the observable of empty movies if there was no search term
         : Observable.of<Movie[]>([]))
       .catch(error => {
