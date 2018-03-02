@@ -13,8 +13,8 @@
   </div>
   <div>
     <button *ngIf="persons.length > limit" class="btn btn-primary" (click)="showAll=!showAll">
-      <span *ngIf="!showAll">Show all {{label | lowercase}}</span>
-      <span *ngIf="showAll">Hide {{label | lowercase}}</span>
+      <span *ngIf="!showAll">{{'person-list.show' | translate}} {{label | lowercase}}</span>
+      <span *ngIf="showAll">{{'person-list.hide' | translate}} {{label | lowercase}}</span>
     </button>
   </div>
 </div>
