@@ -38,6 +38,7 @@ src/app/*/*/*.js
 npm-debug.log
 testem.log
 /typings
+/cordova
 
 # e2e
 /e2e/*.js
