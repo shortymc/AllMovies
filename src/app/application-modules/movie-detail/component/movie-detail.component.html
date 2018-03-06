@@ -17,6 +17,9 @@
     <div>
       <label>{{'movie.title' | translate}}: </label>{{movie.title | capitalizeWord}}
       <div>
+        <label>{{'global.original_title' | translate}}: </label>{{movie.original_title | capitalizeWord}}
+      </div>
+      <div>
         <label>{{'movie.country' | translate}}: </label>
         <span *ngFor="let country of movie.production_countries">
           <h1 class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}"></h1>
