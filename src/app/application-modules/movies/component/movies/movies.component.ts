@@ -58,7 +58,7 @@ export class MoviesComponent implements OnInit {
   }
 
   gotoDetail(id: number, key): void {
-    if(key === 1) {
+    if (key === 1) {
       this.router.navigate(['movie', id]);
     } else if (key === 2) {
       window.open('/movie/' + id);
@@ -165,7 +165,7 @@ export class MoviesComponent implements OnInit {
     });
 
     $(document).on('mousedown', '.detail', ($event) => {
-      let event = (<any>$($event)[0]);
+      const event = (<any>$($event)[0]);
       this.gotoDetail(event.currentTarget.parentElement.parentElement.children[0].innerText, event.originalEvent.which);
     });
     $(document).on('click', '.remove', ($event) => {
@@ -179,7 +179,7 @@ export class MoviesComponent implements OnInit {
       const title = $('th').eq($(this).index()).text();
       $(this).append(`<br/>
         <input type="text" class="align-center myFilter" placeholder="`
-          + comp.translate.instant('movies.search_title', { param: title.toLowerCase() }) + `" />`);
+        + comp.translate.instant('movies.search_title', { param: title.toLowerCase() }) + `" />`);
     });
     tableWidget.columns().eq(0).each(function (colIdx) {
       $('input', tableWidget.column(colIdx).header()).on('keyup change', function () {

@@ -1,14 +1,12 @@
 import { ServiceUtils } from './serviceUtils';
 import { Url } from './../constant/url';
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Movie } from '../model/movie';
 import { Person } from '../model/person';
 
 @Injectable()
 export class PersonService {
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private utils: ServiceUtils) { }
 
