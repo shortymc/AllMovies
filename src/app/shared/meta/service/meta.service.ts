@@ -1,12 +1,10 @@
 import { Url } from './../../../constant/url';
 import { ServiceUtils } from './../../../service/serviceUtils';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class MetaService {
   private score: string;
-  private metaUrl: string;
 
   constructor(private utils: ServiceUtils) { }
 

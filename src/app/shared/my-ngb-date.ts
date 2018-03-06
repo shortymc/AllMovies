@@ -1,5 +1,5 @@
-import { Component, Injectable, LOCALE_ID } from '@angular/core';
-import { NgbDateParserFormatter, NgbDateStruct, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { Injectable } from '@angular/core';
+import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 
 @Injectable()
