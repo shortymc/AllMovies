@@ -3,7 +3,14 @@ import { Url } from './../constant/url';
 export class Utils {
 
   static getPosterPath(r: any, size: number) {
-    const path = r.poster_path;
+    return Utils.getPath(r.poster_path, size);
+  }
+
+  static getProfilPath(r: any, size: number) {
+    return Utils.getPath(r.profile_path, size);
+  }
+
+  static getPath(path: string, size: number) {
     switch (size) {
       case 0:
         return path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + path;

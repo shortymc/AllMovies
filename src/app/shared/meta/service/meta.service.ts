@@ -6,14 +6,14 @@ import { Injectable } from '@angular/core';
 export class MetaService {
   private score: string;
 
-  constructor(private utils: ServiceUtils) { }
+  constructor(private serviceUtils: ServiceUtils) { }
 
   getLinkScore(title: string, site: string): Promise<string> {
     let url = Url.DUCKDUCKGO_URL + site + '+';
     // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
     // '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
-    url += this.utils.encodeQueryUrl(title) + '&format=json&no_redirect=1';
-    return this.utils.http.jsonp(url, 'callback').toPromise()
+    url += this.serviceUtils.encodeQueryUrl(title) + '&format=json&no_redirect=1';
+    return this.serviceUtils.http.jsonp(url, 'callback').toPromise()
       .then((data: any) => {
         let result = <string>data.Redirect;
         if (site === 'metacritic') {
@@ -23,7 +23,7 @@ export class MetaService {
         }
         return result;
       })
-      .catch(this.utils.handleError);
+      .catch(this.serviceUtils.handleError);
   }
 
   getMeta(title: string): Promise<void> {
@@ -32,7 +32,7 @@ export class MetaService {
     // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
     url += title.split(' ').join('+') + 'siteSearch=metacritic.com';
     console.log(url);
-    return this.utils.http.get(url, { headers: this.utils.headers }).toPromise()
+    return this.serviceUtils.http.get(url, { headers: this.serviceUtils.getHeaders() }).toPromise()
       .then((data: any) => {
         if (data.items !== null && data.items !== undefined) {
           return data.items[0].formattedUrl;
@@ -40,7 +40,7 @@ export class MetaService {
           return;
         }
       }).then((metaUrl: any) => {
-        this.utils.http.get(metaUrl, { headers: this.utils.headers })
+        this.serviceUtils.http.get(metaUrl, { headers: this.serviceUtils.getHeaders() })
           .map((res: any) => {
             const htmlR = $.parseHTML(res._body);
             this.score = $(htmlR).find('.metascore_w.larger.movie.positive')[0].innerText;

@@ -3,9 +3,14 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ServiceUtils {
-  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(public http: HttpClient) {
+  }
+
+  getHeaders() {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // headers.append('Accept', 'application/json');
+    return headers;
   }
 
   encodeQueryUrl(query: string): string {
