@@ -3,7 +3,7 @@ import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { Movie } from '../../../model/movie';
 import { MovieService } from '../../../service/movie.service';
 import { DropboxService } from '../../../service/dropbox.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { MyNgbDate } from '../../../shared/my-ngb-date';
 import { Url } from '../../../constant/url';
@@ -55,7 +55,7 @@ export class ReleaseComponent implements OnInit {
   Url = Url;
   language: string;
 
-  constructor(private movieService: MovieService, private router: Router, private route: ActivatedRoute,
+  constructor(private movieService: MovieService, private route: ActivatedRoute,
     private formatter: MyNgbDate, config: NgbDatepickerConfig, private dropboxService: DropboxService,
     private translate: TranslateService) {
     // Other days than wednesday are disabled

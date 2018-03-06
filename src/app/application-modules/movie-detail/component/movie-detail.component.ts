@@ -1,8 +1,7 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Url } from './../../../constant/url';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MovieService } from '../../../service/movie.service';
 import { DropboxService } from '../../../service/dropbox.service';
