@@ -4,7 +4,6 @@ import { Movie } from './../../../../model/movie';
 import { MovieService } from './../../../../service/movie.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs/Subject';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import * as $ from 'jquery';
 import 'datatables.net';
@@ -17,7 +16,8 @@ import 'datatables.net';
 export class MoviesComponent implements OnInit {
   movies: Movie[];
   public tableWidget: any;
-  constructor(private movieService: MovieService, private router: Router, private dropboxService: DropboxService, private translate: TranslateService) { }
+  constructor(private movieService: MovieService, private router: Router,
+    private dropboxService: DropboxService, private translate: TranslateService) { }
 
   getMovies(): void {
     this.dropboxService.getAllMovies('ex.json').then(movies => {
@@ -37,7 +37,6 @@ export class MoviesComponent implements OnInit {
 
   checkAndFixData(): void {
     let incomplete: number[] = [];
-    const movieList = this.movies;
     for (const movie of this.movies) {
       if ((movie.time === undefined && movie.time == null)
         || (movie.genres === undefined && movie.genres == null)) {
@@ -58,13 +57,18 @@ export class MoviesComponent implements OnInit {
     );
   }
 
-  gotoDetail(id: number): void {
-    window.open('/movie/' + id);
+  gotoDetail(id: number, key): void {
+    if(key === 1) {
+      this.router.navigate(['movie', id]);
+    } else if (key === 2) {
+      window.open('/movie/' + id);
+    }
   }
 
   addAnchor() {
     $('#example_wrapper').remove();
-    $("h2").after("<table id='example' class='table table-striped table-bordered compact hover order-column align-center' cellspacing='0'></table>");
+    $('h2').after(`<table id='example' class='table table-striped table-bordered
+      compact hover order-column align-center' cellspacing='0'></table>`);
   }
 
   private initDatatable(): void {
@@ -160,8 +164,9 @@ export class MoviesComponent implements OnInit {
       }
     });
 
-    $(document).on('click', '.detail', ($event) => {
-      this.gotoDetail((<any>$($event)[0]).currentTarget.parentElement.parentElement.children[0].innerText);
+    $(document).on('mousedown', '.detail', ($event) => {
+      let event = (<any>$($event)[0]);
+      this.gotoDetail(event.currentTarget.parentElement.parentElement.children[0].innerText, event.originalEvent.which);
     });
     $(document).on('click', '.remove', ($event) => {
       const tr = (<any>$($event)[0]).currentTarget.parentElement.parentElement;
@@ -173,7 +178,8 @@ export class MoviesComponent implements OnInit {
     $('th').not(':lt(2),:gt(2)').each(function () {
       const title = $('th').eq($(this).index()).text();
       $(this).append(`<br/>
-        <input type="text" class="align-center myFilter" placeholder="` + comp.translate.instant('movies.search_title', {param: title.toLowerCase()}) + `" />`);
+        <input type="text" class="align-center myFilter" placeholder="`
+          + comp.translate.instant('movies.search_title', { param: title.toLowerCase() }) + `" />`);
     });
     tableWidget.columns().eq(0).each(function (colIdx) {
       $('input', tableWidget.column(colIdx).header()).on('keyup change', function () {
