@@ -73,6 +73,7 @@
     "stylelint-order": "^0.8.0",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
+    "tslint-eslint-rules": "^5.1.0",
     "typescript": "~2.5.3",
     "webpack-bundle-analyzer": "^2.11.0"
   }
