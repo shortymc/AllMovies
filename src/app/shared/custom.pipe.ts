@@ -39,7 +39,7 @@ export class CapitalizeWordPipe implements PipeTransform {
     if (!str) {
       return str;
     }
-    str = str.replace(/([^\W_]+[^\s-]*) */g, function (s) {
+    str = str.replace(/([^\W_]+[^\s-]*) */g, function(s) {
       return s.charAt(0).toUpperCase() + s.substr(1).toLowerCase();
     });
     return str;

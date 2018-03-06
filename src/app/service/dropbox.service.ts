@@ -38,8 +38,8 @@ export class DropboxService {
         return new Promise((resolve, reject) => {
           const fileReader = new FileReader();
           fileReader.onload = (event) => resolve(fileReader.result as string[]);
-          fileReader.onabort = (event) => reject(event);
-          fileReader.onerror = (event) => reject(event);
+          fileReader.onabort = reject;
+          fileReader.onerror = reject;
           fileReader.readAsText(response.fileBlob);
         }) as Promise<string[]>;
       })
@@ -49,7 +49,7 @@ export class DropboxService {
   addMovie(movie: Movie, fileName: string): void {
     this.downloadFile(fileName).then(file => {
       const movieList = <Movie[]>JSON.parse(file);
-      const found = movieList.find(function (film) {
+      const found = movieList.find(function(film) {
         return film.id === movie.id;
       });
       if (!found) {

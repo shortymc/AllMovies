@@ -9,7 +9,7 @@ export class ServiceUtils {
   }
 
   encodeQueryUrl(query: string): string {
-    return encodeURIComponent(query).replace(/[!'()*]/g, function (c) {
+    return encodeURIComponent(query).replace(/[!'()*]/g, function(c) {
       return '%' + c.charCodeAt(0).toString(16);
     });
   }
