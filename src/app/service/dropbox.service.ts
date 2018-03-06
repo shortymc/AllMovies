@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import Dropbox = require('dropbox');
 import { Movie } from '../model/movie';
 import { Url } from '../constant/url';
+import { Utils } from '../shared/utils';
 
 @Injectable()
 export class DropboxService {
@@ -54,7 +55,7 @@ export class DropboxService {
       });
       if (!found) {
         movieList.push(movie);
-        movieList.sort(this.compareMovie);
+        movieList.sort(Utils.compareMovie);
         this.uploadFile(this.movieToBlob(movieList), fileName);
       }
     }).catch((error: any) => console.error(error));
@@ -67,7 +68,7 @@ export class DropboxService {
 
       if (found.length > 0) {
         found.forEach((movie: Movie) => movieList.push(movie));
-        movieList.sort(this.compareMovie);
+        movieList.sort(Utils.compareMovie);
         this.uploadFile(this.movieToBlob(movieList), fileName);
       }
     }).catch((error: any) => console.error(error));
@@ -127,18 +128,8 @@ export class DropboxService {
       movieList = movieList.filter((m: Movie) => !moviesToReplace.map((movie: Movie) => movie.id).includes(m.id));
 
       moviesToReplace.forEach((movie: Movie) => movieList.push(movie));
-      movieList.sort(this.compareMovie);
+      movieList.sort(Utils.compareMovie);
       this.uploadFile(this.movieToBlob(movieList), fileName);
     }).catch((error: any) => console.error(error));
-  }
-
-  compareMovie(a: Movie, b: Movie): number {
-    if (a.id < b.id) {
-      return -1;
-    }
-    if (a.id > b.id) {
-      return 1;
-    }
-    return 0;
   }
 }
