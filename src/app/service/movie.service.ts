@@ -7,13 +7,13 @@ import { Url } from '../constant/url';
 @Injectable()
 export class MovieService {
 
-  constructor(private utils: ServiceUtils) { }
+  constructor(private serviceUtils: ServiceUtils) { }
 
   getMovies(language: string): Promise<Movie[]> {
-    return this.utils.http.get(`${Url.MOST_POPULAR_URL}${Url.LANGUE}${language}`)
+    return this.serviceUtils.http.get(`${Url.MOST_POPULAR_URL}${Url.LANGUE}${language}`)
       .toPromise()
       .then(response => this.mapMoviesDT(response))
-      .catch(this.utils.handleError);
+      .catch(this.serviceUtils.handleError);
   }
 
   getMovie(id: number, video: boolean, credit: boolean, reco: boolean, image: boolean, language: string): Promise<Movie> {
@@ -40,19 +40,19 @@ export class MovieService {
     if (language) {
       url += `${Url.LANGUE}${language}`;
     }
-    return this.utils.http.get(url)
+    return this.serviceUtils.http.get(url)
       .toPromise()
       .then(response => this.mapMovie(response))
-      .catch(this.utils.handleError);
+      .catch(this.serviceUtils.handleError);
   }
 
   getMoviesByReleaseDates(debut: string, fin: string, language: string): Promise<Movie[]> {
     const url =
   `${Url.DISCOVER_URL}${Url.RELEASE_DATE_GTE_URL}${debut}${Url.RELEASE_DATE_LTE_URL}${fin}${Url.RELEASE_TYPE_URL}${Url.LANGUE}${language}`;
-    return this.utils.http.get(url)
+    return this.serviceUtils.http.get(url)
       .toPromise()
       .then(response => this.mapMovies(response))
-      .catch(this.utils.handleError);
+      .catch(this.serviceUtils.handleError);
   }
 
   mapMovies(response: any): Movie[] {
