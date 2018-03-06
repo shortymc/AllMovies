@@ -1,3 +1,4 @@
+import { Utils } from './../shared/utils';
 import { ServiceUtils } from './serviceUtils';
 import { Injectable } from '@angular/core';
 import { Movie } from '../model/movie';
@@ -62,8 +63,8 @@ export class MovieService {
       date: r.release_date,
       note: r.vote_average,
       language: r.original_language,
-      thumbnail: Url.IMAGE_URL_92 + r.poster_path,
-      affiche: Url.IMAGE_URL_ORIGINAL + r.poster_path,
+      thumbnail: Utils.getPosterPath(r, 92),
+      affiche: Utils.getPosterPath(r, 0),
       synopsis: r.overview,
       time: r.runtime,
       popularity: r.popularity,
@@ -78,7 +79,7 @@ export class MovieService {
       date: r.release_date,
       note: r.vote_average,
       language: r.original_language,
-      thumbnail: r.poster_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_92 + r.poster_path
+      thumbnail: Utils.getPosterPath(r, 92)
     }));
   }
 
@@ -87,8 +88,8 @@ export class MovieService {
       id: r.id,
       title: r.title,
       date: r.release_date,
-      thumbnail: Url.IMAGE_URL_92 + r.poster_path,
-      original_title: r.original_title,
+      thumbnail: Utils.getPosterPath(r, 92),
+      original_title: Utils.getTitle(r),
       adult: r.adult,
       time: r.runtime,
       note: r.vote_average,
@@ -123,11 +124,11 @@ export class MovieService {
     }
     movie.id = r.id;
     movie.title = r.title;
-    movie.original_title = r.original_title === r.title ? '' : r.original_title;
+    movie.original_title = Utils.getTitle(r);
     movie.date = r.release_date;
     movie.synopsis = r.overview;
-    movie.affiche = r.poster_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + r.poster_path;
-    movie.thumbnail = r.poster_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + r.poster_path;
+    movie.affiche = Utils.getPosterPath(r, 0);
+    movie.thumbnail = Utils.getPosterPath(r, 154);
     movie.adult = r.adult;
     movie.time = r.runtime;
     movie.note = r.vote_average;
