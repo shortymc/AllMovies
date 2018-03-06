@@ -100,36 +100,43 @@ export class MovieService {
 
   mapMovie(r: any): Movie {
     console.log(r);
+    const movie = new Movie();
     let cast;
-    let crew;
-    if (r.credits !== null && r.credits !== undefined) {
+    if (r.credits) {
       cast = r.credits.cast.sort((a1: any, a2: any) => this.sortCast(a1, a2));
-      crew = r.credits.crew;
+      movie.crew = r.credits.crew;
     }
-    if (cast !== undefined) {
-      cast = cast;
+    if (cast) {
+      movie.actors = cast;
     }
-    let videos;
-    if (r.videos !== null && r.videos !== undefined) {
-      videos = r.videos.results;
+    if (r.videos) {
+      movie.videos = r.videos.results;
     }
-    let reco;
-    if (r.recommendations !== null && r.recommendations !== undefined) {
-      reco = this.recommendationsToMovies(r.recommendations.results);
+    if (r.recommendations) {
+      movie.recommendations = this.recommendationsToMovies(r.recommendations.results);
     }
-    let img;
-    if (r.images !== null && r.images !== undefined) {
-      img = r.images.backdrops.map((i: any) => i.file_path);
+    if (r.images) {
+      movie.images = r.images.backdrops.map((i: any) => i.file_path);
     }
-    let genres;
-    if (r.genres !== null && r.genres !== undefined) {
-      genres = r.genres.map(genre => genre.name);
+    if (r.genres) {
+      movie.genres = r.genres.map(genre => genre.name);
     }
-    return new Movie(r.id, r.title, r.original_title === r.title ? '' : r.original_title, r.release_date, r.overview,
-      r.poster_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + r.poster_path,
-      r.poster_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + r.poster_path,
-      r.adult, r.runtime, r.vote_average, r.budget, r.revenue, r.original_language,
-      videos, cast, crew, reco, img, false, genres, undefined, undefined, r.production_countries);
+    movie.id = r.id;
+    movie.title = r.title;
+    movie.original_title = r.original_title === r.title ? '' : r.original_title;
+    movie.date = r.release_date;
+    movie.synopsis = r.overview;
+    movie.affiche = r.poster_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + r.poster_path;
+    movie.thumbnail = r.poster_path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + r.poster_path;
+    movie.adult = r.adult;
+    movie.time = r.runtime;
+    movie.note = r.vote_average;
+    movie.budget = r.budget;
+    movie.recette = r.revenue;
+    movie.language = r.original_language;
+    movie.checked = false;
+    movie.production_countries = r.production_countries;
+    return movie;
   }
 
   sortCast(a1: any, a2: any) {
