@@ -39,13 +39,14 @@ export class MoviesComponent implements OnInit {
     let incomplete: number[] = [];
     for (const movie of this.movies) {
       if ((movie.time === undefined && movie.time == null)
-        || (movie.genres === undefined && movie.genres == null)) {
-        incomplete.push(movie.id);
+        || (movie.genres === undefined && movie.genres == null)
+        || (movie.original_title === undefined || movie.original_title == null || movie.original_title === '')) {
+          incomplete.push(movie.id);
+        }
       }
-    }
     incomplete = incomplete.slice(0, 20);
     const obs = incomplete.map((id: number) => {
-      return this.movieService.getMovie(id, false, false, false, false, undefined);
+      return this.movieService.getMovie(id, false, false, false, false, 'fr');
     });
 
     forkJoin(obs).subscribe(
@@ -78,17 +79,17 @@ export class MoviesComponent implements OnInit {
       columns: [
         { data: 'id', title: comp.translate.instant('movies.id'), 'orderable': false },
         {
-          data: 'thumbnail', title: comp.translate.instant('movies.poster'), 'orderable': false, 'render': function(url, type, full) {
+          data: 'thumbnail', title: comp.translate.instant('movies.poster'), 'orderable': false, 'render': function (url, type, full) {
             return '<img class="posterDT" src="' + url + '"/>';
           }
         },
         { data: 'title', title: comp.translate.instant('movies.title'), 'orderable': false },
-        { data: 'original_title', title: comp.translate.instant('movies.original_title'), 'orderable': false },
+        { data: 'original_title', title: comp.translate.instant('global.original_title'), 'orderable': false },
         { data: 'date', title: comp.translate.instant('movies.date') },
         { data: 'note', title: comp.translate.instant('movies.rating') },
         { data: 'language', title: comp.translate.instant('movies.language') },
         {
-          data: 'genres', title: comp.translate.instant('movies.genres'), 'render': function(genres, type, full) {
+          data: 'genres', title: comp.translate.instant('movies.genres'), 'render': function (genres, type, full) {
             return `<div>` + genres + `</div>`;
           }
         },
@@ -100,7 +101,7 @@ export class MoviesComponent implements OnInit {
         {
           'targets': -3,
           'orderable': true,
-          'render': function(data, type, row) {
+          'render': function (data, type, row) {
             if (data.time !== undefined && data.time != null) {
               if (type === 'display') {
                 try {
@@ -175,14 +176,14 @@ export class MoviesComponent implements OnInit {
       tableWidget.row(tr).remove();
       tableWidget.draw();
     });
-    $('th').not(':lt(2),:gt(2)').each(function() {
+    $('th').not(':lt(2),:gt(2)').each(function () {
       const title = $('th').eq($(this).index()).text();
       $(this).append(`<br/>
         <input type="text" class="align-center myFilter" placeholder="`
         + comp.translate.instant('movies.search_title', { param: title.toLowerCase() }) + `" />`);
     });
-    tableWidget.columns().eq(0).each(function(colIdx) {
-      $('input', tableWidget.column(colIdx).header()).on('keyup change', function() {
+    tableWidget.columns().eq(0).each(function (colIdx) {
+      $('input', tableWidget.column(colIdx).header()).on('keyup change', function () {
         tableWidget
           .column(colIdx)
           .search((<any>this).value).draw();
