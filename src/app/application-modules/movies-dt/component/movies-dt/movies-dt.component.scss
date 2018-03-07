@@ -1,0 +1,37 @@
+@import "../../../../styles/styles";
+
+#example {
+  width: 99% !important;
+}
+
+/* stylelint-disable */
+:host ::ng-deep {
+  & table.dataTable.hover tbody tr:hover,
+  table.dataTable.display tbody tr:hover,
+  table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
+    background-color: $gray_hover !important;
+  }
+
+  & #example_filter {
+    float: left !important;
+    margin-left: 100px !important;
+  }
+
+  & #example_filter > label {
+    display: flex;
+  }
+
+  & .myFilter {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 3px;
+  }
+
+  & .posterDT {
+    width: 10%;
+
+    &:hover {
+      width: 60%;
+    }
+  }
+}
