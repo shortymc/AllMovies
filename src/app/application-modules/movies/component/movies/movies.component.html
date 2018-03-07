@@ -1,1 +1,108 @@
 <h2>{{'movies.header' | translate}}:</h2>
+
+<ng-container>
+  <mat-table #table [dataSource]="movies" (scroll)="onTableScroll($event)">
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>
+        <span class="mat-text">{{ 'movies.id'|translate }}</span>
+        <span class="mat-icon fa fa-hashtag"></span>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        {{movie.id}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="thumbnail">
+      <mat-header-cell *matHeaderCellDef>
+        <span class="mat-text">{{ 'movies.poster'|translate }}</span>
+        <span class="mat-icon fa fa-image"></span>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        <img class="posterDT" src="{{movie.thumbnail}}" />
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>
+        <span class="mat-text">{{ 'movies.title'|translate }}</span>
+        <span class="mat-icon fa fa-film"></span>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        {{movie.title}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="original_title">
+      <mat-header-cell *matHeaderCellDef>
+        <span class="mat-text">{{ 'global.original_title'|translate }}</span>
+        <span class="mat-icon fa fa-flag"></span>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        {{movie.original_title}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef>
+        <span class="mat-text">{{ 'movies.date'|translate }}</span>
+        <span class="mat-icon fa fa-calendar"></span>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        {{movie.date | date:'MM/yyyy'}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="note">
+      <mat-header-cell *matHeaderCellDef>
+        <span class="mat-text">{{ 'movies.rating'|translate }}</span>
+        <span class="mat-icon fa fa-star"></span>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        {{movie.note}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="language">
+      <mat-header-cell *matHeaderCellDef>
+        <span class="mat-text">{{ 'movies.language'|translate }}</span>
+        <span class="mat-icon fa fa-globe"></span>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        {{movie.language}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="genres">
+      <mat-header-cell *matHeaderCellDef>
+        <span class="mat-text">{{ 'movies.genres'|translate }}</span>
+        <span class="mat-icon fa fa-list"></span>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        <ng-container *ngFor="let genre of movie.genres; let last=last">
+          {{genre}}
+          <ng-container *ngIf="!last">/</ng-container>
+        </ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="time">
+      <mat-header-cell *matHeaderCellDef>{{ 'movies.length'|translate }}</mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        {{movie.time | convertToHHmm:'true'}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="remove">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        <button class="btn btn-outline-primary remove">{{'global.remove' | translate}}
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (mousedown)="gotoDetail(row.id, $event)"></mat-row>
+  </mat-table>
+</ng-container>

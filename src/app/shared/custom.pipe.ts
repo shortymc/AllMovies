@@ -3,10 +3,22 @@ import * as moment from 'moment-mini-ts';
 
 @Pipe({ name: 'convertToHHmm' })
 export class ConvertToHHmmPipe implements PipeTransform {
-  transform(minutes: number): string {
+  transform(minutes: number, args: boolean): string {
     let result = '';
-    result += Math.floor(minutes / 60) + ' heures ';
-    result += minutes % 60 + ' minutes';
+    result += Math.floor(minutes / 60);
+    if(args) {
+      result += 'h ';
+    }
+    else {
+      result += ' heures ';
+    }
+    result += minutes % 60;
+    if(args) {
+      result += 'min ';
+    }
+    else {
+      result += ' minutes ';
+    }
     return result;
   }
 }

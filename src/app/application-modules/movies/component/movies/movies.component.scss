@@ -4,13 +4,46 @@
   width: 99% !important;
 }
 
+.mat-header-row { //THIS MAKES THE HEADER STICKY
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 1);
+}
+
+.mat-row:hover {
+  background-color: $gray_hover !important;
+}
+
+.posterDT {
+  width: 20%;
+  padding: 2px;
+
+  &:hover {
+    width: 100%;
+  }
+}
+
+.mat-header-cell .mat-icon {
+  display: none;
+}
+
+@include media('900px') {
+  .mat-header-cell .mat-text {
+    display: none;
+  }
+
+  .mat-header-cell .mat-icon {
+    display: block;
+  }
+
+  .posterDT {
+    width: 60%;
+  }
+}
+
 /* stylelint-disable */
 :host ::ng-deep {
-  & table.dataTable.hover tbody tr:hover,
-  table.dataTable.display tbody tr:hover,
-  table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
-    background-color: $gray_hover !important;
-  }
 
   & #example_filter {
     float: left !important;
@@ -25,13 +58,5 @@
     box-sizing: border-box;
     width: 100%;
     padding: 3px;
-  }
-
-  & .posterDT {
-    width: 10%;
-
-    &:hover {
-      width: 60%;
-    }
   }
 }
