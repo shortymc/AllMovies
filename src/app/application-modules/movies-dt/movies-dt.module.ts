@@ -6,9 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MoviesComponent } from './component/movies/movies.component';
-import { MatTableModule } from '@angular/material/table';
-import { LayoutModule } from '@angular/cdk/layout';
+import { MoviesComponent } from './component/movies-dt/movies-dt.component';
 
 const childRoutes: Routes = [
   {
@@ -22,9 +20,7 @@ const childRoutes: Routes = [
     FormsModule,
     RouterModule.forChild(childRoutes),
     SharedModule,
-    TranslateModule.forChild(),
-    MatTableModule,
-    LayoutModule
+    TranslateModule.forChild()
   ],
   providers: [
     MovieService,

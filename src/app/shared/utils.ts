@@ -24,7 +24,7 @@ export class Utils {
   }
 
   static getTitle(r: any) {
-    return r.original_title === r.title ? '' : r.original_title;
+    return r.original_title === r.title ? ' ' : r.original_title;
   }
 
   static recommendationsToMovies(reco: any): Movie[] {
