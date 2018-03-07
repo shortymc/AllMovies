@@ -6,7 +6,6 @@ import localeDe from '@angular/common/locales/de';
 import localeEs from '@angular/common/locales/es';
 import localeIt from '@angular/common/locales/it';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +13,8 @@ import { HttpClientModule, HttpClientJsonpModule, HttpClient } from '@angular/co
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import 'bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -22,6 +23,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   imports: [
     NgbModule.forRoot(),
+    BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
     HttpClientJsonpModule,
