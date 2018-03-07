@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { MoviesComponent } from './component/movies/movies.component';
 import { MatTableModule } from '@angular/material/table';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatSortModule } from '@angular/material/sort';
 
 const childRoutes: Routes = [
   {
@@ -24,7 +25,8 @@ const childRoutes: Routes = [
     SharedModule,
     TranslateModule.forChild(),
     MatTableModule,
-    LayoutModule
+    LayoutModule,
+    MatSortModule
   ],
   providers: [
     MovieService,
