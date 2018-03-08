@@ -76,6 +76,8 @@
       "@angular/common/http",
       "core-js/es7",
       "zone.js/dist",
+      "@angular/cdk",
+      "@angular/material",
       "@angular/platform-browser-dynamic"
     ],
     "no-consecutive-blank-lines": true,
