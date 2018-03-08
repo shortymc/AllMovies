@@ -18,7 +18,7 @@ export class MyPaginator extends MatPaginatorIntl {
     this.firstPageLabel = this.translate.instant('movies.mat-table.firstPageLabel');
   }
 
-  getRangeLabel = function (page, pageSize, length) {
+  getRangeLabel = function(page, pageSize, length) {
     if (length === 0 || pageSize === 0) {
       return this.translate.instant('movies.mat-table.no_result');
     }
