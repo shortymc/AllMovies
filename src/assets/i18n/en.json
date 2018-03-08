@@ -39,41 +39,6 @@
     "movies": "Movies",
     "release": "Releases"
   },
-  "toaster_messages": {
-    "APP_PROPERTIES_LOADING_ERROR": "Error loading settings",
-    "ADD_COMMENT_SUCCESS": "Comment added",
-    "ADD_COMMENT_ERROR": "Error while adding the comment",
-    "ADD_COMMENT_ERROR_MISSING_TEXT": "Missing comment text",
-    "REACHED_END_INVOICES_LIST": "Reached end of list",
-    "REACHED_BEGIN_INVOICES_LIST": "Reached begin of list",
-    "ADD_MEMBER_SUCCESS": "Member added",
-    "ADD_MEMBER_ERROR": "Error adding contact",
-    "UPDATE_MEMBER_SUCCESS": "Member modified",
-    "UPDATE_MEMBER_ERROR": "Error changing contact",
-    "ACTIVATE_MEMBER_SUCCESS": "Member activated",
-    "ACTIVATE_MEMBER_ERROR": "Error activating contact",
-    "ACTIVATE_MULTIPLE_MEMBERS": "Member activated",
-    "ACTIVATE_MULTIPLE_MEMBERS_ERROR": "Error activating contact",
-    "DEACTIVATE_MEMBER_SUCCESS": "Member deactivated",
-    "DEACTIVATE_MEMBER_ERROR": "Error deactivating Member",
-    "DEACTIVATE_MULTIPLE_MEMBERS": "Member deactivated",
-    "DEACTIVATE_MULTIPLE_MEMBERS_ERROR": "Error deactivating contact",
-    "DELETE_MEMBER_SUCCESS": "Member deleted",
-    "DELETE_MEMBER_SUCCESS_MANY": "Members deleted",
-    "ADD_LOGO_SUCCESS": "Logo saved",
-    "ADD_LOGO_ERROR": "Error changing the logo",
-    "SAVE_THEME_ERROR": "Error saving theme",
-    "SAVE_THEME_SUCCESS": "Theme saved",
-    "CHANGE_PWD_ERROR": "Error changing password",
-    "CHANGE_PWD_SUCCESS": "Password changed",
-    "ADD_AVATAR_SUCCESS": "Image saved",
-    "ADD_AVATAR_ERROR": "Error while modifying the image",
-    "UPDATE_USER_DETAILS_SUCCESS": "Datas updated",
-    "UPDATE_USER_DETAILS_ERROR": "Error while updating datas",
-    "RESET_PASSWORD_REQUEST_SUCCESS": "Reset request sent",
-    "RESET_PASSWORD_REQUEST_ERROR": "Unknown user",
-    "RESET_PASSWORD_CONNECTION_ERROR": "Error during connection"
-  },
   "dashboard": {
     "header": "Top Movies"
   },
@@ -105,7 +70,7 @@
     "screenwriter": "As screenwriter",
     "novelist": "As novelist",
     "add": "Add Selected Movies To Collection",
-    "total":"Total"
+    "total": "Total"
   },
   "person": {
     "header": "Details of",
@@ -155,28 +120,14 @@
     "genres": "Genres",
     "length": "Running Time",
     "search_title": "Search in {{param}}s",
-    "dt": {
-      "processing": "Processing...",
-      "search": "Search:",
-      "lengthMenu": "Show _MENU_ entries",
-      "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-      "infoEmpty": "Showing 0 to 0 of 0 entries",
-      "infoFiltered": "(filtered from _MAX_ total entries)",
-      "infoPostFix": "",
-      "loadingRecords": "Loading...",
-      "zeroRecords": "No matching records found",
-      "emptyTable": "No data available in table",
-      "first": "First",
-      "previous": "Previous",
-      "next": "Next",
-      "last": "Last",
-      "sortAscending": "activate to sort column ascending",
-      "sortDescending": "activate to sort column descending"
-    },
     "mat-table": {
-      "itemsPerPageLabel": "Movies per page",
+      "itemsPerPageLabel": "Movies per page: ",
       "of": " of ",
-      "no_result": "No data"
+      "no_result": "No Data",
+      "nextPageLabel": "Nex Page",
+      "previousPageLabel": "Previous Page",
+      "lastPageLabel": "Last Page",
+      "firstPageLabel": "First Page"
     }
   },
   "release": {
