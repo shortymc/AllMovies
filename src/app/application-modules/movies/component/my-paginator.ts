@@ -4,13 +4,21 @@ import { MatPaginatorIntl } from '@angular/material';
 export class MyPaginator extends MatPaginatorIntl {
   constructor(private translate: TranslateService) {
     super();
-    this.itemsPerPageLabel = this.translate.instant('movies.mat-table.itemsPerPageLabel');
+    this.translate.onLangChange.subscribe(() => {
+      this.initTranslation();
+    });
+    this.initTranslation();
   }
 
-  // nextPageLabel = 'Slijedeća stranica';
-  // previousPageLabel = 'Prethodna stranica';
+  initTranslation() {
+    this.itemsPerPageLabel = this.translate.instant('movies.mat-table.itemsPerPageLabel');
+    this.nextPageLabel = this.translate.instant('movies.mat-table.nextPageLabel');
+    this.previousPageLabel = this.translate.instant('movies.mat-table.previousPageLabel');
+    this.lastPageLabel = this.translate.instant('movies.mat-table.lastPageLabel');
+    this.firstPageLabel = this.translate.instant('movies.mat-table.firstPageLabel');
+  }
 
-  getRangeLabel = function(page, pageSize, length) {
+  getRangeLabel = function (page, pageSize, length) {
     if (length === 0 || pageSize === 0) {
       return this.translate.instant('movies.mat-table.no_result');
     }

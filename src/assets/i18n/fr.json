@@ -39,41 +39,6 @@
     "movies": "Films",
     "release": "Sorties"
   },
-  "toaster_messages": {
-    "app_properties_loading_error": "Erreur de chargement du paramétrage",
-    "add_comment_success": "Commentaire ajouté",
-    "add_comment_error": "Erreur en ajout d'un commentaire",
-    "add_comment_error_missing_text": "Texte manquant",
-    "reached_end_invoices_list": "Vous êtes en fin de la liste",
-    "reached_begin_invoices_list": "Vous êtes en debut de la liste",
-    "add_members_success": "Membre ajouté",
-    "add_members_error": "Erreur lors de l'ajout du contact",
-    "update_members_success": "Membre modifié",
-    "update_members_error": "Erreur lors de la modification du contact",
-    "activate_members_success": "Membre activé",
-    "activate_members_error": "Erreur lors de l'activation du contact",
-    "activate_multiple_memberss": " contact(s) activé(s)",
-    "activate_multiple_memberss_error": "Erreur lors de l'activation du contact ",
-    "deactivate_members_success": "Membre désactivé",
-    "DEACTIVATE_MEMBERS_ERROR": "Erreur lors de la désactivation du contact",
-    "DEACTIVATE_MULTIPLE_MEMBERSS": " contact(s) désactivé(s)",
-    "DEACTIVATE_MULTIPLE_MEMBERSS_ERROR": "Erreur lors de la désactivation du contact ",
-    "DELETE_MEMBERS_SUCCESS": "Membre supprimé",
-    "DELETE_MEMBERS_SUCCESS_MANY": "Membres supprimés",
-    "ADD_LOGO_SUCCESS": "Logo enregistré",
-    "ADD_LOGO_ERROR": "Erreur lors de la modification du logo",
-    "SAVE_THEME_ERROR": "Erreur lors de l'enregistrement du thème",
-    "SAVE_THEME_SUCCESS": "Thème enregistré",
-    "CHANGE_PWD_ERROR": "Erreur lors de la modification du mot de passe",
-    "CHANGE_PWD_SUCCESS": "Mot de passe modifié",
-    "ADD_AVATAR_SUCCESS": "Image enregistrée",
-    "ADD_AVATAR_ERROR": "Erreur lors de la modification de l'avatar",
-    "UPDATE_USER_DETAILS_SUCCESS": "Données enregistrées",
-    "UPDATE_USER_DETAILS_ERROR": "Erreur lors de la modification des données",
-    "RESET_PASSWORD_REQUEST_SUCCESS": "Demande de réinitialisation envoyée",
-    "RESET_PASSWORD_REQUEST_ERROR": "Utilisateur inconnu",
-    "RESET_PASSWORD_CONNECTION_ERROR": "Erreur lors de la connexion"
-  },
   "dashboard": {
     "header": "Top Films"
   },
@@ -105,7 +70,7 @@
     "screenwriter": "En tant que scénariste",
     "novelist": "En tant qu'écrivain",
     "add": "Ajouter les films sélectionnés à la Collection",
-    "total":"Total"
+    "total": "Total"
   },
   "person": {
     "header": "Détails de",
@@ -118,6 +83,10 @@
     "bio": "Biographie",
     "image": "Images",
     "films": "Films notables"
+  },
+  "person-search": {
+    "header": "Recherche de personnes",
+    "placeholder": "Rechercher des personnes"
   },
   "person-list": {
     "hide": "Cacher les",
@@ -132,10 +101,6 @@
     "guests": "Guest-Star",
     "song": "Chansons",
     "music": "Musique"
-  },
-  "person-search": {
-    "header": "Recherche de personnes",
-    "placeholder": "Rechercher des personnes"
   },
   "meta": {
     "meta": "Metacritic",
@@ -155,28 +120,14 @@
     "genres": "Genres",
     "length": "Durée",
     "search_title": "Rechercher dans les {{param}}s",
-    "dt": {
-      "processing": "Traitement en cours...",
-      "search": "Rechercher:",
-      "lengthMenu": "Afficher _MENU_ éléments",
-      "info": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
-      "infoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
-      "infoFiltered": "(filtré de _MAX_ éléments au total)",
-      "infoPostFix": "",
-      "loadingRecords": "Chargement en cours...",
-      "zeroRecords": "Aucun élément à afficher",
-      "emptyTable": "Aucune donnée disponible dans le tableau",
-      "first": "Premier",
-      "previous": "Précédent",
-      "next": "Suivant",
-      "last": "Dernier",
-      "sortAscending": "activer pour trier la colonne par ordre croissant",
-      "sortDescending": "activer pour trier la colonne par ordre d&eacute;croissant"
-    },
     "mat-table": {
-      "itemsPerPageLabel": "Films par page",
+      "itemsPerPageLabel": "Films par Page: ",
       "of": " sur ",
-      "no_result": "Aucune donnée"
+      "no_result": "Aucune Donnée",
+      "nextPageLabel": "Page Suivante",
+      "previousPageLabel": "Page Précédente",
+      "lastPageLabel": "Dernière Page",
+      "firstPageLabel": "Première Page"
     }
   },
   "release": {
