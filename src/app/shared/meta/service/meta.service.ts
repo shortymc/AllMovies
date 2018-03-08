@@ -42,8 +42,8 @@ export class MetaService {
       }).then((metaUrl: any) => {
         this.serviceUtils.http.get(metaUrl, { headers: this.serviceUtils.getHeaders() })
           .map((res: any) => {
-            const htmlR = $.parseHTML(res._body);
-            this.score = $(htmlR).find('.metascore_w.larger.movie.positive')[0].innerText;
+            // const htmlR = $.parseHTML(res._body);
+            // this.score = $(htmlR).find('.metascore_w.larger.movie.positive')[0].innerText;
             console.log(this.score);
           });
       });
