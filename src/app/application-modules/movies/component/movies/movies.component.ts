@@ -20,9 +20,9 @@ export class MoviesComponent implements OnInit {
   displayedColumns = init_columns;
   movies: Movie[];
   sortedData: Movie[];
-  pageSize = 15;
+  pageSize = 25;
   pageIndex = 0;
-  pageSizeOptions = [5, 10, 25, 100];
+  pageSizeOptions = [10, 25, 50, 100];
   pageEvent: PageEvent;
   constructor(private movieService: MovieService, private router: Router, private breakpointObserver: BreakpointObserver,
     private dropboxService: DropboxService, private translate: TranslateService) {
