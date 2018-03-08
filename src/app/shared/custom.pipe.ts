@@ -6,17 +6,15 @@ export class ConvertToHHmmPipe implements PipeTransform {
   transform(minutes: number, args: boolean): string {
     let result = '';
     result += Math.floor(minutes / 60);
-    if(args) {
+    if (args) {
       result += 'h ';
-    }
-    else {
+    } else {
       result += ' heures ';
     }
     result += minutes % 60;
-    if(args) {
+    if (args) {
       result += 'min ';
-    }
-    else {
+    } else {
       result += ' minutes ';
     }
     return result;
