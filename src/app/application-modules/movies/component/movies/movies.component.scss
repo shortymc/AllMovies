@@ -41,22 +41,3 @@
     width: 60%;
   }
 }
-
-/* stylelint-disable */
-:host ::ng-deep {
-
-  & #example_filter {
-    float: left !important;
-    margin-left: 100px !important;
-  }
-
-  & #example_filter > label {
-    display: flex;
-  }
-
-  & .myFilter {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 3px;
-  }
-}

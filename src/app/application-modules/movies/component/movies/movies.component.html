@@ -1,7 +1,10 @@
 <h2>{{'movies.header' | translate}}:</h2>
 
-<ng-container>
-  <mat-table #table [dataSource]="sortedData" (scroll)="onTableScroll($event)" (matSortChange)="sortData($event)" matSort>
+<ng-container *ngIf="sortedData">
+  <mat-paginator [length]="movies.length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+    (page)="pageEvent = $event; onPaginateChange($event)" [showFirstLastButtons]="true">
+  </mat-paginator>
+  <mat-table #table [dataSource]="sortedData" (scroll)="onTableScroll($event)" (matSortChange)="sortData($event);" matSort>
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>

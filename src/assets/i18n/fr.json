@@ -172,6 +172,11 @@
       "last": "Dernier",
       "sortAscending": "activer pour trier la colonne par ordre croissant",
       "sortDescending": "activer pour trier la colonne par ordre d&eacute;croissant"
+    },
+    "mat-table": {
+      "itemsPerPageLabel": "Films par page",
+      "of": " sur ",
+      "no_result": "Aucune donnée"
     }
   },
   "release": {

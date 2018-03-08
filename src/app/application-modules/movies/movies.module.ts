@@ -1,3 +1,4 @@
+import { MyPaginator } from './component/my-paginator';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DropboxService } from './../../service/dropbox.service';
 import { MovieService } from './../../service/movie.service';
@@ -10,6 +11,8 @@ import { MoviesComponent } from './component/movies/movies.component';
 import { MatTableModule } from '@angular/material/table';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl } from '@angular/material';
 
 const childRoutes: Routes = [
   {
@@ -26,12 +29,14 @@ const childRoutes: Routes = [
     TranslateModule.forChild(),
     MatTableModule,
     LayoutModule,
-    MatSortModule
+    MatSortModule,
+    MatPaginatorModule
   ],
   providers: [
     MovieService,
     DropboxService,
-    TranslateService
+    TranslateService,
+    { provide: MatPaginatorIntl, useClass: MyPaginator, deps: [TranslateService] }
   ],
   declarations: [MoviesComponent]
 })
