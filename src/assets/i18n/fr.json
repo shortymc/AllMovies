@@ -1,141 +1,144 @@
 {
-  "global": {
-    "add_picture": "Ajouter une image",
-    "add_contact": "Ajouter un contact",
-    "edit_picture": "Modifier l'image",
-    "previous": "Page précédente",
-    "add_collection": "Ajouter à la collection",
-    "go_detail": "Voir Détails",
-    "remove": "Supprimer",
-    "continue": "Continuer",
-    "activate": "Activer",
-    "deactivate": "Désactiver",
-    "delete": "Supprimer",
-    "cancel": "Annuler",
-    "done": "Terminer",
-    "email": "E-mail",
-    "firstname": "Prénom",
-    "lastname": "Nom",
-    "username": "Pseudo",
-    "original_title": "Titre Original",
-    "add": "Ajouter",
-    "edit": "Modifier",
-    "save": "Sauvegarder",
-    "finish": "Terminer",
-    "download": "Télécharger",
-    "return": "Retour",
-    "pageNotFound": "Page introuvable"
-  },
-  "time": {
-    "now": "maintenant",
-    "hour": "heure",
-    "minute": "minute",
-    "day": "jour",
-    "week": "semaine",
-    "month": "mois"
-  },
-  "nav_bar": {
-    "dashboard": "Tableau de Bord",
-    "movies": "Films",
-    "release": "Sorties"
-  },
-  "dashboard": {
-    "header": "Top Films"
-  },
-  "movie": {
-    "header": "Détails de",
-    "id": "Id",
-    "title": "Titre",
-    "country": "Pays",
-    "date": "Date de sortie",
-    "length": "Durée",
-    "genres": "Genres",
-    "synopsis": "Synopsis",
-    "budget": "Budget",
-    "revenu": "Recette",
-    "rating": "Note",
-    "video": "Vidéo(s)",
-    "image": "Images du film",
-    "reco": "Vous aimerez aussi"
-  },
-  "movie-search": {
-    "header": "Recherche de films",
-    "placeholder": "Rechercher des films"
-  },
-  "movie-list": {
-    "actor": "En tant qu'acteur",
-    "director": "En tant que réalisateur",
-    "producer": "En tant que producteur",
-    "composer": "En tant que compositeur",
-    "screenwriter": "En tant que scénariste",
-    "novelist": "En tant qu'écrivain",
-    "add": "Ajouter les films sélectionnés à la Collection",
-    "total": "Total"
-  },
-  "person": {
-    "header": "Détails de",
-    "id": "Id",
-    "name": "Nom",
-    "birthplace": "Lieu de naissance",
-    "age": "Age",
-    "birth": "Naissance",
-    "death": "Mort",
-    "bio": "Biographie",
-    "image": "Images",
-    "films": "Films notables"
-  },
-  "person-search": {
-    "header": "Recherche de personnes",
-    "placeholder": "Rechercher des personnes"
-  },
-  "person-list": {
-    "hide": "Cacher les",
-    "show": "Afficher tous les",
-    "actors": "Acteurs",
-    "directors": "Réalisateur",
-    "producers": "Producteur",
-    "composers": "Compositeur",
-    "screenwriters": "Scénariste",
-    "novelists": "Romancier",
-    "cameos": "Cameo",
-    "guests": "Guest-Star",
-    "song": "Chansons",
-    "music": "Musique"
-  },
-  "meta": {
-    "meta": "Metacritic",
-    "sc": "SensCritique",
-    "wiki_fr": "FR",
-    "wiki_en": "EN",
-    "links": "Ouvrir les 4 liens"
-  },
-  "movies": {
-    "header": "Mes Films",
-    "id": "Id",
-    "poster": "Affiche",
-    "title": "Titre",
-    "date": "Date",
-    "rating": "Note",
-    "language": "Langues",
-    "genres": "Genres",
-    "length": "Durée",
-    "search_title": "Rechercher dans les {{param}}s",
-    "mat-table": {
-      "itemsPerPageLabel": "Films par Page: ",
-      "of": " sur ",
-      "no_result": "Aucune Donnée",
-      "nextPageLabel": "Page Suivante",
-      "previousPageLabel": "Page Précédente",
-      "lastPageLabel": "Dernière Page",
-      "firstPageLabel": "Première Page"
+    "global": {
+        "add_picture": "Ajouter une image",
+        "add_contact": "Ajouter un contact",
+        "edit_picture": "Modifier l'image",
+        "previous": "Page précédente",
+        "add_collection": "Ajouter à la collection",
+        "go_detail": "Voir Détails",
+        "remove": "Supprimer",
+        "continue": "Continuer",
+        "activate": "Activer",
+        "deactivate": "Désactiver",
+        "delete": "Supprimer",
+        "cancel": "Annuler",
+        "done": "Terminer",
+        "email": "E-mail",
+        "firstname": "Prénom",
+        "lastname": "Nom",
+        "username": "Pseudo",
+        "original_title": "Titre Original",
+        "add": "Ajouter",
+        "edit": "Modifier",
+        "save": "Sauvegarder",
+        "finish": "Terminer",
+        "download": "Télécharger",
+        "return": "Retour",
+        "pageNotFound": "Page introuvable"
+    },
+    "time": {
+        "now": "maintenant",
+        "hour": "heure",
+        "minute": "minute",
+        "day": "jour",
+        "week": "semaine",
+        "month": "mois"
+    },
+    "nav_bar": {
+        "dashboard": "Tableau de Bord",
+        "movies": "Films",
+        "release": "Sorties"
+    },
+    "dashboard": {
+        "header": "Top Films"
+    },
+    "movie": {
+        "header": "Détails de",
+        "id": "Id",
+        "title": "Titre",
+        "country": "Pays",
+        "date": "Date de sortie",
+        "length": "Durée",
+        "genres": "Genres",
+        "synopsis": "Synopsis",
+        "budget": "Budget",
+        "revenu": "Recette",
+        "rating": "Note",
+        "video": "Vidéo(s)",
+        "image": "Images du film",
+        "reco": "Vous aimerez aussi"
+    },
+    "movie-search": {
+        "header": "Recherche de films",
+        "placeholder": "Rechercher des films"
+    },
+    "movie-list": {
+        "actor": "En tant qu'acteur",
+        "director": "En tant que réalisateur",
+        "producer": "En tant que producteur",
+        "composer": "En tant que compositeur",
+        "screenwriter": "En tant que scénariste",
+        "novelist": "En tant qu'écrivain",
+        "add": "Ajouter les films sélectionnés à la Collection",
+        "total": "Total"
+    },
+    "person": {
+        "header": "Détails de",
+        "id": "Id",
+        "name": "Nom",
+        "birthplace": "Lieu de naissance",
+        "age": "Age",
+        "birth": "Naissance",
+        "death": "Mort",
+        "bio": "Biographie",
+        "image": "Images",
+        "films": "Films notables"
+    },
+    "person-search": {
+        "header": "Recherche de personnes",
+        "placeholder": "Rechercher des personnes"
+    },
+    "person-list": {
+        "hide": "Cacher les",
+        "show": "Afficher tous les",
+        "actors": "Acteurs",
+        "directors": "Réalisateur",
+        "producers": "Producteur",
+        "composers": "Compositeur",
+        "screenwriters": "Scénariste",
+        "novelists": "Romancier",
+        "cameos": "Cameo",
+        "guests": "Guest-Star",
+        "song": "Chansons",
+        "music": "Musique"
+    },
+    "meta": {
+        "meta": "Metacritic",
+        "sc": "SensCritique",
+        "wiki_fr": "FR",
+        "wiki_en": "EN",
+        "links": "Ouvrir les 4 liens"
+    },
+    "movies": {
+        "header": "Mes Films",
+        "id": "Id",
+        "poster": "Affiche",
+        "title": "Titre",
+        "date": "Date",
+        "rating": "Note",
+        "language": "Langues",
+        "genres": "Genres",
+        "length": "Durée",
+        "search_title": "Rechercher dans les {{param}}s",
+        "filter": {
+            "placeholder": "Rechercher"
+        },
+        "mat-table": {
+            "itemsPerPageLabel": "Films par Page: ",
+            "of": " sur ",
+            "no_result": "Aucune Donnée",
+            "nextPageLabel": "Page Suivante",
+            "previousPageLabel": "Page Précédente",
+            "lastPageLabel": "Dernière Page",
+            "firstPageLabel": "Première Page"
+        }
+    },
+    "release": {
+        "header": "Films sortis du {{begin}} au {{end}}",
+        "date": {
+            "previous": "Semaine précédente",
+            "next": "Semaine suivante",
+            "current": "Semaine courante"
+        }
     }
-  },
-  "release": {
-    "header": "Films sortis du {{begin}} au {{end}}",
-    "date": {
-      "previous": "Semaine précédente",
-      "next": "Semaine suivante",
-      "current": "Semaine courante"
-    }
-  }
 }

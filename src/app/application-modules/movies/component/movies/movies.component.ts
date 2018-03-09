@@ -1,3 +1,4 @@
+import { Utils } from './../../../../shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { DropboxService } from './../../../../service/dropbox.service';
 import { Movie } from './../../../../model/movie';
@@ -19,11 +20,14 @@ const init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'not
 export class MoviesComponent implements OnInit {
   displayedColumns = init_columns;
   movies: Movie[];
-  sortedData: Movie[];
+  length: number;
+  displayedData: Movie[];
+  filter: string;
   pageSize = 25;
   pageIndex = 0;
   pageSizeOptions = [10, 25, 50, 100];
-  pageEvent: PageEvent;
+  page: PageEvent;
+  sort: Sort;
   constructor(private movieService: MovieService, private router: Router, private breakpointObserver: BreakpointObserver,
     private dropboxService: DropboxService, private translate: TranslateService) {
   }
@@ -40,20 +44,42 @@ export class MoviesComponent implements OnInit {
   getMovies(): void {
     this.dropboxService.getAllMovies('ex.json').then(movies => {
       this.movies = movies;
+      this.length = this.movies.length;
       this.checkAndFixData();
-      this.sortedData = this.movies.slice(0, this.pageSize);
+      this.initPagination(this.movies);
     });
   }
 
-  onPaginateChange(event: PageEvent) {
-    this.sortedData = this.movies.slice(event.pageIndex * event.pageSize, (event.pageIndex + 1) * event.pageSize);
+  search() {
+    const list = this.sortData(Utils.filter(this.movies, this.filter));
+    this.length = list.length;
+    this.initPagination(list);
   }
 
-  sortData(sort: Sort) {
-    if (sort.active && sort.direction !== '') {
-      this.movies = this.movies.sort((a, b) => {
-        const isAsc = sort.direction === 'asc';
-        switch (sort.active) {
+  onPaginateChange(list: Movie[]) {
+    const data = this.sortData(Utils.filter(this.movies, this.filter));
+    this.length = data.length;
+    this.displayedData = this.page ?
+      data.slice(this.page.pageIndex * this.page.pageSize, (this.page.pageIndex + 1) * this.page.pageSize) : data.slice(0, this.pageSize);
+  }
+
+  initPagination(list: Movie[]) {
+    if (this.page) {
+      this.page.pageIndex = 0;
+      this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
+    }
+    this.onPaginateChange(list);
+  }
+
+  onSortData() {
+    this.search();
+  }
+
+  sortData(list: Movie[]): Movie[] {
+    if (this.sort && this.sort.active && this.sort.direction !== '') {
+      return list.sort((a, b) => {
+        const isAsc = this.sort.direction === 'asc';
+        switch (this.sort.active) {
           case 'id':
             return this.compare(+a.id, +b.id, isAsc);
           case 'title':
@@ -72,8 +98,9 @@ export class MoviesComponent implements OnInit {
             return 0;
         }
       });
+    } else {
+      return list;
     }
-    this.sortedData = this.movies.slice(0, this.pageEvent ? this.pageEvent.pageSize : this.pageSize);
   }
 
   compare(a, b, isAsc) {
