@@ -8,6 +8,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSelectChange } from '@angular/material/select';
 
 const init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'language', 'genres', 'time'];
 
@@ -47,6 +48,20 @@ export class MoviesComponent implements OnInit {
       this.length = this.movies.length;
       this.checkAndFixData();
       this.initPagination(this.movies);
+      this.getAllGenres();
+    });
+  }
+
+  getAllGenres() {
+    let all = [];
+    this.movies.forEach((movie: Movie) => {
+      all.push(...movie.genres);
+    });
+    this.genres = [];
+    all.forEach((genre: string) => {
+      if (!this.genres.includes(genre)) {
+        this.genres.push(genre);
+      }
     });
   }
 
@@ -64,8 +79,11 @@ export class MoviesComponent implements OnInit {
     this.initPagination(this.refreshData());
   }
 
-  onPaginateChange(list: Movie[]) {
-    const data = this.refreshData();
+  onPaginateChange() {
+    this.paginate(this.refreshData());
+  }
+
+  paginate(data: Movie[]) {
     this.displayedData = this.page ?
       data.slice(this.page.pageIndex * this.page.pageSize, (this.page.pageIndex + 1) * this.page.pageSize) : data.slice(0, this.pageSize);
   }
@@ -75,7 +93,24 @@ export class MoviesComponent implements OnInit {
       this.page.pageIndex = 0;
       this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
     }
-    this.onPaginateChange(list);
+    this.paginate(list);
+  }
+
+  onFilterGenres(event: MatSelectChange) {
+    let list = [];
+    if (event.value.length > 0) {
+      list = this.movies.filter((movie: Movie) => {
+        return movie.genres.some(genre => {
+          return event.value.includes(genre);
+        });
+      });
+    } else {
+      list = this.movies;
+    }
+    list = Utils.filter(list, this.filter);
+    list = this.sortData(list);
+    this.length = list.length;
+    this.initPagination(list);
   }
 
   sortData(list: Movie[]): Movie[] {
