@@ -11,8 +11,9 @@ import { MoviesComponent } from './component/movies/movies.component';
 import { MatTableModule } from '@angular/material/table';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSortModule } from '@angular/material/sort';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatPaginatorIntl } from '@angular/material';
+import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const childRoutes: Routes = [
   {
@@ -30,7 +31,9 @@ const childRoutes: Routes = [
     MatTableModule,
     LayoutModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [
     MovieService,

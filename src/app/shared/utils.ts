@@ -67,6 +67,40 @@ export class Utils {
     return 0;
   }
 
+  static filter<T>(list: T[], searchString: string): T[] {
+    if (!list || list == null || list.length === 0) {
+      return [];
+    }
+    if (searchString == null || searchString.length === 0 || searchString.trim() === '') {
+      return list;
+    }
+
+    return list.filter(Utils.compareWithAllFields, searchString);
+  }
+
+  static compareWithAllFields(value, index) {
+    const fields = Object.keys(value);
+    for (let i = 0; i < fields.length; i++) {
+      if (value[fields[i]] != null) {
+        if (true) {  // isObject(value[fields[i]])
+          const childFields = Object.keys(value[fields[i]]);
+
+          if (childFields.length > 0) {
+            for (let j = 0; j < childFields.length; j++) {
+              if ((value[fields[i]][childFields[j]] + '').toLowerCase().indexOf(this.toString().toLowerCase()) !== -1) {
+                return true;
+              }
+            }
+          }
+        }
+        if ((value[fields[i]] + '').toLowerCase().indexOf(this.toString().toLowerCase()) !== -1) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   // MAPS //
   // MOVIE //
   static mapForMoviesByReleaseDates(response: any): Movie[] {
