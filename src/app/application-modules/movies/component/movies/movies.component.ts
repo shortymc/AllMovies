@@ -1,5 +1,4 @@
 import { Utils } from './../../../../shared/utils';
-import { TranslateService } from '@ngx-translate/core';
 import { DropboxService } from './../../../../service/dropbox.service';
 import { Movie } from './../../../../model/movie';
 import { MovieService } from './../../../../service/movie.service';
@@ -28,15 +27,16 @@ export class MoviesComponent implements OnInit {
   pageSizeOptions = [10, 25, 50, 100];
   page: PageEvent;
   sort: Sort;
+  genres: string[];
   constructor(private movieService: MovieService, private router: Router, private breakpointObserver: BreakpointObserver,
-    private dropboxService: DropboxService, private translate: TranslateService) {
+    private dropboxService: DropboxService) {
   }
 
   ngOnInit(): void {
     this.breakpointObserver.observe([
       '(max-width: 700px)'
     ]).subscribe(result => {
-      this.displayedColumns = result.matches ? ['thumbnail', 'title', 'date', 'language', 'time'] : init_columns;
+      this.displayedColumns = result.matches ? ['thumbnail', 'title', 'date', 'note', 'language', 'time', 'genres'] : init_columns;
     });
     this.getMovies();
   }
@@ -50,15 +50,22 @@ export class MoviesComponent implements OnInit {
     });
   }
 
-  search() {
+  refreshData(): Movie[] {
     const list = this.sortData(Utils.filter(this.movies, this.filter));
     this.length = list.length;
-    this.initPagination(list);
+    return list;
+  }
+
+  onSearch() {
+    this.initPagination(this.refreshData());
+  }
+
+  onSort() {
+    this.initPagination(this.refreshData());
   }
 
   onPaginateChange(list: Movie[]) {
-    const data = this.sortData(Utils.filter(this.movies, this.filter));
-    this.length = data.length;
+    const data = this.refreshData();
     this.displayedData = this.page ?
       data.slice(this.page.pageIndex * this.page.pageSize, (this.page.pageIndex + 1) * this.page.pageSize) : data.slice(0, this.pageSize);
   }
@@ -69,10 +76,6 @@ export class MoviesComponent implements OnInit {
       this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
     }
     this.onPaginateChange(list);
-  }
-
-  onSortData() {
-    this.search();
   }
 
   sortData(list: Movie[]): Movie[] {

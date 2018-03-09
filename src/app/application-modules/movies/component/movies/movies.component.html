@@ -2,15 +2,15 @@
 
 <ng-container *ngIf="movies">
   <mat-form-field>
-    <input matInput type="search" placeholder="{{'movies.filter.placeholder' | translate}}" [(ngModel)]="filter" (keyup)="paginator.firstPage(); search();" />
-    <button mat-button *ngIf="filter" matSuffix mat-icon-button (click)="filter=''; search()">
+    <input matInput type="search" placeholder="{{'movies.filter.placeholder' | translate}}" [(ngModel)]="filter" (keyup)="paginator.firstPage(); onSearch();" />
+    <button mat-button *ngIf="filter" matSuffix mat-icon-button (click)="filter=''; onSearch();">
       <span class="fa fa-close"></span>
     </button>
   </mat-form-field>
   <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-    (page)="page = $event; onPaginateChange(movies)" [showFirstLastButtons]="true">
+    (page)="page = $event; onPaginateChange(movies);" [showFirstLastButtons]="true">
   </mat-paginator>
-  <mat-table #table [dataSource]="displayedData" (scroll)="onTableScroll($event)" (matSortChange)="paginator.firstPage(); sort = $event; onSortData();" matSort>
+  <mat-table #table [dataSource]="displayedData" (scroll)="onTableScroll($event)" (matSortChange)="paginator.firstPage(); sort = $event; onSort();" matSort>
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -78,7 +78,7 @@
         <span class="mat-icon fa fa-globe"></span>
       </mat-header-cell>
       <mat-cell *matCellDef="let movie">
-        {{movie.language}}
+        {{movie.language | uppercase}}
       </mat-cell>
     </ng-container>
 
