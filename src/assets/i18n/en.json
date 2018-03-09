@@ -121,7 +121,8 @@
         "length": "Running Time",
         "search_title": "Search in {{param}}s",
         "filter": {
-            "placeholder": "Search"
+            "placeholder": "Search",
+            "genres": "Genres"
         },
         "mat-table": {
             "itemsPerPageLabel": "Movies per page: ",

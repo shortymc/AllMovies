@@ -14,6 +14,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 const childRoutes: Routes = [
   {
@@ -33,7 +34,8 @@ const childRoutes: Routes = [
     MatSortModule,
     MatPaginatorModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [
     MovieService,
