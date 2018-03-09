@@ -1,4 +1,4 @@
-import { Utils } from './../shared/utils';
+import { MapPerson } from './../shared/mapPerson';
 import { ServiceUtils } from './serviceUtils';
 import { Url } from './../constant/url';
 import { Injectable } from '@angular/core';
@@ -19,7 +19,7 @@ export class PersonService {
       this.serviceUtils.http.get(urlMovies)
     ).map(responses => {
       return [].concat(...responses);
-    }).map(response => Utils.mapForPerson(response))
+    }).map(response => MapPerson.mapForPerson(response))
       .toPromise()
       .catch(this.serviceUtils.handleError);
   }

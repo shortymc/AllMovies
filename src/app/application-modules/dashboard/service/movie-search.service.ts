@@ -1,5 +1,5 @@
+import { MapMovie } from './../../../shared/mapMovie';
 import { ServiceUtils } from './../../../service/serviceUtils';
-import { Utils } from './../../../shared/utils';
 import { Movie } from './../../../model/movie';
 import { Url } from './../../../constant/url';
 import { Injectable } from '@angular/core';
@@ -18,7 +18,7 @@ export class MovieSearchService {
     url += `${Url.QUERY_URL}${term}${Url.LANGUE}${language}`;
     return this.serviceUtils.http
       .get(url, { headers: this.serviceUtils.getHeaders() })
-      .map(response => Utils.mapForSearchMovies(response))
+      .map(response => MapMovie.mapForSearchMovies(response))
       .catch(this.serviceUtils.handleError);
   }
 }
