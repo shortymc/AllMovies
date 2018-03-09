@@ -1,5 +1,5 @@
 import { ServiceUtils } from './../../../service/serviceUtils';
-import { Utils } from './../../../shared/utils';
+import { MapPerson } from './../../../shared/mapPerson';
 import { Person } from './../../../model/person';
 import { Url } from './../../../constant/url';
 import { Injectable } from '@angular/core';
@@ -18,7 +18,7 @@ export class PersonSearchService {
     url += `${Url.QUERY_URL}${term}`;
     return this.serviceUtils.http
       .get(url, { headers: this.serviceUtils.getHeaders() })
-      .map(response => Utils.mapForSearchPersons(response))
+      .map(response => MapPerson.mapForSearchPersons(response))
       .catch(this.serviceUtils.handleError);
   }
 }

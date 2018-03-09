@@ -1,4 +1,4 @@
-import { Utils } from './../shared/utils';
+import { MapMovie } from './../shared/mapMovie';
 import { ServiceUtils } from './serviceUtils';
 import { Injectable } from '@angular/core';
 import { Movie } from '../model/movie';
@@ -12,7 +12,7 @@ export class MovieService {
   getPopularMovies(language: string): Promise<Movie[]> {
     return this.serviceUtils.http.get(`${Url.MOST_POPULAR_URL}${Url.LANGUE}${language}`)
       .toPromise()
-      .then(response => Utils.mapForPopularMovies(response))
+      .then(response => MapMovie.mapForPopularMovies(response))
       .catch(this.serviceUtils.handleError);
   }
 
@@ -42,7 +42,7 @@ export class MovieService {
     }
     return this.serviceUtils.http.get(url)
       .toPromise()
-      .then(response => Utils.mapForMovie(response))
+      .then(response => MapMovie.mapForMovie(response))
       .catch(this.serviceUtils.handleError);
   }
 
@@ -51,7 +51,7 @@ export class MovieService {
 `${Url.DISCOVER_URL}${Url.RELEASE_DATE_GTE_URL}${debut}${Url.RELEASE_DATE_LTE_URL}${fin}${Url.RELEASE_TYPE_URL}${Url.LANGUE}${language}`;
     return this.serviceUtils.http.get(url)
       .toPromise()
-      .then(response => Utils.mapForMoviesByReleaseDates(response))
+      .then(response => MapMovie.mapForMoviesByReleaseDates(response))
       .catch(this.serviceUtils.handleError);
   }
 }
