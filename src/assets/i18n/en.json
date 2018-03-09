@@ -1,141 +1,144 @@
 {
-  "global": {
-    "add_picture": "Add a picture",
-    "add_contact": "Add a contact",
-    "edit_picture": "Edit the picture",
-    "previous": "Previous Page",
-    "add_collection": "Add To Collection",
-    "go_detail": "See Details",
-    "remove": "Remove",
-    "continue": "Continue",
-    "activate": "Activate",
-    "deactivate": "Deactivate",
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "done": "Done",
-    "email": "E-mail",
-    "firstname": "First name",
-    "lastname": "Last name",
-    "username": "Pseudo",
-    "original_title": "Original Title",
-    "add": "Add",
-    "edit": "Edit",
-    "save": "Save",
-    "finish": "Finish",
-    "download": "Download",
-    "return": "Back",
-    "pageNotFound": "Page not found"
-  },
-  "time": {
-    "now": "now",
-    "hour": "hour",
-    "minute": "minute",
-    "day": "day",
-    "week": "week",
-    "month": "month"
-  },
-  "nav_bar": {
-    "dashboard": "Dashboard",
-    "movies": "Movies",
-    "release": "Releases"
-  },
-  "dashboard": {
-    "header": "Top Movies"
-  },
-  "movie": {
-    "header": "Details of",
-    "id": "Id",
-    "title": "Title",
-    "country": "Country",
-    "date": "Release Date",
-    "length": "Running Time",
-    "genres": "Genres",
-    "synopsis": "Synopsis",
-    "budget": "Budget",
-    "revenu": "Revenu",
-    "rating": "Ratings",
-    "video": "Videos",
-    "image": "Movie images",
-    "reco": "You should like also"
-  },
-  "movie-search": {
-    "header": "Movie Search",
-    "placeholder": "Search movies"
-  },
-  "movie-list": {
-    "actor": "As actors",
-    "director": "As director",
-    "producer": "As producer",
-    "composer": "As composer",
-    "screenwriter": "As screenwriter",
-    "novelist": "As novelist",
-    "add": "Add Selected Movies To Collection",
-    "total": "Total"
-  },
-  "person": {
-    "header": "Details of",
-    "id": "Id",
-    "name": "Name",
-    "birthplace": "Birthplace",
-    "age": "Age",
-    "birth": "Birth",
-    "death": "Death",
-    "bio": "Biography",
-    "image": "Images",
-    "films": "Filmography"
-  },
-  "person-search": {
-    "header": "Person Search",
-    "placeholder": "Search people"
-  },
-  "person-list": {
-    "hide": "Hide",
-    "show": "Show all",
-    "actors": "Actors",
-    "directors": "Directors",
-    "producers": "Producers",
-    "composers": "Composers",
-    "screenwriters": "Screenwriters",
-    "novelists": "Novelists",
-    "cameos": "Cameos",
-    "guests": "Guests",
-    "song": "Songs",
-    "music": "Music"
-  },
-  "meta": {
-    "meta": "Metacritic",
-    "sc": "SensCritique",
-    "wiki_fr": "FR",
-    "wiki_en": "EN",
-    "links": "Open the 4 links"
-  },
-  "movies": {
-    "header": "My Movies",
-    "id": "Id",
-    "poster": "Poster",
-    "title": "Title",
-    "date": "Release Date",
-    "rating": "Ratings",
-    "language": "Languages",
-    "genres": "Genres",
-    "length": "Running Time",
-    "search_title": "Search in {{param}}s",
-    "mat-table": {
-      "itemsPerPageLabel": "Movies per page: ",
-      "of": " of ",
-      "no_result": "No Data",
-      "nextPageLabel": "Next Page",
-      "previousPageLabel": "Previous Page",
-      "lastPageLabel": "Last Page",
-      "firstPageLabel": "First Page"
+    "global": {
+        "add_picture": "Add a picture",
+        "add_contact": "Add a contact",
+        "edit_picture": "Edit the picture",
+        "previous": "Previous Page",
+        "add_collection": "Add To Collection",
+        "go_detail": "See Details",
+        "remove": "Remove",
+        "continue": "Continue",
+        "activate": "Activate",
+        "deactivate": "Deactivate",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "done": "Done",
+        "email": "E-mail",
+        "firstname": "First name",
+        "lastname": "Last name",
+        "username": "Pseudo",
+        "original_title": "Original Title",
+        "add": "Add",
+        "edit": "Edit",
+        "save": "Save",
+        "finish": "Finish",
+        "download": "Download",
+        "return": "Back",
+        "pageNotFound": "Page not found"
+    },
+    "time": {
+        "now": "now",
+        "hour": "hour",
+        "minute": "minute",
+        "day": "day",
+        "week": "week",
+        "month": "month"
+    },
+    "nav_bar": {
+        "dashboard": "Dashboard",
+        "movies": "Movies",
+        "release": "Releases"
+    },
+    "dashboard": {
+        "header": "Top Movies"
+    },
+    "movie": {
+        "header": "Details of",
+        "id": "Id",
+        "title": "Title",
+        "country": "Country",
+        "date": "Release Date",
+        "length": "Running Time",
+        "genres": "Genres",
+        "synopsis": "Synopsis",
+        "budget": "Budget",
+        "revenu": "Revenu",
+        "rating": "Ratings",
+        "video": "Videos",
+        "image": "Movie images",
+        "reco": "You should like also"
+    },
+    "movie-search": {
+        "header": "Movie Search",
+        "placeholder": "Search movies"
+    },
+    "movie-list": {
+        "actor": "As actors",
+        "director": "As director",
+        "producer": "As producer",
+        "composer": "As composer",
+        "screenwriter": "As screenwriter",
+        "novelist": "As novelist",
+        "add": "Add Selected Movies To Collection",
+        "total": "Total"
+    },
+    "person": {
+        "header": "Details of",
+        "id": "Id",
+        "name": "Name",
+        "birthplace": "Birthplace",
+        "age": "Age",
+        "birth": "Birth",
+        "death": "Death",
+        "bio": "Biography",
+        "image": "Images",
+        "films": "Filmography"
+    },
+    "person-search": {
+        "header": "Person Search",
+        "placeholder": "Search people"
+    },
+    "person-list": {
+        "hide": "Hide",
+        "show": "Show all",
+        "actors": "Actors",
+        "directors": "Directors",
+        "producers": "Producers",
+        "composers": "Composers",
+        "screenwriters": "Screenwriters",
+        "novelists": "Novelists",
+        "cameos": "Cameos",
+        "guests": "Guests",
+        "song": "Songs",
+        "music": "Music"
+    },
+    "meta": {
+        "meta": "Metacritic",
+        "sc": "SensCritique",
+        "wiki_fr": "FR",
+        "wiki_en": "EN",
+        "links": "Open the 4 links"
+    },
+    "movies": {
+        "header": "My Movies",
+        "id": "Id",
+        "poster": "Poster",
+        "title": "Title",
+        "date": "Release Date",
+        "rating": "Ratings",
+        "language": "Languages",
+        "genres": "Genres",
+        "length": "Running Time",
+        "search_title": "Search in {{param}}s",
+        "filter": {
+            "placeholder": "Search"
+        },
+        "mat-table": {
+            "itemsPerPageLabel": "Movies per page: ",
+            "of": " of ",
+            "no_result": "No Data",
+            "nextPageLabel": "Next Page",
+            "previousPageLabel": "Previous Page",
+            "lastPageLabel": "Last Page",
+            "firstPageLabel": "First Page"
+        }
+    },
+    "release": {
+        "header": "Movies released from {{begin}} to {{end}}",
+        "date": {
+            "previous": "Previous week",
+            "next": "Next week",
+            "current": "Current week"
+        }
     }
-  },
-  "release": {
-    "header": "Movies released from {{begin}} to {{end}}",
-    "date": {
-      "previous": "Previous week",
-      "next": "Next week",
-      "current": "Current week"
-    }
-  }
 }
