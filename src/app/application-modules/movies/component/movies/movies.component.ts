@@ -100,15 +100,14 @@ export class MoviesComponent implements OnInit {
     let list = [];
     if (event.value.length > 0) {
       list = this.movies.filter((movie: Movie) => {
-        return movie.genres.some(genre => {
-          return event.value.includes(genre);
+        return event.value.every(genre => {
+          return movie.genres.includes(genre);
         });
       });
     } else {
       list = this.movies;
     }
-    list = Utils.filter(list, this.filter);
-    list = this.sortData(list);
+    list = this.sortData(Utils.filter(list, this.filter));
     this.length = list.length;
     this.initPagination(list);
   }
