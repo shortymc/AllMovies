@@ -15,8 +15,8 @@ export class PersonService {
     const url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}${Url.LANGUE}${language}${Url.APPEND}${Url.APPEND_IMAGES}`;
     const urlMovies = `${Url.PERSON_URL}/${id}/${Url.MOVIE_CREDITS_URL}?${Url.API_KEY}${Url.LANGUE}${language}`;
     return Observable.forkJoin(
-      this.serviceUtils.http.get(url),
-      this.serviceUtils.http.get(urlMovies)
+      this.serviceUtils.getObservable(url),
+      this.serviceUtils.getObservable(urlMovies)
     ).map(responses => {
       return [].concat(...responses);
     }).map(response => MapPerson.mapForPerson(response))

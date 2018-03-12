@@ -16,8 +16,8 @@ export class PersonSearchService {
       url += Url.ADULT_URL;
     }
     url += `${Url.QUERY_URL}${term}`;
-    return this.serviceUtils.http
-      .get(url, { headers: this.serviceUtils.getHeaders() })
+    return this.serviceUtils
+      .getObservable(url, this.serviceUtils.getHeaders())
       .map(response => MapPerson.mapForSearchPersons(response))
       .catch(this.serviceUtils.handleError);
   }
