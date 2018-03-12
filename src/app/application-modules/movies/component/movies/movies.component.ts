@@ -10,7 +10,7 @@ import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSelectChange } from '@angular/material/select';
 
-const init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'language', 'genres', 'time'];
+const init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'language', 'genres', 'time', 'select'];
 
 @Component({
   selector: 'app-my-movies',
@@ -37,7 +37,7 @@ export class MoviesComponent implements OnInit {
     this.breakpointObserver.observe([
       '(max-width: 700px)'
     ]).subscribe(result => {
-      this.displayedColumns = result.matches ? ['thumbnail', 'title', 'date', 'note', 'language', 'time', 'genres'] : init_columns;
+      this.displayedColumns = result.matches ? ['thumbnail', 'title', 'date', 'note', 'language', 'time', 'genres', 'select'] : init_columns;
     });
     this.getMovies();
   }
@@ -66,7 +66,7 @@ export class MoviesComponent implements OnInit {
   }
 
   refreshData(): Movie[] {
-    const list = this.sortData(Utils.filter(this.movies, this.filter));
+    const list = this.sortData(Utils.filterByFields(this.movies, this.displayedColumns, this.filter));
     this.length = list.length;
     return list;
   }
@@ -149,7 +149,7 @@ export class MoviesComponent implements OnInit {
         incomplete.push(movie.id);
       }
     }
-    incomplete = incomplete.slice(0, 20);
+    incomplete = incomplete.slice(0, 30);
     const obs = incomplete.map((id: number) => {
       return this.movieService.getMovie(id, false, false, false, false, 'fr');
     });
@@ -171,10 +171,12 @@ export class MoviesComponent implements OnInit {
       window.open('/movie/' + id);
     }
   }
+
   remove() {
-    // this.dropboxService.removeMovie(id, 'ex.json');
-    // tableWidget.row(tr).remove();
-    // tableWidget.draw();
+    let ids = this.movies.filter(movie => movie.checked).map(movie => movie.id);
+    this.movies = this.movies.filter(movie => !movie.checked);
+    this.paginate(this.refreshData());
+    this.dropboxService.removeMovieList(ids, 'ex.json');
   }
 
 }
