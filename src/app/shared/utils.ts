@@ -101,6 +101,25 @@ export class Utils {
     return list.filter(Utils.compareWithAllFields, searchString);
   }
 
+  static filterByFields<T>(items: T[], fields: string[], value): T[] {
+    if (!items || items == null) {
+      return [];
+    }
+    if (value == null || value.length === 0) {
+      return items;
+    }
+    const val = value.toLowerCase();
+    return items.filter(item => {
+      return fields.some(field => {
+        let it = item[field];
+        if (typeof it === 'string') {
+          it = it.toLowerCase();
+        }
+        return it.includes(val);
+      });
+    });
+  }
+
   static compareWithAllFields(value, index) {
     const fields = Object.keys(value);
     for (let i = 0; i < fields.length; i++) {

@@ -28,6 +28,10 @@
   display: none;
 }
 
+.mat-paginator {
+  display: inline-block !important;
+}
+
 @include media('900px') {
   .mat-header-cell .mat-text {
     display: none;
@@ -48,8 +52,16 @@
 }
 
 /* stylelint-disable */
-@include media('900px') {
+@include media(#{$smallscreen}) {
+  .tools { //THIS MAKES THE tools STICKY
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 1) !important;
+    z-index: 9999;
+  }
 
+  // Reshape table
   .mat-row:hover {
     background-color: inherit !important;
   }

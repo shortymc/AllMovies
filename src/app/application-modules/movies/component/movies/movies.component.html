@@ -1,24 +1,36 @@
 <h2>{{'movies.header' | translate}}:</h2>
 
 <ng-container *ngIf="movies">
-  <mat-form-field>
-    <input matInput type="search" placeholder="{{'movies.filter.placeholder' | translate}}" [(ngModel)]="filter" (keyup)="paginator.firstPage(); onSearch();"
-    />
-    <button mat-button *ngIf="filter" matSuffix mat-icon-button (click)="filter=''; onSearch();">
-      <span class="fa fa-close"></span>
+  <div class="tools">
+    <!-- Input Filter -->
+    <mat-form-field>
+      <input matInput type="search" placeholder="{{'movies.filter.placeholder' | translate}}" [(ngModel)]="filter" (keyup)="paginator.firstPage(); onSearch();"
+      />
+      <button mat-button *ngIf="filter" matSuffix mat-icon-button (click)="filter=''; onSearch();">
+        <span class="fa fa-close"></span>
+      </button>
+    </mat-form-field>
+    <!-- Genres Filter -->
+    <mat-form-field>
+      <mat-select #select placeholder="{{movies.filter.genres}}" multiple (selectionChange)="paginator.firstPage(); onFilterGenres($event)">
+        <mat-option *ngFor="let genre of genres" [value]="genre">{{genre}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- Paginator -->
+    <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+      (page)="page = $event; onPaginateChange();" [showFirstLastButtons]="true">
+    </mat-paginator>
+    <!-- Delete -->
+    <button class="btn btn-outline-primary" (click)="remove()">{{'movies.remove' | translate}}
+      <i class="fa fa-trash" aria-hidden="true"></i>
     </button>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-select #select placeholder="{{movies.filter.genres}}" multiple (selectionChange)="paginator.firstPage(); onFilterGenres($event)">
-      <mat-option *ngFor="let genre of genres" [value]="genre">{{genre}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-    (page)="page = $event; onPaginateChange();" [showFirstLastButtons]="true">
-  </mat-paginator>
+  </div>
+
+  <!-- Table -->
   <mat-table #table [dataSource]="displayedData" (scroll)="onTableScroll($event)" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
     matSort>
 
+    <!-- ID -->
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
         <span class="mat-text">{{ 'movies.id'|translate }}</span>
@@ -29,6 +41,7 @@
       </mat-cell>
     </ng-container>
 
+    <!-- POSTER -->
     <ng-container matColumnDef="thumbnail">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
         <span class="mat-text">{{ 'movies.poster'|translate }}</span>
@@ -39,6 +52,7 @@
       </mat-cell>
     </ng-container>
 
+    <!-- TITLE -->
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
         <span class="mat-text">{{ 'movies.title'|translate }}</span>
@@ -49,6 +63,7 @@
       </mat-cell>
     </ng-container>
 
+    <!-- VO TITLE -->
     <ng-container matColumnDef="original_title">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
         <span class="mat-text">{{ 'global.original_title'|translate }}</span>
@@ -59,6 +74,7 @@
       </mat-cell>
     </ng-container>
 
+    <!-- DATE -->
     <ng-container matColumnDef="date">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
         <span class="mat-text">{{ 'movies.date'|translate }}</span>
@@ -69,6 +85,7 @@
       </mat-cell>
     </ng-container>
 
+    <!-- NOTE -->
     <ng-container matColumnDef="note">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
         <span class="mat-text">{{ 'movies.rating'|translate }}</span>
@@ -79,6 +96,7 @@
       </mat-cell>
     </ng-container>
 
+    <!-- LANGUE -->
     <ng-container matColumnDef="language">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
         <span class="mat-text">{{ 'movies.language'|translate }}</span>
@@ -89,6 +107,7 @@
       </mat-cell>
     </ng-container>
 
+    <!-- GENRES -->
     <ng-container matColumnDef="genres">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
         <span class="mat-text">{{ 'movies.genres'|translate }}</span>
@@ -102,6 +121,7 @@
       </mat-cell>
     </ng-container>
 
+    <!-- TIME -->
     <ng-container matColumnDef="time">
       <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'movies.length'|translate }}</mat-header-cell>
       <mat-cell *matCellDef="let movie">
@@ -109,12 +129,13 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="remove">
-      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        <button class="btn btn-outline-primary remove">{{'global.remove' | translate}}
-          <i class="fa fa-times" aria-hidden="true"></i>
-        </button>
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie" (mousedown)="$event.stopPropagation()">
+        <mat-checkbox (change)="movie.checked = !movie.checked" [checked]="movie.checked">
+        </mat-checkbox>
       </mat-cell>
     </ng-container>
 
