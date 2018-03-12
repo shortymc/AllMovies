@@ -1,10 +1,11 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ServiceUtils {
 
-  constructor(public http: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
   getHeaders() {
@@ -22,6 +23,18 @@ export class ServiceUtils {
   handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
+  }
+
+  getPromise(url: string, headers?: HttpHeaders): Promise<Object> {
+    return this.getObservable(url, headers).toPromise();
+  }
+
+  getObservable(url: string, headers?: HttpHeaders): Observable<Object> {
+    return headers ? this.http.get(url, { headers: headers }) : this.http.get(url);
+  }
+
+  jsonp(url: string, callback: string): Promise<Object> {
+    return this.http.jsonp(url, callback).toPromise();
   }
 
 }
