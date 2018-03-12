@@ -28,6 +28,7 @@ export class MoviesComponent implements OnInit {
   pageSizeOptions = [10, 25, 50, 100];
   page: PageEvent;
   sort: Sort;
+  nbChecked = 0;
   genres: string[];
   constructor(private movieService: MovieService, private router: Router, private breakpointObserver: BreakpointObserver,
     private dropboxService: DropboxService) {
@@ -138,6 +139,10 @@ export class MoviesComponent implements OnInit {
     } else {
       return list;
     }
+  }
+
+  updateSize() {
+    this.nbChecked = this.movies.filter(movie => movie.checked).length;
   }
 
   checkAndFixData(): void {
