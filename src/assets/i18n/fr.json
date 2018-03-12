@@ -24,7 +24,9 @@
         "finish": "Terminer",
         "download": "Télécharger",
         "return": "Retour",
-        "pageNotFound": "Page introuvable"
+        "pageNotFound": "Page introuvable",
+        "show": "Afficher",
+        "hide": "Cacher"
     },
     "time": {
         "now": "maintenant",

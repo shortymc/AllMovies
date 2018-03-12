@@ -44,6 +44,27 @@
         <label>{{'movie.synopsis' | translate}}: </label>
         <div class="synopsis">{{movie.synopsis}}</div>
       </div>
+      <!-- Images du film -->
+      <div *ngIf="movie.images.length > 0">
+        <label>{{'movie.image' | translate}}: </label>
+        <button type="button" class="btn btn-outline-primary" (click)="isImagesCollapsed = !isImagesCollapsed">
+          <i class="fa fa-plus-square" aria-hidden="true" [ngClass]="{'display-none' : isImagesCollapsed}"></i>
+          <i class="fa fa-minus-square" aria-hidden="true" [ngClass]="{'display-none' : !isImagesCollapsed}"></i>
+          <span *ngIf="!isImagesCollapsed">{{'global.show' | translate}}</span>
+          <span *ngIf="isImagesCollapsed">{{'global.hide' | translate}}</span>
+        </button>
+        <div *ngIf="isImagesCollapsed">
+          <div class="card">
+            <div class="card-body">
+              <div class="reco">
+                <a *ngFor="let ima of movie.images;" class="frame" href="{{Url.IMAGE_URL_ORIGINAL.concat(ima)}}" target="_blank">
+                  <img src="{{Url.IMAGE_URL_154.concat(ima)}}">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <app-list-persons [persons]="movie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
       <div *ngIf="movie.crew.length > 0">
         <div *ngIf="(movie.crew | filterCrew:'director') as director">
@@ -99,25 +120,6 @@
           </li>
         </ul>
       </div>
-      <!-- Images du film -->
-      <div *ngIf="movie.images.length > 0">
-        <button type="button" class="btn btn-outline-primary" (click)="isImagesCollapsed = !isImagesCollapsed">
-          <i class="fa fa-plus-square" aria-hidden="true" [ngClass]="{'display-none' : isImagesCollapsed}"></i>
-          <i class="fa fa-minus-square" aria-hidden="true" [ngClass]="{'display-none' : !isImagesCollapsed}"></i>
-          {{'movie.image' | translate}}</button>
-        <div *ngIf="isImagesCollapsed">
-          <div class="card">
-            <div class="card-body">
-              <div class="reco">
-                <a *ngFor="let ima of movie.images;" class="frame" href="{{Url.IMAGE_URL_ORIGINAL.concat(ima)}}" target="_blank">
-                  <img src="{{Url.IMAGE_URL_154.concat(ima)}}">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <br />
       <ul class="movies">
         <li>
           <app-list-movies [movies]="movie.recommendations" [label]="('movie.reco' | translate).concat(':')"></app-list-movies>
