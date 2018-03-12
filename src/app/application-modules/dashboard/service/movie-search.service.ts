@@ -16,8 +16,8 @@ export class MovieSearchService {
       url += Url.ADULT_URL;
     }
     url += `${Url.QUERY_URL}${term}${Url.LANGUE}${language}`;
-    return this.serviceUtils.http
-      .get(url, { headers: this.serviceUtils.getHeaders() })
+    return this.serviceUtils
+      .getObservable(url, this.serviceUtils.getHeaders())
       .map(response => MapMovie.mapForSearchMovies(response))
       .catch(this.serviceUtils.handleError);
   }
