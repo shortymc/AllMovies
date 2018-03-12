@@ -24,7 +24,9 @@
         "finish": "Finish",
         "download": "Download",
         "return": "Back",
-        "pageNotFound": "Page not found"
+        "pageNotFound": "Page not found",
+        "show": "Show",
+        "hide": "Hide"
     },
     "time": {
         "now": "now",
