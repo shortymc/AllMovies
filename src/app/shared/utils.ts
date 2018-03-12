@@ -56,6 +56,30 @@ export class Utils {
     }
   }
 
+  static compare(a, b, isAsc) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  static compareDate(a, b, isAsc) {
+    const year1 = a.split('/')[0];
+    const month1 = a.split('/')[1];
+    const year2 = b.split('/')[0];
+    const month2 = b.split('/')[1];
+    let result;
+    if (year1 < year2) {
+      result = -1;
+    } else if (year1 > year2) {
+      result = 1;
+    } else {
+      if (month1 < month2) {
+        result = -1;
+      } else if (month1 > month2) {
+        result = 1;
+      }
+    }
+    return result * (isAsc ? 1 : -1);
+  }
+
   static compareMovie(a: Movie, b: Movie): number {
     if (a.id < b.id) {
       return -1;
