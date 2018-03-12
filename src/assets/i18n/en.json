@@ -121,6 +121,7 @@
         "language": "Languages",
         "genres": "Genres",
         "length": "Running Time",
+        "remove": "Remove selected movies from collection",
         "search_title": "Search in {{param}}s",
         "filter": {
             "placeholder": "Search",
