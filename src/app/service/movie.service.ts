@@ -36,7 +36,7 @@ export class MovieService {
       }
       url += parametres.join(',');
     }
-    if (language) {
+    if (language && language !== 'en') {
       url += `${Url.LANGUE}${language}`;
     }
     return this.serviceUtils.getPromise(url)
