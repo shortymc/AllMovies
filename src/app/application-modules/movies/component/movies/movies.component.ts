@@ -53,7 +53,7 @@ export class MoviesComponent implements OnInit {
   }
 
   getAllGenres() {
-    let all = [];
+    const all = [];
     this.movies.forEach((movie: Movie) => {
       all.push(...movie.genres);
     });
@@ -118,19 +118,19 @@ export class MoviesComponent implements OnInit {
         const isAsc = this.sort.direction === 'asc';
         switch (this.sort.active) {
           case 'id':
-            return this.compare(+a.id, +b.id, isAsc);
+            return Utils.compare(+a.id, +b.id, isAsc);
           case 'title':
-            return this.compare(a.title, b.title, isAsc);
+            return Utils.compare(a.title, b.title, isAsc);
           case 'original_title':
-            return this.compare(a.original_title, b.original_title, isAsc);
+            return Utils.compare(a.original_title, b.original_title, isAsc);
           case 'note':
-            return this.compare(+a.note, +b.note, isAsc);
+            return Utils.compare(+a.note, +b.note, isAsc);
           case 'language':
-            return this.compare(a.language, b.language, isAsc);
+            return Utils.compare(a.language, b.language, isAsc);
           case 'date':
-            return this.compareDate(a.date, b.date, isAsc);
+            return Utils.compareDate(a.date, b.date, isAsc);
           case 'time':
-            return this.compare(+a.time, +b.time, isAsc);
+            return Utils.compare(+a.time, +b.time, isAsc);
           default:
             return 0;
         }
@@ -138,30 +138,6 @@ export class MoviesComponent implements OnInit {
     } else {
       return list;
     }
-  }
-
-  compare(a, b, isAsc) {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-  }
-
-  compareDate(a, b, isAsc) {
-    const year1 = a.split('/')[0];
-    const month1 = a.split('/')[1];
-    const year2 = b.split('/')[0];
-    const month2 = b.split('/')[1];
-    let result;
-    if (year1 < year2) {
-      result = -1;
-    } else if (year1 > year2) {
-      result = 1;
-    } else {
-      if (month1 < month2) {
-        result = -1;
-      } else if (month1 > month2) {
-        result = 1;
-      }
-    }
-    return result * (isAsc ? 1 : -1);
   }
 
   checkAndFixData(): void {
