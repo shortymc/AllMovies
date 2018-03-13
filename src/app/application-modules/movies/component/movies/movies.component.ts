@@ -38,7 +38,8 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.breakpointObserver.observe([
       '(max-width: 700px)'
     ]).subscribe(result => {
-      this.displayedColumns = result.matches ? ['thumbnail', 'title', 'date', 'note', 'language', 'time', 'genres', 'select'] : init_columns;
+      this.displayedColumns = result.matches ?
+        ['thumbnail', 'title', 'date', 'note', 'language', 'time', 'genres', 'select'] : init_columns;
     });
     this.getMovies();
   }
@@ -179,7 +180,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   remove() {
-    let ids = this.movies.filter(movie => movie.checked).map(movie => movie.id);
+    const ids = this.movies.filter(movie => movie.checked).map(movie => movie.id);
     this.movies = this.movies.filter(movie => !movie.checked);
     this.paginate(this.refreshData());
     this.dropboxService.removeMovieList(ids, 'ex.json');
