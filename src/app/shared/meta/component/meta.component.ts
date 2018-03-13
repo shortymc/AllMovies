@@ -32,7 +32,7 @@ export class MetaComponent implements OnInit {
       .subscribe(x => {
         const title = this.movie.title;
         const original = this.movie.original_title;
-        const searchTitle = original === '' ? title : original;
+        const searchTitle = !original || original.trim() === '' ? title : original;
         this.metaService.getLinkScore(searchTitle, Url.SEARCH_BANG_METACRITIC).then(result => this.metacritic = result);
         this.metaService.getLinkScore(searchTitle, Url.SEARCH_BANG_SENSCRITIQUE).then(result => this.senscritique = result);
         this.metaService.getLinkScore(searchTitle, Url.SEARCH_BANG_IMDB).then(result => this.imdb = result);

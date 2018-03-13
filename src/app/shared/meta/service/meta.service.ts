@@ -16,10 +16,12 @@ export class MetaService {
     return this.serviceUtils.jsonp(url, 'callback')
       .then((data: any) => {
         let result = <string>data.Redirect;
-        if (site === 'metacritic') {
+        if (site === Url.SEARCH_BANG_METACRITIC) {
           result = result.replace('/all/', '/movie/');
-        } else if (site === 'scq') {
+        } else if (site === Url.SEARCH_BANG_SENSCRITIQUE) {
           result += '&filter=movies';
+        } else if(site === Url.SEARCH_BANG_WIKI_EN) {
+          result = result.replace('Special:Search', '');
         }
         return result;
       })
