@@ -2,7 +2,7 @@ import { Utils } from './../../../../shared/utils';
 import { DropboxService } from './../../../../service/dropbox.service';
 import { Movie } from './../../../../model/movie';
 import { MovieService } from './../../../../service/movie.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -17,7 +17,7 @@ const init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'not
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss']
 })
-export class MoviesComponent implements OnInit {
+export class MoviesComponent implements OnInit, OnDestroy {
   displayedColumns = init_columns;
   movies: Movie[];
   length: number;
@@ -50,6 +50,7 @@ export class MoviesComponent implements OnInit {
       this.checkAndFixData();
       this.initPagination(this.movies);
       this.getAllGenres();
+      // localStorage.setItem('movies', JSON.stringify(movies));
     });
   }
 
@@ -182,6 +183,11 @@ export class MoviesComponent implements OnInit {
     this.movies = this.movies.filter(movie => !movie.checked);
     this.paginate(this.refreshData());
     this.dropboxService.removeMovieList(ids, 'ex.json');
+  }
+
+  ngOnDestroy() {
+    console.log('destroy');
+    // this.dropboxService.uploadFile(new Date(), 'test.json');
   }
 
 }
