@@ -56,7 +56,7 @@ export class DropboxService {
       if (!found) {
         movieList.push(movie);
         movieList.sort(Utils.compareMovie);
-        this.uploadFile(this.movieToBlob(movieList), fileName);
+        this.uploadFile(DropboxService.moviesToBlob(movieList), fileName);
       }
     }).catch((error: any) => console.error(error));
   }
@@ -69,7 +69,7 @@ export class DropboxService {
       if (found.length > 0) {
         found.forEach((movie: Movie) => movieList.push(movie));
         movieList.sort(Utils.compareMovie);
-        this.uploadFile(this.movieToBlob(movieList), fileName);
+        this.uploadFile(DropboxService.moviesToBlob(movieList), fileName);
       }
     }).catch((error: any) => console.error(error));
   }
@@ -77,7 +77,7 @@ export class DropboxService {
   removeMovie(id: number, fileName: string): void {
     this.downloadFile(fileName).then(file => {
       const movieList = <Movie[]>JSON.parse(file);
-      this.uploadFile(this.movieToBlob(movieList.filter((film: Movie) => film.id !== id)), fileName);
+      this.uploadFile(DropboxService.moviesToBlob(movieList.filter((film: Movie) => film.id !== id)), fileName);
     }).catch((error: any) => console.error(error));
   }
 
@@ -87,7 +87,7 @@ export class DropboxService {
 
       if (idToRemove.length > 0) {
         idToRemove.forEach((id: number) => movieList = movieList.filter((film: Movie) => film.id !== id));
-        this.uploadFile(this.movieToBlob(movieList), fileName);
+        this.uploadFile(DropboxService.moviesToBlob(movieList), fileName);
       }
     }).catch((error: any) => console.error(error));
   }
@@ -104,12 +104,12 @@ export class DropboxService {
    * @param  {Movie[]} movies
    * @returns any
    */
-  movieToBlob(movies: Movie[]): any {
-    const theJSON = JSON.stringify(movies, this.removeFields);
+  static moviesToBlob(movies: Movie[]): any {
+    const theJSON = JSON.stringify(movies, DropboxService.removeFields);
     return new Blob([theJSON], { type: 'text/json' });
   }
 
-  removeFields(key: any, value: any): any {
+  static removeFields(key: any, value: any): any {
     if (['synopsis', 'actors', 'crew', 'recommendations', 'videos', 'images'].includes(key)) {
       return undefined;
     }
@@ -129,7 +129,7 @@ export class DropboxService {
 
       moviesToReplace.forEach((movie: Movie) => movieList.push(movie));
       movieList.sort(Utils.compareMovie);
-      this.uploadFile(this.movieToBlob(movieList), fileName);
+      this.uploadFile(DropboxService.moviesToBlob(movieList), fileName);
     }).catch((error: any) => console.error(error));
   }
 }
