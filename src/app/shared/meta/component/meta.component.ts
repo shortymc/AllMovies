@@ -1,3 +1,4 @@
+import { Utils } from './../../utils';
 import { MetaService } from './../service/meta.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Component, OnInit, Input } from '@angular/core';
@@ -19,11 +20,13 @@ export class MetaComponent implements OnInit {
   get movie() {
     return this._movie.getValue();
   }
-  metacritic: string;
-  senscritique: string;
-  imdb: string;
-  wikiEN: string;
-  wikiFR: string;
+
+  @Input()
+  sites: any[];
+  @Input()
+  openBtn: boolean;
+  links = [];
+  Url = Url;
 
   constructor(private metaService: MetaService) { }
 
@@ -33,19 +36,21 @@ export class MetaComponent implements OnInit {
         const title = this.movie.title;
         const original = this.movie.original_title;
         const searchTitle = !original || original.trim() === '' ? title : original;
-        this.metaService.getLinkScore(searchTitle, Url.SEARCH_BANG_METACRITIC).then(result => this.metacritic = result);
-        this.metaService.getLinkScore(searchTitle, Url.SEARCH_BANG_SENSCRITIQUE).then(result => this.senscritique = result);
-        this.metaService.getLinkScore(searchTitle, Url.SEARCH_BANG_IMDB).then(result => this.imdb = result);
-        this.metaService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_EN).then(result => this.wikiEN = result);
-        this.metaService.getLinkScore(searchTitle, Url.SEARCH_BANG_WIKI_FR).then(result => this.wikiFR = result);
+        this.sites.forEach(site => {
+          this.metaService.getLinkScore(searchTitle, site.site).then(result => {
+            this.links.push({ site: result, icon: site.icon, key: site.site });
+            this.links.sort((a, b) => Utils.compare(a.key, b.key, false));
+          });
+        });
       });
   }
 
   openAll(): void {
-    window.open(this.metacritic);
-    window.open(this.senscritique);
-    window.open(this.wikiEN);
-    window.open(this.wikiFR);
+    if (this.openBtn) {
+      this.links.slice(0, 4).forEach(link => {
+        window.open(link);
+      });
+    }
   }
 
 }

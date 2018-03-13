@@ -1,16 +1,7 @@
 <nav class="nav nav-pills nav-fill meta">
-  <a class="nav-item nav-link" href="{{metacritic}}" target="_blank">
-    <i class="fa fa-database fa-3x" aria-hidden="true"></i> {{'meta.meta' | translate}}</a>
-  <a class="nav-item nav-link" href="{{senscritique}}" target="_blank">
-    <i class="fa fa-film fa-3x" aria-hidden="true"></i>
-    {{'meta.sc' | translate}}</a>
-  <a class="nav-item nav-link" href="{{wikiEN}}" target="_blank">
-    <i class="fa fa-wikipedia-w fa-3x" aria-hidden="true"></i> {{'meta.wiki_en' | translate}}</a>
-  <a class="nav-item nav-link" href="{{wikiFR}}" target="_blank">
-    <i class="fa fa-wikipedia-w fa-3x" aria-hidden="true"></i>
-    {{'meta.wiki_fr' | translate}}</a>
-  <button class="btn btn-outline-primary" (click)="openAll()">{{'meta.links' | translate}}</button>
-  <a class="nav-item nav-link" href="{{imdb}}" target="_blank">
-    <i class="fa fa-imdb fa-3x" aria-hidden="true"></i>
-  </a>
+  <ng-container *ngFor="let link of links; let i = index">
+    <a class="nav-item nav-link" href="{{link.site}}" target="_blank">
+      <i class="fa {{link.icon}} fa-3x" aria-hidden="true"></i> {{'meta.'+link.key | translate}}</a>
+    <button class="btn btn-outline-primary" (click)="openAll()" *ngIf="i === 3">{{'meta.links' | translate}}</button>
+  </ng-container>
 </nav>

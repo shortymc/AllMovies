@@ -6,11 +6,11 @@ export class Url {
   static readonly IMAGE_URL_EMPTY = './assets/empty.jpg';
 
   // DUCK DUCK GO
-  static readonly SEARCH_BANG_METACRITIC = 'metacritic';
-  static readonly SEARCH_BANG_SENSCRITIQUE = 'scq';
-  static readonly SEARCH_BANG_IMDB = 'imdb';
-  static readonly SEARCH_BANG_WIKI_EN = 'wen';
-  static readonly SEARCH_BANG_WIKI_FR = 'wikifr';
+  static readonly SEARCH_BANG_METACRITIC = { site: 'metacritic', icon: 'fa-database' };
+  static readonly SEARCH_BANG_SENSCRITIQUE = { site: 'scq', icon: 'fa-film' };
+  static readonly SEARCH_BANG_IMDB = { site: 'imdb', icon: 'fa-imdb' }
+  static readonly SEARCH_BANG_WIKI_EN = { site: 'wen', icon: 'fa-wikipedia-w' }
+  static readonly SEARCH_BANG_WIKI_FR = { site: 'wikifr', icon: 'fa-wikipedia-w' }
   static readonly DUCKDUCKGO_URL = 'https://api.duckduckgo.com/?q=!';
 
   // API MovieDB request

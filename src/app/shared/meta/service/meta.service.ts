@@ -8,7 +8,7 @@ export class MetaService {
 
   constructor(private serviceUtils: ServiceUtils) { }
 
-  getLinkScore(title: string, site: string): Promise<string> {
+  getLinkScore(title: string, site: any): Promise<string> {
     let url = Url.DUCKDUCKGO_URL + site + '+';
     // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
     // '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
@@ -16,11 +16,11 @@ export class MetaService {
     return this.serviceUtils.jsonp(url, 'callback')
       .then((data: any) => {
         let result = <string>data.Redirect;
-        if (site === Url.SEARCH_BANG_METACRITIC) {
+        if (site === Url.SEARCH_BANG_METACRITIC.site) {
           result = result.replace('/all/', '/movie/');
-        } else if (site === Url.SEARCH_BANG_SENSCRITIQUE) {
+        } else if (site === Url.SEARCH_BANG_SENSCRITIQUE.site) {
           result += '&filter=movies';
-        } else if(site === Url.SEARCH_BANG_WIKI_EN) {
+        } else if (site === Url.SEARCH_BANG_WIKI_EN.site || site === Url.SEARCH_BANG_WIKI_FR.site) {
           result = result.replace('Special:Search', '');
         }
         return result;

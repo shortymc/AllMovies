@@ -105,10 +105,11 @@
         "music": "Musique"
     },
     "meta": {
-        "meta": "Metacritic",
-        "sc": "SensCritique",
-        "wiki_fr": "FR",
-        "wiki_en": "EN",
+        "metacritic": "Metacritic",
+        "scq": "SensCritique",
+        "wikifr": "FR",
+        "wen": "EN",
+        "imdb": "IMDB",
         "links": "Ouvrir les 4 liens"
     },
     "movies": {
