@@ -8,6 +8,22 @@ import { Utils } from '../shared/utils';
 export class DropboxService {
   constructor() { }
 
+  /**
+   * @param  {Movie[]} movies
+   * @returns any
+   */
+  static moviesToBlob(movies: Movie[]): any {
+    const theJSON = JSON.stringify(movies, DropboxService.removeFields);
+    return new Blob([theJSON], { type: 'text/json' });
+  }
+
+  static removeFields(key: any, value: any): any {
+    if (['synopsis', 'actors', 'crew', 'recommendations', 'videos', 'images'].includes(key)) {
+      return undefined;
+    }
+    return value;
+  }
+
   getDbx(): any {
     return new Dropbox({ accessToken: Url.DROPBOX_TOKEN });
   }
@@ -99,21 +115,6 @@ export class DropboxService {
       console.error(error);
       return new Promise((resolve, reject) => { });
     });
-  }
-  /**
-   * @param  {Movie[]} movies
-   * @returns any
-   */
-  static moviesToBlob(movies: Movie[]): any {
-    const theJSON = JSON.stringify(movies, DropboxService.removeFields);
-    return new Blob([theJSON], { type: 'text/json' });
-  }
-
-  static removeFields(key: any, value: any): any {
-    if (['synopsis', 'actors', 'crew', 'recommendations', 'videos', 'images'].includes(key)) {
-      return undefined;
-    }
-    return value;
   }
 
   /**
