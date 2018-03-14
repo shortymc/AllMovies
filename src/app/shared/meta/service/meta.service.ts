@@ -10,7 +10,7 @@ export class MetaService {
 
   constructor(private serviceUtils: ServiceUtils) { }
 
-  getLinkScore(title: string, site: any): Promise<string> {
+  getLinkScore(title: string, site: any, isMovie: boolean): Promise<string> {
     // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
     // '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
     if (site === Url.SEARCH_BANG_WIKI_EN.site || site === Url.SEARCH_BANG_WIKI_FR.site) {
@@ -22,9 +22,9 @@ export class MetaService {
         .then((data: any) => {
           let result = <string>data.Redirect;
           if (site === Url.SEARCH_BANG_METACRITIC.site) {
-            result = result.replace('/all/', '/movie/');
+            result = isMovie ? result.replace('/all/', '/movie/') : result.replace('/all/', '/person/');
           } else if (site === Url.SEARCH_BANG_SENSCRITIQUE.site) {
-            result += '&filter=movies';
+            result += isMovie ? '&filter=movies' : '&filter=contacts';
           }
           return result;
         })

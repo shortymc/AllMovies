@@ -189,6 +189,10 @@ input {
     @include full_width;
   }
 
+  .computer {
+    display: none !important;
+  }
+
   .column {
     display: flex;
     align-items: center;
