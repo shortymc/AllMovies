@@ -111,7 +111,7 @@
         <label>{{'movie.rating' | translate}}: </label>{{movie.note}} / 10
         <rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
       </div>
-      <app-meta [movie]="movie" [openBtn]="true" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
+      <app-meta [entry]="movie" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
       <div *ngIf="movie.videos.length > 0">
         <label>{{'movie.video' | translate}}:</label>
         <ul class="videos">

@@ -3,7 +3,6 @@ import { MetaService } from './../service/meta.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Component, OnInit, Input } from '@angular/core';
 import { Url } from '../../../constant/url';
-import { Movie } from '../../../model/movie';
 
 @Component({
   selector: 'app-meta',
@@ -11,33 +10,38 @@ import { Movie } from '../../../model/movie';
   styleUrls: ['./meta.component.scss']
 })
 export class MetaComponent implements OnInit {
-  _movie = new BehaviorSubject<Movie>(null);
+  _entry = new BehaviorSubject<any>(null);
   @Input()
-  set movie(value) {
-    this._movie.next(value);
+  set entry(value) {
+    this._entry.next(value);
   }
 
-  get movie() {
-    return this._movie.getValue();
+  get entry() {
+    return this._entry.getValue();
   }
 
   @Input()
   sites: any[];
-  @Input()
-  openBtn: boolean;
   links = [];
   Url = Url;
 
   constructor(private metaService: MetaService) { }
 
   ngOnInit() {
-    this._movie
+    this._entry
       .subscribe(x => {
-        const title = this.movie.title;
-        const original = this.movie.original_title;
-        const searchTitle = !original || original.trim() === '' ? title : original;
+        let term;
+        let isMovie = false;
+        if (this.entry.title) {
+          const title = this.entry.title;
+          const original = this.entry.original_title;
+          term = !original || original.trim() === '' ? title : original;
+          isMovie = true;
+        } else {
+          term = this.entry.name;
+        }
         this.sites.forEach(site => {
-          this.metaService.getLinkScore(searchTitle, site.site).then(result => {
+          this.metaService.getLinkScore(term, site.site, isMovie).then(result => {
             this.links.push({ site: result, icon: site.icon, key: site.site });
             this.links.sort((a, b) => Utils.compare(a.key, b.key, false));
           });
@@ -46,11 +50,9 @@ export class MetaComponent implements OnInit {
   }
 
   openAll(): void {
-    if (this.openBtn) {
-      this.links.slice(0, 4).forEach(link => {
-        window.open(link);
-      });
-    }
+    this.links.slice(0, 4).forEach(link => {
+      window.open(link);
+    });
   }
 
 }

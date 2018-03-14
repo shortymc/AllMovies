@@ -1,7 +1,7 @@
 <nav class="nav nav-pills nav-fill meta">
   <ng-container *ngFor="let link of links; let i = index">
-    <a class="nav-item nav-link" href="{{link.site}}" target="_blank">
+    <a class="nav-item nav-link" href="{{link.site}}" target="_blank" *ngIf="link.site">
       <i class="fa {{link.icon}} fa-3x" aria-hidden="true"></i> {{'meta.'+link.key | translate}}</a>
-    <button class="btn btn-outline-primary" (click)="openAll()" *ngIf="i === 3">{{'meta.links' | translate}}</button>
+    <button class="btn btn-outline-primary computer" (click)="openAll()" *ngIf="i === 3">{{'meta.links' | translate}}</button>
   </ng-container>
 </nav>
