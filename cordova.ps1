@@ -12,9 +12,7 @@ cd cordova\AllMovies
 cordova build android
 Copy-Item "C:\DEV\workspace\AllMovies\cordova\AllMovies\platforms\android\app\build\outputs\apk\debug\app-debug.apk" -Destination "C:\Users\PBR\Dropbox" -force
 
-$content = Get-Content("C:\DEV\workspace\AllMovies\src\app\service\dropbox.service.ts")
-$content = $content.replace("import Dropbox from 'dropbox';","import Dropbox = require('dropbox');")
-$content | out-file "C:\DEV\workspace\AllMovies\src\app\service\dropbox.service.ts"
+git checkout HEAD -- C:\DEV\workspace\AllMovies\src\app\service\dropbox.service.ts
 
 echo APK SUCCESSFULLY GENERATED
 pause
