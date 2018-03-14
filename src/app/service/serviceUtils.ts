@@ -33,8 +33,12 @@ export class ServiceUtils {
     return headers ? this.http.get(url, { headers: headers }) : this.http.get(url);
   }
 
-  jsonp(url: string, callback: string): Promise<Object> {
-    return this.http.jsonp(url, callback).toPromise();
+  jsonpPromise(url: string, callback: any): Promise<Object> {
+    return this.jsonpObservable(url, callback).toPromise();
+  }
+
+  jsonpObservable(url: string, callback: any): Observable<Object> {
+    return this.http.jsonp(url, callback);
   }
 
 }
