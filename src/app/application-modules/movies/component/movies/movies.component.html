@@ -1,7 +1,7 @@
 <h2>{{'movies.header' | translate}}:</h2>
 
 <ng-container *ngIf="movies">
-  <div class="tools">
+  <div class="filters">
     <!-- Input Filter -->
     <mat-form-field>
       <input matInput type="search" placeholder="{{'movies.filter.placeholder' | translate}}" [(ngModel)]="filter" (keyup)="paginator.firstPage(); onSearch();"
@@ -12,19 +12,22 @@
     </mat-form-field>
     <!-- Genres Filter -->
     <mat-form-field>
-      <mat-select #select placeholder="{{movies.filter.genres}}" multiple (selectionChange)="paginator.firstPage(); onFilterGenres($event)">
+      <mat-select #select placeholder="{{'movies.filter.genres' | translate}}" multiple (selectionChange)="paginator.firstPage(); onFilterGenres($event)">
         <mat-option *ngFor="let genre of genres" [value]="genre">{{genre}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <!-- Paginator -->
-    <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-      (page)="page = $event; onPaginateChange();" [showFirstLastButtons]="true">
-    </mat-paginator>
-    <!-- Delete -->
-    <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="remove()">{{'movies.remove' | translate:{size: nbChecked} }}
-      <i class="fa fa-trash" aria-hidden="true"></i>
-    </button>
   </div>
+
+  <!-- Delete -->
+  <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="remove()">{{'movies.remove' | translate:{size: nbChecked} }}
+    <i class="fa fa-trash" aria-hidden="true"></i>
+  </button>
+  <!-- Paginator -->
+  <div class="paginator">
+  <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+    (page)="page = $event; onPaginateChange();" [showFirstLastButtons]="true">
+  </mat-paginator>
+</div>
 
   <!-- Table -->
   <mat-table #table [dataSource]="displayedData" (scroll)="onTableScroll($event)" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
@@ -123,7 +126,10 @@
 
     <!-- TIME -->
     <ng-container matColumnDef="time">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'movies.length'|translate }}</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        <span class="mat-text">{{ 'movies.length'|translate }}</span>
+        <span class="mat-icon fa fa-clock-o"></span>
+      </mat-header-cell>
       <mat-cell *matCellDef="let movie">
         {{movie.time | convertToHHmm:'true'}}
       </mat-cell>

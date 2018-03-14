@@ -1,26 +1,34 @@
 @import "../../../../styles/styles";
-
+/* stylelint-disable */
 #example {
   width: 99% !important;
 }
 
-.mat-header-row { //THIS MAKES THE HEADER STICKY
+.mat-header-row,
+.paginator { //THIS MAKES THE HEADER STICKY
   position: sticky;
   position: -webkit-sticky;
-  top: 50px;
+  z-index:99;
   background: rgba(255, 255, 255, 1);
 }
 
-.tools { //THIS MAKES THE tools STICKY
-  position: sticky;
-  position: -webkit-sticky;
+.mat-header-row {
+  top: 50px;
+}
+
+.paginator {
   top: 0;
-  z-index: 9999;
-  background: rgba(255, 255, 255, 1) !important;
 }
 
 .mat-row:hover {
   background-color: $gray_hover !important;
+}
+
+mat-checkbox::ng-deep {
+  & .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+  & .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: $blue !important; // DOESNT WORK
+  }
 }
 
 .posterDT {
@@ -40,13 +48,22 @@
   display: inline-block !important;
 }
 
-@include media('900px') {
+@include media(#{$smallscreen}) {
   .mat-header-cell .mat-text {
     display: none;
   }
 
   .mat-header-cell .mat-icon {
     display: block;
+  }
+
+  .filters {
+    display: flex;
+
+    & * {
+      width: 50%;
+      padding-right: 2px;
+    }
   }
 
   .posterDT {
@@ -59,8 +76,11 @@
   }
 }
 
-/* stylelint-disable */
-@include media(#{$smallscreen}) {
+@include media('400px') {
+
+  mat-paginator::ng-deep .mat-paginator-page-size {
+    display: none !important;
+  }
 
   // Reshape table
   .mat-row:hover {
