@@ -1,6 +1,8 @@
+import { Observable } from 'rxjs/Observable';
 import { Url } from './../../../constant/url';
 import { ServiceUtils } from './../../../service/serviceUtils';
 import { Injectable } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class MetaService {
@@ -9,21 +11,39 @@ export class MetaService {
   constructor(private serviceUtils: ServiceUtils) { }
 
   getLinkScore(title: string, site: any): Promise<string> {
-    let url = Url.DUCKDUCKGO_URL + site + '+';
     // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
     // '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
-    url += this.serviceUtils.encodeQueryUrl(title) + '&format=json&no_redirect=1';
-    return this.serviceUtils.jsonp(url, 'callback')
-      .then((data: any) => {
-        let result = <string>data.Redirect;
-        if (site === Url.SEARCH_BANG_METACRITIC.site) {
-          result = result.replace('/all/', '/movie/');
-        } else if (site === Url.SEARCH_BANG_SENSCRITIQUE.site) {
-          result += '&filter=movies';
-        } else if (site === Url.SEARCH_BANG_WIKI_EN.site || site === Url.SEARCH_BANG_WIKI_FR.site) {
-          result = result.replace('Special:Search', '');
-        }
-        return result;
+    if (site === Url.SEARCH_BANG_WIKI_EN.site || site === Url.SEARCH_BANG_WIKI_FR.site) {
+      return this.wikisearch(title, site).toPromise();
+    } else {
+      let url = Url.DUCKDUCKGO_URL + site + '+';
+      url += this.serviceUtils.encodeQueryUrl(title) + '&format=json&no_redirect=1';
+      return this.serviceUtils.jsonpPromise(url, 'callback')
+        .then((data: any) => {
+          let result = <string>data.Redirect;
+          if (site === Url.SEARCH_BANG_METACRITIC.site) {
+            result = result.replace('/all/', '/movie/');
+          } else if (site === Url.SEARCH_BANG_SENSCRITIQUE.site) {
+            result += '&filter=movies';
+          }
+          return result;
+        })
+        .catch(this.serviceUtils.handleError);
+    }
+  }
+
+  wikisearch(term: string, site: string): Observable<any> {
+    const params = new HttpParams()
+      .set('action', 'opensearch')
+      .set('search', term)
+      .set('format', 'json');
+
+    const url = site === Url.SEARCH_BANG_WIKI_EN.site ? `http://en.wikipedia.org/w/api.php?${params.toString()}`
+      : `http://fr.wikipedia.org/w/api.php?${params.toString()}`;
+
+    return this.serviceUtils.jsonpObservable(url, 'callback')
+      .map(response => {
+        return response[3][0];
       })
       .catch(this.serviceUtils.handleError);
   }
