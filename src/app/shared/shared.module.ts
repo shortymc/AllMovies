@@ -39,7 +39,8 @@ import { DropdownLanguageComponent } from './dropdown-language/dropdown-language
     ListMoviesComponent,
     MetaComponent,
     ListPersonsComponent,
-    DropdownLanguageComponent
+    DropdownLanguageComponent,
+    NgbModule
   ],
   providers: [
     MetaService, ServiceUtils, TranslateService
