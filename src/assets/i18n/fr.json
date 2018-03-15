@@ -41,6 +41,13 @@
         "movies": "Films",
         "release": "Sorties"
     },
+    "toast": {
+        "movie_added": "Film ajouté !",
+        "movies_added": "{{size}} Films ajoutés !",
+        "movie_removed": "Film supprimé !",
+        "movies_removed": "{{size}} Films supprimés !",
+        "movies_updated": "{{size}} Films mis à jour !"
+    },
     "dashboard": {
         "header": "Top Films"
     },
