@@ -66,7 +66,7 @@ export class DropboxService {
   addMovie(movie: Movie, fileName: string): void {
     this.downloadFile(fileName).then(file => {
       const movieList = <Movie[]>JSON.parse(file);
-      const found = movieList.find(function(film) {
+      const found = movieList.find(function (film) {
         return film.id === movie.id;
       });
       if (!found) {
@@ -77,6 +77,8 @@ export class DropboxService {
             console.log(res);
             this.toast.open(this.translate.instant('toast.movie_added'));
           }).catch((error: any) => console.error(error));
+      } else {
+        this.toast.open(this.translate.instant('toast.already_added'));
       }
     }).catch((error: any) => console.error(error));
   }
@@ -94,6 +96,8 @@ export class DropboxService {
             console.log(res);
             this.toast.open(this.translate.instant('toast.movies_added', { size: found.length }));
           }).catch((error: any) => console.error(error));
+      } else {
+        this.toast.open(this.translate.instant('toast.already_added'));
       }
     }).catch((error: any) => console.error(error));
   }
