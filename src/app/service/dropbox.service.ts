@@ -3,10 +3,12 @@ import Dropbox = require('dropbox');
 import { Movie } from '../model/movie';
 import { Url } from '../constant/url';
 import { Utils } from '../shared/utils';
+import { ToastService } from './toast.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class DropboxService {
-  constructor() { }
+  constructor(private toast: ToastService, private translate: TranslateService) { }
 
   /**
    * @param  {Movie[]} movies
@@ -38,15 +40,13 @@ export class DropboxService {
     return Url.DROPBOX_FOLDER + fileName;
   }
 
-  uploadFile(fichier: any, fileName: string): void {
+  uploadFile(fichier: any, fileName: string): Promise<any> {
     const pathFile = this.getPath(fileName);
-    this.getDbx().filesDeleteV2({ path: pathFile })
+    return this.getDbx().filesDeleteV2({ path: pathFile })
       .then((response: any) => {
-        this.getDbx().filesUpload({ path: pathFile, contents: fichier })
-          .then((res: any) => console.log(res))
-          .catch((error: any) => console.error(error));
+        return this.getDbx().filesUpload({ path: pathFile, contents: fichier });
       })
-      .catch((error: any) => console.error(error));
+      .catch((error: any) => { console.error(error); return false; });
   }
 
   downloadFile(fileName: string): Promise<string> {
@@ -72,7 +72,11 @@ export class DropboxService {
       if (!found) {
         movieList.push(movie);
         movieList.sort(Utils.compareMovie);
-        this.uploadFile(DropboxService.moviesToBlob(movieList), fileName);
+        this.uploadFile(DropboxService.moviesToBlob(movieList), fileName)
+          .then((res: any) => {
+            console.log(res);
+            this.toast.open(this.translate.instant('toast.movie_added'));
+          }).catch((error: any) => console.error(error));
       }
     }).catch((error: any) => console.error(error));
   }
@@ -85,7 +89,11 @@ export class DropboxService {
       if (found.length > 0) {
         found.forEach((movie: Movie) => movieList.push(movie));
         movieList.sort(Utils.compareMovie);
-        this.uploadFile(DropboxService.moviesToBlob(movieList), fileName);
+        this.uploadFile(DropboxService.moviesToBlob(movieList), fileName)
+          .then((res: any) => {
+            console.log(res);
+            this.toast.open(this.translate.instant('toast.movies_added', { size: found.length }));
+          }).catch((error: any) => console.error(error));
       }
     }).catch((error: any) => console.error(error));
   }
@@ -93,7 +101,11 @@ export class DropboxService {
   removeMovie(id: number, fileName: string): void {
     this.downloadFile(fileName).then(file => {
       const movieList = <Movie[]>JSON.parse(file);
-      this.uploadFile(DropboxService.moviesToBlob(movieList.filter((film: Movie) => film.id !== id)), fileName);
+      this.uploadFile(DropboxService.moviesToBlob(movieList.filter((film: Movie) => film.id !== id)), fileName)
+        .then((res: any) => {
+          console.log(res);
+          this.toast.open(this.translate.instant('toast.movie_removed'));
+        }).catch((error: any) => console.error(error));
     }).catch((error: any) => console.error(error));
   }
 
@@ -103,7 +115,11 @@ export class DropboxService {
 
       if (idToRemove.length > 0) {
         idToRemove.forEach((id: number) => movieList = movieList.filter((film: Movie) => film.id !== id));
-        this.uploadFile(DropboxService.moviesToBlob(movieList), fileName);
+        this.uploadFile(DropboxService.moviesToBlob(movieList), fileName)
+          .then((res: any) => {
+            console.log(res);
+            this.toast.open(this.translate.instant('toast.movies_removed', { size: idToRemove.length }));
+          }).catch((error: any) => console.error(error));
       }
     }).catch((error: any) => console.error(error));
   }
@@ -130,7 +146,11 @@ export class DropboxService {
 
       moviesToReplace.forEach((movie: Movie) => movieList.push(movie));
       movieList.sort(Utils.compareMovie);
-      this.uploadFile(DropboxService.moviesToBlob(movieList), fileName);
+      this.uploadFile(DropboxService.moviesToBlob(movieList), fileName)
+        .then((res: any) => {
+          console.log(res);
+          this.toast.open(this.translate.instant('toast.movies_updated', { size: moviesToReplace.length }));
+        }).catch((error: any) => console.error(error));
     }).catch((error: any) => console.error(error));
   }
 }
