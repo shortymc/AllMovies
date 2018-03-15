@@ -30,7 +30,7 @@
   <div>
     <h2>
       <span *ngFor="let country of selectedMovie.production_countries">
-        <span class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}"></span>
+        <span class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" ngbTooltip="{{country.name}}"></span>
       </span>{{selectedMovie.title | capitalizeWord}}</h2>
     <div>
       <label>{{'movie.date' | translate}}: </label>{{selectedMovie.date | date:'EEEE dd MMMM yyyy':'':language | capitalizeWord}}
