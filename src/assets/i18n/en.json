@@ -41,6 +41,13 @@
         "movies": "Movies",
         "release": "Releases"
     },
+    "toast": {
+        "movie_added": "Movie added !",
+        "movies_added": "{{size}} Movies added !",
+        "movie_removed": "Movie removed !",
+        "movies_removed": "{{size}} Movies removed !",
+        "movies_updated": "{{size}} Movies updated !"
+    },
     "dashboard": {
         "header": "Top Movies"
     },
