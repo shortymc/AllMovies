@@ -30,6 +30,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   sort: Sort;
   nbChecked = 0;
   genres: string[];
+  filteredGenres: MatSelectChange;
   constructor(private movieService: MovieService, private router: Router, private breakpointObserver: BreakpointObserver,
     private dropboxService: DropboxService) {
   }
@@ -110,7 +111,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     } else {
       list = this.movies;
     }
-    list = this.sortData(Utils.filter(list, this.filter));
+    list = this.sortData(Utils.filterByFields(list, this.displayedColumns, this.filter));
     this.length = list.length;
     this.initPagination(list);
   }
@@ -182,8 +183,13 @@ export class MoviesComponent implements OnInit, OnDestroy {
   remove() {
     const ids = this.movies.filter(movie => movie.checked).map(movie => movie.id);
     this.movies = this.movies.filter(movie => !movie.checked);
-    this.paginate(this.refreshData());
+    if (this.filteredGenres) {
+      this.onFilterGenres(this.filteredGenres);
+    } else {
+      this.paginate(this.refreshData());
+    }
     this.dropboxService.removeMovieList(ids, 'ex.json');
+    this.nbChecked = 0;
   }
 
   ngOnDestroy() {
