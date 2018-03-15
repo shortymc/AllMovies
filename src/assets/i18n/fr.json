@@ -122,7 +122,7 @@
         "language": "Langues",
         "genres": "Genres",
         "length": "Durée",
-        "remove": "Retirer les films {{size}} sélectionnés de la collection",
+        "remove": "Retirer les {{size}} films sélectionnés",
         "search_title": "Rechercher dans les {{param}}s",
         "filter": {
             "placeholder": "Rechercher",
