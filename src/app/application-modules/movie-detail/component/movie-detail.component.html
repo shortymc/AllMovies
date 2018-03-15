@@ -22,7 +22,7 @@
       <div>
         <label>{{'movie.country' | translate}}: </label>
         <span *ngFor="let country of movie.production_countries">
-          <h1 class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}"></h1>
+          <h1 class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" ngbTooltip="{{country.name}}"></h1>
         </span>
       </div>
       <div>
