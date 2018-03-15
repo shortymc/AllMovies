@@ -29,25 +29,35 @@ export class MetaComponent implements OnInit {
 
   ngOnInit() {
     this._entry
-    .subscribe(x => {
-      let term;
-      let isMovie = false;
-      if (this.entry.title) {
-        const title = this.entry.title;
-        const original = this.entry.original_title;
-        term = !original || original.trim() === '' ? title : original;
-        isMovie = true;
-      } else {
-        term = this.entry.name;
-      }
-      this.links = [];
-      this.sites.forEach(site => {
-        this.metaService.getLinkScore(term, site.site, isMovie).then(result => {
-            this.links.push({ site: result, icon: site.icon, key: site.site });
-            this.links.sort((a, b) => Utils.compare(a.key, b.key, false));
+      .subscribe(x => {
+        let term;
+        let isMovie = false;
+        if (this.entry.title) {
+          const title = this.entry.title;
+          const original = this.entry.original_title;
+          term = !original || original.trim() === '' ? title : original;
+          isMovie = true;
+        } else {
+          term = this.entry.name;
+        }
+        this.links = [];
+        this.sites.forEach(site => {
+          this.metaService.getLinkScore(term, site.site, isMovie).then(result => {
+            if (!result && isMovie) {
+              this.metaService.getLinkScore(this.entry.title, site.site, isMovie).then(result => {
+                this.handleResult(result, site);
+              });
+            } else {
+              this.handleResult(result, site);
+            }
           });
         });
       });
+  }
+
+  handleResult(result, site) {
+    this.links.push({ site: result, icon: site.icon, key: site.site });
+    this.links.sort((a, b) => Utils.compare(a.key, b.key, false));
   }
 
   openAll(): void {
