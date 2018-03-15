@@ -1,6 +1,5 @@
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MovieService } from './../../service/movie.service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MyNgbDate } from './../../shared/my-ngb-date';
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -24,8 +23,7 @@ const childRoutes: Routes = [
     RouterModule.forChild(childRoutes),
     SharedModule,
     RatingModule,
-    NgbModule,
-    TranslateModule
+    TranslateModule.forChild(),
   ],
   providers: [
     MyNgbDate,
