@@ -22,26 +22,27 @@ export class MetaComponent implements OnInit {
 
   @Input()
   sites: any[];
-  links = [];
+  links;
   Url = Url;
 
   constructor(private metaService: MetaService) { }
 
   ngOnInit() {
     this._entry
-      .subscribe(x => {
-        let term;
-        let isMovie = false;
-        if (this.entry.title) {
-          const title = this.entry.title;
-          const original = this.entry.original_title;
-          term = !original || original.trim() === '' ? title : original;
-          isMovie = true;
-        } else {
-          term = this.entry.name;
-        }
-        this.sites.forEach(site => {
-          this.metaService.getLinkScore(term, site.site, isMovie).then(result => {
+    .subscribe(x => {
+      let term;
+      let isMovie = false;
+      if (this.entry.title) {
+        const title = this.entry.title;
+        const original = this.entry.original_title;
+        term = !original || original.trim() === '' ? title : original;
+        isMovie = true;
+      } else {
+        term = this.entry.name;
+      }
+      this.links = [];
+      this.sites.forEach(site => {
+        this.metaService.getLinkScore(term, site.site, isMovie).then(result => {
             this.links.push({ site: result, icon: site.icon, key: site.site });
             this.links.sort((a, b) => Utils.compare(a.key, b.key, false));
           });
