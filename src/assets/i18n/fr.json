@@ -46,7 +46,8 @@
         "movies_added": "{{size}} Films ajoutés !",
         "movie_removed": "Film supprimé !",
         "movies_removed": "{{size}} Films supprimés !",
-        "movies_updated": "{{size}} Films mis à jour !"
+        "movies_updated": "{{size}} Films mis à jour !",
+        "already_added":"Déjà ajouté !"
     },
     "dashboard": {
         "header": "Top Films"
