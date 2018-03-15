@@ -112,10 +112,14 @@ export class Utils {
     return items.filter(item => {
       return fields.some(field => {
         let it = item[field];
-        if (typeof it === 'string') {
-          it = it.toLowerCase();
+        if (it) {
+          if (typeof it === 'string') {
+            it = it.toLowerCase();
+          } else {
+            it = it.toString();
+          }
+          return it.includes(val);
         }
-        return it.includes(val);
       });
     });
   }
