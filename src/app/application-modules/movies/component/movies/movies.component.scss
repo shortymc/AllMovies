@@ -88,17 +88,9 @@ mat-checkbox::ng-deep {
   }
 
   mat-table,
-  mat-header-row,
   mat-row,
   mat-cell {
 		display: block !important;
-	}
-
-	/* Hide table headers (but not display: none;, for accessibility) */
-	mat-header-row {
-		position: absolute !important;
-		top: -9999px !important;
-		left: -9999px !important;
 	}
 
 	mat-row {
