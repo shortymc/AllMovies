@@ -32,6 +32,12 @@
       <span *ngFor="let country of selectedMovie.production_countries">
         <span class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" ngbTooltip="{{country.name}}"></span>
       </span>{{selectedMovie.title | capitalizeWord}}</h2>
+    <button class="btn btn-outline-primary" (click)="addToCollection(selectedMovie)">
+      <span class="fa fa-save" aria-hidden="true"></span> {{'global.add_collection' | translate}}
+    </button>
+    <a class="btn btn-outline-primary" [routerLink]="['/movie', selectedMovie.id]"> {{'global.go_detail' | translate}}
+      <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+    </a>
     <div>
       <label>{{'movie.date' | translate}}: </label>{{selectedMovie.date | date:'EEEE dd MMMM yyyy':'':language | capitalizeWord}}
     </div>
@@ -60,11 +66,5 @@
       <rating [(ngModel)]="selectedMovie.note" [max]="10" [readonly]="true" [float]="true"></rating>
     </div>
     <app-meta [entry]="selectedMovie" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
-    <button class="btn btn-outline-primary" (click)="addToCollection(selectedMovie)">
-      <span class="fa fa-save" aria-hidden="true"></span> {{'global.add_collection' | translate}}
-    </button>
-    <a class="btn btn-outline-primary" [routerLink]="['/movie', selectedMovie.id]"> {{'global.go_detail' | translate}}
-      <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
-    </a>
   </div>
 </div>
