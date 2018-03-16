@@ -8,7 +8,7 @@ export class ToastService {
 
   open(message: string) {
     this.snackBar.open(message, undefined, {
-      duration: 1000,
+      duration: 1500,
     });
   }
 }
