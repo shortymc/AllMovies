@@ -1,3 +1,4 @@
+import { Sort } from '@angular/material/sort';
 import { Movie } from './../model/movie';
 import { Url } from './../constant/url';
 
@@ -113,11 +114,7 @@ export class Utils {
       return fields.some(field => {
         let it = item[field];
         if (it) {
-          if (typeof it === 'string') {
-            it = it.toLowerCase();
-          } else {
-            it = it.toString();
-          }
+          it = typeof it === 'string' ? it.toLowerCase() : it.toString();
           return it.includes(val);
         }
       });
@@ -147,4 +144,31 @@ export class Utils {
     return false;
   }
 
+  static sortMovie(list: Movie[], sort: Sort): Movie[] {
+    if (sort && sort.active && sort.direction !== '') {
+      return list.sort((a, b) => {
+        const isAsc = sort.direction === 'asc';
+        switch (sort.active) {
+          case 'id':
+            return Utils.compare(+a.id, +b.id, isAsc);
+          case 'title':
+            return Utils.compare(a.title, b.title, isAsc);
+          case 'original_title':
+            return Utils.compare(a.original_title, b.original_title, isAsc);
+          case 'note':
+            return Utils.compare(+a.note, +b.note, isAsc);
+          case 'language':
+            return Utils.compare(a.language, b.language, isAsc);
+          case 'date':
+            return Utils.compareDate(a.date, b.date, isAsc);
+          case 'time':
+            return Utils.compare(+a.time, +b.time, isAsc);
+          default:
+            return 0;
+        }
+      });
+    } else {
+      return list;
+    }
+  }
 }

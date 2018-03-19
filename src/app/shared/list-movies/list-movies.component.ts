@@ -1,3 +1,5 @@
+import { MovieService } from './../../service/movie.service';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Component, OnInit, Input } from '@angular/core';
 import { DropboxService } from '../../service/dropbox.service';
 import { Movie } from '../../model/movie';
@@ -16,14 +18,22 @@ export class ListMoviesComponent implements OnInit {
   moviesToShow: Movie[];
   pageSize = 5;
 
-  constructor(private dropboxService: DropboxService) { }
+  constructor(private movieService: MovieService, private dropboxService: DropboxService) { }
 
   ngOnInit() {
     this.getMoviesToShow(this.movies, this.page);
   }
 
   addList(): void {
-    this.dropboxService.addMovieList(this.movies.filter((reco: Movie) => reco.checked), 'ex.json');
+    const selected = this.movies.filter((reco: Movie) => reco.checked);
+    const prom = [];
+    selected.forEach(movie => {
+      prom.push(this.movieService.getMovie(movie.id, false, false, false, false, 'fr'));
+      prom.push(this.movieService.getMovie(movie.id, false, false, false, false, 'en'));
+    });
+    forkJoin(prom).subscribe((movies: Movie[]) => {
+      this.dropboxService.addMovieList(movies, 'ex.json');
+    });
   }
 
   getMoviesToShow(movies, page) {
