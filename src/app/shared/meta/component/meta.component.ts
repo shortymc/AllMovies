@@ -44,8 +44,8 @@ export class MetaComponent implements OnInit {
         this.sites.forEach(site => {
           this.metaService.getLinkScore(term, site.site, isMovie).then(result => {
             if (!result && isMovie) {
-              this.metaService.getLinkScore(this.entry.title, site.site, isMovie).then(result => {
-                this.handleResult(result, site);
+              this.metaService.getLinkScore(this.entry.title, site.site, isMovie).then(result_2 => {
+                this.handleResult(result_2, site);
               });
             } else {
               this.handleResult(result, site);

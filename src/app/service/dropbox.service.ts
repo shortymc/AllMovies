@@ -66,7 +66,7 @@ export class DropboxService {
   addMovie(movie: Movie, fileName: string): void {
     this.downloadFile(fileName).then(file => {
       const movieList = <Movie[]>JSON.parse(file);
-      const found = movieList.find(function (film) {
+      const found = movieList.find(function(film) {
         return film.id === movie.id;
       });
       if (!found) {
