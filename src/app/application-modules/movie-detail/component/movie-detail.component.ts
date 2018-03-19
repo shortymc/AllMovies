@@ -1,3 +1,4 @@
+import { forkJoin } from 'rxjs/observable/forkJoin';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Url } from './../../../constant/url';
 import { Component, OnInit } from '@angular/core';
@@ -43,6 +44,11 @@ export class MovieDetailComponent implements OnInit {
   }
 
   add(movie: Movie): void {
-    this.dropboxService.addMovie(movie, 'ex.json');
+    forkJoin(
+      this.movieService.getMovie(this.movie.id, false, false, false, false, 'fr'),
+      this.movieService.getMovie(this.movie.id, false, false, false, false, 'en')
+    ).subscribe(([movie_fr, movie_en]) => {
+      this.dropboxService.addMovieList([movie_fr, movie_en], 'ex.json');
+    });
   }
 }

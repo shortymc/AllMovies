@@ -40,13 +40,16 @@ export class MovieService {
       url += `${Url.LANGUE}${language}`;
     }
     return this.serviceUtils.getPromise(url)
-      .then(response => MapMovie.mapForMovie(response))
-      .catch(this.serviceUtils.handleError);
+      .then(response => {
+        const movie = MapMovie.mapForMovie(response);
+        movie.lang_version = language;
+        return movie;
+      }).catch(this.serviceUtils.handleError);
   }
 
   getMoviesByReleaseDates(debut: string, fin: string, language: string): Promise<Movie[]> {
     const url =
-`${Url.DISCOVER_URL}${Url.RELEASE_DATE_GTE_URL}${debut}${Url.RELEASE_DATE_LTE_URL}${fin}${Url.RELEASE_TYPE_URL}${Url.LANGUE}${language}`;
+      `${Url.DISCOVER_URL}${Url.RELEASE_DATE_GTE_URL}${debut}${Url.RELEASE_DATE_LTE_URL}${fin}${Url.RELEASE_TYPE_URL}${Url.LANGUE}${language}`;
     return this.serviceUtils.getPromise(url)
       .then(response => MapMovie.mapForMoviesByReleaseDates(response))
       .catch(this.serviceUtils.handleError);

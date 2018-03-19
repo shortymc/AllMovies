@@ -1,3 +1,4 @@
+import { forkJoin } from 'rxjs/observable/forkJoin';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { Movie } from '../../../model/movie';
@@ -87,8 +88,13 @@ export class ReleaseComponent implements OnInit {
     this.getMoviesByReleaseDates();
   }
 
-  addToCollection(title: string) {
-    this.dropboxService.addMovie(this.selectedMovie, 'ex.json');
+  addToCollection() {
+    forkJoin(
+      this.movieService.getMovie(this.selectedMovie.id, false, false, false, false, 'fr'),
+      this.movieService.getMovie(this.selectedMovie.id, false, false, false, false, 'en')
+    ).subscribe(([movie_fr, movie_en]) => {
+      this.dropboxService.addMovieList([movie_fr, movie_en], 'ex.json');
+    });
   }
 
   getMoviesByReleaseDates(): void {
