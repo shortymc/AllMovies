@@ -17,6 +17,12 @@
   top: 0;
 }
 
+.paginator,
+.filters {
+  display: flex !important;
+  justify-content: center;
+}
+
 .mat-row:hover {
   background-color: $gray_hover !important;
 }
@@ -41,11 +47,8 @@ mat-checkbox::ng-deep {
   display: none;
 }
 
-.mat-paginator {
-  display: inline-block !important;
-}
-
 @include media(#{$smallscreen}) {
+  // Mobile landscape
   .mat-header-cell .mat-text {
     display: none;
   }
@@ -74,6 +77,7 @@ mat-checkbox::ng-deep {
 }
 
 @include media('400px') {
+  // Mobile portait
 
   mat-paginator::ng-deep .mat-paginator-page-size {
     display: none !important;
