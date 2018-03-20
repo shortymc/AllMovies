@@ -106,7 +106,7 @@ label {
   margin-left: 10%;
 }
 
-input {
+.input-box {
   width: calc(80% - 8px) !important;
 }
 
@@ -170,6 +170,18 @@ input {
 
 .movies {
   list-style-type: none;
+}
+
+.fadeIn {
+  animation: fadeIn 1s both $bezier;
+}
+
+.fadeOut {
+  animation: fadeOut 0.5s both $bezier;
+}
+
+.transparent {
+  opacity: 0;
 }
 
 @mixin full_width {

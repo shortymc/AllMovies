@@ -2,7 +2,7 @@ import { Utils } from './../../../../shared/utils';
 import { DropboxService } from './../../../../service/dropbox.service';
 import { Movie } from './../../../../model/movie';
 import { MovieService } from './../../../../service/movie.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -18,7 +18,8 @@ const init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'not
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss']
 })
-export class MoviesComponent implements OnInit, OnDestroy {
+export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('goToTop') goToTop: HTMLFormElement;
   displayedColumns = init_columns;
   movies: Movie[];
   length: number;
@@ -50,6 +51,12 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.language = event.lang;
       this.getMovies();
+    });
+  }
+
+  ngAfterViewInit() {
+    window.addEventListener('scroll', (event) => {
+      this.onScroll(event);
     });
   }
 
@@ -188,6 +195,21 @@ export class MoviesComponent implements OnInit, OnDestroy {
     }
     this.dropboxService.removeMovieList(ids, 'ex.json');
     this.nbChecked = 0;
+  }
+
+  onTop() {
+    window.scrollTo({ top: 0 });
+  }
+
+  onScroll($event) {
+    if ($event.target.scrollingElement.scrollTop > window.innerHeight / 3) {
+      this.goToTop.nativeElement.classList.remove('transparent');
+      this.goToTop.nativeElement.classList.remove('fadeOut');
+      this.goToTop.nativeElement.classList.add('fadeIn');
+    } else {
+      this.goToTop.nativeElement.classList.add('fadeOut');
+      this.goToTop.nativeElement.classList.remove('fadeIn');
+    }
   }
 
   ngOnDestroy() {
