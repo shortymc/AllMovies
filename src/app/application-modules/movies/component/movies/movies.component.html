@@ -1,5 +1,6 @@
 <h2>{{'movies.header' | translate}}:</h2>
 
+<input #goToTop type="button" class="btn btn-outline-primary goToTop transparent" value="Scroll Top" (click)="onTop()" />
 <ng-container *ngIf="movies">
   <div class="filters">
     <!-- Input Filter -->
@@ -30,7 +31,7 @@
   </div>
 
   <!-- Table -->
-  <mat-table #table [dataSource]="displayedData" (scroll)="onTableScroll($event)" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
+  <mat-table #table [dataSource]="displayedData" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
     matSort>
 
     <!-- ID -->
