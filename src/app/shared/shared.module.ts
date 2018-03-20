@@ -1,3 +1,4 @@
+import { MovieService } from './../service/movie.service';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { MetaService } from './meta/service/meta.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -43,7 +44,7 @@ import { DropdownLanguageComponent } from './dropdown-language/dropdown-language
     NgbModule
   ],
   providers: [
-    MetaService, ServiceUtils, TranslateService
+    MetaService, ServiceUtils, TranslateService, MovieService
   ]
 })
 
