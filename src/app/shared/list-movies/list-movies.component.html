@@ -11,7 +11,7 @@
     <div class="card-body">
       <div class="reco">
         <div *ngFor="let reco of moviesToShow;">
-          <a class="frame" [routerLink]="['/movie', reco.id]" ngbTooltip="{{reco.title | capitalizeWord}}">
+          <a class="frame" [routerLink]="['/movie', reco.id]" matTooltip="{{reco.title | capitalizeWord}}">
             <img src="{{reco.thumbnail}}" alt="{{reco.title| capitalizeWord}}">
           </a>
           <input [(ngModel)]="reco.checked" type="checkbox">
