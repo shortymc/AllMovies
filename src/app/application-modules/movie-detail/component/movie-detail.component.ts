@@ -1,11 +1,9 @@
-import { forkJoin } from 'rxjs/observable/forkJoin';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Url } from './../../../constant/url';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MovieService } from '../../../service/movie.service';
-import { DropboxService } from '../../../service/dropbox.service';
 import { Movie } from '../../../model/movie';
 
 @Component({
@@ -19,7 +17,7 @@ export class MovieDetailComponent implements OnInit {
   Url = Url;
 
   constructor(private movieService: MovieService, private route: ActivatedRoute, private translate: TranslateService,
-    private location: Location, private router: Router, private dropboxService: DropboxService) { }
+    private location: Location, private router: Router) { }
 
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id');
@@ -41,14 +39,5 @@ export class MovieDetailComponent implements OnInit {
     if (back === undefined) {
       this.router.navigate(['/']);
     }
-  }
-
-  add(movie: Movie): void {
-    forkJoin(
-      this.movieService.getMovie(this.movie.id, false, false, false, false, 'fr'),
-      this.movieService.getMovie(this.movie.id, false, false, false, false, 'en')
-    ).subscribe(([movie_fr, movie_en]) => {
-      this.dropboxService.addMovieList([movie_fr, movie_en], 'ex.json');
-    });
   }
 }

@@ -13,6 +13,7 @@ import { MetaComponent } from './meta/component/meta.component';
 import './rxjs-operators';
 import { ServiceUtils } from '../service/serviceUtils';
 import { DropdownLanguageComponent } from './dropdown-language/dropdown-language.component';
+import { AddCollectionDirective } from './add-collection.directive';
 
 @NgModule({
   declarations: [
@@ -23,8 +24,9 @@ import { DropdownLanguageComponent } from './dropdown-language/dropdown-language
     ListMoviesComponent,
     MetaComponent,
     ListPersonsComponent,
-    DropdownLanguageComponent
-],
+    DropdownLanguageComponent,
+    AddCollectionDirective
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -41,6 +43,7 @@ import { DropdownLanguageComponent } from './dropdown-language/dropdown-language
     MetaComponent,
     ListPersonsComponent,
     DropdownLanguageComponent,
+    AddCollectionDirective,
     NgbModule
   ],
   providers: [
