@@ -106,7 +106,8 @@ label {
   margin-left: 10%;
 }
 
-.input-box {
+.input-box,
+input[type='checkbox'] {
   width: calc(80% - 8px) !important;
 }
 
