@@ -14,6 +14,7 @@ import './rxjs-operators';
 import { ServiceUtils } from '../service/serviceUtils';
 import { DropdownLanguageComponent } from './dropdown-language/dropdown-language.component';
 import { AddCollectionDirective } from './add-collection.directive';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AddCollectionDirective } from './add-collection.directive';
     FormsModule,
     RouterModule,
     NgbModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    MatTooltipModule
   ],
   exports: [
     ConvertToHHmmPipe,
@@ -44,7 +46,8 @@ import { AddCollectionDirective } from './add-collection.directive';
     ListPersonsComponent,
     DropdownLanguageComponent,
     AddCollectionDirective,
-    NgbModule
+    NgbModule,
+    MatTooltipModule
   ],
   providers: [
     MetaService, ServiceUtils, TranslateService, MovieService

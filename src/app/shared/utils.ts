@@ -159,6 +159,8 @@ export class Utils {
             return Utils.compare(+a.note, +b.note, isAsc);
           case 'language':
             return Utils.compare(a.language, b.language, isAsc);
+          case 'added':
+            return Utils.compare(new Date(a.added), new Date(b.added), isAsc);
           case 'date':
             return Utils.compareDate(a.date, b.date, isAsc);
           case 'time':
