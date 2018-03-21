@@ -2,7 +2,7 @@ import { Utils } from './../../../../shared/utils';
 import { DropboxService } from './../../../../service/dropbox.service';
 import { Movie } from './../../../../model/movie';
 import { MovieService } from './../../../../service/movie.service';
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -36,7 +36,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
   language: string;
 
   constructor(private movieService: MovieService, private router: Router, private breakpointObserver: BreakpointObserver,
-    private dropboxService: DropboxService, private translate: TranslateService) {
+    private dropboxService: DropboxService, private translate: TranslateService, private elemRef: ElementRef) {
   }
 
   ngOnInit(): void {
@@ -92,14 +92,17 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onSearch() {
     this.initPagination(this.refreshData());
+    this.onTop();
   }
 
   onSort() {
     this.initPagination(this.refreshData());
+    this.onTop();
   }
 
   onPaginateChange() {
     this.paginate(this.refreshData());
+    this.onTop();
   }
 
   paginate(data: Movie[]) {
@@ -129,6 +132,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     list = Utils.sortMovie(Utils.filterByFields(list, this.displayedColumns, this.filter), this.sort);
     this.length = list.length;
     this.initPagination(list);
+    this.onTop();
   }
 
   updateSize() {
@@ -195,10 +199,11 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.dropboxService.removeMovieList(ids, 'ex.json');
     this.nbChecked = 0;
+    this.onTop();
   }
 
   onTop() {
-    window.scrollTo({ top: 0 });
+    this.elemRef.nativeElement.querySelector('.filters').scrollIntoView();
   }
 
   onScroll($event) {
