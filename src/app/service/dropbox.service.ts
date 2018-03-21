@@ -94,7 +94,7 @@ export class DropboxService {
         this.uploadFile(DropboxService.moviesToBlob(movieList), fileName)
           .then((res: any) => {
             console.log(res);
-            this.toast.open(this.translate.instant('toast.movies_added', { size: found.length }));
+            this.toast.open(this.translate.instant('toast.movies_added', { size: found.length / 2 }));
           }).catch((error: any) => console.error(error));
       } else {
         this.toast.open(this.translate.instant('toast.already_added'));

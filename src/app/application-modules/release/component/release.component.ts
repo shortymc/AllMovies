@@ -1,9 +1,7 @@
-import { forkJoin } from 'rxjs/observable/forkJoin';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { Movie } from '../../../model/movie';
 import { MovieService } from '../../../service/movie.service';
-import { DropboxService } from '../../../service/dropbox.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { MyNgbDate } from '../../../shared/my-ngb-date';
@@ -57,7 +55,7 @@ export class ReleaseComponent implements OnInit {
   language: string;
 
   constructor(private movieService: MovieService, private route: ActivatedRoute,
-    private formatter: MyNgbDate, config: NgbDatepickerConfig, private dropboxService: DropboxService,
+    private formatter: MyNgbDate, config: NgbDatepickerConfig,
     private translate: TranslateService) {
     // Other days than wednesday are disabled
     config.markDisabled = (date: NgbDateStruct) => {
@@ -86,15 +84,6 @@ export class ReleaseComponent implements OnInit {
       }
     );
     this.getMoviesByReleaseDates();
-  }
-
-  addToCollection() {
-    forkJoin(
-      this.movieService.getMovie(this.selectedMovie.id, false, false, false, false, 'fr'),
-      this.movieService.getMovie(this.selectedMovie.id, false, false, false, false, 'en')
-    ).subscribe(([movie_fr, movie_en]) => {
-      this.dropboxService.addMovieList([movie_fr, movie_en], 'ex.json');
-    });
   }
 
   getMoviesByReleaseDates(): void {

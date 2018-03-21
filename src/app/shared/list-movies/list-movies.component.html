@@ -24,7 +24,7 @@
         <span class="total">{{'movie-list.total' | translate}}: {{movies.length}}</span>
     </div>
     <div class="card-footer text-center">
-      <button class="btn btn-outline-primary" (click)="addList()">
+      <button class="btn btn-outline-primary" appAddCollection [movies]="movies">
         <span class="fa fa-save" aria-hidden="true"></span> {{'movie-list.add' | translate}}
       </button>
     </div>
