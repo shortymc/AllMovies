@@ -31,12 +31,11 @@
   </div>
 
   <!-- Table -->
-  <mat-table #table [dataSource]="displayedData" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
-    matSort>
+  <mat-table #table [dataSource]="displayedData" (matSortChange)="paginator.firstPage(); sort = $event; onSort();" matSort>
 
     <!-- ID -->
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.id'|translate }}">
         <span class="mat-text">{{ 'movies.id'|translate }}</span>
         <span class="mat-icon fa fa-hashtag"></span>
       </mat-header-cell>
@@ -47,7 +46,7 @@
 
     <!-- POSTER -->
     <ng-container matColumnDef="thumbnail">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.poster'|translate }}">
         <span class="mat-text">{{ 'movies.poster'|translate }}</span>
         <span class="mat-icon fa fa-image"></span>
       </mat-header-cell>
@@ -58,7 +57,7 @@
 
     <!-- TITLE -->
     <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.title'|translate }}">
         <span class="mat-text">{{ 'movies.title'|translate }}</span>
         <span class="mat-icon fa fa-film"></span>
       </mat-header-cell>
@@ -69,7 +68,7 @@
 
     <!-- VO TITLE -->
     <ng-container matColumnDef="original_title">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'global.original_title'|translate }}">
         <span class="mat-text">{{ 'global.original_title'|translate }}</span>
         <span class="mat-icon fa fa-flag"></span>
       </mat-header-cell>
@@ -80,7 +79,7 @@
 
     <!-- DATE -->
     <ng-container matColumnDef="date">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.date'|translate }}">
         <span class="mat-text">{{ 'movies.date'|translate }}</span>
         <span class="mat-icon fa fa-calendar"></span>
       </mat-header-cell>
@@ -91,7 +90,7 @@
 
     <!-- NOTE -->
     <ng-container matColumnDef="note">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.rating'|translate }}">
         <span class="mat-text">{{ 'movies.rating'|translate }}</span>
         <span class="mat-icon fa fa-star"></span>
       </mat-header-cell>
@@ -102,7 +101,7 @@
 
     <!-- LANGUE -->
     <ng-container matColumnDef="language">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.language'|translate }}">
         <span class="mat-text">{{ 'movies.language'|translate }}</span>
         <span class="mat-icon fa fa-globe"></span>
       </mat-header-cell>
@@ -113,7 +112,7 @@
 
     <!-- GENRES -->
     <ng-container matColumnDef="genres">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.genres'|translate }}">
         <span class="mat-text">{{ 'movies.genres'|translate }}</span>
         <span class="mat-icon fa fa-list"></span>
       </mat-header-cell>
@@ -127,12 +126,23 @@
 
     <!-- TIME -->
     <ng-container matColumnDef="time">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.length'|translate }}">
         <span class="mat-text">{{ 'movies.length'|translate }}</span>
         <span class="mat-icon fa fa-clock-o"></span>
       </mat-header-cell>
       <mat-cell *matCellDef="let movie">
         {{movie.time | convertToHHmm:'true'}}
+      </mat-cell>
+    </ng-container>
+
+    <!-- ADDED -->
+    <ng-container matColumnDef="added">
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.added'|translate }}">
+        <span class="mat-text">{{ 'movies.added'|translate }}</span>
+        <span class="mat-icon fa fa-clock-o"></span>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        {{movie.added | date:'dd/MM/yy HH:mm:ss'}}
       </mat-cell>
     </ng-container>
 

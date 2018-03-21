@@ -11,7 +11,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSelectChange } from '@angular/material/select';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
-const init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'language', 'genres', 'time', 'select'];
+const init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'language', 'genres', 'time', 'added', 'select'];
 
 @Component({
   selector: 'app-my-movies',
