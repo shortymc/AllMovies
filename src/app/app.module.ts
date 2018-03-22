@@ -1,3 +1,5 @@
+import { DropboxService } from './service/dropbox.service';
+import { AuthService } from './service/auth.service';
 import { ToastService } from './service/toast.service';
 import { SharedModule } from './shared/shared.module';
 import { CommonModule, registerLocaleData } from '@angular/common';
@@ -17,6 +19,7 @@ import 'bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AuthGard } from './app.gards';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -44,7 +47,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
   ],
-  providers: [ToastService],
+  providers: [ToastService, AuthGard, AuthService, DropboxService],
   bootstrap: [AppComponent]
 })
 
