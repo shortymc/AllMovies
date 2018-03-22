@@ -12,11 +12,6 @@ export class AuthGard implements CanActivate, OnDestroy {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
-    localStorage.setItem('token',
-      `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoicG1iIiwiaWQiOiIxIiwicGFzc3dvcmQiOiJkZTFmNWY5MzU0ZTU1ODQ4MTNhZWYyM2E1ZTQ3ZTVhMz
-      lhN2M5ZjcxYzcyZGVmNGQ2NzE4MjMzMzQyMWIwMDY0ZjU0MWU1NjE0MmRjOGQzZWI0MzZmYmUxNWJiZmI3NDg4ZjZiYzdjNmIwYWNlOTA3NDJkNTgzZThkOWYxM2Q2Zi
-      IsImlhdCI6MTUxMjU2ODA3OCwianRpIjoiNWY5ZDI1NTYtNDRiZi00N2IxLTgxYTAtODAxZTdhMmQyNDliIiwiZXhwIjoxNTE4NzAzMTE5fQ.slKKc7g-wQSUJ6detTd
-      fjOb3Ju1BYlGXRhaWGAzewHs`);
     console.log('canActivate', state.url);
     try {
       return this.auth.isAuthenticated().then((isAuth) => {
