@@ -41,6 +41,22 @@ export class AuthService {
     }
   }
 
+  login(name: string, password: string): Promise<boolean> {
+    return this.getUserFile().then((users: User[]) => {
+      console.log('users', users);
+      console.log('name', name);
+      console.log('password', password);
+      const found_users = users.filter((user: User) => user.name === name && user.password === password);
+      console.log('found_users', found_users);
+      if (found_users.length > 0) {
+        // TODO modify token
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+
   checkInfos(token: string): Promise<boolean> {
     // console.log('checkInfos');
     const user_infos = <User>jwtDecode(token);

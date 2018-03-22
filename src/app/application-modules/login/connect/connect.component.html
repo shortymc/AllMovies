@@ -1,8 +1,12 @@
 <h2>LOGIN</h2>
-<mat-form-field>
-  <input matInput [(ngModel)]="name" placeholder="name" />
-</mat-form-field>
-<mat-form-field>
-  <input matInput [(ngModel)]="password" placeholder="password" type="password" />
-</mat-form-field>
-<button class="btn btn-outline-primary" (click)="login()">Login</button>
+<div>{{message}}</div>
+<fieldset>
+  <mat-form-field>
+    <input matInput [(ngModel)]="name" placeholder="name" />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="password" placeholder="password" type="password" />
+  </mat-form-field>
+  <button class="btn btn-outline-primary" (click)="login()">Login</button>
+</fieldset>
+<!-- required -->
