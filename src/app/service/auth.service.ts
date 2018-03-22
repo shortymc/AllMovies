@@ -4,6 +4,7 @@ import { DropboxService } from './dropbox.service';
 import { Injectable } from '@angular/core';
 import { User } from '../model/user';
 import * as jwtDecode from 'jwt-decode';
+import * as KJUR from 'jsrsasign';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,11 @@ export class AuthService {
   getToken(): string {
     // console.log('getToken');
     return localStorage.getItem('token');
+  }
+
+  setTokent(token: string) {
+    localStorage.removeItem('token');
+    localStorage.setItem('token', token);
   }
 
   isAuthenticated(): Promise<boolean> {
@@ -43,13 +49,9 @@ export class AuthService {
 
   login(name: string, password: string): Promise<boolean> {
     return this.getUserFile().then((users: User[]) => {
-      console.log('users', users);
-      console.log('name', name);
-      console.log('password', password);
       const found_users = users.filter((user: User) => user.name === name && user.password === password);
-      console.log('found_users', found_users);
-      if (found_users.length > 0) {
-        // TODO modify token
+      if (found_users.length === 1) {
+        this.setTokent(this.createToken(found_users[0]));
         return true;
       } else {
         return false;
@@ -85,6 +87,18 @@ export class AuthService {
       console.error(error);
       return new Promise((resolve, reject) => { });
     });
+  }
+
+  createToken(user: User) {
+    const payload = {
+      id: user.id,
+      name: user.name,
+      password: user.password
+    };
+    const oHeader = { alg: 'HS256', typ: 'JWT' };
+    const sHeader = JSON.stringify(oHeader);
+    const sPayload = JSON.stringify(payload);
+    return KJUR.jws.JWS.sign('HS256', sHeader, sPayload, 'secret');
   }
 
   logout() {
