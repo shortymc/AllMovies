@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
 import { Url } from './../constant/url';
 import { DropboxService } from './dropbox.service';
@@ -23,10 +22,10 @@ export class AuthService {
     const token = this.getToken();
     if (token) {
       // console.log('true');
-      return new Promise((resolve) => { resolve(true) });
+      return new Promise((resolve) => { resolve(true); });
     } else {
       // console.log('false');
-      return new Promise((resolve) => { resolve(false) });
+      return new Promise((resolve) => { resolve(false); });
     }
   }
 
@@ -38,7 +37,7 @@ export class AuthService {
       return this.checkInfos(token);
     } else {
       // console.log('false');
-      return new Promise((resolve) => { resolve(false) });
+      return new Promise((resolve) => { resolve(false); });
     }
   }
 
