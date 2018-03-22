@@ -3,6 +3,7 @@ import { Movie } from './../model/movie';
 import { Directive, Input, HostListener } from '@angular/core';
 import { DropboxService } from '../service/dropbox.service';
 import { MovieService } from '../service/movie.service';
+import { AuthService } from '../service/auth.service';
 
 @Directive({
   selector: '[appAddCollection]'
@@ -14,7 +15,7 @@ export class AddCollectionDirective {
     this.add();
   }
 
-  constructor(private movieService: MovieService, private dropboxService: DropboxService) { }
+  constructor(private movieService: MovieService, private dropboxService: DropboxService, private auth: AuthService) { }
 
   add(): void {
     if (this.movies.length > 1) {
@@ -31,7 +32,9 @@ export class AddCollectionDirective {
       movie.added = new Date();
     });
     forkJoin(prom).subscribe((movies: Movie[]) => {
-      this.dropboxService.addMovieList(movies, 'ex.json');
+      this.auth.getFileName().then((fileName) => {
+        this.dropboxService.addMovieList(movies, fileName);
+      });
     });
   }
 }

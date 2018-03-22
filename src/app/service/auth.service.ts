@@ -12,6 +12,7 @@ export class AuthService {
 
   redirectUrl: string;
   isLogged = false;
+  private fileName: string;
 
   constructor(private dropbox: DropboxService, private router: Router) { }
 
@@ -29,31 +30,39 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
+  reject(): Promise<boolean> {
+    this.isLogged = false;
+    this.fileName = '';
+    return new Promise((resolve) => { resolve(false); });
+  }
+
   isAuthenticated(): Promise<boolean> {
-    // console.log('isAuthenticated');
     const token = this.getToken();
-    if (token) {
-      // console.log('true');
+    if (!token) {
+      return this.reject();
+    }
+    const user_infos = <User>jwtDecode(token);
+    if (token && user_infos && user_infos.id) {
       this.isLogged = true;
+      this.fileName = Url.DROPBOX_FILE_PREFIX + user_infos.id + Url.DROPBOX_FILE_SUFFIX;
       return new Promise((resolve) => { resolve(true); });
     } else {
-      // console.log('false');
-      this.isLogged = false;
-      return new Promise((resolve) => { resolve(false); });
+      return this.reject();
     }
   }
 
   isAllowed(): Promise<boolean> {
-    // console.log('isAuthenticated');
     const token = this.getToken();
-    if (token) {
-      // console.log('true');
+    if (!token) {
+      return this.reject();
+    }
+    const user_infos = <User>jwtDecode(token);
+    if (token && user_infos && user_infos.id) {
       this.isLogged = true;
+      this.fileName = Url.DROPBOX_FILE_PREFIX + user_infos.id + Url.DROPBOX_FILE_SUFFIX;
       return this.checkInfos(token);
     } else {
-      // console.log('false');
-      this.isLogged = false;
-      return new Promise((resolve) => { resolve(false); });
+      return this.reject();
     }
   }
 
@@ -63,9 +72,11 @@ export class AuthService {
       if (found_users.length === 1) {
         this.setToken(this.createToken(found_users[0]));
         this.isLogged = true;
+        this.fileName = Url.DROPBOX_FILE_PREFIX + found_users[0].id + Url.DROPBOX_FILE_SUFFIX;
         return true;
       } else {
         this.isLogged = false;
+        this.fileName = '';
         return false;
       }
     });
@@ -77,6 +88,9 @@ export class AuthService {
     // console.log('token', user_infos);
     return this.getUserInfo(user_infos.id).then((user: User) => {
       // console.log('user', user);
+      if (!user) {
+        return false;
+      }
       return user.name === user_infos.name && user.password === user_infos.password;
     });
   }
@@ -111,6 +125,17 @@ export class AuthService {
     const sHeader = JSON.stringify(oHeader);
     const sPayload = JSON.stringify(payload);
     return KJUR.jws.JWS.sign('HS256', sHeader, sPayload, 'secret');
+  }
+
+  getFileName(): Promise<string> {
+    return this.isAllowed().then((isAuth) => {
+      if (isAuth) {
+        return this.fileName;
+      } else {
+        this.logout();
+        return undefined;
+      }
+    });
   }
 
   logout() {
