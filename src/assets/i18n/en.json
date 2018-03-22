@@ -39,7 +39,8 @@
     "nav_bar": {
         "dashboard": "Dashboard",
         "movies": "Movies",
-        "release": "Releases"
+        "release": "Releases",
+        "logout": "Log out"
     },
     "toast": {
         "movie_added": "Movie added !",
@@ -47,7 +48,7 @@
         "movie_removed": "Movie removed !",
         "movies_removed": "{{size}} Movies removed !",
         "movies_updated": "{{size}} Movies updated !",
-        "already_added":"Already added !"
+        "already_added": "Already added !"
     },
     "dashboard": {
         "header": "Top Movies"
