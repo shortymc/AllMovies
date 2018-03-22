@@ -1,3 +1,4 @@
+import { AuthService } from './../../../../service/auth.service';
 import { Utils } from './../../../../shared/utils';
 import { DropboxService } from './../../../../service/dropbox.service';
 import { Movie } from './../../../../model/movie';
@@ -36,7 +37,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
   language: string;
 
   constructor(private movieService: MovieService, private router: Router, private breakpointObserver: BreakpointObserver,
-    private dropboxService: DropboxService, private translate: TranslateService, private elemRef: ElementRef) {
+    private dropboxService: DropboxService, private translate: TranslateService, private elemRef: ElementRef, private auth: AuthService) {
   }
 
   ngOnInit(): void {
@@ -61,13 +62,15 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getMovies(): void {
-    this.dropboxService.getAllMovies('ex.json').then(movies => {
-      // this.checkAndFixData(movies);
-      this.movies = movies.filter(movie => movie.lang_version === this.language);
-      this.length = this.movies.length;
-      this.initPagination(this.movies);
-      this.getAllGenres();
-      // localStorage.setItem('movies', JSON.stringify(movies));
+    this.auth.getFileName().then((fileName) => {
+      this.dropboxService.getAllMovies(fileName).then(movies => {
+        // this.checkAndFixData(movies);
+        this.movies = movies.filter(movie => movie.lang_version === this.language);
+        this.length = this.movies.length;
+        this.initPagination(this.movies);
+        this.getAllGenres();
+        // localStorage.setItem('movies', JSON.stringify(movies));
+      });
     });
   }
 
@@ -174,7 +177,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
 
     forkJoin(obs).subscribe(
       data => {
-        this.dropboxService.addMovieList(data, 'ex.json');
+        // this.dropboxService.addMovieList(data, this.auth.fileName);
       },
       err => console.error(err)
     );
@@ -197,7 +200,9 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.paginate(this.refreshData());
     }
-    this.dropboxService.removeMovieList(ids, 'ex.json');
+    this.auth.getFileName().then((fileName) => {
+      this.dropboxService.removeMovieList(ids, fileName);
+    });
     this.nbChecked = 0;
     this.onTop();
   }
