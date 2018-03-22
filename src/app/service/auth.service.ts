@@ -38,12 +38,11 @@ export class AuthService {
 
   isAuthenticated(): Promise<boolean> {
     const token = this.getToken();
-    if (!token) {
+    if (!token || !this.isLogged) {
       return this.reject();
     }
     const user_infos = <User>jwtDecode(token);
-    if (token && user_infos && user_infos.id) {
-      this.isLogged = true;
+    if (token && this.isLogged && user_infos && user_infos.id) {
       this.fileName = Url.DROPBOX_FILE_PREFIX + user_infos.id + Url.DROPBOX_FILE_SUFFIX;
       return new Promise((resolve) => { resolve(true); });
     } else {
@@ -133,7 +132,7 @@ export class AuthService {
         return this.fileName;
       } else {
         this.logout();
-        return undefined;
+        return '';
       }
     });
   }
