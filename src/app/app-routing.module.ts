@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGard } from './app.gards';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', loadChildren: './application-modules/dashboard/dashboard.module#DashboardModule', canActivate: [AuthGard] },
   { path: 'movie', loadChildren: './application-modules/movie-detail/movie-detail.module#MovieDetailModule', canActivate: [AuthGard] },
   { path: 'person', loadChildren: './application-modules/person-detail/person-detail.module#PersonDetailModule', canActivate: [AuthGard] },
