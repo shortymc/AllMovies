@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import 'rxjs/add/observable/fromPromise';
 import { Url } from './../constant/url';
 import { DropboxService } from './dropbox.service';
@@ -10,16 +11,21 @@ import * as KJUR from 'jsrsasign';
 export class AuthService {
 
   redirectUrl: string;
+  isLogged = false;
 
-  constructor(private dropbox: DropboxService) { }
+  constructor(private dropbox: DropboxService, private router: Router) { }
 
   getToken(): string {
     // console.log('getToken');
     return localStorage.getItem('token');
   }
 
-  setTokent(token: string) {
+  removeToken() {
     localStorage.removeItem('token');
+  }
+
+  setToken(token: string) {
+    this.removeToken();
     localStorage.setItem('token', token);
   }
 
@@ -28,9 +34,11 @@ export class AuthService {
     const token = this.getToken();
     if (token) {
       // console.log('true');
+      this.isLogged = true;
       return new Promise((resolve) => { resolve(true); });
     } else {
       // console.log('false');
+      this.isLogged = false;
       return new Promise((resolve) => { resolve(false); });
     }
   }
@@ -40,9 +48,11 @@ export class AuthService {
     const token = this.getToken();
     if (token) {
       // console.log('true');
+      this.isLogged = true;
       return this.checkInfos(token);
     } else {
       // console.log('false');
+      this.isLogged = false;
       return new Promise((resolve) => { resolve(false); });
     }
   }
@@ -51,9 +61,11 @@ export class AuthService {
     return this.getUserFile().then((users: User[]) => {
       const found_users = users.filter((user: User) => user.name === name && user.password === password);
       if (found_users.length === 1) {
-        this.setTokent(this.createToken(found_users[0]));
+        this.setToken(this.createToken(found_users[0]));
+        this.isLogged = true;
         return true;
       } else {
+        this.isLogged = false;
         return false;
       }
     });
@@ -102,6 +114,8 @@ export class AuthService {
   }
 
   logout() {
-
+    this.isLogged = false;
+    this.removeToken();
+    this.router.navigate(['/login']);
   }
 }

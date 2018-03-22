@@ -39,7 +39,8 @@
     "nav_bar": {
         "dashboard": "Tableau de Bord",
         "movies": "Films",
-        "release": "Sorties"
+        "release": "Sorties",
+        "logout": "Déconnexion"
     },
     "toast": {
         "movie_added": "Film ajouté !",
@@ -47,7 +48,7 @@
         "movie_removed": "Film supprimé !",
         "movies_removed": "{{size}} Films supprimés !",
         "movies_updated": "{{size}} Films mis à jour !",
-        "already_added":"Déjà ajouté !"
+        "already_added": "Déjà ajouté !"
     },
     "dashboard": {
         "header": "Top Films"
