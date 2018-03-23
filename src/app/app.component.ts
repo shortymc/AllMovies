@@ -1,5 +1,5 @@
 import { AuthService } from './service/auth.service';
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
 
-  constructor(public auth: AuthService) { }
+  constructor(public auth: AuthService, private cdRef: ChangeDetectorRef) { }
 
+  ngAfterViewInit() {
+    this.cdRef.detectChanges();
+  }
 }
