@@ -19,6 +19,6 @@ export class PersonSearchService {
     return this.serviceUtils
       .getObservable(url, this.serviceUtils.getHeaders())
       .map(response => MapPerson.mapForSearchPersons(response))
-      .catch(this.serviceUtils.handleError);
+      .catch(this.serviceUtils.handlePromiseError);
   }
 }
