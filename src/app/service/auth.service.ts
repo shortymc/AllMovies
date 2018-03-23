@@ -58,6 +58,7 @@ export class AuthService {
     const user_infos = <User>jwtDecode(token);
     if (token && user_infos && user_infos.id) {
       this.fileName = AuthService.getUserFileName(user_infos.id);
+      this.isLogged = true;
       return new Promise((resolve) => { resolve(true); });
     } else {
       return this.reject();
