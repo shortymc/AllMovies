@@ -6,6 +6,7 @@ import { ConnectComponent } from './connect/connect.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 const childRoutes: Routes = [
   {
@@ -22,13 +23,14 @@ const childRoutes: Routes = [
     CommonModule,
     FormsModule,
     MatInputModule,
+    TranslateModule.forChild(),
     MatFormFieldModule,
     RouterModule.forChild(childRoutes),
   ],
   declarations: [
     ConnectComponent,
     RegisterComponent
-],
-  providers: []
+  ],
+  providers: [TranslateService]
 })
 export class LoginModule { }

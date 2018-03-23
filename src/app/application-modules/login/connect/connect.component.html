@@ -1,13 +1,20 @@
 <h2>LOGIN</h2>
 <div>{{message}}</div>
-<fieldset>
+<form #connectForm="ngForm">
+
   <mat-form-field>
-    <input matInput [(ngModel)]="name" placeholder="name" />
+    <input matInput [(ngModel)]="name" placeholder="name" type="text" #inputName="ngModel" name="inputName" required/>
+    <mat-error *ngIf="inputName.errors != null && inputName.errors.required && !inputName.pristine">{{'MANDATORY'|translate}}</mat-error>
   </mat-form-field>
+
   <mat-form-field>
-    <input matInput [(ngModel)]="password" placeholder="password" type="password" />
+    <input matInput [(ngModel)]="password" placeholder="password" type="password" #inputPassword="ngModel" name="inputPassword"
+      required/>
+    <mat-error *ngIf="inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine">{{'MANDATORY'|translate}}</mat-error>
   </mat-form-field>
-  <button class="btn btn-outline-primary" (click)="login()">Login</button>
-</fieldset>
-<button class="btn btn-outline-primary" routerLink="/login/register">Sign Up</button>
-<!-- required -->
+
+  <div class="connect-footer">
+    <button type="submit" class="btn btn-outline-primary" (click)="login()" [disabled]="connectForm.invalid">Login In</button>
+    <button type="button" class="btn btn-outline-primary" routerLink="/login/register">Sign Up</button>
+  </div>
+</form>
