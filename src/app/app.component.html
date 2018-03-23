@@ -1,8 +1,8 @@
 <div class="header">
   <nav>
-    <button class="btn btn-outline-primary" routerLink="/dashboard">{{'nav_bar.dashboard' | translate}}</button>
-    <button class="btn btn-outline-primary" routerLink="/movies">{{'nav_bar.movies' | translate}}</button>
-    <button class="btn btn-outline-primary" routerLink="/release">{{'nav_bar.release' | translate}}</button>
+    <button class="btn btn-outline-primary" routerLink="/dashboard" *ngIf="auth.isLogged">{{'nav_bar.dashboard' | translate}}</button>
+    <button class="btn btn-outline-primary" routerLink="/movies" *ngIf="auth.isLogged">{{'nav_bar.movies' | translate}}</button>
+    <button class="btn btn-outline-primary" routerLink="/release" *ngIf="auth.isLogged">{{'nav_bar.release' | translate}}</button>
     <button class="btn btn-outline-primary" *ngIf="auth.isLogged" (click)="auth.logout()">{{'nav_bar.logout' | translate}}</button>
   </nav>
   <app-dropdown-language></app-dropdown-language>
