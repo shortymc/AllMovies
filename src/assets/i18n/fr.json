@@ -161,6 +161,15 @@
             "sign_up": "S'inscrire",
             "connected": "Connecté !!",
             "wrong": "Saisie incorrecte.."
+        },
+        "register": {
+            "title": "S'inscrire",
+            "question": "Question secrète",
+            "answer": "Réponse",
+            "question_required": "La question est obligatoire",
+            "answer_required": "La réponse est obligatoire",
+            "cancel": "Annuler",
+            "validation": "S'inscrire"
         }
     }
 }
