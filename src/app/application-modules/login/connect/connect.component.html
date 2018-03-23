@@ -16,8 +16,8 @@
     </mat-form-field>
 
     <div class="connect-footer">
-      <button type="submit" class="btn btn-outline-primary" (click)="login()" [disabled]="connectForm.invalid">{{'login.connect.log_in'|translate}}</button>
       <button type="button" class="btn btn-outline-primary" routerLink="/login/register">{{'login.connect.sign_up'|translate}}</button>
+      <button type="submit" class="btn btn-outline-primary" (click)="login()" [disabled]="connectForm.invalid">{{'login.connect.log_in'|translate}}</button>
     </div>
   </form>
 </div>
