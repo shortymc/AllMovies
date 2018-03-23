@@ -1,0 +1,17 @@
+<h2>Register</h2>
+<fieldset>
+  <mat-form-field>
+    <input matInput [(ngModel)]="name" placeholder="name" />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="password" placeholder="password" type="password" />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="question" placeholder="question" />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="answer" placeholder="answer" type="password" />
+  </mat-form-field>
+  <button class="btn btn-outline-primary" (click)="register()">Register</button>
+</fieldset>
+<!-- required -->

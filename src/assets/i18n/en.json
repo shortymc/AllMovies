@@ -48,7 +48,8 @@
         "movie_removed": "Movie removed !",
         "movies_removed": "{{size}} Movies removed !",
         "movies_updated": "{{size}} Movies updated !",
-        "already_added": "Already added !"
+        "already_added": "Already added !",
+        "user_added": "User added !"
     },
     "dashboard": {
         "header": "Top Movies"

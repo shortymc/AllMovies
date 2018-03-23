@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ConnectComponent } from './connect/connect.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Routes, RouterModule } from '@angular/router';
+import { RegisterComponent } from './register/register.component';
 
 const childRoutes: Routes = [
   {
@@ -12,6 +13,7 @@ const childRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'connect', pathMatch: 'full' },
       { path: 'connect', component: ConnectComponent },
+      { path: 'register', component: RegisterComponent },
     ]
   }];
 
@@ -24,8 +26,9 @@ const childRoutes: Routes = [
     RouterModule.forChild(childRoutes),
   ],
   declarations: [
-    ConnectComponent
-  ],
+    ConnectComponent,
+    RegisterComponent
+],
   providers: []
 })
 export class LoginModule { }
