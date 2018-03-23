@@ -21,6 +21,6 @@ export class PersonService {
       return [].concat(...responses);
     }).map(response => MapPerson.mapForPerson(response))
       .toPromise()
-      .catch(this.serviceUtils.handleError);
+      .catch(this.serviceUtils.handlePromiseError);
   }
 }

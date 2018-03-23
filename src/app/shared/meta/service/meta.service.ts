@@ -28,7 +28,7 @@ export class MetaService {
           }
           return result;
         })
-        .catch(this.serviceUtils.handleError);
+        .catch(this.serviceUtils.handlePromiseError);
     }
   }
 
@@ -45,7 +45,7 @@ export class MetaService {
       .map(response => {
         return response[3][0];
       })
-      .catch(this.serviceUtils.handleError);
+      .catch(this.serviceUtils.handlePromiseError);
   }
 
   getMeta(title: string): Promise<void> {

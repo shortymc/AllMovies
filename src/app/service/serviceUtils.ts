@@ -1,11 +1,12 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { ToastService } from './toast.service';
 
 @Injectable()
 export class ServiceUtils {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toast: ToastService) {
   }
 
   getHeaders() {
@@ -20,9 +21,25 @@ export class ServiceUtils {
     });
   }
 
-  handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+  handleSuccess(messageKey: string) {
+
+  }
+
+  handleError(error: any) {
+    console.log('handleError');
+    console.error(error);
+    console.error(typeof error);
+    this.toast.open(error.error.message);
+  }
+
+  handlePromiseError(error: any): Promise<any> {
+    console.log('handlePromiseError');
+    console.error(error);
+    console.error(typeof error);
+    this.toast.open(error.error.message);
+    return new Promise<any>((resolve, reject) => {
+      resolve();
+    });
   }
 
   getPromise(url: string, headers?: HttpHeaders): Promise<Object> {

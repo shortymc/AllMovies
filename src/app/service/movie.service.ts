@@ -12,7 +12,7 @@ export class MovieService {
   getPopularMovies(language: string): Promise<Movie[]> {
     return this.serviceUtils.getPromise(`${Url.MOST_POPULAR_URL}${Url.LANGUE}${language}`)
       .then(response => MapMovie.mapForPopularMovies(response))
-      .catch(this.serviceUtils.handleError);
+      .catch(this.serviceUtils.handlePromiseError);
   }
 
   getMovie(id: number, video: boolean, credit: boolean, reco: boolean, image: boolean, language: string): Promise<Movie> {
@@ -44,7 +44,7 @@ export class MovieService {
         const movie = MapMovie.mapForMovie(response);
         movie.lang_version = language;
         return movie;
-      }).catch(this.serviceUtils.handleError);
+      }).catch(this.serviceUtils.handlePromiseError);
   }
 
   getMoviesByReleaseDates(debut: string, fin: string, language: string): Promise<Movie[]> {
@@ -52,6 +52,6 @@ export class MovieService {
       `${Url.DISCOVER_URL}${Url.RELEASE_DATE_GTE_URL}${debut}${Url.RELEASE_DATE_LTE_URL}${fin}${Url.RELEASE_TYPE_URL}${Url.LANGUE}${language}`;
     return this.serviceUtils.getPromise(url)
       .then(response => MapMovie.mapForMoviesByReleaseDates(response))
-      .catch(this.serviceUtils.handleError);
+      .catch(this.serviceUtils.handlePromiseError);
   }
 }
