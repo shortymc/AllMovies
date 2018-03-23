@@ -151,12 +151,12 @@
         }
     },
     "login": {
+        "name": "Pseudo",
+        "name_required": "Veuillez renseigner votre pseudo",
+        "password": "Mot de passe",
+        "password_required": "Veuillez renseigner votre mot de passe",
         "connect": {
             "title": "S'IDENTIFIER",
-            "name": "Pseudo",
-            "name_required": "Veuillez renseigner votre pseudo",
-            "password": "Mot de passe",
-            "password_required": "Veuillez renseigner votre mot de passe",
             "log_in": "Se connecter",
             "sign_up": "S'inscrire",
             "connected": "Connecté !!",
