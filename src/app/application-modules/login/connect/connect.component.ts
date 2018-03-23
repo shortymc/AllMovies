@@ -19,14 +19,13 @@ export class ConnectComponent implements OnInit {
   }
 
   login() {
-    // this.auth.isAllowed().then((resp) => console.log(resp));
     if (this.name && this.password) {
       this.auth.login(this.name, crypto.SHA512(this.password).toString()).then((isAuth) => {
         if (isAuth) {
-          this.message = 'Connected !';
+          this.message = this.translate.instant('login.connect.connected');
           this.router.navigateByUrl('/');
         } else {
-          this.message = 'Wrong informations..';
+          this.message = this.translate.instant('login.connect.wrong');
         }
       });
     }
