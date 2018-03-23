@@ -161,6 +161,15 @@
             "sign_up": "Sign Up",
             "connected": "Connected !!",
             "wrong": "Incorrect entry.."
+        },
+        "register": {
+            "title": "Register",
+            "question": "Secret question",
+            "answer": "Answer",
+            "question_required": "Question is required",
+            "answer_required": "Answer is required",
+            "cancel": "Cancel",
+            "validation": "Register"
         }
     }
 }
