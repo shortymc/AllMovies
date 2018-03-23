@@ -1,20 +1,23 @@
-<h2>LOGIN</h2>
-<div>{{message}}</div>
-<form #connectForm="ngForm">
+<h2>{{'login.connect.title'|translate}}</h2>
+<div class="connect-content">
+  <div>{{message}}</div>
+  <form #connectForm="ngForm">
 
-  <mat-form-field>
-    <input matInput [(ngModel)]="name" placeholder="name" type="text" #inputName="ngModel" name="inputName" required/>
-    <mat-error *ngIf="inputName.errors != null && inputName.errors.required && !inputName.pristine">{{'MANDATORY'|translate}}</mat-error>
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="name" placeholder="{{'login.connect.name'|translate}}" type="text" #inputName="ngModel" name="inputName"
+        required/>
+      <mat-error *ngIf="inputName.errors != null && inputName.errors.required && !inputName.pristine">{{'login.connect.name_required'|translate}}</mat-error>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput [(ngModel)]="password" placeholder="password" type="password" #inputPassword="ngModel" name="inputPassword"
-      required/>
-    <mat-error *ngIf="inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine">{{'MANDATORY'|translate}}</mat-error>
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="password" placeholder="{{'login.connect.password'|translate}}" type="password" #inputPassword="ngModel"
+        name="inputPassword" required/>
+      <mat-error *ngIf="inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine">{{'login.connect.password_required'|translate}}</mat-error>
+    </mat-form-field>
 
-  <div class="connect-footer">
-    <button type="submit" class="btn btn-outline-primary" (click)="login()" [disabled]="connectForm.invalid">Login In</button>
-    <button type="button" class="btn btn-outline-primary" routerLink="/login/register">Sign Up</button>
-  </div>
-</form>
+    <div class="connect-footer">
+      <button type="submit" class="btn btn-outline-primary" (click)="login()" [disabled]="connectForm.invalid">{{'login.connect.log_in'|translate}}</button>
+      <button type="button" class="btn btn-outline-primary" routerLink="/login/register">{{'login.connect.sign_up'|translate}}</button>
+    </div>
+  </form>
+</div>
