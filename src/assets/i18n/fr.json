@@ -1,8 +1,5 @@
 {
     "global": {
-        "add_picture": "Ajouter une image",
-        "add_contact": "Ajouter un contact",
-        "edit_picture": "Modifier l'image",
         "previous": "Page précédente",
         "add_collection": "Ajouter à la collection",
         "go_detail": "Voir Détails",
@@ -13,9 +10,6 @@
         "delete": "Supprimer",
         "cancel": "Annuler",
         "done": "Terminer",
-        "email": "E-mail",
-        "firstname": "Prénom",
-        "lastname": "Nom",
         "username": "Pseudo",
         "original_title": "Titre Original",
         "add": "Ajouter",
@@ -154,6 +148,19 @@
             "previous": "Semaine précédente",
             "next": "Semaine suivante",
             "current": "Semaine courante"
+        }
+    },
+    "login": {
+        "connect": {
+            "title": "S'IDENTIFIER",
+            "name": "Pseudo",
+            "name_required": "Veuillez renseigner votre pseudo",
+            "password": "Mot de passe",
+            "password_required": "Veuillez renseigner votre mot de passe",
+            "log_in": "Se connecter",
+            "sign_up": "S'inscrire",
+            "connected": "Connecté !!",
+            "wrong": "Saisie incorrecte.."
         }
     }
 }

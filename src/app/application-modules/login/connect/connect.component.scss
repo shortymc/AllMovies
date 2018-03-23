@@ -1,9 +1,9 @@
 @import "../../../styles/styles";
 
-:host {
+.connect-content {
   position: relative;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   margin: 5vh auto;
   padding: 25px;
 }

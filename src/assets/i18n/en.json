@@ -1,8 +1,5 @@
 {
     "global": {
-        "add_picture": "Add a picture",
-        "add_contact": "Add a contact",
-        "edit_picture": "Edit the picture",
         "previous": "Previous Page",
         "add_collection": "Add To Collection",
         "go_detail": "See Details",
@@ -13,9 +10,6 @@
         "delete": "Delete",
         "cancel": "Cancel",
         "done": "Done",
-        "email": "E-mail",
-        "firstname": "First name",
-        "lastname": "Last name",
         "username": "Pseudo",
         "original_title": "Original Title",
         "add": "Add",
@@ -154,6 +148,19 @@
             "previous": "Previous week",
             "next": "Next week",
             "current": "Current week"
+        }
+    },
+    "login": {
+        "connect": {
+            "title": "LOGIN",
+            "name": "Username",
+            "name_required": "Username is required",
+            "password": "Password",
+            "password_required": "Password is required",
+            "log_in": "Log In",
+            "sign_up": "Sign Up",
+            "connected": "Connected !!",
+            "wrong": "Incorrect entry.."
         }
     }
 }
