@@ -1,8 +1,8 @@
 import { AuthService } from './../../../service/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-// import * as sha256 from 'crypto-js/sha256';
 import * as crypto from 'crypto-js';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-connect',
@@ -13,7 +13,7 @@ export class ConnectComponent implements OnInit {
   name: string;
   password: string;
   message: string;
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router, private translate: TranslateService) { }
 
   ngOnInit() {
   }

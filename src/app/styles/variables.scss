@@ -17,6 +17,9 @@ $true_white: #fff;
 $black: #000;
 $green: #0ad06f;
 $pink: #ff637e;
+$success: #1aaa55;
+$warning: #fc6d26;
+$error: #ff3838;
 
 $gender: (
   'woman': $pink,
@@ -25,3 +28,4 @@ $gender: (
 );
 
 $bezier: cubic-bezier(0.86, 0, 0.07, 1);
+$border_radius: 3px;
