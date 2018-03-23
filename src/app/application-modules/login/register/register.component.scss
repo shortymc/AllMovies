@@ -1,0 +1,17 @@
+@import "../../../styles/styles";
+
+.register-content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 5vh auto;
+  padding: 25px;
+}
+
+.register-footer {
+  display: flex;
+
+  & button {
+    margin: 5px;
+  }
+}

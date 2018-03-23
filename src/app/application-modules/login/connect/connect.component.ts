@@ -13,6 +13,7 @@ export class ConnectComponent implements OnInit {
   name: string;
   password: string;
   message: string;
+
   constructor(private auth: AuthService, private router: Router, private translate: TranslateService) { }
 
   ngOnInit() {
