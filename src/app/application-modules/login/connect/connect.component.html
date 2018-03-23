@@ -4,15 +4,15 @@
   <form #connectForm="ngForm">
 
     <mat-form-field>
-      <input matInput [(ngModel)]="name" placeholder="{{'login.connect.name'|translate}}" type="text" #inputName="ngModel" name="inputName"
+      <input matInput [(ngModel)]="name" placeholder="{{'login.name'|translate}}" type="text" #inputName="ngModel" name="inputName"
         required/>
-      <mat-error *ngIf="inputName.errors != null && inputName.errors.required && !inputName.pristine">{{'login.connect.name_required'|translate}}</mat-error>
+      <mat-error *ngIf="inputName.errors != null && inputName.errors.required && !inputName.pristine">{{'login.name_required'|translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [(ngModel)]="password" placeholder="{{'login.connect.password'|translate}}" type="password" #inputPassword="ngModel"
+      <input matInput [(ngModel)]="password" placeholder="{{'login.password'|translate}}" type="password" #inputPassword="ngModel"
         name="inputPassword" required/>
-      <mat-error *ngIf="inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine">{{'login.connect.password_required'|translate}}</mat-error>
+      <mat-error *ngIf="inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine">{{'login.password_required'|translate}}</mat-error>
     </mat-form-field>
 
     <div class="connect-footer">
