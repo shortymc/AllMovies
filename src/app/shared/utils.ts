@@ -81,7 +81,7 @@ export class Utils {
     return result * (isAsc ? 1 : -1);
   }
 
-  static compareMovie(a: Movie, b: Movie): number {
+  static compareObject(a: any, b: any): number {
     if (a.id < b.id) {
       return -1;
     }

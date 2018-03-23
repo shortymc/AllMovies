@@ -27,16 +27,14 @@ export class ServiceUtils {
 
   handleError(error: any) {
     console.log('handleError');
-    console.error(error);
-    console.error(typeof error);
-    this.toast.open(error.error.message);
+    console.error('error', error);
+    this.toast.open(error);
   }
 
   handlePromiseError(error: any): Promise<any> {
     console.log('handlePromiseError');
-    console.error(error);
-    console.error(typeof error);
-    this.toast.open(error.error.message);
+    console.error('error', error);
+    this.toast.open(error.response.error);
     return new Promise<any>((resolve, reject) => {
       resolve();
     });

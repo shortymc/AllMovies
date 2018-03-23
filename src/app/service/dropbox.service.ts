@@ -5,10 +5,11 @@ import { Url } from '../constant/url';
 import { Utils } from '../shared/utils';
 import { ToastService } from './toast.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ServiceUtils } from './serviceUtils';
 
 @Injectable()
 export class DropboxService {
-  constructor(private toast: ToastService, private translate: TranslateService) { }
+  constructor(private toast: ToastService, private translate: TranslateService, private serviceUtils: ServiceUtils) { }
 
   /**
    * @param  {Movie[]} movies
@@ -33,7 +34,7 @@ export class DropboxService {
   listFiles(): void {
     this.getDbx().filesListFolder({ path: '' })
       .then((response: any) => console.log(response.entries))
-      .catch((error: any) => console.error(error));
+      .catch(this.serviceUtils.handleError);
   }
 
   getPath(fileName: string): string {
@@ -45,8 +46,14 @@ export class DropboxService {
     return this.getDbx().filesDeleteV2({ path: pathFile })
       .then((response: any) => {
         return this.getDbx().filesUpload({ path: pathFile, contents: fichier });
-      })
-      .catch((error: any) => { console.error(error); return false; });
+      }).catch(this.serviceUtils.handlePromiseError);
+  }
+
+  uploadNewFile(fichier: any, fileName: string): Promise<void> {
+    const pathFile = this.getPath(fileName);
+    return this.getDbx().filesUpload({ path: pathFile, contents: fichier })
+      .then(() => new Promise((resolve, reject) => resolve()))
+      .catch(this.serviceUtils.handlePromiseError);
   }
 
   downloadFile(fileName: string): Promise<string> {
@@ -59,47 +66,52 @@ export class DropboxService {
           fileReader.onerror = reject;
           fileReader.readAsText(response.fileBlob);
         }) as Promise<string[]>;
-      })
-      .catch((error: any) => console.error(error));
+      }).catch(this.serviceUtils.handleError);
   }
 
   addMovie(movie: Movie, fileName: string): void {
     this.downloadFile(fileName).then(file => {
-      const movieList = <Movie[]>JSON.parse(file);
+      let movieList = [];
+      if (file && file.trim().length > 0) {
+        movieList = <Movie[]>JSON.parse(file);
+      }
       const found = movieList.find(function(film) {
         return film.id === movie.id;
       });
       if (!found) {
         movieList.push(movie);
-        movieList.sort(Utils.compareMovie);
+        movieList.sort(Utils.compareObject);
         this.uploadFile(DropboxService.moviesToBlob(movieList), fileName)
           .then((res: any) => {
             console.log(res);
             this.toast.open(this.translate.instant('toast.movie_added'));
-          }).catch((error: any) => console.error(error));
+          }).catch(this.serviceUtils.handleError);
       } else {
         this.toast.open(this.translate.instant('toast.already_added'));
       }
-    }).catch((error: any) => console.error(error));
+    }).catch(this.serviceUtils.handleError);
   }
 
   addMovieList(moviesToAdd: Movie[], fileName: string): void {
     this.downloadFile(fileName).then(file => {
-      const movieList = <Movie[]>JSON.parse(file);
+      let movieList = [];
+      if (file && file.trim().length > 0) {
+        movieList = <Movie[]>JSON.parse(file);
+      }
       const found = moviesToAdd.filter((add: Movie) => !movieList.map((movie: Movie) => movie.id).includes(add.id));
 
       if (found.length > 0) {
         found.forEach((movie: Movie) => movieList.push(movie));
-        movieList.sort(Utils.compareMovie);
+        movieList.sort(Utils.compareObject);
         this.uploadFile(DropboxService.moviesToBlob(movieList), fileName)
           .then((res: any) => {
             console.log(res);
             this.toast.open(this.translate.instant('toast.movies_added', { size: found.length / 2 }));
-          }).catch((error: any) => console.error(error));
+          }).catch(this.serviceUtils.handleError);
       } else {
         this.toast.open(this.translate.instant('toast.already_added'));
       }
-    }).catch((error: any) => console.error(error));
+    }).catch(this.serviceUtils.handleError);
   }
 
   removeMovie(id: number, fileName: string): void {
@@ -109,8 +121,8 @@ export class DropboxService {
         .then((res: any) => {
           console.log(res);
           this.toast.open(this.translate.instant('toast.movie_removed'));
-        }).catch((error: any) => console.error(error));
-    }).catch((error: any) => console.error(error));
+        }).catch(this.serviceUtils.handleError);
+    }).catch(this.serviceUtils.handleError);
   }
 
   removeMovieList(idToRemove: number[], fileName: string): void {
@@ -123,18 +135,19 @@ export class DropboxService {
           .then((res: any) => {
             console.log(res);
             this.toast.open(this.translate.instant('toast.movies_removed', { size: idToRemove.length }));
-          }).catch((error: any) => console.error(error));
+          }).catch(this.serviceUtils.handleError);
       }
-    }).catch((error: any) => console.error(error));
+    }).catch(this.serviceUtils.handleError);
   }
 
   getAllMovies(fileName: string): Promise<Movie[]> {
     return this.downloadFile(fileName).then(file => {
-      return <Movie[]>JSON.parse(file);
-    }).catch((error: any) => {
-      console.error(error);
-      return new Promise((resolve, reject) => { });
-    });
+      if (file && file.trim().length > 0) {
+        return <Movie[]>JSON.parse(file);
+      } else {
+        return [];
+      }
+    }).catch(this.serviceUtils.handlePromiseError);
   }
 
   /**
@@ -149,12 +162,12 @@ export class DropboxService {
       movieList = movieList.filter((m: Movie) => !moviesToReplace.map((movie: Movie) => movie.id).includes(m.id));
 
       moviesToReplace.forEach((movie: Movie) => movieList.push(movie));
-      movieList.sort(Utils.compareMovie);
+      movieList.sort(Utils.compareObject);
       this.uploadFile(DropboxService.moviesToBlob(movieList), fileName)
         .then((res: any) => {
           console.log(res);
           this.toast.open(this.translate.instant('toast.movies_updated', { size: moviesToReplace.length }));
-        }).catch((error: any) => console.error(error));
-    }).catch((error: any) => console.error(error));
+        }).catch(this.serviceUtils.handleError);
+    }).catch(this.serviceUtils.handleError);
   }
 }
