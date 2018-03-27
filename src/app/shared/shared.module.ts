@@ -11,6 +11,7 @@ import { ListPersonsComponent } from './list-persons/list-persons.component';
 import { ListMoviesComponent } from './list-movies/list-movies.component';
 import { MetaComponent } from './meta/component/meta.component';
 import './rxjs-operators';
+import { MatStepperModule } from '@angular/material/stepper';
 import { ServiceUtils } from '../service/serviceUtils';
 import { DropdownLanguageComponent } from './dropdown-language/dropdown-language.component';
 import { AddCollectionDirective } from './add-collection.directive';
@@ -30,6 +31,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
   imports: [
     CommonModule,
+    MatStepperModule,
     FormsModule,
     RouterModule,
     NgbModule,
@@ -47,7 +49,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     DropdownLanguageComponent,
     AddCollectionDirective,
     NgbModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatStepperModule
   ],
   providers: [
     MetaService, ServiceUtils, TranslateService, MovieService
