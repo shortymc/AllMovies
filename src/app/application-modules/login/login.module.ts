@@ -1,3 +1,4 @@
+import { ChangeQuestionComponent } from './change-question/change-question.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +23,7 @@ const childRoutes: Routes = [
       { path: 'register', component: RegisterComponent },
       { path: 'forgot', component: ForgotComponent },
       { path: 'changePassword', component: ChangePasswordComponent, canActivate: [AuthGard] },
+      { path: 'changeQuestion', component: ChangeQuestionComponent, canActivate: [AuthGard] },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthGard] },
     ]
   }];
@@ -41,7 +43,8 @@ const childRoutes: Routes = [
     RegisterComponent,
     ForgotComponent,
     ProfileComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ChangeQuestionComponent
   ],
   providers: [TranslateService]
 })

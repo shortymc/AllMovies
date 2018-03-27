@@ -45,7 +45,7 @@ export class ForgotComponent implements OnInit {
         this.answerNext.nativeElement.click();
         this.messageAnswer = undefined;
       } else {
-        this.messageAnswer = 'login.forgot.wrong_answer';
+        this.messageAnswer = 'login.wrong_answer';
       }
     }).catch(this.serviceUtils.handleError);
   }
