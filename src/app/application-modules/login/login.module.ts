@@ -1,3 +1,4 @@
+import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -35,6 +36,7 @@ const childRoutes: Routes = [
     ConnectComponent,
     RegisterComponent,
     ForgotComponent,
+    ChangePasswordComponent
   ],
   providers: [TranslateService]
 })
