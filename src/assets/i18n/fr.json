@@ -36,7 +36,7 @@
         "dashboard": "Tableau de Bord",
         "movies": "Films",
         "release": "Sorties",
-        "profile":"Mon profile",
+        "profile": "Mon profile",
         "logout": "Déconnexion"
     },
     "toast": {
@@ -46,7 +46,8 @@
         "movies_removed": "{{size}} Films supprimés !",
         "movies_updated": "{{size}} Films mis à jour !",
         "already_added": "Déjà ajouté !",
-        "user_added": "Utilisateur ajouté !"
+        "user_added": "Utilisateur ajouté !",
+        "user_changed": "Utilisateur Modifié !"
     },
     "dashboard": {
         "header": "Top Films"
@@ -162,6 +163,8 @@
         "answer_required": "La réponse est obligatoire",
         "question": "Question secrète",
         "question_required": "La question est obligatoire",
+        "error_password": "Mots de passe différents",
+        "error_question": "Questions différentes",
         "connect": {
             "title": "S'IDENTIFIER",
             "log_in": "Se connecter",
@@ -181,11 +184,17 @@
             "wrong_answer": "Réponse incorrecte",
             "answer": "Répondez à la question",
             "password": "Changer le mot de passe",
-            "error_password": "Mots de passe différents",
             "password_changed": "Mot de passe modifié !"
         },
         "profile": {
-          "title":"Mon profile"
+            "title": "Mon profile",
+            "change_password": "Changer de mot de passe",
+            "change_question": "Changer de question secrète"
+        },
+        "change_password": {
+            "old": "Ancien mot de passe",
+            "new": "Nouveau mot de passe",
+            "wrong": "Mot de passe incorrect"
         }
     }
 }

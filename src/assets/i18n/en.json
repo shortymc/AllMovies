@@ -36,7 +36,7 @@
         "dashboard": "Dashboard",
         "movies": "Movies",
         "release": "Releases",
-        "profile":"My profile",
+        "profile": "My profile",
         "logout": "Log out"
     },
     "toast": {
@@ -46,7 +46,8 @@
         "movies_removed": "{{size}} Movies removed !",
         "movies_updated": "{{size}} Movies updated !",
         "already_added": "Already added !",
-        "user_added": "User added !"
+        "user_added": "User added !",
+        "user_changed": "User changed !"
     },
     "dashboard": {
         "header": "Top Movies"
@@ -162,6 +163,8 @@
         "answer_required": "Answer is required",
         "question": "Secret question",
         "question_required": "Question is required",
+        "error_password": "Differents passwords",
+        "error_question": "Differents questions",
         "connect": {
             "title": "LOGIN",
             "log_in": "Log In",
@@ -181,11 +184,17 @@
             "wrong_answer": "Incorrect answer",
             "answer": "Answer the question",
             "password": "Change password",
-            "error_password": "Differents passwords",
             "password_changed": "Password changed ! !"
         },
         "profile": {
-          "title":"My profile"
+            "title": "My profile",
+            "change_password": "Change password",
+            "change_question": "Change secret question"
+        },
+        "change_password": {
+            "old": "Old password",
+            "new": "New password",
+            "wrong": "Password incorrect"
         }
     }
 }
