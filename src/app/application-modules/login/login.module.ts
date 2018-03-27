@@ -1,3 +1,4 @@
+import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -11,7 +12,6 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { SharedModule } from '../../shared/shared.module';
 import { AuthGard } from '../../app.gards';
 import { ProfileComponent } from './profile/profile.component';
-import { ChangeComponent } from './change/change.component';
 
 const childRoutes: Routes = [
   {
@@ -21,7 +21,7 @@ const childRoutes: Routes = [
       { path: 'connect', component: ConnectComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'forgot', component: ForgotComponent },
-      { path: 'change', component: ChangeComponent, canActivate: [AuthGard] },
+      { path: 'changePassword', component: ChangePasswordComponent, canActivate: [AuthGard] },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthGard] },
     ]
   }];
@@ -41,7 +41,7 @@ const childRoutes: Routes = [
     RegisterComponent,
     ForgotComponent,
     ProfileComponent,
-    ChangeComponent
+    ChangePasswordComponent
   ],
   providers: [TranslateService]
 })
