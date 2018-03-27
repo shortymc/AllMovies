@@ -21,7 +21,8 @@
         "return": "Back",
         "pageNotFound": "Page not found",
         "show": "Show",
-        "hide": "Hide"
+        "hide": "Hide",
+        "id": "Id"
     },
     "time": {
         "now": "now",
@@ -35,6 +36,7 @@
         "dashboard": "Dashboard",
         "movies": "Movies",
         "release": "Releases",
+        "profile":"My profile",
         "logout": "Log out"
     },
     "toast": {
@@ -158,18 +160,18 @@
         "password_required": "Password is required",
         "answer": "Answer",
         "answer_required": "Answer is required",
+        "question": "Secret question",
+        "question_required": "Question is required",
         "connect": {
             "title": "LOGIN",
             "log_in": "Log In",
             "sign_up": "Sign Up",
-            "forgot": "Forgot password",
             "connected": "Connected !!",
+            "forgot": "Forgot password",
             "wrong": "Incorrect entry.."
         },
         "register": {
             "title": "Register",
-            "question": "Secret question",
-            "question_required": "Question is required",
             "validation": "Register"
         },
         "forgot": {
@@ -181,6 +183,9 @@
             "password": "Change password",
             "error_password": "Differents passwords",
             "password_changed": "Password changed ! !"
+        },
+        "profile": {
+          "title":"My profile"
         }
     }
 }

@@ -21,7 +21,8 @@
         "return": "Retour",
         "pageNotFound": "Page introuvable",
         "show": "Afficher",
-        "hide": "Cacher"
+        "hide": "Cacher",
+        "id": "Id"
     },
     "time": {
         "now": "maintenant",
@@ -35,6 +36,7 @@
         "dashboard": "Tableau de Bord",
         "movies": "Films",
         "release": "Sorties",
+        "profile":"Mon profile",
         "logout": "Déconnexion"
     },
     "toast": {
@@ -181,6 +183,9 @@
             "password": "Changer le mot de passe",
             "error_password": "Mots de passe différents",
             "password_changed": "Mot de passe modifié !"
+        },
+        "profile": {
+          "title":"Mon profile"
         }
     }
 }

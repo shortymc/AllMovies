@@ -1,0 +1,9 @@
+@import "../../../styles/styles";
+
+:host {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 5vh auto;
+  padding: 25px;
+}
