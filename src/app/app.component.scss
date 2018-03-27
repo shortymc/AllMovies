@@ -1,3 +1,14 @@
+@import "./styles/styles";
+
+:host nav {
+  display: inline-flex;
+  flex-wrap: wrap;
+
+  & > * {
+    margin: 0 2px 0 2px;
+  }
+}
+
 .header {
   display: flex;
   flex-direction: row;
