@@ -8,7 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ForgotComponent } from './forgot/forgot.component';
-import { MatStepperModule } from '@angular/material/stepper';
+import { SharedModule } from '../../shared/shared.module';
 
 const childRoutes: Routes = [
   {
@@ -27,7 +27,7 @@ const childRoutes: Routes = [
     FormsModule,
     MatInputModule,
     TranslateModule.forChild(),
-    MatStepperModule,
+    SharedModule,
     MatFormFieldModule,
     RouterModule.forChild(childRoutes),
   ],
