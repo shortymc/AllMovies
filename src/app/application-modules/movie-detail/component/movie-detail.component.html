@@ -48,8 +48,8 @@
       <div *ngIf="movie.images.length > 0">
         <label>{{'movie.image' | translate}}: </label>
         <button type="button" class="btn btn-outline-primary" (click)="isImagesCollapsed = !isImagesCollapsed">
-          <i class="fa fa-plus-square" aria-hidden="true" [ngClass]="{'display-none' : isImagesCollapsed}"></i>
-          <i class="fa fa-minus-square" aria-hidden="true" [ngClass]="{'display-none' : !isImagesCollapsed}"></i>
+          <i class="fa fa-plus-square" aria-hidden="true" [ngClass]="{'hide' : isImagesCollapsed}"></i>
+          <i class="fa fa-minus-square" aria-hidden="true" [ngClass]="{'hide' : !isImagesCollapsed}"></i>
           <span *ngIf="!isImagesCollapsed">{{'global.show' | translate}}</span>
           <span *ngIf="isImagesCollapsed">{{'global.hide' | translate}}</span>
         </button>

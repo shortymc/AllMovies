@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ForgotComponent } from './forgot/forgot.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 const childRoutes: Routes = [
   {
@@ -15,6 +17,7 @@ const childRoutes: Routes = [
       { path: '', redirectTo: 'connect', pathMatch: 'full' },
       { path: 'connect', component: ConnectComponent },
       { path: 'register', component: RegisterComponent },
+      { path: 'forgot', component: ForgotComponent },
     ]
   }];
 
@@ -24,12 +27,14 @@ const childRoutes: Routes = [
     FormsModule,
     MatInputModule,
     TranslateModule.forChild(),
+    MatStepperModule,
     MatFormFieldModule,
     RouterModule.forChild(childRoutes),
   ],
   declarations: [
     ConnectComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgotComponent,
   ],
   providers: [TranslateService]
 })
