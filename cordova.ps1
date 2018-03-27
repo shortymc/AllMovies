@@ -14,5 +14,9 @@ Copy-Item "C:\DEV\workspace\AllMovies\cordova\AllMovies\platforms\android\app\bu
 
 git checkout HEAD -- C:\DEV\workspace\AllMovies\src\app\service\dropbox.service.ts
 
-echo APK SUCCESSFULLY GENERATED
+if((Get-Item C:\Users\PBR\Dropbox\app-debug.apk).length -lt 5MB) {
+	Write-Host "AN ERROR OCCURRED" -ForegroundColor Red
+} else {
+	Write-Host "APK SUCCESSFULLY GENERATED" -ForegroundColor Green
+}
 pause
