@@ -165,6 +165,7 @@
         "question_required": "Question is required",
         "error_password": "Differents passwords",
         "error_question": "Differents questions",
+        "wrong_answer": "Incorrect answer",
         "connect": {
             "title": "LOGIN",
             "log_in": "Log In",
@@ -181,7 +182,6 @@
             "title": "Password forgotten",
             "wrong_name": "Unknown name",
             "name": "Fill out your name",
-            "wrong_answer": "Incorrect answer",
             "answer": "Answer the question",
             "password": "Change password",
             "password_changed": "Password changed ! !"
@@ -195,6 +195,12 @@
             "old": "Old password",
             "new": "New password",
             "wrong": "Password incorrect"
+        },
+        "change_question": {
+            "old_answer": "Old answer",
+            "new_answer": "New answer",
+            "old_question": "Old question",
+            "new_question": "New question"
         }
     }
 }
