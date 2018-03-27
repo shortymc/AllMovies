@@ -165,6 +165,7 @@
         "question_required": "La question est obligatoire",
         "error_password": "Mots de passe différents",
         "error_question": "Questions différentes",
+        "wrong_answer": "Réponse incorrecte",
         "connect": {
             "title": "S'IDENTIFIER",
             "log_in": "Se connecter",
@@ -181,7 +182,6 @@
             "title": "Mot de passe oublié",
             "wrong_name": "Pseudo inconnu",
             "name": "Remplissez votre nom",
-            "wrong_answer": "Réponse incorrecte",
             "answer": "Répondez à la question",
             "password": "Changer le mot de passe",
             "password_changed": "Mot de passe modifié !"
@@ -195,6 +195,12 @@
             "old": "Ancien mot de passe",
             "new": "Nouveau mot de passe",
             "wrong": "Mot de passe incorrect"
+        },
+        "change_question": {
+            "old_answer": "Ancienne réponse",
+            "new_answer": "Nouvelle réponse",
+            "old_question": "Ancienne question",
+            "new_question": "Nouvelle question"
         }
     }
 }
