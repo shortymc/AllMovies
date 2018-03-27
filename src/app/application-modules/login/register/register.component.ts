@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../service/auth.service';
 import * as crypto from 'crypto-js';
 import { User } from '../../../model/user';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +14,7 @@ export class RegisterComponent implements OnInit {
   question: string;
   answer: string;
 
-  constructor(private auth: AuthService, private translate: TranslateService) { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
   }
