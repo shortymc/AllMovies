@@ -1,5 +1,5 @@
 import { User } from './../../../model/user';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as crypto from 'crypto-js';
 import { AuthService } from '../../../service/auth.service';
@@ -9,9 +9,7 @@ import { AuthService } from '../../../service/auth.service';
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss']
 })
-export class ChangePasswordComponent implements OnInit, OnDestroy {
-  subs = [];
-  param: string;
+export class ChangePasswordComponent implements OnInit {
   oldPass: string;
   pass1: string;
   pass2: string;
@@ -35,10 +33,6 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
       this.auth.changeUser(this.user);
       this.router.navigate(['/login/profile']);
     }
-  }
-
-  ngOnDestroy() {
-    this.subs.forEach((subscription) => subscription.unsubscribe());
   }
 
 }
