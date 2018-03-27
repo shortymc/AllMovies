@@ -208,8 +208,22 @@ export class AuthService {
     }).catch(this.serviceUtils.handlePromiseError);
   }
 
+  getCurrentUser(): Promise<User> {
+    return this.isAllowed().then((isAuth) => {
+      if (isAuth) {
+        const token = this.getToken();
+        const user_infos = <User>jwtDecode(token);
+        return this.getUserByName(user_infos.name);
+      } else {
+        this.logout();
+        return undefined;
+      }
+    }).catch(this.serviceUtils.handlePromiseError);
+  }
+
   logout() {
     this.isLogged = false;
+    this.fileName = '';
     this.removeToken();
     this.router.navigate(['/login']);
   }
