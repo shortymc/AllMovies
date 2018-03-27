@@ -13,6 +13,7 @@
         "username": "Pseudo",
         "original_title": "Titre Original",
         "add": "Ajouter",
+        "next": "Suivant",
         "edit": "Modifier",
         "save": "Sauvegarder",
         "finish": "Terminer",
@@ -155,21 +156,31 @@
         "name_required": "Veuillez renseigner votre pseudo",
         "password": "Mot de passe",
         "password_required": "Veuillez renseigner votre mot de passe",
+        "answer": "Réponse",
+        "answer_required": "La réponse est obligatoire",
+        "question": "Question secrète",
+        "question_required": "La question est obligatoire",
         "connect": {
             "title": "S'IDENTIFIER",
             "log_in": "Se connecter",
             "sign_up": "S'inscrire",
             "connected": "Connecté !!",
+            "forgot": "Mot de passe oublié",
             "wrong": "Saisie incorrecte.."
         },
         "register": {
             "title": "S'inscrire",
-            "question": "Question secrète",
-            "answer": "Réponse",
-            "question_required": "La question est obligatoire",
-            "answer_required": "La réponse est obligatoire",
-            "cancel": "Annuler",
             "validation": "S'inscrire"
+        },
+        "forgot": {
+            "title": "Mot de passe oublié",
+            "wrong_name": "Pseudo inconnu",
+            "name": "Remplissez votre nom",
+            "wrong_answer": "Réponse incorrecte",
+            "answer": "Répondez à la question",
+            "password": "Changer le mot de passe",
+            "error_password": "Mots de passe différents",
+            "password_changed": "Mot de passe modifié !"
         }
     }
 }

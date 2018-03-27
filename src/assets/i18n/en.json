@@ -13,6 +13,7 @@
         "username": "Pseudo",
         "original_title": "Original Title",
         "add": "Add",
+        "next": "Next",
         "edit": "Edit",
         "save": "Save",
         "finish": "Finish",
@@ -155,21 +156,31 @@
         "name_required": "Username is required",
         "password": "Password",
         "password_required": "Password is required",
+        "answer": "Answer",
+        "answer_required": "Answer is required",
         "connect": {
             "title": "LOGIN",
             "log_in": "Log In",
             "sign_up": "Sign Up",
+            "forgot": "Forgot password",
             "connected": "Connected !!",
             "wrong": "Incorrect entry.."
         },
         "register": {
             "title": "Register",
             "question": "Secret question",
-            "answer": "Answer",
             "question_required": "Question is required",
-            "answer_required": "Answer is required",
-            "cancel": "Cancel",
             "validation": "Register"
+        },
+        "forgot": {
+            "title": "Password forgotten",
+            "wrong_name": "Unknown name",
+            "name": "Fill out your name",
+            "wrong_answer": "Incorrect answer",
+            "answer": "Answer the question",
+            "password": "Change password",
+            "error_password": "Differents passwords",
+            "password_changed": "Password changed ! !"
         }
     }
 }

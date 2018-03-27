@@ -15,19 +15,19 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [(ngModel)]="question" placeholder="{{'login.register.question'|translate}}" type="text" #inputQuestion="ngModel"
+      <input matInput [(ngModel)]="question" placeholder="{{'login.question'|translate}}" type="text" #inputQuestion="ngModel"
         name="inputQuestion" required/>
-      <mat-error *ngIf="inputQuestion.errors != null && inputQuestion.errors.required && !inputQuestion.pristine">{{'login.register.question_required'|translate}}</mat-error>
+      <mat-error *ngIf="inputQuestion.errors != null && inputQuestion.errors.required && !inputQuestion.pristine">{{'login.question_required'|translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [(ngModel)]="answer" placeholder="{{'login.register.answer'|translate}}" type="password" #inputAnswer="ngModel"
+      <input matInput [(ngModel)]="answer" placeholder="{{'login.answer'|translate}}" type="password" #inputAnswer="ngModel"
         name="inputAnswer" required/>
-      <mat-error *ngIf="inputAnswer.errors != null && inputAnswer.errors.required && !inputAnswer.pristine">{{'login.register.answer_required'|translate}}</mat-error>
+      <mat-error *ngIf="inputAnswer.errors != null && inputAnswer.errors.required && !inputAnswer.pristine">{{'login.answer_required'|translate}}</mat-error>
     </mat-form-field>
 
     <div class="register-footer">
-      <button type="button" class="btn btn-outline-primary" routerLink="/login">{{'login.register.cancel'|translate}}</button>
+      <button type="button" class="btn btn-outline-primary" routerLink="/login">{{'global.cancel'|translate}}</button>
       <button type="submit" class="btn btn-outline-primary" (click)="register()" [disabled]="registerForm.invalid">{{'login.register.validation'|translate}}</button>
     </div>
   </form>

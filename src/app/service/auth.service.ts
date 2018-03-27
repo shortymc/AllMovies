@@ -100,7 +100,7 @@ export class AuthService {
     // console.log('checkInfos');
     const user_infos = <User>jwtDecode(token);
     // console.log('token', user_infos);
-    return this.getUserInfo(user_infos.id).then((user: User) => {
+    return this.getUserById(user_infos.id).then((user: User) => {
       // console.log('user', user);
       if (!user) {
         return false;
@@ -109,12 +109,43 @@ export class AuthService {
     }).catch(this.serviceUtils.handlePromiseError);
   }
 
-  getUserInfo(id: number): Promise<User> {
+  getUserById(id: number): Promise<User> {
     // console.log('getUserInfo', id);
     return this.getUserFile().then((users: User[]) => {
       // console.log('users', users);
       return new Promise<User>((resolve, reject) => {
         resolve(users.find((user: User) => user.id === id));
+      });
+    }).catch(this.serviceUtils.handlePromiseError);
+  }
+
+  changePassword(name: string, password: string) {
+    return this.dropbox.downloadFile(Url.DROPBOX_USER_FILE).then(file => {
+      let users = <User[]>JSON.parse(file);
+      const user = users.find(item => item.name === name);
+      user.password = password;
+      users = users.filter(item => item.name !== name);
+      users.push(user);
+      users.sort(Utils.compareObject);
+      this.dropbox.uploadFile(AuthService.usersToBlob(users), Url.DROPBOX_USER_FILE)
+        .then((res: any) => {
+          console.log(res);
+          this.toast.open(this.translate.instant('toast.user_added'));
+        }).catch(this.serviceUtils.handleError);
+      return user;
+    }).catch(this.serviceUtils.handlePromiseError);
+  }
+
+  checkAnswer(name: string, answer: string): Promise<boolean> {
+    return this.getUserByName(name).then((user: User) => {
+      return user.name === name && user.answer === answer;
+    }).catch(this.serviceUtils.handlePromiseError);
+  }
+
+  getUserByName(name: string): Promise<User> {
+    return this.getUserFile().then((users: User[]) => {
+      return new Promise<User>((resolve, reject) => {
+        resolve(users.find((user: User) => user.name === name));
       });
     }).catch(this.serviceUtils.handlePromiseError);
   }

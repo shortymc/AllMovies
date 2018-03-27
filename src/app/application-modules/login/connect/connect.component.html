@@ -1,8 +1,7 @@
 <h2>{{'login.connect.title'|translate}}</h2>
 <div class="connect-content">
-  <div>{{message}}</div>
   <form #connectForm="ngForm">
-
+    <mat-error>{{message}}</mat-error>
     <mat-form-field>
       <input matInput [(ngModel)]="name" placeholder="{{'login.name'|translate}}" type="text" #inputName="ngModel" name="inputName"
         required/>
@@ -16,6 +15,7 @@
     </mat-form-field>
 
     <div class="connect-footer">
+      <button type="button" class="btn btn-outline-primary" routerLink="/login/forgot">{{'login.connect.forgot'|translate}}</button>
       <button type="button" class="btn btn-outline-primary" routerLink="/login/register">{{'login.connect.sign_up'|translate}}</button>
       <button type="submit" class="btn btn-outline-primary" (click)="login()" [disabled]="connectForm.invalid">{{'login.connect.log_in'|translate}}</button>
     </div>
