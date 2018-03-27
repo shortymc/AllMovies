@@ -6,10 +6,10 @@
     <div class="dropdown" *ngIf="auth.isLogged">
       <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownLogin" data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
-        Profile
+        <i class="fa fa-user" aria-hidden="true"></i>
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownLogin">
-        <a class="pointer dropdown-item" routerLink="login/profile">My Profile</a>
+        <a class="pointer dropdown-item" routerLink="login/profile">{{'nav_bar.profile' | translate}}</a>
         <a class="pointer dropdown-item" (click)="auth.logout()">{{'nav_bar.logout' | translate}}</a>
       </div>
     </div>

@@ -1,3 +1,9 @@
-<p>
-  profile works!
-</p>
+<div class="profile-content" *ngIf="user">
+  <h1>{{'login.profile.title'|translate}}:</h1>
+  <div>
+    <label>{{'global.id'|translate}}:</label>{{user.id}}</div>
+  <div>
+    <label>{{'login.name'|translate}}:</label>{{user.name}}</div>
+  <div>
+    <label>{{'login.question'|translate}}:</label>{{user.question}}</div>
+</div>
