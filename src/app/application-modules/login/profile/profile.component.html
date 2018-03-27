@@ -6,4 +6,12 @@
     <label>{{'login.name'|translate}}:</label>{{user.name}}</div>
   <div>
     <label>{{'login.question'|translate}}:</label>{{user.question}}</div>
+  <div class="connect-footer">
+    <button type="button" class="btn btn-outline-primary" routerLink="/login/changePassword">
+      {{'login.profile.change_password'|translate}}
+    </button>
+    <button type="button" class="btn btn-outline-primary" routerLink="/login/changeQuestion">
+      {{'login.profile.change_question'|translate}}
+    </button>
+  </div>
 </div>

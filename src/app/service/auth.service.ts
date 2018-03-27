@@ -130,7 +130,7 @@ export class AuthService {
       this.dropbox.uploadFile(AuthService.usersToBlob(users), Url.DROPBOX_USER_FILE)
         .then((res: any) => {
           console.log(res);
-          this.toast.open(this.translate.instant('toast.user_added'));
+          this.toast.open(this.translate.instant('toast.user_changed'));
         }).catch(this.serviceUtils.handleError);
       return user;
     }).catch(this.serviceUtils.handlePromiseError);
@@ -179,6 +179,21 @@ export class AuthService {
           this.router.navigate(['/']);
         }).catch(this.serviceUtils.handlePromiseError);
     }).catch(this.serviceUtils.handleError);
+  }
+
+  changeUser(user: User) {
+    return this.dropbox.downloadFile(Url.DROPBOX_USER_FILE).then(file => {
+      let users = <User[]>JSON.parse(file);
+      users = users.filter(item => item.name !== user.name);
+      users.push(user);
+      users.sort(Utils.compareObject);
+      this.dropbox.uploadFile(AuthService.usersToBlob(users), Url.DROPBOX_USER_FILE)
+        .then((res: any) => {
+          console.log(res);
+          this.toast.open(this.translate.instant('toast.user_changed'));
+        }).catch(this.serviceUtils.handleError);
+      return user;
+    }).catch(this.serviceUtils.handlePromiseError);
   }
 
   addUser(user: User): Promise<User> {

@@ -52,7 +52,7 @@ export class ForgotComponent implements OnInit {
 
   changePassword() {
     if (this.password1 !== this.password2) {
-      this.messagePassword = 'login.forgot.error_password';
+      this.messagePassword = 'login.error_password';
     } else {
       this.auth.changePassword(this.name, crypto.SHA512(this.password1).toString());
       this.passwordNext.nativeElement.click();
