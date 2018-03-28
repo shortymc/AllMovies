@@ -40,10 +40,10 @@ export class ForgotComponent implements OnInit {
   }
 
   forgot() {
+    this.messageAnswer = undefined;
     this.auth.checkAnswer(this.name, crypto.SHA512(this.answer).toString()).then(correct => {
       if (correct) {
         this.answerNext.nativeElement.click();
-        this.messageAnswer = undefined;
       } else {
         this.messageAnswer = 'login.wrong_answer';
       }
