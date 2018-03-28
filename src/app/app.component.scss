@@ -14,3 +14,9 @@
   flex-direction: row;
   padding: 10px;
 }
+
+@include media(#{$smallscreen}) {
+  .dropdown-menu {
+    transform: translate3d(-162px, 0, 0);
+  }
+}
