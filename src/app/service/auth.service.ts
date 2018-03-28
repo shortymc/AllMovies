@@ -150,6 +150,12 @@ export class AuthService {
     }).catch(this.serviceUtils.handlePromiseError);
   }
 
+  isUserExist(name: string): Promise<boolean> {
+    return this.getUserFile().then(users => {
+      return users.find(user => user.name === name) !== undefined
+    }).catch(this.serviceUtils.handlePromiseError);
+  }
+
   getUserFile(): Promise<User[]> {
     // console.log('getUserFile');
     return this.dropbox.downloadFile(Url.DROPBOX_USER_FILE).then(file =>
