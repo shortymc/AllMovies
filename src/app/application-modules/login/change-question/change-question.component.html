@@ -1,7 +1,7 @@
 <div>
   <h2>{{'login.change_question.title'|translate}}:</h2>
   <form #changeForm="ngForm">
-    <label>{{'login.question'|translate}}:</label>{{oldQuestion}}
+    <label>{{'login.change_question.old_question'|translate}}:</label>{{oldQuestion}}
     <mat-form-field>
       <input matInput [(ngModel)]="oldAnswer" placeholder="{{'login.change_question.old_answer'|translate}}" type="password" #inputOldAnswer="ngModel"
         name="inputOldAnswer" required/>
