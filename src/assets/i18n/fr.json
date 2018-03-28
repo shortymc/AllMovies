@@ -36,7 +36,7 @@
         "dashboard": "Tableau de Bord",
         "movies": "Films",
         "release": "Sorties",
-        "profile": "Mon profile",
+        "profile": "Mon profil",
         "logout": "Déconnexion"
     },
     "toast": {
@@ -187,7 +187,7 @@
             "password_changed": "Mot de passe modifié !"
         },
         "profile": {
-            "title": "Mon profile",
+            "title": "Mon profil",
             "change_password": "Changer de mot de passe",
             "change_question": "Changer de question secrète"
         },
