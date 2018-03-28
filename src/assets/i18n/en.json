@@ -176,7 +176,8 @@
         },
         "register": {
             "title": "Register",
-            "validation": "Register"
+            "validation": "Register",
+            "already_exist": "A user with this name already exists"
         },
         "forgot": {
             "title": "Password forgotten",
