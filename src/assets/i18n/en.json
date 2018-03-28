@@ -192,11 +192,13 @@
             "change_question": "Change secret question"
         },
         "change_password": {
+            "title": "Change password",
             "old": "Old password",
             "new": "New password",
             "wrong": "Password incorrect"
         },
         "change_question": {
+            "title": "Changer secret question",
             "old_answer": "Old answer",
             "new_answer": "New answer",
             "old_question": "Old question",
