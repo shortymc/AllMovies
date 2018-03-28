@@ -176,7 +176,8 @@
         },
         "register": {
             "title": "S'inscrire",
-            "validation": "S'inscrire"
+            "validation": "S'inscrire",
+            "already_exist": "Un utilisateur avec ce pseudo existe déjà"
         },
         "forgot": {
             "title": "Mot de passe oublié",

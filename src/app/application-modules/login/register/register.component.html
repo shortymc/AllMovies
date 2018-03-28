@@ -1,7 +1,7 @@
 <h2>{{'login.register.title'|translate}}:</h2>
 <div class="register-content">
   <form #registerForm="ngForm">
-
+    <mat-error *ngIf="message">{{message | translate}}</mat-error>
     <mat-form-field>
       <input matInput [(ngModel)]="name" placeholder="{{'login.name'|translate}}" type="text" #inputName="ngModel" name="inputName"
         required/>
