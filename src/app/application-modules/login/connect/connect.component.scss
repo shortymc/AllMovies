@@ -8,8 +8,13 @@
   padding: 25px;
 }
 
+.mat-form-field {
+  display: inherit;
+  width: 200px;
+}
+
 .connect-footer {
-  display: flex;
+  display: inherit;
 
   & button {
     margin: 5px;
