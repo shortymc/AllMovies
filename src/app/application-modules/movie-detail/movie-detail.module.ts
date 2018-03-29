@@ -19,10 +19,10 @@ const childRoutes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(childRoutes),
     SharedModule,
     RatingModule,
     TranslateModule.forChild(),
+    RouterModule.forChild(childRoutes),
   ],
   declarations: [MovieDetailComponent],
   providers: [MovieService, DropboxService, TranslateService]

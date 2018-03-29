@@ -34,7 +34,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientJsonpModule,
     CommonModule,
     SharedModule,
-    AppRoutingModule,
     MatSnackBarModule,
     TranslateModule.forRoot({
       loader: {
@@ -43,6 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
+    AppRoutingModule,
   ],
   declarations: [
     AppComponent,
