@@ -2,7 +2,6 @@ import { MovieService } from './../service/movie.service';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { MetaService } from './meta/service/meta.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { SubstractDatePipe, ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './custom.pipe';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +15,7 @@ import { ServiceUtils } from '../service/serviceUtils';
 import { DropdownLanguageComponent } from './dropdown-language/dropdown-language.component';
 import { AddCollectionDirective } from './add-collection.directive';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -31,12 +31,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
   imports: [
     CommonModule,
-    MatStepperModule,
     FormsModule,
-    RouterModule,
+    MatStepperModule,
     NgbModule,
     TranslateModule.forChild(),
-    MatTooltipModule
+    MatTooltipModule,
+    RouterModule.forChild([])
   ],
   exports: [
     ConvertToHHmmPipe,
