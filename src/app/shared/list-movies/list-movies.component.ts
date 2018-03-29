@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Movie } from '../../model/movie';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'app-list-movies',
@@ -7,18 +8,29 @@ import { Movie } from '../../model/movie';
   styleUrls: ['./list-movies.component.scss']
 })
 export class ListMoviesComponent implements OnInit {
+  _movies = new BehaviorSubject<Movie[]>(null);
   @Input()
-  movies: Movie[];
+  set movies(value) {
+    this._movies.next(value);
+  }
+
+  get movies() {
+    return this._movies.getValue();
+  }
   @Input()
   label: string;
-  page = 1;
+  page: number;
   moviesToShow: Movie[];
   pageSize = 5;
 
   constructor() { }
 
   ngOnInit() {
-    this.getMoviesToShow(this.movies, this.page);
+    this._movies
+    .subscribe(x => {
+        this.page = 1;
+        this.getMoviesToShow(this.movies, this.page);
+      });
   }
 
   getMoviesToShow(movies, page) {
