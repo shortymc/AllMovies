@@ -1,4 +1,4 @@
-<div *ngIf="movie">
+<div *ngIf="(movie$ | async) as movie">
   <h2>{{'movie.header' | translate}} {{movie.title}}:</h2>
   <div>
     <a class="frame" href="{{movie.affiche}}" target="_blank">
@@ -31,7 +31,7 @@
       <div *ngIf="movie.time > 0">
         <label>{{'movie.length' | translate}}: </label>{{movie.time | convertToHHmm}}
       </div>
-      <div *ngIf="movie.genres.length > 0">
+      <div *ngIf="movie.genres && movie.genres.length > 0">
         <label>{{'movie.genres' | translate}}: </label>
         <div class="block">
           <span *ngFor="let genre of movie.genres; let last=last;">
@@ -45,7 +45,7 @@
         <div class="synopsis">{{movie.synopsis}}</div>
       </div>
       <!-- Images du film -->
-      <div *ngIf="movie.images.length > 0">
+      <div *ngIf="movie.images && movie.images.length > 0">
         <label>{{'movie.image' | translate}}: </label>
         <button type="button" class="btn btn-outline-primary" (click)="isImagesCollapsed = !isImagesCollapsed">
           <i class="fa fa-plus-square" aria-hidden="true" [ngClass]="{'hide' : isImagesCollapsed}"></i>
@@ -66,7 +66,7 @@
         </div>
       </div>
       <app-list-persons [persons]="movie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
-      <div *ngIf="movie.crew.length > 0">
+      <div *ngIf="movie.crew && movie.crew.length > 0">
         <div *ngIf="(movie.crew | filterCrew:'director') as director">
           <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
         </div>
@@ -112,7 +112,7 @@
         <rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
       </div>
       <app-meta [entry]="movie" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
-      <div *ngIf="movie.videos.length > 0">
+      <div *ngIf="movie.videos && movie.videos.length > 0">
         <label>{{'movie.video' | translate}}:</label>
         <ul class="videos">
           <li *ngFor="let video of movie.videos">
@@ -120,7 +120,7 @@
           </li>
         </ul>
       </div>
-      <ul class="movies">
+      <ul class="movies" *ngIf="movie.recommendations">
         <li>
           <app-list-movies [movies]="movie.recommendations" [label]="('movie.reco' | translate).concat(':')"></app-list-movies>
         </li>
