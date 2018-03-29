@@ -37,7 +37,8 @@
         "movies": "Films",
         "release": "Sorties",
         "profile": "Mon profil",
-        "logout": "Déconnexion"
+        "logout": "Déconnexion",
+        "change_language":"Changer de Langue"
     },
     "toast": {
         "movie_added": "Film ajouté !",
