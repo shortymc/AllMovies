@@ -151,9 +151,8 @@ export class AuthService {
   }
 
   isUserExist(name: string): Promise<boolean> {
-    return this.getUserFile().then(users => {
-      return users.find(user => user.name === name) !== undefined
-    }).catch(this.serviceUtils.handlePromiseError);
+    return this.getUserFile().then(users => users.find(user => user.name === name) !== undefined
+    ).catch(this.serviceUtils.handlePromiseError);
   }
 
   getUserFile(): Promise<User[]> {
