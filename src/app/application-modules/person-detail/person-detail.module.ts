@@ -18,11 +18,11 @@ const childRoutes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(childRoutes),
     SharedModule,
     TranslateModule.forChild(),
+    RouterModule.forChild(childRoutes),
   ],
   declarations: [PersonDetailComponent],
   providers: [PersonService, DropboxService, TranslateService]
 })
-export class PersonDetailModule { }
+export class PersonDetailModule {}
