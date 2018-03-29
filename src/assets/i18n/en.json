@@ -37,7 +37,8 @@
         "movies": "Movies",
         "release": "Releases",
         "profile": "My profile",
-        "logout": "Log out"
+        "logout": "Log out",
+        "change_language":"Change Language"
     },
     "toast": {
         "movie_added": "Movie added !",

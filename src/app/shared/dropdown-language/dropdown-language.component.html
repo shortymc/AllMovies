@@ -1,7 +1,7 @@
 <div class="dropdown">
   <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
     aria-expanded="false">
-    Change Language
+    {{'nav_bar.change_language'|translate}}
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <a class="pointer dropdown-item" [ngClass]="{'active': language === 'fr'}" (click)="change('fr')">
