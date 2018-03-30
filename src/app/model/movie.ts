@@ -14,5 +14,4 @@ genres
 
 synopsis
 videos
-images
 */

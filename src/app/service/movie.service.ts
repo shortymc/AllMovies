@@ -22,8 +22,6 @@ export class MovieService {
   }
 
   getMovie(id: number, video: boolean, credit: boolean, reco: boolean, image: boolean, language: string): Observable<Movie> {
-    //        const url = `${Url.MOVIE_URl}/${id}?${Url.API_KEY}${this.langue}${Url.APPEND}${Url.APPEND_VIDEOS},
-    // ${Url.APPEND_CREDITS},${Url.APPEND_RECOMMENDATIONS},${Url.APPEND_IMAGES}`;
     let url = `${Url.MOVIE_URl}/${id}?${Url.API_KEY}`;
     if (video || credit || reco || image) {
       url += `${Url.APPEND}`;
@@ -42,8 +40,9 @@ export class MovieService {
       }
       url += parametres.join(',');
     }
-    if (language && language !== 'en') {
+    if (language) {
       url += `${Url.LANGUE}${language}`;
+      url += `${Url.INCLUDE_IMAGE_LANGUAGE}${language},null`;
     }
     return this.serviceUtils.getObservable(url)
       .map(response => {
