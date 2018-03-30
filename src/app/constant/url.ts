@@ -28,14 +28,14 @@ export class Url {
   static readonly APPEND_VIDEOS = 'videos';
   static readonly APPEND_CREDITS = 'credits';
   static readonly APPEND_IMAGES = 'images';
+  static readonly INCLUDE_IMAGE_LANGUAGE = '&include_image_language=';
   static readonly APPEND_RECOMMENDATIONS = 'recommendations';
   static readonly RELEASE_DATE_GTE_URL = '&release_date.gte=';
   static readonly RELEASE_DATE_LTE_URL = '&release_date.lte=';
   static readonly RELEASE_TYPE_URL = '&with_release_type=2|3';
-  static readonly MOST_POPULAR_URL =
-    'https://api.themoviedb.org/3/discover/movie?' + Url.API_KEY + '&sort_by=popularity.desc';
   static readonly DISCOVER_URL =
     'https://api.themoviedb.org/3/discover/movie?' + Url.API_KEY + '&region=FR';
+  static readonly MOST_POPULAR_URL = Url.DISCOVER_URL + '&sort_by=popularity.desc';
 
   // DropBox
   static readonly DROPBOX_TOKEN = 'G-_ZeiEAvB0AAAAAAAANQd4IMHRr7Y9aTvAiivg-8LImbDKmo9pdu95_SIioW3lR';

@@ -12,7 +12,7 @@ export class PersonService {
 
   getPerson(id: number, language: string): Promise<Person> {
     //        const url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}${Url.LANGUE_FR},${Url.APPEND_IMAGES}`;
-    const url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}${Url.LANGUE}${language}${Url.APPEND}${Url.APPEND_IMAGES}`;
+    const url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}${Url.LANGUE}${language}${Url.APPEND}${Url.APPEND_IMAGES}${Url.INCLUDE_IMAGE_LANGUAGE}${language},null`;
     const urlMovies = `${Url.PERSON_URL}/${id}/${Url.MOVIE_CREDITS_URL}?${Url.API_KEY}${Url.LANGUE}${language}`;
     return Observable.forkJoin(
       this.serviceUtils.getObservable(url),
