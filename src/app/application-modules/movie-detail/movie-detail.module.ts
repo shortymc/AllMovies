@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MovieDetailComponent } from './component/movie-detail.component';
 import { SharedModule } from '../../shared/shared.module';
 import { DropboxService } from '../../service/dropbox.service';
+import { OmdbService } from '../../service/omdb.service';
 
 const childRoutes: Routes = [
   {
@@ -25,6 +26,6 @@ const childRoutes: Routes = [
     RouterModule.forChild(childRoutes),
   ],
   declarations: [MovieDetailComponent],
-  providers: [MovieService, DropboxService, TranslateService]
+  providers: [MovieService, DropboxService, TranslateService, OmdbService]
 })
 export class MovieDetailModule { }

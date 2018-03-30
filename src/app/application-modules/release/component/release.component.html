@@ -48,6 +48,10 @@
     <div *ngIf="selectedMovie.time > 0">
       <label>{{'movie.length' | translate}}: </label>{{selectedMovie.time | convertToHHmm}}
     </div>
+    <div *ngIf="selectedMovie.score as score">
+      <div *ngFor="let rating of score.ratings"><label>{{rating.Source}}: </label>{{rating.Value}}</div>
+      <label>Awards: </label>{{score.awards}}
+    </div>
     <div *ngIf="selectedMovie.genres.length > 0">
       <label>{{'movie.genres' | translate}}: </label>
       <div class="block">
