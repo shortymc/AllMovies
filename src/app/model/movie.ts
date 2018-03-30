@@ -1,3 +1,4 @@
+import { Score } from './score';
 export class Movie {
   constructor(public id?: number, public title?: string, public original_title?: string, public date?: string,
     public synopsis?: string, public affiche?: string, public thumbnail?: string, public adult?: boolean,
@@ -5,7 +6,7 @@ export class Movie {
     public language?: string, public videos?: string[], public actors?: string[], public crew?: string[],
     public recommendations?: Movie[], public images?: string[], public checked?: boolean, public genres?: string[],
     public popularity?: number, public vote_count?: number, public production_countries?: string[], public lang_version: string = 'fr',
-    public added = new Date()) { }
+    public added = new Date(), public imdb_id?: string, public score?: Score) { }
 }
 /*
 title

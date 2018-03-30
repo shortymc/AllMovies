@@ -16,6 +16,7 @@ import { DropdownLanguageComponent } from './dropdown-language/dropdown-language
 import { AddCollectionDirective } from './add-collection.directive';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
+import { OmdbService } from '../service/omdb.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { RouterModule } from '@angular/router';
     MatStepperModule
   ],
   providers: [
-    MetaService, ServiceUtils, TranslateService, MovieService
+    MetaService, ServiceUtils, TranslateService, MovieService, OmdbService
   ]
 })
 
