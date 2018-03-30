@@ -79,6 +79,7 @@ export class MapMovie {
     movie.budget = r.budget;
     movie.recette = r.revenue;
     movie.language = r.original_language;
+    movie.imdb_id = r.imdb_id;
     movie.checked = false;
     movie.production_countries = r.production_countries;
     return movie;

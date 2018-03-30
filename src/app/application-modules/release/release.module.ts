@@ -1,3 +1,4 @@
+import { OmdbService } from './../../service/omdb.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MovieService } from './../../service/movie.service';
 import { MyNgbDate } from './../../shared/my-ngb-date';
@@ -30,6 +31,7 @@ const childRoutes: Routes = [
     MovieService,
     DatePipe,
     DropboxService,
+    OmdbService,
     TranslateService
   ],
   declarations: [ReleaseComponent],

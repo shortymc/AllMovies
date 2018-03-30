@@ -4,11 +4,12 @@ import { ServiceUtils } from './serviceUtils';
 import { Injectable } from '@angular/core';
 import { Movie } from '../model/movie';
 import { Url } from '../constant/url';
+import { OmdbService } from './omdb.service';
 
 @Injectable()
 export class MovieService {
 
-  constructor(private serviceUtils: ServiceUtils) { }
+  constructor(private serviceUtils: ServiceUtils, private omdb: OmdbService) { }
 
   getPopularMovies(language: string): Promise<Movie[]> {
     return this.serviceUtils.getPromise(`${Url.MOST_POPULAR_URL}${Url.LANGUE}${language}`)
@@ -48,6 +49,7 @@ export class MovieService {
       .map(response => {
         const movie = MapMovie.mapForMovie(response);
         movie.lang_version = language;
+        this.omdb.getMovie(movie.imdb_id).then(score => movie.score = score);
         return movie;
       }).catch(this.serviceUtils.handlePromiseError);
   }
