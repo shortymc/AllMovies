@@ -1,3 +1,4 @@
+// import { AllocineService } from './../../../service/allocine.service';
 import { Observable } from 'rxjs/Observable';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Url } from './../../../constant/url';
@@ -18,8 +19,14 @@ export class MovieDetailComponent implements OnInit {
   Url = Url;
   id: number;
 
-  constructor(private movieService: MovieService, private route: ActivatedRoute, private translate: TranslateService,
-    private location: Location, private router: Router) { }
+  constructor(
+    private movieService: MovieService,
+    private route: ActivatedRoute,
+    private translate: TranslateService,
+    private location: Location,
+    // private allocine: AllocineService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.movie$ = this.route.paramMap.switchMap((params: ParamMap) => {
@@ -29,6 +36,7 @@ export class MovieDetailComponent implements OnInit {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.movie$ = this.getMovie(this.id, event.lang);
     });
+    // this.allocine.allocine('movie', '143067').subscribe(response => console.log(response));
   }
 
   getMovie(id: number, language: string): Observable<Movie> {
