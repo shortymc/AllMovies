@@ -16,6 +16,7 @@ export class PersonSearchService {
     if (adult) {
       url += Url.ADULT_URL;
     }
+    term = ServiceUtils.encodeQueryUrl(term);
     url += `${Url.QUERY_URL}${term}`;
     return this.serviceUtils
       .getObservable(url, this.serviceUtils.getHeaders())

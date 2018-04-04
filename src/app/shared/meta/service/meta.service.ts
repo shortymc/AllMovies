@@ -18,7 +18,7 @@ export class MetaService {
       return this.wikisearch(title, site).toPromise();
     } else {
       let url = Url.DUCKDUCKGO_URL + site + '+';
-      url += this.serviceUtils.encodeQueryUrl(title) + '&format=json&no_redirect=1';
+      url += ServiceUtils.encodeQueryUrl(title) + '&format=json&no_redirect=1';
       return this.serviceUtils.jsonpPromise(url, 'callback')
         .then((data: any) => {
           let result = <string>data.Redirect;
