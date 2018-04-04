@@ -21,6 +21,10 @@ export class AuthService {
   constructor(private dropbox: DropboxService, private router: Router, private serviceUtils: ServiceUtils,
     private toast: ToastService, private translate: TranslateService) { }
 
+  static decodeToken(): User {
+    return <User>jwtDecode(AuthService.getToken());
+  }
+
   static usersToBlob(movies: User[]): any {
     const theJSON = JSON.stringify(movies);
     return new Blob([theJSON], { type: 'text/json' });
@@ -30,16 +34,16 @@ export class AuthService {
     return Url.DROPBOX_FILE_PREFIX + id + Url.DROPBOX_FILE_SUFFIX;
   }
 
-  getToken(): string {
+  static getToken(): string {
     // console.log('getToken');
     return localStorage.getItem('token');
   }
 
-  removeToken() {
+  static removeToken() {
     localStorage.removeItem('token');
   }
 
-  setToken(token: string) {
+  static setToken(token: string) {
     this.removeToken();
     localStorage.setItem('token', token);
   }
@@ -51,7 +55,7 @@ export class AuthService {
   }
 
   isAuthenticated(): Promise<boolean> {
-    const token = this.getToken();
+    const token = AuthService.getToken();
     if (!token) {
       return this.reject();
     }
@@ -66,7 +70,7 @@ export class AuthService {
   }
 
   isAllowed(): Promise<boolean> {
-    const token = this.getToken();
+    const token = AuthService.getToken();
     if (!token) {
       return this.reject();
     }
@@ -84,7 +88,7 @@ export class AuthService {
     return this.getUserFile().then((users: User[]) => {
       const found_users = users.filter((user: User) => user.name === name && user.password === password);
       if (found_users.length === 1) {
-        this.setToken(this.createToken(found_users[0]));
+        AuthService.setToken(this.createToken(found_users[0]));
         this.isLogged = true;
         this.fileName = AuthService.getUserFileName(found_users[0].id);
         return true;
@@ -179,7 +183,7 @@ export class AuthService {
       this.fileName = AuthService.getUserFileName(result.id);
       this.dropbox.uploadNewFile([], this.fileName)
         .then(() => {
-          this.setToken(this.createToken(result));
+          AuthService.setToken(this.createToken(result));
           this.isLogged = true;
           this.router.navigate(['/']);
         }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
@@ -231,7 +235,7 @@ export class AuthService {
   getCurrentUser(): Promise<User> {
     return this.isAllowed().then((isAuth) => {
       if (isAuth) {
-        const token = this.getToken();
+        const token = AuthService.getToken();
         const user_infos = <User>jwtDecode(token);
         return this.getUserByName(user_infos.name);
       } else {
@@ -244,7 +248,7 @@ export class AuthService {
   logout() {
     this.isLogged = false;
     this.fileName = '';
-    this.removeToken();
+    AuthService.removeToken();
     this.router.navigate(['/login']);
   }
 }
