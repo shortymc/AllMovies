@@ -4,11 +4,12 @@ import { Person } from './../../../model/person';
 import { Url } from './../../../constant/url';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { ToastService } from '../../../service/toast.service';
 
 @Injectable()
 export class PersonSearchService {
 
-  constructor(private serviceUtils: ServiceUtils) { }
+  constructor(private serviceUtils: ServiceUtils, private toast: ToastService) { }
 
   search(term: string, adult: boolean): Observable<Person[]> {
     let url = Url.PERSON_SEARCH_URL + Url.API_KEY;
@@ -19,6 +20,6 @@ export class PersonSearchService {
     return this.serviceUtils
       .getObservable(url, this.serviceUtils.getHeaders())
       .map(response => MapPerson.mapForSearchPersons(response))
-      .catch(this.serviceUtils.handlePromiseError);
+      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 }

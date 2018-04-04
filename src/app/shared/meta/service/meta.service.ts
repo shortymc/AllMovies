@@ -3,12 +3,13 @@ import { Url } from './../../../constant/url';
 import { ServiceUtils } from './../../../service/serviceUtils';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
+import { ToastService } from '../../../service/toast.service';
 
 @Injectable()
 export class MetaService {
   private score: string;
 
-  constructor(private serviceUtils: ServiceUtils) { }
+  constructor(private serviceUtils: ServiceUtils, private toast: ToastService) { }
 
   getLinkScore(title: string, site: any, isMovie: boolean): Promise<string> {
     // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
@@ -28,7 +29,7 @@ export class MetaService {
           }
           return result;
         })
-        .catch(this.serviceUtils.handlePromiseError);
+        .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
     }
   }
 
@@ -44,8 +45,7 @@ export class MetaService {
     return this.serviceUtils.jsonpObservable(url, 'callback')
       .map(response => {
         return response[3][0];
-      })
-      .catch(this.serviceUtils.handlePromiseError);
+      }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   getMeta(title: string): Promise<void> {

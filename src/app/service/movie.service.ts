@@ -5,16 +5,17 @@ import { Injectable } from '@angular/core';
 import { Movie } from '../model/movie';
 import { Url } from '../constant/url';
 import { OmdbService } from './omdb.service';
+import { ToastService } from './toast.service';
 
 @Injectable()
 export class MovieService {
 
-  constructor(private serviceUtils: ServiceUtils, private omdb: OmdbService) { }
+  constructor(private serviceUtils: ServiceUtils, private omdb: OmdbService, private toast: ToastService) { }
 
   getPopularMovies(language: string): Promise<Movie[]> {
     return this.serviceUtils.getPromise(`${Url.MOST_POPULAR_URL}${Url.LANGUE}${language}`)
       .then(response => MapMovie.mapForPopularMovies(response))
-      .catch(this.serviceUtils.handlePromiseError);
+      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   getMovies(ids: number[], language: string): Promise<Movie[]> {
@@ -51,7 +52,7 @@ export class MovieService {
         movie.lang_version = language;
         this.omdb.getMovie(movie.imdb_id).then(score => movie.score = score);
         return movie;
-      }).catch(this.serviceUtils.handlePromiseError);
+      }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   getMoviesByReleaseDates(debut: string, fin: string, language: string): Promise<Movie[]> {
@@ -59,6 +60,6 @@ export class MovieService {
       `${Url.DISCOVER_URL}${Url.RELEASE_DATE_GTE_URL}${debut}${Url.RELEASE_DATE_LTE_URL}${fin}${Url.RELEASE_TYPE_URL}${Url.LANGUE}${language}`;
     return this.serviceUtils.getPromise(url)
       .then(response => MapMovie.mapForMoviesByReleaseDates(response))
-      .catch(this.serviceUtils.handlePromiseError);
+      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 }

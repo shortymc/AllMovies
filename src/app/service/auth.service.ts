@@ -93,7 +93,7 @@ export class AuthService {
         this.fileName = '';
         return false;
       }
-    }).catch(this.serviceUtils.handlePromiseError);
+    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   checkInfos(token: string): Promise<boolean> {
@@ -106,7 +106,7 @@ export class AuthService {
         return false;
       }
       return user.name === user_infos.name && user.password === user_infos.password;
-    }).catch(this.serviceUtils.handlePromiseError);
+    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   getUserById(id: number): Promise<User> {
@@ -116,7 +116,7 @@ export class AuthService {
       return new Promise<User>((resolve, reject) => {
         resolve(users.find((user: User) => user.id === id));
       });
-    }).catch(this.serviceUtils.handlePromiseError);
+    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   changePassword(name: string, password: string) {
@@ -131,15 +131,15 @@ export class AuthService {
         .then((res: any) => {
           console.log(res);
           this.toast.open(this.translate.instant('toast.user_changed'));
-        }).catch(this.serviceUtils.handleError);
+        }).catch((err) => this.serviceUtils.handleError(err, this.toast));
       return user;
-    }).catch(this.serviceUtils.handlePromiseError);
+    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   checkAnswer(name: string, answer: string): Promise<boolean> {
     return this.getUserByName(name).then((user: User) => {
       return user.name === name && user.answer === answer;
-    }).catch(this.serviceUtils.handlePromiseError);
+    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   getUserByName(name: string): Promise<User> {
@@ -147,19 +147,19 @@ export class AuthService {
       return new Promise<User>((resolve, reject) => {
         resolve(users.find((user: User) => user.name === name));
       });
-    }).catch(this.serviceUtils.handlePromiseError);
+    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   isUserExist(name: string): Promise<boolean> {
     return this.getUserFile().then(users => users.find(user => user.name === name) !== undefined
-    ).catch(this.serviceUtils.handlePromiseError);
+    ).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   getUserFile(): Promise<User[]> {
     // console.log('getUserFile');
     return this.dropbox.downloadFile(Url.DROPBOX_USER_FILE).then(file =>
       <User[]>JSON.parse(file)
-    ).catch(this.serviceUtils.handlePromiseError);
+    ).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   createToken(user: User) {
@@ -182,8 +182,8 @@ export class AuthService {
           this.setToken(this.createToken(result));
           this.isLogged = true;
           this.router.navigate(['/']);
-        }).catch(this.serviceUtils.handlePromiseError);
-    }).catch(this.serviceUtils.handleError);
+        }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+    }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
   changeUser(user: User) {
@@ -196,9 +196,9 @@ export class AuthService {
         .then((res: any) => {
           console.log(res);
           this.toast.open(this.translate.instant('toast.user_changed'));
-        }).catch(this.serviceUtils.handleError);
+        }).catch((err) => this.serviceUtils.handleError(err, this.toast));
       return user;
-    }).catch(this.serviceUtils.handlePromiseError);
+    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   addUser(user: User): Promise<User> {
@@ -212,9 +212,9 @@ export class AuthService {
         .then((res: any) => {
           console.log(res);
           this.toast.open(this.translate.instant('toast.user_added'));
-        }).catch(this.serviceUtils.handleError);
+        }).catch((err) => this.serviceUtils.handleError(err, this.toast));
       return user;
-    }).catch(this.serviceUtils.handlePromiseError);
+    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   getFileName(): Promise<string> {
@@ -225,7 +225,7 @@ export class AuthService {
         this.logout();
         return '';
       }
-    }).catch(this.serviceUtils.handlePromiseError);
+    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   getCurrentUser(): Promise<User> {
@@ -238,7 +238,7 @@ export class AuthService {
         this.logout();
         return undefined;
       }
-    }).catch(this.serviceUtils.handlePromiseError);
+    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   logout() {
