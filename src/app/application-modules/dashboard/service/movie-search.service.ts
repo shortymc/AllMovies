@@ -1,3 +1,4 @@
+import { ToastService } from './../../../service/toast.service';
 import { MapMovie } from './../../../shared/mapMovie';
 import { ServiceUtils } from './../../../service/serviceUtils';
 import { Movie } from './../../../model/movie';
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class MovieSearchService {
 
-  constructor(private serviceUtils: ServiceUtils) { }
+  constructor(private serviceUtils: ServiceUtils, private toast: ToastService) { }
 
   search(term: string, adult: boolean, language: string): Observable<Movie[]> {
     let url = Url.MOVIE_SEARCH_URL + Url.API_KEY;
@@ -19,6 +20,6 @@ export class MovieSearchService {
     return this.serviceUtils
       .getObservable(url, this.serviceUtils.getHeaders())
       .map(response => MapMovie.mapForSearchMovies(response))
-      .catch(this.serviceUtils.handlePromiseError);
+      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 }
