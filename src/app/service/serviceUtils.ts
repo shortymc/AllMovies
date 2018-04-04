@@ -23,16 +23,16 @@ export class ServiceUtils {
     return message;
   }
 
-  getHeaders() {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    // headers.append('Accept', 'application/json');
-    return headers;
-  }
-
   static encodeQueryUrl(query: string): string {
     return encodeURIComponent(query).replace(/[!'()*]/g, function(c) {
       return '%' + c.charCodeAt(0).toString(16);
     });
+  }
+
+  getHeaders() {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // headers.append('Accept', 'application/json');
+    return headers;
   }
 
   handleSuccess(messageKey: string) {

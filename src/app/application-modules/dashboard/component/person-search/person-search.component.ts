@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { PersonSearchService } from '../../service/person-search.service';
 import { Person } from '../../../../model/person';
+import { AuthService } from '../../../../service/auth.service';
 
 @Component({
   selector: 'app-person-search',
@@ -16,6 +17,7 @@ export class PersonSearchComponent implements OnInit {
   private searchTerms = new Subject<string>();
   adult = false;
   showPerson = false;
+  pseudo: string;
 
   constructor(
     private personSearchService: PersonSearchService,
@@ -27,6 +29,7 @@ export class PersonSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pseudo = AuthService.decodeToken().name;
     this.persons = this.searchTerms
       .debounceTime(300)        // wait 300ms after each keystroke before considering the term
       // .distinctUntilChanged()   // ignore if next search term is same as previous
