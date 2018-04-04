@@ -32,7 +32,7 @@ export class Url {
   static readonly APPEND_RECOMMENDATIONS = 'recommendations';
   static readonly RELEASE_DATE_GTE_URL = '&release_date.gte=';
   static readonly RELEASE_DATE_LTE_URL = '&release_date.lte=';
-  static readonly RELEASE_TYPE_URL = '&with_release_type=2|3';
+  static readonly RELEASE_TYPE_URL = '&with_release_type=3|2';
   static readonly DISCOVER_URL =
     'https://api.themoviedb.org/3/discover/movie?' + Url.API_KEY + '&region=FR';
   static readonly MOST_POPULAR_URL = Url.DISCOVER_URL + '&sort_by=popularity.desc';
