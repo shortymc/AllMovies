@@ -1,3 +1,4 @@
+import { AuthService } from './../../../../service/auth.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -22,6 +23,7 @@ export class MovieSearchComponent implements OnInit {
   adult = false;
   showMovie = false;
   language: string;
+  pseudo: string;
 
   constructor(
     private movieSearchService: MovieSearchService,
@@ -34,6 +36,7 @@ export class MovieSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pseudo = AuthService.decodeToken().name;
     this.language = this.translate.currentLang;
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.language = event.lang;

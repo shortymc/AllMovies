@@ -9,7 +9,7 @@
         <img src="./assets/exit.png" />
       </a>
     </div>
-    <label ngbButtonLabel class="adultBox">
+    <label ngbButtonLabel [ngClass]="{'adultBox': pseudo !== 'Test'}">
       <input type="checkbox" ngbButton [(ngModel)]="adult" (click)="search(searchBox.value)">Adult
     </label>
   </div>
