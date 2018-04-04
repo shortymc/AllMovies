@@ -34,7 +34,7 @@ export class DropboxService {
   listFiles(): void {
     this.getDbx().filesListFolder({ path: '' })
       .then((response: any) => console.log(response.entries))
-      .catch(this.serviceUtils.handleError);
+      .catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
   getPath(fileName: string): string {
@@ -46,14 +46,14 @@ export class DropboxService {
     return this.getDbx().filesDeleteV2({ path: pathFile })
       .then((response: any) => {
         return this.getDbx().filesUpload({ path: pathFile, contents: fichier });
-      }).catch(this.serviceUtils.handlePromiseError);
+      }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   uploadNewFile(fichier: any, fileName: string): Promise<void> {
     const pathFile = this.getPath(fileName);
     return this.getDbx().filesUpload({ path: pathFile, contents: fichier })
       .then(() => new Promise((resolve, reject) => resolve()))
-      .catch(this.serviceUtils.handlePromiseError);
+      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   downloadFile(fileName: string): Promise<string> {
@@ -66,7 +66,7 @@ export class DropboxService {
           fileReader.onerror = reject;
           fileReader.readAsText(response.fileBlob);
         }) as Promise<string[]>;
-      }).catch(this.serviceUtils.handleError);
+      }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
   addMovie(movie: Movie, fileName: string): void {
@@ -85,11 +85,11 @@ export class DropboxService {
           .then((res: any) => {
             console.log(res);
             this.toast.open(this.translate.instant('toast.movie_added'));
-          }).catch(this.serviceUtils.handleError);
+          }).catch((err) => this.serviceUtils.handleError(err, this.toast));
       } else {
         this.toast.open(this.translate.instant('toast.already_added'));
       }
-    }).catch(this.serviceUtils.handleError);
+    }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
   addMovieList(moviesToAdd: Movie[], fileName: string): void {
@@ -107,11 +107,11 @@ export class DropboxService {
           .then((res: any) => {
             console.log(res);
             this.toast.open(this.translate.instant('toast.movies_added', { size: found.length / 2 }));
-          }).catch(this.serviceUtils.handleError);
+          }).catch((err) => this.serviceUtils.handleError(err, this.toast));
       } else {
         this.toast.open(this.translate.instant('toast.already_added'));
       }
-    }).catch(this.serviceUtils.handleError);
+    }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
   removeMovie(id: number, fileName: string): void {
@@ -121,8 +121,8 @@ export class DropboxService {
         .then((res: any) => {
           console.log(res);
           this.toast.open(this.translate.instant('toast.movie_removed'));
-        }).catch(this.serviceUtils.handleError);
-    }).catch(this.serviceUtils.handleError);
+        }).catch((err) => this.serviceUtils.handleError(err, this.toast));
+    }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
   removeMovieList(idToRemove: number[], fileName: string): void {
@@ -135,9 +135,9 @@ export class DropboxService {
           .then((res: any) => {
             console.log(res);
             this.toast.open(this.translate.instant('toast.movies_removed', { size: idToRemove.length }));
-          }).catch(this.serviceUtils.handleError);
+          }).catch((err) => this.serviceUtils.handleError(err, this.toast));
       }
-    }).catch(this.serviceUtils.handleError);
+    }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
   getAllMovies(fileName: string): Promise<Movie[]> {
@@ -147,7 +147,7 @@ export class DropboxService {
       } else {
         return [];
       }
-    }).catch(this.serviceUtils.handlePromiseError);
+    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   /**
@@ -167,7 +167,7 @@ export class DropboxService {
         .then((res: any) => {
           console.log(res);
           this.toast.open(this.translate.instant('toast.movies_updated', { size: moviesToReplace.length }));
-        }).catch(this.serviceUtils.handleError);
-    }).catch(this.serviceUtils.handleError);
+        }).catch((err) => this.serviceUtils.handleError(err, this.toast));
+    }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 }

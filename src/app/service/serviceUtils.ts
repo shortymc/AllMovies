@@ -6,7 +6,21 @@ import { ToastService } from './toast.service';
 @Injectable()
 export class ServiceUtils {
 
-  constructor(private http: HttpClient, private toast: ToastService) {
+  constructor(private http: HttpClient) {
+  }
+
+  static getErrorMessage(error: any): string {
+    let message;
+    if (error.response) {
+      message = error.response.error;
+    } else if (error.message) {
+      message = error.message;
+    } else if (error.error) {
+      message = error.error;
+    } else {
+      message = error;
+    }
+    return message;
   }
 
   getHeaders() {
@@ -25,16 +39,16 @@ export class ServiceUtils {
 
   }
 
-  handleError(error: any) {
+  handleError(error: any, toast: ToastService) {
     console.log('handleError');
     console.error('error', error);
-    this.toast.open(error);
+    toast.open(ServiceUtils.getErrorMessage(error));
   }
 
-  handlePromiseError(error: any): Promise<any> {
+  handlePromiseError(error: any, toast: ToastService): Promise<any> {
     console.log('handlePromiseError');
     console.error('error', error);
-    this.toast.open(error.response.error);
+    toast.open(ServiceUtils.getErrorMessage(error));
     return new Promise<any>((resolve, reject) => {
       resolve();
     });

@@ -4,11 +4,12 @@ import { Url } from './../constant/url';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Person } from '../model/person';
+import { ToastService } from './toast.service';
 
 @Injectable()
 export class PersonService {
 
-  constructor(private serviceUtils: ServiceUtils) { }
+  constructor(private serviceUtils: ServiceUtils, private toast: ToastService) { }
 
   getPerson(id: number, language: string): Promise<Person> {
     const url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}${Url.LANGUE}${language}${Url.APPEND}${Url.APPEND_IMAGES}${Url.INCLUDE_IMAGE_LANGUAGE}${language},null`;
@@ -20,6 +21,6 @@ export class PersonService {
       return [].concat(...responses);
     }).map(response => MapPerson.mapForPerson(response))
       .toPromise()
-      .catch(this.serviceUtils.handlePromiseError);
+      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 }
