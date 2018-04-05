@@ -5,7 +5,7 @@
     </mat-select>
   </mat-form-field>
   <mat-button-toggle-group #sortDir="matButtonToggleGroup">
-    SortDirection:
+    <div class="toogleHeader">SortDirection:</div>
     <mat-button-toggle value="desc">
       Down
     </mat-button-toggle>
@@ -19,16 +19,14 @@
 <mat-list dense *ngIf="discover">
   <h3 mat-subheader>Folders</h3>
   <mat-list-item *ngFor="let movie of discover.movies">
-    <mat-icon matListIcon>
-      <a class="frame" href="{{movie.affiche}}" target="_blank">
-        <img src="{{movie.thumbnail}}">
-      </a>
-    </mat-icon>
+    <a class="frame" href="{{movie.affiche}}" target="_blank">
+      <img src="{{movie.thumbnail}}">
+    </a>
     <p matLine>{{movie.title}}</p>
     <p matLine>{{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}</p>
     <p matLine>
       <span>{{movie.note}} / 10 </span>
-      <span>{{movie.vote_count}}</span>
+      <span>({{movie.vote_count}})</span>
     </p>
   </mat-list-item>
 </mat-list>
