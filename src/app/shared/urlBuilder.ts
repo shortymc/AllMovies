@@ -25,16 +25,20 @@ export class UrlBuilder {
       url += `${Url.LANGUE}${language}`;
       url += `${Url.INCLUDE_IMAGE_LANGUAGE}${language},null`;
     }
+    console.log('movieUrlBuilder', url);
     return url;
   }
 
-  static discoverUrlBuilder(language: string, sortField: string, sortDir: string, page: number, yearMin: number,
-    yearMax: number, adult: boolean, voteAvergeMin: number, voteAvergeMax: number,
-    voteCountMin: number, certification: string[], runtimeMin: number, runtimeMax: number,
-    releaseType: number[], personsIds: number[], genresId: number[], genresWithout: boolean,
-    keywordsIds: number[], keywordsWithout: boolean): string {
+  static discoverUrlBuilder(language: string, sortField: string, sortDir: string, page: number, yearMin?: number,
+    yearMax?: number, adult?: boolean, voteAvergeMin?: number, voteAvergeMax?: number,
+    voteCountMin?: number, certification?: string[], runtimeMin?: number, runtimeMax?: number,
+    releaseType?: number[], personsIds?: number[], genresId?: number[], genresWithout?: boolean,
+    keywordsIds?: number[], keywordsWithout?: boolean): string {
     let url = `${Url.DISCOVER_URL}`;
     const parametres = [];
+    if (sortField && sortDir) {
+      parametres.push(`${Url.SORT_BY_URL}${sortField}.${sortDir}`);
+    }
     if (page) {
       parametres.push(`${Url.PAGE_URL}${page}`);
     }
@@ -89,6 +93,7 @@ export class UrlBuilder {
       url += `${Url.LANGUE}${language}`;
       url += `${Url.INCLUDE_IMAGE_LANGUAGE}${language},null`;
     }
+    console.log('discoverUrlBuilder', url);
     return url;
   }
 }
