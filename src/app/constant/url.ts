@@ -36,6 +36,7 @@ export class Url {
   static readonly DISCOVER_URL =
     'https://api.themoviedb.org/3/discover/movie?' + Url.API_KEY + '&region=FR';
   static readonly MOST_POPULAR_URL = Url.DISCOVER_URL + '&sort_by=popularity.desc';
+  static readonly SORT_BY_URL = '&sort_by=';
   static readonly PAGE_URL = '&page=';
   static readonly VOTE_COUNT_GTE_URL = '&vote_count.gte=';
   static readonly VOTE_COUNT_LTE_URL = '&vote_count.lte=';
