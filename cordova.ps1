@@ -1,6 +1,6 @@
 cd C:\DEV\workspace\AllMovies
 
-$content = Get-Content("C:\DEV\workspace\AllMovies\src\app\service\dropbox.service.ts")
+$content = Get-Content("C:\DEV\workspace\AllMovies\src\app\service\dropbox.service.ts") | Out-String
 $content = $content.replace("import Dropbox = require('dropbox');","import Dropbox from 'dropbox';")
 $content | out-file "C:\DEV\workspace\AllMovies\src\app\service\dropbox.service.ts"
 
