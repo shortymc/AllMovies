@@ -36,6 +36,31 @@ export class Url {
   static readonly DISCOVER_URL =
     'https://api.themoviedb.org/3/discover/movie?' + Url.API_KEY + '&region=FR';
   static readonly MOST_POPULAR_URL = Url.DISCOVER_URL + '&sort_by=popularity.desc';
+  static readonly PAGE_URL = '&page=';
+  static readonly VOTE_COUNT_GTE_URL = '&vote_count.gte=';
+  static readonly VOTE_COUNT_LTE_URL = '&vote_count.lte=';
+  static readonly VOTE_AVERAGE_GTE_URL = '&vote_average.gte=';
+  static readonly VOTE_AVERAGE_LTE_URL = '&vote_average.lte=';
+  static readonly CERTIFICATION_COUNTRY_URL = '&certification_country=FR';
+  static readonly CERTIFICATION_URL = '&certification=';
+  static readonly AND_URL = ',';
+  static readonly OR_URL = '|';
+  static readonly WITH_RUNTIME_GTE_URL = '&with_runtime.gte=';
+  static readonly WITH_RUNTIME_LTE_URL = '&with_runtime.lte=';
+  static readonly WITH_RELEASE_TYPE_URL = '&with_release_type=';
+  static readonly WITH_GENRES_URL = '&with_genres=';
+  static readonly WITH_KEYWORDS_URL = '&with_keywords=';
+  static readonly WITH_PEOPLE_URL = '&with_people=';
+  static readonly WITHOUT_GENRES_URL = '&without_genres=';
+  static readonly WITHOUT_KEYWORDS_URL = '&without_keywords=';
+
+  // Release types
+  static readonly RELEASE_PREMIERE = '1';
+  static readonly RELEASE_THEATRICAL_LIMITED = '2';
+  static readonly RELEASE_THEATRICAL = '3';
+  static readonly RELEASE_DIGITAL = '4';
+  static readonly RELEASE_PHYSICAL = '5';
+  static readonly RELEASE_TV = '6';
 
   // DropBox
   static readonly DROPBOX_TOKEN = 'G-_ZeiEAvB0AAAAAAAANQd4IMHRr7Y9aTvAiivg-8LImbDKmo9pdu95_SIioW3lR';

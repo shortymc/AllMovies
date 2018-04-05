@@ -1,5 +1,6 @@
 import { Utils } from './utils';
 import { Movie } from './../model/movie';
+import { Discover } from '../model/discover';
 
 export class MapMovie {
 
@@ -29,6 +30,27 @@ export class MapMovie {
       language: r.original_language,
       thumbnail: Utils.getPosterPath(r, 92)
     }));
+  }
+
+  static mapForDiscover(response: any): Discover {
+    const discover = new Discover();
+    discover.movies = response.results.map((r: any) => <Movie>({
+      id: r.id,
+      title: r.title,
+      date: r.release_date,
+      note: r.vote_average,
+      language: r.original_language,
+      thumbnail: Utils.getPosterPath(r, 92),
+      affiche: Utils.getPosterPath(r, 0),
+      adult: r.adult,
+      original_title: Utils.getTitle(r),
+      popularity: r.popularity,
+      vote_count: r.vote_count
+    }));
+    discover.total_pages = response.total_pages;
+    discover.page = response.page;
+    discover.total_results = response.total_results;
+    return discover;
   }
 
   static mapForSearchMovies(response: any): Movie[] {
