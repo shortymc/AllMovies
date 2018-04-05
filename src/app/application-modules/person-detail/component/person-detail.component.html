@@ -31,7 +31,6 @@
         <div class="biography">{{person.biography}}</div>
       </div>
     </div>
-    <app-meta [entry]="person" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR]"></app-meta>
     <div *ngIf="person.images.length > 0">
       <button type="button" class="btn btn-outline-primary" (click)="isImagesCollapsed = !isImagesCollapsed">
         <i class="fa fa-plus-square" aria-hidden="true" [ngClass]="{'hide' : isImagesCollapsed}"></i>
@@ -49,6 +48,7 @@
         </div>
       </div>
     </div>
+    <app-meta [entry]="person" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR]"></app-meta>
     <figure>
       <label>{{'person.films' | translate}}:</label>
       <ul class="movies">
