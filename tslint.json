@@ -179,7 +179,7 @@
         ],
         "max-file-line-count": [
             true,
-            200
+            300
         ]
     }
 }
