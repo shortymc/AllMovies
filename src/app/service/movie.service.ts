@@ -1,3 +1,4 @@
+import { Discover } from './../model/discover';
 import { Observable } from 'rxjs/Observable';
 import { MapMovie } from './../shared/mapMovie';
 import { ServiceUtils } from './serviceUtils';
@@ -6,6 +7,7 @@ import { Movie } from '../model/movie';
 import { Url } from '../constant/url';
 import { OmdbService } from './omdb.service';
 import { ToastService } from './toast.service';
+import { UrlBuilder } from '../shared/urlBuilder';
 
 @Injectable()
 export class MovieService {
@@ -24,29 +26,7 @@ export class MovieService {
   }
 
   getMovie(id: number, video: boolean, credit: boolean, reco: boolean, image: boolean, language: string): Observable<Movie> {
-    let url = `${Url.MOVIE_URl}/${id}?${Url.API_KEY}`;
-    if (video || credit || reco || image) {
-      url += `${Url.APPEND}`;
-      const parametres = [];
-      if (video) {
-        parametres.push(`${Url.APPEND_VIDEOS}`);
-      }
-      if (credit) {
-        parametres.push(`${Url.APPEND_CREDITS}`);
-      }
-      if (reco) {
-        parametres.push(`${Url.APPEND_RECOMMENDATIONS}`);
-      }
-      if (image) {
-        parametres.push(`${Url.APPEND_IMAGES}`);
-      }
-      url += parametres.join(',');
-    }
-    if (language) {
-      url += `${Url.LANGUE}${language}`;
-      url += `${Url.INCLUDE_IMAGE_LANGUAGE}${language},null`;
-    }
-    return this.serviceUtils.getObservable(url)
+    return this.serviceUtils.getObservable(UrlBuilder.movieUrlBuilder(id, video, credit, reco, image, language))
       .map(response => {
         const movie = MapMovie.mapForMovie(response);
         movie.lang_version = language;
@@ -62,4 +42,20 @@ export class MovieService {
       .then(response => MapMovie.mapForMoviesByReleaseDates(response))
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
+
+  getMoviesDiscover(language: string, sortField: string, sortDir: string, page: number, yearMin: number,
+    yearMax: number, adult: boolean, voteAvergeMin: number, voteAvergeMax: number,
+    voteCountMin: number, certification: string[], runtimeMin: number, runtimeMax: number,
+    releaseType: number[], personsIds: number[], genresId: number[], genresWithout: boolean,
+    keywordsIds: number[], keywordsWithout: boolean): Promise<Discover> {
+    return this.serviceUtils.getPromise(
+      UrlBuilder.discoverUrlBuilder(language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
+        voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
+      .then((response: any) => {
+        const discover = MapMovie.mapForDiscover(response);
+        // discover.movies.forEach((movie) => this.omdb.getMovie(movie.imdb_id).then(score => movie.score = score));
+        return discover;
+      }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+  }
+
 }
