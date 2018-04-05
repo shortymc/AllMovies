@@ -38,6 +38,7 @@
         "release": "Releases",
         "profile": "My profile",
         "logout": "Log out",
+        "discover": "Discover",
         "change_language":"Change Language"
     },
     "toast": {
