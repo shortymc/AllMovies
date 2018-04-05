@@ -4,7 +4,24 @@
   margin-left: 92px !important;
 }
 
+.mat-button-toggle,
+.toogleHeader {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .params {
   display: flex !important;
   justify-content: center;
+}
+
+a {
+  position: absolute !important;
+  float: left !important;
+  margin-bottom: 0 !important;
+
+  & img {
+    height: 54px;
+  }
 }
