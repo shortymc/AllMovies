@@ -43,11 +43,11 @@ export class MovieService {
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  getMoviesDiscover(language: string, sortField: string, sortDir: string, page: number, yearMin: number,
-    yearMax: number, adult: boolean, voteAvergeMin: number, voteAvergeMax: number,
-    voteCountMin: number, certification: string[], runtimeMin: number, runtimeMax: number,
-    releaseType: number[], personsIds: number[], genresId: number[], genresWithout: boolean,
-    keywordsIds: number[], keywordsWithout: boolean): Promise<Discover> {
+  getMoviesDiscover(language: string, sortField: string, sortDir: string, page: number, yearMin?: number,
+    yearMax?: number, adult?: boolean, voteAvergeMin?: number, voteAvergeMax?: number,
+    voteCountMin?: number, certification?: string[], runtimeMin?: number, runtimeMax?: number,
+    releaseType?: number[], personsIds?: number[], genresId?: number[], genresWithout?: boolean,
+    keywordsIds?: number[], keywordsWithout?: boolean): Promise<Discover> {
     return this.serviceUtils.getPromise(
       UrlBuilder.discoverUrlBuilder(language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
         voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))

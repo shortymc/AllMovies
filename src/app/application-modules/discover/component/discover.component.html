@@ -1,3 +1,34 @@
-<p>
-  discover works!
-</p>
+<div class="params">
+  <mat-form-field>
+    <mat-select #sortField placeholder="{{'Sort' | translate}}" (selectionChange)="sortChosen = $event.value">
+      <mat-option *ngFor="let sort of sortChoices" [value]="sort">{{sort}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-button-toggle-group #sortDir="matButtonToggleGroup">
+    SortDirection:
+    <mat-button-toggle value="desc">
+      Down
+    </mat-button-toggle>
+    <mat-button-toggle value="asc">
+      Up
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+  <button type="button" class="btn btn-outline-primary" (click)="search()">{{'Search'|translate}}</button>
+</div>
+
+<mat-list dense *ngIf="discover">
+  <h3 mat-subheader>Folders</h3>
+  <mat-list-item *ngFor="let movie of discover.movies">
+    <mat-icon matListIcon>
+      <a class="frame" href="{{movie.affiche}}" target="_blank">
+        <img src="{{movie.thumbnail}}">
+      </a>
+    </mat-icon>
+    <p matLine>{{movie.title}}</p>
+    <p matLine>{{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}</p>
+    <p matLine>
+      <span>{{movie.note}} / 10 </span>
+      <span>{{movie.vote_count}}</span>
+    </p>
+  </mat-list-item>
+</mat-list>

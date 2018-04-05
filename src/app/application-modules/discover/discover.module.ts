@@ -7,6 +7,7 @@ import { SharedModule } from './../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatListModule, MatIconModule, MatButtonToggleModule, MatSelectModule, MatFormFieldModule } from '@angular/material';
 
 const childRoutes: Routes = [
   {
@@ -21,6 +22,11 @@ const childRoutes: Routes = [
     RouterModule.forChild(childRoutes),
     SharedModule,
     TranslateModule.forChild(),
+    MatListModule,
+    MatIconModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatButtonToggleModule
   ],
   providers: [
     MovieService,
