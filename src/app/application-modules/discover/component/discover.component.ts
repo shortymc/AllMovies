@@ -1,9 +1,11 @@
+import { ConvertToHHmmPipe } from './../../../shared/custom.pipe';
 import { PageEvent } from '@angular/material/paginator';
 import { Discover } from './../../../model/discover';
 import { TranslateService } from '@ngx-translate/core';
 import { MovieService } from './../../../service/movie.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NouiFormatter } from 'ng2-nouislider';
 
 @Component({
   selector: 'app-discover',
@@ -17,13 +19,38 @@ export class DiscoverComponent implements OnInit {
   sortChosen: string;
   page: PageEvent;
   nbChecked = 0;
+  max = 300;
+  runtimeRange: any[] = [0, this.max];
+  formatter: NouiFormatter;
 
-  constructor(private movieService: MovieService, private translate: TranslateService, private router: Router) { }
+  constructor(
+    private movieService: MovieService,
+    private translate: TranslateService,
+    private router: Router,
+    public timePipe: ConvertToHHmmPipe) { }
 
   ngOnInit() {
     this.sortDir.value = 'desc';
     this.sortChoices = ['popularity', 'release_date', 'revenue', 'original_title', 'vote_average', 'vote_count'];
     this.sortChosen = this.sortChoices[0];
+    this.formatter = {
+      to(minutes: number): string {
+        if (minutes) {
+          minutes = Math.round(minutes);
+          let result = '';
+          result += Math.floor(minutes / 60);
+          result += ' h ';
+          result += minutes % 60;
+          result += ' min ';
+          return result;
+        } else {
+          return '0 min';
+        }
+      },
+      from(time: string): any {
+        return time;
+      }
+    };
   }
 
   search(initPagination: boolean) {
@@ -33,8 +60,29 @@ export class DiscoverComponent implements OnInit {
       this.page = new PageEvent();
       this.nbChecked = 0;
     }
-    this.movieService.getMoviesDiscover(this.translate.currentLang, this.sortChosen, this.sortDir.value, this.page.pageIndex + 1)
+    let runtimeMin;
+    if (this.runtimeRange[0] !== 0) {
+      runtimeMin = this.convertTimeToMinutes(this.runtimeRange[0]);
+    }
+    let runtimeMax;
+    if (this.runtimeRange[1] !== this.max) {
+      runtimeMax = this.convertTimeToMinutes(this.runtimeRange[1]);
+    }
+    if (runtimeMax === this.max) {
+      runtimeMax = undefined;
+    }
+    // (language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
+    //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
+    this.movieService.getMoviesDiscover(this.translate.currentLang, this.sortChosen, this.sortDir.value, this.page.pageIndex + 1,
+      undefined, undefined, undefined, undefined, undefined, undefined, undefined, runtimeMin, runtimeMax)
       .then(result => this.discover = result);
+  }
+
+  convertTimeToMinutes(time: string): number {
+    const h = parseInt(time.substr(0, time.indexOf('h')).trim(), 10);
+    const m = parseInt(time.substring(time.lastIndexOf('h') + 1, time.lastIndexOf('min')).trim(), 10);
+    return h * 60 + m;
+
   }
 
   gotoDetail(id: number, event): void {

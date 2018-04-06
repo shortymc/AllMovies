@@ -5157,6 +5157,10 @@ ng-bootstrap@^1.6.3:
   dependencies:
     moment "2.18.1"
 
+ng2-nouislider@^1.7.7:
+  version "1.7.7"
+  resolved "https://registry.yarnpkg.com/ng2-nouislider/-/ng2-nouislider-1.7.7.tgz#b841f4b313c8c9c8a763c80f3a59d5aa4c3a70c8"
+
 ngrok@*:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ngrok/-/ngrok-3.0.0.tgz#b4539608deb42a9fb1148996d53925aaa5ddcf9e"
@@ -5365,6 +5369,10 @@ normalize-range@^0.1.2:
 normalize-selector@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/normalize-selector/-/normalize-selector-0.2.0.tgz#d0b145eb691189c63a78d201dc4fdb1293ef0c03"
+
+nouislider@^11.1.0:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-11.1.0.tgz#1768eb5b854917325d41b96f2dc4eb3757d73381"
 
 npm-run-all@^4.1.2:
   version "4.1.2"
