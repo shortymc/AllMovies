@@ -1,3 +1,4 @@
+import { ConvertToHHmmPipe } from './../../shared/custom.pipe';
 import { MyPaginator } from './../movies/component/my-paginator';
 import { NgModule } from '@angular/core';
 import { DiscoverComponent } from './component/discover.component';
@@ -8,6 +9,7 @@ import { SharedModule } from './../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NouisliderModule } from 'ng2-nouislider';
 import {
   MatListModule, MatIconModule, MatButtonToggleModule, MatSelectModule,
   MatFormFieldModule, MatPaginatorModule, MatPaginatorIntl
@@ -30,6 +32,7 @@ const childRoutes: Routes = [
     MatIconModule,
     MatPaginatorModule,
     MatSelectModule,
+    NouisliderModule,
     MatFormFieldModule,
     MatButtonToggleModule
   ],
@@ -37,6 +40,7 @@ const childRoutes: Routes = [
     MovieService,
     DropboxService,
     TranslateService,
+    ConvertToHHmmPipe,
     { provide: MatPaginatorIntl, useClass: MyPaginator, deps: [TranslateService] }],
   declarations: [DiscoverComponent]
 })

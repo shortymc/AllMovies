@@ -22,6 +22,16 @@
   justify-content: center;
 }
 
+.ng2-nouislider {
+  width: 50%;
+  margin-left: 25vw;
+}
+
+/* stylelint-disable */
+::ng-deep .noUi-handle {
+  cursor: grab;
+}
+
 .selected {
   background-color: $light_gray;
 }
@@ -33,5 +43,12 @@ a {
 
   & img {
     height: 54px;
+  }
+}
+
+@include media(#{$smallscreen}) {
+  .ng2-nouislider {
+    width: 80vw;
+    margin-left: 5vh;
   }
 }
