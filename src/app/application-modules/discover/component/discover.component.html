@@ -14,14 +14,16 @@
     </mat-button-toggle>
   </mat-button-toggle-group>
   <button type="button" class="btn btn-outline-primary" (click)="search(true)">{{'Search'|translate}}</button>
+  <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" appAddCollection [movies]="discover.movies">{{'global.add_collection'|translate}}</button>
 </div>
 
 <mat-list dense *ngIf="discover">
   <mat-paginator #paginator [length]="discover.total_pages" [pageIndex]="page.pageIndex" [pageSize]="20" (page)="page = $event; search(false);">
   </mat-paginator>
-  <h3 mat-subheader>Nombre de pages: {{discover.total_pages}}</h3>
   <h3 mat-subheader>Nombre de résultat: {{discover.total_results}}</h3>
-  <mat-list-item *ngFor="let movie of discover.movies">
+  <mat-list-item *ngFor="let movie of discover.movies" (dblclick)="gotoDetail(movie.id, $event)"
+    (mousedown)="movie.checked = !movie.checked; updateSize();gotoDetail(movie.id, $event)"
+    [ngClass]="{'selected':movie.checked}">
     <a class="frame" href="{{movie.affiche}}" target="_blank">
       <img src="{{movie.thumbnail}}">
     </a>
