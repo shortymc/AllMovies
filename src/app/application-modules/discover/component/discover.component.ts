@@ -22,6 +22,9 @@ export class DiscoverComponent implements OnInit {
   max = 300;
   runtimeRange: any[] = [0, this.max];
   formatter: NouiFormatter;
+  minYear = 1890;
+  maxYear = new Date().getFullYear();
+  yearRange: any[] = [this.minYear, this.maxYear];
 
   constructor(
     private movieService: MovieService,
@@ -71,10 +74,18 @@ export class DiscoverComponent implements OnInit {
     if (runtimeMax === this.max) {
       runtimeMax = undefined;
     }
+    let yearMin;
+    if (this.yearRange[0] && this.yearRange[0] !== this.minYear) {
+      yearMin = this.yearRange[0];
+    }
+    let yearMax;
+    if (this.yearRange[1] && this.yearRange[1] !== this.maxYear) {
+      yearMax = this.yearRange[1];
+    }
     // (language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
     //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
     this.movieService.getMoviesDiscover(this.translate.currentLang, this.sortChosen, this.sortDir.value, this.page.pageIndex + 1,
-      undefined, undefined, undefined, undefined, undefined, undefined, undefined, runtimeMin, runtimeMax)
+      yearMin, yearMax, undefined, undefined, undefined, undefined, undefined, runtimeMin, runtimeMax)
       .then(result => this.discover = result);
   }
 
