@@ -17,6 +17,11 @@
   flex-wrap: wrap;
 }
 
+.mat-paginator {
+  display: flex;
+  justify-content: center;
+}
+
 a {
   position: absolute !important;
   float: left !important;
