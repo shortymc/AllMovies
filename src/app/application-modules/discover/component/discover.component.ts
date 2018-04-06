@@ -1,3 +1,4 @@
+import { PageEvent } from '@angular/material/paginator';
 import { Discover } from './../../../model/discover';
 import { TranslateService } from '@ngx-translate/core';
 import { MovieService } from './../../../service/movie.service';
@@ -13,6 +14,7 @@ export class DiscoverComponent implements OnInit {
   discover: Discover;
   sortChoices: string[];
   sortChosen: string;
+  page: PageEvent;
 
   constructor(private movieService: MovieService, private translate: TranslateService) { }
 
@@ -22,9 +24,13 @@ export class DiscoverComponent implements OnInit {
     this.sortChosen = this.sortChoices[0];
   }
 
-  search() {
+  search(initPagination: boolean) {
     console.log('this.sortChosen', this.sortChosen);
     console.log('this.sortDir.value', this.sortDir.value);
-    this.movieService.getMoviesDiscover(this.translate.currentLang, this.sortChosen, this.sortDir.value, 1).then(result => this.discover = result);
+    if (initPagination || !this.page) {
+      this.page = new PageEvent();
+    }
+    this.movieService.getMoviesDiscover(this.translate.currentLang, this.sortChosen, this.sortDir.value, this.page.pageIndex + 1).then(result => this.discover = result);
   }
+
 }
