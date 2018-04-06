@@ -1,7 +1,7 @@
 @import "../../../styles/styles";
 
 .mat-line {
-  margin-left: 92px !important;
+  margin-left: 72px !important;
 }
 
 .mat-button-toggle,
@@ -22,10 +22,14 @@
   justify-content: center;
 }
 
+.selected {
+  background-color: $light_gray;
+}
+
 a {
   position: absolute !important;
   float: left !important;
-  margin-bottom: 0 !important;
+  margin: 0 !important;
 
   & img {
     height: 54px;
