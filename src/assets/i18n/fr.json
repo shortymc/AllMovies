@@ -39,7 +39,7 @@
         "profile": "Mon profil",
         "logout": "Déconnexion",
         "discover": "Découvrir",
-        "change_language":"Changer de Langue"
+        "change_language": "Changer de Langue"
     },
     "toast": {
         "movie_added": "Film ajouté !",
@@ -206,6 +206,16 @@
             "new_answer": "Nouvelle réponse",
             "old_question": "Ancienne question",
             "new_question": "Nouvelle question"
+        }
+    },
+    "discover": {
+        "sort_field": {
+            "popularity": "Popularité",
+            "release_date": "Date de sortie",
+            "revenue": "Recette",
+            "original_title": "Titre",
+            "vote_average": "Note",
+            "vote_count": "Nombre de vote"
         }
     }
 }

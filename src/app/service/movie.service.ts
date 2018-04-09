@@ -1,3 +1,4 @@
+import { DiscoverCriteria } from './../model/discover-criteria';
 import { Discover } from './../model/discover';
 import { Observable } from 'rxjs/Observable';
 import { MapMovie } from './../shared/mapMovie';
@@ -43,14 +44,9 @@ export class MovieService {
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  getMoviesDiscover(language: string, sortField: string, sortDir: string, page: number, yearMin?: number,
-    yearMax?: number, adult?: boolean, voteAvergeMin?: number, voteAvergeMax?: number,
-    voteCountMin?: number, certification?: string[], runtimeMin?: number, runtimeMax?: number,
-    releaseType?: number[], personsIds?: number[], genresId?: number[], genresWithout?: boolean,
-    keywordsIds?: number[], keywordsWithout?: boolean): Promise<Discover> {
+  getMoviesDiscover(criteria: DiscoverCriteria): Promise<Discover> {
     return this.serviceUtils.getPromise(
-      UrlBuilder.discoverUrlBuilder(language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
-        voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
+      UrlBuilder.discoverUrlBuilder(criteria))
       .then((response: any) => {
         const discover = MapMovie.mapForDiscover(response);
         // discover.movies.forEach((movie) => this.omdb.getMovie(movie.imdb_id).then(score => movie.score = score));
