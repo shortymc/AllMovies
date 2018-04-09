@@ -1,3 +1,4 @@
+import { DiscoverCriteria } from './../../../model/discover-criteria';
 import { ConvertToHHmmPipe } from './../../../shared/custom.pipe';
 import { PageEvent } from '@angular/material/paginator';
 import { Discover } from './../../../model/discover';
@@ -6,6 +7,7 @@ import { MovieService } from './../../../service/movie.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NouiFormatter } from 'ng2-nouislider';
+import { DropDownChoice } from '../../../model/model';
 
 @Component({
   selector: 'app-discover',
@@ -15,8 +17,8 @@ import { NouiFormatter } from 'ng2-nouislider';
 export class DiscoverComponent implements OnInit {
   @ViewChild('sortDir') sortDir: any;
   discover: Discover;
-  sortChoices: string[];
-  sortChosen: string;
+  sortChoices: DropDownChoice[];
+  sortChosen: DropDownChoice;
   page: PageEvent;
   nbChecked = 0;
   max = 300;
@@ -34,7 +36,10 @@ export class DiscoverComponent implements OnInit {
 
   ngOnInit() {
     this.sortDir.value = 'desc';
-    this.sortChoices = ['popularity', 'release_date', 'revenue', 'original_title', 'vote_average', 'vote_count'];
+    this.sortChoices = [new DropDownChoice('discover.sort_field.popularity', 'popularity'),
+    new DropDownChoice('discover.sort_field.release_date', 'release_date'), new DropDownChoice('discover.sort_field.revenue', 'revenue'),
+    new DropDownChoice('discover.sort_field.original_title', 'original_title'), new DropDownChoice('discover.sort_field.vote_average', 'vote_average')
+      , new DropDownChoice('discover.sort_field.vote_count', 'vote_count')];
     this.sortChosen = this.sortChoices[0];
     this.formatter = {
       to(minutes: number): string {
@@ -56,13 +61,7 @@ export class DiscoverComponent implements OnInit {
     };
   }
 
-  search(initPagination: boolean) {
-    console.log('this.sortChosen', this.sortChosen);
-    console.log('this.sortDir.value', this.sortDir.value);
-    if (initPagination || !this.page) {
-      this.page = new PageEvent();
-      this.nbChecked = 0;
-    }
+  buildCriteria(): DiscoverCriteria {
     let runtimeMin;
     if (this.runtimeRange[0] !== 0) {
       runtimeMin = this.convertTimeToMinutes(this.runtimeRange[0]);
@@ -84,9 +83,18 @@ export class DiscoverComponent implements OnInit {
     }
     // (language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
     //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
-    this.movieService.getMoviesDiscover(this.translate.currentLang, this.sortChosen, this.sortDir.value, this.page.pageIndex + 1,
-      yearMin, yearMax, undefined, undefined, undefined, undefined, undefined, runtimeMin, runtimeMax)
-      .then(result => this.discover = result);
+    return new DiscoverCriteria(this.translate.currentLang, this.sortChosen.value, this.sortDir.value, this.page.pageIndex + 1,
+      yearMin, yearMax, undefined, undefined, undefined, undefined, undefined, runtimeMin, runtimeMax);
+  }
+
+  search(initPagination: boolean) {
+    console.log('this.sortChosen', this.sortChosen);
+    console.log('this.sortDir.value', this.sortDir.value);
+    if (initPagination || !this.page) {
+      this.page = new PageEvent();
+      this.nbChecked = 0;
+    }
+    this.movieService.getMoviesDiscover(this.buildCriteria()).then(result => this.discover = result);
   }
 
   convertTimeToMinutes(time: string): number {
