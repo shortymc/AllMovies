@@ -14,10 +14,14 @@
     </mat-button-toggle>
   </mat-button-toggle-group>
   <button type="button" class="btn btn-outline-primary" (click)="search(true)">{{'Search'|translate}}</button>
-  <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" appAddCollection [movies]="discover.movies">{{'global.add_collection'|translate}}</button>
+  <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" (click)="initSelection()" appAddCollection [movies]="discover.movies">{{'global.add_collection'|translate}}</button>
 </div>
-<nouislider [connect]="true" [min]="0" [max]="max" [step]="1" [(ngModel)]="runtimeRange" [format]="formatter" [tooltips]="[true, true]" style="margin-top: 4em;"></nouislider>
-<nouislider [connect]="true" [min]="minYear" [max]="maxYear" [step]="1" [(ngModel)]="yearRange" [tooltips]="[true, true]" style="margin-top: 4em;"></nouislider>
+<nouislider [connect]="true" [min]="0" [max]="max" [step]="1" [(ngModel)]="runtimeRange" [format]="formatter" [tooltips]="[true, true]"
+  style="margin-top: 4em;"></nouislider>
+<nouislider [connect]="true" [min]="minYear" [max]="maxYear" [step]="1" [(ngModel)]="yearRange" [tooltips]="[true, true]"
+  style="margin-top: 4em;"></nouislider>
+<nouislider [connect]="true" [min]="minVote" [max]="maxVote" [step]="0.1" [(ngModel)]="voteRange" [tooltips]="[true, true]"
+  style="margin-top: 4em;"></nouislider>
 
 <mat-list dense *ngIf="discover">
   <mat-paginator #paginator [length]="discover.total_results" [pageIndex]="page.pageIndex" [pageSize]="20" (page)="page = $event; search(false);">
