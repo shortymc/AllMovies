@@ -1,7 +1,7 @@
 <div class="params">
   <mat-form-field>
-    <mat-select #sortField placeholder="{{'Sort' | translate}}" (selectionChange)="sortChosen = $event.value">
-      <mat-option *ngFor="let sort of sortChoices" [value]="sort">{{sort}}</mat-option>
+    <mat-select #sortField placeholder="{{'Sort' | translate}}" [(value)]="sortChosen">
+      <mat-option *ngFor="let sort of sortChoices" [value]="sort">{{sort.label_key | translate}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-button-toggle-group #sortDir="matButtonToggleGroup">

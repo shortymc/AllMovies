@@ -39,7 +39,7 @@
         "profile": "My profile",
         "logout": "Log out",
         "discover": "Discover",
-        "change_language":"Change Language"
+        "change_language": "Change Language"
     },
     "toast": {
         "movie_added": "Movie added !",
@@ -206,6 +206,16 @@
             "new_answer": "New answer",
             "old_question": "Old question",
             "new_question": "New question"
+        }
+    },
+    "discover": {
+        "sort_field": {
+            "popularity": "Popularity",
+            "release_date": "Release date",
+            "revenue": "Revenue",
+            "original_title": "Title",
+            "vote_average": "Vote",
+            "vote_count": "Vote count"
         }
     }
 }

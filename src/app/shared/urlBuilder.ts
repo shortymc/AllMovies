@@ -1,3 +1,4 @@
+import { DiscoverCriteria } from './../model/discover-criteria';
 import { Url } from './../constant/url';
 
 export class UrlBuilder {
@@ -29,69 +30,65 @@ export class UrlBuilder {
     return url;
   }
 
-  static discoverUrlBuilder(language: string, sortField: string, sortDir: string, page: number, yearMin?: number,
-    yearMax?: number, adult?: boolean, voteAvergeMin?: number, voteAvergeMax?: number,
-    voteCountMin?: number, certification?: string[], runtimeMin?: number, runtimeMax?: number,
-    releaseType?: number[], personsIds?: number[], genresId?: number[], genresWithout?: boolean,
-    keywordsIds?: number[], keywordsWithout?: boolean): string {
+  static discoverUrlBuilder(criteria: DiscoverCriteria): string {
     let url = `${Url.DISCOVER_URL}`;
     const parametres = [];
-    if (sortField && sortDir) {
-      parametres.push(`${Url.SORT_BY_URL}${sortField}.${sortDir}`);
+    if (criteria.sortField && criteria.sortDir) {
+      parametres.push(`${Url.SORT_BY_URL}${criteria.sortField}.${criteria.sortDir}`);
     }
-    if (page) {
-      parametres.push(`${Url.PAGE_URL}${page}`);
+    if (criteria.page) {
+      parametres.push(`${Url.PAGE_URL}${criteria.page}`);
     }
-    if (yearMin) {
-      parametres.push(`${Url.RELEASE_DATE_GTE_URL}${yearMin}`);
+    if (criteria.yearMin) {
+      parametres.push(`${Url.RELEASE_DATE_GTE_URL}${criteria.yearMin}`);
     }
-    if (yearMax) {
-      parametres.push(`${Url.RELEASE_DATE_LTE_URL}${yearMax}`);
+    if (criteria.yearMax) {
+      parametres.push(`${Url.RELEASE_DATE_LTE_URL}${criteria.yearMax}`);
     }
-    if (adult) {
+    if (criteria.adult) {
       parametres.push(`${Url.ADULT_URL}`);
     }
-    if (voteAvergeMin) {
-      parametres.push(`${Url.VOTE_AVERAGE_GTE_URL}${voteAvergeMin}`);
+    if (criteria.voteAvergeMin) {
+      parametres.push(`${Url.VOTE_AVERAGE_GTE_URL}${criteria.voteAvergeMin}`);
     }
-    if (voteAvergeMax) {
-      parametres.push(`${Url.VOTE_AVERAGE_LTE_URL}${voteAvergeMax}`);
+    if (criteria.voteAvergeMax) {
+      parametres.push(`${Url.VOTE_AVERAGE_LTE_URL}${criteria.voteAvergeMax}`);
     }
-    if (voteCountMin) {
-      parametres.push(`${Url.VOTE_COUNT_GTE_URL}${voteCountMin}`);
+    if (criteria.voteCountMin) {
+      parametres.push(`${Url.VOTE_COUNT_GTE_URL}${criteria.voteCountMin}`);
     }
-    if (certification) {
+    if (criteria.certification) {
       parametres.push(`${Url.CERTIFICATION_COUNTRY_URL}`);
-      parametres.push(`${Url.CERTIFICATION_URL}${certification.join(Url.OR_URL)}`);
+      parametres.push(`${Url.CERTIFICATION_URL}${criteria.certification.join(Url.OR_URL)}`);
     }
-    if (runtimeMin) {
-      parametres.push(`${Url.WITH_RUNTIME_GTE_URL}${runtimeMin}`);
+    if (criteria.runtimeMin) {
+      parametres.push(`${Url.WITH_RUNTIME_GTE_URL}${criteria.runtimeMin}`);
     }
-    if (runtimeMax) {
-      parametres.push(`${Url.WITH_RUNTIME_LTE_URL}${runtimeMax}`);
+    if (criteria.runtimeMax) {
+      parametres.push(`${Url.WITH_RUNTIME_LTE_URL}${criteria.runtimeMax}`);
     }
-    if (releaseType) {
-      parametres.push(`${Url.WITH_RELEASE_TYPE_URL}${releaseType.join(Url.OR_URL)}`);
+    if (criteria.releaseType) {
+      parametres.push(`${Url.WITH_RELEASE_TYPE_URL}${criteria.releaseType.join(Url.OR_URL)}`);
     }
-    if (personsIds) {
-      parametres.push(`${Url.WITH_PEOPLE_URL}${personsIds.join(Url.OR_URL)}`);
+    if (criteria.personsIds) {
+      parametres.push(`${Url.WITH_PEOPLE_URL}${criteria.personsIds.join(Url.OR_URL)}`);
     }
-    if (genresId && !genresWithout) {
-      parametres.push(`${Url.WITH_GENRES_URL}${genresId.join(Url.OR_URL)}`);
+    if (criteria.genresId && !criteria.genresWithout) {
+      parametres.push(`${Url.WITH_GENRES_URL}${criteria.genresId.join(Url.OR_URL)}`);
     }
-    if (genresId && genresWithout) {
-      parametres.push(`${Url.WITHOUT_GENRES_URL}${genresId.join(Url.OR_URL)}`);
+    if (criteria.genresId && criteria.genresWithout) {
+      parametres.push(`${Url.WITHOUT_GENRES_URL}${criteria.genresId.join(Url.OR_URL)}`);
     }
-    if (keywordsIds && !keywordsWithout) {
-      parametres.push(`${Url.WITH_KEYWORDS_URL}${keywordsIds.join(Url.OR_URL)}`);
+    if (criteria.keywordsIds && !criteria.keywordsWithout) {
+      parametres.push(`${Url.WITH_KEYWORDS_URL}${criteria.keywordsIds.join(Url.OR_URL)}`);
     }
-    if (keywordsIds && keywordsWithout) {
-      parametres.push(`${Url.WITHOUT_KEYWORDS_URL}${keywordsIds.join(Url.OR_URL)}`);
+    if (criteria.keywordsIds && criteria.keywordsWithout) {
+      parametres.push(`${Url.WITHOUT_KEYWORDS_URL}${criteria.keywordsIds.join(Url.OR_URL)}`);
     }
     url += parametres.join('');
-    if (language) {
-      url += `${Url.LANGUE}${language}`;
-      url += `${Url.INCLUDE_IMAGE_LANGUAGE}${language},null`;
+    if (criteria.language) {
+      url += `${Url.LANGUE}${criteria.language}`;
+      url += `${Url.INCLUDE_IMAGE_LANGUAGE}${criteria.language},null`;
     }
     console.log('discoverUrlBuilder', url);
     return url;
