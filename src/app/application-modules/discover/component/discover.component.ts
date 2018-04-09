@@ -32,6 +32,7 @@ export class DiscoverComponent implements OnInit {
   maxVote = 10;
   voteRange: any[] = [this.minVote, this.maxVote];
   pseudo: string;
+  voteCountMin = 10;
 
   constructor(
     private movieService: MovieService,
@@ -99,7 +100,7 @@ export class DiscoverComponent implements OnInit {
     // (language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
     //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
     return new DiscoverCriteria(this.translate.currentLang, this.sortChosen.value, this.sortDir.value, this.page.pageIndex + 1,
-      yearMin, yearMax, this.pseudo === 'Test', voteMin, voteMax, undefined, undefined, runtimeMin, runtimeMax);
+      yearMin, yearMax, this.pseudo === 'Test', voteMin, voteMax, this.voteCountMin, undefined, runtimeMin, runtimeMax);
   }
 
   search(initPagination: boolean) {

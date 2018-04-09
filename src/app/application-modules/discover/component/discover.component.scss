@@ -27,6 +27,16 @@
   margin-left: 25vw;
 }
 
+.vote {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#voteCount {
+  margin-left: 50px;
+  margin-top: 2.25em;
+}
+
 /* stylelint-disable */
 ::ng-deep .noUi-handle {
   cursor: grab;
@@ -50,5 +60,10 @@ a {
   .ng2-nouislider {
     width: 80vw;
     margin-left: 5vh;
+  }
+
+  #voteCount {
+    margin-left: 25%;
+    margin-top: 0;
   }
 }
