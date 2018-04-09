@@ -1,3 +1,4 @@
+import { PersonSearchService } from './../dashboard/service/person-search.service';
 import { ConvertToHHmmPipe } from './../../shared/custom.pipe';
 import { MyPaginator } from './../movies/component/my-paginator';
 import { NgModule } from '@angular/core';
@@ -6,13 +7,13 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DropboxService } from './../../service/dropbox.service';
 import { MovieService } from './../../service/movie.service';
 import { SharedModule } from './../../shared/shared.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NouisliderModule } from 'ng2-nouislider';
 import {
   MatListModule, MatIconModule, MatButtonToggleModule, MatSelectModule,
-  MatFormFieldModule, MatPaginatorModule, MatPaginatorIntl, MatInputModule
+  MatFormFieldModule, MatPaginatorModule, MatPaginatorIntl, MatInputModule, MatAutocompleteModule
 } from '@angular/material';
 
 const childRoutes: Routes = [
@@ -32,6 +33,8 @@ const childRoutes: Routes = [
     MatIconModule,
     MatPaginatorModule,
     MatInputModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
     MatSelectModule,
     NouisliderModule,
     MatFormFieldModule,
@@ -42,6 +45,7 @@ const childRoutes: Routes = [
     DropboxService,
     TranslateService,
     ConvertToHHmmPipe,
+    PersonSearchService,
     { provide: MatPaginatorIntl, useClass: MyPaginator, deps: [TranslateService] }],
   declarations: [DiscoverComponent]
 })
