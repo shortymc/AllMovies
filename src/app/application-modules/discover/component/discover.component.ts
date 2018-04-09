@@ -1,3 +1,4 @@
+import { AuthService } from './../../../service/auth.service';
 import { DiscoverCriteria } from './../../../model/discover-criteria';
 import { ConvertToHHmmPipe } from './../../../shared/custom.pipe';
 import { PageEvent } from '@angular/material/paginator';
@@ -27,6 +28,7 @@ export class DiscoverComponent implements OnInit {
   minYear = 1890;
   maxYear = new Date().getFullYear();
   yearRange: any[] = [this.minYear, this.maxYear];
+  pseudo: string;
 
   constructor(
     private movieService: MovieService,
@@ -35,6 +37,7 @@ export class DiscoverComponent implements OnInit {
     public timePipe: ConvertToHHmmPipe) { }
 
   ngOnInit() {
+    this.pseudo = AuthService.decodeToken().name;
     this.sortDir.value = 'desc';
     this.sortChoices = [new DropDownChoice('discover.sort_field.popularity', 'popularity'),
     new DropDownChoice('discover.sort_field.release_date', 'release_date'), new DropDownChoice('discover.sort_field.revenue', 'revenue'),
@@ -59,6 +62,7 @@ export class DiscoverComponent implements OnInit {
         return time;
       }
     };
+    this.translate.onLangChange.subscribe(() => this.search(false));
   }
 
   buildCriteria(): DiscoverCriteria {
@@ -84,7 +88,7 @@ export class DiscoverComponent implements OnInit {
     // (language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
     //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
     return new DiscoverCriteria(this.translate.currentLang, this.sortChosen.value, this.sortDir.value, this.page.pageIndex + 1,
-      yearMin, yearMax, undefined, undefined, undefined, undefined, undefined, runtimeMin, runtimeMax);
+      yearMin, yearMax, this.pseudo === 'Test', undefined, undefined, undefined, undefined, runtimeMin, runtimeMax);
   }
 
   search(initPagination: boolean) {
