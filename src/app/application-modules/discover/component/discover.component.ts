@@ -28,6 +28,9 @@ export class DiscoverComponent implements OnInit {
   minYear = 1890;
   maxYear = new Date().getFullYear();
   yearRange: any[] = [this.minYear, this.maxYear];
+  minVote = 0;
+  maxVote = 10;
+  voteRange: any[] = [this.minVote, this.maxVote];
   pseudo: string;
 
   constructor(
@@ -85,10 +88,18 @@ export class DiscoverComponent implements OnInit {
     if (this.yearRange[1] && this.yearRange[1] !== this.maxYear) {
       yearMax = this.yearRange[1];
     }
+    let voteMin;
+    if (this.voteRange[0] && this.voteRange[0] !== this.minVote) {
+      voteMin = this.voteRange[0];
+    }
+    let voteMax;
+    if (this.voteRange[1] && this.voteRange[1] !== this.maxVote) {
+      voteMax = this.voteRange[1];
+    }
     // (language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
     //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
     return new DiscoverCriteria(this.translate.currentLang, this.sortChosen.value, this.sortDir.value, this.page.pageIndex + 1,
-      yearMin, yearMax, this.pseudo === 'Test', undefined, undefined, undefined, undefined, runtimeMin, runtimeMax);
+      yearMin, yearMax, this.pseudo === 'Test', voteMin, voteMax, undefined, undefined, runtimeMin, runtimeMax);
   }
 
   search(initPagination: boolean) {
@@ -119,6 +130,10 @@ export class DiscoverComponent implements OnInit {
 
   updateSize() {
     this.nbChecked = this.discover.movies.filter(movie => movie.checked).length;
+  }
+
+  initSelection() {
+    this.discover.movies.forEach((movie) => movie.checked = false);
   }
 
 }
