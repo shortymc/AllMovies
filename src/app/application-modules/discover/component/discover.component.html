@@ -15,16 +15,35 @@
   </mat-button-toggle-group>
   <button type="button" class="btn btn-outline-primary" (click)="search(true)">{{'Search'|translate}}</button>
   <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" (click)="initSelection()" appAddCollection [movies]="discover.movies">{{'global.add_collection'|translate}}</button>
+  <div *ngFor="let p of people; let last=last">{{p.name}}
+    <span *ngIf="!last">/</span>
+  </div>
+  <mat-form-field>
+    <input matInput placeholder="People" [matAutocomplete]="auto" [formControl]="peopleCtrl">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let person of filteredPeople | async" (onSelectionChange)="addPeople(person)">
+        <div class="media">
+          <img class="mr-2" *ngIf="person.thumbnail" src="{{person.thumbnail}}" style="width: 5%;">
+          <div class="media-body">
+            <p>{{person.name | capitalizeWord}}</p>
+          </div>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
 </div>
 <nouislider [connect]="true" [min]="0" [max]="max" [step]="1" [(ngModel)]="runtimeRange" [format]="formatter" [tooltips]="[true, true]"
   style="margin-top: 4em;"></nouislider>
 <nouislider [connect]="true" [min]="minYear" [max]="maxYear" [step]="1" [(ngModel)]="yearRange" [tooltips]="[true, true]"
   style="margin-top: 4em;"></nouislider>
-<div class="vote"><nouislider [connect]="true" [min]="minVote" [max]="maxVote" [step]="0.1" [(ngModel)]="voteRange" [tooltips]="[true, true]"
-  style="margin-top: 4em;"></nouislider>
-<mat-form-field id="voteCount">
-  <input matInput placeholder="Vount count minimum" [(ngModel)]="voteCountMin" type="number" required/>
-</mat-form-field></div>
+<div class="vote">
+  <nouislider [connect]="true" [min]="minVote" [max]="maxVote" [step]="0.1" [(ngModel)]="voteRange" [tooltips]="[true, true]"
+    style="margin-top: 4em;"></nouislider>
+  <mat-form-field id="voteCount">
+    <input matInput placeholder="Vount count minimum" [(ngModel)]="voteCountMin" type="number" required/>
+  </mat-form-field>
+</div>
+
 
 <mat-list dense *ngIf="discover">
   <mat-paginator #paginator [length]="discover.total_results" [pageIndex]="page.pageIndex" [pageSize]="20" (page)="page = $event; search(false);">

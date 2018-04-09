@@ -71,7 +71,7 @@ export class UrlBuilder {
       parametres.push(`${Url.WITH_RELEASE_TYPE_URL}${criteria.releaseType.join(Url.OR_URL)}`);
     }
     if (criteria.personsIds) {
-      parametres.push(`${Url.WITH_PEOPLE_URL}${criteria.personsIds.join(Url.OR_URL)}`);
+      parametres.push(`${Url.WITH_PEOPLE_URL}${criteria.personsIds.join(Url.AND_URL)}`);
     }
     if (criteria.genresId && !criteria.genresWithout) {
       parametres.push(`${Url.WITH_GENRES_URL}${criteria.genresId.join(Url.OR_URL)}`);

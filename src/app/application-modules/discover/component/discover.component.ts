@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { AuthService } from './../../../service/auth.service';
 import { DiscoverCriteria } from './../../../model/discover-criteria';
 import { ConvertToHHmmPipe } from './../../../shared/custom.pipe';
@@ -9,6 +10,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NouiFormatter } from 'ng2-nouislider';
 import { DropDownChoice } from '../../../model/model';
+import { FormControl } from '@angular/forms';
+import { PersonSearchService } from '../../dashboard/service/person-search.service';
+import { Person } from '../../../model/person';
 
 @Component({
   selector: 'app-discover',
@@ -23,6 +27,7 @@ export class DiscoverComponent implements OnInit {
   page: PageEvent;
   nbChecked = 0;
   max = 300;
+  adult: boolean;
   runtimeRange: any[] = [0, this.max];
   formatter: NouiFormatter;
   minYear = 1890;
@@ -33,15 +38,20 @@ export class DiscoverComponent implements OnInit {
   voteRange: any[] = [this.minVote, this.maxVote];
   pseudo: string;
   voteCountMin = 10;
+  people: Person[] = [];
+  peopleCtrl: FormControl;
+  filteredPeople: Observable<Person[]>;
 
   constructor(
     private movieService: MovieService,
     private translate: TranslateService,
     private router: Router,
+    private personSearchService: PersonSearchService,
     public timePipe: ConvertToHHmmPipe) { }
 
   ngOnInit() {
     this.pseudo = AuthService.decodeToken().name;
+    this.adult = this.pseudo === 'Test';
     this.sortDir.value = 'desc';
     this.sortChoices = [new DropDownChoice('discover.sort_field.popularity', 'popularity'),
     new DropDownChoice('discover.sort_field.release_date', 'release_date'), new DropDownChoice('discover.sort_field.revenue', 'revenue'),
@@ -66,7 +76,20 @@ export class DiscoverComponent implements OnInit {
         return time;
       }
     };
+    this.peopleCtrl = new FormControl();
+    this.filteredPeople = this.peopleCtrl.valueChanges
+      .debounceTime(300).distinctUntilChanged().switchMap(term => term
+        ? this.personSearchService.search(term, this.adult)
+        : Observable.of<Person[]>([]))
+      .catch(error => {
+        console.error(error);
+        return Observable.of<Person[]>([]);
+      });
     this.translate.onLangChange.subscribe(() => this.search(false));
+  }
+
+  addPeople(person: Person) {
+    this.people.push(person);
   }
 
   buildCriteria(): DiscoverCriteria {
@@ -97,10 +120,14 @@ export class DiscoverComponent implements OnInit {
     if (this.voteRange[1] && this.voteRange[1] !== this.maxVote) {
       voteMax = this.voteRange[1];
     }
+    let person;
+    if (this.people.length > 0) {
+      person = this.people.map(p => p.id);
+    }
     // (language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
     //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
     return new DiscoverCriteria(this.translate.currentLang, this.sortChosen.value, this.sortDir.value, this.page.pageIndex + 1,
-      yearMin, yearMax, this.pseudo === 'Test', voteMin, voteMax, this.voteCountMin, undefined, runtimeMin, runtimeMax);
+      yearMin, yearMax, this.adult, voteMin, voteMax, this.voteCountMin, undefined, runtimeMin, runtimeMax, undefined, person);
   }
 
   search(initPagination: boolean) {
