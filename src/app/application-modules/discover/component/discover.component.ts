@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Observable';
 import { AuthService } from './../../../service/auth.service';
 import { DiscoverCriteria } from './../../../model/discover-criteria';
 import { ConvertToHHmmPipe } from './../../../shared/custom.pipe';
@@ -10,7 +9,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NouiFormatter } from 'ng2-nouislider';
 import { DropDownChoice } from '../../../model/model';
-import { FormControl } from '@angular/forms';
 import { PersonSearchService } from '../../dashboard/service/person-search.service';
 import { Person } from '../../../model/person';
 
@@ -39,14 +37,12 @@ export class DiscoverComponent implements OnInit {
   pseudo: string;
   voteCountMin = 10;
   people: Person[] = [];
-  peopleCtrl: FormControl;
-  filteredPeople: Observable<Person[]>;
 
   constructor(
     private movieService: MovieService,
     private translate: TranslateService,
     private router: Router,
-    private personSearchService: PersonSearchService,
+    public personService: PersonSearchService,
     public timePipe: ConvertToHHmmPipe) { }
 
   ngOnInit() {
@@ -76,28 +72,7 @@ export class DiscoverComponent implements OnInit {
         return time;
       }
     };
-    this.peopleCtrl = new FormControl();
-    this.filteredPeople = this.peopleCtrl.valueChanges
-      .debounceTime(300).distinctUntilChanged().switchMap(term => term
-        ? this.personSearchService.search(term, this.adult)
-        : Observable.of<Person[]>([]))
-      .catch(error => {
-        console.error(error);
-        return Observable.of<Person[]>([]);
-      });
     this.translate.onLangChange.subscribe(() => this.search(false));
-  }
-
-  addPeople(person: Person) {
-    this.people.push(person);
-  }
-
-  removePeople(person: Person): void {
-    let index = this.people.indexOf(person);
-
-    if (index >= 0) {
-      this.people.splice(index, 1);
-    }
   }
 
   buildCriteria(): DiscoverCriteria {
