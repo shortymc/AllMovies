@@ -19,6 +19,7 @@ export class Url {
   static readonly PERSON_URL = 'https://api.themoviedb.org/3/person';
   static readonly MOVIE_SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?';
   static readonly PERSON_SEARCH_URL = 'https://api.themoviedb.org/3/search/person?';
+  static readonly KEYWORD_SEARCH_URL = 'https://api.themoviedb.org/3/search/keyword?';
   static readonly MOVIE_CREDITS_URL = 'movie_credits';
   static readonly LANGUE = '&language=';
   static readonly LANGUE_FR = '&language=fr';
@@ -34,7 +35,7 @@ export class Url {
   static readonly RELEASE_DATE_LTE_URL = '&release_date.lte=';
   static readonly RELEASE_TYPE_URL = '&with_release_type=3|2';
   static readonly DISCOVER_URL =
-    'https://api.themoviedb.org/3/discover/movie?' + Url.API_KEY + '&region=FR';
+    'https://api.themoviedb.org/3/discover/movie?' + Url.API_KEY;
   static readonly MOST_POPULAR_URL = Url.DISCOVER_URL + '&sort_by=popularity.desc';
   static readonly SORT_BY_URL = '&sort_by=';
   static readonly PAGE_URL = '&page=';
