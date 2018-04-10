@@ -92,6 +92,14 @@ export class DiscoverComponent implements OnInit {
     this.people.push(person);
   }
 
+  removePeople(person: Person): void {
+    let index = this.people.indexOf(person);
+
+    if (index >= 0) {
+      this.people.splice(index, 1);
+    }
+  }
+
   buildCriteria(): DiscoverCriteria {
     let runtimeMin;
     if (this.runtimeRange[0] !== 0) {

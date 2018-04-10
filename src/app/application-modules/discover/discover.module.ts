@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 import { NouisliderModule } from 'ng2-nouislider';
 import {
   MatListModule, MatIconModule, MatButtonToggleModule, MatSelectModule,
-  MatFormFieldModule, MatPaginatorModule, MatPaginatorIntl, MatInputModule, MatAutocompleteModule
+  MatFormFieldModule, MatPaginatorModule, MatPaginatorIntl, MatInputModule, MatAutocompleteModule, MatChipsModule
 } from '@angular/material';
 
 const childRoutes: Routes = [
@@ -38,6 +38,7 @@ const childRoutes: Routes = [
     MatSelectModule,
     NouisliderModule,
     MatFormFieldModule,
+    MatChipsModule,
     MatButtonToggleModule
   ],
   providers: [
