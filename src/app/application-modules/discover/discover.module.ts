@@ -1,4 +1,3 @@
-import { PersonSearchService } from './../dashboard/service/person-search.service';
 import { ConvertToHHmmPipe } from './../../shared/custom.pipe';
 import { MyPaginator } from './../movies/component/my-paginator';
 import { NgModule } from '@angular/core';
@@ -16,6 +15,8 @@ import {
   MatFormFieldModule, MatPaginatorModule, MatPaginatorIntl, MatInputModule, MatAutocompleteModule, MatChipsModule
 } from '@angular/material';
 import { SearchBoxComponent } from './component/search-box/search-box.component';
+import { PersonSearchService } from '../../service/person-search.service';
+import { KeywordSearchService } from '../../service/keyword-search.service';
 
 const childRoutes: Routes = [
   {
@@ -48,6 +49,7 @@ const childRoutes: Routes = [
     TranslateService,
     ConvertToHHmmPipe,
     PersonSearchService,
+    KeywordSearchService,
     { provide: MatPaginatorIntl, useClass: MyPaginator, deps: [TranslateService] }],
   declarations: [DiscoverComponent, SearchBoxComponent]
 })

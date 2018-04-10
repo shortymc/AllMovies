@@ -8,3 +8,8 @@ export class DropDownChoice {
     this.value = value;
   }
 }
+
+export class Keyword {
+  id: number;
+  name: string;
+}
