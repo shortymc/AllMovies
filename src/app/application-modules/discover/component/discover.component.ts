@@ -1,3 +1,4 @@
+import { PersonSearchService } from './../../../service/person-search.service';
 import { AuthService } from './../../../service/auth.service';
 import { DiscoverCriteria } from './../../../model/discover-criteria';
 import { ConvertToHHmmPipe } from './../../../shared/custom.pipe';
@@ -8,9 +9,9 @@ import { MovieService } from './../../../service/movie.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NouiFormatter } from 'ng2-nouislider';
-import { DropDownChoice } from '../../../model/model';
-import { PersonSearchService } from '../../dashboard/service/person-search.service';
+import { DropDownChoice, Keyword } from '../../../model/model';
 import { Person } from '../../../model/person';
+import { KeywordSearchService } from '../../../service/keyword-search.service';
 
 @Component({
   selector: 'app-discover',
@@ -37,12 +38,14 @@ export class DiscoverComponent implements OnInit {
   pseudo: string;
   voteCountMin = 10;
   people: Person[] = [];
+  keyword: Keyword[] = [];
 
   constructor(
     private movieService: MovieService,
     private translate: TranslateService,
     private router: Router,
     public personService: PersonSearchService,
+    public keywordService: KeywordSearchService,
     public timePipe: ConvertToHHmmPipe) { }
 
   ngOnInit() {
@@ -107,10 +110,14 @@ export class DiscoverComponent implements OnInit {
     if (this.people.length > 0) {
       person = this.people.map(p => p.id);
     }
+    let kw;
+    if (this.keyword.length > 0) {
+      kw = this.keyword.map(p => p.id);
+    }
     // (language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
     //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
     return new DiscoverCriteria(this.translate.currentLang, this.sortChosen.value, this.sortDir.value, this.page.pageIndex + 1,
-      yearMin, yearMax, this.adult, voteMin, voteMax, this.voteCountMin, undefined, runtimeMin, runtimeMax, undefined, person);
+      yearMin, yearMax, this.adult, voteMin, voteMax, this.voteCountMin, undefined, runtimeMin, runtimeMax, undefined, person, undefined, undefined, kw);
   }
 
   search(initPagination: boolean) {

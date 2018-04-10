@@ -19,6 +19,9 @@
 <div class="params">
   <app-search-box [adult]="adult" (items)="people = $event" [service]="personService" [placeholder]="'People'"></app-search-box>
 </div>
+<div class="params">
+  <app-search-box [adult]="adult" (items)="keyword = $event" [service]="keywordService" [placeholder]="'Keyword'"></app-search-box>
+</div>
 <nouislider [connect]="true" [min]="0" [max]="max" [step]="1" [(ngModel)]="runtimeRange" [format]="formatter" [tooltips]="[true, true]"
   style="margin-top: 4em;"></nouislider>
 <nouislider [connect]="true" [min]="minYear" [max]="maxYear" [step]="1" [(ngModel)]="yearRange" [tooltips]="[true, true]"
