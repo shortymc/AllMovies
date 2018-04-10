@@ -1,3 +1,4 @@
+import { SearchServiceService } from './searchService.service';
 import { ServiceUtils } from './../../../service/serviceUtils';
 import { MapPerson } from './../../../shared/mapPerson';
 import { Person } from './../../../model/person';
@@ -7,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { ToastService } from '../../../service/toast.service';
 
 @Injectable()
-export class PersonSearchService {
+export class PersonSearchService implements SearchServiceService {
 
   constructor(private serviceUtils: ServiceUtils, private toast: ToastService) { }
 

@@ -15,6 +15,7 @@ import {
   MatListModule, MatIconModule, MatButtonToggleModule, MatSelectModule,
   MatFormFieldModule, MatPaginatorModule, MatPaginatorIntl, MatInputModule, MatAutocompleteModule, MatChipsModule
 } from '@angular/material';
+import { SearchBoxComponent } from './component/search-box/search-box.component';
 
 const childRoutes: Routes = [
   {
@@ -48,6 +49,6 @@ const childRoutes: Routes = [
     ConvertToHHmmPipe,
     PersonSearchService,
     { provide: MatPaginatorIntl, useClass: MyPaginator, deps: [TranslateService] }],
-  declarations: [DiscoverComponent]
+  declarations: [DiscoverComponent, SearchBoxComponent]
 })
 export class DiscoverModule { }
