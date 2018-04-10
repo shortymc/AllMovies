@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { PersonSearchService } from '../../service/person-search.service';
 import { Person } from '../../../../model/person';
 import { AuthService } from '../../../../service/auth.service';
+import { PersonSearchService } from '../../../../service/person-search.service';
 
 @Component({
   selector: 'app-person-search',
