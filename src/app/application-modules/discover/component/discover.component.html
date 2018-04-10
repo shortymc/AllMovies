@@ -15,6 +15,8 @@
   </mat-button-toggle-group>
   <button type="button" class="btn btn-outline-primary" (click)="search(true)">{{'Search'|translate}}</button>
   <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" (click)="initSelection()" appAddCollection [movies]="discover.movies">{{'global.add_collection'|translate}}</button>
+</div>
+<div class="params">
   <div *ngFor="let p of people; let last=last">{{p.name}}
     <span *ngIf="!last">/</span>
   </div>
