@@ -8,19 +8,21 @@ export class Utils {
     return Utils.getPath(r.poster_path, size);
   }
 
-  static getProfilPath(r: any, size: number) {
-    return Utils.getPath(r.profile_path, size);
+  static getProfilPath(r: any, size: number, noEmpty?: boolean) {
+    return Utils.getPath(r.profile_path, size, noEmpty);
   }
 
-  static getPath(path: string, size: number) {
+  static getPath(path: string, size: number, noEmpty?: boolean) {
+    let result;
     switch (size) {
       case 0:
-        return path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + path;
+        result = path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + path;
       case 154:
-        return path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + path;
+        result = path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + path;
       case 92:
-        return path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_92 + path;
+        result = path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_92 + path;
     }
+    return noEmpty && result === Url.IMAGE_URL_EMPTY ? undefined : result;
   }
 
   static getTitle(r: any) {
