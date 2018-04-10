@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-import { MovieSearchService } from '../../service/movie-search.service';
 import { Movie } from '../../../../model/movie';
+import { MovieSearchService } from '../../../../service/movie-search.service';
 
 @Component({
   selector: 'app-movie-search',
