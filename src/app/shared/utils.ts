@@ -17,10 +17,13 @@ export class Utils {
     switch (size) {
       case 0:
         result = path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + path;
+        break;
       case 154:
         result = path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + path;
+        break;
       case 92:
         result = path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_92 + path;
+        break;
     }
     return noEmpty && result === Url.IMAGE_URL_EMPTY ? undefined : result;
   }
