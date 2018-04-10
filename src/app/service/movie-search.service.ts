@@ -1,8 +1,8 @@
-import { ToastService } from './../../../service/toast.service';
-import { MapMovie } from './../../../shared/mapMovie';
-import { ServiceUtils } from './../../../service/serviceUtils';
-import { Movie } from './../../../model/movie';
-import { Url } from './../../../constant/url';
+import { MapMovie } from './../shared/mapMovie';
+import { Url } from './../constant/url';
+import { Movie } from './../model/movie';
+import { ToastService } from './toast.service';
+import { ServiceUtils } from './serviceUtils';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 

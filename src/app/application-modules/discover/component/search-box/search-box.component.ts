@@ -1,4 +1,4 @@
-import { SearchServiceService } from './../../../dashboard/service/searchService.service';
+import { SearchServiceService } from './../../../../service/searchService.service';
 import { Observable } from 'rxjs/Observable';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';

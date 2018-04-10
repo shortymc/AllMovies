@@ -1,11 +1,11 @@
+import { MapPerson } from './../shared/mapPerson';
+import { Person } from './../model/person';
+import { Url } from './../constant/url';
+import { ServiceUtils } from './serviceUtils';
+import { ToastService } from './toast.service';
 import { SearchServiceService } from './searchService.service';
-import { ServiceUtils } from './../../../service/serviceUtils';
-import { MapPerson } from './../../../shared/mapPerson';
-import { Person } from './../../../model/person';
-import { Url } from './../../../constant/url';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { ToastService } from '../../../service/toast.service';
 
 @Injectable()
 export class PersonSearchService implements SearchServiceService {
