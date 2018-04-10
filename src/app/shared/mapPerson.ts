@@ -31,7 +31,7 @@ export class MapPerson {
       id: r.id,
       name: r.name,
       adult: r.adult,
-      thumbnail: Utils.getProfilPath(r, 92)
+      thumbnail: Utils.getProfilPath(r, 92, true)
     }));
   }
 }
