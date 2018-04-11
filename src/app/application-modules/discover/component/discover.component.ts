@@ -39,6 +39,7 @@ export class DiscoverComponent implements OnInit {
   voteCountMin = 10;
   people: Person[] = [];
   keyword: Keyword[] = [];
+  clean = false;
 
   constructor(
     private movieService: MovieService,
@@ -57,35 +58,90 @@ export class DiscoverComponent implements OnInit {
     new DropDownChoice('discover.sort_field.original_title', 'original_title'), new DropDownChoice('discover.sort_field.vote_average', 'vote_average')
       , new DropDownChoice('discover.sort_field.vote_count', 'vote_count')];
     this.sortChosen = this.sortChoices[0];
+    const that = this;
     this.formatter = {
-      to(minutes: number): string {
-        if (minutes) {
-          minutes = Math.round(minutes);
-          let result = '';
-          result += Math.floor(minutes / 60);
-          result += ' h ';
-          result += minutes % 60;
-          result += ' min ';
-          return result;
-        } else {
-          return '0 min';
-        }
+      to(minutes: any): any {
+        return that.convertTimeNumberToString(minutes);
       },
-      from(time: string): any {
-        return time;
+      from(time: any): any {
+        const res = that.convertTimeStringToNumber(time);
+        if (isNaN(res)) {
+          return time;
+        }
+        return res;
       }
     };
     this.translate.onLangChange.subscribe(() => this.search(false));
+    const criteria = <DiscoverCriteria>JSON.parse(sessionStorage.getItem('criteria'));
+    if (criteria) {
+      this.initFromCriteria(criteria);
+      this.search(false);
+    }
+  }
+
+  convertTimeStringToNumber(time: string): number {
+    if (time) {
+      let h = parseInt(time.substr(0, time.indexOf('h')).trim(), 10);
+      if (isNaN(h)) {
+        h = 0;
+      }
+      const m = parseInt(time.substring(time.lastIndexOf('h') + 1, time.lastIndexOf('min')).trim(), 10);
+      return h * 60 + m;
+    } else {
+      return 0;
+    }
+  }
+
+  convertTimeNumberToString(minutes: number): string {
+    if (minutes) {
+      minutes = Math.round(minutes);
+      let result = '';
+      result += Math.floor(minutes / 60);
+      result += ' h ';
+      result += minutes % 60;
+      result += ' min ';
+      return result;
+    } else {
+      return '0 min';
+    }
+  }
+
+  initFromCriteria(criteria: DiscoverCriteria) {
+    this.sortDir.value = criteria.sortDir;
+    this.sortChosen = this.sortChoices.find(sort => sort.value === criteria.sortField);
+    this.page = new PageEvent();
+    this.page.pageIndex = criteria.page ? criteria.page - 1 : 0;
+    this.yearRange = [criteria.yearMin ? criteria.yearMin : this.minYear, criteria.yearMax ? criteria.yearMax : this.maxYear];
+    this.voteRange = [criteria.voteAvergeMin ? criteria.voteAvergeMin : this.minVote, criteria.voteAvergeMax ? criteria.voteAvergeMax : this.maxVote];
+    this.runtimeRange = [criteria.runtimeMin ? criteria.runtimeMin : 0, criteria.runtimeMax ? criteria.runtimeMax : this.max];
+    this.voteCountMin = criteria.voteCountMin;
+    this.people = <Person[]>JSON.parse(sessionStorage.getItem('people'));
+    if (!this.people) {
+      this.people = [];
+    }
+    this.keyword = <Keyword[]>JSON.parse(sessionStorage.getItem('keyword'));
+    if (!this.keyword) {
+      this.keyword = [];
+    }
+  }
+
+  clear() {
+    sessionStorage.removeItem('criteria');
+    sessionStorage.removeItem('people');
+    sessionStorage.removeItem('keyword');
+    this.initFromCriteria(new DiscoverCriteria(this.translate.currentLang, this.sortChosen.value, this.sortDir.value, 0));
+    this.search(true);
+    this.clean = true;
   }
 
   buildCriteria(): DiscoverCriteria {
     let runtimeMin;
     if (this.runtimeRange[0] !== 0) {
-      runtimeMin = this.convertTimeToMinutes(this.runtimeRange[0]);
+      runtimeMin = this.runtimeRange[0];
     }
     let runtimeMax;
     if (this.runtimeRange[1] !== this.max) {
-      runtimeMax = this.convertTimeToMinutes(this.runtimeRange[1]);
+      runtimeMax = this.runtimeRange[1];
     }
     if (runtimeMax === this.max) {
       runtimeMax = undefined;
@@ -116,8 +172,13 @@ export class DiscoverComponent implements OnInit {
     }
     // (language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
     //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
-    return new DiscoverCriteria(this.translate.currentLang, this.sortChosen.value, this.sortDir.value, this.page.pageIndex + 1,
-      yearMin, yearMax, this.adult, voteMin, voteMax, this.voteCountMin, undefined, runtimeMin, runtimeMax, undefined, person, undefined, undefined, kw);
+    const criteria = new DiscoverCriteria(this.translate.currentLang, this.sortChosen.value,
+      this.sortDir.value, this.page.pageIndex + 1, yearMin, yearMax, this.adult, voteMin, voteMax,
+      this.voteCountMin, undefined, runtimeMin, runtimeMax, undefined, person, undefined, undefined, kw);
+    sessionStorage.setItem('criteria', JSON.stringify(criteria));
+    sessionStorage.setItem('people', JSON.stringify(this.people));
+    sessionStorage.setItem('keyword', JSON.stringify(this.keyword));
+    return criteria;
   }
 
   search(initPagination: boolean) {
@@ -128,13 +189,6 @@ export class DiscoverComponent implements OnInit {
       this.nbChecked = 0;
     }
     this.movieService.getMoviesDiscover(this.buildCriteria()).then(result => this.discover = result);
-  }
-
-  convertTimeToMinutes(time: string): number {
-    const h = parseInt(time.substr(0, time.indexOf('h')).trim(), 10);
-    const m = parseInt(time.substring(time.lastIndexOf('h') + 1, time.lastIndexOf('min')).trim(), 10);
-    return h * 60 + m;
-
   }
 
   gotoDetail(id: number, event): void {
