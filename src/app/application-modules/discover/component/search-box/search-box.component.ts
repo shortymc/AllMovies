@@ -22,7 +22,7 @@ export class SearchBoxComponent<T> implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-    if(this.initList) {
+    if (this.initList) {
       this.list = this.initList;
     }
     this.itemCtrl = new FormControl();
@@ -38,10 +38,10 @@ export class SearchBoxComponent<T> implements OnInit, OnChanges {
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     for (const field of Object.keys(changes)) {
-      if(field === 'clear'){
+      if (field === 'clear') {
         const changedProp = changes[field];
         this.clear = changedProp.currentValue;
-        if(this.clear) {
+        if (this.clear) {
           this.list = [];
         }
       }

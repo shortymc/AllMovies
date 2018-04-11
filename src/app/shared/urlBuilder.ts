@@ -74,13 +74,13 @@ export class UrlBuilder {
       parametres.push(`${Url.WITH_PEOPLE_URL}${criteria.personsIds.join(Url.AND_URL)}`);
     }
     if (criteria.genresId && !criteria.genresWithout) {
-      parametres.push(`${Url.WITH_GENRES_URL}${criteria.genresId.join(Url.OR_URL)}`);
+      parametres.push(`${Url.WITH_GENRES_URL}${criteria.genresId.join(Url.AND_URL)}`);
     }
     if (criteria.genresId && criteria.genresWithout) {
       parametres.push(`${Url.WITHOUT_GENRES_URL}${criteria.genresId.join(Url.OR_URL)}`);
     }
     if (criteria.keywordsIds && !criteria.keywordsWithout) {
-      parametres.push(`${Url.WITH_KEYWORDS_URL}${criteria.keywordsIds.join(Url.OR_URL)}`);
+      parametres.push(`${Url.WITH_KEYWORDS_URL}${criteria.keywordsIds.join(Url.AND_URL)}`);
     }
     if (criteria.keywordsIds && criteria.keywordsWithout) {
       parametres.push(`${Url.WITHOUT_KEYWORDS_URL}${criteria.keywordsIds.join(Url.OR_URL)}`);

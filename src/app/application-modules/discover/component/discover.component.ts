@@ -1,3 +1,4 @@
+import { GenreService } from './../../../service/genre.service';
 import { PersonSearchService } from './../../../service/person-search.service';
 import { AuthService } from './../../../service/auth.service';
 import { DiscoverCriteria } from './../../../model/discover-criteria';
@@ -6,7 +7,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Discover } from './../../../model/discover';
 import { TranslateService } from '@ngx-translate/core';
 import { MovieService } from './../../../service/movie.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NouiFormatter } from 'ng2-nouislider';
 import { DropDownChoice, Keyword } from '../../../model/model';
@@ -39,6 +40,8 @@ export class DiscoverComponent implements OnInit {
   voteCountMin = 10;
   people: Person[] = [];
   keyword: Keyword[] = [];
+  allGenres: DropDownChoice[];
+  selectedGenres: DropDownChoice[];
   clean = false;
 
   constructor(
@@ -47,6 +50,8 @@ export class DiscoverComponent implements OnInit {
     private router: Router,
     public personService: PersonSearchService,
     public keywordService: KeywordSearchService,
+    private genreService: GenreService,
+    private elemRef: ElementRef,
     public timePipe: ConvertToHHmmPipe) { }
 
   ngOnInit() {
@@ -71,12 +76,23 @@ export class DiscoverComponent implements OnInit {
         return res;
       }
     };
-    this.translate.onLangChange.subscribe(() => this.search(false));
+    this.translate.onLangChange.subscribe(() => {
+      this.getAllGenres(this.selectedGenres.map(g => g.value));
+      this.search(false);
+    });
     const criteria = <DiscoverCriteria>JSON.parse(sessionStorage.getItem('criteria'));
     if (criteria) {
       this.initFromCriteria(criteria);
       this.search(false);
     }
+    this.getAllGenres(criteria ? criteria.genresId : []);
+  }
+
+  getAllGenres(genresId: number[]) {
+    this.genreService.getAllGenre(this.translate.currentLang).subscribe(genres => {
+      this.allGenres = genres.map(genre => new DropDownChoice(genre.name, genre.id));
+      this.selectedGenres = genresId ? this.allGenres.filter(genre => genresId.includes(genre.value)) : [];
+    });
   }
 
   convertTimeStringToNumber(time: string): number {
@@ -123,13 +139,16 @@ export class DiscoverComponent implements OnInit {
     if (!this.keyword) {
       this.keyword = [];
     }
+    this.selectedGenres = <DropDownChoice[]>JSON.parse(sessionStorage.getItem('genre'));
   }
 
   clear() {
     sessionStorage.removeItem('criteria');
     sessionStorage.removeItem('people');
     sessionStorage.removeItem('keyword');
-    this.initFromCriteria(new DiscoverCriteria(this.translate.currentLang, this.sortChosen.value, this.sortDir.value, 0));
+    sessionStorage.removeItem('genre');
+    this.initFromCriteria(new DiscoverCriteria(this.translate.currentLang, this.sortChoices[0].value, 'desc', 0,
+      undefined, undefined, undefined, undefined, undefined, 10));
     this.search(true);
     this.clean = true;
   }
@@ -170,14 +189,20 @@ export class DiscoverComponent implements OnInit {
     if (this.keyword.length > 0) {
       kw = this.keyword.map(p => p.id);
     }
+    let genres;
+    console.log('this.selectedGenres', this.selectedGenres);
+    if (this.selectedGenres && this.selectedGenres.length > 0) {
+      genres = this.selectedGenres.map(g => g.value);
+    }
     // (language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
     //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
     const criteria = new DiscoverCriteria(this.translate.currentLang, this.sortChosen.value,
       this.sortDir.value, this.page.pageIndex + 1, yearMin, yearMax, this.adult, voteMin, voteMax,
-      this.voteCountMin, undefined, runtimeMin, runtimeMax, undefined, person, undefined, undefined, kw);
+      this.voteCountMin, undefined, runtimeMin, runtimeMax, undefined, person, genres, undefined, kw);
     sessionStorage.setItem('criteria', JSON.stringify(criteria));
     sessionStorage.setItem('people', JSON.stringify(this.people));
     sessionStorage.setItem('keyword', JSON.stringify(this.keyword));
+    sessionStorage.setItem('genre', JSON.stringify(this.selectedGenres));
     return criteria;
   }
 
@@ -188,7 +213,10 @@ export class DiscoverComponent implements OnInit {
       this.page = new PageEvent();
       this.nbChecked = 0;
     }
-    this.movieService.getMoviesDiscover(this.buildCriteria()).then(result => this.discover = result);
+    this.movieService.getMoviesDiscover(this.buildCriteria()).then(result => {
+      this.discover = result;
+      this.elemRef.nativeElement.querySelector('#searchBtn').scrollIntoView();
+    });
   }
 
   gotoDetail(id: number, event): void {
