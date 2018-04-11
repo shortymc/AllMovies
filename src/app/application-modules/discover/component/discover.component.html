@@ -1,11 +1,13 @@
 <div class="params">
   <button type="button" class="btn btn-outline-primary" (click)="clear()">{{'Init'|translate}}</button>
   <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" (click)="initSelection()" appAddCollection [movies]="discover.movies">{{'global.add_collection'|translate}}</button>
+  <!-- Sort field -->
   <mat-form-field>
-    <mat-select #sortField placeholder="{{'Sort' | translate}}" [(value)]="sortChosen">
+    <mat-select placeholder="{{'Sort' | translate}}" [(value)]="sortChosen">
       <mat-option *ngFor="let sort of sortChoices" [value]="sort">{{sort.label_key | translate}}</mat-option>
     </mat-select>
   </mat-form-field>
+  <!-- Sort direction -->
   <mat-button-toggle-group #sortDir="matButtonToggleGroup">
     <div class="toogleHeader">SortDirection:</div>
     <mat-button-toggle value="desc">
@@ -15,26 +17,37 @@
       Up
     </mat-button-toggle>
   </mat-button-toggle-group>
-  <button type="button" class="btn btn-outline-primary" (click)="search(true)">{{'Search'|translate}}</button>
 </div>
 <div class="params">
+  <!-- Person search -->
   <app-search-box [adult]="adult" (items)="people = $event" [service]="personService" [placeholder]="'People'" [initList]="people"
     [clear]="clean"></app-search-box>
-</div>
-<div class="params">
+  <!-- Keyword search -->
   <app-search-box [adult]="adult" (items)="keyword = $event" [service]="keywordService" [placeholder]="'Keyword'" [initList]="keyword"
     [clear]="clean"></app-search-box>
+  <!-- Genres Filter -->
+  <mat-form-field>
+    <mat-select placeholder="{{'movies.filter.genres' | translate}}" [(value)]="selectedGenres" multiple>
+      <mat-option *ngFor="let genre of allGenres" [value]="genre">{{genre.label_key}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
+<!-- Runtime range -->
 <nouislider [connect]="true" [min]="0" [max]="max" [step]="1" [(ngModel)]="runtimeRange" [format]="formatter" [tooltips]="[true, true]"
   style="margin-top: 4em;"></nouislider>
+<!-- Year range -->
 <nouislider [connect]="true" [min]="minYear" [max]="maxYear" [step]="1" [(ngModel)]="yearRange" [tooltips]="[true, true]"
   style="margin-top: 4em;"></nouislider>
+<!-- Vote range -->
 <div class="vote">
   <nouislider [connect]="true" [min]="minVote" [max]="maxVote" [step]="0.1" [(ngModel)]="voteRange" [tooltips]="[true, true]"
     style="margin-top: 4em;"></nouislider>
   <mat-form-field id="voteCount">
     <input matInput placeholder="Vount count minimum" [(ngModel)]="voteCountMin" type="number" required/>
   </mat-form-field>
+</div>
+<div class="params">
+  <button type="submit" id="searchBtn" class="btn btn-outline-primary" (click)="search(true)">{{'Search'|translate}}</button>
 </div>
 
 
