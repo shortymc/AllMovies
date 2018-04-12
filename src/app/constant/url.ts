@@ -56,6 +56,7 @@ export class Url {
   static readonly WITHOUT_GENRES_URL = '&without_genres=';
   static readonly WITHOUT_KEYWORDS_URL = '&without_keywords=';
   static readonly GET_ALL_GENRES_URL = 'https://api.themoviedb.org/3/genre/movie/list?';
+  static readonly GET_ALL_CERTIFICATIONS_URL = 'https://api.themoviedb.org/3/certification/movie/list?';
 
   // Release types
   static readonly RELEASE_PREMIERE = '1';

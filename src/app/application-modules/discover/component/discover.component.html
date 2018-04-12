@@ -31,6 +31,12 @@
       <mat-option *ngFor="let genre of allGenres" [value]="genre">{{genre.label_key}}</mat-option>
     </mat-select>
   </mat-form-field>
+  <!-- Certification Filter -->
+  <mat-form-field>
+    <mat-select placeholder="{{'movies.filter.certification' | translate}}" [(value)]="selectedCertif">
+      <mat-option *ngFor="let certif of allCertif" [value]="certif">{{certif.label_key}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
 <!-- Runtime range -->
 <nouislider [connect]="true" [min]="0" [max]="max" [step]="1" [(ngModel)]="runtimeRange" [format]="formatter" [tooltips]="[true, true]"
