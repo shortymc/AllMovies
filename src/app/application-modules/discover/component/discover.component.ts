@@ -80,7 +80,7 @@ export class DiscoverComponent implements OnInit {
     };
     this.translate.onLangChange.subscribe(() => {
       this.getAllGenres(this.selectedGenres ? this.selectedGenres.map(g => g.value) : []);
-      this.getAllCertification();
+      this.getAllCertification(this.selectedCertif ? this.selectedCertif.value : undefined);
       this.search(false);
     });
     // Stored research
@@ -90,7 +90,7 @@ export class DiscoverComponent implements OnInit {
       this.search(false);
     }
     this.getAllGenres(criteria ? criteria.genresId : []);
-    this.getAllCertification();
+    this.getAllCertification(criteria ? criteria.certification : undefined);
   }
 
   getAllGenres(genresId: number[]) {
@@ -100,9 +100,10 @@ export class DiscoverComponent implements OnInit {
     });
   }
 
-  getAllCertification() {
+  getAllCertification(certification: string) {
     this.certifService.getAllCertification().subscribe(certif => {
       this.allCertif = certif.map(c => new DropDownChoice(c.meaning, c.certification));
+      this.selectedCertif = certification ? this.allCertif.find(c => c.value === certification) : undefined;
     });
   }
 
@@ -124,6 +125,7 @@ export class DiscoverComponent implements OnInit {
       this.keyword = [];
     }
     this.selectedGenres = <DropDownChoice[]>JSON.parse(sessionStorage.getItem('genre'));
+    this.selectedCertif = <DropDownChoice>JSON.parse(sessionStorage.getItem('certif'));
   }
 
   clear() {
@@ -131,6 +133,7 @@ export class DiscoverComponent implements OnInit {
     sessionStorage.removeItem('people');
     sessionStorage.removeItem('keyword');
     sessionStorage.removeItem('genre');
+    sessionStorage.removeItem('certif');
     this.initFromCriteria(new DiscoverCriteria(this.translate.currentLang, this.sortChoices[0].value, 'desc', 0,
       undefined, undefined, undefined, undefined, undefined, 10));
     this.search(true);
@@ -190,6 +193,7 @@ export class DiscoverComponent implements OnInit {
     sessionStorage.setItem('people', JSON.stringify(this.people));
     sessionStorage.setItem('keyword', JSON.stringify(this.keyword));
     sessionStorage.setItem('genre', JSON.stringify(this.selectedGenres));
+    sessionStorage.setItem('certif', JSON.stringify(this.selectedCertif));
     return criteria;
   }
 
