@@ -53,20 +53,22 @@
   </mat-form-field>
 </div>
 <div class="params">
+  <!-- Search Button -->
   <button type="submit" id="searchBtn" class="btn btn-outline-primary" (click)="search(true)">{{'Search'|translate}}</button>
 </div>
 
-
+<!-- Result list -->
 <mat-list dense *ngIf="discover">
   <mat-paginator #paginator [length]="discover.total_results" [pageIndex]="page.pageIndex" [pageSize]="20" (page)="page = $event; search(false);">
   </mat-paginator>
   <h3 mat-subheader>Nombre de résultat: {{discover.total_results}}</h3>
   <mat-list-item *ngFor="let movie of discover.movies" (dblclick)="gotoDetail(movie.id, $event)" (mousedown)="movie.checked = !movie.checked; updateSize();gotoDetail(movie.id, $event)"
-    [ngClass]="{'selected':movie.checked}">
+    [ngClass]="{'selected':movie.checked, 'adult': movie.adult}">
     <a class="frame" href="{{movie.affiche}}" target="_blank">
       <img src="{{movie.thumbnail}}">
     </a>
     <p matLine>{{movie.title}}</p>
+    <p matLine>{{movie.original_title}}</p>
     <p matLine>{{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}</p>
     <p matLine>
       <span>{{movie.note}} / 10 </span>
