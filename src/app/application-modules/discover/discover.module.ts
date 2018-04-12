@@ -1,5 +1,5 @@
+import { CertificationService } from './../../service/certification.service';
 import { GenreService } from './../../service/genre.service';
-import { ConvertToHHmmPipe } from './../../shared/custom.pipe';
 import { MyPaginator } from './../movies/component/my-paginator';
 import { NgModule } from '@angular/core';
 import { DiscoverComponent } from './component/discover.component';
@@ -48,9 +48,9 @@ const childRoutes: Routes = [
     MovieService,
     DropboxService,
     TranslateService,
-    ConvertToHHmmPipe,
     PersonSearchService,
     KeywordSearchService,
+    CertificationService,
     GenreService,
     { provide: MatPaginatorIntl, useClass: MyPaginator, deps: [TranslateService] }],
   declarations: [DiscoverComponent, SearchBoxComponent]

@@ -59,7 +59,7 @@ export class UrlBuilder {
     }
     if (criteria.certification) {
       parametres.push(`${Url.CERTIFICATION_COUNTRY_URL}`);
-      parametres.push(`${Url.CERTIFICATION_URL}${criteria.certification.join(Url.OR_URL)}`);
+      parametres.push(`${Url.CERTIFICATION_URL}${criteria.certification}`);
     }
     if (criteria.runtimeMin) {
       parametres.push(`${Url.WITH_RUNTIME_GTE_URL}${criteria.runtimeMin}`);
