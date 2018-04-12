@@ -32,6 +32,31 @@ export class Utils {
     return r.original_title === r.title ? ' ' : r.original_title;
   }
 
+  static convertLangToRegion(language: string) {
+    let region;
+    switch (language) {
+      case 'en':
+        region = 'US';
+        break;
+      case 'fr':
+        region = 'FR';
+        break;
+      case 'es':
+        region = 'ES';
+        break;
+      case 'it':
+        region = 'IT';
+        break;
+      case 'de':
+        region = 'DE';
+        break;
+      default:
+        region = 'US';
+        break;
+    }
+    return region;
+  }
+
   static recommendationsToMovies(reco: any): Movie[] {
     return reco.map((r: any) => <Movie>({
       id: r.id,
@@ -46,6 +71,33 @@ export class Utils {
       recette: r.revenue,
       language: r.original_language
     }));
+  }
+
+  static convertTimeStringToNumber(time: string): number {
+    if (time) {
+      let h = parseInt(time.substr(0, time.indexOf('h')).trim(), 10);
+      if (isNaN(h)) {
+        h = 0;
+      }
+      const m = parseInt(time.substring(time.lastIndexOf('h') + 1, time.lastIndexOf('min')).trim(), 10);
+      return h * 60 + m;
+    } else {
+      return 0;
+    }
+  }
+
+  static convertTimeNumberToString(minutes: number): string {
+    if (minutes) {
+      minutes = Math.round(minutes);
+      let result = '';
+      result += Math.floor(minutes / 60);
+      result += ' h ';
+      result += minutes % 60;
+      result += ' min ';
+      return result;
+    } else {
+      return '0 min';
+    }
   }
 
   static jobEquals(job: string, filter: string): boolean {
