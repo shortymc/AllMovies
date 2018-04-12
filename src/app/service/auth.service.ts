@@ -88,6 +88,7 @@ export class AuthService {
     return this.getUserFile().then((users: User[]) => {
       const found_users = users.filter((user: User) => user.name === name && user.password === password);
       if (found_users.length === 1) {
+        sessionStorage.clear();
         AuthService.setToken(this.createToken(found_users[0]));
         this.isLogged = true;
         this.fileName = AuthService.getUserFileName(found_users[0].id);
@@ -249,6 +250,7 @@ export class AuthService {
     this.isLogged = false;
     this.fileName = '';
     AuthService.removeToken();
+    sessionStorage.clear();
     this.router.navigate(['/login']);
   }
 }
