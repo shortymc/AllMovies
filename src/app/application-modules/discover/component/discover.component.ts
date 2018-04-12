@@ -80,7 +80,7 @@ export class DiscoverComponent implements OnInit {
     };
     this.translate.onLangChange.subscribe(() => {
       this.getAllGenres(this.selectedGenres ? this.selectedGenres.map(g => g.value) : []);
-      this.getAllCertification(this.selectedCertif ? this.selectedCertif.value : undefined);
+      this.getAllCertification(this.selectedCertif ? this.selectedCertif.value : '');
       this.search(false);
     });
     // Stored research
@@ -90,7 +90,7 @@ export class DiscoverComponent implements OnInit {
       this.search(false);
     }
     this.getAllGenres(criteria ? criteria.genresId : []);
-    this.getAllCertification(criteria ? criteria.certification : undefined);
+    this.getAllCertification(criteria ? criteria.certification : '');
   }
 
   getAllGenres(genresId: number[]) {
@@ -124,8 +124,14 @@ export class DiscoverComponent implements OnInit {
     if (!this.keyword) {
       this.keyword = [];
     }
-    this.selectedGenres = <DropDownChoice[]>JSON.parse(sessionStorage.getItem('genre'));
-    this.selectedCertif = <DropDownChoice>JSON.parse(sessionStorage.getItem('certif'));
+    const genre = sessionStorage.getItem('genre');
+    if(genre !== 'undefined'){
+      this.selectedGenres = <DropDownChoice[]>JSON.parse(genre);
+    }
+    const certif = sessionStorage.getItem('certif')
+    if (certif !== 'undefined') {
+      this.selectedCertif = <DropDownChoice>JSON.parse(certif);
+    }
   }
 
   clear() {
