@@ -71,6 +71,10 @@ label {
   position: relative;
 }
 
+.adult {
+  background-color: $pink;
+}
+
 .search-result {
   width: calc(70% - 18px);
   margin-top: 1px;
