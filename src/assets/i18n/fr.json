@@ -51,6 +51,14 @@
         "user_added": "Utilisateur ajouté !",
         "user_changed": "Utilisateur Modifié !"
     },
+    "release_type": {
+        "premiere": "Première",
+        "theatrical_limited": "Sortie limitée",
+        "theatrical": "Cinéma",
+        "digital": "Numérique",
+        "physical": "Physique",
+        "tv": "Télé"
+    },
     "dashboard": {
         "header": "Top Films"
     },
@@ -216,6 +224,24 @@
             "original_title": "Titre",
             "vote_average": "Note",
             "vote_count": "Nombre de vote"
-        }
+        },
+        "clear": "Rénitialiser",
+        "sort": "Trier",
+        "sort_direction": "Direction",
+        "sort_up": "Croissant",
+        "sort_down": "Décroissant",
+        "people": "Personnes",
+        "keyword": "Mots clé",
+        "genre": "Genres",
+        "certification": "Certifications",
+        "without": "Sans",
+        "none": "Aucun",
+        "release_type": "Type de sortie",
+        "runtime": "Durée",
+        "year": "Année de sortie",
+        "vote": "Note",
+        "search": "Rechercher",
+        "result": "Résultats",
+        "vote_count_min": "Nombre de vote minimum"
     }
 }
