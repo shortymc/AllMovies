@@ -31,8 +31,14 @@ export class MovieService {
       .map(response => {
         const movie = MapMovie.mapForMovie(response);
         movie.lang_version = language;
-        this.omdb.getMovie(movie.imdb_id).then(score => movie.score = score);
         return movie;
+      }).flatMap((movie: Movie) => {
+        if (movie.imdb_id) {
+          return this.omdb.getMovie(movie.imdb_id).then(score => {
+            movie.score = score;
+            return movie;
+          });
+        }
       }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
