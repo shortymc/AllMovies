@@ -148,6 +148,22 @@ export class Utils {
     return 0;
   }
 
+  static parseJson(json: string): any {
+    if (!json || json === null || json === '' || json === 'undefined') {
+      return json;
+    } else {
+      return JSON.parse(json);
+    }
+  }
+
+  static stringifyJson(value: any): string {
+    if (!value || value === null || value === '' || value === 'undefined') {
+      return '';
+    } else {
+      return JSON.stringify(value);
+    }
+  }
+
   static filter<T>(list: T[], searchString: string): T[] {
     if (!list || list == null || list.length === 0) {
       return [];
