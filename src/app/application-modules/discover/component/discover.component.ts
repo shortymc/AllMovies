@@ -42,6 +42,7 @@ export class DiscoverComponent implements OnInit {
   voteCountMin = 10;
   people: Person[] = [];
   keyword: Keyword[] = [];
+  isWithoutKeyword = false;
   allGenres: DropDownChoice[];
   selectedGenres: DropDownChoice[];
   isWithoutGenre = false;
@@ -126,6 +127,7 @@ export class DiscoverComponent implements OnInit {
     this.runtimeRange = [criteria.runtimeMin ? criteria.runtimeMin : 0, criteria.runtimeMax ? criteria.runtimeMax : this.max];
     this.voteCountMin = criteria.voteCountMin;
     this.isWithoutGenre = criteria.genresWithout;
+    this.isWithoutKeyword = criteria.keywordsWithout;
     this.people = <Person[]>Utils.parseJson(sessionStorage.getItem('people'));
     if (!this.people) {
       this.people = [];
@@ -147,8 +149,11 @@ export class DiscoverComponent implements OnInit {
     sessionStorage.removeItem('keyword');
     sessionStorage.removeItem('genre');
     sessionStorage.removeItem('certif');
+    // (language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
+    //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
     this.initFromCriteria(new DiscoverCriteria(this.translate.currentLang, this.sortChoices[0].value, 'desc', 0,
-      undefined, undefined, undefined, undefined, undefined, 0));
+      undefined, undefined, undefined, undefined, undefined, 0, undefined, undefined, undefined, undefined, undefined,
+      undefined, false, undefined, false));
     this.search(true);
     this.clean = true;
   }
@@ -205,7 +210,7 @@ export class DiscoverComponent implements OnInit {
     //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
     const criteria = new DiscoverCriteria(this.translate.currentLang, this.sortChosen.value,
       this.sortDir.value, this.page.pageIndex + 1, yearMin, yearMax, this.adult, voteMin, voteMax,
-      this.voteCountMin, certif, runtimeMin, runtimeMax, releaseType, person, genres, this.isWithoutGenre, kw, undefined);
+      this.voteCountMin, certif, runtimeMin, runtimeMax, releaseType, person, genres, this.isWithoutGenre, kw, this.isWithoutKeyword);
     sessionStorage.setItem('criteria', Utils.stringifyJson(criteria));
     sessionStorage.setItem('people', Utils.stringifyJson(this.people));
     sessionStorage.setItem('keyword', Utils.stringifyJson(this.keyword));
