@@ -99,6 +99,23 @@
       </mat-cell>
     </ng-container>
 
+    <!-- METACRITIC -->
+    <ng-container matColumnDef="meta">
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.rating'|translate }}">
+        <span class="mat-text">{{ 'movies.rating'|translate }}</span>
+        <span class="mat-icon fa fa-star"></span>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        <ng-container *ngIf="movie.score">
+          <ng-container *ngFor="let rating of movie.score.ratings">
+            <ng-container *ngIf="rating.Source === 'Metacritic'">
+              {{rating.Value}}
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </mat-cell>
+    </ng-container>
+
     <!-- LANGUE -->
     <ng-container matColumnDef="language">
       <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.language'|translate }}">
