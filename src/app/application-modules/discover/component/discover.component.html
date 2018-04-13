@@ -81,6 +81,7 @@
     </a>
     <p matLine>{{movie.title}}</p>
     <p matLine>{{movie.original_title}}</p>
+    <p matLine>{{movie.language | uppercase}}</p>
     <p matLine>{{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}</p>
     <p matLine>
       <span>{{movie.note}} / 10 </span>
