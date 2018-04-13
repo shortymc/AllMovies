@@ -156,10 +156,11 @@ export class DropboxService {
    * @param  {string} fileName
    * @returns void
    */
-  replaceMovies(moviesToReplace: Movie[], fileName: string): void {
+  replaceMovies(moviesToReplace: Movie[], fileName: string, language: string): void {
     this.downloadFile(fileName).then(file => {
       let movieList = <Movie[]>JSON.parse(file);
-      movieList = movieList.filter((m: Movie) => !moviesToReplace.map((movie: Movie) => movie.id).includes(m.id));
+      movieList = movieList.filter((m: Movie) => !moviesToReplace.map((movie: Movie) => movie.id).includes(m.id)
+      || !moviesToReplace.map((movie: Movie) => movie.lang_version).includes(m.lang_version));
 
       moviesToReplace.forEach((movie: Movie) => movieList.push(movie));
       movieList.sort(Utils.compareObject);
