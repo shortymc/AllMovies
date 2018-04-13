@@ -51,6 +51,14 @@
         "user_added": "User added !",
         "user_changed": "User changed !"
     },
+    "release_type": {
+        "premiere": "Premiere",
+        "theatrical_limited": "Limited release",
+        "theatrical": "Theatrical",
+        "digital": "Digital",
+        "physical": "Physical",
+        "tv": "TV"
+    },
     "dashboard": {
         "header": "Top Movies"
     },
@@ -216,6 +224,24 @@
             "original_title": "Title",
             "vote_average": "Vote",
             "vote_count": "Vote count"
-        }
+        },
+        "clear": "Reset",
+        "sort": "Sort",
+        "sort_direction": "Direction",
+        "sort_up": "Up",
+        "sort_down": "Down",
+        "people": "Persons",
+        "keyword": "Keywords",
+        "genre": "Genres",
+        "certification": "Certification",
+        "without": "Without",
+        "none": "None",
+        "release_type": "Release type",
+        "runtime": "Runtime",
+        "year": "Release year",
+        "vote": "Rating",
+        "search": "Search",
+        "result": "Results",
+        "vote_count_min": "Vote count minimum"
     }
 }
