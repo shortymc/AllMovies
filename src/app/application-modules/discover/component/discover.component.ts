@@ -1,3 +1,4 @@
+import { Url } from './../../../constant/url';
 import { GenreService } from './../../../service/genre.service';
 import { PersonSearchService } from './../../../service/person-search.service';
 import { AuthService } from './../../../service/auth.service';
@@ -43,8 +44,11 @@ export class DiscoverComponent implements OnInit {
   keyword: Keyword[] = [];
   allGenres: DropDownChoice[];
   selectedGenres: DropDownChoice[];
+  isWithoutGenre = false;
   allCertif: DropDownChoice[];
   selectedCertif: DropDownChoice;
+  allReleaseType: DropDownChoice[];
+  selectedReleaseType: DropDownChoice[];
   clean = false;
 
   constructor(
@@ -66,6 +70,11 @@ export class DiscoverComponent implements OnInit {
     new DropDownChoice('discover.sort_field.original_title', 'original_title'), new DropDownChoice('discover.sort_field.vote_average', 'vote_average')
       , new DropDownChoice('discover.sort_field.vote_count', 'vote_count')];
     this.sortChosen = this.sortChoices[0];
+    this.allReleaseType = [new DropDownChoice('global.release_type.premiere', Url.RELEASE_PREMIERE),
+    new DropDownChoice('global.release_type.theatrical_limited', Url.RELEASE_THEATRICAL_LIMITED),
+    new DropDownChoice('global.release_type.theatrical', Url.RELEASE_THEATRICAL),
+    new DropDownChoice('global.release_type.digital', Url.RELEASE_DIGITAL), new DropDownChoice('global.release_type.physical', Url.RELEASE_PHYSICAL),
+    new DropDownChoice('global.release_type.tv', Url.RELEASE_TV)];
     this.formatter = {
       to(minutes: any): any {
         return Utils.convertTimeNumberToString(minutes);
@@ -84,7 +93,7 @@ export class DiscoverComponent implements OnInit {
       this.search(false);
     });
     // Stored research
-    const criteria = <DiscoverCriteria>JSON.parse(sessionStorage.getItem('criteria'));
+    const criteria = <DiscoverCriteria>Utils.parseJson(sessionStorage.getItem('criteria'));
     if (criteria) {
       this.initFromCriteria(criteria);
       this.search(false);
@@ -116,21 +125,19 @@ export class DiscoverComponent implements OnInit {
     this.voteRange = [criteria.voteAvergeMin ? criteria.voteAvergeMin : this.minVote, criteria.voteAvergeMax ? criteria.voteAvergeMax : this.maxVote];
     this.runtimeRange = [criteria.runtimeMin ? criteria.runtimeMin : 0, criteria.runtimeMax ? criteria.runtimeMax : this.max];
     this.voteCountMin = criteria.voteCountMin;
-    this.people = <Person[]>JSON.parse(sessionStorage.getItem('people'));
+    this.isWithoutGenre = criteria.genresWithout;
+    this.people = <Person[]>Utils.parseJson(sessionStorage.getItem('people'));
     if (!this.people) {
       this.people = [];
     }
-    this.keyword = <Keyword[]>JSON.parse(sessionStorage.getItem('keyword'));
+    this.keyword = <Keyword[]>Utils.parseJson(sessionStorage.getItem('keyword'));
     if (!this.keyword) {
       this.keyword = [];
     }
-    const genre = sessionStorage.getItem('genre');
-    if(genre !== 'undefined'){
-      this.selectedGenres = <DropDownChoice[]>JSON.parse(genre);
-    }
-    const certif = sessionStorage.getItem('certif')
-    if (certif !== 'undefined') {
-      this.selectedCertif = <DropDownChoice>JSON.parse(certif);
+    this.selectedGenres = <DropDownChoice[]>Utils.parseJson(sessionStorage.getItem('genre'));
+    this.selectedCertif = <DropDownChoice>Utils.parseJson(sessionStorage.getItem('certif'));
+    if (criteria.releaseType) {
+      this.selectedReleaseType = this.allReleaseType.filter(type => criteria.releaseType.includes(type.value));
     }
   }
 
@@ -141,7 +148,7 @@ export class DiscoverComponent implements OnInit {
     sessionStorage.removeItem('genre');
     sessionStorage.removeItem('certif');
     this.initFromCriteria(new DiscoverCriteria(this.translate.currentLang, this.sortChoices[0].value, 'desc', 0,
-      undefined, undefined, undefined, undefined, undefined, 10));
+      undefined, undefined, undefined, undefined, undefined, 0));
     this.search(true);
     this.clean = true;
   }
@@ -190,16 +197,20 @@ export class DiscoverComponent implements OnInit {
     if (this.selectedCertif) {
       certif = this.selectedCertif.value;
     }
+    let releaseType;
+    if (this.selectedReleaseType && this.selectedReleaseType.length > 0) {
+      releaseType = this.selectedReleaseType.map(type => type.value);
+    }
     // (language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
     //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
     const criteria = new DiscoverCriteria(this.translate.currentLang, this.sortChosen.value,
       this.sortDir.value, this.page.pageIndex + 1, yearMin, yearMax, this.adult, voteMin, voteMax,
-      this.voteCountMin, certif, runtimeMin, runtimeMax, undefined, person, genres, undefined, kw);
-    sessionStorage.setItem('criteria', JSON.stringify(criteria));
-    sessionStorage.setItem('people', JSON.stringify(this.people));
-    sessionStorage.setItem('keyword', JSON.stringify(this.keyword));
-    sessionStorage.setItem('genre', JSON.stringify(this.selectedGenres));
-    sessionStorage.setItem('certif', JSON.stringify(this.selectedCertif));
+      this.voteCountMin, certif, runtimeMin, runtimeMax, releaseType, person, genres, this.isWithoutGenre, kw, undefined);
+    sessionStorage.setItem('criteria', Utils.stringifyJson(criteria));
+    sessionStorage.setItem('people', Utils.stringifyJson(this.people));
+    sessionStorage.setItem('keyword', Utils.stringifyJson(this.keyword));
+    sessionStorage.setItem('genre', Utils.stringifyJson(this.selectedGenres));
+    sessionStorage.setItem('certif', Utils.stringifyJson(this.selectedCertif));
     return criteria;
   }
 
