@@ -13,8 +13,10 @@ export class ServiceUtils {
     let message;
     if (error.response) {
       message = error.response.error;
-    } else if (error.error) {
+    } else if (error.error && error.error.errors) {
       message = 'Status ' + error.status + ': ' + error.error.errors.join(', ');
+    } else if (error.error) {
+      message = error.error;
     } else if (error.message) {
       message = error.message;
     } else {
