@@ -1,5 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { MatPaginatorIntl } from '@angular/material';
+import { DecimalPipe } from '@angular/common';
 
 export class MyPaginator extends MatPaginatorIntl {
   constructor(private translate: TranslateService) {
@@ -28,7 +29,9 @@ export class MyPaginator extends MatPaginatorIntl {
     const endIndex = startIndex < length ?
       Math.min(startIndex + pageSize, length) :
       startIndex + pageSize;
-    return startIndex + 1 + ' - ' + endIndex + this.translate.instant('movies.mat-table.of') + length;
+    const decimalPipe = new DecimalPipe(this.translate.currentLang);
+    return startIndex + 1 + ' - ' + endIndex + this.translate.instant('movies.mat-table.of') +
+      decimalPipe.transform(length, '1.0', this.translate.currentLang);
   };
 
 }
