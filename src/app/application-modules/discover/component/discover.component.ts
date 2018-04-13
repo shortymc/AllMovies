@@ -40,6 +40,7 @@ export class DiscoverComponent implements OnInit {
   voteRange: any[] = [this.minVote, this.maxVote];
   pseudo: string;
   voteCountMin = 10;
+  voteCountRange = [0, 10, 50, 100, 500, 1000, 5000, 10000];
   people: Person[] = [];
   keyword: Keyword[] = [];
   isWithoutKeyword = false;

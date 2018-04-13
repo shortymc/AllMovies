@@ -25,7 +25,7 @@
   <!-- Keyword search -->
   <app-search-box [adult]="adult" (items)="keyword = $event" [service]="keywordService" [placeholder]="'Keyword'" [initList]="keyword"
     [clear]="clean"></app-search-box>
-    <mat-slide-toggle [color]="'primary'" [(checked)]="isWithoutKeyword" (change)="isWithoutKeyword = !isWithoutKeyword">Without</mat-slide-toggle>
+  <mat-slide-toggle [color]="'primary'" [(checked)]="isWithoutKeyword" (change)="isWithoutKeyword = !isWithoutKeyword">Without</mat-slide-toggle>
   <!-- Genres Filter -->
   <mat-form-field>
     <mat-select placeholder="{{'discover.filter.genres' | translate}}" [(value)]="selectedGenres" multiple>
@@ -58,7 +58,9 @@
   <nouislider [connect]="true" [min]="minVote" [max]="maxVote" [step]="0.1" [(ngModel)]="voteRange" [tooltips]="[true, true]"
     style="margin-top: 4em;"></nouislider>
   <mat-form-field id="voteCount">
-    <input matInput placeholder="Vount count minimum" [(ngModel)]="voteCountMin" type="number" required/>
+    <mat-select placeholder="{{'discover.filter.vote_count_min' | translate}}" [(value)]="voteCountMin">
+      <mat-option *ngFor="let vote of voteCountRange" [value]="vote">{{vote}}</mat-option>
+    </mat-select>
   </mat-form-field>
 </div>
 <div class="params">
