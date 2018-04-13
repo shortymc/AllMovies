@@ -59,6 +59,10 @@ export class CapitalizeWordPipe implements PipeTransform {
 @Pipe({ name: 'filterCrew' })
 export class FilterCrewPipe implements PipeTransform {
   transform(str: any[], args: any): any[] {
-    return str.filter(h => h.job.toLowerCase() === args.toLowerCase());
+    if (str) {
+      return str.filter(h => h.job.toLowerCase() === args.toLowerCase());
+    } else {
+      return str;
+    }
   }
 }

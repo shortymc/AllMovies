@@ -52,7 +52,7 @@
       <div *ngFor="let rating of score.ratings"><label>{{rating.Source}}: </label>{{rating.Value}}</div>
       <label>Awards: </label>{{score.awards}}
     </div>
-    <div *ngIf="selectedMovie.genres.length > 0">
+    <div *ngIf="selectedMovie.genres && selectedMovie.genres.length > 0">
       <label>{{'movie.genres' | translate}}: </label>
       <div class="block">
         <span *ngFor="let genre of selectedMovie.genres; let last=last;">
@@ -61,7 +61,7 @@
         </span>
       </div>
     </div>
-    <app-list-persons [persons]="selectedMovie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
+    <app-list-persons *ngIf="selectedMovie.actors" [persons]="selectedMovie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
     <div *ngIf="(selectedMovie.crew | filterCrew:'director') as director">
       <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
     </div>
