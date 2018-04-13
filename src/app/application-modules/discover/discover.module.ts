@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 import { NouisliderModule } from 'ng2-nouislider';
 import {
   MatListModule, MatIconModule, MatButtonToggleModule, MatSelectModule,
-  MatFormFieldModule, MatPaginatorModule, MatPaginatorIntl, MatInputModule, MatAutocompleteModule, MatChipsModule
+  MatFormFieldModule, MatPaginatorModule, MatPaginatorIntl, MatInputModule, MatAutocompleteModule, MatChipsModule, MatSlideToggleModule
 } from '@angular/material';
 import { SearchBoxComponent } from './component/search-box/search-box.component';
 import { PersonSearchService } from '../../service/person-search.service';
@@ -38,6 +38,7 @@ const childRoutes: Routes = [
     MatInputModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
+    MatSlideToggleModule,
     MatSelectModule,
     NouisliderModule,
     MatFormFieldModule,

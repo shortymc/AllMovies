@@ -27,14 +27,22 @@
     [clear]="clean"></app-search-box>
   <!-- Genres Filter -->
   <mat-form-field>
-    <mat-select placeholder="{{'movies.filter.genres' | translate}}" [(value)]="selectedGenres" multiple>
+    <mat-select placeholder="{{'discover.filter.genres' | translate}}" [(value)]="selectedGenres" multiple>
       <mat-option *ngFor="let genre of allGenres" [value]="genre">{{genre.label_key}}</mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-slide-toggle [color]="'primary'" [checked]="false" (change)="isWithoutGenre = !isWithoutGenre">Without</mat-slide-toggle>
   <!-- Certification Filter -->
   <mat-form-field>
-    <mat-select placeholder="{{'movies.filter.certification' | translate}}" [(value)]="selectedCertif">
+    <mat-select placeholder="{{'discover.filter.certification' | translate}}" [(value)]="selectedCertif">
+      <mat-option>None</mat-option>
       <mat-option *ngFor="let certif of allCertif" [value]="certif">{{certif.label_key}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- Release type filter -->
+  <mat-form-field>
+    <mat-select placeholder="{{'discover.filter.release_type' | translate}}" [(value)]="selectedReleaseType" multiple>
+      <mat-option *ngFor="let type of allReleaseType" [value]="type">{{type.label_key | translate}}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>
@@ -59,9 +67,10 @@
 
 <!-- Result list -->
 <mat-list dense *ngIf="discover">
-  <mat-paginator #paginator [length]="discover.total_results" [pageIndex]="page.pageIndex" [pageSize]="20" (page)="page = $event; search(false);">
+  <mat-paginator [length]="discover.total_results" [pageIndex]="page.pageIndex" [pageSize]="20" (page)="page = $event; search(false);"
+    [showFirstLastButtons]="true">
   </mat-paginator>
-  <h3 mat-subheader>Nombre de résultat: {{discover.total_results}}</h3>
+  <h3 mat-subheader>Résultats:</h3>
   <mat-list-item *ngFor="let movie of discover.movies" (dblclick)="gotoDetail(movie.id, $event)" (mousedown)="movie.checked = !movie.checked; updateSize();gotoDetail(movie.id, $event)"
     [ngClass]="{'selected':movie.checked, 'adult': movie.adult}">
     <a class="frame" href="{{movie.affiche}}" target="_blank">
@@ -75,4 +84,7 @@
       <span>({{movie.vote_count}})</span>
     </p>
   </mat-list-item>
+  <mat-paginator [length]="discover.total_results" [pageIndex]="page.pageIndex" [pageSize]="20" (page)="page = $event; search(false);"
+    [showFirstLastButtons]="true">
+  </mat-paginator>
 </mat-list>
