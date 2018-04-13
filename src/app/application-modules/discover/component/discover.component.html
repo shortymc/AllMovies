@@ -25,13 +25,14 @@
   <!-- Keyword search -->
   <app-search-box [adult]="adult" (items)="keyword = $event" [service]="keywordService" [placeholder]="'Keyword'" [initList]="keyword"
     [clear]="clean"></app-search-box>
+    <mat-slide-toggle [color]="'primary'" [(checked)]="isWithoutKeyword" (change)="isWithoutKeyword = !isWithoutKeyword">Without</mat-slide-toggle>
   <!-- Genres Filter -->
   <mat-form-field>
     <mat-select placeholder="{{'discover.filter.genres' | translate}}" [(value)]="selectedGenres" multiple>
       <mat-option *ngFor="let genre of allGenres" [value]="genre">{{genre.label_key}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-slide-toggle [color]="'primary'" [checked]="false" (change)="isWithoutGenre = !isWithoutGenre">Without</mat-slide-toggle>
+  <mat-slide-toggle [color]="'primary'" [(checked)]="isWithoutGenre" (change)="isWithoutGenre = !isWithoutGenre">Without</mat-slide-toggle>
   <!-- Certification Filter -->
   <mat-form-field>
     <mat-select placeholder="{{'discover.filter.certification' | translate}}" [(value)]="selectedCertif">
