@@ -138,6 +138,18 @@ export class Utils {
     return result * (isAsc ? 1 : -1);
   }
 
+  static compareMeta(a: string, b: string, isAsc) {
+    let meta1 = 0;
+    let meta2 = 0;
+    if (a.length > 0) {
+      meta1 = parseInt(a.substr(0, a.indexOf('/')), 10);
+    }
+    if (b.length > 0) {
+      meta2 = parseInt(b.substr(0, b.indexOf('/')), 10);
+    }
+    return Utils.compare(meta1, meta2, isAsc);
+  }
+
   static compareObject(a: any, b: any): number {
     if (a.id < b.id) {
       return -1;
@@ -230,6 +242,10 @@ export class Utils {
             return Utils.compare(a.original_title, b.original_title, isAsc);
           case 'note':
             return Utils.compare(+a.note, +b.note, isAsc);
+          case 'meta':
+            const meta1 = a.score.ratings ? a.score.ratings.find(rating => rating.Source === 'Metacritic') : undefined;
+            const meta2 = b.score.ratings ? b.score.ratings.find(rating => rating.Source === 'Metacritic') : undefined;
+            return Utils.compareMeta(meta1 ? meta1.Value : '', meta2 ? meta2.Value : '', isAsc);
           case 'language':
             return Utils.compare(a.language, b.language, isAsc);
           case 'added':
