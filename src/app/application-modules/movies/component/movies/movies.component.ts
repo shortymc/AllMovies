@@ -12,7 +12,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSelectChange } from '@angular/material/select';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
-const init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'language', 'genres', 'time', 'added', 'select'];
+const init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'meta', 'language', 'genres', 'time', 'added', 'select'];
 
 @Component({
   selector: 'app-my-movies',
@@ -36,16 +36,22 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
   filteredGenres: MatSelectChange;
   language: string;
 
-  constructor(private movieService: MovieService, private router: Router, private breakpointObserver: BreakpointObserver,
-    private dropboxService: DropboxService, private translate: TranslateService, private elemRef: ElementRef, private auth: AuthService) {
-  }
+  constructor(
+    private movieService: MovieService,
+    private router: Router,
+    private breakpointObserver: BreakpointObserver,
+    private dropboxService: DropboxService,
+    private translate: TranslateService,
+    private elemRef: ElementRef,
+    private auth: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.breakpointObserver.observe([
       '(max-width: 700px)'
     ]).subscribe(result => {
       this.displayedColumns = result.matches ?
-        ['thumbnail', 'title', 'date', 'note', 'language', 'time', 'genres', 'select'] : init_columns;
+        ['thumbnail', 'title', 'date', 'meta', 'language', 'time', 'genres', 'select'] : init_columns;
     });
     this.getMovies();
     this.language = this.translate.currentLang;
@@ -64,8 +70,8 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
   getMovies(): void {
     this.auth.getFileName().then((fileName) => {
       this.dropboxService.getAllMovies(fileName).then(movies => {
-        // this.checkAndFixData(movies);
         this.movies = movies.filter(movie => movie.lang_version === this.language);
+        // this.checkAndFixData(this.movies, this.language);
         this.length = this.movies.length;
         this.initPagination(this.movies);
         this.getAllGenres();
@@ -142,45 +148,53 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     this.nbChecked = this.movies.filter(movie => movie.checked).length;
   }
 
-  checkAndFixData(movies: Movie[]): void {
+  checkAndFixData(movies: Movie[], lang: string): void {
     let incomplete: number[] = [];
-    const map = new Map();
+    // const map = new Map();
     try {
       for (const movie of movies) {
         if ((movie.time === undefined && movie.time == null)
           || (movie.genres === undefined && movie.genres == null)
+          || (movie.score === undefined && movie.score == null)
           // || (movie.original_title === undefined || movie.original_title == null || movie.original_title === '')
         ) {
           incomplete.push(movie.id);
         }
-        const res = map.get(movie.id);
-        if (!res) {
-          map.set(movie.id, [movie.lang_version]);
-        } else {
-          res.push(movie.lang_version);
-        }
+        // const res = map.get(movie.id);
+        // if (!res) {
+        //   map.set(movie.id, [movie.lang_version]);
+        // } else {
+        //   res.push(movie.lang_version);
+        // }
       }
-      const ids = movies.map(movie => movie.id);
-      for (const id of ids) {
-        const val = map.get(id);
-        if (val.length !== 2) {
-          incomplete.push(id);
-        }
-      }
+      //   const ids = movies.map(movie => movie.id);
+      //   for (const id of ids) {
+      //     const val = map.get(id);
+      //     if (val.length !== 2) {
+      //       incomplete.push(id);
+      //     }
+      //   }
     } catch (err) {
       console.log(err);
     }
-    incomplete = incomplete.slice(0, 35);
-    const obs = incomplete.map((id: number) => {
-      return this.movieService.getMovie(id, false, false, false, false, 'en');
+    incomplete = incomplete.slice(0, 30);
+    const obs = [];
+    incomplete.map((id: number) => {
+      obs.push(this.movieService.getMovie(id, false, false, false, false, lang));
     });
 
-    forkJoin(obs).subscribe(
-      data => {
-        // this.dropboxService.addMovieList(data, this.auth.fileName);
-      },
-      err => console.error(err)
-    );
+    try {
+      forkJoin(obs).subscribe(
+        (data: Movie[]) => {
+          this.auth.getFileName().then((fileName) => {
+            this.dropboxService.replaceMovies(data, fileName, lang);
+          });
+        },
+        err => console.error(err)
+      );
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   gotoDetail(id: number, event): void {
