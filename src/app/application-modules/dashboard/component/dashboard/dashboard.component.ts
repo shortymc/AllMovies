@@ -1,3 +1,4 @@
+import { TitleService } from './../../../../service/title.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import { Movie } from '../../../../model/movie';
@@ -11,9 +12,14 @@ import { MovieService } from '../../../../service/movie.service';
 export class DashboardComponent implements OnInit {
   movies: Movie[] = [];
 
-  constructor(private movieService: MovieService, private translate: TranslateService) { }
+  constructor(
+    private movieService: MovieService,
+    private translate: TranslateService,
+    private title: TitleService
+  ) { }
 
   ngOnInit(): void {
+    this.title.setTitle('');
     this.getTopMovies(this.translate.currentLang);
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.getTopMovies(event.lang);

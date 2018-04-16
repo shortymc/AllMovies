@@ -1,3 +1,4 @@
+import { TitleService } from './../../../service/title.service';
 // import { AllocineService } from './../../../service/allocine.service';
 import { Observable } from 'rxjs/Observable';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -24,7 +25,7 @@ export class MovieDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private translate: TranslateService,
     private location: Location,
-    // private allocine: AllocineService,
+    private title: TitleService,
     private router: Router
   ) { }
 
@@ -36,6 +37,7 @@ export class MovieDetailComponent implements OnInit {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.movie$ = this.getMovie(this.id, event.lang);
     });
+    this.movie$.subscribe(movie => this.title.setTitle(movie.title));
     // this.allocine.allocine('movie', '143067').subscribe(response => console.log(response));
   }
 

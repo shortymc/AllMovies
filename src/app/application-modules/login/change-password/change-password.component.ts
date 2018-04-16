@@ -1,3 +1,4 @@
+import { TitleService } from './../../../service/title.service';
 import { User } from './../../../model/user';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -16,9 +17,14 @@ export class ChangePasswordComponent implements OnInit {
   message: string;
   user: User;
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private title: TitleService
+  ) { }
 
   ngOnInit() {
+    this.title.setTitle('title.profile');
     this.auth.getCurrentUser().then((user) => this.user = user);
   }
 

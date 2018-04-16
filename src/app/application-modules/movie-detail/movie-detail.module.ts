@@ -1,3 +1,4 @@
+import { TitleService } from './../../service/title.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MovieService } from './../../service/movie.service';
 import { RatingModule } from 'ngx-rating';
@@ -26,6 +27,6 @@ const childRoutes: Routes = [
     RouterModule.forChild(childRoutes),
   ],
   declarations: [MovieDetailComponent],
-  providers: [MovieService, DropboxService, TranslateService, OmdbService]
+  providers: [MovieService, DropboxService, TranslateService, OmdbService, TitleService]
 })
 export class MovieDetailModule { }

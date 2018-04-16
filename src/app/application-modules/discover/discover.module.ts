@@ -1,3 +1,4 @@
+import { TitleService } from './../../service/title.service';
 import { CertificationService } from './../../service/certification.service';
 import { GenreService } from './../../service/genre.service';
 import { MyPaginator } from './../movies/component/my-paginator';
@@ -52,6 +53,7 @@ const childRoutes: Routes = [
     PersonSearchService,
     KeywordSearchService,
     CertificationService,
+    TitleService,
     GenreService,
     { provide: MatPaginatorIntl, useClass: MyPaginator, deps: [TranslateService] }],
   declarations: [DiscoverComponent, SearchBoxComponent]

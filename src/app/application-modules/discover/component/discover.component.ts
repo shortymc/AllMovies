@@ -1,3 +1,4 @@
+import { TitleService } from './../../../service/title.service';
 import { Url } from './../../../constant/url';
 import { GenreService } from './../../../service/genre.service';
 import { PersonSearchService } from './../../../service/person-search.service';
@@ -61,9 +62,11 @@ export class DiscoverComponent implements OnInit {
     public keywordService: KeywordSearchService,
     private genreService: GenreService,
     private certifService: CertificationService,
+    private title: TitleService,
     private elemRef: ElementRef) { }
 
   ngOnInit() {
+    this.title.setTitle('title.discover');
     this.pseudo = AuthService.decodeToken().name;
     this.adult = this.pseudo === 'Test';
     this.sortDir.value = 'desc';

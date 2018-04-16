@@ -1,5 +1,6 @@
+import { TitleService } from './service/title.service';
 import { AuthService } from './service/auth.service';
-import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectorRef, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +8,17 @@ import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
-  constructor(public auth: AuthService, private cdRef: ChangeDetectorRef) { }
+  constructor(
+    public auth: AuthService,
+    private cdRef: ChangeDetectorRef,
+    private title: TitleService
+  ) { }
+
+  ngOnInit() {
+    this.title.setTitle('');
+  }
 
   ngAfterViewInit() {
     this.cdRef.detectChanges();

@@ -1,3 +1,4 @@
+import { TitleService } from './../../../../service/title.service';
 import { AuthService } from './../../../../service/auth.service';
 import { Utils } from './../../../../shared/utils';
 import { DropboxService } from './../../../../service/dropbox.service';
@@ -43,10 +44,12 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     private dropboxService: DropboxService,
     private translate: TranslateService,
     private elemRef: ElementRef,
-    private auth: AuthService
+    private auth: AuthService,
+    private title:TitleService
   ) { }
 
   ngOnInit(): void {
+    this.title.setTitle('title.movies');
     this.breakpointObserver.observe([
       '(max-width: 700px)'
     ]).subscribe(result => {
