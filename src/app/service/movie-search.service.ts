@@ -18,6 +18,7 @@ export class MovieSearchService {
     }
     term = ServiceUtils.encodeQueryUrl(term);
     url += `${Url.QUERY_URL}${term}${Url.LANGUE}${language}`;
+    console.log(url);
     return this.serviceUtils
       .getObservable(url, this.serviceUtils.getHeaders())
       .map(response => MapMovie.mapForSearchMovies(response))
