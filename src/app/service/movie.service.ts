@@ -38,6 +38,10 @@ export class MovieService {
             movie.score = score;
             return movie;
           });
+        } else {
+          return new Promise<any>((resolve, reject) => {
+            resolve(movie);
+          });
         }
       }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }

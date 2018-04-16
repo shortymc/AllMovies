@@ -54,7 +54,7 @@ export class MapMovie {
   }
 
   static mapForSearchMovies(response: any): Movie[] {
-    // console.log(response.results);
+    console.log(response.results);
     return response.results.slice(0, 5).map((r: any) => <Movie>({
       id: r.id,
       title: r.title,
