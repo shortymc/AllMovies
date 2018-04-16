@@ -1,3 +1,4 @@
+import { TitleService } from './../../../service/title.service';
 import { ServiceUtils } from './../../../service/serviceUtils';
 import { AuthService } from './../../../service/auth.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -22,9 +23,15 @@ export class ForgotComponent implements OnInit {
   password1: string;
   password2: string;
 
-  constructor(private auth: AuthService, private serviceUtils: ServiceUtils, private toast: ToastService) { }
+  constructor(
+    private auth: AuthService,
+    private serviceUtils: ServiceUtils,
+    private toast: ToastService,
+    private title: TitleService
+  ) { }
 
   ngOnInit() {
+    this.title.setTitle('title.login');
   }
 
   loadQuestion() {

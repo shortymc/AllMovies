@@ -1,3 +1,4 @@
+import { TitleService } from './../../service/title.service';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { MovieService } from './../../service/movie.service';
 import { PersonService } from './../../service/person.service';
@@ -28,6 +29,6 @@ const childRoutes: Routes = [
     DashboardComponent,
     MovieSearchComponent,
     PersonSearchComponent],
-    providers: [MovieService, PersonService, TranslateService]
+    providers: [MovieService, PersonService, TranslateService, TitleService]
 })
 export class DashboardModule { }

@@ -1,3 +1,4 @@
+import { TitleService } from './../../../service/title.service';
 import { AuthService } from './../../../service/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -14,9 +15,15 @@ export class ConnectComponent implements OnInit {
   password: string;
   message: string;
 
-  constructor(private auth: AuthService, private router: Router, private translate: TranslateService) { }
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private translate: TranslateService,
+    private title: TitleService
+  ) { }
 
   ngOnInit() {
+    this.title.setTitle('title.login');
   }
 
   login() {

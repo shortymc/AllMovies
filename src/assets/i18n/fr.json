@@ -41,6 +41,15 @@
         "discover": "Découvrir",
         "change_language": "Changer de Langue"
     },
+    "title": {
+        "dashboard": "",
+        "movies": "Films",
+        "release": "Sorties",
+        "profile": "Mon profil",
+        "discover": "Découvrir",
+        "login":"Connection",
+        "register":"Inscription"
+    },
     "toast": {
         "movie_added": "Film ajouté !",
         "movies_added": "{{size}} Films ajoutés !",
