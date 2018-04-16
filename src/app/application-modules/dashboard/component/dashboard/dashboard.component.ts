@@ -22,6 +22,6 @@ export class DashboardComponent implements OnInit {
 
   getTopMovies(language: string) {
     this.movieService.getPopularMovies(language)
-      .then(movies => this.movies = movies.slice(0, 4));
+      .then(movies => this.movies = movies.slice(0, 5));
   }
 }
