@@ -1,3 +1,4 @@
+import { TitleService } from './../../../service/title.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { Movie } from '../../../model/movie';
@@ -54,9 +55,14 @@ export class ReleaseComponent implements OnInit {
   Url = Url;
   language: string;
 
-  constructor(private movieService: MovieService, private route: ActivatedRoute,
-    private formatter: MyNgbDate, config: NgbDatepickerConfig,
-    private translate: TranslateService) {
+  constructor(
+    private movieService: MovieService,
+    private route: ActivatedRoute,
+    private formatter: MyNgbDate,
+    config: NgbDatepickerConfig,
+    private translate: TranslateService,
+    private title: TitleService
+  ) {
     // Other days than wednesday are disabled
     config.markDisabled = (date: NgbDateStruct) => {
       const d = new Date(date.year, date.month - 1, date.day);
@@ -65,6 +71,7 @@ export class ReleaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.title.setTitle('title.release');
     this.language = this.translate.currentLang;
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.language = event.lang;

@@ -41,6 +41,15 @@
         "discover": "Discover",
         "change_language": "Change Language"
     },
+    "title": {
+        "dashboard": "",
+        "movies": "Movies",
+        "release": "Releases",
+        "profile": "My profile",
+        "discover": "Discover",
+        "login":"Login",
+        "register":"Register"
+    },
     "toast": {
         "movie_added": "Movie added !",
         "movies_added": "{{size}} Movies added !",

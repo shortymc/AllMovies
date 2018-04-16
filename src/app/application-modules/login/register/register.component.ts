@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../service/auth.service';
 import * as crypto from 'crypto-js';
 import { User } from '../../../model/user';
+import { TitleService } from '../../../service/title.service';
 
 @Component({
   selector: 'app-register',
@@ -15,12 +16,16 @@ export class RegisterComponent implements OnInit {
   answer: string;
   message: string;
 
-  constructor(private auth: AuthService) { }
+  constructor(
+    private auth: AuthService,
+    private title: TitleService
+  ) { }
 
   ngOnInit() {
   }
 
   register() {
+    this.title.setTitle('title.login');
     this.message = undefined;
     if (this.name && this.password && this.question && this.answer) {
       this.auth.isUserExist(this.name).then((resp) => {

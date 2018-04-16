@@ -1,3 +1,4 @@
+import { TitleService } from './service/title.service';
 import { DropboxService } from './service/dropbox.service';
 import { AuthService } from './service/auth.service';
 import { ToastService } from './service/toast.service';
@@ -47,7 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
   ],
-  providers: [ToastService, AuthGard, AuthService, DropboxService],
+  providers: [ToastService, AuthGard, AuthService, DropboxService, TitleService],
   bootstrap: [AppComponent]
 })
 

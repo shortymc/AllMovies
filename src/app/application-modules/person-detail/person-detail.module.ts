@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { DropboxService } from '../../service/dropbox.service';
+import { TitleService } from '../../service/title.service';
 
 const childRoutes: Routes = [
   {
@@ -23,6 +24,6 @@ const childRoutes: Routes = [
     RouterModule.forChild(childRoutes),
   ],
   declarations: [PersonDetailComponent],
-  providers: [PersonService, DropboxService, TranslateService]
+  providers: [PersonService, DropboxService, TranslateService, TitleService]
 })
 export class PersonDetailModule {}
