@@ -29,3 +29,12 @@ $gender: (
 
 $bezier: cubic-bezier(0.86, 0, 0.07, 1);
 $border_radius: 3px;
+
+// zindex
+$depth: (
+  'header': 1,
+  'content': 0,
+  'toast': 100,
+  'overlay': 500,
+  'modal': 1000
+);
