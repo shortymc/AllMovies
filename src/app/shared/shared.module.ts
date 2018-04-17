@@ -17,6 +17,7 @@ import { AddCollectionDirective } from './add-collection.directive';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { OmdbService } from '../service/omdb.service';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -28,8 +29,9 @@ import { OmdbService } from '../service/omdb.service';
     MetaComponent,
     ListPersonsComponent,
     DropdownLanguageComponent,
-    AddCollectionDirective
-  ],
+    AddCollectionDirective,
+    ModalComponent
+],
   imports: [
     CommonModule,
     FormsModule,
@@ -51,7 +53,8 @@ import { OmdbService } from '../service/omdb.service';
     AddCollectionDirective,
     NgbModule,
     MatTooltipModule,
-    MatStepperModule
+    MatStepperModule,
+    ModalComponent
   ],
   providers: [
     MetaService, ServiceUtils, TranslateService, MovieService, OmdbService

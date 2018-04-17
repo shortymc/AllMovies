@@ -1,0 +1,62 @@
+@import "../../styles/styles";
+
+.open {
+  position: fixed;
+  z-index: map-get($depth, 'overlay');
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  animation: fade 0.3s $bezier;
+}
+
+.close {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  z-index: 1001;
+  display: block;
+  font-size: 24px;
+  animation: fade 0.6s both $bezier;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.modal {
+  position: relative;
+  z-index: map-get($depth, modal);
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  width: 450px;
+  margin: 5vh auto;
+  padding: 25px;
+  background: $white;
+  border-radius: 2px;
+  animation: fadeUp 0.5s both $bezier;
+}
+
+.modal-header,
+.modal-footer {
+  display: flex;
+  height: 50px;
+}
+
+.modal-header {
+  h3 {
+    margin: 0;
+  }
+}
+
+.modal-footer {
+  align-items: center;
+  justify-content: center;
+
+  button {
+    margin-bottom: 0;
+  }
+}
+

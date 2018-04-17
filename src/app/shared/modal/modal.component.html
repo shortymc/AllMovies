@@ -1,0 +1,4 @@
+<div *ngIf="visible" [ngClass]="{'open': visible}">
+  <span (click)='close()' class="close fa fa-close"></span>
+  <ng-content></ng-content>
+</div>
