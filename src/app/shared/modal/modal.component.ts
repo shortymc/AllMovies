@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -7,12 +7,11 @@ import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 })
 export class ModalComponent implements OnInit {
   @Input('visible') visible: boolean;
+  @Output('update') update = new EventEmitter<boolean>();
 
   constructor() { }
 
   ngOnInit() {
-    console.log('this.visible');
-    console.log(this.visible);
   }
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
@@ -26,10 +25,12 @@ export class ModalComponent implements OnInit {
 
   show() {
     this.visible = true;
+    this.update.emit(this.visible);
   }
 
   close() {
     this.visible = false;
+    this.update.emit(this.visible);
   }
 
 }
