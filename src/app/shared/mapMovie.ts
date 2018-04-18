@@ -1,3 +1,4 @@
+import { Url } from './../constant/url';
 import { Utils } from './utils';
 import { Movie } from './../model/movie';
 import { Discover } from '../model/discover';
@@ -65,7 +66,7 @@ export class MapMovie {
     }));
   }
 
-  static mapForMovie(r: any): Movie {
+  static mapForMovie(r: any, sanitizer): Movie {
     console.log(r);
     const movie = new Movie();
     let cast;
@@ -83,7 +84,7 @@ export class MapMovie {
       movie.recommendations = Utils.recommendationsToMovies(r.recommendations.results);
     }
     if (r.images) {
-      movie.images = r.images.backdrops.map((i: any) => i.file_path);
+      movie.images = r.images.backdrops.map((i: any) => sanitizer.bypassSecurityTrustResourceUrl(Url.IMAGE_URL_ORIGINAL.concat(i.file_path)));
     }
     if (r.genres) {
       movie.genres = r.genres.map(genre => genre.name);
