@@ -27,8 +27,7 @@
     }
   }
 
-  /* stylelint-disable */
-  ngb-datepicker {
+  ngb-datepicker {/* stylelint-disable-line */
     ~ .btn {
       @include full_width;
     }
