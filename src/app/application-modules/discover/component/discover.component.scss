@@ -47,8 +47,7 @@
   margin-top: 2.25em;
 }
 
-/* stylelint-disable */
-::ng-deep .noUi-handle {
+::ng-deep .noUi-handle {/* stylelint-disable-line */
   cursor: grab;
 }
 

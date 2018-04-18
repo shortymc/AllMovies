@@ -45,7 +45,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     private translate: TranslateService,
     private elemRef: ElementRef,
     private auth: AuthService,
-    private title:TitleService
+    private title: TitleService
   ) { }
 
   ngOnInit(): void {
