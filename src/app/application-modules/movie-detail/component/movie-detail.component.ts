@@ -16,7 +16,7 @@ import { Movie } from '../../../model/movie';
 })
 export class MovieDetailComponent implements OnInit {
   movie$: Observable<Movie>;
-  isImagesCollapsed = false;
+  isImagesVisible = false;
   Url = Url;
   id: number;
 

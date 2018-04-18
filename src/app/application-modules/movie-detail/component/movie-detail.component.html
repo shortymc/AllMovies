@@ -1,4 +1,7 @@
 <div *ngIf="(movie$ | async) as movie">
+  <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
+    <ngx-image-viewer [src]="movie.images"></ngx-image-viewer>
+  </app-modal>
   <h2>{{'movie.header' | translate}} {{movie.title}}:</h2>
   <div>
     <a class="frame" href="{{movie.affiche}}" target="_blank">
@@ -32,7 +35,8 @@
         <label>{{'movie.length' | translate}}: </label>{{movie.time | convertToHHmm}}
       </div>
       <div *ngIf="movie.score as score">
-        <div *ngFor="let rating of score.ratings"><label>{{rating.Source}}: </label>{{rating.Value}}</div>
+        <div *ngFor="let rating of score.ratings">
+          <label>{{rating.Source}}: </label>{{rating.Value}}</div>
         <label>Awards: </label>{{score.awards}}
       </div>
       <div *ngIf="movie.genres && movie.genres.length > 0">
@@ -49,26 +53,9 @@
         <div class="synopsis">{{movie.synopsis}}</div>
       </div>
       <!-- Images du film -->
-      <div *ngIf="movie.images && movie.images.length > 0">
-        <label>{{'movie.image' | translate}}: </label>
-        <button type="button" class="btn btn-outline-primary" (click)="isImagesCollapsed = !isImagesCollapsed">
-          <i class="fa fa-plus-square" aria-hidden="true" [ngClass]="{'hide' : isImagesCollapsed}"></i>
-          <i class="fa fa-minus-square" aria-hidden="true" [ngClass]="{'hide' : !isImagesCollapsed}"></i>
-          <span *ngIf="!isImagesCollapsed">{{'global.show' | translate}}</span>
-          <span *ngIf="isImagesCollapsed">{{'global.hide' | translate}}</span>
-        </button>
-        <div *ngIf="isImagesCollapsed">
-          <div class="card">
-            <div class="card-body">
-              <div class="reco">
-                <a *ngFor="let ima of movie.images;" class="frame" href="{{Url.IMAGE_URL_ORIGINAL.concat(ima)}}" target="_blank">
-                  <img src="{{Url.IMAGE_URL_154.concat(ima)}}">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible">
+        <span class="fa fa-image" aria-hidden="true"></span>{{'global.show' | translate}} {{'movie.image' | translate}}
+      </button>
       <app-list-persons [persons]="movie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
       <div *ngIf="movie.crew && movie.crew.length > 0">
         <div *ngIf="(movie.crew | filterCrew:'director') as director">
