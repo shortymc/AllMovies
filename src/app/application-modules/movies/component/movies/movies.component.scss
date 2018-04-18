@@ -1,11 +1,10 @@
 @import "../../../../styles/styles";
-/* stylelint-disable */
 
 .mat-header-row,
 .paginator { //THIS MAKES THE HEADER STICKY
   position: sticky;
   position: -webkit-sticky;
-  z-index:99;
+  z-index: 99;
   background: rgba(255, 255, 255, 1);
 }
 
@@ -27,7 +26,7 @@
   background-color: $gray_hover !important;
 }
 
-mat-checkbox::ng-deep {
+::ng-deep .mat-checkbox {/* stylelint-disable-line */
   & .mat-checkbox-checked.mat-accent .mat-checkbox-background,
   & .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
     background-color: $blue !important; // DOESNT WORK
@@ -45,13 +44,13 @@ mat-checkbox::ng-deep {
 
 .goToTop {
   position: fixed;
-  width: 100px;
-  height: 40px;
   bottom: 0;
   right: 0;
   z-index: 100000;
-  cursor: pointer;
+  width: 100px;
+  height: 40px;
   margin: 10px;
+  cursor: pointer;
 }
 
 .mat-header-cell .mat-icon {
@@ -89,7 +88,7 @@ mat-checkbox::ng-deep {
 
 @include media('400px') {
   // Mobile portait
-
+  /* stylelint-disable */
   mat-paginator::ng-deep .mat-paginator-page-size {
     display: none !important;
   }
