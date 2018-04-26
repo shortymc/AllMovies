@@ -1,6 +1,6 @@
 # How to use it:
 
-* Install npm, git, node.js and yarn
+* Install [node.js](https://www.npmjs.com/get-npm), [npm](https://www.npmjs.com/get-npm), [git](https://git-scm.com/downloads). If you want you can install [yarn](https://yarnpkg.com/en/docs/install).
 
 * In your workspace: 
 
@@ -8,8 +8,8 @@
 
 * In the _AllMovies_ folder:
 
-  * `yarn`
-  * `yarn start`
+  * `yarn` or `npm i`
+  * `yarn start` or `ng serve --port 4242`
 
 * In your browser go to:
 
