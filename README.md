@@ -1,6 +1,6 @@
 # How to use it:
 
-* Install [node.js](https://www.npmjs.com/get-npm), [npm](https://www.npmjs.com/get-npm), [git](https://git-scm.com/downloads). If you want you can install [yarn](https://yarnpkg.com/en/docs/install).
+* Install [node.js](https://www.npmjs.com/get-npm), [npm](https://www.npmjs.com/get-npm) and [git](https://git-scm.com/downloads). If you want you can install [yarn](https://yarnpkg.com/en/docs/install).
 
 * In your workspace: 
 
