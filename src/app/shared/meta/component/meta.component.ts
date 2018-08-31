@@ -62,7 +62,7 @@ export class MetaComponent implements OnInit {
 
   openAll(): void {
     this.links.slice(0, 4).forEach(link => {
-      window.open(link);
+      window.open(link.site);
     });
   }
 
