@@ -10,7 +10,7 @@ mkdir cordova\AllMovies\www
 xcopy /s dist cordova\AllMovies\www
 cd cordova\AllMovies
 cordova build android
-Copy-Item "C:\DEV\workspace\AllMovies\cordova\AllMovies\platforms\android\app\build\outputs\apk\debug\app-debug.apk" -Destination "C:\Users\PBR\Dropbox" -force
+Copy-Item "C:\DEV\workspace\AllMovies\cordova\AllMovies\platforms\android\app\build\outputs\apk\debug\app-debug.apk" -Destination "C:\Users\PBR\Dropbox\Documents\Dev Perso" -force
 
 git checkout HEAD -- C:\DEV\workspace\AllMovies\src\app\service\dropbox.service.ts
 
