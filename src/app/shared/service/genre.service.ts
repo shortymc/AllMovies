@@ -1,14 +1,15 @@
-import { Url } from './../constant/url';
 import { Observable } from 'rxjs/Observable';
-import { Genre } from './../model/model';
 import { Injectable } from '@angular/core';
+
+import { Url } from './../../constant/url';
+import { Genre } from './../../model/model';
 import { ToastService } from './toast.service';
-import { ServiceUtils } from './serviceUtils';
+import { UtilsService } from './utils.service';
 
 @Injectable()
 export class GenreService {
 
-  constructor(private serviceUtils: ServiceUtils, private toast: ToastService) { }
+  constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 
   getAllGenre(language: string): Observable<Genre[]> {
     const url = `${Url.GET_ALL_GENRES_URL}${Url.API_KEY}${Url.LANGUE}${language}`;

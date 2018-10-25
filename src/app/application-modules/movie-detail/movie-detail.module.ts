@@ -1,16 +1,13 @@
-import { TitleService } from './../../service/title.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { MovieService } from './../../service/movie.service';
 import { RatingModule } from 'ngx-rating';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ImageViewerModule } from 'ngx-image-viewer';
+
 import { MovieDetailComponent } from './component/movie-detail.component';
 import { SharedModule } from '../../shared/shared.module';
-import { DropboxService } from '../../service/dropbox.service';
-import { OmdbService } from '../../service/omdb.service';
-import { ImageViewerModule } from 'ngx-image-viewer';
 
 const childRoutes: Routes = [
   {
@@ -22,7 +19,7 @@ const childRoutes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    SharedModule,
+    SharedModule.forChild(),
     RatingModule,
     ImageViewerModule.forRoot({
       btnClass: 'btn btn-outline-primary', // The CSS class(es) that will apply to the buttons
@@ -53,6 +50,8 @@ const childRoutes: Routes = [
     RouterModule.forChild(childRoutes),
   ],
   declarations: [MovieDetailComponent],
-  providers: [MovieService, DropboxService, TranslateService, OmdbService, TitleService]
+  providers: [
+    TranslateService,
+  ]
 })
 export class MovieDetailModule { }

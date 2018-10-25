@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { PersonService } from '../../../service/person.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+
+import { PersonService, TitleService } from '../../../shared/shared.module';
 import { Person } from '../../../model/person';
 import { Url } from '../../../constant/url';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { TitleService } from '../../../service/title.service';
 
 @Component({
   selector: 'app-person-detail',

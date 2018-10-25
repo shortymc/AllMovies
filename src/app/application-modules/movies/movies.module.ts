@@ -1,13 +1,8 @@
-import { MyPaginator } from './component/my-paginator';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { DropboxService } from './../../service/dropbox.service';
-import { MovieService } from './../../service/movie.service';
-import { SharedModule } from './../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MoviesComponent } from './component/movies/movies.component';
 import { MatTableModule } from '@angular/material/table';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSortModule } from '@angular/material/sort';
@@ -16,7 +11,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { TitleService } from '../../service/title.service';
+
+import { MyPaginator } from './component/my-paginator';
+import { SharedModule } from './../../shared/shared.module';
+import { MoviesComponent } from './component/movies/movies.component';
 
 const childRoutes: Routes = [
   {
@@ -29,7 +27,7 @@ const childRoutes: Routes = [
     CommonModule,
     FormsModule,
     RouterModule.forChild(childRoutes),
-    SharedModule,
+    SharedModule.forChild(),
     TranslateModule.forChild(),
     MatTableModule,
     LayoutModule,
@@ -41,10 +39,7 @@ const childRoutes: Routes = [
     MatCheckboxModule
   ],
   providers: [
-    MovieService,
-    DropboxService,
     TranslateService,
-    TitleService,
     { provide: MatPaginatorIntl, useClass: MyPaginator, deps: [TranslateService] }
   ],
   declarations: [MoviesComponent]

@@ -1,21 +1,22 @@
 import { DomSanitizer } from '@angular/platform-browser/';
-import { DiscoverCriteria } from './../model/discover-criteria';
-import { Discover } from './../model/discover';
 import { Observable } from 'rxjs/Observable';
-import { MapMovie } from './../shared/mapMovie';
-import { ServiceUtils } from './serviceUtils';
 import { Injectable } from '@angular/core';
-import { Movie } from '../model/movie';
-import { Url } from '../constant/url';
+
+import { DiscoverCriteria } from './../../model/discover-criteria';
+import { Discover } from './../../model/discover';
+import { MapMovie } from './../../shared/mapMovie';
+import { UtilsService } from './utils.service';
+import { Movie } from '../../model/movie';
+import { Url } from '../../constant/url';
 import { OmdbService } from './omdb.service';
 import { ToastService } from './toast.service';
-import { UrlBuilder } from '../shared/urlBuilder';
+import { UrlBuilder } from '../../shared/urlBuilder';
 
 @Injectable()
 export class MovieService {
 
   constructor(
-    private serviceUtils: ServiceUtils,
+    private serviceUtils: UtilsService,
     private omdb: OmdbService,
     private toast: ToastService,
     public sanitizer: DomSanitizer

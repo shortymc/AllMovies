@@ -1,6 +1,7 @@
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Injectable, OnDestroy } from '@angular/core';
-import { AuthService } from './service/auth.service';
+
+import { AuthService } from './shared/shared.module';
 
 @Injectable()
 export class AuthGard implements CanActivate, OnDestroy {

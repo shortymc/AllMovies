@@ -1,9 +1,3 @@
-import { TitleService } from './../../../../service/title.service';
-import { AuthService } from './../../../../service/auth.service';
-import { Utils } from './../../../../shared/utils';
-import { DropboxService } from './../../../../service/dropbox.service';
-import { Movie } from './../../../../model/movie';
-import { MovieService } from './../../../../service/movie.service';
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs/observable/forkJoin';
@@ -12,6 +6,10 @@ import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSelectChange } from '@angular/material/select';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+
+import { Utils } from './../../../../shared/utils';
+import { TitleService, AuthService, DropboxService, MovieService } from './../../../../shared/shared.module';
+import { Movie } from './../../../../model/movie';
 
 const init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'meta', 'language', 'genres', 'time', 'added', 'select'];
 

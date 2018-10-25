@@ -1,5 +1,5 @@
-import { TitleService } from './../../../service/title.service';
-import { AuthService } from './../../../service/auth.service';
+import { TitleService } from './../../../shared/shared.module';
+import { AuthService } from './../../../shared/shared.module';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as crypto from 'crypto-js';
