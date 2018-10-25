@@ -1,9 +1,9 @@
-import { TitleService } from './../../../shared/shared.module';
-import { User } from './../../../model/user';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as crypto from 'crypto-js';
-import { AuthService } from '../../../shared/shared.module';
+
+import { User } from './../../../model/user';
+import { AuthService, TitleService } from '../../../shared/shared.module';
 
 @Component({
   selector: 'app-change-question',

@@ -6,8 +6,8 @@ import { Component, OnInit, Input, SimpleChange, Output, EventEmitter, OnChanges
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit, OnChanges {
-  @Input('visible') visible: boolean;
-  @Output('update') update = new EventEmitter<boolean>();
+  @Input() visible: boolean;
+  @Output() update = new EventEmitter<boolean>();
 
   constructor() { }
 

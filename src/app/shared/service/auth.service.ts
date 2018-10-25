@@ -1,11 +1,11 @@
 import { Router } from '@angular/router';
 import 'rxjs/add/observable/fromPromise';
-import { DropboxService } from './dropbox.service';
 import { Injectable } from '@angular/core';
 import * as jwtDecode from 'jwt-decode';
 import * as KJUR from 'jsrsasign';
 import { TranslateService } from '@ngx-translate/core';
 
+import { DropboxService } from './dropbox.service';
 import { ToastService } from './toast.service';
 import { UtilsService } from './utils.service';
 import { Utils } from '../utils';

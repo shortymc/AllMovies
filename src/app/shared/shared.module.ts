@@ -3,11 +3,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MetaComponent } from './meta/component/meta.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 
+import { MetaComponent } from './meta/component/meta.component';
 import './rxjs-operators';
 import { ListPersonsComponent } from './list-persons/list-persons.component';
 import { ListMoviesComponent } from './list-movies/list-movies.component';

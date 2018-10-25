@@ -10,12 +10,12 @@ import { SearchServiceService } from './../../../../shared/service/searchService
   styleUrls: ['./search-box.component.scss']
 })
 export class SearchBoxComponent<T> implements OnInit, OnChanges {
-  @Input('adult') adult: boolean;
-  @Input('service') service: SearchServiceService;
-  @Input('placeholder') placeholder: string;
-  @Input('initList') initList: T[];
-  @Input('clear') clear: boolean;
-  @Output('items') items = new EventEmitter<T[]>();
+  @Input() adult: boolean;
+  @Input() service: SearchServiceService;
+  @Input() placeholder: string;
+  @Input() initList: T[];
+  @Input() clear: boolean;
+  @Output() items = new EventEmitter<T[]>();
   itemCtrl: FormControl;
   filteredItems: Observable<T[]>;
   list: T[] = [];

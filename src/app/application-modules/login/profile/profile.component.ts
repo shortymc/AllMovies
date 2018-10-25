@@ -1,7 +1,7 @@
-import { TitleService } from './../../../shared/shared.module';
-import { User } from './../../../model/user';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../shared/shared.module';
+
+import { AuthService, TitleService } from './../../../shared/shared.module';
+import { User } from './../../../model/user';
 
 @Component({
   selector: 'app-profile',
