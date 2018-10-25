@@ -10,7 +10,7 @@ import { AuthService } from '../service/auth.service';
   selector: '[appAddCollection]'
 })
 export class AddCollectionDirective {
-  @Input('movies')
+  @Input()
   movies: Movie[];
   @HostListener('click', ['$event']) onClick() {
     this.add();

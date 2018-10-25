@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../shared/shared.module';
 import * as crypto from 'crypto-js';
+
 import { User } from '../../../model/user';
-import { TitleService } from '../../../shared/shared.module';
+import { AuthService, TitleService } from '../../../shared/shared.module';
 
 @Component({
   selector: 'app-register',

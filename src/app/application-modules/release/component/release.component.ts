@@ -1,10 +1,10 @@
-import { TitleService } from './../../../shared/shared.module';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
-import { Movie } from '../../../model/movie';
-import { MovieService } from '../../../shared/shared.module';
 import { ActivatedRoute } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+
+import { Movie } from '../../../model/movie';
+import { MovieService, TitleService } from '../../../shared/shared.module';
 import { MyNgbDate } from '../../../shared/my-ngb-date';
 import { Url } from '../../../constant/url';
 
