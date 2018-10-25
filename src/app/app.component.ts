@@ -1,6 +1,6 @@
-import { TitleService } from './service/title.service';
-import { AuthService } from './service/auth.service';
 import { Component, AfterViewInit, ChangeDetectorRef, OnInit } from '@angular/core';
+
+import { TitleService, AuthService } from './shared/shared.module';
 
 @Component({
   selector: 'app-root',

@@ -1,15 +1,16 @@
-import { Utils } from './../shared/utils';
-import { Url } from './../constant/url';
 import { Observable } from 'rxjs/Observable';
-import { Certification } from './../model/model';
 import { Injectable } from '@angular/core';
+
 import { ToastService } from './toast.service';
-import { ServiceUtils } from './serviceUtils';
+import { UtilsService } from './utils.service';
+import { Certification } from '../../model/model';
+import { Url } from '../../constant/url';
+import { Utils } from '../utils';
 
 @Injectable()
 export class CertificationService {
 
-  constructor(private serviceUtils: ServiceUtils, private toast: ToastService) { }
+  constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 
   getAllCertification(): Observable<Certification[]> {
     const url = `${Url.GET_ALL_CERTIFICATIONS_URL}${Url.API_KEY}`;

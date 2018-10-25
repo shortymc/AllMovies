@@ -1,9 +1,7 @@
-import { TitleService } from './../../../service/title.service';
-import { ServiceUtils } from './../../../service/serviceUtils';
-import { AuthService } from './../../../service/auth.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as crypto from 'crypto-js';
-import { ToastService } from '../../../service/toast.service';
+
+import { ToastService, AuthService, TitleService, UtilsService } from './../../../shared/shared.module';
 
 @Component({
   selector: 'app-forgot',
@@ -25,7 +23,7 @@ export class ForgotComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private serviceUtils: ServiceUtils,
+    private serviceUtils: UtilsService,
     private toast: ToastService,
     private title: TitleService
   ) { }

@@ -1,15 +1,15 @@
 import { Observable } from 'rxjs/Observable';
 import { Url } from './../../../constant/url';
-import { ServiceUtils } from './../../../service/serviceUtils';
+import { UtilsService } from './../../service/utils.service';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { ToastService } from '../../../service/toast.service';
+import { ToastService } from '../../service/toast.service';
 
 @Injectable()
 export class MetaService {
   private score: string;
 
-  constructor(private serviceUtils: ServiceUtils, private toast: ToastService) { }
+  constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 
   getLinkScore(title: string, site: any, isMovie: boolean): Promise<string> {
     // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
@@ -18,7 +18,7 @@ export class MetaService {
       return this.wikisearch(title, site).toPromise();
     } else {
       let url = Url.DUCKDUCKGO_URL + site + '+';
-      url += ServiceUtils.encodeQueryUrl(title) + '&format=json&no_redirect=1';
+      url += UtilsService.encodeQueryUrl(title) + '&format=json&no_redirect=1';
       return this.serviceUtils.jsonpPromise(url, 'callback')
         .then((data: any) => {
           let result = <string>data.Redirect;

@@ -1,13 +1,11 @@
-import { AuthService } from './../../../../service/auth.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 import { Movie } from '../../../../model/movie';
-import { MovieSearchService } from '../../../../service/movie-search.service';
+import { AuthService, MovieSearchService } from '../../../../shared/shared.module';
 
 @Component({
   selector: 'app-movie-search',

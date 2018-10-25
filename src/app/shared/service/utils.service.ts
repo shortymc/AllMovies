@@ -4,7 +4,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { ToastService } from './toast.service';
 
 @Injectable()
-export class ServiceUtils {
+export class UtilsService {
 
   constructor(private http: HttpClient) {
   }
@@ -44,13 +44,13 @@ export class ServiceUtils {
   handleError(error: any, toast: ToastService) {
     console.log('handleError');
     console.error('error', error);
-    toast.open(ServiceUtils.getErrorMessage(error));
+    toast.open(UtilsService.getErrorMessage(error));
   }
 
   handlePromiseError(error: any, toast: ToastService): Promise<any> {
     console.log('handlePromiseError');
     console.error('error', error);
-    toast.open(ServiceUtils.getErrorMessage(error));
+    toast.open(UtilsService.getErrorMessage(error));
     return new Promise<any>((resolve, reject) => {
       resolve();
     });

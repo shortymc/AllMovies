@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Person } from '../../../../model/person';
-import { AuthService } from '../../../../service/auth.service';
-import { PersonSearchService } from '../../../../service/person-search.service';
+import { AuthService } from '../../../../shared/shared.module';
+import { PersonSearchService } from '../../../../shared/shared.module';
 
 @Component({
   selector: 'app-person-search',

@@ -1,23 +1,24 @@
-import { MapPerson } from './../shared/mapPerson';
-import { Person } from './../model/person';
-import { Url } from './../constant/url';
-import { ServiceUtils } from './serviceUtils';
-import { ToastService } from './toast.service';
-import { SearchServiceService } from './searchService.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+
+import { MapPerson } from './../../shared/mapPerson';
+import { Person } from './../../model/person';
+import { Url } from './../../constant/url';
+import { UtilsService } from './utils.service';
+import { ToastService } from './toast.service';
+import { SearchServiceService } from './searchService.service';
 
 @Injectable()
 export class PersonSearchService implements SearchServiceService {
 
-  constructor(private serviceUtils: ServiceUtils, private toast: ToastService) { }
+  constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 
   search(term: string, adult: boolean): Observable<Person[]> {
     let url = Url.PERSON_SEARCH_URL + Url.API_KEY;
     if (adult) {
       url += Url.ADULT_URL;
     }
-    term = ServiceUtils.encodeQueryUrl(term);
+    term = UtilsService.encodeQueryUrl(term);
     url += `${Url.QUERY_URL}${term}`;
     return this.serviceUtils
       .getObservable(url, this.serviceUtils.getHeaders())
