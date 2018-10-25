@@ -1,11 +1,12 @@
-import { TitleService } from './../../../shared/shared.module';
-// import { AllocineService } from './../../../service/allocine.service';
 import { Observable } from 'rxjs/Observable';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Url } from './../../../constant/url';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
+
+import { TitleService } from './../../../shared/shared.module';
+// import { AllocineService } from './../../../service/allocine.service';
+import { Url } from './../../../constant/url';
 import { MovieService } from '../../../shared/shared.module';
 import { Movie } from '../../../model/movie';
 

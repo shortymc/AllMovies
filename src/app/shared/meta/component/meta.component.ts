@@ -1,7 +1,8 @@
-import { Utils } from './../../utils';
-import { MetaService } from './../service/meta.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Component, OnInit, Input } from '@angular/core';
+
+import { Utils } from './../../utils';
+import { MetaService } from './../service/meta.service';
 import { Url } from '../../../constant/url';
 
 @Component({

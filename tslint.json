@@ -1,11 +1,13 @@
 {
     "rulesDirectory": [
+        "node_modules/tslint-origin-ordered-imports-rule/dist",
         "node_modules/codelyzer"
     ],
     "extends": [
         "tslint-eslint-rules"
     ],
     "rules": {
+        "origin-ordered-imports": true,
         "arrow-return-shorthand": true,
         "callable-types": true,
         "class-name": true,
@@ -173,6 +175,7 @@
         "use-pipe-transform-interface": true,
         "component-class-suffix": true,
         "directive-class-suffix": true,
+        "invoke-injectable": true,
         "cyclomatic-complexity": [
             true,
             12

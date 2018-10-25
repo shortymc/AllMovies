@@ -77,6 +77,7 @@
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
     "tslint-eslint-rules": "^5.1.0",
+    "tslint-origin-ordered-imports-rule": "^1.0.4",
     "typescript": "~2.7.0",
     "webpack-bundle-analyzer": "^2.11.0"
   }

@@ -1,6 +1,7 @@
-import { TitleService } from './../../../../shared/shared.module';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
+
+import { TitleService } from './../../../../shared/shared.module';
 import { Movie } from '../../../../model/movie';
 import { MovieService } from '../../../../shared/shared.module';
 

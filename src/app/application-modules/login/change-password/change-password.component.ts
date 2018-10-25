@@ -1,8 +1,9 @@
-import { TitleService } from './../../../shared/shared.module';
-import { User } from './../../../model/user';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as crypto from 'crypto-js';
+
+import { TitleService } from './../../../shared/shared.module';
+import { User } from './../../../model/user';
 import { AuthService } from '../../../shared/shared.module';
 
 @Component({
