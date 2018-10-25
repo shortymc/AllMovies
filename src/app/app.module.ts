@@ -1,8 +1,3 @@
-import { TitleService } from './service/title.service';
-import { DropboxService } from './service/dropbox.service';
-import { AuthService } from './service/auth.service';
-import { ToastService } from './service/toast.service';
-import { SharedModule } from './shared/shared.module';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import localeEn from '@angular/common/locales/en';
@@ -11,8 +6,6 @@ import localeEs from '@angular/common/locales/es';
 import localeIt from '@angular/common/locales/it';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { HttpClientModule, HttpClientJsonpModule, HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -20,6 +13,10 @@ import 'bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+import { SharedModule } from './shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { AuthGard } from './app.gards';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -34,7 +31,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     HttpClientJsonpModule,
     CommonModule,
-    SharedModule,
+    SharedModule.forRoot(),
     MatSnackBarModule,
     TranslateModule.forRoot({
       loader: {
@@ -48,7 +45,9 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
   ],
-  providers: [ToastService, AuthGard, AuthService, DropboxService, TitleService],
+  providers: [
+    AuthGard,
+  ],
   bootstrap: [AppComponent]
 })
 

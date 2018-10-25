@@ -1,12 +1,13 @@
-import { Score } from './../model/score';
-import { ServiceUtils } from './serviceUtils';
 import { Injectable } from '@angular/core';
-import { Url } from '../constant/url';
+
+import { Score } from './../../model/score';
+import { UtilsService } from './utils.service';
+import { Url } from '../../constant/url';
 
 @Injectable()
 export class OmdbService {
 
-  constructor(private serviceUtils: ServiceUtils) { }
+  constructor(private serviceUtils: UtilsService) { }
 
   getMovie(id: string): Promise<Score> {
     const url = `${Url.OMDB_URL}${Url.OMDB_ID}${id}${Url.OMDB_API_KEY}`;

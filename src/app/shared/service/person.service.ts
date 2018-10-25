@@ -1,15 +1,16 @@
-import { MapPerson } from './../shared/mapPerson';
-import { ServiceUtils } from './serviceUtils';
-import { Url } from './../constant/url';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Person } from '../model/person';
+
+import { MapPerson } from './../../shared/mapPerson';
+import { UtilsService } from './utils.service';
+import { Url } from './../../constant/url';
+import { Person } from '../../model/person';
 import { ToastService } from './toast.service';
 
 @Injectable()
 export class PersonService {
 
-  constructor(private serviceUtils: ServiceUtils, private toast: ToastService) { }
+  constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 
   getPerson(id: number, language: string): Promise<Person> {
     const url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}${Url.LANGUE}${language}${Url.APPEND}${Url.APPEND_IMAGES}${Url.INCLUDE_IMAGE_LANGUAGE}${language},null`;

@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import Dropbox = require('dropbox');
-import { Movie } from '../model/movie';
-import { Url } from '../constant/url';
-import { Utils } from '../shared/utils';
-import { ToastService } from './toast.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ServiceUtils } from './serviceUtils';
+
+import { Movie } from '../../model/movie';
+import { Url } from '../../constant/url';
+import { Utils } from '../../shared/utils';
+import { ToastService } from './toast.service';
+import { UtilsService } from './utils.service';
 
 @Injectable()
 export class DropboxService {
-  constructor(private toast: ToastService, private translate: TranslateService, private serviceUtils: ServiceUtils) { }
+  constructor(private toast: ToastService, private translate: TranslateService, private serviceUtils: UtilsService) { }
 
   /**
    * @param  {Movie[]} movies

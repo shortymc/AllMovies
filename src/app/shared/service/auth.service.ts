@@ -1,15 +1,16 @@
 import { Router } from '@angular/router';
 import 'rxjs/add/observable/fromPromise';
-import { Url } from './../constant/url';
 import { DropboxService } from './dropbox.service';
 import { Injectable } from '@angular/core';
-import { User } from '../model/user';
 import * as jwtDecode from 'jwt-decode';
 import * as KJUR from 'jsrsasign';
-import { Utils } from '../shared/utils';
-import { ToastService } from './toast.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ServiceUtils } from './serviceUtils';
+
+import { ToastService } from './toast.service';
+import { UtilsService } from './utils.service';
+import { Utils } from '../utils';
+import { Url } from '../../constant/url';
+import { User } from '../../model/user';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +19,7 @@ export class AuthService {
   isLogged = false;
   private fileName: string;
 
-  constructor(private dropbox: DropboxService, private router: Router, private serviceUtils: ServiceUtils,
+  constructor(private dropbox: DropboxService, private router: Router, private serviceUtils: UtilsService,
     private toast: ToastService, private translate: TranslateService) { }
 
   static decodeToken(): User {

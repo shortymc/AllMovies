@@ -1,8 +1,8 @@
-import { TitleService } from './../../../../service/title.service';
+import { TitleService } from './../../../../shared/shared.module';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import { Movie } from '../../../../model/movie';
-import { MovieService } from '../../../../service/movie.service';
+import { MovieService } from '../../../../shared/shared.module';
 
 @Component({
   selector: 'app-dashboard',

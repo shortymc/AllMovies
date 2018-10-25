@@ -1,7 +1,8 @@
-import { SearchServiceService } from './../../../../service/searchService.service';
 import { Observable } from 'rxjs/Observable';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChange, OnChanges } from '@angular/core';
+
+import { SearchServiceService } from './../../../../shared/service/searchService.service';
 
 @Component({
   selector: 'app-search-box',

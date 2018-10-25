@@ -1,22 +1,23 @@
-import { MapMovie } from './../shared/mapMovie';
-import { Url } from './../constant/url';
-import { Movie } from './../model/movie';
-import { ToastService } from './toast.service';
-import { ServiceUtils } from './serviceUtils';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+
+import { MapMovie } from './../../shared/mapMovie';
+import { Url } from './../../constant/url';
+import { Movie } from './../../model/movie';
+import { ToastService } from './toast.service';
+import { UtilsService } from './utils.service';
 
 @Injectable()
 export class MovieSearchService {
 
-  constructor(private serviceUtils: ServiceUtils, private toast: ToastService) { }
+  constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 
   search(term: string, adult: boolean, language: string): Observable<Movie[]> {
     let url = Url.MOVIE_SEARCH_URL + Url.API_KEY;
     if (adult) {
       url += Url.ADULT_URL;
     }
-    term = ServiceUtils.encodeQueryUrl(term);
+    term = UtilsService.encodeQueryUrl(term);
     url += `${Url.QUERY_URL}${term}${Url.LANGUE}${language}`;
     console.log(url);
     return this.serviceUtils

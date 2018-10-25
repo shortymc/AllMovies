@@ -1,8 +1,9 @@
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { Movie } from './../model/movie';
 import { Directive, Input, HostListener } from '@angular/core';
-import { DropboxService } from '../service/dropbox.service';
+
+import { Movie } from '../../model/movie';
 import { MovieService } from '../service/movie.service';
+import { DropboxService } from '../service/dropbox.service';
 import { AuthService } from '../service/auth.service';
 
 @Directive({

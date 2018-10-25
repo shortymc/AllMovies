@@ -1,20 +1,17 @@
-import { TitleService } from './../../../service/title.service';
-import { Url } from './../../../constant/url';
-import { GenreService } from './../../../service/genre.service';
-import { PersonSearchService } from './../../../service/person-search.service';
-import { AuthService } from './../../../service/auth.service';
-import { DiscoverCriteria } from './../../../model/discover-criteria';
 import { PageEvent } from '@angular/material/paginator';
-import { Discover } from './../../../model/discover';
 import { TranslateService } from '@ngx-translate/core';
-import { MovieService } from './../../../service/movie.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NouiFormatter } from 'ng2-nouislider';
+
+import { Url } from './../../../constant/url';
+import { DiscoverCriteria } from './../../../model/discover-criteria';
+import { Discover } from './../../../model/discover';
+import {
+  KeywordSearchService, CertificationService, GenreService, PersonSearchService, TitleService, AuthService, MovieService
+} from './../../../shared/shared.module';
 import { DropDownChoice, Keyword } from '../../../model/model';
 import { Person } from '../../../model/person';
-import { KeywordSearchService } from '../../../service/keyword-search.service';
-import { CertificationService } from '../../../service/certification.service';
 import { Utils } from '../../../shared/utils';
 
 @Component({
