@@ -6,7 +6,7 @@ import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig } from '@ng-boots
 import { Movie } from '../../../model/movie';
 import { MovieService, TitleService } from '../../../shared/shared.module';
 import { MyNgbDate } from '../../../shared/my-ngb-date';
-import { Url } from '../../../constant/url';
+import { DuckDuckGo } from '../../../constant/duck-duck-go';
 
 const now = new Date();
 
@@ -52,7 +52,7 @@ export class ReleaseComponent implements OnInit {
   model: NgbDateStruct;
   monday: Date;
   sunday: Date;
-  Url = Url;
+  Url = DuckDuckGo;
   language: string;
 
   constructor(

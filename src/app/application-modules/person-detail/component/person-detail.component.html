@@ -13,18 +13,21 @@
     </div>
     <div>
       <label>{{'person.name' | translate}}: </label>
-      <span [ngClass]="{'woman': person.gender === 1, 'men': person.gender === 2, 'unknown': person.gender === 0}">{{person.name | capitalizeWord}}</span>
+      <span [ngClass]="{'woman': person.gender === 1, 'men': person.gender === 2, 'unknown': person.gender === 0}">{{person.name
+        | capitalizeWord}}</span>
       <div *ngIf="person.birthPlace">
         <label>{{'person.birthplace' | translate}}: </label>{{person.birthPlace | capitalizeWord}}
       </div>
       <div *ngIf="person.birthday">
-        <label>{{'person.birth' | translate}}: </label>{{person.birthday | date:'dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}
+        <label>{{'person.birth' | translate}}: </label>{{person.birthday | date:'dd MMMM yyyy':'':translate.currentLang
+        | capitalizeWord}}
       </div>
       <div *ngIf="person.birthday | substractDate:person.deathday as age">
         <label>{{'person.age' | translate}}: </label>{{age}}
       </div>
       <div *ngIf="person.deathday">
-        <label>{{'person.death' | translate}}: </label>{{person.deathday | date:'dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}
+        <label>{{'person.death' | translate}}: </label>{{person.deathday | date:'dd MMMM yyyy':'':translate.currentLang
+        | capitalizeWord}}
       </div>
       <div *ngIf="person.biography">
         <label>{{'person.bio' | translate}}: </label>
@@ -48,7 +51,7 @@
         </div>
       </div>
     </div>
-    <app-meta [entry]="person" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR]"></app-meta>
+    <app-meta [entry]="person" [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR]"></app-meta>
     <figure>
       <label>{{'person.films' | translate}}:</label>
       <ul class="movies">
