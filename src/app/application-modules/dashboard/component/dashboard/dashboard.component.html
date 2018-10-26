@@ -1,7 +1,3 @@
-<div class="row w-100">
-  <app-movie-search class="col-6"></app-movie-search>
-  <app-person-search class="col-6"></app-person-search>
-</div>
 <div class="grid grid-pad">
   <h3>{{'dashboard.header' | translate}}:</h3>
   <a *ngFor="let movie of movies" [routerLink]="['/movie', movie.id]" class="col-1-3 movie-link">
