@@ -89,7 +89,7 @@
     },
     "movie-search": {
         "header": "Recherche de films",
-        "placeholder": "Rechercher des films"
+        "placeholder": "Chercher des films"
     },
     "movie-list": {
         "actor": "En tant qu'acteur",
@@ -115,7 +115,7 @@
     },
     "person-search": {
         "header": "Recherche de personnes",
-        "placeholder": "Rechercher des personnes"
+        "placeholder": "Chercher des personnes"
     },
     "person-list": {
         "hide": "Cacher les",

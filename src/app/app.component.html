@@ -1,20 +1,32 @@
-<div class="header">
-  <nav>
-    <button class="btn btn-outline-primary" routerLink="/dashboard" *ngIf="auth.isLogged">{{'nav_bar.dashboard' | translate}}</button>
-    <button class="btn btn-outline-primary" routerLink="/movies" *ngIf="auth.isLogged">{{'nav_bar.movies' | translate}}</button>
-    <button class="btn btn-outline-primary" routerLink="/release" *ngIf="auth.isLogged">{{'nav_bar.release' | translate}}</button>
-    <button class="btn btn-outline-primary" routerLink="/discover" *ngIf="auth.isLogged">{{'nav_bar.discover' | translate}}</button>
-    <div class="dropdown" *ngIf="auth.isLogged">
-      <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownLogin" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">
-        <i class="fa fa-user" aria-hidden="true"></i>
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownLogin">
-        <a class="pointer dropdown-item" routerLink="login/profile">{{'nav_bar.profile' | translate}}</a>
-        <a class="pointer dropdown-item" (click)="auth.logout()">{{'nav_bar.logout' | translate}}</a>
+<div class="header" [ngClass]="{'hidden': !isHeaderVisible, 'visible': isHeaderVisible}">
+  <div class="header-buttons">
+    <nav>
+      <button class="btn btn-outline-primary" routerLink="/dashboard" *ngIf="auth.isLogged">{{'nav_bar.dashboard' |
+        translate}}</button>
+      <button class="btn btn-outline-primary" routerLink="/movies" *ngIf="auth.isLogged">{{'nav_bar.movies' |
+        translate}}</button>
+      <button class="btn btn-outline-primary" routerLink="/release" *ngIf="auth.isLogged">{{'nav_bar.release' |
+        translate}}</button>
+      <button class="btn btn-outline-primary" routerLink="/discover" *ngIf="auth.isLogged">{{'nav_bar.discover' |
+        translate}}</button>
+      <div class="dropdown" *ngIf="auth.isLogged">
+        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownLogin" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-user" aria-hidden="true"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownLogin">
+          <a class="pointer dropdown-item" routerLink="login/profile">{{'nav_bar.profile' | translate}}</a>
+          <a class="pointer dropdown-item" (click)="auth.logout()">{{'nav_bar.logout' | translate}}</a>
+        </div>
       </div>
-    </div>
-    <app-dropdown-language></app-dropdown-language>
-  </nav>
+      <app-dropdown-language></app-dropdown-language>
+    </nav>
+  </div>
+  <div class="row w-100" [ngClass]="{'hide': isDashboard}">
+    <app-movie-search class="col-6"></app-movie-search>
+    <app-person-search class="col-6"></app-person-search>
+  </div>
 </div>
-<router-outlet></router-outlet>
+<div [ngClass]="{'content': !isDashboard, 'dashboard': isDashboard}">
+  <router-outlet></router-outlet>
+</div>

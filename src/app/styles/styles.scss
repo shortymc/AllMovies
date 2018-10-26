@@ -76,9 +76,9 @@ label {
 }
 
 .search-result {
-  width: calc(70% - 18px);
+  width: calc(35vw - 18px);
   margin-top: 1px;
-  margin-left: calc(10% + 10px);
+  margin-left: calc(1vw + 10px);
   padding: 5px 10px 5px 10px;
   background-color: $true_white;
   border: 1px solid $gray;
@@ -95,7 +95,7 @@ label {
 .search-box,
 .input-box {
   position: relative;
-  width: 70%;
+  width: 95%;
   height: 100%;
   padding: 8px 5px 8px 15px;
   font-size: 16px;
@@ -104,10 +104,6 @@ label {
   border: 0;
   border-radius: 8px;
   outline: 0;
-}
-
-.search-box {
-  margin-left: 10%;
 }
 
 .input-box,
@@ -189,6 +185,13 @@ input[type='checkbox'] {
   opacity: 0;
 }
 
+.dropdown-menu {
+  position: fixed !important;
+  top: auto !important;
+  left: auto !important;
+  margin-top: 5px !important;
+}
+
 @mixin full_width {
   width: 100vw !important;
 }
@@ -230,5 +233,16 @@ input[type='checkbox'] {
   .page-link[aria-label="First"],
   .page-link[aria-label="Last"] {
     display: none !important;
+  }
+
+  .search-result {
+    width: calc(70vw - 18px);
+  }
+
+  .search-box,
+  .input-box {
+    font-size: 14px;
+    padding: 0px 5px 0px 15px;
+    margin-top: 0.5vh;
   }
 }

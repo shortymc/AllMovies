@@ -32,6 +32,8 @@ import { MovieSearchService } from './service/movie-search.service';
 import { CertificationService } from './service/certification.service';
 import { KeywordSearchService } from './service/keyword-search.service';
 import { ToastService } from './service/toast.service';
+import { MovieSearchComponent } from './components/movie-search/movie-search.component';
+import { PersonSearchComponent } from './components/person-search/person-search.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { ToastService } from './service/toast.service';
     ListPersonsComponent,
     DropdownLanguageComponent,
     AddCollectionDirective,
-    ModalComponent
+    ModalComponent,
+    MovieSearchComponent,
+    PersonSearchComponent,
   ],
   imports: [
     CommonModule,
@@ -68,7 +72,9 @@ import { ToastService } from './service/toast.service';
     NgbModule,
     MatTooltipModule,
     MatStepperModule,
-    ModalComponent
+    ModalComponent,
+    MovieSearchComponent,
+    PersonSearchComponent,
   ]
 })
 
