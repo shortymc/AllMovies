@@ -150,74 +150,79 @@ export class DiscoverComponent implements OnInit {
     sessionStorage.removeItem('keyword');
     sessionStorage.removeItem('genre');
     sessionStorage.removeItem('certif');
-    // (language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
-    //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
-    this.initFromCriteria(new DiscoverCriteria(this.translate.currentLang, this.sortChoices[0].value, 'desc', 0,
-      undefined, undefined, undefined, undefined, undefined, 0, undefined, undefined, undefined, undefined, undefined,
-      undefined, false, undefined, false));
+    const crit = new DiscoverCriteria();
+    crit.language = this.translate.currentLang;
+    crit.sortField = this.sortChoices[0].value;
+    crit.sortDir = 'desc';
+    crit.page = 0;
+    crit.voteCountMin = 0;
+    crit.genresWithout = false;
+    crit.keywordsWithout = false;
+    this.initFromCriteria(crit);
     this.search(true);
     this.clean = true;
   }
 
   buildCriteria(): DiscoverCriteria {
-    let runtimeMin;
-    if (this.runtimeRange[0] !== 0) {
-      runtimeMin = this.runtimeRange[0];
-    }
-    let runtimeMax;
-    if (this.runtimeRange[1] !== this.max) {
-      runtimeMax = this.runtimeRange[1];
-    }
-    if (runtimeMax === this.max) {
-      runtimeMax = undefined;
-    }
-    let yearMin;
+    const criteria = new DiscoverCriteria();
+    this.buildRuntimeCriteria(criteria);
     if (this.yearRange[0] && this.yearRange[0] !== this.minYear) {
-      yearMin = this.yearRange[0];
+      criteria.yearMin = this.yearRange[0];
     }
-    let yearMax;
     if (this.yearRange[1] && this.yearRange[1] !== this.maxYear) {
-      yearMax = this.yearRange[1];
+      criteria.yearMax = this.yearRange[1];
     }
-    let voteMin;
-    if (this.voteRange[0] && this.voteRange[0] !== this.minVote) {
-      voteMin = this.voteRange[0];
-    }
-    let voteMax;
-    if (this.voteRange[1] && this.voteRange[1] !== this.maxVote) {
-      voteMax = this.voteRange[1];
-    }
-    let person;
+    this.buildVoteCriteria(criteria);
     if (this.people.length > 0) {
-      person = this.people.map(p => p.id);
+      criteria.personsIds = this.people.map(p => p.id);
     }
-    let kw;
     if (this.keyword.length > 0) {
-      kw = this.keyword.map(p => p.id);
+      criteria.keywordsIds = this.keyword.map(p => p.id);
     }
-    let genres;
     if (this.selectedGenres && this.selectedGenres.length > 0) {
-      genres = this.selectedGenres.map(g => g.value);
+      criteria.genresId = this.selectedGenres.map(g => g.value);
     }
-    let certif;
     if (this.selectedCertif) {
-      certif = this.selectedCertif.value;
+      criteria.certification = this.selectedCertif.value;
     }
-    let releaseType;
     if (this.selectedReleaseType && this.selectedReleaseType.length > 0) {
-      releaseType = this.selectedReleaseType.map(type => type.value);
+      criteria.releaseType = this.selectedReleaseType.map(type => type.value);
     }
-    // (language, sortField, sortDir, page, yearMin, yearMax, adult, voteAvergeMin, voteAvergeMax,
-    //   voteCountMin, certification, runtimeMin, runtimeMax, releaseType, personsIds, genresId, genresWithout, keywordsIds, keywordsWithout))
-    const criteria = new DiscoverCriteria(this.translate.currentLang, this.sortChosen.value,
-      this.sortDir.value, this.page.pageIndex + 1, yearMin, yearMax, this.adult, voteMin, voteMax,
-      this.voteCountMin, certif, runtimeMin, runtimeMax, releaseType, person, genres, this.isWithoutGenre, kw, this.isWithoutKeyword);
+    criteria.language = this.translate.currentLang;
+    criteria.sortField = this.sortChosen.value;
+    criteria.sortDir = this.sortDir.value;
+    criteria.page = this.page.pageIndex + 1;
+    criteria.adult = this.adult;
+    criteria.voteCountMin = this.voteCountMin;
+    criteria.genresWithout = this.isWithoutGenre;
+    criteria.keywordsWithout = this.isWithoutKeyword;
     sessionStorage.setItem('criteria', Utils.stringifyJson(criteria));
     sessionStorage.setItem('people', Utils.stringifyJson(this.people));
     sessionStorage.setItem('keyword', Utils.stringifyJson(this.keyword));
     sessionStorage.setItem('genre', Utils.stringifyJson(this.selectedGenres));
     sessionStorage.setItem('certif', Utils.stringifyJson(this.selectedCertif));
     return criteria;
+  }
+
+  buildRuntimeCriteria(criteria: DiscoverCriteria): void {
+    if (this.runtimeRange[0] !== 0) {
+      criteria.runtimeMin = this.runtimeRange[0];
+    }
+    if (this.runtimeRange[1] !== this.max) {
+      criteria.runtimeMax = this.runtimeRange[1];
+    }
+    if (criteria.runtimeMax === this.max) {
+      criteria.runtimeMax = undefined;
+    }
+  }
+
+  buildVoteCriteria(criteria: DiscoverCriteria): void {
+    if (this.voteRange[0] && this.voteRange[0] !== this.minVote) {
+      criteria.voteAvergeMin = this.voteRange[0];
+    }
+    if (this.voteRange[1] && this.voteRange[1] !== this.maxVote) {
+      criteria.voteAvergeMax = this.voteRange[1];
+    }
   }
 
   search(initPagination: boolean) {
