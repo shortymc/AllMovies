@@ -5,14 +5,6 @@ export class Url {
   static readonly IMAGE_URL_92 = 'https://image.tmdb.org/t/p/w92';
   static readonly IMAGE_URL_EMPTY = './assets/empty.jpg';
 
-  // DUCK DUCK GO
-  static readonly SEARCH_BANG_METACRITIC = { site: 'metacritic', icon: 'fa-database' };
-  static readonly SEARCH_BANG_SENSCRITIQUE = { site: 'scq', icon: 'fa-film' };
-  static readonly SEARCH_BANG_IMDB = { site: 'imdb', icon: 'fa-imdb' };
-  static readonly SEARCH_BANG_WIKI_EN = { site: 'wen', icon: 'fa-wikipedia-w' };
-  static readonly SEARCH_BANG_WIKI_FR = { site: 'wikifr', icon: 'fa-wikipedia-w' };
-  static readonly DUCKDUCKGO_URL = 'https://api.duckduckgo.com/?q=!';
-
   // API MovieDB request
   static readonly API_KEY = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
   static readonly MOVIE_URl = 'https://api.themoviedb.org/3/movie';
@@ -58,21 +50,6 @@ export class Url {
   static readonly WITHOUT_KEYWORDS_URL = '&without_keywords=';
   static readonly GET_ALL_GENRES_URL = 'https://api.themoviedb.org/3/genre/movie/list?';
   static readonly GET_ALL_CERTIFICATIONS_URL = 'https://api.themoviedb.org/3/certification/movie/list?';
-
-  // Release types
-  static readonly RELEASE_PREMIERE = '1';
-  static readonly RELEASE_THEATRICAL_LIMITED = '2';
-  static readonly RELEASE_THEATRICAL = '3';
-  static readonly RELEASE_DIGITAL = '4';
-  static readonly RELEASE_PHYSICAL = '5';
-  static readonly RELEASE_TV = '6';
-
-  // DropBox
-  static readonly DROPBOX_TOKEN = 'G-_ZeiEAvB0AAAAAAAANQd4IMHRr7Y9aTvAiivg-8LImbDKmo9pdu95_SIioW3lR';
-  static readonly DROPBOX_FOLDER = '/MyMovies/';
-  static readonly DROPBOX_USER_FILE = 'user.json';
-  static readonly DROPBOX_FILE_PREFIX = 'ex_';
-  static readonly DROPBOX_FILE_SUFFIX = '.json';
 
   // API OMDB_API
   static readonly OMDB_API_KEY = '&apikey=5dc08d05';

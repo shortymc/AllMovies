@@ -9,7 +9,7 @@ import { DropboxService } from './dropbox.service';
 import { ToastService } from './toast.service';
 import { UtilsService } from './utils.service';
 import { Utils } from '../utils';
-import { Url } from '../../constant/url';
+import { Dropbox } from '../../constant/dropbox';
 import { User } from '../../model/user';
 
 @Injectable()
@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   static getUserFileName(id: number): string {
-    return Url.DROPBOX_FILE_PREFIX + id + Url.DROPBOX_FILE_SUFFIX;
+    return Dropbox.DROPBOX_FILE_PREFIX + id + Dropbox.DROPBOX_FILE_SUFFIX;
   }
 
   static getToken(): string {
@@ -126,14 +126,14 @@ export class AuthService {
   }
 
   changePassword(name: string, password: string) {
-    return this.dropbox.downloadFile(Url.DROPBOX_USER_FILE).then(file => {
+    return this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE).then(file => {
       let users = <User[]>JSON.parse(file);
       const user = users.find(item => item.name === name);
       user.password = password;
       users = users.filter(item => item.name !== name);
       users.push(user);
       users.sort(Utils.compareObject);
-      this.dropbox.uploadFile(AuthService.usersToBlob(users), Url.DROPBOX_USER_FILE)
+      this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE)
         .then((res: any) => {
           console.log(res);
           this.toast.open(this.translate.instant('toast.user_changed'));
@@ -163,7 +163,7 @@ export class AuthService {
 
   getUserFile(): Promise<User[]> {
     // console.log('getUserFile');
-    return this.dropbox.downloadFile(Url.DROPBOX_USER_FILE).then(file =>
+    return this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE).then(file =>
       <User[]>JSON.parse(file)
     ).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
@@ -193,12 +193,12 @@ export class AuthService {
   }
 
   changeUser(user: User) {
-    return this.dropbox.downloadFile(Url.DROPBOX_USER_FILE).then(file => {
+    return this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE).then(file => {
       let users = <User[]>JSON.parse(file);
       users = users.filter(item => item.name !== user.name);
       users.push(user);
       users.sort(Utils.compareObject);
-      this.dropbox.uploadFile(AuthService.usersToBlob(users), Url.DROPBOX_USER_FILE)
+      this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE)
         .then((res: any) => {
           console.log(res);
           this.toast.open(this.translate.instant('toast.user_changed'));
@@ -208,13 +208,13 @@ export class AuthService {
   }
 
   addUser(user: User): Promise<User> {
-    return this.dropbox.downloadFile(Url.DROPBOX_USER_FILE).then(file => {
+    return this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE).then(file => {
       const users = <User[]>JSON.parse(file);
       const idMax = Math.max(...users.map(item => item.id));
       user.id = idMax + 1;
       users.push(user);
       users.sort(Utils.compareObject);
-      this.dropbox.uploadFile(AuthService.usersToBlob(users), Url.DROPBOX_USER_FILE)
+      this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE)
         .then((res: any) => {
           console.log(res);
           this.toast.open(this.translate.instant('toast.user_added'));

@@ -4,7 +4,6 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NouiFormatter } from 'ng2-nouislider';
 
-import { Url } from './../../../constant/url';
 import { DiscoverCriteria } from './../../../model/discover-criteria';
 import { Discover } from './../../../model/discover';
 import {
@@ -13,6 +12,7 @@ import {
 import { DropDownChoice, Keyword } from '../../../model/model';
 import { Person } from '../../../model/person';
 import { Utils } from '../../../shared/utils';
+import { ReleaseType } from '../../../constant/release-type';
 
 @Component({
   selector: 'app-discover',
@@ -72,11 +72,12 @@ export class DiscoverComponent implements OnInit {
     new DropDownChoice('discover.sort_field.original_title', 'original_title'), new DropDownChoice('discover.sort_field.vote_average', 'vote_average')
       , new DropDownChoice('discover.sort_field.vote_count', 'vote_count')];
     this.sortChosen = this.sortChoices[0];
-    this.allReleaseType = [new DropDownChoice('release_type.premiere', Url.RELEASE_PREMIERE),
-    new DropDownChoice('release_type.theatrical_limited', Url.RELEASE_THEATRICAL_LIMITED),
-    new DropDownChoice('release_type.theatrical', Url.RELEASE_THEATRICAL),
-    new DropDownChoice('release_type.digital', Url.RELEASE_DIGITAL), new DropDownChoice('release_type.physical', Url.RELEASE_PHYSICAL),
-    new DropDownChoice('release_type.tv', Url.RELEASE_TV)];
+    this.allReleaseType = [new DropDownChoice('release_type.premiere', ReleaseType.RELEASE_PREMIERE),
+    new DropDownChoice('release_type.theatrical_limited', ReleaseType.RELEASE_THEATRICAL_LIMITED),
+    new DropDownChoice('release_type.theatrical', ReleaseType.RELEASE_THEATRICAL),
+    new DropDownChoice('release_type.digital', ReleaseType.RELEASE_DIGITAL),
+    new DropDownChoice('release_type.physical', ReleaseType.RELEASE_PHYSICAL),
+    new DropDownChoice('release_type.tv', ReleaseType.RELEASE_TV)];
     this.formatter = {
       to(minutes: any): any {
         return Utils.convertTimeNumberToString(minutes);
