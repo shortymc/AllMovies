@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 
-import { Url } from './../../../constant/url';
+import { DuckDuckGo } from './../../../constant/duck-duck-go';
 import { UtilsService } from './../../service/utils.service';
 import { ToastService } from '../../service/toast.service';
 
@@ -15,17 +15,17 @@ export class MetaService {
   getLinkScore(title: string, site: any, isMovie: boolean): Promise<string> {
     // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
     // '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
-    if (site === Url.SEARCH_BANG_WIKI_EN.site || site === Url.SEARCH_BANG_WIKI_FR.site) {
+    if (site === DuckDuckGo.SEARCH_BANG_WIKI_EN.site || site === DuckDuckGo.SEARCH_BANG_WIKI_FR.site) {
       return this.wikisearch(title, site).toPromise();
     } else {
-      let url = Url.DUCKDUCKGO_URL + site + '+';
+      let url = DuckDuckGo.DUCKDUCKGO_URL + site + '+';
       url += UtilsService.encodeQueryUrl(title) + '&format=json&no_redirect=1';
       return this.serviceUtils.jsonpPromise(url, 'callback')
         .then((data: any) => {
           let result = <string>data.Redirect;
-          if (site === Url.SEARCH_BANG_METACRITIC.site) {
+          if (site === DuckDuckGo.SEARCH_BANG_METACRITIC.site) {
             result = isMovie ? result.replace('/all/', '/movie/') : result.replace('/all/', '/person/');
-          } else if (site === Url.SEARCH_BANG_SENSCRITIQUE.site) {
+          } else if (site === DuckDuckGo.SEARCH_BANG_SENSCRITIQUE.site) {
             result += isMovie ? '&filter=movies' : '&filter=contacts';
           }
           return result;
@@ -40,7 +40,7 @@ export class MetaService {
       .set('search', term)
       .set('format', 'json');
 
-    const url = site === Url.SEARCH_BANG_WIKI_EN.site ? `http://en.wikipedia.org/w/api.php?${params.toString()}`
+    const url = site === DuckDuckGo.SEARCH_BANG_WIKI_EN.site ? `http://en.wikipedia.org/w/api.php?${params.toString()}`
       : `http://fr.wikipedia.org/w/api.php?${params.toString()}`;
 
     return this.serviceUtils.jsonpObservable(url, 'callback')

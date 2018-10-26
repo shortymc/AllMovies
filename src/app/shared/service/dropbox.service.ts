@@ -3,10 +3,10 @@ import Dropbox = require('dropbox');
 import { TranslateService } from '@ngx-translate/core';
 
 import { Movie } from '../../model/movie';
-import { Url } from '../../constant/url';
 import { Utils } from '../../shared/utils';
 import { ToastService } from './toast.service';
 import { UtilsService } from './utils.service';
+import { Dropbox as DropboxConstante } from '../../constant/dropbox';
 
 @Injectable()
 export class DropboxService {
@@ -29,7 +29,7 @@ export class DropboxService {
   }
 
   getDbx(): any {
-    return new Dropbox({ accessToken: Url.DROPBOX_TOKEN });
+    return new Dropbox({ accessToken: DropboxConstante.DROPBOX_TOKEN });
   }
 
   listFiles(): void {
@@ -39,7 +39,7 @@ export class DropboxService {
   }
 
   getPath(fileName: string): string {
-    return Url.DROPBOX_FOLDER + fileName;
+    return DropboxConstante.DROPBOX_FOLDER + fileName;
   }
 
   uploadFile(fichier: any, fileName: string): Promise<any> {
@@ -76,9 +76,7 @@ export class DropboxService {
       if (file && file.trim().length > 0) {
         movieList = <Movie[]>JSON.parse(file);
       }
-      const found = movieList.find(function(film) {
-        return film.id === movie.id;
-      });
+      const found = movieList.find((film) => film.id === movie.id);
       if (!found) {
         movieList.push(movie);
         movieList.sort(Utils.compareObject);
@@ -161,7 +159,7 @@ export class DropboxService {
     this.downloadFile(fileName).then(file => {
       let movieList = <Movie[]>JSON.parse(file);
       movieList = movieList.filter((m: Movie) => !moviesToReplace.map((movie: Movie) => movie.id).includes(m.id)
-      || !moviesToReplace.map((movie: Movie) => movie.lang_version).includes(m.lang_version));
+        || !moviesToReplace.map((movie: Movie) => movie.lang_version).includes(m.lang_version));
 
       moviesToReplace.forEach((movie: Movie) => movieList.push(movie));
       movieList.sort(Utils.compareObject);
