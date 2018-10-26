@@ -22,11 +22,11 @@
       <app-dropdown-language></app-dropdown-language>
     </nav>
   </div>
-  <div class="row w-100" [ngClass]="{'hide': isDashboard}">
+  <div class="row w-100" *ngIf="auth.isLogged">
     <app-movie-search class="col-6"></app-movie-search>
     <app-person-search class="col-6"></app-person-search>
   </div>
 </div>
-<div [ngClass]="{'content': !isDashboard, 'dashboard': isDashboard}">
+<div class="content">
   <router-outlet></router-outlet>
 </div>
