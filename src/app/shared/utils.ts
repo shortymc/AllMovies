@@ -138,14 +138,18 @@ export class Utils {
     return result * (isAsc ? 1 : -1);
   }
 
-  static compareMeta(a: string, b: string, isAsc) {
+  static compareMetaScore(a: Movie, b: Movie, isAsc: boolean): number {
+    let c = a.score.ratings ? a.score.ratings.find(rating => rating.Source === 'Metacritic') : undefined;
+    let d = b.score.ratings ? b.score.ratings.find(rating => rating.Source === 'Metacritic') : undefined;
+    c = c ? c.Value : '';
+    d = d ? d.Value : '';
     let meta1 = 0;
     let meta2 = 0;
-    if (a.length > 0) {
-      meta1 = parseInt(a.substr(0, a.indexOf('/')), 10);
+    if (c.length > 0) {
+      meta1 = parseInt(c.substr(0, c.indexOf('/')), 10);
     }
-    if (b.length > 0) {
-      meta2 = parseInt(b.substr(0, b.indexOf('/')), 10);
+    if (d.length > 0) {
+      meta2 = parseInt(d.substr(0, d.indexOf('/')), 10);
     }
     return Utils.compare(meta1, meta2, isAsc);
   }
@@ -243,9 +247,7 @@ export class Utils {
           case 'note':
             return Utils.compare(+a.note, +b.note, isAsc);
           case 'meta':
-            const meta1 = a.score.ratings ? a.score.ratings.find(rating => rating.Source === 'Metacritic') : undefined;
-            const meta2 = b.score.ratings ? b.score.ratings.find(rating => rating.Source === 'Metacritic') : undefined;
-            return Utils.compareMeta(meta1 ? meta1.Value : '', meta2 ? meta2.Value : '', isAsc);
+            return this.compareMetaScore(a, b, isAsc);
           case 'language':
             return Utils.compare(a.language, b.language, isAsc);
           case 'added':
