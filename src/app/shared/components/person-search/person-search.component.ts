@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterEvent } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-import { Person } from '../../../../model/person';
-import { AuthService, PersonSearchService } from '../../../../shared/shared.module';
+import { Person } from '../../../model/person';
+import { PersonSearchService } from '../../service/person-search.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-person-search',
   templateUrl: './person-search.component.html',
   styleUrls: ['./person-search.component.scss'],
-  providers: [PersonSearchService]
 })
 export class PersonSearchComponent implements OnInit {
   persons: Observable<Person[]>;
   private searchTerms = new Subject<string>();
-  adult = false;
   showPerson = false;
   pseudo: string;
 
@@ -29,13 +28,16 @@ export class PersonSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.events.subscribe((event: RouterEvent) => {
+      this.search('');
+    });
     this.pseudo = AuthService.decodeToken().name;
     this.persons = this.searchTerms
       .debounceTime(300)        // wait 300ms after each keystroke before considering the term
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap(term => term   // switch to new observable each time the term changes
         // return the http search observable
-        ? this.personSearchService.search(term, this.adult)
+        ? this.personSearchService.search(term, this.pseudo !== 'Test')
         // or the observable of empty persons if there was no search term
         : Observable.of<Person[]>([]))
       .catch(error => {
