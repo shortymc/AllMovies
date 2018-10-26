@@ -54,8 +54,13 @@ export class MovieService {
   }
 
   getMoviesByReleaseDates(debut: string, fin: string, language: string): Promise<Movie[]> {
-    const url =
-      `${Url.DISCOVER_URL}&region=FR${Url.RELEASE_DATE_GTE_URL}${debut}${Url.RELEASE_DATE_LTE_URL}${fin}${Url.RELEASE_TYPE_URL}${Url.LANGUE}${language}`;
+    const criteria = new DiscoverCriteria();
+    criteria.language = language;
+    criteria.region = language;
+    criteria.yearMin = debut;
+    criteria.yearMax = fin;
+    criteria.releaseType = [3, 2];
+    const url = UrlBuilder.discoverUrlBuilder(criteria);
     return this.serviceUtils.getPromise(url)
       .then(response => MapMovie.mapForMoviesByReleaseDates(response))
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
