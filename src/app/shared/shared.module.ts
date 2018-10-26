@@ -15,8 +15,11 @@ import { UtilsService } from './service/utils.service';
 import { AddCollectionDirective } from './directives/add-collection.directive';
 import { DropdownLanguageComponent } from './dropdown-language/dropdown-language.component';
 import { MetaService } from './meta/service/meta.service';
-import { SubstractDatePipe, ConvertToHHmmPipe, CapitalizeWordPipe, FilterCrewPipe } from './pipes/custom.pipe';
 import { OmdbService } from './service/omdb.service';
+import { FilterCrewPipe } from './pipes/filterCrew.pipe';
+import { CapitalizeWordPipe } from './pipes/capitalizeWord.pipe';
+import { SubstractDatePipe } from './pipes/substractDate.pipe';
+import { ConvertToHHmmPipe } from './pipes/convertToHHmm.pipe';
 import { ModalComponent } from './modal/modal.component';
 import { MovieService } from './service/movie.service';
 import { DropboxService } from './service/dropbox.service';
@@ -101,7 +104,6 @@ export class SharedModule {
 
 export { UtilsService } from './service/utils.service';
 export { MovieService } from './service/movie.service';
-export { OmdbService } from './service/omdb.service';
 export { DropboxService } from './service/dropbox.service';
 export { AuthService } from './service/auth.service';
 export { TitleService } from './service/title.service';
