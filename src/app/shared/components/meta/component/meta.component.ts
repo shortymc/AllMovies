@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Utils } from './../../utils';
+import { Utils } from './../../../utils';
 import { MetaService } from './../service/meta.service';
 
 @Component({

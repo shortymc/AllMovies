@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Person } from '../../model/person';
-import { Url } from '../../constant/url';
+import { Person } from '../../../model/person';
+import { Url } from '../../../constant/url';
 
 @Component({
   selector: 'app-list-persons',

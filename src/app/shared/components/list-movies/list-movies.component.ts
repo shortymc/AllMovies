@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { Movie } from '../../model/movie';
+import { Movie } from '../../../model/movie';
 
 @Component({
   selector: 'app-list-movies',
