@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
 
 import { TitleService } from './../../../shared/shared.module';
 // import { AllocineService } from './../../../service/allocine.service';
-import { Url } from './../../../constant/url';
+import { DuckDuckGo } from './../../../constant/duck-duck-go';
 import { MovieService } from '../../../shared/shared.module';
 import { Movie } from '../../../model/movie';
 
@@ -18,7 +18,7 @@ import { Movie } from '../../../model/movie';
 export class MovieDetailComponent implements OnInit {
   movie$: Observable<Movie>;
   isImagesVisible = false;
-  Url = Url;
+  Url = DuckDuckGo;
   id: number;
 
   constructor(

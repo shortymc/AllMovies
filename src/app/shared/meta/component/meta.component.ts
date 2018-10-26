@@ -3,7 +3,6 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Utils } from './../../utils';
 import { MetaService } from './../service/meta.service';
-import { Url } from '../../../constant/url';
 
 @Component({
   selector: 'app-meta',
@@ -24,7 +23,6 @@ export class MetaComponent implements OnInit {
   @Input()
   sites: any[];
   links;
-  Url = Url;
 
   constructor(private metaService: MetaService) { }
 
