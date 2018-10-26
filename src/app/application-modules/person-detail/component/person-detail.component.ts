@@ -6,6 +6,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { PersonService, TitleService } from '../../../shared/shared.module';
 import { Person } from '../../../model/person';
 import { Url } from '../../../constant/url';
+import { DuckDuckGo } from '../../../constant/duck-duck-go';
 
 @Component({
   selector: 'app-person-detail',
@@ -16,6 +17,7 @@ export class PersonDetailComponent implements OnInit {
   person: Person;
   isImagesCollapsed = false;
   Url = Url;
+  DuckDuckGo = DuckDuckGo;
 
   constructor(
     private personService: PersonService,
