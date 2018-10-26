@@ -3,6 +3,21 @@ import { Url } from './../constant/url';
 
 export class UrlBuilder {
 
+  static personUrlBuilder(id: number, language: string, images: boolean): string {
+    let url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}`;
+    if (images) {
+      url += `${Url.APPEND}`;
+      const parametres = [];
+      if (images) {
+        parametres.push(`${Url.APPEND_IMAGES}`);
+      }
+      url += parametres.join(',');
+    }
+    url = UrlBuilder.langUrlBuilder(url, language);
+    console.log('personUrlBuilder', url);
+    return url;
+  }
+
   static movieUrlBuilder(id: number, video: boolean, credit: boolean, reco: boolean, image: boolean, language: string): string {
     let url = `${Url.MOVIE_URl}/${id}?${Url.API_KEY}`;
     if (video || credit || reco || image) {
