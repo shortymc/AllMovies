@@ -1,6 +1,5 @@
 import { Component, AfterViewInit, ChangeDetectorRef, OnInit } from '@angular/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import { Router, RouterEvent } from '@angular/router';
 import {
   distinctUntilChanged,
   filter,
@@ -23,20 +22,13 @@ enum Direction {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  isDashboard: boolean;
   isHeaderVisible = true;
 
   constructor(
-    private router: Router,
     public auth: AuthService,
     private cdRef: ChangeDetectorRef,
     private title: TitleService
   ) {
-    this.router.events.subscribe((event: RouterEvent) => {
-      if (event && event.url) {
-        this.isDashboard = event.url === '/dashboard';
-      }
-    });
   }
 
   ngOnInit() {
@@ -52,6 +44,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         pairwise(),
         map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
         distinctUntilChanged(),
+        share()
       );
     scroll$.pipe(
       filter(direction => direction === Direction.Up)

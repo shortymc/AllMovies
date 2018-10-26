@@ -38,10 +38,6 @@
   padding-top: 150px;
 }
 
-.dashboard {
-  padding-top: 90px;
-}
-
 @include media(#{$smallscreen}) {
   :host nav {
     & > * {
