@@ -22,10 +22,7 @@ export class UrlBuilder {
       }
       url += parametres.join(',');
     }
-    if (language) {
-      url += `${Url.LANGUE}${language}`;
-      url += `${Url.INCLUDE_IMAGE_LANGUAGE}${language},null`;
-    }
+    url = UrlBuilder.langUrlBuilder(url, language);
     console.log('movieUrlBuilder', url);
     return url;
   }
@@ -39,6 +36,9 @@ export class UrlBuilder {
     if (criteria.page) {
       parametres.push(`${Url.PAGE_URL}${criteria.page}`);
     }
+    if (criteria.region) {
+      parametres.push(`${Url.REGION}${criteria.region.toUpperCase()}`);
+    }
     if (criteria.yearMin) {
       parametres.push(`${Url.RELEASE_DATE_GTE_URL}${criteria.yearMin}`);
     }
@@ -48,6 +48,36 @@ export class UrlBuilder {
     if (criteria.adult) {
       parametres.push(`${Url.ADULT_URL}`);
     }
+    UrlBuilder.voteUrlBuilder(parametres, criteria);
+    if (criteria.certification) {
+      parametres.push(`${Url.CERTIFICATION_COUNTRY_URL}`);
+      parametres.push(`${Url.CERTIFICATION_URL}${criteria.certification}`);
+    }
+    UrlBuilder.runtimeUrlBuilder(parametres, criteria);
+    if (criteria.releaseType) {
+      parametres.push(`${Url.WITH_RELEASE_TYPE_URL}${criteria.releaseType.join(Url.OR_URL)}`);
+    }
+    if (criteria.personsIds) {
+      parametres.push(`${Url.WITH_PEOPLE_URL}${criteria.personsIds.join(Url.AND_URL)}`);
+    }
+    UrlBuilder.genresUrlBuilder(parametres, criteria);
+    UrlBuilder.keywordsUrlBuilder(parametres, criteria);
+    url += parametres.join('');
+    url = UrlBuilder.langUrlBuilder(url, criteria.language);
+    console.log('discoverUrlBuilder', url);
+    return url;
+  }
+
+  static runtimeUrlBuilder(parametres: string[], criteria: DiscoverCriteria): void {
+    if (criteria.runtimeMin) {
+      parametres.push(`${Url.WITH_RUNTIME_GTE_URL}${criteria.runtimeMin}`);
+    }
+    if (criteria.runtimeMax) {
+      parametres.push(`${Url.WITH_RUNTIME_LTE_URL}${criteria.runtimeMax}`);
+    }
+  }
+
+  static voteUrlBuilder(parametres: string[], criteria: DiscoverCriteria): void {
     if (criteria.voteAvergeMin) {
       parametres.push(`${Url.VOTE_AVERAGE_GTE_URL}${criteria.voteAvergeMin}`);
     }
@@ -57,40 +87,32 @@ export class UrlBuilder {
     if (criteria.voteCountMin) {
       parametres.push(`${Url.VOTE_COUNT_GTE_URL}${criteria.voteCountMin}`);
     }
-    if (criteria.certification) {
-      parametres.push(`${Url.CERTIFICATION_COUNTRY_URL}`);
-      parametres.push(`${Url.CERTIFICATION_URL}${criteria.certification}`);
-    }
-    if (criteria.runtimeMin) {
-      parametres.push(`${Url.WITH_RUNTIME_GTE_URL}${criteria.runtimeMin}`);
-    }
-    if (criteria.runtimeMax) {
-      parametres.push(`${Url.WITH_RUNTIME_LTE_URL}${criteria.runtimeMax}`);
-    }
-    if (criteria.releaseType) {
-      parametres.push(`${Url.WITH_RELEASE_TYPE_URL}${criteria.releaseType.join(Url.OR_URL)}`);
-    }
-    if (criteria.personsIds) {
-      parametres.push(`${Url.WITH_PEOPLE_URL}${criteria.personsIds.join(Url.AND_URL)}`);
-    }
+  }
+
+  static genresUrlBuilder(parametres: string[], criteria: DiscoverCriteria): void {
     if (criteria.genresId && !criteria.genresWithout) {
       parametres.push(`${Url.WITH_GENRES_URL}${criteria.genresId.join(Url.AND_URL)}`);
     }
     if (criteria.genresId && criteria.genresWithout) {
       parametres.push(`${Url.WITHOUT_GENRES_URL}${criteria.genresId.join(Url.AND_URL)}`);
     }
+  }
+
+  static keywordsUrlBuilder(parametres: string[], criteria: DiscoverCriteria): void {
     if (criteria.keywordsIds && !criteria.keywordsWithout) {
       parametres.push(`${Url.WITH_KEYWORDS_URL}${criteria.keywordsIds.join(Url.AND_URL)}`);
     }
     if (criteria.keywordsIds && criteria.keywordsWithout) {
       parametres.push(`${Url.WITHOUT_KEYWORDS_URL}${criteria.keywordsIds.join(Url.OR_URL)}`);
     }
-    url += parametres.join('');
-    if (criteria.language) {
-      url += `${Url.LANGUE}${criteria.language}`;
-      url += `${Url.INCLUDE_IMAGE_LANGUAGE}${criteria.language},null`;
+  }
+
+  static langUrlBuilder(url: string, language: string): string {
+    let result = url;
+    if (language) {
+      result += `${Url.LANGUE}${language}`;
+      result += `${Url.INCLUDE_IMAGE_LANGUAGE}${language},null`;
     }
-    console.log('discoverUrlBuilder', url);
-    return url;
+    return result;
   }
 }
