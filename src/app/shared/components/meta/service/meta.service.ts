@@ -2,9 +2,9 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 
-import { DuckDuckGo } from './../../../constant/duck-duck-go';
-import { UtilsService } from './../../service/utils.service';
-import { ToastService } from '../../service/toast.service';
+import { DuckDuckGo } from './../../../../constant/duck-duck-go';
+import { UtilsService } from './../../../service/utils.service';
+import { ToastService } from '../../../service/toast.service';
 
 @Injectable()
 export class MetaService {
