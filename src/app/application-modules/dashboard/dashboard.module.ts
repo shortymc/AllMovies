@@ -4,8 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PersonSearchComponent } from './component/person-search/person-search.component';
-import { MovieSearchComponent } from './component/movie-search/movie-search.component';
 import { SharedModule } from './../../shared/shared.module';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 
@@ -25,8 +23,7 @@ const childRoutes: Routes = [
   ],
   declarations: [
     DashboardComponent,
-    MovieSearchComponent,
-    PersonSearchComponent],
+  ],
   providers: [
     TranslateService,
   ]

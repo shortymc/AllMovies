@@ -1,11 +1,13 @@
-@import "../../../../styles/styles";
+@import "../../../styles/styles";
 
-.res {
+#res {
   padding-left: 36px;
+  z-index: 500;
+  position: fixed;
 }
 
-h4 {
-  text-align: center;
+.fa-search {
+  font-size: 2em;
 }
 
 .form-check-inline {
@@ -26,5 +28,9 @@ h4 {
 
   .icon {
     display: none;
+  }
+
+  .fa-search {
+    font-size: 1em;
   }
 }
