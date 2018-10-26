@@ -1,3 +1,4 @@
+$dir = Get-Location
 Set-Variable -Name "workspace" -Value "C:\DEV\workspace\AllMovies"
 $dropbox = $workspace + "\src\app\shared\service\dropbox.service.ts"
 $apkDir = $workspace + "\cordova\AllMovies\platforms\android\app\build\outputs\apk\debug\app-debug.apk"
@@ -24,4 +25,5 @@ if((Get-Item ($outputDir + "\app-debug.apk")).length -lt 5MB) {
 } else {
 	Write-Host "APK SUCCESSFULLY GENERATED" -ForegroundColor Green
 }
+cd $dir
 pause
