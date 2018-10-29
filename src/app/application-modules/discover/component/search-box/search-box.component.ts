@@ -11,7 +11,7 @@ import { SearchServiceService } from './../../../../shared/service/searchService
 })
 export class SearchBoxComponent<T> implements OnInit, OnChanges {
   @Input() adult: boolean;
-  @Input() service: SearchServiceService;
+  @Input() service: SearchServiceService<T>;
   @Input() placeholder: string;
   @Input() initList: T[];
   @Input() clear: boolean;
