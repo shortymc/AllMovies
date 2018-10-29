@@ -10,7 +10,7 @@
     </div>
   </div>
   <div id="res" *ngIf="showPerson">
-    <div *ngFor="let person of persons | async" (click)="gotoPerson(person)" class="search-result" [ngClass]="{'adult': person.adult}">
+    <div *ngFor="let person of persons | async" (click)="searchBox.value='';gotoPerson(person)" class="search-result" [ngClass]="{'adult': person.adult}">
       <div class="media">
         <img class="mr-2" *ngIf="person.thumbnail" src="{{person.thumbnail}}" style="width: 5%;">
         <div class="media-body">

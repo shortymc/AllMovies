@@ -1,6 +1,6 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, RouterEvent } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
@@ -19,7 +19,6 @@ export class MovieSearchComponent implements OnInit {
   inputSearch: HTMLFormElement;
   movies: Observable<Movie[]>;
   private searchTerms = new Subject<string>();
-  adult = false;
   showMovie = false;
   language: string;
   pseudo: string;
@@ -27,7 +26,8 @@ export class MovieSearchComponent implements OnInit {
   constructor(
     private movieSearchService: MovieSearchService,
     private router: Router,
-    private translate: TranslateService) { }
+    private translate: TranslateService
+  ) { }
 
   // Push a search term into the observable stream.
   search(term: string): void {
@@ -35,9 +35,6 @@ export class MovieSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe((event: RouterEvent) => {
-      this.search('');
-    });
     this.pseudo = AuthService.decodeToken().name;
     this.language = this.translate.currentLang;
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -49,7 +46,7 @@ export class MovieSearchComponent implements OnInit {
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap(term => term   // switch to new observable each time the term changes
         // return the http search observable
-        ? this.movieSearchService.search(term, this.pseudo !== 'Test', this.language)
+        ? this.movieSearchService.search(term, this.pseudo === 'Test', this.language)
         // or the observable of empty movies if there was no search term
         : Observable.of<Movie[]>([]))
       .catch(error => {
@@ -60,6 +57,7 @@ export class MovieSearchComponent implements OnInit {
   }
 
   gotoDetail(movie: Movie): void {
+    this.showMovie = false;
     this.router.navigate(['/movie', movie.id]);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterEvent } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
@@ -20,7 +20,8 @@ export class PersonSearchComponent implements OnInit {
 
   constructor(
     private personSearchService: PersonSearchService,
-    private router: Router) { }
+    private router: Router
+  ) { }
 
   // Push a search term into the observable stream.
   search(term: string): void {
@@ -28,9 +29,6 @@ export class PersonSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe((event: RouterEvent) => {
-      this.search('');
-    });
     this.pseudo = AuthService.decodeToken().name;
     this.persons = this.searchTerms
       .debounceTime(300)        // wait 300ms after each keystroke before considering the term
@@ -48,6 +46,7 @@ export class PersonSearchComponent implements OnInit {
   }
 
   gotoPerson(person: Person): void {
+    this.showPerson = false;
     this.router.navigate(['/person', person.id]);
   }
 }
