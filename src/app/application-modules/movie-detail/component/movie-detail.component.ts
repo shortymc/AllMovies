@@ -31,9 +31,9 @@ export class MovieDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.movie$ = this.route.paramMap.switchMap((params: ParamMap) => {
+    this.route.paramMap.subscribe((params: ParamMap) => {
       this.id = +params.get('id');
-      return this.getMovie(this.id, this.translate.currentLang);
+      this.movie$ = this.getMovie(this.id, this.translate.currentLang);
     });
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.movie$ = this.getMovie(this.id, event.lang);
