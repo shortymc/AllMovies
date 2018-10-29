@@ -8,7 +8,7 @@ import { ToastService } from './toast.service';
 import { SearchServiceService } from './searchService.service';
 
 @Injectable()
-export class KeywordSearchService implements SearchServiceService {
+export class KeywordSearchService implements SearchServiceService<Keyword> {
 
   constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 
