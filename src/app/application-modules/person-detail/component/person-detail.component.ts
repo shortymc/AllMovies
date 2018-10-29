@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
@@ -29,8 +29,9 @@ export class PersonDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.getPerson(id, this.translate.currentLang);
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.getPerson(+params.get('id'), this.translate.currentLang);
+    });
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.getPerson(this.person.id, event.lang);
     });
