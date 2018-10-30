@@ -150,6 +150,7 @@
         "language": "Langues",
         "genres": "Genres",
         "length": "Durée",
+        "added": "Ajouté",
         "remove": "Retirer les {{size}} films sélectionnés",
         "search_title": "Rechercher dans les {{param}}s",
         "filter": {

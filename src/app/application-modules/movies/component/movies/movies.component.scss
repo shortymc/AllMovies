@@ -39,6 +39,9 @@
 
   &:hover {
     width: 100%;
+    @extend .frame;
+    padding: 1px !important;
+    margin: 3px 0 3px 8px !important;
   }
 }
 
