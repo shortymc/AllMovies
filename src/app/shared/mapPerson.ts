@@ -4,20 +4,19 @@ import { Utils } from './utils';
 
 export class MapPerson {
 
-  static mapForPerson(response: any[]): Person {
-    console.log(response);
-    const resp = response[0];
-    const crew = response[1].crew;
+  static mapForPerson(resp: any): Person {
+    console.log(resp);
+    const credits = resp.credits;
 
-    const asActor = response[1].cast.map((r: any) => MapMovie.toMovie(r));
-    const asDirector = crew.filter((r: any) => Utils.jobEquals(r.job, 'Director')).map((r: any) => MapMovie.toMovie(r));
-    const asProducer = crew.filter((r: any) => Utils.jobEquals(r.job, 'Producer')).map((r: any) => MapMovie.toMovie(r));
-    const asCompositors = crew
+    const asActor = credits.cast.map((r: any) => MapMovie.toMovie(r));
+    const asDirector = credits.crew.filter((r: any) => Utils.jobEquals(r.job, 'Director')).map((r: any) => MapMovie.toMovie(r));
+    const asProducer = credits.crew.filter((r: any) => Utils.jobEquals(r.job, 'Producer')).map((r: any) => MapMovie.toMovie(r));
+    const asCompositors = credits.crew
       .filter((r: any) => (Utils.jobEquals(r.job, 'Compositors') || Utils.jobEquals(r.job, 'Original Music Composer')))
       .map((r: any) => MapMovie.toMovie(r));
-    const asScreenplay = crew.filter((r: any) => (Utils.jobEquals(r.job, 'Screenplay') || Utils.jobEquals(r.job, 'Writer')))
+    const asScreenplay = credits.crew.filter((r: any) => (Utils.jobEquals(r.job, 'Screenplay') || Utils.jobEquals(r.job, 'Writer')))
       .map((r: any) => MapMovie.toMovie(r));
-    const asNovel = crew.filter((r: any) => Utils.jobEquals(r.job, 'Novel')).map((r: any) => MapMovie.toMovie(r));
+    const asNovel = credits.crew.filter((r: any) => Utils.jobEquals(r.job, 'Novel')).map((r: any) => MapMovie.toMovie(r));
 
     return new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, 0),
       Utils.getProfilPath(resp, 154), resp.biography, resp.adult, resp.place_of_birth,

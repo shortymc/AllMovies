@@ -3,13 +3,16 @@ import { Url } from './../constant/url';
 
 export class UrlBuilder {
 
-  static personUrlBuilder(id: number, language: string, images: boolean): string {
+  static personUrlBuilder(id: number, language: string, images: boolean, movies: boolean): string {
     let url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}`;
-    if (images) {
+    if (images || movies) {
       url += `${Url.APPEND}`;
       const parametres = [];
       if (images) {
         parametres.push(`${Url.APPEND_IMAGES}`);
+      }
+      if (movies) {
+        parametres.push(`${Url.APPEND_CREDITS}`);
       }
       url += parametres.join(',');
     }
