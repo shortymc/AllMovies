@@ -12,7 +12,7 @@
       <div class="dropdown" *ngIf="auth.isLogged">
         <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownLogin" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-user" aria-hidden="true"></i>
+          <fa-icon [icon]="faUser"></fa-icon>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownLogin">
           <a class="pointer dropdown-item" routerLink="login/profile">{{'nav_bar.profile' | translate}}</a>

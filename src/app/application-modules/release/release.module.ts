@@ -4,6 +4,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { RatingModule } from 'ngx-rating';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { MyNgbDate } from './../../shared/my-ngb-date';
 import { ReleaseComponent } from './component/release.component';
@@ -19,6 +20,7 @@ const childRoutes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    FontAwesomeModule,
     RouterModule.forChild(childRoutes),
     SharedModule.forChild(),
     RatingModule,

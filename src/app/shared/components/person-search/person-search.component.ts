@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 import { Person } from '../../../model/person';
 import { PersonSearchService } from '../../service/person-search.service';
@@ -17,6 +18,7 @@ export class PersonSearchComponent implements OnInit {
   private searchTerms = new Subject<string>();
   showPerson = false;
   pseudo: string;
+  faSearch = faSearch;
 
   constructor(
     private personSearchService: PersonSearchService,

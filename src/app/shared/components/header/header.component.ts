@@ -8,6 +8,7 @@ import {
   share,
   throttleTime
 } from 'rxjs/operators';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { TitleService } from '../../service/title.service';
 import { AuthService } from '../../service/auth.service';
@@ -20,6 +21,7 @@ import { Direction } from '../../../model/model';
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
   isHeaderVisible = true;
+  faUser = faUser;
 
   constructor(
     public auth: AuthService,

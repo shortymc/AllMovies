@@ -6,12 +6,20 @@ import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSelectChange } from '@angular/material/select';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import {
+  faTrash, faHashtag, faImage, faFilm, faFlag, faCalendar, faStar, faGlobeAmericas, faList
+} from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 
 import { Utils } from './../../../../shared/utils';
 import { TitleService, AuthService, DropboxService, MovieService } from './../../../../shared/shared.module';
 import { Movie } from './../../../../model/movie';
 
 const init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'meta', 'language', 'genres', 'time', 'added', 'select'];
+
+library.add(faClock);
+library.add(faTimesCircle);
 
 @Component({
   selector: 'app-my-movies',
@@ -34,6 +42,15 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
   genres: string[];
   filteredGenres: MatSelectChange;
   language: string;
+  faTrash = faTrash;
+  faHashtag = faHashtag;
+  faImage = faImage;
+  faFilm = faFilm;
+  faFlag = faFlag;
+  faCalendar = faCalendar;
+  faStar = faStar;
+  faGlobe = faGlobeAmericas;
+  faList = faList;
 
   constructor(
     private movieService: MovieService,

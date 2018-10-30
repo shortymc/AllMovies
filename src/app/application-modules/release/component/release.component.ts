@@ -2,6 +2,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { faChevronCircleRight, faSave } from '@fortawesome/free-solid-svg-icons';
 
 import { Movie } from '../../../model/movie';
 import { MovieService, TitleService } from '../../../shared/shared.module';
@@ -54,6 +55,8 @@ export class ReleaseComponent implements OnInit {
   sunday: Date;
   Url = DuckDuckGo;
   language: string;
+  faChevronCircleRight = faChevronCircleRight;
+  faSave = faSave;
 
   constructor(
     private movieService: MovieService,
