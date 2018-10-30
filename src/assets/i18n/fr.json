@@ -69,7 +69,8 @@
         "tv": "Télé"
     },
     "dashboard": {
-        "header": "Top Films"
+        "movies": "Films du moment",
+        "persons": "Personnes populaires"
     },
     "movie": {
         "header": "Détails de",
