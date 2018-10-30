@@ -37,7 +37,7 @@ export class PersonSearchComponent implements OnInit {
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap(term => term   // switch to new observable each time the term changes
         // return the http search observable
-        ? this.personSearchService.search(term, this.pseudo !== 'Test')
+        ? this.personSearchService.search(term, this.pseudo === 'Test')
         // or the observable of empty persons if there was no search term
         : Observable.of<Person[]>([]))
       .catch(error => {
