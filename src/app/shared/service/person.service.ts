@@ -24,7 +24,7 @@ export class PersonService {
 
   getPopularPersons(language: string): Promise<Person[]> {
     return this.serviceUtils.getPromise(`${Url.GET_POPULAR_PERSON}${Url.LANGUE}${language}`)
-      .then(response => response.results.map(res => MapPerson.mapForPerson(res)))
+      .then((response: any) => response.results.map(res => MapPerson.mapForPerson(res)))
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 }

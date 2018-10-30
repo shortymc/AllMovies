@@ -121,7 +121,9 @@ export class DiscoverComponent implements OnInit {
 
   initFromCriteria(criteria: DiscoverCriteria) {
     this.sortDir.value = criteria.sortDir;
-    this.sortChosen = this.sortChoices.find(sort => sort.value === criteria.sortField);
+    if (criteria.sortField) {
+      this.sortChosen = this.sortChoices.find(sort => sort.value === criteria.sortField);
+    }
     this.page = new PageEvent();
     this.page.pageIndex = criteria.page ? criteria.page - 1 : 0;
     this.yearRange = [criteria.yearMin ? criteria.yearMin : this.minYear, criteria.yearMax ? criteria.yearMax : this.maxYear];

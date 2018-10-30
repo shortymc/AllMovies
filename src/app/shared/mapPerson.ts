@@ -5,7 +5,7 @@ import { Utils } from './utils';
 export class MapPerson {
 
   static mapForPerson(resp: any): Person {
-    console.log(resp);
+    // console.log(resp);
     const credits = resp.credits;
     let img;
     if (resp.images) {
