@@ -33,10 +33,10 @@
         <span class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" matTooltip="{{country.name}}"></span>
       </span>{{selectedMovie.title | capitalizeWord}}</h2>
     <button class="btn btn-outline-primary" appAddCollection [movies]="[selectedMovie]">
-      <span class="fa fa-save" aria-hidden="true"></span> {{'global.add_collection' | translate}}
+        <fa-icon [icon]="faSave"></fa-icon> {{'global.add_collection' | translate}}
     </button>
     <a class="btn btn-outline-primary" [routerLink]="['/movie', selectedMovie.id]"> {{'global.go_detail' | translate}}
-      <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+      <fa-icon [icon]="faChevronCircleRight"></fa-icon>
     </a>
     <div>
       <label>{{'movie.date' | translate}}: </label>{{selectedMovie.date | date:'EEEE dd MMMM yyyy':'':language | capitalizeWord}}

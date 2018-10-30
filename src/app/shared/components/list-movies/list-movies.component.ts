@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 import { Movie } from '../../../model/movie';
 
@@ -23,6 +24,7 @@ export class ListMoviesComponent implements OnInit {
   page: number;
   moviesToShow: Movie[];
   pageSize = 5;
+  faSave = faSave;
 
   constructor() { }
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { faAtom } from '@fortawesome/free-solid-svg-icons';
+import { faAtom, faChevronCircleLeft, faPlusSquare, faMinusSquare } from '@fortawesome/free-solid-svg-icons';
 
 import { PersonService, TitleService } from '../../../shared/shared.module';
 import { Person } from '../../../model/person';
@@ -20,6 +20,9 @@ export class PersonDetailComponent implements OnInit {
   Url = Url;
   DuckDuckGo = DuckDuckGo;
   faAtom = faAtom;
+  faChevronCircleLeft = faChevronCircleLeft;
+  faPlusSquare = faPlusSquare;
+  faMinusSquare = faMinusSquare;
 
   constructor(
     private personService: PersonService,

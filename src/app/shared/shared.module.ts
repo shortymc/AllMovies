@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { MetaComponent } from './components/meta/component/meta.component';
 import './rxjs-operators';
@@ -56,6 +57,7 @@ import { PersonSearchComponent } from './components/person-search/person-search.
     CommonModule,
     FormsModule,
     MatStepperModule,
+    FontAwesomeModule,
     NgbModule,
     TranslateModule.forChild(),
     MatTooltipModule,

@@ -3,6 +3,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
+import { faChevronCircleLeft, faSave, faImage } from '@fortawesome/free-solid-svg-icons';
 
 import { TitleService } from './../../../shared/shared.module';
 // import { AllocineService } from './../../../service/allocine.service';
@@ -20,6 +21,9 @@ export class MovieDetailComponent implements OnInit {
   isImagesVisible = false;
   Url = DuckDuckGo;
   id: number;
+  faChevronCircleLeft = faChevronCircleLeft;
+  faSave = faSave;
+  faImage = faImage;
 
   constructor(
     private movieService: MovieService,

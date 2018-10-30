@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { MyPaginator } from './component/my-paginator';
 import { SharedModule } from './../../shared/shared.module';
@@ -29,6 +30,7 @@ const childRoutes: Routes = [
     RouterModule.forChild(childRoutes),
     SharedModule.forChild(),
     TranslateModule.forChild(),
+    FontAwesomeModule,
     MatTableModule,
     LayoutModule,
     MatSortModule,

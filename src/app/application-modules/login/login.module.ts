@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Routes, RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { RegisterComponent } from './register/register.component';
@@ -36,6 +37,7 @@ const childRoutes: Routes = [
     MatInputModule,
     TranslateModule.forChild(),
     SharedModule.forChild(),
+    FontAwesomeModule,
     MatFormFieldModule,
     RouterModule.forChild(childRoutes),
   ],
