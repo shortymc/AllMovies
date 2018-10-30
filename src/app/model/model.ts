@@ -1,3 +1,7 @@
+export enum Direction {
+  Up = 'Up',
+  Down = 'Down'
+}
 
 export class DropDownChoice {
   label_key: string;

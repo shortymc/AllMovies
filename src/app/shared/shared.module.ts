@@ -18,6 +18,7 @@ import { MetaService } from './components/meta/service/meta.service';
 import { OmdbService } from './service/omdb.service';
 import { FilterCrewPipe } from './pipes/filterCrew.pipe';
 import { CapitalizeWordPipe } from './pipes/capitalizeWord.pipe';
+import { HeaderComponent } from './components/header/header.component';
 import { SubstractDatePipe } from './pipes/substractDate.pipe';
 import { ConvertToHHmmPipe } from './pipes/convertToHHmm.pipe';
 import { ModalComponent } from './components/modal/modal.component';
@@ -49,6 +50,7 @@ import { PersonSearchComponent } from './components/person-search/person-search.
     ModalComponent,
     MovieSearchComponent,
     PersonSearchComponent,
+    HeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -75,6 +77,7 @@ import { PersonSearchComponent } from './components/person-search/person-search.
     ModalComponent,
     MovieSearchComponent,
     PersonSearchComponent,
+    HeaderComponent,
   ]
 })
 
