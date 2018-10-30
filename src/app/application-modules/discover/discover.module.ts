@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NouisliderModule } from 'ng2-nouislider';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   MatListModule, MatIconModule, MatButtonToggleModule, MatSelectModule,
   MatFormFieldModule, MatPaginatorModule, MatPaginatorIntl, MatInputModule, MatAutocompleteModule, MatChipsModule, MatSlideToggleModule
@@ -28,6 +29,7 @@ const childRoutes: Routes = [
     SharedModule.forChild(),
     TranslateModule.forChild(),
     MatListModule,
+    FontAwesomeModule,
     MatIconModule,
     MatPaginatorModule,
     MatInputModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, SimpleChange, Output, EventEmitter, OnChanges } from '@angular/core';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-modal',
@@ -8,6 +9,7 @@ import { Component, OnInit, Input, SimpleChange, Output, EventEmitter, OnChanges
 export class ModalComponent implements OnInit, OnChanges {
   @Input() visible: boolean;
   @Output() update = new EventEmitter<boolean>();
+  faTimes = faTimes;
 
   constructor() { }
 

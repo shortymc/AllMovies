@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChange, OnChanges } from '@angular/core';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { SearchServiceService } from './../../../../shared/service/searchService.service';
 
@@ -19,6 +20,7 @@ export class SearchBoxComponent<T> implements OnInit, OnChanges {
   itemCtrl: FormControl;
   filteredItems: Observable<T[]>;
   list: T[] = [];
+  faRemove = faTimes;
 
   constructor() { }
 
