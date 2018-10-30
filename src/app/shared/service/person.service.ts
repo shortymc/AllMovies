@@ -17,14 +17,8 @@ export class PersonService {
   ) { }
 
   getPerson(id: number, language: string): Promise<Person> {
-    const url = UrlBuilder.personUrlBuilder(id, language, true);
-    const urlMovies = `${Url.PERSON_URL}/${id}/${Url.MOVIE_CREDITS_URL}?${Url.API_KEY}${Url.LANGUE}${language}`;
-    return Observable.forkJoin(
-      this.serviceUtils.getObservable(url),
-      this.serviceUtils.getObservable(urlMovies)
-    ).map(responses => {
-      return [].concat(...responses);
-    }).map(response => MapPerson.mapForPerson(response))
+    return this.serviceUtils.getObservable(UrlBuilder.personUrlBuilder(id, language, true, true))
+      .map(response => MapPerson.mapForPerson(response))
       .toPromise()
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
