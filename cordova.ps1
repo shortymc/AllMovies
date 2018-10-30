@@ -23,7 +23,7 @@ Copy-Item ($apkDir + "\" + $newName) -Destination $outputDir -force
 
 git checkout HEAD -- $dropbox
 
-if((Get-Item ($outputDir + "\" + $newName)).length -lt 5MB) {
+if((Get-Item ($outputDir + "\" + $newName)).length -lt 4MB) {
 	Write-Host "AN ERROR OCCURRED" -ForegroundColor Red
 } else {
 	Write-Host "APK SUCCESSFULLY GENERATED" -ForegroundColor Green
