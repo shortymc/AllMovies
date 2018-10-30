@@ -8,6 +8,9 @@
   <div class="contenu">
     <button class="btn btn-outline-primary" (click)="goBack()">
       <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> {{'global.previous' | translate}}</button>
+    <button class="btn btn-outline-primary" (click)="discover()">
+      <fa-icon [icon]="faAtom"></fa-icon> {{'title.discover' | translate}}
+    </button>
     <div>
       <label>{{'person.id' | translate}}:</label>{{person.id}}
     </div>
