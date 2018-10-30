@@ -1,0 +1,51 @@
+@import "../../../styles/styles";
+
+:host nav {
+  display: inline-flex;
+  flex-wrap: wrap;
+  width: 100vw;
+
+  & > * {
+    margin: 0 2px 0 2px;
+  }
+}
+
+.header {
+  position: fixed;
+  background-color: #fff;
+  z-index: 500;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.header-buttons {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.hidden {
+  opacity: 0;
+  transform: 'translateY(-100%)';
+}
+
+.visible {
+  opacity: 1;
+  transform: 'translateY(0)';
+}
+
+@include media(#{$smallscreen}) {
+  :host nav {
+    & > * {
+      margin: 0;
+    }
+  }
+
+  .dropdown-menu {
+    transform: translate3d(-162px, 0, 0);
+  }
+
+  .header-buttons {
+    padding: 10px 0 0 0;
+  }
+}
