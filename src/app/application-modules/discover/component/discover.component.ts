@@ -97,7 +97,8 @@ export class DiscoverComponent implements OnInit {
     });
     // Stored research
     const criteria = <DiscoverCriteria>Utils.parseJson(sessionStorage.getItem('criteria'));
-    if (criteria) {
+    if (criteria || sessionStorage.getItem('criteria') || sessionStorage.getItem('people') || 
+     sessionStorage.getItem('keyword')|| sessionStorage.getItem('genre')|| sessionStorage.getItem('certif')) {
       this.initFromCriteria(criteria);
       this.search(false);
     }
