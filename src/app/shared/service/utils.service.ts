@@ -26,9 +26,7 @@ export class UtilsService {
   }
 
   static encodeQueryUrl(query: string): string {
-    return encodeURIComponent(query).replace(/[!'()*]/g, function(c) {
-      return '%' + c.charCodeAt(0).toString(16);
-    });
+    return encodeURIComponent(query).replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16));
   }
 
   getHeaders() {
@@ -56,20 +54,20 @@ export class UtilsService {
     });
   }
 
-  getPromise(url: string, headers?: HttpHeaders): Promise<Object> {
-    return this.getObservable(url, headers).toPromise();
+  getPromise<T>(url: string, headers?: HttpHeaders): Promise<T> {
+    return this.getObservable<T>(url, headers).toPromise();
   }
 
-  getObservable(url: string, headers?: HttpHeaders): Observable<Object> {
-    return headers ? this.http.get(url, { headers: headers }) : this.http.get(url);
+  getObservable<T>(url: string, headers?: HttpHeaders): Observable<T> {
+    return headers ? this.http.get<T>(url, { headers: headers }) : this.http.get<T>(url);
   }
 
-  jsonpPromise(url: string, callback: any): Promise<Object> {
-    return this.jsonpObservable(url, callback).toPromise();
+  jsonpPromise<T>(url: string, callback: any): Promise<T> {
+    return this.jsonpObservable<T>(url, callback).toPromise();
   }
 
-  jsonpObservable(url: string, callback: any): Observable<Object> {
-    return this.http.jsonp(url, callback);
+  jsonpObservable<T>(url: string, callback: any): Observable<T> {
+    return this.http.jsonp<T>(url, callback);
   }
 
 }
