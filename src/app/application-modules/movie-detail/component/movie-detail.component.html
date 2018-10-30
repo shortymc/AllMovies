@@ -10,9 +10,10 @@
   </div>
   <div class="contenu">
     <button class="btn btn-outline-primary" (click)="goBack()">
-      <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> {{'global.previous' | translate}}</button>
+      <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'global.previous' | translate}}
+    </button>
     <button class="btn btn-outline-primary" appAddCollection [movies]="[movie]">
-      <span class="fa fa-save" aria-hidden="true"></span> {{'global.add_collection' | translate}}
+      <fa-icon [icon]="faSave"></fa-icon> {{'global.add_collection' | translate}}
     </button>
     <div>
       <label>{{'movie.id' | translate}}:</label>{{movie.id}}
@@ -29,7 +30,8 @@
         </span>
       </div>
       <div>
-        <label>{{'movie.date' | translate}}: </label>{{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}
+        <label>{{'movie.date' | translate}}: </label>{{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang |
+        capitalizeWord}}
       </div>
       <div *ngIf="movie.time > 0">
         <label>{{'movie.length' | translate}}: </label>{{movie.time | convertToHHmm}}
@@ -54,7 +56,7 @@
       </div>
       <!-- Images du film -->
       <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible">
-        <span class="fa fa-image" aria-hidden="true"></span>{{'global.show' | translate}} {{'movie.image' | translate}}
+        <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'movie.image' | translate}}
       </button>
       <app-list-persons [persons]="movie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
       <div *ngIf="movie.crew && movie.crew.length > 0">
@@ -93,10 +95,12 @@
         </div>
       </div>
       <div *ngIf="movie.budget > 0">
-        <label>{{'movie.budget' | translate}}: </label>{{movie.budget | currency:'USD':'':'1.0-0':translate.currentLang}}
+        <label>{{'movie.budget' | translate}}: </label>{{movie.budget |
+        currency:'USD':'':'1.0-0':translate.currentLang}}
       </div>
       <div *ngIf="movie.recette > 0">
-        <label>{{'movie.revenu' | translate}}: </label>{{movie.recette | currency:'USD':'':'1.0-0':translate.currentLang}}
+        <label>{{'movie.revenu' | translate}}: </label>{{movie.recette |
+        currency:'USD':'':'1.0-0':translate.currentLang}}
       </div>
       <div *ngIf="movie.note > 0">
         <label>{{'movie.rating' | translate}}: </label>{{movie.note}} / 10
@@ -107,7 +111,8 @@
         <label>{{'movie.video' | translate}}:</label>
         <ul class="videos">
           <li *ngFor="let video of movie.videos">
-            <a href="https://www.youtube.com/watch?v={{video.key}}" class="badge" target="_blank">{{video.name | capitalizeWord}}</a>
+            <a href="https://www.youtube.com/watch?v={{video.key}}" class="badge" target="_blank">{{video.name |
+              capitalizeWord}}</a>
           </li>
         </ul>
       </div>

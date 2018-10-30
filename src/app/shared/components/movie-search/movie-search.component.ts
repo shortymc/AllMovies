@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 import { Movie } from '../../../model/movie';
 import { MovieSearchService } from '../../service/movie-search.service';
@@ -22,6 +23,7 @@ export class MovieSearchComponent implements OnInit {
   showMovie = false;
   language: string;
   pseudo: string;
+  faSearch = faSearch;
 
   constructor(
     private movieSearchService: MovieSearchService,

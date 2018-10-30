@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImageViewerModule } from 'ngx-image-viewer';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { MovieDetailComponent } from './component/movie-detail.component';
 import { SharedModule } from '../../shared/shared.module';
@@ -20,6 +21,7 @@ const childRoutes: Routes = [
     CommonModule,
     FormsModule,
     SharedModule.forChild(),
+    FontAwesomeModule,
     RatingModule,
     ImageViewerModule.forRoot({
       btnClass: 'btn btn-outline-primary', // The CSS class(es) that will apply to the buttons

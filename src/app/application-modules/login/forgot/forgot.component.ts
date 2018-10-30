@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as crypto from 'crypto-js';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 import { ToastService, AuthService, TitleService, UtilsService } from './../../../shared/shared.module';
 
@@ -20,6 +21,7 @@ export class ForgotComponent implements OnInit {
   messagePassword: string;
   password1: string;
   password2: string;
+  faCheck = faCheck;
 
   constructor(
     private auth: AuthService,
