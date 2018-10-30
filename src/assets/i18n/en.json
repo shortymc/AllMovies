@@ -69,7 +69,8 @@
         "tv": "TV"
     },
     "dashboard": {
-        "header": "Top Movies"
+      "movies": "Popular movies",
+      "persons": "Trending people"
     },
     "movie": {
         "header": "Details of",

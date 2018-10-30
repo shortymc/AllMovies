@@ -7,11 +7,12 @@ export class Url {
 
   // API MovieDB request
   static readonly API_KEY = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
-  static readonly MOVIE_URl = 'https://api.themoviedb.org/3/movie';
-  static readonly PERSON_URL = 'https://api.themoviedb.org/3/person';
-  static readonly MOVIE_SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?';
-  static readonly PERSON_SEARCH_URL = 'https://api.themoviedb.org/3/search/person?';
-  static readonly KEYWORD_SEARCH_URL = 'https://api.themoviedb.org/3/search/keyword?';
+  static readonly MOVIE_DB_API_URL = 'https://api.themoviedb.org/3/';
+  static readonly MOVIE_URl = Url.MOVIE_DB_API_URL + 'movie';
+  static readonly PERSON_URL = Url.MOVIE_DB_API_URL + 'person';
+  static readonly MOVIE_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/movie?';
+  static readonly PERSON_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/person?';
+  static readonly KEYWORD_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/keyword?';
   static readonly MOVIE_CREDITS_URL = 'movie_credits';
   static readonly REGION = '&region=';
   static readonly LANGUE = '&language=';
@@ -28,7 +29,7 @@ export class Url {
   static readonly RELEASE_DATE_LTE_URL = '&release_date.lte=';
   static readonly RELEASE_TYPE_URL = '&with_release_type=3|2';
   static readonly DISCOVER_URL =
-    'https://api.themoviedb.org/3/discover/movie?' + Url.API_KEY;
+    Url.MOVIE_DB_API_URL + 'discover/movie?' + Url.API_KEY;
   static readonly MOST_POPULAR_URL = Url.DISCOVER_URL + '&sort_by=popularity.desc';
   static readonly SORT_BY_URL = '&sort_by=';
   static readonly PAGE_URL = '&page=';
@@ -48,8 +49,9 @@ export class Url {
   static readonly WITH_PEOPLE_URL = '&with_people=';
   static readonly WITHOUT_GENRES_URL = '&without_genres=';
   static readonly WITHOUT_KEYWORDS_URL = '&without_keywords=';
-  static readonly GET_ALL_GENRES_URL = 'https://api.themoviedb.org/3/genre/movie/list?';
-  static readonly GET_ALL_CERTIFICATIONS_URL = 'https://api.themoviedb.org/3/certification/movie/list?';
+  static readonly GET_ALL_GENRES_URL = Url.MOVIE_DB_API_URL + 'genre/movie/list?';
+  static readonly GET_ALL_CERTIFICATIONS_URL = Url.MOVIE_DB_API_URL + 'certification/movie/list?';
+  static readonly GET_POPULAR_PERSON = Url.MOVIE_DB_API_URL + 'person/popular?' + Url.API_KEY;
 
   // API OMDB_API
   static readonly OMDB_API_KEY = '&apikey=5dc08d05';
