@@ -11,7 +11,7 @@
     "test": "ng test",
     "lint": "run-p lint:**",
     "lint:ts": "ng lint",
-    "lint:stylelint": "stylelint --syntax scss 'src/**/*.scss'",
+    "lint:stylelint": "stylelint --syntax scss \"src/**/*.scss\" verbose",
     "analyze": "ng build --prod --stats-json && webpack-bundle-analyzer dist/stats.json",
     "e2e": "ng e2e"
   },
