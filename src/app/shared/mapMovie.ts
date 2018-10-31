@@ -87,7 +87,7 @@ export class MapMovie {
       movie.images = r.images.backdrops.map((i: any) => sanitizer.bypassSecurityTrustResourceUrl(Url.IMAGE_URL_ORIGINAL.concat(i.file_path)));
     }
     if (r.genres) {
-      movie.genres = r.genres.map(genre => genre.name);
+      movie.genres = r.genres;
     }
     movie.id = r.id;
     movie.title = r.title;

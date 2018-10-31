@@ -56,7 +56,7 @@
       <label>{{'movie.genres' | translate}}: </label>
       <div class="block">
         <span *ngFor="let genre of selectedMovie.genres; let last=last;">
-          <span>{{genre| capitalizeWord}}</span>
+          <span>{{genre.name| capitalizeWord}}</span>
           <span *ngIf="!last">/</span>
         </span>
       </div>
