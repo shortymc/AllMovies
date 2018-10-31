@@ -97,9 +97,12 @@ export class DiscoverComponent implements OnInit {
     });
     // Stored research
     const criteria = <DiscoverCriteria>Utils.parseJson(sessionStorage.getItem('criteria'));
-    if (criteria || sessionStorage.getItem('criteria') || sessionStorage.getItem('people') || 
-     sessionStorage.getItem('keyword')|| sessionStorage.getItem('genre')|| sessionStorage.getItem('certif')) {
-      this.initFromCriteria(criteria);
+    const people = <Person[]>Utils.parseJson(sessionStorage.getItem('people'));
+    const genres = <DropDownChoice[]>Utils.parseJson(sessionStorage.getItem('genre'));
+    const keyword = <Keyword[]>Utils.parseJson(sessionStorage.getItem('keyword'));
+    const certif = <DropDownChoice>Utils.parseJson(sessionStorage.getItem('certif'));
+    if (criteria || people || keyword || genres || certif) {
+      this.initFromCriteria(criteria, people, genres, keyword, certif);
       this.search(false);
     }
     this.getAllGenres(criteria ? criteria.genresId : []);
@@ -120,32 +123,27 @@ export class DiscoverComponent implements OnInit {
     });
   }
 
-  initFromCriteria(criteria: DiscoverCriteria) {
-    this.sortDir.value = criteria.sortDir;
-    if (criteria.sortField) {
+  initFromCriteria(criteria: DiscoverCriteria, people: Person[], genres: DropDownChoice[], keyword: Keyword[], certif: DropDownChoice) {
+    if (criteria) {
+      this.sortDir.value = criteria.sortDir;
       this.sortChosen = this.sortChoices.find(sort => sort.value === criteria.sortField);
+      this.page = new PageEvent();
+      this.page.pageIndex = criteria.page ? criteria.page - 1 : 0;
+      this.yearRange = [criteria.yearMin ? criteria.yearMin : this.minYear, criteria.yearMax ? criteria.yearMax : this.maxYear];
+      this.voteRange = [criteria.voteAvergeMin ? criteria.voteAvergeMin : this.minVote,
+      criteria.voteAvergeMax ? criteria.voteAvergeMax : this.maxVote];
+      this.runtimeRange = [criteria.runtimeMin ? criteria.runtimeMin : 0, criteria.runtimeMax ? criteria.runtimeMax : this.max];
+      this.voteCountMin = criteria.voteCountMin;
+      this.isWithoutGenre = criteria.genresWithout;
+      this.isWithoutKeyword = criteria.keywordsWithout;
+      if (criteria.releaseType) {
+        this.selectedReleaseType = this.allReleaseType.filter(type => criteria.releaseType.includes(type.value));
+      }
     }
-    this.page = new PageEvent();
-    this.page.pageIndex = criteria.page ? criteria.page - 1 : 0;
-    this.yearRange = [criteria.yearMin ? criteria.yearMin : this.minYear, criteria.yearMax ? criteria.yearMax : this.maxYear];
-    this.voteRange = [criteria.voteAvergeMin ? criteria.voteAvergeMin : this.minVote, criteria.voteAvergeMax ? criteria.voteAvergeMax : this.maxVote];
-    this.runtimeRange = [criteria.runtimeMin ? criteria.runtimeMin : 0, criteria.runtimeMax ? criteria.runtimeMax : this.max];
-    this.voteCountMin = criteria.voteCountMin;
-    this.isWithoutGenre = criteria.genresWithout;
-    this.isWithoutKeyword = criteria.keywordsWithout;
-    this.people = <Person[]>Utils.parseJson(sessionStorage.getItem('people'));
-    if (!this.people) {
-      this.people = [];
-    }
-    this.keyword = <Keyword[]>Utils.parseJson(sessionStorage.getItem('keyword'));
-    if (!this.keyword) {
-      this.keyword = [];
-    }
-    this.selectedGenres = <DropDownChoice[]>Utils.parseJson(sessionStorage.getItem('genre'));
-    this.selectedCertif = <DropDownChoice>Utils.parseJson(sessionStorage.getItem('certif'));
-    if (criteria.releaseType) {
-      this.selectedReleaseType = this.allReleaseType.filter(type => criteria.releaseType.includes(type.value));
-    }
+    this.people = people ? people : [];
+    this.keyword = keyword ? keyword : [];
+    this.selectedGenres = genres;
+    this.selectedCertif = certif;
   }
 
   clear() {
@@ -162,7 +160,7 @@ export class DiscoverComponent implements OnInit {
     crit.voteCountMin = 0;
     crit.genresWithout = false;
     crit.keywordsWithout = false;
-    this.initFromCriteria(crit);
+    this.initFromCriteria(crit, undefined, undefined, undefined, undefined);
     this.search(true);
     this.clean = true;
   }
