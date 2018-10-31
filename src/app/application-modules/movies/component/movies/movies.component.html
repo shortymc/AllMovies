@@ -137,7 +137,7 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let movie">
         <ng-container *ngFor="let genre of movie.genres; let last=last">
-          {{genre}}
+          {{genre.name}}
           <ng-container *ngIf="!last">/</ng-container>
         </ng-container>
       </mat-cell>
