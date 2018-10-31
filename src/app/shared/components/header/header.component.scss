@@ -12,8 +12,8 @@
 
 .header {
   position: fixed;
-  background-color: #fff;
   max-height: 150px;
+  background-color: #fff;
   overflow-y: auto;
 }
 
@@ -24,15 +24,15 @@
 }
 
 .hidden {
-  opacity: 0;
-  transform: 'translateY(-100%)';
   z-index: 0;
+  transform: translateY(-100%);
+  opacity: 0;
 }
 
 .visible {
-  opacity: 1;
-  transform: 'translateY(0)';
   z-index: 500;
+  transform: translateY(0);
+  opacity: 1;
 }
 
 @include media(#{$smallscreen}) {
