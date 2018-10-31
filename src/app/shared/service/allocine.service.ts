@@ -43,7 +43,9 @@ export class AllocineService {
     let response;
     const header = new HttpHeaders({ 'User-Agent': 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0; MSAppHost/1.0)' });
     try {
-      response = this.serviceUtils.getObservable(`https://api.allocine.fr/rest/v3/${resource}?code=${params.code}&format=${params.format}&sed=${params.sed}&partner=${params.partner}&profile=${params.profile}&sig=${sig}`,
+      response = this.serviceUtils.getObservable(
+        `https://api.allocine.fr/rest/v3/${resource}?code=${params.code}&format=
+        ${params.format}&sed=${params.sed}&partner=${params.partner}&profile=${params.profile}&sig=${sig}`,
         header // Send http request with a special user-agent to bypass restriction
         //  'callback'
       );
