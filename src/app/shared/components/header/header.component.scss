@@ -13,7 +13,6 @@
 .header {
   position: fixed;
   background-color: #fff;
-  z-index: 500;
   max-height: 150px;
   overflow-y: auto;
 }
@@ -27,11 +26,13 @@
 .hidden {
   opacity: 0;
   transform: 'translateY(-100%)';
+  z-index: 0;
 }
 
 .visible {
   opacity: 1;
   transform: 'translateY(0)';
+  z-index: 500;
 }
 
 @include media(#{$smallscreen}) {
