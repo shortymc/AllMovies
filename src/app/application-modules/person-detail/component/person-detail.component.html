@@ -1,4 +1,9 @@
 <div *ngIf="person">
+  <ng-container *ngIf="person.images">
+    <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
+      <app-image-viewer [images]="person.images"></app-image-viewer>
+    </app-modal>
+  </ng-container>
   <h2>{{'person.header' | translate}} {{person.name}}:</h2>
   <div>
     <a class="frame" href="{{person.profile}}" target="_blank">
@@ -33,27 +38,12 @@
         <label>{{'person.death' | translate}}: </label>{{person.deathday | date:'dd MMMM yyyy':'':translate.currentLang
         | capitalizeWord}}
       </div>
+      <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible" *ngIf="person.images">
+        <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'person.image' | translate}}
+      </button>
       <div *ngIf="person.biography">
         <label>{{'person.bio' | translate}}: </label>
         <div class="biography">{{person.biography}}</div>
-      </div>
-    </div>
-    <div *ngIf="person.images.length > 0">
-      <button type="button" class="btn btn-outline-primary" (click)="isImagesCollapsed = !isImagesCollapsed">
-        <fa-icon [icon]="faPlusSquare" [ngClass]="{'hide' : isImagesCollapsed}"></fa-icon>
-        <fa-icon [icon]="faMinusSquare" [ngClass]="{'hide' : !isImagesCollapsed}"></fa-icon>
-        {{'person.image' | translate}}:
-      </button>
-      <div *ngIf="isImagesCollapsed">
-        <div class="card">
-          <div class="card-body">
-            <div class="reco">
-              <a *ngFor="let ima of person.images;" class="frame" href="{{Url.IMAGE_URL_ORIGINAL.concat(ima)}}" target="_blank">
-                <img src="{{Url.IMAGE_URL_154.concat(ima)}}">
-              </a>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
     <app-meta [entry]="person" [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR]"></app-meta>

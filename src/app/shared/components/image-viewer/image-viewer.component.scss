@@ -3,7 +3,7 @@
 /* stylelint-disable selector-type-no-unknown */
 pinch-zoom {
   width: auto;
-  height: 100vh;
+  height: 100%;
 }
 
 .gallery-top {
@@ -11,6 +11,8 @@ pinch-zoom {
 }
 
 .gallery-thumbs {
+  height: 20% !important;
+
   & .swiper-slide {
     box-sizing: border-box;
     width: 25% !important;
@@ -22,7 +24,7 @@ pinch-zoom {
   & img {
     height: auto;
     width: auto;
-    max-width: 20vw;
+    max-height: 100%;
   }
 
   & .swiper-slide-active {
