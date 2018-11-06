@@ -15,6 +15,7 @@ import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { Utils } from './../../../../shared/utils';
 import { TitleService, AuthService, DropboxService, MovieService } from './../../../../shared/shared.module';
 import { Movie } from './../../../../model/movie';
+import { Genre } from '../../../../model/model';
 
 const init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'meta', 'language', 'genres', 'time', 'added', 'select'];
 
@@ -39,7 +40,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
   page: PageEvent;
   sort: Sort;
   nbChecked = 0;
-  genres: string[];
+  genres: Genre[];
   filteredGenres: MatSelectChange;
   language: string;
   faTrash = faTrash;
@@ -99,13 +100,13 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getAllGenres() {
-    const all = [];
+    const all: Genre[] = [];
     this.movies.forEach((movie: Movie) => {
       all.push(...movie.genres);
     });
     this.genres = [];
-    all.forEach((genre: string) => {
-      if (!this.genres.includes(genre)) {
+    all.forEach((genre: Genre) => {
+      if (!this.genres.map(g => g.id).includes(genre.id)) {
         this.genres.push(genre);
       }
     });
@@ -149,8 +150,8 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     let list = [];
     if (event.value.length > 0) {
       list = this.movies.filter((movie: Movie) => {
-        return event.value.every(genre => {
-          return movie.genres.includes(genre);
+        return event.value.every((genreId: number) => {
+          return movie.genres.map(genre => genre.id).includes(genreId);
         });
       });
     } else {
@@ -159,7 +160,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     list = Utils.sortMovie(Utils.filterByFields(list, this.displayedColumns, this.filter), this.sort);
     this.length = list.length;
     this.initPagination(list);
-    this.onTop();
+    // this.onTop();
   }
 
   updateSize() {
@@ -174,6 +175,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
         if ((movie.time === undefined && movie.time == null)
           || (movie.genres === undefined && movie.genres == null)
           || (movie.score === undefined && movie.score == null)
+          || (movie.genres.map(genre => genre.name).every(name => name === undefined || name == null))
           // || (movie.original_title === undefined || movie.original_title == null || movie.original_title === '')
         ) {
           incomplete.push(movie.id);
