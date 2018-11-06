@@ -22,22 +22,18 @@ export class ImageViewerComponent implements OnInit, AfterViewChecked {
     mousewheel: true,
     scrollbar: false,
     navigation: true,
-    pagination: false,
+    pagination: true,
     spaceBetween: 20,
     centeredSlides: true,
     zoom: false,
     allowTouchMove: false,
-    allowSlidePrev: true,
-    allowSlideNext: true
+    slideToClickedSlide: true,
   };
   thumbs: SwiperConfigInterface = {
     observer: true,
     slidesPerView: 4,
     centeredSlides: true,
     slideToClickedSlide: true,
-    freeMode: true,
-    watchSlidesVisibility: true,
-    watchSlidesProgress: true,
   };
   maxSize: number;
 
