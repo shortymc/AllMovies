@@ -6,6 +6,8 @@
       </pinch-zoom>
     </div>
   </swiper>
+  <button type="button" class="btn btn-outline-primary nav-btn prev" (click)="prev()">PREV</button>
+  <button type="button" class="btn btn-outline-primary nav-btn next" (click)="next()">NEXT</button>
 </div>
 <div class="gallery-top" class="gallery-thumbs">
   <swiper [config]="thumbs" [(index)]="indexThumb" #galleryThumbs>
