@@ -186,10 +186,8 @@ input[type='checkbox'] {
 }
 
 .dropdown-menu {
-  position: fixed !important;
-  top: auto !important;
+  top: 0 !important;
   left: auto !important;
-  margin-top: 5px !important;
 }
 
 @mixin full_width {
