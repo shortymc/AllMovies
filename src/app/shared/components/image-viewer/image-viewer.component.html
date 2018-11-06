@@ -7,8 +7,10 @@
     </div>
   </swiper>
 </div>
-<swiper [config]="thumbs" [(index)]="indexThumb" class="gallery-thumbs" #galleryThumbs>
-  <div *ngFor="let img2 of images">
-    <img src="{{img2}}">
-  </div>
-</swiper>
+<div class="gallery-top" class="gallery-thumbs">
+  <swiper [config]="thumbs" [(index)]="indexThumb" #galleryThumbs>
+    <div *ngFor="let img2 of images">
+      <img src="{{img2}}">
+    </div>
+  </swiper>
+</div>
