@@ -53,6 +53,20 @@ export class ImageViewerComponent implements OnInit, AfterViewChecked {
     this.maxSize = this.images.length;
   }
 
+  next() {
+    if (this.indexTop < this.maxSize) {
+      this.indexTop = this.indexTop + 1;
+      this.indexThumb = this.indexTop;
+    }
+  }
+
+  prev() {
+    if (this.indexTop > 0) {
+      this.indexTop = this.indexTop - 1;
+      this.indexThumb = this.indexTop;
+    }
+  }
+
   ngAfterViewChecked() {
     if (!this.nextBtn) {
       this.nextBtn = this.elem.nativeElement.querySelector('.gallery-top .swiper-button-next');

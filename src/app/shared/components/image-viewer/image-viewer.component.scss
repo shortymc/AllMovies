@@ -6,6 +6,20 @@ pinch-zoom {
   height: 100%;
 }
 
+.nav-btn {
+  position: absolute;
+  z-index: 9000;
+  top: 50%;
+  
+  &.next {
+    left: 90%;
+  }
+
+  &.prev {
+    left: 10%;
+  }
+}
+
 .gallery-top {
   height: 80% !important;
 }
