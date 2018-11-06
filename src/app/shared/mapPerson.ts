@@ -1,6 +1,7 @@
 import { MapMovie } from './mapMovie';
 import { Person } from './../model/person';
 import { Utils } from './utils';
+import { Url } from '../constant/url';
 
 export class MapPerson {
 
@@ -8,8 +9,9 @@ export class MapPerson {
     // console.log(resp);
     const credits = resp.credits;
     let img;
-    if (resp.images) {
-      img = resp.images.profiles.map((i: any) => i.file_path).filter((i: any) => i !== resp.profile_path);
+    if (resp.images && resp.images.profiles.length > 0) {
+      img = resp.images.profiles.map((i: any) => i.file_path).filter((i: any) => i !== resp.profile_path)
+        .map(path => Url.IMAGE_URL_ORIGINAL.concat(path));
     }
 
     if (credits) {

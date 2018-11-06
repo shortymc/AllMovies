@@ -1,6 +1,5 @@
 import { SwiperConfigInterface, SwiperComponent } from 'ngx-swiper-wrapper';
 import { Component, OnInit, ViewChild, ElementRef, Input, AfterViewChecked } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'app-image-viewer',
