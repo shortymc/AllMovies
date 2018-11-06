@@ -66,7 +66,7 @@ export class MapMovie {
     }));
   }
 
-  static mapForMovie(r: any, sanitizer): Movie {
+  static mapForMovie(r: any): Movie {
     console.log(r);
     const movie = new Movie();
     let cast;
@@ -84,7 +84,7 @@ export class MapMovie {
       movie.recommendations = Utils.recommendationsToMovies(r.recommendations.results);
     }
     if (r.images && r.images.backdrops.length > 0) {
-      movie.images = r.images.backdrops.map((i: any) => sanitizer.bypassSecurityTrustResourceUrl(Url.IMAGE_URL_ORIGINAL.concat(i.file_path)));
+      movie.images = r.images.backdrops.map((i: any) => Url.IMAGE_URL_ORIGINAL.concat(i.file_path));
     }
     if (r.genres) {
       movie.genres = r.genres;
@@ -105,6 +105,7 @@ export class MapMovie {
     movie.imdb_id = r.imdb_id;
     movie.checked = false;
     movie.production_countries = r.production_countries;
+    console.log('movie', movie);
     return movie;
   }
 

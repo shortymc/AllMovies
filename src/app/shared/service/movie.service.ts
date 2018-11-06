@@ -1,4 +1,3 @@
-import { DomSanitizer } from '@angular/platform-browser/';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 
@@ -19,7 +18,6 @@ export class MovieService {
     private serviceUtils: UtilsService,
     private omdb: OmdbService,
     private toast: ToastService,
-    public sanitizer: DomSanitizer
   ) { }
 
   getPopularMovies(language: string): Promise<Movie[]> {
@@ -36,7 +34,7 @@ export class MovieService {
   getMovie(id: number, video: boolean, credit: boolean, reco: boolean, image: boolean, language: string): Observable<Movie> {
     return this.serviceUtils.getObservable(UrlBuilder.movieUrlBuilder(id, video, credit, reco, image, language))
       .map(response => {
-        const movie = MapMovie.mapForMovie(response, this.sanitizer);
+        const movie = MapMovie.mapForMovie(response);
         movie.lang_version = language;
         return movie;
       }).flatMap((movie: Movie) => {
