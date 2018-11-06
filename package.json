@@ -47,13 +47,14 @@
     "moment-mini-ts": "^2.20.1",
     "ng-bootstrap": "^1.6.3",
     "ng2-nouislider": "^1.7.7",
-    "ngx-image-viewer": "^1.0.9",
+    "ngx-pinch-zoom": "^1.2.0",
     "ngx-rating": "0.0.9",
+    "ngx-swiper-wrapper": "^7.0.0",
     "nouislider": "^11.1.0",
     "popper": "^1.0.1",
     "popper.js": "^1.12.9",
     "rxjs": "^5.5.6",
-    "yarn": "^1.5.1",
+    "yarn": "^1.12.1",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
