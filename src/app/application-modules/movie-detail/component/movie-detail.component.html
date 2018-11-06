@@ -1,20 +1,7 @@
 <div *ngIf="(movie$ | async) as movie">
   <ng-container *ngIf="movie.images">
     <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
-      <div class="gallery-top" (load)="onSwiperLoad()">
-        <swiper [config]="config" [(index)]="indexTop" #galleryTop>
-          <div *ngFor="let img of movie.images">
-            <pinch-zoom>
-              <img src="{{img}}">
-            </pinch-zoom>
-          </div>
-        </swiper>
-      </div>
-      <swiper [config]="thumbs" [(index)]="indexThumb" class="gallery-thumbs" #galleryThumbs>
-        <div *ngFor="let img2 of movie.images">
-          <img src="{{img2}}">
-        </div>
-      </swiper>
+      <app-image-viewer [images]="movie.images"></app-image-viewer>
     </app-modal>
   </ng-container>
   <h2>{{'movie.header' | translate}} {{movie.title}}:</h2>
@@ -70,7 +57,7 @@
         <div class="synopsis">{{movie.synopsis}}</div>
       </div>
       <!-- Images du film -->
-      <button type="button" class="btn btn-outline-primary" (click)="openImage()" *ngIf="movie.images">
+      <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible" *ngIf="movie.images">
         <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'movie.image' | translate}}
       </button>
       <app-list-persons [persons]="movie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
