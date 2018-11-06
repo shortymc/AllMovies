@@ -14,7 +14,7 @@
     <!-- Genres Filter -->
     <mat-form-field>
       <mat-select #select placeholder="{{'movies.filter.genres' | translate}}" multiple (selectionChange)="paginator.firstPage(); filteredGenres = $event; onFilterGenres($event)">
-        <mat-option *ngFor="let genre of genres" [value]="genre">{{genre}}</mat-option>
+        <mat-option *ngFor="let genre of genres" [value]="genre.id">{{genre.name}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
