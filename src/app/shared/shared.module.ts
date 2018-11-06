@@ -7,6 +7,11 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  SwiperModule,
+  SWIPER_CONFIG
+} from 'ngx-swiper-wrapper';
+import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 import { MetaComponent } from './components/meta/component/meta.component';
 import './rxjs-operators';
@@ -14,6 +19,7 @@ import { ListPersonsComponent } from './components/list-persons/list-persons.com
 import { ListMoviesComponent } from './components/list-movies/list-movies.component';
 import { UtilsService } from './service/utils.service';
 import { AddCollectionDirective } from './directives/add-collection.directive';
+import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 import { DropdownLanguageComponent } from './components/dropdown-language/dropdown-language.component';
 import { MetaService } from './components/meta/service/meta.service';
 import { OmdbService } from './service/omdb.service';
@@ -52,12 +58,15 @@ import { PersonSearchComponent } from './components/person-search/person-search.
     MovieSearchComponent,
     PersonSearchComponent,
     HeaderComponent,
+    ImageViewerComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     MatStepperModule,
     FontAwesomeModule,
+    SwiperModule,
+    PinchZoomModule,
     NgbModule,
     TranslateModule.forChild(),
     MatTooltipModule,
@@ -79,6 +88,7 @@ import { PersonSearchComponent } from './components/person-search/person-search.
     ModalComponent,
     MovieSearchComponent,
     PersonSearchComponent,
+    ImageViewerComponent,
     HeaderComponent,
   ]
 })
@@ -104,7 +114,11 @@ export class SharedModule {
         MovieSearchService,
         CertificationService,
         KeywordSearchService,
-        ToastService
+        ToastService,
+        {
+          provide: SWIPER_CONFIG,
+          useValue: {}
+        }
       ]
     };
   }
