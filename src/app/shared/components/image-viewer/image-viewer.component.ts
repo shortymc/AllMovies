@@ -1,13 +1,14 @@
 import { SwiperConfigInterface, SwiperComponent } from 'ngx-swiper-wrapper';
-import { Component, OnInit, ViewChild, ElementRef, Input, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { faExpand } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-image-viewer',
   templateUrl: './image-viewer.component.html',
   styleUrls: ['./image-viewer.component.scss']
 })
-export class ImageViewerComponent implements OnInit, AfterViewChecked {
-  @Input() images: string[];
+export class ImageViewerComponent implements OnInit {
+  @Input() images: string[] | string;
   @ViewChild('galleryThumbs') swiperThumb: SwiperComponent;
   @ViewChild('galleryTop') swiperTop: SwiperComponent;
   indexThumb: number;
@@ -21,13 +22,13 @@ export class ImageViewerComponent implements OnInit, AfterViewChecked {
     keyboard: true,
     mousewheel: true,
     scrollbar: false,
-    navigation: true,
+    navigation: false,
     pagination: true,
     spaceBetween: 20,
     centeredSlides: true,
     zoom: false,
-    allowTouchMove: false,
     slideToClickedSlide: true,
+    touchEventsTarget: 'wrapper',
   };
   thumbs: SwiperConfigInterface = {
     observer: true,
@@ -35,26 +36,31 @@ export class ImageViewerComponent implements OnInit, AfterViewChecked {
     centeredSlides: true,
     slideToClickedSlide: true,
   };
-  maxSize: number;
+  isOnePicture: boolean;
+  faExpand = faExpand;
+  isFullscreen = false;
+  fullScreenImg: string;
 
   constructor(
     private elem: ElementRef
   ) { }
 
   ngOnInit() {
+    this.isOnePicture = typeof this.images === 'string';
     this.indexThumb = 0;
     this.indexTop = 0;
-    this.swiperTop.indexChange.subscribe(index => {
-      this.indexThumb = index;
-    });
-    this.swiperThumb.indexChange.subscribe(index => {
-      this.indexTop = index;
-    });
-    this.maxSize = this.images.length;
+    if (!this.isOnePicture) {
+      this.swiperTop.indexChange.subscribe(index => {
+        this.indexThumb = index;
+      });
+      this.swiperThumb.indexChange.subscribe(index => {
+        this.indexTop = index;
+      });
+    }
   }
 
   next() {
-    if (this.indexTop < this.maxSize) {
+    if (this.indexTop < this.images.length) {
       this.indexTop = this.indexTop + 1;
       this.indexThumb = this.indexTop;
     }
@@ -67,29 +73,9 @@ export class ImageViewerComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  ngAfterViewChecked() {
-    if (!this.nextBtn) {
-      this.nextBtn = this.elem.nativeElement.querySelector('.gallery-top .swiper-button-next');
-      if (this.nextBtn) {
-        this.nextBtn.addEventListener('click', () => {
-          if (this.indexTop < this.maxSize) {
-            this.indexTop = this.indexTop + 1;
-            this.indexThumb = this.indexTop;
-          }
-        });
-      }
-    }
-    if (!this.prevBtn) {
-      this.prevBtn = this.elem.nativeElement.querySelector('.gallery-top .swiper-button-prev');
-      if (this.prevBtn) {
-        this.prevBtn.addEventListener('click', () => {
-          if (this.indexTop > 0) {
-            this.indexTop = this.indexTop - 1;
-            this.indexThumb = this.indexTop;
-          }
-        });
-      }
-    }
+  fullscreen(img: string) {
+    this.isFullscreen = true;
+    this.fullScreenImg = img;
   }
 
 }
