@@ -76,9 +76,7 @@
   <h3 mat-subheader>{{'discover.result'|translate}}:</h3>
   <mat-list-item *ngFor="let movie of discover.movies" (dblclick)="gotoDetail(movie.id, $event)" (mousedown)="movie.checked = !movie.checked; updateSize();gotoDetail(movie.id, $event)"
     [ngClass]="{'selected':movie.checked, 'adult': movie.adult}">
-    <a class="frame" href="{{movie.affiche}}" target="_blank">
-      <img src="{{movie.thumbnail}}">
-    </a>
+    <app-image-viewer [images]="movie.affiche" [visible]="true"></app-image-viewer>
     <p matLine>{{movie.title}}</p>
     <p matLine>{{movie.original_title}}</p>
     <p matLine>{{movie.language | uppercase}}</p>

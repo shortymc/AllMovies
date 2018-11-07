@@ -9,6 +9,11 @@
   }
 }
 
+.poster {
+  height: 230px;
+  width: 150px;
+}
+
 @include media(#{$smallscreen}) {
   :host,
   .list-group,

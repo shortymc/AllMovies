@@ -50,7 +50,8 @@ export class ImageViewerComponent implements OnChanges, AfterViewChecked {
   ) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.visible = changes['visible'] ? changes['visible'].currentValue : false;
+    this.visible = changes['visible'] ? changes['visible'].currentValue : this.visible;
+    this.images = changes['images'] ? changes['images'].currentValue : this.images;
     if (this.visible) {
       this.isOnePicture = typeof this.images === 'string';
       this.indexThumb = 0;
