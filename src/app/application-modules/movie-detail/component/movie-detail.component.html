@@ -6,9 +6,7 @@
   </ng-container>
   <h2>{{'movie.header' | translate}} {{movie.title}}:</h2>
   <div>
-    <a class="frame" href="{{movie.affiche}}" target="_blank">
-      <img src="{{movie.thumbnail}}">
-    </a>
+    <app-image-viewer [images]="movie.affiche"></app-image-viewer>
   </div>
   <div class="contenu">
     <button class="btn btn-outline-primary" (click)="goBack()">
