@@ -1,12 +1,10 @@
 <div *ngIf="(movie$ | async) as movie">
-  <ng-container *ngIf="movie.images">
-    <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
-      <app-image-viewer [images]="movie.images"></app-image-viewer>
-    </app-modal>
-  </ng-container>
+  <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
+    <app-image-viewer [images]="movie.images" [visible]="isImagesVisible"></app-image-viewer>
+  </app-modal>
   <h2>{{'movie.header' | translate}} {{movie.title}}:</h2>
   <div>
-    <app-image-viewer [images]="movie.affiche"></app-image-viewer>
+    <app-image-viewer [images]="movie.affiche" [visible]="true"></app-image-viewer>
   </div>
   <div class="contenu">
     <button class="btn btn-outline-primary" (click)="goBack()">

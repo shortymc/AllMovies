@@ -1,36 +1,38 @@
-<!-- Modal for fullscreen -->
-<app-modal [visible]="isFullscreen" (update)="isFullscreen = $event" [closeBtn]="closeBtn">
-  <pinch-zoom>
-    <img src="{{fullScreenImg}}" class="fullscreen">
-  </pinch-zoom>
-</app-modal>
-<!-- Swiper for gallery of images -->
-<ng-container *ngIf="!isOnePicture">
-  <div class="gallery-top">
-    <swiper [config]="config" [(index)]="indexTop" #galleryTop>
-      <div *ngFor="let img of images">
-        <pinch-zoom [zoom-button]="false">
-          <img src="{{img}}">
-        </pinch-zoom>
-      </div>
-    </swiper>
-    <span (click)="fullscreen()" class="expand">
-      <fa-icon [icon]="faExpand"></fa-icon>
-    </span>
-    <div class="swiper-button-prev" (click)="prev()"></div>
-    <div class="swiper-button-next" (click)="next()"></div>
-  </div>
-  <div class="gallery-top" class="gallery-thumbs">
-    <swiper [config]="thumbs" [(index)]="indexThumb" #galleryThumbs>
-      <div *ngFor="let img2 of images">
-        <img src="{{img2}}">
-      </div>
-    </swiper>
-  </div>
-</ng-container>
-<!-- One picture display -->
-<ng-container *ngIf="isOnePicture">
-  <pinch-zoom [zoom-button]="false" class="frame-viewer pointer">
-    <img src="{{images}}" (click)="fullscreen(images)">
-  </pinch-zoom>
+<ng-container *ngIf="visible">
+  <!-- Modal for fullscreen -->
+  <app-modal [visible]="isFullscreen" (update)="isFullscreen = $event" [closeBtn]="closeBtn">
+    <pinch-zoom>
+      <img src="{{fullScreenImg}}" class="fullscreen">
+    </pinch-zoom>
+  </app-modal>
+  <!-- Swiper for gallery of images -->
+  <ng-container *ngIf="!isOnePicture">
+    <div class="gallery-top">
+      <swiper [config]="config" [(index)]="indexTop" #galleryTop>
+        <div *ngFor="let img of images">
+          <pinch-zoom [zoom-button]="false">
+            <img src="{{img}}">
+          </pinch-zoom>
+        </div>
+      </swiper>
+      <span (click)="fullscreen()" class="expand">
+        <fa-icon [icon]="faExpand"></fa-icon>
+      </span>
+      <div class="swiper-button-prev" (click)="prev()"></div>
+      <div class="swiper-button-next" (click)="next()"></div>
+    </div>
+    <div class="gallery-top" class="gallery-thumbs">
+      <swiper [config]="thumbs" [(index)]="indexThumb" #galleryThumbs>
+        <div *ngFor="let img2 of images">
+          <img src="{{img2}}">
+        </div>
+      </swiper>
+    </div>
+  </ng-container>
+  <!-- One picture display -->
+  <ng-container *ngIf="isOnePicture">
+    <pinch-zoom [zoom-button]="false" class="frame-viewer pointer">
+      <img src="{{images}}" (click)="fullscreen(images)">
+    </pinch-zoom>
+  </ng-container>
 </ng-container>
