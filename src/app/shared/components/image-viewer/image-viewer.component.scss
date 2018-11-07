@@ -10,14 +10,18 @@ pinch-zoom {
   position: absolute;
   top: 80px;
   right: 28px;
+  z-index: 1;
   padding: 0.4em 0.7em;
   font-size: 22px;
   border-radius: 60px;
+  color: $blue;
+  background-color: $blue_hover;
   box-shadow: 0 0 4px $blue;
   animation: fade 0.6s both $bezier;
 
   &:hover {
     cursor: pointer;
+    opacity: 0.5;
   }
 }
 
