@@ -1,6 +1,6 @@
 import { SwiperConfigInterface, SwiperComponent } from 'ngx-swiper-wrapper';
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { faExpand } from '@fortawesome/free-solid-svg-icons';
+import { faExpand, IconDefinition, faCompress } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-image-viewer',
@@ -40,6 +40,7 @@ export class ImageViewerComponent implements OnInit {
   faExpand = faExpand;
   isFullscreen = false;
   fullScreenImg: string;
+  closeBtn: IconDefinition;
 
   constructor(
     private elem: ElementRef
@@ -50,6 +51,7 @@ export class ImageViewerComponent implements OnInit {
     this.indexThumb = 0;
     this.indexTop = 0;
     if (!this.isOnePicture) {
+      this.closeBtn = faCompress;
       this.swiperTop.indexChange.subscribe(index => {
         this.indexThumb = index;
       });
