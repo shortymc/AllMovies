@@ -1,16 +1,20 @@
 <!-- Date Picker -->
 <div class="column">
-  <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="getMoviesByReleaseDates(); selectedMovie = null;" [routerLink]="['/release']"
-    [queryParams]="{ date: parseDate()}"></ngb-datepicker>
-  <button class="btn btn-outline-primary" (click)="dp.navigateTo(removeOneWeek())" [routerLink]="['/release']" [queryParams]="{ date: addDays(-7)}">{{'release.date.previous' | translate}}</button>
-  <button class="btn btn-outline-primary" (click)="dp.navigateTo(selectPreviousWednesday())" [routerLink]="['/release']">{{'release.date.current' | translate}}</button>
-  <button class="btn btn-outline-primary" (click)="dp.navigateTo(addOneWeek())" [routerLink]="['/release']" [queryParams]="{ date: addDays(7)}">{{'release.date.next' | translate}}</button>
+  <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="getMoviesByReleaseDates(); selectedMovie = null;"
+    [routerLink]="['/release']" [queryParams]="{ date: parseDate()}"></ngb-datepicker>
+  <button class="btn btn-outline-primary" (click)="dp.navigateTo(removeOneWeek())" [routerLink]="['/release']"
+    [queryParams]="{ date: addDays(-7)}">{{'release.date.previous' | translate}}</button>
+  <button class="btn btn-outline-primary" (click)="dp.navigateTo(selectPreviousWednesday())" [routerLink]="['/release']">{{'release.date.current'
+    | translate}}</button>
+  <button class="btn btn-outline-primary" (click)="dp.navigateTo(addOneWeek())" [routerLink]="['/release']"
+    [queryParams]="{ date: addDays(7)}">{{'release.date.next' | translate}}</button>
 </div>
 <!-- Movie list -->
 <div>
   {{'release.header' | translate:{begin:monday | date : "dd/MM/yyyy", end:sunday | date : "dd/MM/yyyy"} }}:
   <div class="list-group">
-    <a *ngFor="let movie of movies" (click)="onSelect(movie)" class="list-group-item list-group-item-action pointer" [class.active]="selectedMovie !==null && movie.id === selectedMovie.id">
+    <a *ngFor="let movie of movies" (click)="onSelect(movie)" class="list-group-item list-group-item-action pointer"
+      [class.active]="selectedMovie !==null && movie.id === selectedMovie.id">
       <span *ngIf="movie.language">{{movie.language | uppercase}} - </span>
       <span class="font-weight-bold" [ngClass]="{'text-info': isInfo(movie), 'text-success': isSuccess(movie), 'text-danger': isDanger(movie)}">
         {{movie.title.slice(0,40) | capitalizeWord}}</span>
@@ -23,9 +27,7 @@
 <!-- Selected Movie -->
 <div *ngIf="selectedMovie">
   <div>
-    <a class="frame" href="{{selectedMovie.affiche}}" target="_blank">
-      <img src="{{selectedMovie.thumbnail}}" />
-    </a>
+    <app-image-viewer class="poster" [images]="selectedMovie.affiche" [visible]="true"></app-image-viewer>
   </div>
   <div>
     <h2>
@@ -33,13 +35,14 @@
         <span class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" matTooltip="{{country.name}}"></span>
       </span>{{selectedMovie.title | capitalizeWord}}</h2>
     <button class="btn btn-outline-primary" appAddCollection [movies]="[selectedMovie]">
-        <fa-icon [icon]="faSave"></fa-icon> {{'global.add_collection' | translate}}
+      <fa-icon [icon]="faSave"></fa-icon> {{'global.add_collection' | translate}}
     </button>
     <a class="btn btn-outline-primary" [routerLink]="['/movie', selectedMovie.id]"> {{'global.go_detail' | translate}}
       <fa-icon [icon]="faChevronCircleRight"></fa-icon>
     </a>
     <div>
-      <label>{{'movie.date' | translate}}: </label>{{selectedMovie.date | date:'EEEE dd MMMM yyyy':'':language | capitalizeWord}}
+      <label>{{'movie.date' | translate}}: </label>{{selectedMovie.date | date:'EEEE dd MMMM yyyy':'':language |
+      capitalizeWord}}
     </div>
     <div *ngIf="selectedMovie.synopsis">
       <label>{{'movie.synopsis' | translate}}: </label>

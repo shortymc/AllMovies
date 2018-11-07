@@ -55,13 +55,13 @@
   background-color: $light_gray;
 }
 
-a {
+app-image-viewer {
   position: absolute !important;
   float: left !important;
   margin: 0 !important;
 
-  & img {
-    height: 54px;
+  & ::ng-deep .frame-viewer {/* stylelint-disable-line */
+    height: 54px !important;
   }
 }
 
