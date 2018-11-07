@@ -12,11 +12,11 @@
         <pinch-zoom [zoom-button]="false">
           <img src="{{img}}">
         </pinch-zoom>
-        <span (click)="fullscreen(img)" class="expand">
-          <fa-icon [icon]="faExpand"></fa-icon>
-        </span>
       </div>
     </swiper>
+    <span (click)="fullscreen()" class="expand">
+      <fa-icon [icon]="faExpand"></fa-icon>
+    </span>
     <div class="swiper-button-prev" (click)="prev()"></div>
     <div class="swiper-button-next" (click)="next()"></div>
   </div>
