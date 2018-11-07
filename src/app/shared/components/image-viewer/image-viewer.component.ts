@@ -1,5 +1,5 @@
 import { SwiperConfigInterface, SwiperComponent } from 'ngx-swiper-wrapper';
-import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, Input, OnChanges, SimpleChanges, AfterViewChecked } from '@angular/core';
 import { faExpand, IconDefinition, faCompress } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -7,7 +7,8 @@ import { faExpand, IconDefinition, faCompress } from '@fortawesome/free-solid-sv
   templateUrl: './image-viewer.component.html',
   styleUrls: ['./image-viewer.component.scss']
 })
-export class ImageViewerComponent implements OnInit, AfterViewInit {
+export class ImageViewerComponent implements OnChanges, AfterViewChecked {
+  @Input() visible: boolean;
   @Input() images: string[] | string;
   @ViewChild('galleryThumbs') swiperThumb: SwiperComponent;
   @ViewChild('galleryTop') swiperTop: SwiperComponent;
@@ -23,7 +24,10 @@ export class ImageViewerComponent implements OnInit, AfterViewInit {
     mousewheel: true,
     scrollbar: false,
     navigation: false,
-    pagination: true,
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'custom'
+    },
     spaceBetween: 30,
     centeredSlides: true,
     zoom: false,
@@ -45,17 +49,20 @@ export class ImageViewerComponent implements OnInit, AfterViewInit {
   constructor(
   ) { }
 
-  ngOnInit() {
-    this.isOnePicture = typeof this.images === 'string';
-    this.indexThumb = 0;
-    this.indexTop = 0;
-    if (!this.isOnePicture) {
-      this.closeBtn = faCompress;
+  ngOnChanges(changes: SimpleChanges) {
+    this.visible = changes['visible'] ? changes['visible'].currentValue : false;
+    if (this.visible) {
+      this.isOnePicture = typeof this.images === 'string';
+      this.indexThumb = 0;
+      this.indexTop = 0;
+      if (!this.isOnePicture) {
+        this.closeBtn = faCompress;
+      }
     }
   }
 
-  ngAfterViewInit() {
-    if (!this.isOnePicture) {
+  ngAfterViewChecked() {
+    if (!this.isOnePicture && this.visible !== undefined && this.visible) {
       this.swiperTop.indexChange.subscribe(index => {
         this.indexThumb = index;
       });
