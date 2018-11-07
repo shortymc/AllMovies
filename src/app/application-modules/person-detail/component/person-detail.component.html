@@ -5,10 +5,8 @@
     </app-modal>
   </ng-container>
   <h2>{{'person.header' | translate}} {{person.name}}:</h2>
-  <div>
-    <a class="frame" href="{{person.profile}}" target="_blank">
-      <img src="{{person.thumbnail}}">
-    </a>
+  <div class="frame-viewer">
+    <app-image-viewer [images]="person.profile"></app-image-viewer>
   </div>
   <div class="contenu">
     <button class="btn btn-outline-primary" (click)="goBack()">

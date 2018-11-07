@@ -6,17 +6,49 @@ pinch-zoom {
   height: 100%;
 }
 
-.nav-btn {
+.expandSwiper {
   position: absolute;
-  z-index: 9000;
-  top: 50%;
-  
-  &.next {
-    left: 90%;
-  }
+  bottom: 30px;
+  right: 30px;
+  padding: 0.4em 0.6em;
+  font-size: 26px;
+  border-radius: 60px;
+  box-shadow: 0 0 4px $blue;
+  animation: fade 0.6s both $bezier;
 
-  &.prev {
-    left: 10%;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.expand {
+  position: relative;
+  top: 15px;
+  left: calc(100% - 55px);
+  padding: 0.4em 0.6em;
+  font-size: 26px;
+  border-radius: 60px;
+  box-shadow: 0 0 4px $black;
+  animation: fade 0.6s both $bezier;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.fullscreen {
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  & img {
+    display: block;
+    height: auto;
+    width: auto;
+    max-height: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
