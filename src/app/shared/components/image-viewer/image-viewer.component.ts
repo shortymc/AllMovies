@@ -1,5 +1,5 @@
 import { SwiperConfigInterface, SwiperComponent } from 'ngx-swiper-wrapper';
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { faExpand, IconDefinition, faCompress } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -43,7 +43,6 @@ export class ImageViewerComponent implements OnInit {
   closeBtn: IconDefinition;
 
   constructor(
-    private elem: ElementRef
   ) { }
 
   ngOnInit() {
