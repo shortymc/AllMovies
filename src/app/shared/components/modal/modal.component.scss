@@ -26,8 +26,8 @@
   animation: fade 0.6s both $bezier;
 
   &:hover {
+    background-color: lighten($blue_hover, 25%);
     cursor: pointer;
-    opacity: 0.5;
   }
 }
 
