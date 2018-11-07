@@ -67,7 +67,6 @@ pinch-zoom {
 
   & .swiper-slide {
     box-sizing: border-box;
-    width: 25% !important;
     padding: 10px 0;
     overflow: hidden !important;
     opacity: 0.4;
@@ -75,9 +74,8 @@ pinch-zoom {
 
   & img {
     display: block;
-    height: auto;
-    width: auto;
     max-height: 100%;
+    max-width: 100%;
     margin-left: auto;
     margin-right: auto;
   }
