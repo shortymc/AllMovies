@@ -1,20 +1,22 @@
 <div id="search-component">
   <div class="form-check form-check-inline">
     <div class="search-box">
-        <fa-icon [icon]="faSearch"></fa-icon>
-      <input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="{{'movie-search.placeholder'|translate}}" (click)="showMovie = true"
-      />
+      <fa-icon [icon]="faSearch"></fa-icon>
+      <input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="{{'movie-search.placeholder'|translate}}"
+        (click)="showMovie = true" />
       <a class="icon pointer" (click)="showMovie = !showMovie; searchBox.value=''">
         <img src="./assets/exit.png" />
       </a>
     </div>
   </div>
   <div id="res" *ngIf="showMovie">
-    <div *ngFor="let movie of movies | async" (click)="searchBox.value='';gotoDetail(movie)" class="search-result" [ngClass]="{'adult': movie.adult}">
+    <div *ngFor="let movie of movies | async" (click)="searchBox.value='';gotoDetail(movie)" class="search-result"
+      [ngClass]="{'adult': movie.adult}">
       <div class="media">
         <img class="mr-2" *ngIf="movie.thumbnail" src="{{movie.thumbnail}}" style="width: 5%;">
         <div class="media-body">
-          <div class="mt-0" [ngClass]="{'item-result' : !movie.original_title}">{{movie.title | capitalizeWord}} ({{movie.date | date : "yyyy"}})</div>
+          <div class="mt-0" [ngClass]="{'item-result' : !movie.original_title}">{{movie.title | capitalizeWord}}
+            ({{movie.date | date : "yyyy"}})</div>
           <div *ngIf="movie.original_title" class="small">{{movie.original_title}}</div>
         </div>
       </div>
