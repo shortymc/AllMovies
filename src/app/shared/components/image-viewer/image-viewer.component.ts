@@ -24,7 +24,7 @@ export class ImageViewerComponent implements OnInit {
     scrollbar: false,
     navigation: false,
     pagination: true,
-    spaceBetween: 20,
+    spaceBetween: 30,
     centeredSlides: true,
     zoom: false,
     slideToClickedSlide: true,
@@ -75,9 +75,9 @@ export class ImageViewerComponent implements OnInit {
     }
   }
 
-  fullscreen(img: string) {
+  fullscreen() {
     this.isFullscreen = true;
-    this.fullScreenImg = img;
+    this.fullScreenImg = this.isOnePicture ? <string>this.images : this.images[this.indexTop];
   }
 
 }
