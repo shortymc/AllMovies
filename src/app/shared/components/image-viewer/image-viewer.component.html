@@ -21,7 +21,7 @@
       <div class="swiper-button-prev" (click)="prev()"></div>
       <div class="swiper-button-next" (click)="next()"></div>
     </div>
-    <div class="gallery-top" class="gallery-thumbs">
+    <div class="gallery-thumbs">
       <swiper [config]="thumbs" [(index)]="indexThumb" #galleryThumbs>
         <div *ngFor="let img2 of images">
           <img src="{{img2}}">
