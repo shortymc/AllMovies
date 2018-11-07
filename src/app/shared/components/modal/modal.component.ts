@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChange, Output, EventEmitter, OnChanges } from '@angular/core';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-modal',
@@ -8,12 +8,15 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 })
 export class ModalComponent implements OnInit, OnChanges {
   @Input() visible: boolean;
+  @Input() closeBtn: IconDefinition;
   @Output() update = new EventEmitter<boolean>();
-  faTimes = faTimes;
 
   constructor() { }
 
   ngOnInit() {
+    if (!this.closeBtn) {
+      this.closeBtn = faTimes;
+    }
   }
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
