@@ -1,5 +1,5 @@
 <!-- Modal for fullscreen -->
-<app-modal [visible]="isFullscreen" (update)="isFullscreen = $event">
+<app-modal [visible]="isFullscreen" (update)="isFullscreen = $event" [closeBtn]="closeBtn">
   <pinch-zoom>
     <img src="{{fullScreenImg}}" class="fullscreen">
   </pinch-zoom>
@@ -9,10 +9,10 @@
   <div class="gallery-top">
     <swiper [config]="config" [(index)]="indexTop" #galleryTop>
       <div *ngFor="let img of images">
-        <pinch-zoom>
+        <pinch-zoom [zoom-button]="false">
           <img src="{{img}}">
         </pinch-zoom>
-        <span (click)="fullscreen(img)" class="expandSwiper">
+        <span (click)="fullscreen(img)" class="expand">
           <fa-icon [icon]="faExpand"></fa-icon>
         </span>
       </div>
@@ -30,10 +30,7 @@
 </ng-container>
 <!-- One picture display -->
 <ng-container *ngIf="isOnePicture">
-  <pinch-zoom [zoom-button]="false">
-    <img src="{{images}}">
+  <pinch-zoom [zoom-button]="false" class="frame-viewer pointer">
+    <img src="{{images}}" (click)="fullscreen(images)">
   </pinch-zoom>
-  <span (click)="fullscreen(images)" class="expand">
-    <fa-icon [icon]="faExpand"></fa-icon>
-  </span>
 </ng-container>

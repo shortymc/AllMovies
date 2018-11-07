@@ -1,6 +1,6 @@
 <div *ngIf="visible" [ngClass]="{'open': visible}">
   <span (click)='close()' class="close">
-    <fa-icon [icon]="faTimes"></fa-icon>
+    <fa-icon [icon]="closeBtn"></fa-icon>
   </span>
   <ng-content></ng-content>
 </div>
