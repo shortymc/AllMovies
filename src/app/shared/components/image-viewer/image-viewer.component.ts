@@ -1,5 +1,5 @@
 import { SwiperConfigInterface, SwiperComponent } from 'ngx-swiper-wrapper';
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { faExpand, IconDefinition, faCompress } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -7,7 +7,7 @@ import { faExpand, IconDefinition, faCompress } from '@fortawesome/free-solid-sv
   templateUrl: './image-viewer.component.html',
   styleUrls: ['./image-viewer.component.scss']
 })
-export class ImageViewerComponent implements OnInit {
+export class ImageViewerComponent implements OnInit, AfterViewInit {
   @Input() images: string[] | string;
   @ViewChild('galleryThumbs') swiperThumb: SwiperComponent;
   @ViewChild('galleryTop') swiperTop: SwiperComponent;
@@ -51,6 +51,11 @@ export class ImageViewerComponent implements OnInit {
     this.indexTop = 0;
     if (!this.isOnePicture) {
       this.closeBtn = faCompress;
+    }
+  }
+
+  ngAfterViewInit() {
+    if (!this.isOnePicture) {
       this.swiperTop.indexChange.subscribe(index => {
         this.indexThumb = index;
       });
