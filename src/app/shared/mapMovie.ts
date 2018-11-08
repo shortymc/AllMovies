@@ -83,6 +83,9 @@ export class MapMovie {
     if (r.recommendations) {
       movie.recommendations = Utils.recommendationsToMovies(r.recommendations.results);
     }
+    if (r.similar) {
+      movie.similars = Utils.recommendationsToMovies(r.similar.results);
+    }
     if (r.images && r.images.backdrops.length > 0) {
       movie.images = r.images.backdrops.map((i: any) => Url.IMAGE_URL_ORIGINAL.concat(i.file_path));
     }

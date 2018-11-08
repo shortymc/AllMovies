@@ -74,6 +74,9 @@ export class Utils {
       budget: r.budget,
       recette: r.revenue,
       language: r.original_language
+      // genres
+      // vote average, count
+      // popularity
     }));
   }
 

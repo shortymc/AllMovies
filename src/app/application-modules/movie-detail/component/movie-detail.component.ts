@@ -49,7 +49,7 @@ export class MovieDetailComponent implements OnInit {
   }
 
   getMovie(id: number, language: string): Observable<Movie> {
-    return this.movieService.getMovie(id, true, true, true, true, true, language);
+    return this.movieService.getMovie(id, true, true, true, true, true, true, language);
   }
 
   goBack(): void {

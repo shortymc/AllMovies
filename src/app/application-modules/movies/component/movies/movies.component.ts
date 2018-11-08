@@ -207,7 +207,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     incomplete = incomplete.slice(0, 30);
     const obs = [];
     incomplete.map((id: number) => {
-      obs.push(this.movieService.getMovie(id, false, false, false, false, false, lang));
+      obs.push(this.movieService.getMovie(id, false, false, false, false, false, false, lang));
     });
 
     try {
