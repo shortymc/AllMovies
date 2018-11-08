@@ -29,17 +29,17 @@ export class UtilsService {
     return encodeURIComponent(query).replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16));
   }
 
-  getHeaders() {
+  getHeaders(): HttpHeaders {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     // headers.append('Accept', 'application/json');
     return headers;
   }
 
-  handleSuccess(messageKey: string) {
+  handleSuccess(messageKey: string): void {
 
   }
 
-  handleError(error: any, toast: ToastService) {
+  handleError(error: any, toast: ToastService): void {
     console.log('handleError');
     console.error('error', error);
     toast.open(UtilsService.getErrorMessage(error));

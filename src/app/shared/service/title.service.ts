@@ -7,7 +7,7 @@ export class TitleService {
 
   constructor(private title: Title, private translate: TranslateService) { }
 
-  setTitle(title: string) {
+  setTitle(title: string): void {
     title || title.trim() !== '' ? this.title.setTitle('AllMovies | ' + this.translate.instant(title)) : this.title.setTitle('AllMovies');
   }
 }

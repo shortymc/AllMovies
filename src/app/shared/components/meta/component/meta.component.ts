@@ -10,13 +10,13 @@ import { MetaService } from './../service/meta.service';
   styleUrls: ['./meta.component.scss']
 })
 export class MetaComponent implements OnInit {
-  _entry = new BehaviorSubject<any>(null);
+  _entry = new BehaviorSubject<any>(undefined);
   @Input()
-  set entry(value) {
+  set entry(value: any) {
     this._entry.next(value);
   }
 
-  get entry() {
+  get entry(): any {
     return this._entry.getValue();
   }
 
@@ -26,7 +26,7 @@ export class MetaComponent implements OnInit {
 
   constructor(private metaService: MetaService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._entry
       .subscribe(x => {
         let term;
@@ -54,7 +54,7 @@ export class MetaComponent implements OnInit {
       });
   }
 
-  handleResult(result, site) {
+  handleResult(result: any, site: any): void {
     this.links.push({ site: result, icon: site.icon, key: site.site });
     this.links.sort((a, b) => Utils.compare(a.key, b.key, false));
   }

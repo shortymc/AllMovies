@@ -6,9 +6,8 @@ export class CapitalizeWordPipe implements PipeTransform {
     if (!str) {
       return str;
     }
-    str = str.replace(/([^\W_]+[^\s-]*) */g, (s) =>
+    return str.replace(/([^\W_]+[^\s-]*) */g, (s) =>
       s.charAt(0).toUpperCase() + s.substr(1).toLowerCase()
     );
-    return str;
   }
 }

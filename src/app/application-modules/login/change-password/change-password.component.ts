@@ -24,12 +24,12 @@ export class ChangePasswordComponent implements OnInit {
     private title: TitleService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.title.setTitle('title.profile');
     this.auth.getCurrentUser().then((user) => this.user = user);
   }
 
-  change() {
+  change(): void {
     this.message = '';
     if (this.pass1 !== this.pass2) {
       this.message = 'login.error_password';

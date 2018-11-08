@@ -30,11 +30,11 @@ export class ForgotComponent implements OnInit {
     private title: TitleService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.title.setTitle('title.login');
   }
 
-  loadQuestion() {
+  loadQuestion(): void {
     this.question = '';
     this.auth.getUserByName(this.name).then(user => {
       if (user) {
@@ -47,7 +47,7 @@ export class ForgotComponent implements OnInit {
     }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
-  forgot() {
+  forgot(): void {
     this.messageAnswer = undefined;
     this.auth.checkAnswer(this.name, crypto.SHA512(this.answer).toString()).then(correct => {
       if (correct) {
@@ -58,7 +58,7 @@ export class ForgotComponent implements OnInit {
     }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
-  changePassword() {
+  changePassword(): void {
     if (this.password1 !== this.password2) {
       this.messagePassword = 'login.error_password';
     } else {

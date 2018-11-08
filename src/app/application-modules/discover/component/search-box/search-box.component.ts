@@ -24,7 +24,7 @@ export class SearchBoxComponent<T> implements OnInit, OnChanges {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.initList) {
       this.list = this.initList;
     }
@@ -39,7 +39,7 @@ export class SearchBoxComponent<T> implements OnInit, OnChanges {
       });
   }
 
-  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }): void {
     for (const field of Object.keys(changes)) {
       if (field === 'clear') {
         const changedProp = changes[field];
@@ -51,7 +51,7 @@ export class SearchBoxComponent<T> implements OnInit, OnChanges {
     }
   }
 
-  addItem(item: T) {
+  addItem(item: T): void {
     this.list.push(item);
     this.items.emit(this.list);
   }

@@ -4,11 +4,11 @@ import * as moment from 'moment-mini-ts';
 @Pipe({ name: 'substractDate' })
 export class SubstractDatePipe implements PipeTransform {
   transform(birthday: number, deathday: number): string {
-    let age = null;
-    if (birthday !== null && birthday !== undefined) {
+    let age;
+    if (birthday !== undefined) {
       const birth = moment(birthday, 'YYYY-MM-DD');
-      let tmp = null;
-      if (deathday !== null && deathday !== undefined) {
+      let tmp;
+      if (deathday !== undefined) {
         const death = moment(deathday, 'YYYY-MM-DD');
         tmp = moment.duration({ days: death.date(), months: death.month(), years: death.year() })
           .subtract({ days: birth.date(), months: birth.month(), years: birth.year() });

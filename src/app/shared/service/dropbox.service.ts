@@ -66,7 +66,7 @@ export class DropboxService {
           fileReader.onabort = reject;
           fileReader.onerror = reject;
           fileReader.readAsText(response.fileBlob);
-        }) as Promise<string[]>;
+        });
       }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 

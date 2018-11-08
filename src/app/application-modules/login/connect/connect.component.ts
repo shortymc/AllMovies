@@ -22,11 +22,11 @@ export class ConnectComponent implements OnInit {
     private title: TitleService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.title.setTitle('title.login');
   }
 
-  login() {
+  login(): void {
     if (this.name && this.password) {
       this.auth.login(this.name, crypto.SHA512(this.password).toString()).then((isAuth) => {
         if (isAuth) {

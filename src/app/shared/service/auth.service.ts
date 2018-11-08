@@ -23,12 +23,11 @@ export class AuthService {
     private toast: ToastService, private translate: TranslateService) { }
 
   static decodeToken(): User {
-    return <User>jwtDecode(AuthService.getToken());
+    return jwtDecode(AuthService.getToken());
   }
 
   static usersToBlob(movies: User[]): any {
-    const theJSON = JSON.stringify(movies);
-    return new Blob([theJSON], { type: 'text/json' });
+    return new Blob([JSON.stringify(movies)], { type: 'text/json' });
   }
 
   static getUserFileName(id: number): string {
@@ -40,11 +39,11 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  static removeToken() {
+  static removeToken(): void {
     localStorage.removeItem('token');
   }
 
-  static setToken(token: string) {
+  static setToken(token: string): void {
     this.removeToken();
     localStorage.setItem('token', token);
   }
@@ -60,7 +59,7 @@ export class AuthService {
     if (!token) {
       return this.reject();
     }
-    const user_infos = <User>jwtDecode(token);
+    const user_infos: User = jwtDecode(token);
     if (token && user_infos && user_infos.id) {
       this.fileName = AuthService.getUserFileName(user_infos.id);
       this.isLogged = true;
@@ -71,11 +70,11 @@ export class AuthService {
   }
 
   isAllowed(): Promise<boolean> {
-    const token = AuthService.getToken();
+    const token: string = AuthService.getToken();
     if (!token) {
       return this.reject();
     }
-    const user_infos = <User>jwtDecode(token);
+    const user_infos: User = jwtDecode(token);
     if (token && user_infos && user_infos.id) {
       this.isLogged = true;
       this.fileName = AuthService.getUserFileName(user_infos.id);
@@ -104,7 +103,7 @@ export class AuthService {
 
   checkInfos(token: string): Promise<boolean> {
     // console.log('checkInfos');
-    const user_infos = <User>jwtDecode(token);
+    const user_infos: User = jwtDecode(token);
     // console.log('token', user_infos);
     return this.getUserById(user_infos.id).then((user: User) => {
       // console.log('user', user);
@@ -125,7 +124,7 @@ export class AuthService {
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  changePassword(name: string, password: string) {
+  changePassword(name: string, password: string): Promise<User> {
     return this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE).then(file => {
       let users = <User[]>JSON.parse(file);
       const user = users.find(item => item.name === name);
@@ -168,7 +167,7 @@ export class AuthService {
     ).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  createToken(user: User) {
+  createToken(user: User): string {
     const payload = {
       id: user.id,
       name: user.name,
@@ -180,7 +179,7 @@ export class AuthService {
     return KJUR.jws.JWS.sign('HS256', sHeader, sPayload, 'secret');
   }
 
-  register(user: User) {
+  register(user: User): void {
     this.addUser(user).then((result) => {
       this.fileName = AuthService.getUserFileName(result.id);
       this.dropbox.uploadNewFile([], this.fileName)
@@ -192,7 +191,7 @@ export class AuthService {
     }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
-  changeUser(user: User) {
+  changeUser(user: User): Promise<User> {
     return this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE).then(file => {
       let users = <User[]>JSON.parse(file);
       users = users.filter(item => item.name !== user.name);
@@ -238,7 +237,7 @@ export class AuthService {
     return this.isAllowed().then((isAuth) => {
       if (isAuth) {
         const token = AuthService.getToken();
-        const user_infos = <User>jwtDecode(token);
+        const user_infos: User = jwtDecode(token);
         return this.getUserByName(user_infos.name);
       } else {
         this.logout();
@@ -247,7 +246,7 @@ export class AuthService {
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  logout() {
+  logout(): void {
     this.isLogged = false;
     this.fileName = '';
     AuthService.removeToken();

@@ -12,7 +12,7 @@ import { AuthService } from '../service/auth.service';
 export class AddCollectionDirective {
   @Input()
   movies: Movie[];
-  @HostListener('click', ['$event']) onClick() {
+  @HostListener('click', ['$event']) onClick(): void {
     this.add();
   }
 
@@ -25,7 +25,7 @@ export class AddCollectionDirective {
     this.addMovies();
   }
 
-  addMovies() {
+  addMovies(): void {
     const prom = [];
     this.movies.forEach(movie => {
       prom.push(this.movieService.getMovie(movie.id, false, false, false, false, false, 'fr'));

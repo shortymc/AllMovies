@@ -10,13 +10,13 @@ import { Movie } from '../../../model/movie';
   styleUrls: ['./list-movies.component.scss']
 })
 export class ListMoviesComponent implements OnInit {
-  _movies = new BehaviorSubject<Movie[]>(null);
+  _movies = new BehaviorSubject<Movie[]>(undefined);
   @Input()
-  set movies(value) {
+  set movies(value: Movie[]) {
     this._movies.next(value);
   }
 
-  get movies() {
+  get movies(): Movie[] {
     return this._movies.getValue();
   }
   @Input()
@@ -28,19 +28,19 @@ export class ListMoviesComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._movies
-    .subscribe(x => {
+      .subscribe(x => {
         this.page = 1;
         this.getMoviesToShow(this.movies, this.page);
       });
   }
 
-  getMoviesToShow(movies, page) {
+  getMoviesToShow(movies: Movie[], page: number): void {
     this.moviesToShow = movies.slice((page - 1) * this.pageSize, page * this.pageSize);
   }
 
-  pageChanged(event: any) {
+  pageChanged(event: any): void {
     this.getMoviesToShow(this.movies, event);
   }
 

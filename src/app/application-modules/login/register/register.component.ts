@@ -21,10 +21,10 @@ export class RegisterComponent implements OnInit {
     private title: TitleService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  register() {
+  register(): void {
     this.title.setTitle('title.login');
     this.message = undefined;
     if (this.name && this.password && this.question && this.answer) {

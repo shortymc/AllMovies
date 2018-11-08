@@ -80,7 +80,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     window.addEventListener('scroll', (event) => {
       this.onScroll(event);
     });
@@ -99,7 +99,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  getAllGenres() {
+  getAllGenres(): void {
     const all: Genre[] = [];
     this.movies.forEach((movie: Movie) => {
       all.push(...movie.genres);
@@ -119,27 +119,27 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     return list;
   }
 
-  onSearch() {
+  onSearch(): void {
     this.initPagination(this.refreshData());
     this.onTop();
   }
 
-  onSort() {
+  onSort(): void {
     this.initPagination(this.refreshData());
     this.onTop();
   }
 
-  onPaginateChange() {
+  onPaginateChange(): void {
     this.paginate(this.refreshData());
     this.onTop();
   }
 
-  paginate(data: Movie[]) {
+  paginate(data: Movie[]): void {
     this.displayedData = this.page ?
       data.slice(this.page.pageIndex * this.page.pageSize, (this.page.pageIndex + 1) * this.page.pageSize) : data.slice(0, this.pageSize);
   }
 
-  initPagination(list: Movie[]) {
+  initPagination(list: Movie[]): void {
     if (this.page) {
       this.page.pageIndex = 0;
       this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
@@ -161,7 +161,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     return list;
   }
 
-  onFilterGenres(event: MatSelectChange) {
+  onFilterGenres(event: MatSelectChange): void {
     this.filteredGenres = event;
     let list = this.filterGenres();
     list = Utils.sortMovie(Utils.filterByFields(list, this.displayedColumns, this.filter), this.sort);
@@ -170,7 +170,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     // this.onTop();
   }
 
-  updateSize() {
+  updateSize(): void {
     this.nbChecked = this.movies.filter(movie => movie.checked).length;
   }
 
@@ -179,10 +179,10 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     // const map = new Map();
     try {
       for (const movie of movies) {
-        if ((movie.time === undefined && movie.time == null)
-          || (movie.genres === undefined && movie.genres == null)
-          || (movie.score === undefined && movie.score == null)
-          || (movie.genres.map(genre => genre.name).every(name => name === undefined || name == null))
+        if ((movie.time === undefined)
+          || (movie.genres === undefined)
+          || (movie.score === undefined)
+          || (movie.genres.map(genre => genre.name).every(name => name === undefined))
           // || (movie.original_title === undefined || movie.original_title == null || movie.original_title === '')
         ) {
           incomplete.push(movie.id);
@@ -224,7 +224,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  gotoDetail(id: number, event): void {
+  gotoDetail(id: number, event: any): void {
     const key = event.which;
     if (key === 1) {
       this.router.navigate(['movie', id]);
@@ -233,7 +233,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  remove() {
+  remove(): void {
     const ids = this.movies.filter(movie => movie.checked).map(movie => movie.id);
     this.movies = this.movies.filter(movie => !movie.checked);
     if (this.filteredGenres) {
@@ -248,11 +248,11 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     this.onTop();
   }
 
-  onTop() {
+  onTop(): void {
     this.elemRef.nativeElement.querySelector('.filters').scrollIntoView();
   }
 
-  onScroll($event) {
+  onScroll($event: any): void {
     if ($event.target.scrollingElement.scrollTop > window.innerHeight / 3) {
       this.goToTop.nativeElement.classList.remove('transparent');
       this.goToTop.nativeElement.classList.remove('fadeOut');
@@ -263,7 +263,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     console.log('destroy');
     // this.dropboxService.uploadFile(new Date(), 'test.json');
   }

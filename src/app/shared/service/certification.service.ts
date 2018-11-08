@@ -21,7 +21,7 @@ export class CertificationService {
   }
 
   mapCertification(response: any): Certification[] {
-    const result = response.certifications['FR'].map(element => {
+    const result = response.certifications.FR.map(element => {
       const certif = new Certification();
       certif.certification = element.certification;
       certif.meaning = this.formatMeaning(element.meaning);
@@ -32,9 +32,8 @@ export class CertificationService {
   }
 
   formatMeaning(meaning: string): string {
-    let result;
     return meaning.indexOf(')') !== -1 ?
-      result = meaning.substr(1, meaning.indexOf(')') - 1) :
-      result = meaning.substr(0, meaning.indexOf('.'));
+      meaning.substr(1, meaning.indexOf(')') - 1) :
+      meaning.substr(0, meaning.indexOf('.'));
   }
 }
