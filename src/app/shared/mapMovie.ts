@@ -91,7 +91,7 @@ export class MapMovie {
     }
     movie.id = r.id;
     movie.title = r.title;
-    movie.original_title = Utils.getTitle(r);
+    movie.original_title = r.original_title;
     movie.date = r.release_date;
     movie.synopsis = r.overview;
     movie.affiche = Utils.getPosterPath(r, 0);

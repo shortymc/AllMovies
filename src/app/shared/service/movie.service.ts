@@ -10,6 +10,7 @@ import { Url } from '../../constant/url';
 import { OmdbService } from './omdb.service';
 import { ToastService } from './toast.service';
 import { UrlBuilder } from '../../shared/urlBuilder';
+import { Utils } from '../utils';
 
 @Injectable()
 export class MovieService {
@@ -27,28 +28,43 @@ export class MovieService {
   }
 
   getMovies(ids: number[], language: string): Promise<Movie[]> {
-    const obs = ids.map(id => this.getMovie(id, true, true, true, true, language));
+    const obs = ids.map(id => this.getMovie(id, true, true, true, true, false, language));
     return Observable.forkJoin(obs).toPromise();
   }
 
-  getMovie(id: number, video: boolean, credit: boolean, reco: boolean, image: boolean, language: string): Observable<Movie> {
+  getMovie(id: number, video: boolean, credit: boolean, reco: boolean, image: boolean, detail: boolean, language: string): Observable<Movie> {
     return this.serviceUtils.getObservable(UrlBuilder.movieUrlBuilder(id, video, credit, reco, image, language))
       .map(response => {
         const movie = MapMovie.mapForMovie(response);
         movie.lang_version = language;
         return movie;
       }).flatMap((movie: Movie) => {
-        if (movie.imdb_id) {
-          return this.omdb.getMovie(movie.imdb_id).then(score => {
-            movie.score = score;
+        if (detail && (!movie.synopsis || !movie.videos || !movie.original_title)) {
+          return this.getMovie(id, video, false, false, false, false, 'en').toPromise().then(enMovie => {
+            movie.synopsis = Utils.isBlank(movie.synopsis) ? movie.synopsis : enMovie.synopsis;
+            movie.videos = movie.videos.length > 0 ? movie.videos : enMovie.videos;
+            movie.original_title = Utils.isBlank(movie.original_title) ? movie.original_title : enMovie.original_title;
             return movie;
+          }).then((film: Movie) => {
+            return this.getImdbScore(film);
           });
         } else {
-          return new Promise<any>((resolve, reject) => {
-            resolve(movie);
-          });
+          return this.getImdbScore(movie);
         }
       }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+  }
+
+  getImdbScore(movie: Movie): Promise<Movie> {
+    if (movie.imdb_id) {
+      return this.omdb.getMovie(movie.imdb_id).then(score => {
+        movie.score = score;
+        return movie;
+      });
+    } else {
+      return new Promise<Movie>((resolve, reject) => {
+        resolve(movie);
+      });
+    }
   }
 
   getMoviesByReleaseDates(debut: string, fin: string, language: string): Promise<Movie[]> {

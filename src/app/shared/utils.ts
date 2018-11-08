@@ -12,6 +12,10 @@ export class Utils {
     return Utils.getPath(r.profile_path, size, noEmpty);
   }
 
+  static isBlank(str: string): boolean {
+    return str === undefined || str === null || str.trim() === '';
+  }
+
   static getPath(path: string, size: number, noEmpty?: boolean) {
     let result;
     switch (size) {
