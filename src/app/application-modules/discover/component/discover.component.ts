@@ -36,7 +36,6 @@ export class DiscoverComponent implements OnInit {
   minVote = 0;
   maxVote = 10;
   voteRange: any[] = [this.minVote, this.maxVote];
-  pseudo: string;
   voteCountMin = 10;
   voteCountRange = [0, 10, 50, 100, 500, 1000, 5000, 10000];
   people: Person[] = [];
@@ -64,8 +63,7 @@ export class DiscoverComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('title.discover');
-    this.pseudo = AuthService.decodeToken().name;
-    this.adult = this.pseudo === 'Test';
+    this.adult = AuthService.decodeToken().name === 'Test';
     this.sortDir.value = 'desc';
     this.sortChoices = [new DropDownChoice('discover.sort_field.popularity', 'popularity'),
     new DropDownChoice('discover.sort_field.release_date', 'release_date'), new DropDownChoice('discover.sort_field.revenue', 'revenue'),
@@ -105,7 +103,7 @@ export class DiscoverComponent implements OnInit {
       this.initFromCriteria(criteria, people, genres, keyword, certif);
       this.search(false);
     }
-    this.getAllGenres(criteria ? criteria.genresId : []);
+    this.getAllGenres(this.selectedGenres ? this.selectedGenres.map(g => g.value) : []);
     this.getAllCertification(criteria ? criteria.certification : '');
   }
 
