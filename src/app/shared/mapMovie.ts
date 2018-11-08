@@ -92,6 +92,9 @@ export class MapMovie {
     if (r.genres) {
       movie.genres = r.genres;
     }
+    if (r.keywords) {
+      movie.keywords = r.keywords.keywords;
+    }
     movie.id = r.id;
     movie.title = r.title;
     movie.original_title = r.original_title;

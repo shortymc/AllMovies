@@ -28,20 +28,20 @@ export class MovieService {
   }
 
   getMovies(ids: number[], language: string): Promise<Movie[]> {
-    const obs = ids.map(id => this.getMovie(id, true, true, true, true, true, false, language));
+    const obs = ids.map(id => this.getMovie(id, true, true, true, true, true, true, false, language));
     return Observable.forkJoin(obs).toPromise();
   }
 
-  getMovie(id: number, video: boolean, credit: boolean, reco: boolean,
+  getMovie(id: number, video: boolean, credit: boolean, reco: boolean, keywords: boolean,
     similar: boolean, image: boolean, detail: boolean, language: string): Observable<Movie> {
-    return this.serviceUtils.getObservable(UrlBuilder.movieUrlBuilder(id, video, credit, reco, similar, image, language))
+    return this.serviceUtils.getObservable(UrlBuilder.movieUrlBuilder(id, video, credit, reco, keywords, similar, image, language))
       .map(response => {
         const movie = MapMovie.mapForMovie(response);
         movie.lang_version = language;
         return movie;
       }).flatMap((movie: Movie) => {
         if (detail && (!movie.synopsis || !movie.videos || !movie.original_title)) {
-          return this.getMovie(id, video, false, false, false, false, false, 'en').toPromise().then(enMovie => {
+          return this.getMovie(id, video, false, false, false, false, false, false, 'en').toPromise().then(enMovie => {
             movie.synopsis = Utils.isBlank(movie.synopsis) ? movie.synopsis : enMovie.synopsis;
             movie.videos = movie.videos.length > 0 ? movie.videos : enMovie.videos;
             movie.original_title = Utils.isBlank(movie.original_title) ? movie.original_title : enMovie.original_title;

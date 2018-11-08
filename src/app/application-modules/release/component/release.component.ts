@@ -142,7 +142,7 @@ export class ReleaseComponent implements OnInit {
   }
 
   onSelect(movie: Movie): void {
-    this.movieService.getMovie(movie.id, false, true, false, false, false, true, this.language).subscribe(selectedMovie => {
+    this.movieService.getMovie(movie.id, false, true, false, false, false, false, true, this.language).subscribe(selectedMovie => {
       this.selectedMovie = selectedMovie;
     });
   }
