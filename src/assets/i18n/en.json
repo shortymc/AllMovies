@@ -86,7 +86,8 @@
         "rating": "Ratings",
         "video": "Videos",
         "image": "Movie images",
-        "reco": "You should like also"
+        "reco": "You should like also",
+        "similar": "Similar movies"
     },
     "movie-search": {
         "header": "Movie Search",
