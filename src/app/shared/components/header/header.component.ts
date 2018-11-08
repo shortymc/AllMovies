@@ -29,11 +29,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private title: TitleService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.title.setTitle('');
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.cdRef.detectChanges();
     const scroll$ = fromEvent(window, 'scroll')
       .pipe(

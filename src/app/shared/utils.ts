@@ -4,40 +4,40 @@ import { Url } from './../constant/url';
 
 export class Utils {
 
-  static getPosterPath(r: any, size: number) {
+  static getPosterPath(r: any, size: number): string {
     return Utils.getPath(r.poster_path, size);
   }
 
-  static getProfilPath(r: any, size: number, noEmpty?: boolean) {
+  static getProfilPath(r: any, size: number, noEmpty?: boolean): string {
     return Utils.getPath(r.profile_path, size, noEmpty);
   }
 
   static isBlank(str: string): boolean {
-    return str === undefined || str === null || str.trim() === '';
+    return str === undefined || str === undefined || str.trim() === '';
   }
 
-  static getPath(path: string, size: number, noEmpty?: boolean) {
-    let result;
+  static getPath(path: string, size: number, noEmpty?: boolean): string {
+    let result: string;
     switch (size) {
       case 0:
-        result = path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + path;
+        result = path === undefined ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + path;
         break;
       case 154:
-        result = path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + path;
+        result = path === undefined ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + path;
         break;
       case 92:
-        result = path === null ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_92 + path;
+        result = path === undefined ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_92 + path;
         break;
     }
     return noEmpty && result === Url.IMAGE_URL_EMPTY ? undefined : result;
   }
 
-  static getTitle(r: any) {
+  static getTitle(r: any): string {
     return r.original_title === r.title ? ' ' : r.original_title;
   }
 
-  static convertLangToRegion(language: string) {
-    let region;
+  static convertLangToRegion(language: string): string {
+    let region: string;
     switch (language) {
       case 'en':
         region = 'US';
@@ -92,11 +92,11 @@ export class Utils {
 
   static convertTimeNumberToString(minutes: number): string {
     if (minutes) {
-      minutes = Math.round(minutes);
+      const min = Math.round(minutes);
       let result = '';
-      result += Math.floor(minutes / 60);
+      result += Math.floor(min / 60);
       result += ' h ';
-      result += minutes % 60;
+      result += min % 60;
       result += ' min ';
       return result;
     } else {
@@ -108,7 +108,7 @@ export class Utils {
     return job.toLowerCase() === filter.toLowerCase();
   }
 
-  static sortCast(a1: any, a2: any) {
+  static sortCast(a1: any, a2: any): any {
     if (a1.cast_id < a2.cast_id) {
       return -1;
     } else if (a1.cast_id > a2.cast_id) {
@@ -118,16 +118,16 @@ export class Utils {
     }
   }
 
-  static compare(a, b, isAsc) {
+  static compare(a: any, b: any, isAsc: boolean): number {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
-  static compareDate(a, b, isAsc) {
-    const year1 = a.split('/')[0];
-    const month1 = a.split('/')[1];
-    const year2 = b.split('/')[0];
-    const month2 = b.split('/')[1];
-    let result;
+  static compareDate(a: string, b: string, isAsc: boolean): number {
+    const year1: string = a.split('/')[0];
+    const month1: string = a.split('/')[1];
+    const year2: string = b.split('/')[0];
+    const month2: string = b.split('/')[1];
+    let result: number;
     if (year1 < year2) {
       result = -1;
     } else if (year1 > year2) {
@@ -169,7 +169,7 @@ export class Utils {
   }
 
   static parseJson(json: string): any {
-    if (!json || json === null || json === '' || json === 'undefined') {
+    if (!json || json === undefined || json === '' || json === 'undefined') {
       return json;
     } else {
       return JSON.parse(json);
@@ -177,7 +177,7 @@ export class Utils {
   }
 
   static stringifyJson(value: any): string {
-    if (!value || value === null || value === '' || value === 'undefined') {
+    if (!value || value === undefined || value === '' || value === 'undefined') {
       return '';
     } else {
       return JSON.stringify(value);
@@ -185,21 +185,21 @@ export class Utils {
   }
 
   static filter<T>(list: T[], searchString: string): T[] {
-    if (!list || list == null || list.length === 0) {
+    if (!list || list === undefined || list.length === 0) {
       return [];
     }
-    if (searchString == null || searchString.length === 0 || searchString.trim() === '') {
+    if (searchString === undefined || searchString.length === 0 || searchString.trim() === '') {
       return list;
     }
 
     return list.filter(Utils.compareWithAllFields, searchString);
   }
 
-  static filterByFields<T>(items: T[], fields: string[], value): T[] {
-    if (!items || items == null) {
+  static filterByFields<T>(items: T[], fields: string[], value: any): T[] {
+    if (!items || items === undefined) {
       return [];
     }
-    if (value == null || value.length === 0) {
+    if (value === undefined || value.length === 0) {
       return items;
     }
     const val = value.toLowerCase();
@@ -214,12 +214,12 @@ export class Utils {
     });
   }
 
-  static compareWithAllFields(value, index) {
-    const fields = Object.keys(value);
+  static compareWithAllFields(value: any, index: number): boolean {
+    const fields: string[] = Object.keys(value);
     for (let i = 0; i < fields.length; i++) {
-      if (value[fields[i]] != null) {
+      if (value[fields[i]] !== undefined) {
         if (true) {  // isObject(value[fields[i]])
-          const childFields = Object.keys(value[fields[i]]);
+          const childFields: string[] = Object.keys(value[fields[i]]);
 
           if (childFields.length > 0) {
             for (let j = 0; j < childFields.length; j++) {
@@ -240,7 +240,7 @@ export class Utils {
   static sortMovie(list: Movie[], sort: Sort): Movie[] {
     if (sort && sort.active && sort.direction !== '') {
       return list.sort((a, b) => {
-        const isAsc = sort.direction === 'asc';
+        const isAsc: boolean = sort.direction === 'asc';
         switch (sort.active) {
           case 'id':
             return Utils.compare(+a.id, +b.id, isAsc);

@@ -14,8 +14,7 @@ export class KeywordSearchService implements SearchServiceService<Keyword> {
 
   search(term: string): Observable<Keyword[]> {
     let url = Url.KEYWORD_SEARCH_URL + Url.API_KEY;
-    term = UtilsService.encodeQueryUrl(term);
-    url += `${Url.QUERY_URL}${term}`;
+    url += `${Url.QUERY_URL}${UtilsService.encodeQueryUrl(term)}`;
     return this.serviceUtils
       .getObservable(url, this.serviceUtils.getHeaders())
       .map((response: any) => response.results.slice(0, 10).map((r: any) => <Keyword>({ id: r.id, name: r.name })))

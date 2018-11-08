@@ -43,7 +43,7 @@ export class PersonDetailComponent implements OnInit {
     });
   }
 
-  getPerson(id: number, language: string) {
+  getPerson(id: number, language: string): void {
     this.personService.getPerson(id, language)
       .then(person => {
         this.person = person;

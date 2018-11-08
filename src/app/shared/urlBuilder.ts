@@ -7,7 +7,7 @@ export class UrlBuilder {
     let url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}`;
     if (images || movies) {
       url += `${Url.APPEND}`;
-      const parametres = [];
+      const parametres: string[] = [];
       if (images) {
         parametres.push(`${Url.APPEND_IMAGES}`);
       }

@@ -18,8 +18,7 @@ export class PersonSearchService implements SearchServiceService<Person> {
     if (adult) {
       url += Url.ADULT_URL;
     }
-    term = UtilsService.encodeQueryUrl(term);
-    url += `${Url.QUERY_URL}${term}`;
+    url += `${Url.QUERY_URL}${UtilsService.encodeQueryUrl(term)}`;
     return this.serviceUtils
       .getObservable(url, this.serviceUtils.getHeaders())
       .map(response => MapPerson.mapForSearchPersons(response))

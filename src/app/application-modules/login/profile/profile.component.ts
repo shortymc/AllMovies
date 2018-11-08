@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
     private title: TitleService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.auth.getCurrentUser().then(user => this.user = user);
     this.title.setTitle('title.profile');
   }

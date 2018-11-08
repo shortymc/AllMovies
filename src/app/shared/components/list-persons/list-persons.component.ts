@@ -18,7 +18,7 @@ export class ListPersonsComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
 }

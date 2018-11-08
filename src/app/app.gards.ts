@@ -8,7 +8,7 @@ export class AuthGard implements CanActivate, OnDestroy {
   subs = [];
   constructor(private auth: AuthService, private router: Router) { }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subs.forEach((subscription) => subscription.unsubscribe());
   }
 

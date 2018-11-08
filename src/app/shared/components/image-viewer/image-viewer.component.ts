@@ -49,9 +49,9 @@ export class ImageViewerComponent implements OnChanges, AfterViewChecked {
   constructor(
   ) { }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.visible = changes['visible'] ? changes['visible'].currentValue : this.visible;
-    this.images = changes['images'] ? changes['images'].currentValue : this.images;
+  ngOnChanges(changes: SimpleChanges): void {
+    this.visible = changes.visible ? changes.visible.currentValue : this.visible;
+    this.images = changes.images ? changes.images.currentValue : this.images;
     if (this.visible) {
       this.isOnePicture = typeof this.images === 'string';
       this.indexThumb = 0;
@@ -62,7 +62,7 @@ export class ImageViewerComponent implements OnChanges, AfterViewChecked {
     }
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewChecked(): void {
     if (!this.isOnePicture && this.visible !== undefined && this.visible) {
       this.swiperTop.indexChange.subscribe(index => {
         this.indexThumb = index;
@@ -73,21 +73,21 @@ export class ImageViewerComponent implements OnChanges, AfterViewChecked {
     }
   }
 
-  next() {
+  next(): void {
     if (this.indexTop < this.images.length) {
       this.indexTop = this.indexTop + 1;
       this.indexThumb = this.indexTop;
     }
   }
 
-  prev() {
+  prev(): void {
     if (this.indexTop > 0) {
       this.indexTop = this.indexTop - 1;
       this.indexThumb = this.indexTop;
     }
   }
 
-  fullscreen() {
+  fullscreen(): void {
     this.isFullscreen = true;
     this.fullScreenImg = this.isOnePicture ? <string>this.images : this.images[this.indexTop];
   }

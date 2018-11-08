@@ -11,11 +11,11 @@ export class DropdownLanguageComponent implements OnInit {
 
   constructor(private translate: TranslateService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.language = this.translate.getBrowserLang();
   }
 
-  change(language: string) {
+  change(language: string): void {
     this.language = language;
     this.translate.use(language);
   }

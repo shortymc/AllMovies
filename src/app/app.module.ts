@@ -19,10 +19,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGard } from './app.gards';
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
-}
-
 @NgModule({
   imports: [
     NgbModule.forRoot(),
@@ -36,7 +32,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
+        useFactory: (http: HttpClient): TranslateHttpLoader => {
+          return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+        },
         deps: [HttpClient]
       }
     }),
