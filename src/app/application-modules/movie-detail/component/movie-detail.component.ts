@@ -10,6 +10,7 @@ import { TitleService } from './../../../shared/shared.module';
 import { DuckDuckGo } from './../../../constant/duck-duck-go';
 import { MovieService } from '../../../shared/shared.module';
 import { Movie } from '../../../model/movie';
+import { Genre, DropDownChoice } from '../../../model/model';
 
 @Component({
   selector: 'app-movie-detail',
@@ -50,6 +51,11 @@ export class MovieDetailComponent implements OnInit {
 
   getMovie(id: number, language: string): Observable<Movie> {
     return this.movieService.getMovie(id, true, true, true, true, true, true, language);
+  }
+
+  redirectGenreToDiscover(genre: Genre): void {
+    sessionStorage.setItem('genre', JSON.stringify([new DropDownChoice(genre.name, genre.id)]));
+    this.router.navigate(['discover']);
   }
 
   goBack(): void {
