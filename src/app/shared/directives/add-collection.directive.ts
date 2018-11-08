@@ -28,8 +28,8 @@ export class AddCollectionDirective {
   addMovies() {
     const prom = [];
     this.movies.forEach(movie => {
-      prom.push(this.movieService.getMovie(movie.id, false, false, false, false, 'fr'));
-      prom.push(this.movieService.getMovie(movie.id, false, false, false, false, 'en'));
+      prom.push(this.movieService.getMovie(movie.id, false, false, false, false, false, 'fr'));
+      prom.push(this.movieService.getMovie(movie.id, false, false, false, false, false, 'en'));
       movie.added = new Date();
     });
     forkJoin(prom).subscribe((movies: Movie[]) => {
