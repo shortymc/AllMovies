@@ -14,6 +14,7 @@ export class MapPerson {
         .map(path => Url.IMAGE_URL_ORIGINAL.concat(path));
     }
 
+    const deathday = resp.deathday !== null ? resp.deathday : undefined;
     if (credits) {
       const asActor = credits.cast.map((r: any) => MapMovie.toMovie(r));
       const asDirector = credits.crew.filter((r: any) => Utils.jobEquals(r.job, 'Director')).map((r: any) => MapMovie.toMovie(r));
@@ -25,11 +26,11 @@ export class MapPerson {
         .map((r: any) => MapMovie.toMovie(r));
       const asNovel = credits.crew.filter((r: any) => Utils.jobEquals(r.job, 'Novel')).map((r: any) => MapMovie.toMovie(r));
 
-      return new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, 0),
+      return new Person(resp.id, resp.name, resp.gender, resp.birthday, deathday, Utils.getProfilPath(resp, 0),
         Utils.getProfilPath(resp, 154), resp.biography, resp.adult, resp.place_of_birth, img,
         asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel);
     } else {
-      return new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, 0),
+      return new Person(resp.id, resp.name, resp.gender, resp.birthday, deathday, Utils.getProfilPath(resp, 0),
         Utils.getProfilPath(resp, 154), resp.biography, resp.adult, resp.place_of_birth, img,
         undefined, undefined, undefined, undefined, undefined, undefined);
     }
