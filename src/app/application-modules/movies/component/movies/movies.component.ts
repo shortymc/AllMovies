@@ -113,7 +113,8 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   refreshData(): Movie[] {
-    const list = Utils.sortMovie(Utils.filterByFields(this.movies, this.displayedColumns, this.filter), this.sort);
+    let list = this.filterGenres();
+    list = Utils.sortMovie(Utils.filterByFields(list, this.displayedColumns, this.filter), this.sort);
     this.length = list.length;
     return list;
   }
@@ -146,17 +147,23 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     this.paginate(list);
   }
 
-  onFilterGenres(event: MatSelectChange) {
+  filterGenres(): Movie[] {
     let list = [];
-    if (event.value.length > 0) {
+    if (this.filteredGenres && this.filteredGenres.value.length > 0) {
       list = this.movies.filter((movie: Movie) => {
-        return event.value.every((genreId: number) => {
+        return this.filteredGenres.value.every((genreId: number) => {
           return movie.genres.map(genre => genre.id).includes(genreId);
         });
       });
     } else {
       list = this.movies;
     }
+    return list;
+  }
+
+  onFilterGenres(event: MatSelectChange) {
+    this.filteredGenres = event;
+    let list = this.filterGenres();
     list = Utils.sortMovie(Utils.filterByFields(list, this.displayedColumns, this.filter), this.sort);
     this.length = list.length;
     this.initPagination(list);
