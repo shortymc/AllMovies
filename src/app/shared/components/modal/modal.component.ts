@@ -13,13 +13,13 @@ export class ModalComponent implements OnInit, OnChanges {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (!this.closeBtn) {
       this.closeBtn = faTimes;
     }
   }
 
-  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }): void {
     for (const field of Object.keys(changes)) {
       if (field === 'visible') {
         const changedProp = changes[field];
@@ -28,12 +28,12 @@ export class ModalComponent implements OnInit, OnChanges {
     }
   }
 
-  show() {
+  show(): void {
     this.visible = true;
     this.update.emit(this.visible);
   }
 
-  close() {
+  close(): void {
     this.visible = false;
     this.update.emit(this.visible);
   }

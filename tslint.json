@@ -91,10 +91,18 @@
         "no-irregular-whitespace": true,
         "no-conditional-assignment": true,
         "no-misused-new": true,
-        "no-duplicate-variable": true,
+        "no-duplicate-variable": [
+            true,
+            "check-parameters"
+        ],
+        "only-arrow-functions": true,
+        "no-unnecessary-type-assertion": true,
+        "no-null-keyword": true,
+        "no-this-assignment": true,
+        "no-parameter-reassignment": true,
         "no-non-null-assertion": true,
         "no-shadowed-variable": true,
-        "no-string-literal": false,
+        "no-string-literal": true,
         "no-string-throw": true,
         "no-switch-case-fall-through": true,
         "no-trailing-whitespace": true,
@@ -129,9 +137,12 @@
             true,
             "always"
         ],
-        "triple-equals": [
+        "triple-equals": true,
+        "typedef": [
             true,
-            "allow-null-check"
+            "call-signature",
+            "parameter",
+            "property-declaration"
         ],
         "typedef-whitespace": [
             true,

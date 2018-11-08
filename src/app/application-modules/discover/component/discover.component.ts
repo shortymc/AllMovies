@@ -62,7 +62,7 @@ export class DiscoverComponent implements OnInit {
     private title: TitleService,
     private elemRef: ElementRef) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.title.setTitle('title.discover');
     this.pseudo = AuthService.decodeToken().name;
     this.adult = this.pseudo === 'Test';
@@ -109,21 +109,21 @@ export class DiscoverComponent implements OnInit {
     this.getAllCertification(criteria ? criteria.certification : '');
   }
 
-  getAllGenres(genresId: number[]) {
+  getAllGenres(genresId: number[]): void {
     this.genreService.getAllGenre(this.translate.currentLang).subscribe(genres => {
       this.allGenres = genres.map(genre => new DropDownChoice(genre.name, genre.id));
       this.selectedGenres = genresId ? this.allGenres.filter(genre => genresId.includes(genre.value)) : [];
     });
   }
 
-  getAllCertification(certification: string) {
+  getAllCertification(certification: string): void {
     this.certifService.getAllCertification().subscribe(certif => {
       this.allCertif = certif.map(c => new DropDownChoice(c.meaning, c.certification));
       this.selectedCertif = certification ? this.allCertif.find(c => c.value === certification) : undefined;
     });
   }
 
-  initFromCriteria(criteria: DiscoverCriteria, people: Person[], genres: DropDownChoice[], keyword: Keyword[], certif: DropDownChoice) {
+  initFromCriteria(criteria: DiscoverCriteria, people: Person[], genres: DropDownChoice[], keyword: Keyword[], certif: DropDownChoice): void {
     if (criteria) {
       this.sortDir.value = criteria.sortDir;
       this.sortChosen = this.sortChoices.find(sort => sort.value === criteria.sortField);
@@ -146,7 +146,7 @@ export class DiscoverComponent implements OnInit {
     this.selectedCertif = certif;
   }
 
-  clear() {
+  clear(): void {
     sessionStorage.removeItem('criteria');
     sessionStorage.removeItem('people');
     sessionStorage.removeItem('keyword');
@@ -227,7 +227,7 @@ export class DiscoverComponent implements OnInit {
     }
   }
 
-  search(initPagination: boolean) {
+  search(initPagination: boolean): void {
     if (initPagination || !this.page) {
       this.page = new PageEvent();
       this.nbChecked = 0;
@@ -238,7 +238,7 @@ export class DiscoverComponent implements OnInit {
     });
   }
 
-  gotoDetail(id: number, event): void {
+  gotoDetail(id: number, event: any): void {
     const key = event.which;
     if (key === 1 && event.type !== 'mousedown') {
       this.router.navigate(['movie', id]);
@@ -247,11 +247,11 @@ export class DiscoverComponent implements OnInit {
     }
   }
 
-  updateSize() {
+  updateSize(): void {
     this.nbChecked = this.discover.movies.filter(movie => movie.checked).length;
   }
 
-  initSelection() {
+  initSelection(): void {
     this.discover.movies.forEach((movie) => movie.checked = false);
   }
 

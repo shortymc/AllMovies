@@ -17,8 +17,7 @@ export class MovieSearchService {
     if (adult) {
       url += Url.ADULT_URL;
     }
-    term = UtilsService.encodeQueryUrl(term);
-    url += `${Url.QUERY_URL}${term}${Url.LANGUE}${language}`;
+    url += `${Url.QUERY_URL}${UtilsService.encodeQueryUrl(term)}${Url.LANGUE}${language}`;
     console.log(url);
     return this.serviceUtils
       .getObservable(url, this.serviceUtils.getHeaders())

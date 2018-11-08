@@ -34,12 +34,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getTopMovies(language: string) {
+  getTopMovies(language: string): void {
     this.movieService.getPopularMovies(language)
       .then(movies => this.movies = movies.slice(0, 5));
   }
 
-  getToPersons(language: string) {
+  getToPersons(language: string): void {
     this.personService.getPopularPersons(language)
       .then(persons => this.persons = persons.slice(0, 5));
   }

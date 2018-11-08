@@ -24,7 +24,7 @@ export class ChangeQuestionComponent implements OnInit {
     private title: TitleService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.title.setTitle('title.profile');
     this.auth.getCurrentUser().then((user) => {
       this.user = user;
@@ -32,7 +32,7 @@ export class ChangeQuestionComponent implements OnInit {
     });
   }
 
-  change() {
+  change(): void {
     this.message = '';
     if (crypto.SHA512(this.oldAnswer).toString() !== this.user.answer) {
       this.message = 'login.wrong_answer';

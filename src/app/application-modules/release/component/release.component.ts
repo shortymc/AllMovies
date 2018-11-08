@@ -9,7 +9,7 @@ import { MovieService, TitleService } from '../../../shared/shared.module';
 import { MyNgbDate } from '../../../shared/my-ngb-date';
 import { DuckDuckGo } from '../../../constant/duck-duck-go';
 
-const now = new Date();
+const now: Date = new Date();
 
 const I18N_VALUES = {
   'fr': {
@@ -85,7 +85,7 @@ export class ReleaseComponent implements OnInit {
     });
     this.route.queryParams.subscribe(
       params => {
-        const date = params['date'];
+        const date = params.date;
         if (date === null || date === undefined) {
           this.selectPreviousWednesday();
         } else {
@@ -130,13 +130,13 @@ export class ReleaseComponent implements OnInit {
     return this.model;
   }
 
-  addDays(days: number) {
+  addDays(days: number): string {
     let date = this.formatter.ngbDateToDate(this.model);
     date = this.formatter.addNgbDays(this.model, days);
     return this.formatter.dateToString(date, 'dd/MM/yyyy');
   }
 
-  parseDate() {
+  parseDate(): string {
     const date = this.formatter.ngbDateToDate(this.model);
     return this.formatter.dateToString(date, 'dd/MM/yyyy');
   }
