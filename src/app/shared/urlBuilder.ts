@@ -21,7 +21,8 @@ export class UrlBuilder {
     return url;
   }
 
-  static movieUrlBuilder(id: number, video: boolean, credit: boolean, reco: boolean, similar: boolean, image: boolean, language: string): string {
+  static movieUrlBuilder(id: number, video: boolean, credit: boolean, reco: boolean, keywords: boolean,
+    similar: boolean, image: boolean, language: string): string {
     let url = `${Url.MOVIE_URl}/${id}?${Url.API_KEY}`;
     if (video || credit || reco || image) {
       url += `${Url.APPEND}`;
@@ -34,6 +35,9 @@ export class UrlBuilder {
       }
       if (reco) {
         parametres.push(`${Url.APPEND_RECOMMENDATIONS}`);
+      }
+      if (keywords) {
+        parametres.push(`${Url.APPEND_KEYWORDS}`);
       }
       if (similar) {
         parametres.push(`${Url.APPEND_SIMILARS}`);

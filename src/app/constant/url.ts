@@ -23,6 +23,7 @@ export class Url {
   static readonly APPEND_VIDEOS = 'videos';
   static readonly APPEND_CREDITS = 'credits';
   static readonly APPEND_IMAGES = 'images';
+  static readonly APPEND_KEYWORDS = 'keywords';
   static readonly INCLUDE_IMAGE_LANGUAGE = '&include_image_language=';
   static readonly APPEND_RECOMMENDATIONS = 'recommendations';
   static readonly APPEND_SIMILARS = 'similar';

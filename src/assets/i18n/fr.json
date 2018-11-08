@@ -87,7 +87,8 @@
         "video": "Vidéo(s)",
         "image": "Images du film",
         "reco": "Vous aimerez aussi",
-        "similar": "Films similaires"
+        "similar": "Films similaires",
+        "keyword": "Mots clés"
     },
     "movie-search": {
         "header": "Recherche de films",
