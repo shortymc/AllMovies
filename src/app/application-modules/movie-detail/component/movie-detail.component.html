@@ -119,5 +119,10 @@
           <app-list-movies [movies]="movie.recommendations" [label]="('movie.reco' | translate).concat(':')"></app-list-movies>
         </li>
       </ul>
+      <ul class="movies" *ngIf="movie.similars">
+        <li>
+          <app-list-movies [movies]="movie.similars" [label]="('movie.similar' | translate).concat(':')"></app-list-movies>
+        </li>
+      </ul>
     </div>
   </div>

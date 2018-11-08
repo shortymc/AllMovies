@@ -86,7 +86,8 @@
         "rating": "Note",
         "video": "Vidéo(s)",
         "image": "Images du film",
-        "reco": "Vous aimerez aussi"
+        "reco": "Vous aimerez aussi",
+        "similar": "Films similaires"
     },
     "movie-search": {
         "header": "Recherche de films",
