@@ -4,6 +4,10 @@ import { Url } from './../constant/url';
 
 export class Utils {
 
+  static readonly ORIGINAL_IMG_SIZE = 0;
+  static readonly MEDIUM_IMG_SIZE = 154;
+  static readonly SMALL_IMG_SIZE = 92;
+
   static getPosterPath(r: any, size: number): string {
     return Utils.getPath(r.poster_path, size);
   }
@@ -19,13 +23,13 @@ export class Utils {
   static getPath(path: string, size: number, noEmpty?: boolean): string {
     let result: string;
     switch (size) {
-      case 0:
+      case Utils.ORIGINAL_IMG_SIZE:
         result = (path === undefined || path === null) ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + path;
         break;
-      case 154:
+      case Utils.MEDIUM_IMG_SIZE:
         result = (path === undefined || path === null) ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + path;
         break;
-      case 92:
+      case Utils.SMALL_IMG_SIZE:
         result = (path === undefined || path === null) ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_92 + path;
         break;
     }
@@ -66,7 +70,7 @@ export class Utils {
       id: r.id,
       title: r.title,
       date: r.release_date,
-      thumbnail: Utils.getPosterPath(r, 92),
+      thumbnail: Utils.getPosterPath(r, Utils.SMALL_IMG_SIZE),
       original_title: Utils.getTitle(r),
       adult: r.adult,
       time: r.runtime,
