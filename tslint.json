@@ -1,6 +1,7 @@
 {
     "rulesDirectory": [
         "node_modules/tslint-origin-ordered-imports-rule/dist",
+        "node_modules/tslint-eslint-rules/dist/rules",
         "node_modules/codelyzer"
     ],
     "extends": [
@@ -64,7 +65,6 @@
         "no-construct": true,
         "no-debugger": true,
         "no-duplicate-super": true,
-        "no-unused-variable": true,
         "no-for-in-array": true,
         "no-empty": false,
         "no-empty-interface": true,
@@ -185,7 +185,6 @@
         "use-pipe-transform-interface": true,
         "component-class-suffix": true,
         "directive-class-suffix": true,
-        "invoke-injectable": true,
         "cyclomatic-complexity": [
             true,
             12
