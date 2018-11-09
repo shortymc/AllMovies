@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { MapPerson } from './../../shared/mapPerson';
 import { Person } from './../../model/person';
@@ -21,7 +22,8 @@ export class PersonSearchService implements SearchServiceService<Person> {
     url += `${Url.QUERY_URL}${UtilsService.encodeQueryUrl(term)}`;
     return this.serviceUtils
       .getObservable(url, this.serviceUtils.getHeaders())
-      .map(response => MapPerson.mapForSearchPersons(response))
-      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+      .pipe(
+        map(response => MapPerson.mapForSearchPersons(response)),
+        catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast)));
   }
 }

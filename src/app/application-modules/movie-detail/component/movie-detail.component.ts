@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit, AfterViewChecked, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';

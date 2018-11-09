@@ -29,6 +29,10 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
     super();
   }
 
+  getDayAriaLabel(date: NgbDateStruct): string {
+    return date.day + '/' + date.month + '/' + date.year;
+  }
+
   getWeekdayShortName(weekday: number): string {
     return I18N_VALUES[this._i18n.language].weekdays[weekday - 1];
   }

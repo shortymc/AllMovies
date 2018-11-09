@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as crypto from 'crypto-js';

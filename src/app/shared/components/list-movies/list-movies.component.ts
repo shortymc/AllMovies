@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 import { Movie } from '../../../model/movie';

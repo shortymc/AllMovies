@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { map, catchError } from 'rxjs/operators';
 
 import { MapPerson } from './../../shared/mapPerson';
 import { UtilsService } from './utils.service';
@@ -17,9 +18,10 @@ export class PersonService {
 
   getPerson(id: number, language: string): Promise<Person> {
     return this.serviceUtils.getObservable(UrlBuilder.personUrlBuilder(id, language, true, true))
-      .map(response => MapPerson.mapForPerson(response))
-      .toPromise()
-      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+      .pipe(
+        map(response => MapPerson.mapForPerson(response)),
+        catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast)))
+      .toPromise();
   }
 
   getPopularPersons(language: string): Promise<Person[]> {
