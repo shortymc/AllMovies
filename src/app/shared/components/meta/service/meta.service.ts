@@ -1,6 +1,7 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
 
 import { DuckDuckGo } from './../../../../constant/duck-duck-go';
 import { UtilsService } from './../../../service/utils.service';
@@ -44,9 +45,9 @@ export class MetaService {
       : `http://fr.wikipedia.org/w/api.php?${params.toString()}`;
 
     return this.serviceUtils.jsonpObservable(url, 'callback')
-      .map(response => {
-        return response[3][0];
-      }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+      .pipe(
+        map(response => response[3][0]),
+        catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast)));
   }
 
   getMeta(title: string): Promise<void> {
@@ -64,11 +65,11 @@ export class MetaService {
         }
       }).then((metaUrl: any) => {
         this.serviceUtils.getObservable(metaUrl, this.serviceUtils.getHeaders())
-          .map((res: any) => {
+          .pipe(map((res: any) => {
             // const htmlR = $.parseHTML(res._body);
             // this.score = $(htmlR).find('.metascore_w.larger.movie.positive')[0].innerText;
             console.log(this.score);
-          });
+          }));
       });
   }
 

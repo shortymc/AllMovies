@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, catchError } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChange, OnChanges } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -30,13 +31,16 @@ export class SearchBoxComponent<T> implements OnInit, OnChanges {
     }
     this.itemCtrl = new FormControl();
     this.filteredItems = this.itemCtrl.valueChanges
-      .debounceTime(300).distinctUntilChanged().switchMap(term => term
-        ? this.service.search(term, this.adult)
-        : Observable.of<T[]>([]))
-      .catch(error => {
-        console.error(error);
-        return Observable.of<T[]>([]);
-      });
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap(term => term
+          ? this.service.search(term, this.adult)
+          : of<T[]>([])),
+        catchError(error => {
+          console.error(error);
+          return of<T[]>([]);
+        }));
   }
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }): void {

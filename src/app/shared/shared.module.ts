@@ -15,7 +15,6 @@ import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 import { MetaComponent } from './components/meta/component/meta.component';
 import { GoToTopComponent } from './components/go-to-top/go-to-top.component';
-import './rxjs-operators';
 import { ListPersonsComponent } from './components/list-persons/list-persons.component';
 import { ListMoviesComponent } from './components/list-movies/list-movies.component';
 import { UtilsService } from './service/utils.service';

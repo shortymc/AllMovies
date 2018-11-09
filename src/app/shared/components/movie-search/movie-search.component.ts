@@ -1,9 +1,9 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject, of } from 'rxjs';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { switchMap, debounceTime, catchError } from 'rxjs/operators';
 
 import { Movie } from '../../../model/movie';
 import { MovieSearchService } from '../../service/movie-search.service';
@@ -44,18 +44,19 @@ export class MovieSearchComponent implements OnInit {
       this.search(this.inputSearch.nativeElement.value);
     });
     this.movies = this.searchTerms
-      .debounceTime(300)        // wait 300ms after each keystroke before considering the term
-      // .distinctUntilChanged()   // ignore if next search term is same as previous
-      .switchMap(term => term   // switch to new observable each time the term changes
-        // return the http search observable
-        ? this.movieSearchService.search(term, this.pseudo === 'Test', this.language)
-        // or the observable of empty movies if there was no search term
-        : Observable.of<Movie[]>([]))
-      .catch(error => {
-        // TODO: add real error handling
-        console.log(error);
-        return Observable.of<Movie[]>([]);
-      });
+      .pipe(
+        debounceTime(300),        // wait 300ms after each keystroke before considering the term
+        // .distinctUntilChanged()   // ignore if next search term is same as previous
+        switchMap(term => term   // switch to new observable each time the term changes
+          // return the http search observable
+          ? this.movieSearchService.search(term, this.pseudo === 'Test', this.language)
+          // or the observable of empty movies if there was no search term
+          : of<Movie[]>([])),
+        catchError(error => {
+          // TODO: add real error handling
+          console.log(error);
+          return of<Movie[]>([]);
+        }));
   }
 
   gotoDetail(movie: Movie): void {
