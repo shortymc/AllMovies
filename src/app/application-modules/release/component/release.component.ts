@@ -1,5 +1,5 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
+import { Component, Injectable, OnInit, ViewChild, ElementRef, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { faChevronCircleRight, faSave } from '@fortawesome/free-solid-svg-icons';
@@ -46,7 +46,7 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   styleUrls: ['./release.component.scss'],
   providers: [I18n, NgbDatepickerConfig, { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }]
 })
-export class ReleaseComponent implements OnInit {
+export class ReleaseComponent implements OnInit, AfterViewChecked {
   @ViewChild('dp') dp;
   movies: Movie[];
   selectedMovie: Movie;
@@ -55,6 +55,8 @@ export class ReleaseComponent implements OnInit {
   sunday: Date;
   Url = DuckDuckGo;
   language: string;
+  scrollTo: HTMLElement;
+
   faChevronCircleRight = faChevronCircleRight;
   faSave = faSave;
 
@@ -64,7 +66,9 @@ export class ReleaseComponent implements OnInit {
     private formatter: MyNgbDate,
     config: NgbDatepickerConfig,
     private translate: TranslateService,
-    private title: TitleService
+    private title: TitleService,
+    private elemRef: ElementRef,
+    private cdRef: ChangeDetectorRef,
   ) {
     // Other days than wednesday are disabled
     config.markDisabled = (date: NgbDateStruct) => {
@@ -94,6 +98,11 @@ export class ReleaseComponent implements OnInit {
       }
     );
     this.getMoviesByReleaseDates();
+  }
+
+  ngAfterViewChecked(): void {
+    this.scrollTo = this.elemRef.nativeElement.querySelector('ngb-datepicker');
+    this.cdRef.detectChanges();
   }
 
   getMoviesByReleaseDates(): void {
