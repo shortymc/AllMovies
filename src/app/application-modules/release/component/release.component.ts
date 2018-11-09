@@ -1,6 +1,6 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, Injectable, OnInit, ViewChild, ElementRef, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { faChevronCircleRight, faSave } from '@fortawesome/free-solid-svg-icons';
 
@@ -67,6 +67,7 @@ export class ReleaseComponent implements OnInit, AfterViewChecked {
   constructor(
     private movieService: MovieService,
     private route: ActivatedRoute,
+    private router: Router,
     private formatter: MyNgbDate,
     config: NgbDatepickerConfig,
     private translate: TranslateService,
@@ -99,14 +100,23 @@ export class ReleaseComponent implements OnInit, AfterViewChecked {
         } else {
           this.dp.startDate = this.selectDate(date);
         }
+        this.getMoviesByReleaseDates();
       }
     );
-    this.getMoviesByReleaseDates();
   }
 
   ngAfterViewChecked(): void {
     this.scrollTo = this.elemRef.nativeElement.querySelector('ngb-datepicker');
     this.cdRef.detectChanges();
+  }
+
+  navigate(day: string): void {
+    this.router.navigate(['.'], {
+      relativeTo: this.route,
+      queryParams: {
+        date: day
+      }
+    });
   }
 
   getMoviesByReleaseDates(): void {
