@@ -13,8 +13,8 @@ export class MapMovie {
       date: r.release_date,
       note: r.vote_average,
       language: r.original_language,
-      thumbnail: Utils.getPosterPath(r, 92),
-      affiche: Utils.getPosterPath(r, 0),
+      thumbnail: Utils.getPosterPath(r, Utils.SMALL_IMG_SIZE),
+      affiche: Utils.getPosterPath(r, Utils.ORIGINAL_IMG_SIZE),
       synopsis: r.overview,
       time: r.runtime,
       popularity: r.popularity,
@@ -29,7 +29,7 @@ export class MapMovie {
       date: r.release_date,
       note: r.vote_average,
       language: r.original_language,
-      thumbnail: Utils.getPosterPath(r, 92)
+      thumbnail: Utils.getPosterPath(r, Utils.MEDIUM_IMG_SIZE)
     }));
   }
 
@@ -41,8 +41,8 @@ export class MapMovie {
       date: r.release_date,
       note: r.vote_average,
       language: r.original_language,
-      thumbnail: Utils.getPosterPath(r, 92),
-      affiche: Utils.getPosterPath(r, 0),
+      thumbnail: Utils.getPosterPath(r, Utils.SMALL_IMG_SIZE),
+      affiche: Utils.getPosterPath(r, Utils.ORIGINAL_IMG_SIZE),
       adult: r.adult,
       original_title: Utils.getTitle(r),
       popularity: r.popularity,
@@ -62,7 +62,7 @@ export class MapMovie {
       date: r.release_date,
       adult: r.adult,
       original_title: Utils.getTitle(r),
-      thumbnail: Utils.getPosterPath(r, 0)
+      thumbnail: Utils.getPosterPath(r, Utils.ORIGINAL_IMG_SIZE)
     }));
   }
 
@@ -100,8 +100,8 @@ export class MapMovie {
     movie.original_title = r.original_title;
     movie.date = r.release_date;
     movie.synopsis = r.overview;
-    movie.affiche = Utils.getPosterPath(r, 0);
-    movie.thumbnail = Utils.getPosterPath(r, 154);
+    movie.affiche = Utils.getPosterPath(r, Utils.ORIGINAL_IMG_SIZE);
+    movie.thumbnail = Utils.getPosterPath(r, Utils.MEDIUM_IMG_SIZE);
     movie.adult = r.adult;
     movie.time = r.runtime;
     movie.note = r.vote_average;
@@ -118,7 +118,8 @@ export class MapMovie {
   static toMovie(r: any): Movie {
     return <Movie>({
       id: r.id, title: r.title, original_title: Utils.getTitle(r), date: r.release_date, synopsis: r.overview,
-      affiche: Utils.getPosterPath(r, 0), thumbnail: Utils.getPosterPath(r, 154), adult: false, note: r.vote_average
+      affiche: Utils.getPosterPath(r, Utils.ORIGINAL_IMG_SIZE),
+      thumbnail: Utils.getPosterPath(r, Utils.MEDIUM_IMG_SIZE), adult: false, note: r.vote_average
     });
   }
 }

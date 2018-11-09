@@ -26,12 +26,12 @@ export class MapPerson {
         .map((r: any) => MapMovie.toMovie(r));
       const asNovel = credits.crew.filter((r: any) => Utils.jobEquals(r.job, 'Novel')).map((r: any) => MapMovie.toMovie(r));
 
-      return new Person(resp.id, resp.name, resp.gender, resp.birthday, deathday, Utils.getProfilPath(resp, 0),
-        Utils.getProfilPath(resp, 154), resp.biography, resp.adult, resp.place_of_birth, img,
+      return new Person(resp.id, resp.name, resp.gender, resp.birthday, deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
+        Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img,
         asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel);
     } else {
-      return new Person(resp.id, resp.name, resp.gender, resp.birthday, deathday, Utils.getProfilPath(resp, 0),
-        Utils.getProfilPath(resp, 154), resp.biography, resp.adult, resp.place_of_birth, img,
+      return new Person(resp.id, resp.name, resp.gender, resp.birthday, deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
+        Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img,
         undefined, undefined, undefined, undefined, undefined, undefined);
     }
   }
@@ -42,7 +42,7 @@ export class MapPerson {
       id: r.id,
       name: r.name,
       adult: r.adult,
-      thumbnail: Utils.getProfilPath(r, 92, true)
+      thumbnail: Utils.getProfilPath(r, Utils.SMALL_IMG_SIZE, true)
     }));
   }
 }
