@@ -6,9 +6,9 @@ Set-Variable -Name "outputDir" -Value "C:\Users\PBR\Dropbox\Documents\Dev Perso"
 
 cd $workspace
 
-$content = Get-Content($dropbox) | Out-String
-$content = $content.replace("import Dropbox = require('dropbox');","import Dropbox from 'dropbox';")
-$content | out-file $dropbox
+# $content = Get-Content($dropbox) | Out-String
+# $content = $content.replace("import Dropbox = require('dropbox');","import Dropbox from 'dropbox';")
+# $content | out-file $dropbox
 
 yarn cordova
 rm -r -fo cordova\AllMovies\www
@@ -21,9 +21,9 @@ $newName = "app-debug_" + (Get-Date -Format FileDateTime) + ".apk"
 Rename-Item -Path ($apkDir + "\app-debug.apk") -NewName $newName
 Copy-Item ($apkDir + "\" + $newName) -Destination $outputDir -force
 
-git checkout HEAD -- $dropbox
+# git checkout HEAD -- $dropbox
 
-if((Get-Item ($outputDir + "\" + $newName)).length -lt 4MB) {
+if((Get-Item ($outputDir + "\" + $newName)).length -lt 3500KB) {
 	Write-Host "AN ERROR OCCURRED" -ForegroundColor Red
 } else {
 	Write-Host "APK SUCCESSFULLY GENERATED" -ForegroundColor Green
