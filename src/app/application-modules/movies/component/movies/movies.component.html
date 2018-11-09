@@ -1,6 +1,6 @@
 <h2>{{'movies.header' | translate}}:</h2>
 
-<input #goToTop type="button" class="btn btn-outline-primary goToTop transparent" value="Scroll Top" (click)="onTop()" />
+<app-go-to-top [top]="scrollTo"></app-go-to-top>
 <ng-container *ngIf="movies">
   <div class="filters">
     <!-- Input Filter -->
