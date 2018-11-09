@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -27,7 +27,7 @@ library.add(faTimesCircle);
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss']
 })
-export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MoviesComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('goToTop') goToTop: HTMLFormElement;
   displayedColumns = init_columns;
   movies: Movie[];
@@ -43,6 +43,8 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
   genres: Genre[];
   filteredGenres: MatSelectChange;
   language: string;
+  scrollTo: HTMLElement;
+
   faTrash = faTrash;
   faHashtag = faHashtag;
   faImage = faImage;
@@ -60,6 +62,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     private dropboxService: DropboxService,
     private translate: TranslateService,
     private elemRef: ElementRef,
+    private cdRef: ChangeDetectorRef,
     private auth: AuthService,
     private title: TitleService
   ) { }
@@ -80,10 +83,9 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    window.addEventListener('scroll', (event) => {
-      this.onScroll(event);
-    });
+  ngAfterViewChecked(): void {
+    this.scrollTo = this.elemRef.nativeElement.querySelector('h2');
+    this.cdRef.detectChanges();
   }
 
   getMovies(): void {
@@ -249,18 +251,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onTop(): void {
-    this.elemRef.nativeElement.querySelector('.filters').scrollIntoView();
-  }
-
-  onScroll($event: any): void {
-    if ($event.target.scrollingElement.scrollTop > window.innerHeight / 3) {
-      this.goToTop.nativeElement.classList.remove('transparent');
-      this.goToTop.nativeElement.classList.remove('fadeOut');
-      this.goToTop.nativeElement.classList.add('fadeIn');
-    } else {
-      this.goToTop.nativeElement.classList.add('fadeOut');
-      this.goToTop.nativeElement.classList.remove('fadeIn');
-    }
+    this.scrollTo.scrollIntoView();
   }
 
   ngOnDestroy(): void {

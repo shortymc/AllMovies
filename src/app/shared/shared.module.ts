@@ -14,6 +14,7 @@ import {
 import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 import { MetaComponent } from './components/meta/component/meta.component';
+import { GoToTopComponent } from './components/go-to-top/go-to-top.component';
 import './rxjs-operators';
 import { ListPersonsComponent } from './components/list-persons/list-persons.component';
 import { ListMoviesComponent } from './components/list-movies/list-movies.component';
@@ -53,6 +54,7 @@ import { PersonSearchComponent } from './components/person-search/person-search.
     MetaComponent,
     ListPersonsComponent,
     DropdownLanguageComponent,
+    GoToTopComponent,
     AddCollectionDirective,
     ModalComponent,
     MovieSearchComponent,
@@ -77,6 +79,7 @@ import { PersonSearchComponent } from './components/person-search/person-search.
     SubstractDatePipe,
     CapitalizeWordPipe,
     FilterCrewPipe,
+    GoToTopComponent,
     ListMoviesComponent,
     MetaComponent,
     ListPersonsComponent,

@@ -1,4 +1,5 @@
 <div *ngIf="person">
+  <app-go-to-top [top]="scrollTo"></app-go-to-top>
   <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
     <app-image-viewer [images]="person.images" [visible]="isImagesVisible"></app-image-viewer>
   </app-modal>
