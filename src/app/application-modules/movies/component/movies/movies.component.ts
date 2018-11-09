@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { Router } from '@angular/router';
-import { forkJoin } from 'rxjs/observable/forkJoin';
+import { forkJoin } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';

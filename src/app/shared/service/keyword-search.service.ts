@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { Url } from './../../constant/url';
 import { Keyword } from './../../model/model';
@@ -17,7 +18,8 @@ export class KeywordSearchService implements SearchServiceService<Keyword> {
     url += `${Url.QUERY_URL}${UtilsService.encodeQueryUrl(term)}`;
     return this.serviceUtils
       .getObservable(url, this.serviceUtils.getHeaders())
-      .map((response: any) => response.results.slice(0, 10).map((r: any) => <Keyword>({ id: r.id, name: r.name })))
-      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+      .pipe(
+        map((response: any) => response.results.slice(0, 10).map((r: any) => <Keyword>({ id: r.id, name: r.name }))),
+        catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast)));
   }
 }

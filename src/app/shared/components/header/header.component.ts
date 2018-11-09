@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ChangeDetectorRef, OnInit } from '@angular/core';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import { fromEvent } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,

@@ -1,7 +1,7 @@
 <app-go-to-top [top]="scrollTo"></app-go-to-top>
 <!-- Date Picker -->
 <div class="column">
-  <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="getMoviesByReleaseDates(); selectedMovie = null;"
+  <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="getMoviesByReleaseDates(); selectedMovie = undefined;"
     [routerLink]="['/release']" [queryParams]="{ date: parseDate()}"></ngb-datepicker>
   <button class="btn btn-outline-primary" (click)="dp.navigateTo(removeOneWeek())" [routerLink]="['/release']"
     [queryParams]="{ date: addDays(-7)}">{{'release.date.previous' | translate}}</button>
@@ -15,7 +15,7 @@
   {{'release.header' | translate:{begin:monday | date : "dd/MM/yyyy", end:sunday | date : "dd/MM/yyyy"} }}:
   <div class="list-group">
     <a *ngFor="let movie of movies" (click)="onSelect(movie)" class="list-group-item list-group-item-action pointer"
-      [class.active]="selectedMovie !==null && movie.id === selectedMovie.id">
+      [class.active]="selectedMovie !==undefined && movie.id === selectedMovie.id">
       <span *ngIf="movie.language">{{movie.language | uppercase}} - </span>
       <span class="font-weight-bold" [ngClass]="{'text-info': isInfo(movie), 'text-success': isSuccess(movie), 'text-danger': isDanger(movie)}">
         {{movie.title.slice(0,40) | capitalizeWord}}</span>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { MapMovie } from './../../shared/mapMovie';
 import { Url } from './../../constant/url';
@@ -21,7 +22,9 @@ export class MovieSearchService {
     console.log(url);
     return this.serviceUtils
       .getObservable(url, this.serviceUtils.getHeaders())
-      .map(response => MapMovie.mapForSearchMovies(response))
-      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+      .pipe(
+        map(response => MapMovie.mapForSearchMovies(response)),
+        catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast))
+      );
   }
 }

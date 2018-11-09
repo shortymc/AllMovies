@@ -1,4 +1,4 @@
-import { forkJoin } from 'rxjs/observable/forkJoin';
+import { forkJoin } from 'rxjs';
 import { Directive, Input, HostListener } from '@angular/core';
 
 import { Movie } from '../../model/movie';

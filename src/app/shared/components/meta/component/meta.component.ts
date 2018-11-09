@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Utils } from './../../../utils';

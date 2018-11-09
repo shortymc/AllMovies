@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject, of } from 'rxjs';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { switchMap, debounceTime, catchError } from 'rxjs/operators';
 
 import { Person } from '../../../model/person';
 import { PersonSearchService } from '../../service/person-search.service';
@@ -33,18 +33,19 @@ export class PersonSearchComponent implements OnInit {
   ngOnInit(): void {
     this.pseudo = AuthService.decodeToken().name;
     this.persons = this.searchTerms
-      .debounceTime(300)        // wait 300ms after each keystroke before considering the term
-      // .distinctUntilChanged()   // ignore if next search term is same as previous
-      .switchMap(term => term   // switch to new observable each time the term changes
-        // return the http search observable
-        ? this.personSearchService.search(term, this.pseudo === 'Test')
-        // or the observable of empty persons if there was no search term
-        : Observable.of<Person[]>([]))
-      .catch(error => {
-        // TODO: add real error handling
-        console.error(error);
-        return Observable.of<Person[]>([]);
-      });
+      .pipe(
+        debounceTime(300),        // wait 300ms after each keystroke before considering the term
+        // .distinctUntilChanged()   // ignore if next search term is same as previous
+        switchMap(term => term   // switch to new observable each time the term changes
+          // return the http search observable
+          ? this.personSearchService.search(term, this.pseudo === 'Test')
+          // or the observable of empty persons if there was no search term
+          : of<Person[]>([])),
+        catchError(error => {
+          // TODO: add real error handling
+          console.error(error);
+          return of<Person[]>([]);
+        }));
   }
 
   gotoPerson(person: Person): void {

@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import 'rxjs/add/observable/fromPromise';
+
 import { Injectable } from '@angular/core';
 import * as jwtDecode from 'jwt-decode';
 import * as KJUR from 'jsrsasign';
@@ -182,7 +182,7 @@ export class AuthService {
   register(user: User): void {
     this.addUser(user).then((result) => {
       this.fileName = AuthService.getUserFileName(result.id);
-      this.dropbox.uploadNewFile([], this.fileName)
+      this.dropbox.uploadNewFile('', this.fileName)
         .then(() => {
           AuthService.setToken(this.createToken(result));
           this.isLogged = true;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Dropbox = require('dropbox');
+import * as Dropbox from 'dropbox';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Movie } from '../../model/movie';
@@ -14,27 +14,27 @@ export class DropboxService {
 
   /**
    * @param  {Movie[]} movies
-   * @returns any
+   * @returns Blob
    */
-  static moviesToBlob(movies: Movie[]): any {
+  static moviesToBlob(movies: Movie[]): Blob {
     const theJSON = JSON.stringify(movies, DropboxService.removeFields);
     return new Blob([theJSON], { type: 'text/json' });
   }
 
-  static removeFields(key: any, value: any): any {
+  static removeFields(key: string, value: string): string {
     if (['synopsis', 'actors', 'crew', 'recommendations', 'videos', 'images'].includes(key)) {
       return undefined;
     }
     return value;
   }
 
-  getDbx(): any {
-    return new Dropbox({ accessToken: DropboxConstante.DROPBOX_TOKEN });
+  getDbx(): Dropbox.Dropbox {
+    return new Dropbox.Dropbox({ accessToken: DropboxConstante.DROPBOX_TOKEN });
   }
 
   listFiles(): void {
     this.getDbx().filesListFolder({ path: '' })
-      .then((response: any) => console.log(response.entries))
+      .then((response: Dropbox.files.ListFolderResult) => console.log(response.entries))
       .catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
@@ -42,32 +42,37 @@ export class DropboxService {
     return DropboxConstante.DROPBOX_FOLDER + fileName;
   }
 
-  uploadFile(fichier: any, fileName: string): Promise<any> {
+  uploadFile(fichier: Blob, fileName: string): Promise<Dropbox.files.FileMetadata> {
     const pathFile = this.getPath(fileName);
     return this.getDbx().filesDeleteV2({ path: pathFile })
-      .then((response: any) => {
+      .then((response: Dropbox.files.DeleteResult) => {
         return this.getDbx().filesUpload({ path: pathFile, contents: fichier });
       }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  uploadNewFile(fichier: any, fileName: string): Promise<void> {
+  uploadNewFile(fichier: string, fileName: string): Promise<Dropbox.files.FileMetadata> {
     const pathFile = this.getPath(fileName);
     return this.getDbx().filesUpload({ path: pathFile, contents: fichier })
       .then(() => new Promise((resolve, reject) => resolve()))
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  downloadFile(fileName: string): Promise<string> {
+  downloadFile(fileName: string): Promise<any> {
     return this.getDbx().filesDownload({ path: this.getPath(fileName) })
       .then((response: any) => {
+        const fileReader = new FileReader();
         return new Promise((resolve, reject) => {
-          const fileReader = new FileReader();
-          fileReader.onload = (event) => resolve(fileReader.result as string[]);
-          fileReader.onabort = reject;
-          fileReader.onerror = reject;
+          fileReader.onerror = () => {
+            fileReader.abort();
+            reject(new DOMException('Problem parsing input file.'));
+          };
+          fileReader.onload = () => {
+            return resolve(fileReader.result.toString());
+          };
           fileReader.readAsText(response.fileBlob);
         });
-      }).catch((err) => this.serviceUtils.handleError(err, this.toast));
+      })
+      .catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
   addMovie(movie: Movie, fileName: string): void {
@@ -81,7 +86,7 @@ export class DropboxService {
         movieList.push(movie);
         movieList.sort(Utils.compareObject);
         this.uploadFile(DropboxService.moviesToBlob(movieList), fileName)
-          .then((res: any) => {
+          .then((res: Dropbox.files.FileMetadata) => {
             console.log(res);
             this.toast.open(this.translate.instant('toast.movie_added'));
           }).catch((err) => this.serviceUtils.handleError(err, this.toast));
@@ -103,7 +108,7 @@ export class DropboxService {
         found.forEach((movie: Movie) => movieList.push(movie));
         movieList.sort(Utils.compareObject);
         this.uploadFile(DropboxService.moviesToBlob(movieList), fileName)
-          .then((res: any) => {
+          .then((res: Dropbox.files.FileMetadata) => {
             console.log(res);
             this.toast.open(this.translate.instant('toast.movies_added', { size: found.length / 2 }));
           }).catch((err) => this.serviceUtils.handleError(err, this.toast));
@@ -117,7 +122,7 @@ export class DropboxService {
     this.downloadFile(fileName).then(file => {
       const movieList = <Movie[]>JSON.parse(file);
       this.uploadFile(DropboxService.moviesToBlob(movieList.filter((film: Movie) => film.id !== id)), fileName)
-        .then((res: any) => {
+        .then((res: Dropbox.files.FileMetadata) => {
           console.log(res);
           this.toast.open(this.translate.instant('toast.movie_removed'));
         }).catch((err) => this.serviceUtils.handleError(err, this.toast));
@@ -131,7 +136,7 @@ export class DropboxService {
       if (idToRemove.length > 0) {
         idToRemove.forEach((id: number) => movieList = movieList.filter((film: Movie) => film.id !== id));
         this.uploadFile(DropboxService.moviesToBlob(movieList), fileName)
-          .then((res: any) => {
+          .then((res: Dropbox.files.FileMetadata) => {
             console.log(res);
             this.toast.open(this.translate.instant('toast.movies_removed', { size: idToRemove.length }));
           }).catch((err) => this.serviceUtils.handleError(err, this.toast));
@@ -164,7 +169,7 @@ export class DropboxService {
       moviesToReplace.forEach((movie: Movie) => movieList.push(movie));
       movieList.sort(Utils.compareObject);
       this.uploadFile(DropboxService.moviesToBlob(movieList), fileName)
-        .then((res: any) => {
+        .then((res: Dropbox.files.FileMetadata) => {
           console.log(res);
           this.toast.open(this.translate.instant('toast.movies_updated', { size: moviesToReplace.length }));
         }).catch((err) => this.serviceUtils.handleError(err, this.toast));

@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable, forkJoin } from 'rxjs';
+import { map, catchError, flatMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { DiscoverCriteria } from './../../model/discover-criteria';
@@ -29,30 +30,31 @@ export class MovieService {
 
   getMovies(ids: number[], language: string): Promise<Movie[]> {
     const obs = ids.map(id => this.getMovie(id, true, true, true, true, true, true, false, language));
-    return Observable.forkJoin(obs).toPromise();
+    return forkJoin(obs).toPromise();
   }
 
   getMovie(id: number, video: boolean, credit: boolean, reco: boolean, keywords: boolean,
     similar: boolean, image: boolean, detail: boolean, language: string): Observable<Movie> {
     return this.serviceUtils.getObservable(UrlBuilder.movieUrlBuilder(id, video, credit, reco, keywords, similar, image, language))
-      .map(response => {
-        const movie = MapMovie.mapForMovie(response);
-        movie.lang_version = language;
-        return movie;
-      }).flatMap((movie: Movie) => {
-        if (detail && (!movie.synopsis || !movie.videos || !movie.original_title)) {
-          return this.getMovie(id, video, false, false, false, false, false, false, 'en').toPromise().then(enMovie => {
-            movie.synopsis = Utils.isBlank(movie.synopsis) ? movie.synopsis : enMovie.synopsis;
-            movie.videos = movie.videos.length > 0 ? movie.videos : enMovie.videos;
-            movie.original_title = Utils.isBlank(movie.original_title) ? movie.original_title : enMovie.original_title;
-            return movie;
-          }).then((film: Movie) => {
-            return this.getImdbScore(film);
-          });
-        } else {
-          return this.getImdbScore(movie);
-        }
-      }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+      .pipe(
+        map(response => {
+          const movie = MapMovie.mapForMovie(response);
+          movie.lang_version = language;
+          return movie;
+        }), flatMap((movie: Movie) => {
+          if (detail && (!movie.synopsis || (!movie.videos && video) || !movie.original_title)) {
+            return this.getMovie(id, video, false, false, false, false, false, false, 'en').toPromise().then(enMovie => {
+              movie.synopsis = Utils.isBlank(movie.synopsis) ? movie.synopsis : enMovie.synopsis;
+              movie.videos = movie.videos.length > 0 ? movie.videos : enMovie.videos;
+              movie.original_title = Utils.isBlank(movie.original_title) ? movie.original_title : enMovie.original_title;
+              return movie;
+            }).then((film: Movie) => {
+              return this.getImdbScore(film);
+            });
+          } else {
+            return this.getImdbScore(movie);
+          }
+        }), catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast)));
   }
 
   getImdbScore(movie: Movie): Promise<Movie> {
