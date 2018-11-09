@@ -20,13 +20,13 @@ export class Utils {
     let result: string;
     switch (size) {
       case 0:
-        result = path === undefined ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + path;
+        result = (path === undefined || path === null) ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + path;
         break;
       case 154:
-        result = path === undefined ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + path;
+        result = (path === undefined || path === null) ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + path;
         break;
       case 92:
-        result = path === undefined ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_92 + path;
+        result = (path === undefined || path === null) ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_92 + path;
         break;
     }
     return noEmpty && result === Url.IMAGE_URL_EMPTY ? undefined : result;
