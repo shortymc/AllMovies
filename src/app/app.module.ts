@@ -21,7 +21,7 @@ import { AuthGard } from './app.gards';
 
 @NgModule({
   imports: [
-    NgbModule.forRoot(),
+    NgbModule,
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
