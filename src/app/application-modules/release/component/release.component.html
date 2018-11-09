@@ -2,13 +2,13 @@
 <!-- Date Picker -->
 <div class="column">
   <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="getMoviesByReleaseDates(); selectedMovie = undefined;"
-    [routerLink]="['/release']" [queryParams]="{ date: parseDate()}"></ngb-datepicker>
-  <button class="btn btn-outline-primary" (click)="dp.navigateTo(removeOneWeek())" [routerLink]="['/release']"
-    [queryParams]="{ date: addDays(-7)}">{{'release.date.previous' | translate}}</button>
-  <button class="btn btn-outline-primary" (click)="dp.navigateTo(selectPreviousWednesday())" [routerLink]="['/release']">{{'release.date.current'
+    (select)="navigate(parseDate($event))"></ngb-datepicker>
+  <button class="btn btn-outline-primary" (click)="dp.navigateTo(removeOneWeek()); navigate(addDays(-7))">{{'release.date.previous'
     | translate}}</button>
-  <button class="btn btn-outline-primary" (click)="dp.navigateTo(addOneWeek())" [routerLink]="['/release']"
-    [queryParams]="{ date: addDays(7)}">{{'release.date.next' | translate}}</button>
+  <button class="btn btn-outline-primary" (click)="dp.navigateTo(selectPreviousWednesday()); navigate(undefined)">{{'release.date.current'
+    | translate}}</button>
+  <button class="btn btn-outline-primary" (click)="dp.navigateTo(addOneWeek()); navigate(addDays(7))">{{'release.date.next'
+    | translate}}</button>
 </div>
 <!-- Movie list -->
 <div>
