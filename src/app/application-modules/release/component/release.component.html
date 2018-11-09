@@ -2,7 +2,7 @@
 <!-- Date Picker -->
 <div class="column">
   <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="getMoviesByReleaseDates(); selectedMovie = undefined;"
-    (select)="navigate(parseDate($event))"></ngb-datepicker>
+    (select)="navigate(parseDate())"></ngb-datepicker>
   <button class="btn btn-outline-primary" (click)="dp.navigateTo(removeOneWeek()); navigate(addDays(-7))">{{'release.date.previous'
     | translate}}</button>
   <button class="btn btn-outline-primary" (click)="dp.navigateTo(selectPreviousWednesday()); navigate(undefined)">{{'release.date.current'
