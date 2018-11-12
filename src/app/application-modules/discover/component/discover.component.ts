@@ -1,6 +1,6 @@
 import { PageEvent } from '@angular/material/paginator';
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NouiFormatter } from 'ng2-nouislider';
 
@@ -19,7 +19,7 @@ import { ReleaseType } from '../../../constant/release-type';
   templateUrl: './discover.component.html',
   styleUrls: ['./discover.component.scss']
 })
-export class DiscoverComponent implements OnInit, AfterViewChecked {
+export class DiscoverComponent implements OnInit {
   @ViewChild('sortDir') sortDir: any;
   discover: Discover;
   sortChoices: DropDownChoice[];
@@ -48,7 +48,6 @@ export class DiscoverComponent implements OnInit, AfterViewChecked {
   selectedCertif: DropDownChoice;
   allReleaseType: DropDownChoice[];
   selectedReleaseType: DropDownChoice[];
-  scrollTo: HTMLElement;
   clean = false;
 
   constructor(
@@ -61,7 +60,6 @@ export class DiscoverComponent implements OnInit, AfterViewChecked {
     private certifService: CertificationService,
     private title: TitleService,
     private elemRef: ElementRef,
-    private cdRef: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
@@ -108,11 +106,6 @@ export class DiscoverComponent implements OnInit, AfterViewChecked {
     }
     this.getAllGenres(this.selectedGenres ? this.selectedGenres.map(g => g.value) : []);
     this.getAllCertification(criteria ? criteria.certification : '');
-  }
-
-  ngAfterViewChecked(): void {
-    this.scrollTo = this.elemRef.nativeElement.querySelector('.params');
-    this.cdRef.detectChanges();
   }
 
   getAllGenres(genresId: number[]): void {
@@ -240,8 +233,7 @@ export class DiscoverComponent implements OnInit, AfterViewChecked {
     }
     this.movieService.getMoviesDiscover(this.buildCriteria()).then(result => {
       this.discover = result;
-      // this.elemRef.nativeElement.querySelector('#searchBtn').scrollIntoView();
-      this.scrollTo.scrollIntoView();
+      this.elemRef.nativeElement.querySelector('#searchBtn').scrollIntoView();
     });
   }
 
