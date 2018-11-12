@@ -1,14 +1,12 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
   map,
-  pairwise,
   share,
   throttleTime
 } from 'rxjs/operators';
-import { Direction } from '../../../model/model';
 
 @Component({
   selector: 'app-go-to-top',
@@ -17,7 +15,6 @@ import { Direction } from '../../../model/model';
 })
 export class GoToTopComponent implements OnInit, AfterViewInit {
   @ViewChild('goToTop') goToTop: HTMLFormElement;
-  @Input() top: HTMLElement;
   isVisible = false;
 
   constructor(
@@ -33,13 +30,12 @@ export class GoToTopComponent implements OnInit, AfterViewInit {
       .pipe(
         throttleTime(10),
         map(() => window.pageYOffset),
-        pairwise(),
-        map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
+        map((y: number) => y > window.innerHeight / 3),
         distinctUntilChanged(),
         share()
       );
     scroll$.pipe(
-      filter(direction => direction === Direction.Up)
+      filter(direction => !direction)
     ).subscribe(() => {
       this.goToTop.nativeElement.classList.add('hidden');
       this.goToTop.nativeElement.classList.add('fadeOut');
@@ -47,17 +43,17 @@ export class GoToTopComponent implements OnInit, AfterViewInit {
     });
 
     scroll$.pipe(
-      filter(direction => direction === Direction.Down)
-      ).subscribe(() => {
-        this.goToTop.nativeElement.classList.remove('hidden');
-        this.goToTop.nativeElement.classList.remove('transparent');
-        this.goToTop.nativeElement.classList.remove('fadeOut');
-        this.goToTop.nativeElement.classList.add('fadeIn');
+      filter(direction => direction)
+    ).subscribe(() => {
+      this.goToTop.nativeElement.classList.remove('hidden');
+      this.goToTop.nativeElement.classList.remove('transparent');
+      this.goToTop.nativeElement.classList.remove('fadeOut');
+      this.goToTop.nativeElement.classList.add('fadeIn');
     });
   }
 
   onTop(): void {
-    this.top.scrollIntoView();
+    window.scrollTo(0, 0);
   }
 
 }

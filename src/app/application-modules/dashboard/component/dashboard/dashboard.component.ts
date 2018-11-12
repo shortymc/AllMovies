@@ -1,5 +1,5 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Component, OnInit, AfterViewChecked, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { TitleService, PersonService } from './../../../../shared/shared.module';
 import { Movie } from '../../../../model/movie';
@@ -12,10 +12,9 @@ import { Url } from '../../../../constant/url';
   styleUrls: ['./dashboard.component.scss'],
   templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements OnInit, AfterViewChecked {
+export class DashboardComponent implements OnInit {
   movies: Movie[] = [];
   persons: Person[] = [];
-  scrollTo: HTMLElement;
   Url = Url;
 
   constructor(
@@ -23,8 +22,6 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
     private personService: PersonService,
     private translate: TranslateService,
     private title: TitleService,
-    private elemRef: ElementRef,
-    private cdRef: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
@@ -35,11 +32,6 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
       this.getTopMovies(event.lang);
       this.getToPersons(event.lang);
     });
-  }
-
-  ngAfterViewChecked(): void {
-    this.scrollTo = this.elemRef.nativeElement.querySelector('.title');
-    this.cdRef.detectChanges();
   }
 
   getTopMovies(language: string): void {

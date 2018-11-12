@@ -1,4 +1,3 @@
-<app-go-to-top [top]="scrollTo"></app-go-to-top>
 <div class="params">
   <button type="button" class="btn btn-outline-primary" (click)="clear()">{{'discover.clear'|translate}}</button>
   <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" (click)="initSelection()" appAddCollection [movies]="discover.movies">{{'global.add_collection'|translate}}</button>
