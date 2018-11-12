@@ -31,6 +31,16 @@ a {
   width: 20%;
 }
 
+#logo {
+  position: relative;
+  float: right;
+  bottom: 0;
+  height: 50px;
+  width: auto;
+  margin: 5px;
+  fill: $blue;
+}
+
 .module {
   min-width: 120px;
   padding: 20px;
@@ -77,5 +87,9 @@ a {
 
   h5 {
     font-size: 1rem;
+  }
+
+  #logo {
+    float: left;
   }
 }
