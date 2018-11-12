@@ -1,5 +1,5 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Component, Injectable, OnInit, ViewChild, ElementRef, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, Injectable, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { faChevronCircleRight, faSave } from '@fortawesome/free-solid-svg-icons';
@@ -50,7 +50,7 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   styleUrls: ['./release.component.scss'],
   providers: [I18n, NgbDatepickerConfig, { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }]
 })
-export class ReleaseComponent implements OnInit, AfterViewChecked {
+export class ReleaseComponent implements OnInit {
   @ViewChild('dp') dp;
   movies: Movie[];
   selectedMovie: Movie;
@@ -59,7 +59,6 @@ export class ReleaseComponent implements OnInit, AfterViewChecked {
   sunday: Date;
   Url = DuckDuckGo;
   language: string;
-  scrollTo: HTMLElement;
 
   faChevronCircleRight = faChevronCircleRight;
   faSave = faSave;
@@ -73,7 +72,6 @@ export class ReleaseComponent implements OnInit, AfterViewChecked {
     private translate: TranslateService,
     private title: TitleService,
     private elemRef: ElementRef,
-    private cdRef: ChangeDetectorRef,
   ) {
     // Other days than wednesday are disabled
     config.markDisabled = (date: NgbDateStruct) => {
@@ -103,11 +101,6 @@ export class ReleaseComponent implements OnInit, AfterViewChecked {
         this.getMoviesByReleaseDates();
       }
     );
-  }
-
-  ngAfterViewChecked(): void {
-    this.scrollTo = this.elemRef.nativeElement.querySelector('ngb-datepicker');
-    this.cdRef.detectChanges();
   }
 
   navigate(day: string): void {
@@ -167,6 +160,7 @@ export class ReleaseComponent implements OnInit, AfterViewChecked {
   onSelect(movie: Movie): void {
     this.movieService.getMovie(movie.id, false, true, false, false, false, false, true, this.language).subscribe(selectedMovie => {
       this.selectedMovie = selectedMovie;
+      this.elemRef.nativeElement.querySelector('#selectedMovie').scrollIntoView();
     });
   }
 

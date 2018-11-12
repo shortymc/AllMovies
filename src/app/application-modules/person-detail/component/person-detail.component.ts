@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -14,7 +14,7 @@ import { DuckDuckGo } from '../../../constant/duck-duck-go';
   styleUrls: ['./person-detail.component.scss'],
   templateUrl: './person-detail.component.html',
 })
-export class PersonDetailComponent implements OnInit, AfterViewChecked {
+export class PersonDetailComponent implements OnInit {
   person: Person;
   isImagesVisible = false;
   scrollTo: HTMLElement;
@@ -34,8 +34,6 @@ export class PersonDetailComponent implements OnInit, AfterViewChecked {
     private router: Router,
     private translate: TranslateService,
     private title: TitleService,
-    private elemRef: ElementRef,
-    private cdRef: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
@@ -45,11 +43,6 @@ export class PersonDetailComponent implements OnInit, AfterViewChecked {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.getPerson(this.person.id, event.lang);
     });
-  }
-
-  ngAfterViewChecked(): void {
-    this.scrollTo = this.elemRef.nativeElement.querySelector('h2');
-    this.cdRef.detectChanges();
   }
 
   getPerson(id: number, language: string): void {

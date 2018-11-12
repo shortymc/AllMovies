@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Component, OnInit, AfterViewChecked, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { faChevronCircleLeft, faSave, faImage } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +17,7 @@ import { Keyword, Genre, DropDownChoice } from '../../../model/model';
   styleUrls: ['./movie-detail.component.scss'],
   templateUrl: './movie-detail.component.html',
 })
-export class MovieDetailComponent implements OnInit, AfterViewChecked {
+export class MovieDetailComponent implements OnInit {
   movie$: Observable<Movie>;
   isImagesVisible = false;
   Url = DuckDuckGo;
@@ -35,8 +35,6 @@ export class MovieDetailComponent implements OnInit, AfterViewChecked {
     private location: Location,
     private title: TitleService,
     private router: Router,
-    private elemRef: ElementRef,
-    private cdRef: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
@@ -51,11 +49,6 @@ export class MovieDetailComponent implements OnInit, AfterViewChecked {
       this.title.setTitle(movie.title);
     });
     // this.allocine.allocine('movie', '143067').subscribe(response => console.log(response));
-  }
-
-  ngAfterViewChecked(): void {
-    this.scrollTo = this.elemRef.nativeElement.querySelector('h2');
-    this.cdRef.detectChanges();
   }
 
   getMovie(id: number, language: string): Observable<Movie> {

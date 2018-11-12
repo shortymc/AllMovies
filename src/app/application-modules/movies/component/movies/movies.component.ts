@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -27,8 +27,7 @@ library.add(faTimesCircle);
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss']
 })
-export class MoviesComponent implements OnInit, OnDestroy, AfterViewChecked {
-  @ViewChild('goToTop') goToTop: HTMLFormElement;
+export class MoviesComponent implements OnInit, OnDestroy {
   displayedColumns = init_columns;
   movies: Movie[];
   length: number;
@@ -62,7 +61,6 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewChecked {
     private dropboxService: DropboxService,
     private translate: TranslateService,
     private elemRef: ElementRef,
-    private cdRef: ChangeDetectorRef,
     private auth: AuthService,
     private title: TitleService
   ) { }
@@ -81,11 +79,6 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.language = event.lang;
       this.getMovies();
     });
-  }
-
-  ngAfterViewChecked(): void {
-    this.scrollTo = this.elemRef.nativeElement.querySelector('h2');
-    this.cdRef.detectChanges();
   }
 
   getMovies(): void {
@@ -251,7 +244,7 @@ export class MoviesComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   onTop(): void {
-    this.scrollTo.scrollIntoView();
+    this.elemRef.nativeElement.querySelector('.filters').scrollIntoView();
   }
 
   ngOnDestroy(): void {
