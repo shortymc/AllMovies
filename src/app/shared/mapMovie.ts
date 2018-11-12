@@ -66,6 +66,24 @@ export class MapMovie {
     }));
   }
 
+  static mapForRecommendationsMovies(reco: any): Movie[] {
+    return reco.map((r: any) => <Movie>({
+      id: r.id,
+      title: r.title,
+      date: r.release_date,
+      thumbnail: Utils.getPosterPath(r, Utils.SMALL_IMG_SIZE),
+      original_title: Utils.getTitle(r),
+      adult: r.adult,
+      time: r.runtime,
+      note: r.vote_average,
+      vote_count: r.vote_count,
+      budget: r.budget,
+      recette: r.revenue,
+      language: r.original_language,
+      popularity: r.popularity
+    }));
+  }
+
   static mapForMovie(r: any): Movie {
     console.log(r);
     const movie = new Movie();
@@ -81,10 +99,10 @@ export class MapMovie {
       movie.videos = r.videos.results;
     }
     if (r.recommendations) {
-      movie.recommendations = Utils.recommendationsToMovies(r.recommendations.results);
+      movie.recommendations = MapMovie.mapForRecommendationsMovies(r.recommendations.results);
     }
     if (r.similar) {
-      movie.similars = Utils.recommendationsToMovies(r.similar.results);
+      movie.similars = MapMovie.mapForRecommendationsMovies(r.similar.results);
     }
     if (r.images && r.images.backdrops.length > 0) {
       movie.images = r.images.backdrops.map((i: any) => Url.IMAGE_URL_ORIGINAL.concat(i.file_path));
@@ -117,9 +135,18 @@ export class MapMovie {
 
   static toMovie(r: any): Movie {
     return <Movie>({
-      id: r.id, title: r.title, original_title: Utils.getTitle(r), date: r.release_date, synopsis: r.overview,
+      id: r.id,
+      title: r.title,
+      original_title: Utils.getTitle(r),
+      date: r.release_date,
+      synopsis: r.overview,
       affiche: Utils.getPosterPath(r, Utils.ORIGINAL_IMG_SIZE),
-      thumbnail: Utils.getPosterPath(r, Utils.MEDIUM_IMG_SIZE), adult: false, note: r.vote_average
+      thumbnail: Utils.getPosterPath(r, Utils.MEDIUM_IMG_SIZE),
+      adult: r.adult,
+      note: r.vote_average,
+      vote_count: r.vote_count,
+      language: r.original_language,
+      popularity: r.popularity
     });
   }
 }

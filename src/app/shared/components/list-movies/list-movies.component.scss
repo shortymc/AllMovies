@@ -1,7 +1,35 @@
 @import "../../../styles/styles";
 
+.card-deck {
+  margin-right: 0px !important;
+}
+
 .reco {
   display: flex;
+
+  & input {
+    width: 100% !important;
+  }
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  float: unset !important;
+}
+
+.reco-item {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.reco-infos {
+  width: 95%;
+  margin:auto;
+  margin-top: 15px;
+  text-align: center;
 }
 
 .total {
@@ -18,9 +46,15 @@
   .reco {
     display: inline-flex !important;
     flex-wrap: wrap;
+    flex-direction: column;
   }
 
-  .card-deck {
+  .reco-item {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .card-deck, .card {
     @include full_width;
   }
 }

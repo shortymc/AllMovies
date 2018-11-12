@@ -169,10 +169,6 @@ input[type='checkbox'] {
   color: map-get($gender, 'unknown');
 }
 
-.movies {
-  list-style-type: none;
-}
-
 .fadeIn {
   animation: fadeIn 1s both $bezier;
 }
@@ -220,10 +216,6 @@ input[type='checkbox'] {
   .card-deck {
     display: inherit !important;
     flex-wrap: inherit !important;
-  }
-
-  .movies {
-    padding-left: 0;
   }
 
   .page-link[aria-label="Next"],

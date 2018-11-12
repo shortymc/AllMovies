@@ -65,25 +65,6 @@ export class Utils {
     return region;
   }
 
-  static recommendationsToMovies(reco: any): Movie[] {
-    return reco.map((r: any) => <Movie>({
-      id: r.id,
-      title: r.title,
-      date: r.release_date,
-      thumbnail: Utils.getPosterPath(r, Utils.SMALL_IMG_SIZE),
-      original_title: Utils.getTitle(r),
-      adult: r.adult,
-      time: r.runtime,
-      note: r.vote_average,
-      budget: r.budget,
-      recette: r.revenue,
-      language: r.original_language
-      // genres
-      // vote average, count
-      // popularity
-    }));
-  }
-
   static convertTimeStringToNumber(time: string): number {
     if (time) {
       let h = parseInt(time.substr(0, time.indexOf('h')).trim(), 10);
