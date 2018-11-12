@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +27,9 @@ export class ListMoviesComponent implements OnInit {
   pageSize = 5;
   faSave = faSave;
 
-  constructor() { }
+  constructor(
+    public translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     this._movies

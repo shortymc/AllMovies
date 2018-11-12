@@ -123,15 +123,11 @@
           </li>
         </ul>
       </div>
-      <ul class="movies" *ngIf="movie.recommendations">
-        <li>
-          <app-list-movies [movies]="movie.recommendations" [label]="('movie.reco' | translate).concat(':')"></app-list-movies>
-        </li>
-      </ul>
-      <ul class="movies" *ngIf="movie.similars">
-        <li>
-          <app-list-movies [movies]="movie.similars" [label]="('movie.similar' | translate).concat(':')"></app-list-movies>
-        </li>
-      </ul>
+      <ng-container *ngIf="movie.recommendations">
+        <app-list-movies [movies]="movie.recommendations" [label]="('movie.reco' | translate).concat(':')"></app-list-movies>
+      </ng-container>
+      <ng-container *ngIf="movie.similars">
+        <app-list-movies [movies]="movie.similars" [label]="('movie.similar' | translate).concat(':')"></app-list-movies>
+      </ng-container>
     </div>
   </div>
