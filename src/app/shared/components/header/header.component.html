@@ -15,7 +15,7 @@
           <fa-icon [icon]="faUser"></fa-icon>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownLogin">
-          <a class="pointer dropdown-item" routerLink="login/profile">{{'nav_bar.profile' | translate}}</a>
+          <a class="pointer dropdown-item" routerLink="login/profile">{{'nav_bar.profile' | translate}}: {{user.name}}</a>
           <a class="pointer dropdown-item" (click)="auth.logout()">{{'nav_bar.logout' | translate}}</a>
         </div>
       </div>

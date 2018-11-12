@@ -13,6 +13,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { TitleService } from '../../service/title.service';
 import { AuthService } from '../../service/auth.service';
 import { Direction } from '../../../model/model';
+import { User } from '../../../model/user';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +21,7 @@ import { Direction } from '../../../model/model';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
+  user: User;
   isHeaderVisible = true;
   faUser = faUser;
 
@@ -31,6 +33,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.title.setTitle('');
+    this.auth.getCurrentUser().then(user => this.user = user);
   }
 
   ngAfterViewInit(): void {
