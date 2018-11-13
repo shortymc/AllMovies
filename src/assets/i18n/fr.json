@@ -38,8 +38,7 @@
         "release": "Sorties",
         "profile": "Mon profil",
         "logout": "Déconnexion",
-        "discover": "Découvrir",
-        "change_language": "Changer de Langue"
+        "discover": "Découvrir"
     },
     "title": {
         "dashboard": "",
@@ -214,7 +213,8 @@
         "profile": {
             "title": "Mon profil",
             "change_password": "Changer de mot de passe",
-            "change_question": "Changer de question secrète"
+            "change_question": "Changer de question secrète",
+            "change_language": "Changer de Langue"
         },
         "change_password": {
             "title": "Changer de mot de passe",

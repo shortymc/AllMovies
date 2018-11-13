@@ -27,7 +27,7 @@
     </mat-form-field>
 
     <label>{{'login.lang'|translate}}: </label>
-    <app-dropdown-language matInput (lang)="lang = $event" [userLang]="false"></app-dropdown-language>
+    <app-dropdown-language (lang)="lang = $event"></app-dropdown-language>
 
     <div class="register-footer">
       <button type="button" class="btn btn-outline-primary" routerLink="/login">{{'global.cancel'|translate}}</button>
