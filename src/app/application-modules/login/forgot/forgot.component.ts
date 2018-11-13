@@ -3,6 +3,7 @@ import * as crypto from 'crypto-js';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 import { ToastService, AuthService, TitleService, UtilsService } from './../../../shared/shared.module';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-forgot',
@@ -27,11 +28,16 @@ export class ForgotComponent implements OnInit {
     private auth: AuthService,
     private serviceUtils: UtilsService,
     private toast: ToastService,
+    private route: ActivatedRoute,
     private title: TitleService
   ) { }
 
   ngOnInit(): void {
     this.title.setTitle('title.login');
+    this.route.queryParams.subscribe(
+      params => {
+        this.name = params.name ? params.name : '';
+      });
   }
 
   loadQuestion(): void {
