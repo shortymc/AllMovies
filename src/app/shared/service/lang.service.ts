@@ -1,28 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Lang } from './../../model/model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LangService {
 
   constructor() { }
 
-  getAll(): Promise<Lang[]> {
-    return fetch(`assets/langs.json`, {
-      method: 'GET',
-      headers: {
-        'cache-control': 'no-cache',
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-    }).then(res => {
-      if (res.status >= 400) {
-        console.error(res);
-        throw new Error(`Bad response from server`);
-      }
-      return res.json();
-    }).catch(err => {
-      console.log(err);
+  getAll(): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', './assets/langs.json');
+      xhr.send();
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200 || xhr.status === 201) {
+            resolve(JSON.parse(xhr.response));
+          } else {
+            reject(JSON.parse(xhr.responseText));
+          }
+        }
+      };
     });
   }
 

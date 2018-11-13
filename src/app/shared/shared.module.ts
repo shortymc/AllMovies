@@ -42,6 +42,7 @@ import { KeywordSearchService } from './service/keyword-search.service';
 import { ToastService } from './service/toast.service';
 import { MovieSearchComponent } from './components/movie-search/movie-search.component';
 import { PersonSearchComponent } from './components/person-search/person-search.component';
+import { LangService } from './service/lang.service';
 
 @NgModule({
   declarations: [
@@ -112,6 +113,7 @@ export class SharedModule {
         TitleService,
         PersonService,
         GenreService,
+        LangService,
         PersonSearchService,
         MovieSearchService,
         CertificationService,
