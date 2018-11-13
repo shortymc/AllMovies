@@ -6,6 +6,12 @@
     <label>{{'login.name'|translate}}:</label>{{user.name}}</div>
   <div>
     <label>{{'login.question'|translate}}:</label>{{user.question}}</div>
+  <div class="lang"><label>{{'login.lang'|translate}}: </label>
+    <app-dropdown-language (lang)="user.lang = $event" [userLang]="user.lang"></app-dropdown-language>
+    <button type="button" class="btn btn-outline-primary" (click)="changeLang()">
+      {{'login.profile.change_language'|translate}}
+    </button>
+  </div>
   <div class="profile-footer">
     <button type="button" class="btn btn-outline-primary" routerLink="/login/changePassword">
       {{'login.profile.change_password'|translate}}

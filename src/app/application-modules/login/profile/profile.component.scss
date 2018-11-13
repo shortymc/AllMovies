@@ -6,12 +6,21 @@
   justify-content: center;
   margin: 5vh auto;
   padding: 25px;
-}
-
-.profile-footer {
-  display: inherit;
 
   & button {
     margin: 5px;
   }
+}
+
+.lang {
+  display: flex;
+  padding-bottom: 0.5em;
+
+  & > * {
+    margin: 5px;
+  }
+}
+
+.profile-footer {
+  display: inherit;
 }

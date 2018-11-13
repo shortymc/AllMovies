@@ -21,4 +21,8 @@ export class ProfileComponent implements OnInit {
     this.title.setTitle('title.profile');
   }
 
+  changeLang(): void {
+    this.auth.changeUser(this.user);
+  }
+
 }
