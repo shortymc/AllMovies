@@ -47,8 +47,8 @@
         "release": "Sorties",
         "profile": "Mon profil",
         "discover": "Découvrir",
-        "login":"Connection",
-        "register":"Inscription"
+        "login": "Connection",
+        "register": "Inscription"
     },
     "toast": {
         "movie_added": "Film ajouté !",
@@ -189,6 +189,7 @@
         "error_password": "Mots de passe différents",
         "error_question": "Questions différentes",
         "wrong_answer": "Réponse incorrecte",
+        "lang": "Langue",
         "connect": {
             "title": "S'IDENTIFIER",
             "log_in": "Se connecter",
