@@ -3,3 +3,19 @@
 .content {
   padding-top: 150px;
 }
+
+#logo {
+  position: relative;
+  float: right;
+  bottom: 0;
+  height: 50px;
+  width: auto;
+  margin: 5px;
+  fill: $blue;
+}
+
+@include media(#{$smallscreen}) {
+  #logo {
+    float: left;
+  }
+}
