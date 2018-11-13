@@ -28,3 +28,10 @@ export class Certification {
   meaning: string;
   order: number;
 }
+
+export class Lang {
+  id: number;
+  code: string;
+  label: string;
+  icon: string;
+}

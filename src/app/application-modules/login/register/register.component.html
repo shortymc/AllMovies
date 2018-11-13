@@ -4,27 +4,30 @@
     <mat-error *ngIf="message">{{message | translate}}</mat-error>
     <mat-form-field>
       <input matInput [(ngModel)]="name" placeholder="{{'login.name'|translate}}" type="text" #inputName="ngModel" name="inputName"
-        required/>
+        required />
       <mat-error *ngIf="inputName.errors != null && inputName.errors.required && !inputName.pristine">{{'login.name_required'|translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [(ngModel)]="password" placeholder="{{'login.password'|translate}}" type="password" #inputPassword="ngModel"
-        name="inputPassword" required/>
+      <input matInput [(ngModel)]="password" placeholder="{{'login.password'|translate}}" type="password"
+        #inputPassword="ngModel" name="inputPassword" required />
       <mat-error *ngIf="inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine">{{'login.password_required'|translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <input matInput [(ngModel)]="question" placeholder="{{'login.question'|translate}}" type="text" #inputQuestion="ngModel"
-        name="inputQuestion" required/>
+        name="inputQuestion" required />
       <mat-error *ngIf="inputQuestion.errors != null && inputQuestion.errors.required && !inputQuestion.pristine">{{'login.question_required'|translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <input matInput [(ngModel)]="answer" placeholder="{{'login.answer'|translate}}" type="password" #inputAnswer="ngModel"
-        name="inputAnswer" required/>
+        name="inputAnswer" required />
       <mat-error *ngIf="inputAnswer.errors != null && inputAnswer.errors.required && !inputAnswer.pristine">{{'login.answer_required'|translate}}</mat-error>
     </mat-form-field>
+
+    <label>{{'login.lang'|translate}}: </label>
+    <app-dropdown-language matInput (lang)="lang = $event" [userLang]="false"></app-dropdown-language>
 
     <div class="register-footer">
       <button type="button" class="btn btn-outline-primary" routerLink="/login">{{'global.cancel'|translate}}</button>

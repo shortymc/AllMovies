@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { User } from '../../../model/user';
 import { AuthService, TitleService } from '../../../shared/shared.module';
+import { Lang } from '../../../model/model';
 
 @Component({
   selector: 'app-register',
@@ -16,6 +17,7 @@ export class RegisterComponent implements OnInit {
   question: string;
   answer: string;
   message: string;
+  lang: Lang;
 
   constructor(
     private auth: AuthService,
@@ -38,7 +40,8 @@ export class RegisterComponent implements OnInit {
         if (resp) {
           this.message = 'login.register.already_exist';
         } else {
-          const user = new User(0, this.name, crypto.SHA512(this.password).toString(), this.question, crypto.SHA512(this.answer).toString());
+          const user = new User(0, this.name, crypto.SHA512(this.password).toString(),
+            this.question, crypto.SHA512(this.answer).toString(), this.lang);
           this.auth.register(user);
         }
       });

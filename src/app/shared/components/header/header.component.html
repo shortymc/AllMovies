@@ -19,7 +19,7 @@
           <a class="pointer dropdown-item" (click)="logout()">{{'nav_bar.logout' | translate}}</a>
         </div>
       </div>
-      <app-dropdown-language></app-dropdown-language>
+      <app-dropdown-language [userLang]="true"></app-dropdown-language>
     </nav>
   </div>
   <div class="row w-100" *ngIf="isLogged$ | async">
