@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as crypto from 'crypto-js';
+import { ActivatedRoute } from '@angular/router';
 
 import { User } from '../../../model/user';
 import { AuthService, TitleService } from '../../../shared/shared.module';
@@ -18,10 +19,15 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private title: TitleService
+    private title: TitleService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(
+      params => {
+        this.name = params.name ? params.name : '';
+      });
   }
 
   register(): void {

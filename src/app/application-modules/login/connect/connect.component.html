@@ -4,20 +4,20 @@
     <mat-error>{{message}}</mat-error>
     <mat-form-field>
       <input matInput [(ngModel)]="name" placeholder="{{'login.name'|translate}}" type="text" #inputName="ngModel" name="inputName"
-        required/>
+        required />
       <mat-error *ngIf="inputName.errors != null && inputName.errors.required && !inputName.pristine">{{'login.name_required'|translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [(ngModel)]="password" placeholder="{{'login.password'|translate}}" type="password" #inputPassword="ngModel"
-        name="inputPassword" required/>
+      <input matInput [(ngModel)]="password" placeholder="{{'login.password'|translate}}" type="password"
+        #inputPassword="ngModel" name="inputPassword" required />
       <mat-error *ngIf="inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine">{{'login.password_required'|translate}}</mat-error>
     </mat-form-field>
 
     <div class="connect-footer">
       <button type="submit" class="btn btn-outline-primary" (click)="login()" [disabled]="connectForm.invalid">{{'login.connect.log_in'|translate}}</button>
-      <button type="button" class="btn btn-outline-primary" routerLink="/login/forgot">{{'login.connect.forgot'|translate}}</button>
-      <button type="button" class="btn btn-outline-primary" routerLink="/login/register">{{'login.connect.sign_up'|translate}}</button>
+      <button type="button" class="btn btn-outline-primary" routerLink="/login/forgot" [queryParams]="{name: name}">{{'login.connect.forgot'|translate}}</button>
+      <button type="button" class="btn btn-outline-primary" routerLink="/login/register" [queryParams]="{name: name}">{{'login.connect.sign_up'|translate}}</button>
     </div>
   </form>
 </div>
