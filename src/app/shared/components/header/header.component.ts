@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ChangeDetectorRef, OnInit } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { BehaviorSubject, fromEvent } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
@@ -22,18 +22,26 @@ import { User } from '../../../model/user';
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
   user: User;
+  isLogged$ = new BehaviorSubject<boolean>(false);
   isHeaderVisible = true;
   faUser = faUser;
 
   constructor(
-    public auth: AuthService,
+    private auth: AuthService,
     private cdRef: ChangeDetectorRef,
     private title: TitleService
   ) { }
 
   ngOnInit(): void {
     this.title.setTitle('');
-    this.auth.getCurrentUser().then(user => this.user = user);
+    this.auth.isLogged.pipe(distinctUntilChanged()).subscribe(isLogged => {
+      this.isLogged$.next(isLogged);
+      if (isLogged) {
+        this.auth.getCurrentUser().then(user => this.user = user);
+      } else {
+        this.user = undefined;
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -56,4 +64,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     ).subscribe(() => (this.isHeaderVisible = false));
   }
 
+  logout(): void {
+    this.user = undefined;
+    this.auth.logout();
+  }
 }

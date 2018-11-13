@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { Injectable } from '@angular/core';
@@ -16,7 +17,7 @@ import { User } from '../../model/user';
 export class AuthService {
 
   redirectUrl: string;
-  isLogged = false;
+  isLogged = new BehaviorSubject<boolean>(false);
   private fileName: string;
 
   constructor(private dropbox: DropboxService, private router: Router, private serviceUtils: UtilsService,
@@ -49,7 +50,7 @@ export class AuthService {
   }
 
   reject(): Promise<boolean> {
-    this.isLogged = false;
+    this.isLogged.next(false);
     this.fileName = '';
     return new Promise((resolve) => { resolve(false); });
   }
@@ -62,7 +63,7 @@ export class AuthService {
     const user_infos: User = jwtDecode(token);
     if (token && user_infos && user_infos.id) {
       this.fileName = AuthService.getUserFileName(user_infos.id);
-      this.isLogged = true;
+      this.isLogged.next(true);
       return new Promise((resolve) => { resolve(true); });
     } else {
       return this.reject();
@@ -76,7 +77,7 @@ export class AuthService {
     }
     const user_infos: User = jwtDecode(token);
     if (token && user_infos && user_infos.id) {
-      this.isLogged = true;
+      this.isLogged.next(true);
       this.fileName = AuthService.getUserFileName(user_infos.id);
       return this.checkInfos(token);
     } else {
@@ -90,11 +91,11 @@ export class AuthService {
       if (found_users.length === 1) {
         sessionStorage.clear();
         AuthService.setToken(this.createToken(found_users[0]));
-        this.isLogged = true;
+        this.isLogged.next(true);
         this.fileName = AuthService.getUserFileName(found_users[0].id);
         return true;
       } else {
-        this.isLogged = false;
+        this.isLogged.next(false);
         this.fileName = '';
         return false;
       }
@@ -185,7 +186,7 @@ export class AuthService {
       this.dropbox.uploadNewFile('', this.fileName)
         .then(() => {
           AuthService.setToken(this.createToken(result));
-          this.isLogged = true;
+          this.isLogged.next(true);
           this.router.navigate(['/']);
         }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
     }).catch((err) => this.serviceUtils.handleError(err, this.toast));
@@ -247,7 +248,7 @@ export class AuthService {
   }
 
   logout(): void {
-    this.isLogged = false;
+    this.isLogged.next(false);
     this.fileName = '';
     AuthService.removeToken();
     sessionStorage.clear();
