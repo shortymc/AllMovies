@@ -47,8 +47,8 @@
         "release": "Releases",
         "profile": "My profile",
         "discover": "Discover",
-        "login":"Login",
-        "register":"Register"
+        "login": "Login",
+        "register": "Register"
     },
     "toast": {
         "movie_added": "Movie added !",
@@ -69,8 +69,8 @@
         "tv": "TV"
     },
     "dashboard": {
-      "movies": "Popular movies",
-      "persons": "Trending people"
+        "movies": "Popular movies",
+        "persons": "Trending people"
     },
     "movie": {
         "header": "Details of",
@@ -189,6 +189,7 @@
         "error_password": "Differents passwords",
         "error_question": "Differents questions",
         "wrong_answer": "Incorrect answer",
+        "lang": "Language",
         "connect": {
             "title": "LOGIN",
             "log_in": "Log In",

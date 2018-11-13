@@ -1,18 +1,11 @@
-<div class="dropdown">
-  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-    aria-expanded="false">
-    {{'nav_bar.change_language'|translate}}
+<div class="dropdown" *ngIf="language">
+  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">
+    {{language.label}}
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="pointer dropdown-item" [ngClass]="{'active': language === 'fr'}" (click)="change('fr')">
-      <span class="flag-icon flag-icon-fr"></span> Français</a>
-    <a class="pointer dropdown-item" [ngClass]="{'active': language === 'en'}" (click)="change('en')">
-      <span class="flag-icon flag-icon-gb"></span> English</a>
-    <a class="pointer dropdown-item" [ngClass]="{'active': language === 'es'}" (click)="change('es')">
-      <span class="flag-icon flag-icon-es"></span> Español</a>
-    <a class="pointer dropdown-item" [ngClass]="{'active': language === 'de'}" (click)="change('de')">
-      <span class="flag-icon flag-icon-de"></span> Deutsch</a>
-    <a class="pointer dropdown-item" [ngClass]="{'active': language === 'it'}" (click)="change('it')">
-      <span class="flag-icon flag-icon-it"></span> Italiano</a>
+    <a *ngFor="let lang of langList" class="pointer dropdown-item" [ngClass]="{'active': language.code === lang.code}"
+      (click)="change(lang)">
+      <span class="flag-icon flag-icon-{{lang.icon}}"></span> {{lang.label}}</a>
   </div>
 </div>
