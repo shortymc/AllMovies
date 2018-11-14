@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-center">
       <ngb-pagination (pageChange)="pageChanged($event)" [collectionSize]="movies.length" [(page)]="page" [maxSize]="3"
         [rotate]="true" [boundaryLinks]="true" [pageSize]="pageSize"></ngb-pagination>
-      <li><span class="total">{{'movie-list.total' | translate}}: {{movies.length}}</span></li>
+      <span><span class="total">{{'movie-list.total' | translate}}: {{movies.length}}</span></span>
     </div>
     <div class="card-body">
       <div class="reco">
@@ -22,7 +22,7 @@
     <div class="d-flex justify-content-center">
       <ngb-pagination (pageChange)="pageChanged($event)" [collectionSize]="movies.length" [(page)]="page" [maxSize]="3"
         [rotate]="true" [boundaryLinks]="true" [pageSize]="pageSize"></ngb-pagination>
-      <li><span class="total">{{'movie-list.total' | translate}}: {{movies.length}}</span></li>
+      <span><span class="total">{{'movie-list.total' | translate}}: {{movies.length}}</span></span>
     </div>
     <div class="card-footer text-center">
       <button class="btn btn-outline-primary" appAddCollection [movies]="movies">
