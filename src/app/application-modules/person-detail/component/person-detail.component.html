@@ -48,12 +48,14 @@
     <app-meta [entry]="person" [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR]"></app-meta>
     <figure>
       <label style="display: flex">{{'person.films' | translate}}:</label>
-      <app-list-movies [movies]="person.asActor" [label]="('movie-list.actor' | translate).concat(':')"></app-list-movies>
+      <app-list-movies [movies]="list.value" [label]="('movie-list.' + list.label_key | translate).concat(':')"
+        *ngFor="let list of listMoviesOrder"></app-list-movies>
+      <!-- <app-list-movies [movies]="person.asActor" [label]="('movie-list.actor' | translate).concat(':')"></app-list-movies>
       <app-list-movies [movies]="person.asDirector" [label]="('movie-list.director' | translate).concat(':')"></app-list-movies>
       <app-list-movies [movies]="person.asProducer" [label]="('movie-list.producer' | translate).concat(':')"></app-list-movies>
       <app-list-movies [movies]="person.asCompositors" [label]="('movie-list.composer' | translate).concat(':')"></app-list-movies>
       <app-list-movies [movies]="person.asScreenplay" [label]="('movie-list.screenwriter' | translate).concat(':')"></app-list-movies>
-      <app-list-movies [movies]="person.asNovel" [label]="('movie-list.novelist' | translate).concat(':')"></app-list-movies>
+      <app-list-movies [movies]="person.asNovel" [label]="('movie-list.novelist' | translate).concat(':')"></app-list-movies> -->
     </figure>
   </div>
 </div>
