@@ -5,7 +5,9 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { faAtom, faChevronCircleLeft, faPlusSquare, faMinusSquare, faImage } from '@fortawesome/free-solid-svg-icons';
 
 import { PersonService, TitleService } from '../../../shared/shared.module';
+import { DropDownChoice } from './../../../model/model';
 import { Person } from '../../../model/person';
+import { Job } from './../../../constant/job';
 import { Url } from '../../../constant/url';
 import { DuckDuckGo } from '../../../constant/duck-duck-go';
 
@@ -18,6 +20,7 @@ export class PersonDetailComponent implements OnInit {
   person: Person;
   isImagesVisible = false;
   scrollTo: HTMLElement;
+  listMoviesOrder: DropDownChoice[];
 
   Url = Url;
   DuckDuckGo = DuckDuckGo;
@@ -49,6 +52,45 @@ export class PersonDetailComponent implements OnInit {
     this.personService.getPerson(id, language)
       .then(person => {
         this.person = person;
+        switch (person.knownFor) {
+          case 'Acting':
+            this.listMoviesOrder = [
+              new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.director, person.asDirector),
+              new DropDownChoice(Job.producer, person.asProducer), new DropDownChoice(Job.screenwriter, person.asScreenplay),
+              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors)];
+            break;
+          case 'Directing':
+            this.listMoviesOrder = [
+              new DropDownChoice(Job.director, person.asDirector), new DropDownChoice(Job.producer, person.asProducer),
+              new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.screenwriter, person.asScreenplay),
+              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors)];
+            break;
+          case 'Sound':
+            this.listMoviesOrder = [
+              new DropDownChoice(Job.composer, person.asCompositors), new DropDownChoice(Job.actor, person.asActor),
+              new DropDownChoice(Job.director, person.asDirector), new DropDownChoice(Job.producer, person.asProducer),
+              new DropDownChoice(Job.screenwriter, person.asScreenplay), new DropDownChoice(Job.novelist, person.asNovel)];
+            break;
+          case 'Writing':
+            this.listMoviesOrder = [
+              new DropDownChoice(Job.screenwriter, person.asScreenplay), new DropDownChoice(Job.novelist, person.asNovel),
+              new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.director, person.asDirector),
+              new DropDownChoice(Job.producer, person.asProducer), new DropDownChoice(Job.composer, person.asCompositors)];
+            break;
+          case 'Production':
+            this.listMoviesOrder = [
+              new DropDownChoice(Job.producer, person.asProducer), new DropDownChoice(Job.director, person.asDirector),
+              new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.screenwriter, person.asScreenplay),
+              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors)];
+            break;
+          default:
+            console.log('default');
+            this.listMoviesOrder = [
+              new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.director, person.asDirector),
+              new DropDownChoice(Job.producer, person.asProducer), new DropDownChoice(Job.screenwriter, person.asScreenplay),
+              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors)];
+            break;
+        }
         this.title.setTitle(person.name);
       });
   }
