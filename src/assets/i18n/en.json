@@ -114,7 +114,15 @@
         "death": "Death",
         "bio": "Biography",
         "image": "Images",
-        "films": "Filmography"
+        "films": "Filmography",
+        "known_for": {
+            "title": "Known for",
+            "Acting": "Acting",
+            "Directing": "Directing",
+            "Sound": "Composer",
+            "Writing": "Screenwriter",
+            "Production": "Productor"
+        }
     },
     "person-search": {
         "header": "Person Search",
