@@ -1,3 +1,4 @@
+import { Job } from './../constant/job';
 import { MapMovie } from './mapMovie';
 import { Person } from './../model/person';
 import { Utils } from './utils';
@@ -17,8 +18,8 @@ export class MapPerson {
     const deathday = resp.deathday !== null ? resp.deathday : undefined;
     if (credits) {
       const asActor = credits.cast.map((r: any) => MapMovie.toMovie(r));
-      const asDirector = credits.crew.filter((r: any) => Utils.jobEquals(r.job, 'Director')).map((r: any) => MapMovie.toMovie(r));
-      const asProducer = credits.crew.filter((r: any) => Utils.jobEquals(r.job, 'Producer')).map((r: any) => MapMovie.toMovie(r));
+      const asDirector = credits.crew.filter((r: any) => Utils.jobEquals(r.job, Job.director)).map((r: any) => MapMovie.toMovie(r));
+      const asProducer = credits.crew.filter((r: any) => Utils.jobEquals(r.job, Job.producer)).map((r: any) => MapMovie.toMovie(r));
       const asCompositors = credits.crew
         .filter((r: any) => (Utils.jobEquals(r.job, 'Compositors') || Utils.jobEquals(r.job, 'Original Music Composer')))
         .map((r: any) => MapMovie.toMovie(r));
