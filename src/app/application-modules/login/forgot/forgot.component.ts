@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as crypto from 'crypto-js';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute } from '@angular/router';
 
 import { ToastService, AuthService, TitleService, UtilsService } from './../../../shared/shared.module';
-import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-forgot',

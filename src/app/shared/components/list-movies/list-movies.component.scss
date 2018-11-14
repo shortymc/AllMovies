@@ -1,7 +1,7 @@
 @import "../../../styles/styles";
 
 .card-deck {
-  margin-right: 0px !important;
+  margin-right: 0 !important;
 }
 
 .reco {
@@ -16,8 +16,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto;
   float: unset !important;
+  margin: auto;
 }
 
 .reco-item {
@@ -27,7 +27,7 @@
 
 .reco-infos {
   width: 75%;
-  margin:auto;
+  margin: auto;
   margin-top: 15px;
   text-align: center;
 }
@@ -54,7 +54,8 @@
     margin-bottom: 20px;
   }
 
-  .card-deck, .card {
+  .card-deck,
+  .card {
     @include full_width;
   }
 }
