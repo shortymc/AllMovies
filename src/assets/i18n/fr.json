@@ -113,7 +113,15 @@
         "death": "Mort",
         "bio": "Biographie",
         "image": "Images",
-        "films": "Films notables"
+        "films": "Films notables",
+        "known_for": {
+            "title": "Connu comme",
+            "Acting": "Acteur",
+            "Directing": "Réalisateur",
+            "Sound": "Compositeur",
+            "Writing": "Scénariste",
+            "Production": "Producteur"
+        }
     },
     "person-search": {
         "header": "Recherche de personnes",
