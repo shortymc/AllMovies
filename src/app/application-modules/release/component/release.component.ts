@@ -1,7 +1,7 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Component, Injectable, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, Injectable, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { faChevronCircleRight, faSave } from '@fortawesome/free-solid-svg-icons';
 
 import { Movie } from '../../../model/movie';
@@ -51,7 +51,7 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   providers: [I18n, NgbDatepickerConfig, { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }]
 })
 export class ReleaseComponent implements OnInit {
-  @ViewChild('dp') dp;
+  @ViewChild('dp') dp: NgbDatepicker;
   movies: Movie[];
   selectedMovie: Movie;
   model: NgbDateStruct;
@@ -104,6 +104,9 @@ export class ReleaseComponent implements OnInit {
   }
 
   navigate(day: string): void {
+    this.model = this.formatter.parse(day);
+    this.dp.navigateTo(this.model);
+    this.selectedMovie = undefined;
     this.router.navigate(['.'], {
       relativeTo: this.route,
       queryParams: {
@@ -129,18 +132,6 @@ export class ReleaseComponent implements OnInit {
     return this.model;
   }
 
-  removeOneWeek(): NgbDateStruct {
-    const date = this.formatter.addNgbDays(this.model, -7);
-    this.model = this.formatter.dateToNgbDateStruct(date);
-    return this.model;
-  }
-
-  addOneWeek(): NgbDateStruct {
-    const date = this.formatter.addNgbDays(this.model, 7);
-    this.model = this.formatter.dateToNgbDateStruct(date);
-    return this.model;
-  }
-
   selectDate(date: string): NgbDateStruct {
     this.model = this.formatter.parse(date);
     return this.model;
@@ -154,6 +145,7 @@ export class ReleaseComponent implements OnInit {
 
   parseDate(): string {
     const date = this.formatter.ngbDateToDate(this.model);
+    this.model = this.formatter.dateToNgbDateStruct(date);
     return this.formatter.dateToString(date, 'dd/MM/yyyy');
   }
 
