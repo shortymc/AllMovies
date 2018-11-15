@@ -2,11 +2,11 @@
 <div class="column">
   <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="getMoviesByReleaseDates(); selectedMovie = undefined;"
     (select)="navigate(parseDate())"></ngb-datepicker>
-  <button class="btn btn-outline-primary" (click)="navigate(addDays(-7));dp.navigateTo(parseDate())">{{'release.date.previous'
+  <button class="btn btn-outline-primary" (click)="navigate(addDays(-7))">{{'release.date.previous'
     | translate}}</button>
-  <button class="btn btn-outline-primary" (click)="navigate(undefined);dp.navigateTo(parseDate())">{{'release.date.current'
+  <button class="btn btn-outline-primary" (click)="navigate(undefined)">{{'release.date.current'
     | translate}}</button>
-  <button class="btn btn-outline-primary" (click)="navigate(addDays(7));dp.navigateTo(parseDate())">{{'release.date.next'
+  <button class="btn btn-outline-primary" (click)="navigate(addDays(7))">{{'release.date.next'
     | translate}}</button>
 </div>
 <!-- Movie list -->
