@@ -7,6 +7,7 @@ import {
   share,
   throttleTime
 } from 'rxjs/operators';
+import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-go-to-top',
@@ -16,6 +17,7 @@ import {
 export class GoToTopComponent implements OnInit, AfterViewInit {
   @ViewChild('goToTop') goToTop: HTMLFormElement;
   isVisible = false;
+  faAngleUp = faAngleUp;
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -29,8 +31,7 @@ export class GoToTopComponent implements OnInit, AfterViewInit {
     const scroll$ = fromEvent(window, 'scroll')
       .pipe(
         throttleTime(10),
-        map(() => window.pageYOffset),
-        map((y: number) => y > window.innerHeight / 3),
+        map(() => window.pageYOffset > window.innerHeight / 3 && document.body.scrollHeight > window.innerHeight),
         distinctUntilChanged(),
         share()
       );
