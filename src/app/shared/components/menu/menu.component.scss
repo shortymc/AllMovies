@@ -1,0 +1,72 @@
+@import "../../../styles/styles";
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  z-index: 9;
+
+  & .search-boxes {
+    display: inline-flex;
+    padding-left: 5vw;
+
+    &,
+    & > * {
+      @include width_100percent;
+    }
+  }
+}
+
+mat-toolbar {
+  height: auto !important;
+  background-color: $light_blue;
+}
+
+.nav-list {
+  display: inline-flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  & .btn {
+    padding: 10px;
+  }
+
+  & > * {
+    margin: 0 2px 0 2px;
+  }
+
+  & .ng-fa-icon {
+    margin-right: 6px;
+  }
+}
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+.mat-drawer-container {
+  background-color: #fff !important;
+}
+
+@include media(#{$smallscreen}) {
+  :host .nav-list {
+    & > * {
+      margin: 0;
+    }
+  }
+
+  .toolbar {
+
+    & .search-boxes {
+      display: initial;
+    }
+  }
+
+  .dropdown-menu {
+    transform: translate3d(-162px, 0, 0);
+  }
+
+  .header-buttons {
+    padding: 10px 0 0 0;
+  }
+}
