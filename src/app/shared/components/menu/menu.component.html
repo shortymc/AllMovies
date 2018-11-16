@@ -8,7 +8,7 @@
   </div>
 </mat-toolbar>
 
-<mat-sidenav-container hasBackdrop="false">
+<mat-sidenav-container hasBackdrop="false" fullscreen>
   <mat-sidenav #sidenav fixedTopGap="56" fixedInViewport="true" disableClose="false" autoFocus="false" [mode]="mobileQuery.matches ? 'over' : 'push'">
     <mat-nav-list class="nav-list">
       <a mat-list-item routerLink="login/profile" *ngIf="isLogged$ | async">
