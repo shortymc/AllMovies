@@ -12,6 +12,8 @@ import {
   SWIPER_CONFIG
 } from 'ngx-swiper-wrapper';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
+import { MatSidenavModule, MatToolbarModule, MatIconModule } from '@angular/material';
+import {MatListModule} from '@angular/material/list';
 
 import { MetaComponent } from './components/meta/component/meta.component';
 import { GoToTopComponent } from './components/go-to-top/go-to-top.component';
@@ -25,7 +27,7 @@ import { MetaService } from './components/meta/service/meta.service';
 import { OmdbService } from './service/omdb.service';
 import { FilterCrewPipe } from './pipes/filterCrew.pipe';
 import { CapitalizeWordPipe } from './pipes/capitalizeWord.pipe';
-import { HeaderComponent } from './components/header/header.component';
+import { MenuComponent } from './components/menu/menu.component';
 import { SubstractDatePipe } from './pipes/substractDate.pipe';
 import { ConvertToHHmmPipe } from './pipes/convertToHHmm.pipe';
 import { ModalComponent } from './components/modal/modal.component';
@@ -59,7 +61,7 @@ import { LangService } from './service/lang.service';
     ModalComponent,
     MovieSearchComponent,
     PersonSearchComponent,
-    HeaderComponent,
+    MenuComponent,
     ImageViewerComponent
   ],
   imports: [
@@ -67,6 +69,10 @@ import { LangService } from './service/lang.service';
     FormsModule,
     MatStepperModule,
     FontAwesomeModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatIconModule,
     SwiperModule,
     PinchZoomModule,
     NgbModule,
@@ -92,7 +98,7 @@ import { LangService } from './service/lang.service';
     MovieSearchComponent,
     PersonSearchComponent,
     ImageViewerComponent,
-    HeaderComponent,
+    MenuComponent,
   ]
 })
 

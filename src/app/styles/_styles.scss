@@ -186,8 +186,16 @@ input[type='checkbox'] {
   left: auto !important;
 }
 
+.synopsis {
+  width: 80% !important;
+}
+
 @mixin full_width {
   width: 100vw !important;
+}
+
+@mixin width_100percent {
+  width: 100% !important;
 }
 
 @include media(#{$smallscreen}) {
@@ -231,6 +239,7 @@ input[type='checkbox'] {
 
   .search-box,
   .input-box {
+    width: calc(80% - 8px) !important;
     margin-top: 0.5vh;
     padding: 0 5px 0 15px;
     font-size: 14px;
