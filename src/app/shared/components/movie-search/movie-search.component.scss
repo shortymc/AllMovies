@@ -1,7 +1,7 @@
 @import "../../../styles/styles";
 
 #res {
-  z-index: 500;
+  z-index: map-get($depth, 'overlay');
   position: fixed;
   padding-left: 36px;
 }

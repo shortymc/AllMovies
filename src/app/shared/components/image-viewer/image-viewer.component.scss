@@ -10,7 +10,7 @@ pinch-zoom {
   position: absolute;
   top: 80px;
   right: 28px;
-  z-index: 1;
+  z-index: map-get($depth, 'modal');
   padding: 0.4em 0.7em;
   font-size: 22px;
   color: $blue;

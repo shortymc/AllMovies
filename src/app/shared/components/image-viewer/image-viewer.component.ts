@@ -1,6 +1,7 @@
 import { SwiperConfigInterface, SwiperComponent } from 'ngx-swiper-wrapper';
 import { Component, ViewChild, Input, OnChanges, SimpleChanges, AfterViewChecked } from '@angular/core';
 import { faExpand, IconDefinition, faCompress } from '@fortawesome/free-solid-svg-icons';
+import { MenuService } from '../../service/menu.service';
 
 @Component({
   selector: 'app-image-viewer',
@@ -47,6 +48,7 @@ export class ImageViewerComponent implements OnChanges, AfterViewChecked {
   closeBtn: IconDefinition;
 
   constructor(
+    private menuService: MenuService
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -59,6 +61,9 @@ export class ImageViewerComponent implements OnChanges, AfterViewChecked {
       if (!this.isOnePicture) {
         this.closeBtn = faCompress;
       }
+    }
+    if (!this.isOnePicture) {
+      this.menuService.visible$.next(!this.visible);
     }
   }
 
@@ -90,6 +95,11 @@ export class ImageViewerComponent implements OnChanges, AfterViewChecked {
   fullscreen(): void {
     this.isFullscreen = true;
     this.fullScreenImg = this.isOnePicture ? <string>this.images : this.images[this.indexTop];
+    this.menuService.visible$.next(this.isOnePicture && !this.isFullscreen);
   }
 
+  closeFullscreen(event: boolean): void {
+    this.isFullscreen = event;
+    this.menuService.visible$.next(this.isOnePicture && !this.isFullscreen);
+  }
 }

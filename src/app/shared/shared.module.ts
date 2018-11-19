@@ -13,7 +13,7 @@ import {
 } from 'ngx-swiper-wrapper';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
 import { MatSidenavModule, MatToolbarModule, MatIconModule } from '@angular/material';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 
 import { MetaComponent } from './components/meta/component/meta.component';
 import { GoToTopComponent } from './components/go-to-top/go-to-top.component';
@@ -45,6 +45,7 @@ import { ToastService } from './service/toast.service';
 import { MovieSearchComponent } from './components/movie-search/movie-search.component';
 import { PersonSearchComponent } from './components/person-search/person-search.component';
 import { LangService } from './service/lang.service';
+import { MenuService } from './service/menu.service';
 
 @NgModule({
   declarations: [
@@ -124,6 +125,7 @@ export class SharedModule {
         MovieSearchService,
         CertificationService,
         KeywordSearchService,
+        MenuService,
         ToastService,
         {
           provide: SWIPER_CONFIG,
@@ -149,3 +151,4 @@ export { MovieSearchService } from './service/movie-search.service';
 export { CertificationService } from './service/certification.service';
 export { KeywordSearchService } from './service/keyword-search.service';
 export { ToastService } from './service/toast.service';
+export { MenuService } from './service/menu.service';

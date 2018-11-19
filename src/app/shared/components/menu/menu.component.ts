@@ -10,6 +10,7 @@ import { MatSidenav, MatSidenavContent } from '@angular/material';
 import { TitleService } from '../../service/title.service';
 import { AuthService } from '../../service/auth.service';
 import { User } from '../../../model/user';
+import { MenuService } from '../../service/menu.service';
 
 @Component({
   selector: 'app-menu',
@@ -33,7 +34,8 @@ export class MenuComponent implements OnInit, OnDestroy {
     public changeDetectorRef: ChangeDetectorRef,
     public media: MediaMatcher,
     private auth: AuthService,
-    private title: TitleService
+    private title: TitleService,
+    public menuService: MenuService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();

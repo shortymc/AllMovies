@@ -1,12 +1,12 @@
 <ng-container *ngIf="visible">
   <!-- Modal for fullscreen -->
-  <app-modal [visible]="isFullscreen" (update)="isFullscreen = $event" [closeBtn]="closeBtn">
+  <app-modal [visible]="isFullscreen" (update)="closeFullscreen($event)" [closeBtn]="closeBtn">
     <pinch-zoom>
       <img src="{{fullScreenImg}}" class="fullscreen">
     </pinch-zoom>
   </app-modal>
   <!-- Swiper for gallery of images -->
-  <ng-container *ngIf="!isOnePicture">
+  <ng-container *ngIf="!isOnePicture && !isFullscreen">
     <div class="gallery-top">
       <swiper [config]="config" [(index)]="indexTop" #galleryTop>
         <div *ngFor="let img of images">
