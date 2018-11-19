@@ -182,8 +182,9 @@ input[type='checkbox'] {
 }
 
 .dropdown-menu {
-  top: 0 !important;
+  top: auto !important;
   left: auto !important;
+  transform: translate3d(3px, 0, 0) !important;
 }
 
 .synopsis {
