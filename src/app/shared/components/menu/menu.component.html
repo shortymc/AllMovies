@@ -11,11 +11,11 @@
 <mat-sidenav-container hasBackdrop="false" fullscreen>
   <mat-sidenav #sidenav fixedTopGap="56" fixedInViewport="true" [disableClose]="false" autoFocus="false" [mode]="mobileQuery.matches ? 'over' : 'push'">
     <mat-nav-list class="nav-list">
+      <a mat-list-item routerLink="/dashboard" *ngIf="isLogged$ | async">{{'nav_bar.dashboard'|translate}}</a>
       <a mat-list-item routerLink="login/profile" *ngIf="isLogged$ | async">
         <fa-icon [icon]="faUser"></fa-icon>
         {{'nav_bar.profile'| translate}} ({{user?.name}})
       </a>
-      <a mat-list-item routerLink="/dashboard" *ngIf="isLogged$ | async">{{'nav_bar.dashboard'|translate}}</a>
       <a mat-list-item routerLink="/movies" *ngIf="isLogged$ | async">{{'nav_bar.movies'
         |translate}}</a>
       <a mat-list-item routerLink="/release" *ngIf="isLogged$ | async">{{'nav_bar.release'|translate}}</a>
