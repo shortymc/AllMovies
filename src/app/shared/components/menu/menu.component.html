@@ -1,4 +1,4 @@
-<mat-toolbar class="toolbar">
+<mat-toolbar class="toolbar" *ngIf="(menuService.visible$ | async) as visible">
   <button class="btn" (click)="sidenav.toggle()">
     <fa-icon [icon]="faBars"></fa-icon>
   </button>

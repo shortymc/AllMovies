@@ -4,7 +4,7 @@
   position: fixed;
   bottom: 0;
   right: 0;
-  z-index: 100000;
+  z-index: map-get($depth, 'top');
   width: 100px;
   height: 40px;
   margin: 10px;

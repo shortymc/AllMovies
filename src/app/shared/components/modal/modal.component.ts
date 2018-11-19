@@ -28,11 +28,6 @@ export class ModalComponent implements OnInit, OnChanges {
     }
   }
 
-  show(): void {
-    this.visible = true;
-    this.update.emit(this.visible);
-  }
-
   close(): void {
     this.visible = false;
     this.update.emit(this.visible);
