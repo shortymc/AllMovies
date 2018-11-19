@@ -1,1 +1,0 @@
-call http-serve .\dist
