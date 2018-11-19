@@ -1,10 +1,11 @@
-import { Component, OnInit, HostListener, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {
   distinctUntilChanged,
 } from 'rxjs/operators';
 import { faUser, faBars } from '@fortawesome/free-solid-svg-icons';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { MatSidenav, MatSidenavContent } from '@angular/material';
 
 import { TitleService } from '../../service/title.service';
 import { AuthService } from '../../service/auth.service';
@@ -22,10 +23,15 @@ export class MenuComponent implements OnInit, OnDestroy {
   faBars = faBars;
   isLogged$ = new BehaviorSubject<boolean>(false);
   private _mobileQueryListener: () => void;
+  @ViewChild('sidenav') sidenav: MatSidenav;
+  @ViewChild('content') content: MatSidenavContent;
+  @HostListener('document:click', ['$event']) onClick(event: Event): void {
+    this.handleClick(event);
+  }
 
   constructor(
-    changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher,
+    public changeDetectorRef: ChangeDetectorRef,
+    public media: MediaMatcher,
     private auth: AuthService,
     private title: TitleService
   ) {
@@ -44,6 +50,20 @@ export class MenuComponent implements OnInit, OnDestroy {
         this.user = undefined;
       }
     });
+  }
+
+  handleClick(event: any): void {
+    let result = false;
+    let clickedComponent = event.target;
+    do {
+      if (clickedComponent === this.content.getElementRef().nativeElement) {
+        result = true;
+      }
+      clickedComponent = clickedComponent.parentNode;
+    } while (clickedComponent);
+    if (this.sidenav.opened && result) {
+      this.sidenav.toggle();
+    }
   }
 
   logout(): void {
