@@ -9,7 +9,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container hasBackdrop="false" fullscreen>
-  <mat-sidenav #sidenav fixedTopGap="56" fixedInViewport="true" disableClose="false" autoFocus="false" [mode]="mobileQuery.matches ? 'over' : 'push'">
+  <mat-sidenav #sidenav fixedTopGap="56" fixedInViewport="true" [disableClose]="false" autoFocus="false" [mode]="mobileQuery.matches ? 'over' : 'push'">
     <mat-nav-list class="nav-list">
       <a mat-list-item routerLink="login/profile" *ngIf="isLogged$ | async">
         <fa-icon [icon]="faUser"></fa-icon>
@@ -24,7 +24,7 @@
       <app-dropdown-language [userLang]="user?.lang"></app-dropdown-language>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content #content>
     <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>
