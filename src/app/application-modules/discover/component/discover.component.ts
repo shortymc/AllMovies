@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NouiFormatter } from 'ng2-nouislider';
+import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 
 import { DiscoverCriteria } from './../../../model/discover-criteria';
 import { Discover } from './../../../model/discover';
@@ -48,6 +49,7 @@ export class DiscoverComponent implements OnInit {
   selectedCertif: DropDownChoice;
   allReleaseType: DropDownChoice[];
   selectedReleaseType: DropDownChoice[];
+  faBookmark = faBookmark;
   clean = false;
 
   constructor(
