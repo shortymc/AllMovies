@@ -34,18 +34,18 @@
     },
     "nav_bar": {
         "dashboard": "Tableau de Bord",
-        "movies": "Films",
-        "release": "Sorties",
-        "profile": "Mon profil",
+        "movies": "Mes Films",
+        "release": "Sorties Cinéma",
+        "profile": "Mon Profil",
         "logout": "Déconnexion",
-        "discover": "Découvrir"
+        "discover": "Explorer"
     },
     "title": {
-        "dashboard": "",
-        "movies": "Films",
-        "release": "Sorties",
-        "profile": "Mon profil",
-        "discover": "Découvrir",
+        "dashboard": "Tableau de Bord",
+        "movies": "Mes Films",
+        "release": "Sorties Cinéma",
+        "profile": "Mon Profil",
+        "discover": "Explorer",
         "login": "Connection",
         "register": "Inscription"
     },

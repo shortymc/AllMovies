@@ -34,19 +34,19 @@
     },
     "nav_bar": {
         "dashboard": "Dashboard",
-        "movies": "Movies",
-        "release": "Releases",
-        "profile": "My profile",
-        "logout": "Log out",
+        "movies": "My Movies",
+        "release": "Movie Releases",
+        "profile": "My Profile",
+        "logout": "Log Out",
         "discover": "Discover",
         "change_language": "Change Language"
     },
     "title": {
-        "dashboard": "",
-        "movies": "Movies",
-        "release": "Releases",
-        "profile": "My profile",
-        "discover": "Discover",
+        "dashboard": "Dashboard",
+        "movies": "My Movies",
+        "release": "Movie Releases",
+        "profile": "My Profile",
+        "discover": "Explore",
         "login": "Login",
         "register": "Register"
     },
