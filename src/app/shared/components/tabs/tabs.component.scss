@@ -1,0 +1,21 @@
+@import "../../../styles/styles";
+
+:host {
+  position: absolute;
+  top: 62px;
+}
+
+.closeTab {
+  padding: 20px;
+  margin-left: 10px;
+
+  &:hover {
+    background-color: $light_gray;
+  }
+}
+
+@include media(#{$smallscreen}) {
+  :host {
+    top: 75px;
+  }
+}
