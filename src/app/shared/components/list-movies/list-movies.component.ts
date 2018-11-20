@@ -1,7 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 
 import { Movie } from '../../../model/movie';
 
@@ -25,7 +25,7 @@ export class ListMoviesComponent implements OnInit {
   page: number;
   moviesToShow: Movie[];
   pageSize = 5;
-  faSave = faSave;
+  faBookmark = faBookmark;
 
   constructor(
     public translate: TranslateService
