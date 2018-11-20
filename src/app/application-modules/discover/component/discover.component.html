@@ -1,6 +1,5 @@
 <div class="params">
   <button type="button" class="btn btn-outline-primary" (click)="clear()">{{'discover.clear'|translate}}</button>
-  <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" (click)="initSelection()" appAddCollection [movies]="discover.movies">{{'global.add_collection'|translate}}</button>
   <!-- Sort field -->
   <mat-form-field>
     <mat-select placeholder="{{'discover.sort' | translate}}" [(value)]="sortChosen">
@@ -48,8 +47,8 @@
   </mat-form-field>
 </div>
 <!-- Runtime range -->
-<nouislider [connect]="true" [min]="0" [max]="max" [step]="1" [(ngModel)]="runtimeRange" [format]="formatter" [tooltips]="[true, true]"
-  style="margin-top: 4em;"></nouislider>
+<nouislider [connect]="true" [min]="0" [max]="max" [step]="1" [(ngModel)]="runtimeRange" [format]="formatter"
+  [tooltips]="[true, true]" style="margin-top: 4em;"></nouislider>
 <!-- Year range -->
 <nouislider [connect]="true" [min]="minYear" [max]="maxYear" [step]="1" [(ngModel)]="yearRange" [tooltips]="[true, true]"
   style="margin-top: 4em;"></nouislider>
@@ -64,6 +63,11 @@
   </mat-form-field>
 </div>
 <div class="params">
+  <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" (click)="initSelection()"
+    appAddCollection [movies]="discover.movies">
+    <fa-icon [icon]="faBookmark"></fa-icon>
+    {{'global.add_collection'|translate}}
+  </button>
   <!-- Search Button -->
   <button type="submit" id="searchBtn" class="btn btn-outline-primary" (click)="search(true)">{{'discover.search'|translate}}</button>
 </div>

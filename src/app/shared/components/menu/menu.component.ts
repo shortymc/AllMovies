@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import {
   distinctUntilChanged,
 } from 'rxjs/operators';
-import { faUser, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faBars, faAtom, faPowerOff, faHome, faBoxOpen, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav, MatSidenavContent } from '@angular/material';
 
@@ -22,6 +22,11 @@ export class MenuComponent implements OnInit, OnDestroy {
   user: User;
   faUser = faUser;
   faBars = faBars;
+  faBookmark = faBookmark;
+  faAtom = faAtom;
+  faHome = faHome;
+  faBoxOpen = faBoxOpen;
+  faPowerOff = faPowerOff;
   isLogged$ = new BehaviorSubject<boolean>(false);
   private _mobileQueryListener: () => void;
   @ViewChild('sidenav') sidenav: MatSidenav;

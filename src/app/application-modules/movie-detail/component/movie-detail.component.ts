@@ -3,7 +3,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
-import { faChevronCircleLeft, faSave, faImage } from '@fortawesome/free-solid-svg-icons';
+import { faChevronCircleLeft, faImage, faBookmark } from '@fortawesome/free-solid-svg-icons';
 
 import { TitleService } from './../../../shared/shared.module';
 // import { AllocineService } from './../../../service/allocine.service';
@@ -25,7 +25,7 @@ export class MovieDetailComponent implements OnInit {
   scrollTo: HTMLElement;
 
   faChevronCircleLeft = faChevronCircleLeft;
-  faSave = faSave;
+  faBookmark = faBookmark;
   faImage = faImage;
 
   constructor(

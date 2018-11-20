@@ -2,7 +2,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, Injectable, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
-import { faChevronCircleRight, faSave } from '@fortawesome/free-solid-svg-icons';
+import { faChevronCircleRight, faBookmark } from '@fortawesome/free-solid-svg-icons';
 
 import { Movie } from '../../../model/movie';
 import { MovieService, TitleService } from '../../../shared/shared.module';
@@ -61,7 +61,7 @@ export class ReleaseComponent implements OnInit {
   language: string;
 
   faChevronCircleRight = faChevronCircleRight;
-  faSave = faSave;
+  faBookmark = faBookmark;
 
   constructor(
     private movieService: MovieService,
