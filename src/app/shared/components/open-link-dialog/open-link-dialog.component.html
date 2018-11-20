@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+  <label>Open Link:</label>{{data.link.label}}
+</div>
+<div mat-dialog-actions>
+  <button class="btn btn-outline-primary" [mat-dialog-close]="false">Open</button>
+  <button class="btn btn-outline-primary" [mat-dialog-close]="true" cdkFocusInitial>Open new tab</button>
+</div>

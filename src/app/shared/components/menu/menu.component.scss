@@ -1,10 +1,30 @@
 @import "../../../styles/styles";
 
+.nav-list {
+  display: inline-flex;
+  flex-direction: column;
+  height: 95%;
+  overflow-y: visible;
+  overflow-x: hidden;
+
+  & > * {
+    margin: 0 2px 0 2px;
+  }
+
+  & .btn {
+    padding: 10px;
+  }
+
+  & .ng-fa-icon {
+    margin-right: 6px;
+  }
+}
+
 .toolbar {
-  display: flex;
-  flex-direction: row;
   position: fixed;
   z-index: map-get($depth, 'toolbar');
+  display: flex;
+  flex-direction: row;
 
   & .search-boxes {
     display: inline-flex;
@@ -17,28 +37,15 @@
   }
 }
 
+/* stylelint-disable selector-type-no-unknown */
 mat-toolbar {
   height: auto !important;
   background-color: $light_blue;
 }
 
-.nav-list {
-  display: inline-flex;
-  flex-direction: column;
-  overflow: visible;
-  height: 100%;
-
-  & .btn {
-    padding: 10px;
-  }
-
-  & > * {
-    margin: 0 2px 0 2px;
-  }
-
-  & .ng-fa-icon {
-    margin-right: 6px;
-  }
+app-dropdown-language {
+  display: flex;
+  justify-content: center;
 }
 
 .mat-drawer-container {
@@ -53,7 +60,6 @@ mat-toolbar {
   }
 
   .toolbar {
-
     & .search-boxes {
       display: initial;
     }

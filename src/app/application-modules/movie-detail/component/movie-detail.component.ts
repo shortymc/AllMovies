@@ -1,3 +1,5 @@
+import { Link } from './../../../model/model';
+import { TabsService } from './../../../shared/service/tabs.service';
 import { Observable } from 'rxjs';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
@@ -35,6 +37,7 @@ export class MovieDetailComponent implements OnInit {
     private location: Location,
     private title: TitleService,
     private router: Router,
+    public tabsService: TabsService
   ) { }
 
   ngOnInit(): void {
@@ -63,6 +66,10 @@ export class MovieDetailComponent implements OnInit {
   redirectKeywordToDiscover(keyword: Keyword): void {
     sessionStorage.setItem('keyword', JSON.stringify([keyword]));
     this.router.navigate(['discover']);
+  }
+
+  addTab(): void {
+    this.tabsService.addTab(new Link('People', '/person/85151'), true);
   }
 
   goBack(): void {
