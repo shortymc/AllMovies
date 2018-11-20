@@ -14,6 +14,8 @@ import {
 import { PinchZoomModule } from 'ngx-pinch-zoom';
 import { MatSidenavModule, MatToolbarModule, MatIconModule } from '@angular/material';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { MetaComponent } from './components/meta/component/meta.component';
 import { GoToTopComponent } from './components/go-to-top/go-to-top.component';
@@ -23,6 +25,7 @@ import { UtilsService } from './service/utils.service';
 import { AddCollectionDirective } from './directives/add-collection.directive';
 import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 import { DropdownLanguageComponent } from './components/dropdown-language/dropdown-language.component';
+import { TabsComponent } from './components/tabs/tabs.component';
 import { MetaService } from './components/meta/service/meta.service';
 import { OmdbService } from './service/omdb.service';
 import { FilterCrewPipe } from './pipes/filterCrew.pipe';
@@ -46,6 +49,9 @@ import { MovieSearchComponent } from './components/movie-search/movie-search.com
 import { PersonSearchComponent } from './components/person-search/person-search.component';
 import { LangService } from './service/lang.service';
 import { MenuService } from './service/menu.service';
+import { TabsService } from './service/tabs.service';
+import { OpenLinkDialogComponent } from './components/open-link-dialog/open-link-dialog.component';
+import { OpenLinkDirective } from './directives/open-link.directive';
 
 @NgModule({
   declarations: [
@@ -61,8 +67,11 @@ import { MenuService } from './service/menu.service';
     AddCollectionDirective,
     ModalComponent,
     MovieSearchComponent,
+    OpenLinkDirective,
     PersonSearchComponent,
+    OpenLinkDialogComponent,
     MenuComponent,
+    TabsComponent,
     ImageViewerComponent
   ],
   imports: [
@@ -75,7 +84,9 @@ import { MenuService } from './service/menu.service';
     MatListModule,
     MatIconModule,
     SwiperModule,
+    MatDialogModule,
     PinchZoomModule,
+    MatTabsModule,
     NgbModule,
     TranslateModule.forChild(),
     MatTooltipModule,
@@ -89,9 +100,11 @@ import { MenuService } from './service/menu.service';
     GoToTopComponent,
     ListMoviesComponent,
     MetaComponent,
+    OpenLinkDirective,
     ListPersonsComponent,
     DropdownLanguageComponent,
     AddCollectionDirective,
+    TabsComponent,
     NgbModule,
     MatTooltipModule,
     MatStepperModule,
@@ -100,7 +113,8 @@ import { MenuService } from './service/menu.service';
     PersonSearchComponent,
     ImageViewerComponent,
     MenuComponent,
-  ]
+  ],
+  entryComponents: [OpenLinkDialogComponent]
 })
 
 export class SharedModule {
@@ -110,6 +124,7 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
+        { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
         MetaService,
         UtilsService,
         TranslateService,
@@ -121,6 +136,7 @@ export class SharedModule {
         PersonService,
         GenreService,
         LangService,
+        TabsService,
         PersonSearchService,
         MovieSearchService,
         CertificationService,
@@ -152,3 +168,4 @@ export { CertificationService } from './service/certification.service';
 export { KeywordSearchService } from './service/keyword-search.service';
 export { ToastService } from './service/toast.service';
 export { MenuService } from './service/menu.service';
+export { TabsService } from './service/tabs.service';

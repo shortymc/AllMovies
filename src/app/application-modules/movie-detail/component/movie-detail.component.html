@@ -10,6 +10,9 @@
     <button class="btn btn-outline-primary" (click)="goBack()">
       <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'global.previous' | translate}}
     </button>
+    <button class="btn btn-outline-primary" (click)="addTab()">
+      <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'Add Tab' | translate}}
+    </button>
     <button class="btn btn-outline-primary" appAddCollection [movies]="[movie]">
       <fa-icon [icon]="faBookmark"></fa-icon> {{'global.add_collection' | translate}}
     </button>

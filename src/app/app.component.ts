@@ -1,4 +1,7 @@
+import { filter } from 'rxjs/operators';
+import { Router, NavigationStart } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { TabsService } from './shared/service/tabs.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private tabsService: TabsService
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe((event: NavigationStart) => {
+      this.tabsService.onNavigation(event);
+    });
+  }
 }

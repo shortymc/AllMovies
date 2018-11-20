@@ -10,6 +10,9 @@
     <button class="btn btn-outline-primary" (click)="goBack()">
       <fa-icon [icon]="faChevronCircleLeft"></fa-icon> {{'global.previous' | translate}}
     </button>
+    <button class="btn btn-outline-primary" [appOpenLink]="link">
+      <fa-icon [icon]="faChevronCircleLeft"></fa-icon> {{'Open Link' | translate}}
+    </button>
     <button class="btn btn-outline-primary" (click)="discover()">
       <fa-icon [icon]="faAtom"></fa-icon> {{'title.discover' | translate}}
     </button>
