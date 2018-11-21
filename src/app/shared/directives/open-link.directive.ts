@@ -16,7 +16,7 @@ export class OpenLinkDirective {
   @HostListener('mouseover', ['$event']) onMouseEnter(event: MouseEvent): void {
     this.setTimeoutConst = setTimeout(() => {
       this.openDialog(event);
-    }, 1000);
+    }, 2000);
   }
   @HostListener('click') onClick(): void {
     this.dialogRef.close();
@@ -38,7 +38,7 @@ export class OpenLinkDirective {
         y = y - 200;
       }
       this.dialogRef = this.dialog.open(OpenLinkDialogComponent, {
-        width: '200px',
+        width: '220px',
         position: { right: window.innerWidth - event.x - 125 + 'px', top: y + 'px' },
         data: { link: new Link(this.label, this.url) }
       });
