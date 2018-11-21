@@ -1,5 +1,5 @@
 <nav mat-tab-nav-bar *ngIf="(tabsService.links | async) as links">
-  <a mat-tab-link *ngFor="let link of links; let activeLink = first" (click)="tabsService.changeTab(link)" [active]="tabsService.activeLink === link">
+  <a mat-tab-link *ngFor="let link of links; let activeLink = first" (click)="tabsService.changeTab(link)" [active]="tabsService.activeLink.url === link.url">
     {{link.label}}
     <span (click)="tabsService.closeTab(link)" class="closeTab">
       <fa-icon [icon]="faClose"></fa-icon>
