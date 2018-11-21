@@ -52,6 +52,7 @@ import { MenuService } from './service/menu.service';
 import { TabsService } from './service/tabs.service';
 import { OpenLinkDialogComponent } from './components/open-link-dialog/open-link-dialog.component';
 import { OpenLinkDirective } from './directives/open-link.directive';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { OpenLinkDirective } from './directives/open-link.directive';
     SubstractDatePipe,
     CapitalizeWordPipe,
     FilterCrewPipe,
+    TruncatePipe,
     ListMoviesComponent,
     MetaComponent,
     ListPersonsComponent,
@@ -95,6 +97,7 @@ import { OpenLinkDirective } from './directives/open-link.directive';
   exports: [
     ConvertToHHmmPipe,
     SubstractDatePipe,
+    TruncatePipe,
     CapitalizeWordPipe,
     FilterCrewPipe,
     GoToTopComponent,
