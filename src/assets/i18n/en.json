@@ -60,6 +60,13 @@
         "user_added": "User added !",
         "user_changed": "User changed !"
     },
+    "tabs": {
+        "open_link": {
+            "title": "Open this link",
+            "open_background": "In background",
+            "open_new": "In a new tab"
+        }
+    },
     "release_type": {
         "premiere": "Premiere",
         "theatrical_limited": "Limited release",

@@ -59,6 +59,13 @@
         "user_added": "Utilisateur ajouté !",
         "user_changed": "Utilisateur Modifié !"
     },
+    "tabs": {
+        "open_link": {
+            "title": "Ouvrir le lien",
+            "open_background": "En arrière plan",
+            "open_new": "Dans un nouvel onglet"
+        }
+    },
     "release_type": {
         "premiere": "Première",
         "theatrical_limited": "Sortie limitée",

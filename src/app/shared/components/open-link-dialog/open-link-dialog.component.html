@@ -1,7 +1,7 @@
 <div mat-dialog-content>
-  <label>Open Link:</label>{{data.link.label}}
+  <label>{{'tabs.open_link.title'|translate}}:</label>{{data.link.label}}
 </div>
 <div mat-dialog-actions>
-  <button class="btn btn-outline-primary" [mat-dialog-close]="false">Open</button>
-  <button class="btn btn-outline-primary" [mat-dialog-close]="true" cdkFocusInitial>Open new tab</button>
+  <button class="btn btn-outline-primary" [mat-dialog-close]="false">{{'tabs.open_link.open_background'|translate}}</button>
+  <button class="btn btn-outline-primary" [mat-dialog-close]="true" cdkFocusInitial>{{'tabs.open_link.open_new'|translate}}</button>
 </div>
