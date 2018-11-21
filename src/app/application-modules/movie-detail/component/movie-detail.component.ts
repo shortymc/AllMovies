@@ -1,5 +1,3 @@
-import { Link } from './../../../model/model';
-import { TabsService } from './../../../shared/service/tabs.service';
 import { Observable } from 'rxjs';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
@@ -8,6 +6,7 @@ import { Location } from '@angular/common';
 import { faChevronCircleLeft, faImage, faBookmark } from '@fortawesome/free-solid-svg-icons';
 
 import { TitleService } from './../../../shared/shared.module';
+import { TabsService } from './../../../shared/service/tabs.service';
 // import { AllocineService } from './../../../service/allocine.service';
 import { DuckDuckGo } from './../../../constant/duck-duck-go';
 import { MovieService } from '../../../shared/shared.module';
