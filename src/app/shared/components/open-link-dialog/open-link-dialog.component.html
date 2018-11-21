@@ -1,5 +1,8 @@
 <div mat-dialog-content>
-  <label>{{'tabs.open_link.title'|translate}}:</label>{{data.link.label}}
+  <div>
+    <label>{{'tabs.open_link.title'|translate}}:</label>
+  </div>
+  {{data.link.label}}
 </div>
 <div mat-dialog-actions>
   <button class="btn btn-outline-primary" [mat-dialog-close]="false">{{'tabs.open_link.open_background'|translate}}</button>
