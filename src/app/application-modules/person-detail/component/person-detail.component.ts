@@ -21,7 +21,6 @@ export class PersonDetailComponent implements OnInit {
   isImagesVisible = false;
   scrollTo: HTMLElement;
   listMoviesOrder: DropDownChoice[];
-  link = new Link('hello', '/movie/500');
 
   Url = Url;
   DuckDuckGo = DuckDuckGo;
