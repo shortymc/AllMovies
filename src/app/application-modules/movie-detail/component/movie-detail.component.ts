@@ -68,10 +68,6 @@ export class MovieDetailComponent implements OnInit {
     this.router.navigate(['discover']);
   }
 
-  addTab(): void {
-    this.tabsService.addTab(new Link('People', '/person/85151'), true);
-  }
-
   goBack(): void {
     const back = this.location.back();
     if (back === undefined) {
