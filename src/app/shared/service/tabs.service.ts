@@ -16,21 +16,23 @@ export class TabsService {
   }
 
   onNavigation(event: NavigationStart): void {
-    this.liens[this.liens.indexOf(this.activeLink)].url = event.url;
+    this.liens[this.liens.map(l => l.url).indexOf(this.activeLink.url)].url = event.url;
     this.links.next(this.liens);
   }
 
-  addTab(link: Link, selectAfterAdding: boolean): void {
-    this.liens = [...this.liens, link];
-    this.links.next(this.liens);
+  openTab(link: Link, selectAfterAdding: boolean): void {
+    if (!this.liens.map(l => l.url).includes(link.url)) {
+      this.liens = [...this.liens, link];
+      this.links.next(this.liens);
+    }
     if (selectAfterAdding) {
       this.changeTab(link);
     }
   }
 
   closeTab(link: Link): void {
-    const index = this.liens.indexOf(link);
-    this.liens = this.liens.filter(lien => lien === link);
+    const index = this.liens.map(l => l.url).indexOf(link.url);
+    this.liens = this.liens.filter(lien => lien.url !== link.url);
     this.links.next(this.liens);
     if (this.activeLink === link) {
       this.changeTab(index === 0 ? this.liens[0] : this.liens[index - 1]);

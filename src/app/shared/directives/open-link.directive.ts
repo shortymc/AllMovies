@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input, DebugElement, Renderer2 } from '@angular/core';
+import { Directive, HostListener, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { Link } from './../../model/model';
@@ -11,16 +11,16 @@ import { TabsService } from '../service/tabs.service';
 export class OpenLinkDirective {
   dialogRef: MatDialogRef<OpenLinkDialogComponent>;
   setTimeoutConst;
-  @Input('appOpenLink') link: Link;
+  @Input() url: string;
+  @Input() label: string;
   @HostListener('mouseover', ['$event']) onMouseEnter(event: MouseEvent): void {
-    console.log('event', event);
     this.setTimeoutConst = setTimeout(() => {
       this.openDialog(event);
     }, 1000);
   }
   @HostListener('click') onClick(): void {
     this.dialogRef.close();
-    this.router.navigateByUrl(this.link.url);
+    this.router.navigateByUrl(this.url);
   }
 
   constructor(
@@ -33,17 +33,18 @@ export class OpenLinkDirective {
     if (this.dialog.openDialogs.length === 0) {
       this.dialogRef = this.dialog.open(OpenLinkDialogComponent, {
         width: '250px',
-        position: { right: window.innerWidth / 2 - 150 + event.x + 'px', top: window.innerHeight / 2 - event.y + 'px' },
-        data: { link: this.link }
+        position: { right: window.innerWidth - event.x - 125 + 'px', top: event.y + 'px' },
+        panelClass: 'toto',
+        data: { link: new Link(this.label, this.url) }
+      });
+
+      this.dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        clearTimeout(this.setTimeoutConst);
+        if (result !== undefined) {
+          this.tabsService.openTab(new Link(this.label, this.url), result);
+        }
       });
     }
-
-    this.dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      clearTimeout(this.setTimeoutConst);
-      if (result !== undefined) {
-        this.tabsService.addTab(this.link, result);
-      }
-    });
   }
 }
