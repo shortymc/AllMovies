@@ -5,8 +5,15 @@
   top: 62px;
 }
 
+.mat-tab-link {
+  padding: 0 0 0 10px !important;
+}
+
+.tabs-content {
+  width: 100vw;
+}
+
 .closeTab {
-  margin-left: 10px;
   padding: 20px;
 
   &:hover {
