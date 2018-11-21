@@ -30,11 +30,16 @@ export class OpenLinkDirective {
   ) { }
 
   openDialog(event: MouseEvent): void {
+    // only one dialog can be open at a time
     if (this.dialog.openDialogs.length === 0) {
+      // if dialog is open too low
+      let y = event.y;
+      if (y + 200 > window.innerHeight) {
+        y = y - 200;
+      }
       this.dialogRef = this.dialog.open(OpenLinkDialogComponent, {
-        width: '250px',
-        position: { right: window.innerWidth - event.x - 125 + 'px', top: event.y + 'px' },
-        panelClass: 'toto',
+        width: '200px',
+        position: { right: window.innerWidth - event.x - 125 + 'px', top: y + 'px' },
         data: { link: new Link(this.label, this.url) }
       });
 
