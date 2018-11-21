@@ -7,9 +7,11 @@
     <app-image-viewer [images]="movie.affiche" [visible]="true"></app-image-viewer>
   </div>
   <div class="contenu">
+    <!-- Go Back Btn -->
     <button class="btn btn-outline-primary" (click)="goBack()">
       <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'global.previous' | translate}}
     </button>
+    <!-- Add to collection btn -->
     <button class="btn btn-outline-primary" appAddCollection [movies]="[movie]">
       <fa-icon [icon]="faBookmark"></fa-icon> {{'global.add_collection' | translate}}
     </button>
@@ -17,28 +19,34 @@
       <label>{{'movie.id' | translate}}:</label>{{movie.id}}
     </div>
     <div>
+      <!-- Title -->
       <label>{{'movie.title' | translate}}: </label>{{movie.title | capitalizeWord}}
       <div *ngIf="movie.title !== movie.original_title">
         <label>{{'global.original_title' | translate}}: </label>{{movie.original_title | capitalizeWord}}
       </div>
+      <!-- Country -->
       <div>
         <label>{{'movie.country' | translate}}: </label>
         <span *ngFor="let country of movie.production_countries">
           <h1 class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" matTooltip="{{country.name}}"></h1>
         </span>
       </div>
+      <!-- Date -->
       <div>
         <label>{{'movie.date' | translate}}: </label>{{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang |
         capitalizeWord}}
       </div>
+      <!-- Time -->
       <div *ngIf="movie.time > 0">
         <label>{{'movie.length' | translate}}: </label>{{movie.time | convertToHHmm}}
       </div>
+      <!-- Score -->
       <div *ngIf="movie.score as score">
         <div *ngFor="let rating of score.ratings">
           <label>{{rating.Source}}: </label>{{rating.Value}}</div>
         <label>Awards: </label>{{score.awards}}
       </div>
+      <!-- Genre -->
       <div *ngIf="movie.genres && movie.genres.length > 0">
         <label>{{'movie.genres' | translate}}: </label>
         <div class="block">
@@ -48,6 +56,7 @@
           </span>
         </div>
       </div>
+      <!-- Keyword -->
       <div *ngIf="movie.keywords && movie.keywords.length > 0">
         <label>{{'movie.keyword' | translate}}: </label>
         <div class="block">
@@ -57,15 +66,18 @@
           </span>
         </div>
       </div>
+      <!-- Overview -->
       <div *ngIf="movie.synopsis">
         <label>{{'movie.synopsis' | translate}}: </label>
         <div class="synopsis">{{movie.synopsis}}</div>
       </div>
-      <!-- Images du film -->
+      <!-- Pictures -->
       <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible" *ngIf="movie.images">
         <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'movie.image' | translate}}
       </button>
+      <!-- Actors -->
       <app-list-persons [persons]="movie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
+      <!-- Crew -->
       <div *ngIf="movie.crew && movie.crew.length > 0">
         <div *ngIf="(movie.crew | filterCrew:'director') as director">
           <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
@@ -101,19 +113,24 @@
           <app-list-persons [persons]="music" [label]="'person-list.music' | translate"></app-list-persons>
         </div>
       </div>
+      <!-- Budget -->
       <div *ngIf="movie.budget > 0">
         <label>{{'movie.budget' | translate}}: </label>{{movie.budget |
         currency:'USD':'':'1.0-0':translate.currentLang}}
       </div>
+      <!-- Revenu -->
       <div *ngIf="movie.recette > 0">
         <label>{{'movie.revenu' | translate}}: </label>{{movie.recette |
         currency:'USD':'':'1.0-0':translate.currentLang}}
       </div>
+      <!-- Rating -->
       <div *ngIf="movie.note > 0">
         <label>{{'movie.rating' | translate}}: </label>{{movie.note}} / 10
         <rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
       </div>
+      <!-- Links -->
       <app-meta [entry]="movie" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
+      <!-- Video -->
       <div *ngIf="movie.videos && movie.videos.length > 0">
         <label>{{'movie.video' | translate}}:</label>
         <ul class="videos">
@@ -123,9 +140,11 @@
           </li>
         </ul>
       </div>
+      <!-- recommendations -->
       <ng-container *ngIf="movie.recommendations">
         <app-list-movies [movies]="movie.recommendations" [label]="('movie.reco' | translate).concat(':')"></app-list-movies>
       </ng-container>
+      <!-- Similar movies -->
       <ng-container *ngIf="movie.similars">
         <app-list-movies [movies]="movie.similars" [label]="('movie.similar' | translate).concat(':')"></app-list-movies>
       </ng-container>
