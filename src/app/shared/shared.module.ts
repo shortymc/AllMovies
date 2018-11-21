@@ -124,7 +124,7 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
+        { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, closeOnNavigation: true } },
         MetaService,
         UtilsService,
         TranslateService,
