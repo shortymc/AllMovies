@@ -175,6 +175,6 @@
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" (mousedown)="gotoDetail(row.id, $event)"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" appOpenLink [label]="row.title" url="/movie/{{row.id}}"></mat-row>
   </mat-table>
 </ng-container>

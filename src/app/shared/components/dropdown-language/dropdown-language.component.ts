@@ -30,8 +30,10 @@ export class DropdownLanguageComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const code = changes.userLang.currentValue ? changes.userLang.currentValue.code : this.translate.getBrowserLang();
-    this.updateLang(code);
+    if (this.langList) {
+      const code = changes.userLang.currentValue ? changes.userLang.currentValue.code : this.translate.getBrowserLang();
+      this.updateLang(code);
+    }
   }
 
   updateLang(newCode: string): void {

@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Directive, HostListener, Input, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogRef, MatDialog } from '@angular/material';
@@ -34,6 +35,7 @@ export class OpenLinkDirective {
     private render: Renderer2,
     private router: Router,
     private dialog: MatDialog,
+    private translate: TranslateService,
     private tabsService: TabsService,
   ) {
     this.render.addClass(this.elementRef.nativeElement, 'disable_selection');
@@ -50,14 +52,14 @@ export class OpenLinkDirective {
       this.dialogRef = this.dialog.open(OpenLinkDialogComponent, {
         width: '220px',
         position: { right: window.innerWidth - event.x - 125 + 'px', top: y + 'px' },
-        data: { link: new Link(this.label, this.url) }
+        data: { link: new Link(this.translate.instant(this.label), this.url) }
       });
 
       this.dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
         clearTimeout(this.setTimeoutConst);
         if (result !== undefined) {
-          this.tabsService.openTab(new Link(this.label, this.url), result);
+          this.tabsService.openTab(new Link(this.translate.instant(this.label), this.url), result);
         }
       });
     }
