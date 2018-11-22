@@ -1,37 +1,40 @@
-<mat-toolbar class="toolbar" *ngIf="(menuService.visible$ | async) as visible">
-  <button class="btn" (click)="sidenav.toggle()">
-    <fa-icon [icon]="faBars"></fa-icon>
-  </button>
-  <div class="search-boxes">
-    <app-movie-search></app-movie-search>
-    <app-person-search></app-person-search>
-  </div>
-</mat-toolbar>
+<ng-container *ngIf="isLogged$ | async">
+  <mat-toolbar class="toolbar" *ngIf="(menuService.visible$ | async) as visible">
+    <button class="btn" (click)="sidenav.toggle()">
+      <fa-icon [icon]="faBars"></fa-icon>
+    </button>
+    <div class="search-boxes">
+      <app-movie-search></app-movie-search>
+      <app-person-search></app-person-search>
+    </div>
+  </mat-toolbar>
+</ng-container>
 
 <mat-sidenav-container hasBackdrop="false" fullscreen>
-  <mat-sidenav #sidenav fixedTopGap="62" fixedInViewport="true" [disableClose]="false" autoFocus="false" [mode]="mobileQuery.matches ? 'over' : 'push'">
+  <mat-sidenav #sidenav fixedTopGap="62" fixedInViewport="true" [disableClose]="false" autoFocus="false" [mode]="mobileQuery.matches ? 'over' : 'push'"
+    *ngIf="isLogged$ | async">
     <mat-nav-list class="nav-list">
-      <a mat-list-item routerLink="/dashboard" *ngIf="isLogged$ | async">
+      <a mat-list-item routerLink="/dashboard">
         <fa-icon [icon]="faHome"></fa-icon>
         {{'nav_bar.dashboard'|translate}}
       </a>
-      <a mat-list-item routerLink="login/profile" *ngIf="isLogged$ | async">
+      <a mat-list-item routerLink="login/profile">
         <fa-icon [icon]="faUser"></fa-icon>
         {{'nav_bar.profile'| translate}} ({{user?.name}})
       </a>
-      <a mat-list-item routerLink="/movies" *ngIf="isLogged$ | async">
+      <a mat-list-item routerLink="/movies">
         <fa-icon [icon]="faBookmark"></fa-icon>
         {{'nav_bar.movies'|translate}}
       </a>
-      <a mat-list-item routerLink="/release" *ngIf="isLogged$ | async">
+      <a mat-list-item routerLink="/release">
         <fa-icon [icon]="faBoxOpen"></fa-icon>
         {{'nav_bar.release'|translate}}
       </a>
-      <a mat-list-item routerLink="/discover" *ngIf="isLogged$ | async">
+      <a mat-list-item routerLink="/discover">
         <fa-icon [icon]="faAtom"></fa-icon>
         {{'nav_bar.discover'|translate}}
       </a>
-      <a mat-list-item (click)="logout()" *ngIf="isLogged$ | async">
+      <a mat-list-item (click)="logout()">
         <fa-icon [icon]="faPowerOff"></fa-icon>
         {{'nav_bar.logout' | translate}}
       </a>
