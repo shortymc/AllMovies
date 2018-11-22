@@ -199,6 +199,13 @@ input[type='checkbox'] {
   width: 100% !important;
 }
 
+.disable_selection {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 @include media(#{$smallscreen}) {
   button {
     font-size: 0.8em !important;
