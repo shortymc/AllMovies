@@ -6,7 +6,7 @@ import { Link } from './../../model/model';
 
 @Injectable()
 export class TabsService {
-  liens = [new Link('AllMovies', '/')];
+  private liens = [new Link('AllMovies', '/')];
   links = new BehaviorSubject(this.liens);
   activeLink = this.liens[0];
 
