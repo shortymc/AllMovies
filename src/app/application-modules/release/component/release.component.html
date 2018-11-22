@@ -38,10 +38,9 @@
       <button class="btn btn-outline-primary" appAddCollection [movies]="[selectedMovie]">
         <fa-icon [icon]="faBookmark"></fa-icon> {{'global.add_collection' | translate}}
       </button>
-      <a class="btn btn-outline-primary" [routerLink]="['/movie', selectedMovie.id]"> {{'global.go_detail' |
-        translate}}
-        <fa-icon [icon]="faChevronCircleRight"></fa-icon>
-      </a>
+      <button class="btn btn-outline-primary" appOpenLink [label]="selectedMovie.title" url="/movie/{{selectedMovie.id}}">
+        <fa-icon [icon]="faChevronCircleRight"></fa-icon> {{'global.go_detail' | translate}}
+      </button>
       <div>
         <label>{{'movie.date' | translate}}: </label>{{selectedMovie.date | date:'EEEE dd MMMM yyyy':'':language |
         capitalizeWord}}

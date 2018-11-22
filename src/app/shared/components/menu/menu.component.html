@@ -14,23 +14,23 @@
   <mat-sidenav #sidenav fixedTopGap="62" fixedInViewport="true" [disableClose]="false" autoFocus="false" [mode]="mobileQuery.matches ? 'over' : 'push'"
     *ngIf="isLogged$ | async">
     <mat-nav-list class="nav-list">
-      <a mat-list-item routerLink="/dashboard">
+      <a mat-list-item appOpenLink url="/dashboard" label="nav_bar.dashboard">
         <fa-icon [icon]="faHome"></fa-icon>
         {{'nav_bar.dashboard'|translate}}
       </a>
-      <a mat-list-item routerLink="login/profile">
+      <a mat-list-item appOpenLink url="login/profile" label="nav_bar.profile">
         <fa-icon [icon]="faUser"></fa-icon>
         {{'nav_bar.profile'| translate}} ({{user?.name}})
       </a>
-      <a mat-list-item routerLink="/movies">
+      <a mat-list-item appOpenLink url="/movies" label="nav_bar.movies">
         <fa-icon [icon]="faBookmark"></fa-icon>
         {{'nav_bar.movies'|translate}}
       </a>
-      <a mat-list-item routerLink="/release">
+      <a mat-list-item appOpenLink url="/release" label="nav_bar.release">
         <fa-icon [icon]="faBoxOpen"></fa-icon>
         {{'nav_bar.release'|translate}}
       </a>
-      <a mat-list-item routerLink="/discover">
+      <a mat-list-item appOpenLink url="/discover" label="nav_bar.discover">
         <fa-icon [icon]="faAtom"></fa-icon>
         {{'nav_bar.discover'|translate}}
       </a>
