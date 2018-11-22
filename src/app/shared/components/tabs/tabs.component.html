@@ -1,11 +1,14 @@
-<nav mat-tab-nav-bar *ngIf="(tabsService.links | async) as links">
-  <a mat-tab-link *ngFor="let link of links; let activeLink = first" (click)="tabsService.changeTab(link)" [active]="tabsService.activeLink.url === link.url">
-    {{link.label | truncate:20}}
-    <span (click)="tabsService.closeTab(link)" class="closeTab">
-      <fa-icon [icon]="faClose"></fa-icon>
-    </span>
-  </a>
-</nav>
+<ng-container *ngIf="isLogged$ | async">
+  <nav mat-tab-nav-bar *ngIf="(tabsService.links | async) as links">
+    <a mat-tab-link *ngFor="let link of links; let activeLink = first" (click)="tabsService.changeTab(link)" [active]="tabsService.activeLink.url === link.url">
+      {{link.label | truncate:20}}
+      <span (click)="tabsService.closeTab(link)" class="closeTab" *ngIf="links.length>1">
+        <fa-icon [icon]="faClose"></fa-icon>
+      </span>
+    </a>
+  </nav>
+</ng-container>
+
 <div class="tabs-content">
   <router-outlet></router-outlet>
 </div>
