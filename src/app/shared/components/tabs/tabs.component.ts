@@ -21,7 +21,7 @@ export class TabsComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.header.subscribe(title => {
-      this.title = title;
+      this.tabsService.updateCurTabLabel(title);
     });
   }
 
