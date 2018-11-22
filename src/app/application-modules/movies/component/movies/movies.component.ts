@@ -219,15 +219,6 @@ export class MoviesComponent implements OnInit, OnDestroy {
     }
   }
 
-  gotoDetail(id: number, event: any): void {
-    const key = event.which;
-    if (key === 1) {
-      this.router.navigate(['movie', id]);
-    } else if (key === 2) {
-      window.open('/movie/' + id);
-    }
-  }
-
   remove(): void {
     const ids = this.movies.filter(movie => movie.checked).map(movie => movie.id);
     this.movies = this.movies.filter(movie => !movie.checked);
