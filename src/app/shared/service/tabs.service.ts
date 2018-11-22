@@ -8,6 +8,7 @@ import { Link } from './../../model/model';
 export class TabsService {
   private liens = [new Link('AllMovies', '/')];
   links = new BehaviorSubject(this.liens);
+  isSelectAfterAdding = new BehaviorSubject(true);
   activeLink = this.liens[0];
 
   constructor(
@@ -42,12 +43,14 @@ export class TabsService {
       this.changeTab(link);
     } else {
       this.storeTabs();
+      this.isSelectAfterAdding.next(false);
     }
   }
 
   updateCurTabLabel(label: string): void {
     this.liens[this.liens.map(l => l.url).indexOf(this.activeLink.url)].label = label;
     this.activeLink.label = label;
+    this.links.next(this.liens);
   }
 
   closeTab(link: Link): void {
@@ -65,5 +68,6 @@ export class TabsService {
     this.activeLink = link;
     this.storeTabs();
     this.router.navigateByUrl(link.url);
+    this.isSelectAfterAdding.next(true);
   }
 }
