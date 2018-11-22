@@ -20,6 +20,9 @@ export class OpenLinkDirective {
   }
   @HostListener('click') onClick(): void {
     clearTimeout(this.setTimeoutConst);
+    if (this.dialogRef !== undefined) {
+      this.dialogRef.close();
+    }
     this.router.navigateByUrl(this.url);
   }
 
