@@ -18,6 +18,7 @@
       <button type="submit" class="btn btn-outline-primary" (click)="login()" [disabled]="connectForm.invalid">{{'login.connect.log_in'|translate}}</button>
       <button type="button" class="btn btn-outline-primary" routerLink="/login/forgot" [queryParams]="{name: name}">{{'login.connect.forgot'|translate}}</button>
       <button type="button" class="btn btn-outline-primary" routerLink="/login/register" [queryParams]="{name: name}">{{'login.connect.sign_up'|translate}}</button>
+      <app-dropdown-language class="dropdown-center"></app-dropdown-language>
     </div>
   </form>
 </div>
