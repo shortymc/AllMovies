@@ -1,4 +1,4 @@
-import { Directive, HostListener, Input } from '@angular/core';
+import { Directive, HostListener, Input, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { Link } from './../../model/model';
@@ -30,10 +30,14 @@ export class OpenLinkDirective {
   }
 
   constructor(
+    private elementRef: ElementRef,
+    private render: Renderer2,
     private router: Router,
     private dialog: MatDialog,
     private tabsService: TabsService,
-  ) { }
+  ) {
+    this.render.addClass(this.elementRef.nativeElement, 'disable_selection');
+  }
 
   openDialog(event: MouseEvent): void {
     // only one dialog can be open at a time
