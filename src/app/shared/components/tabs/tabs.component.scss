@@ -9,11 +9,12 @@
   padding: 0 0 0 10px !important;
 }
 
+/* stylelint-disable selector-pseudo-element-no-unknown */
 ::ng-deep.mat-tab-links {
   display: block !important;
   width: 100vw;
-  overflow: auto;
   white-space: nowrap;
+  overflow: auto;
 }
 
 .tabs-content {
