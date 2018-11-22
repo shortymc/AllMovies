@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { delay } from 'rxjs/operators';
+import { delay, filter } from 'rxjs/operators';
 
 import { TabsService } from './../../service/tabs.service';
 import { TitleService } from '../../service/title.service';
@@ -24,7 +24,7 @@ export class TabsComponent implements OnInit {
     this.titleService.header.subscribe(title => {
       this.tabsService.updateCurTabLabel(title);
     });
-    this.tabsService.links.pipe(delay(1000)).subscribe(() => {
+    this.tabsService.isSelectAfterAdding.pipe(delay(1000), filter(x => x)).subscribe(() => {
       const active = this.elemRef.nativeElement.querySelector('.mat-tab-label-active');
       if (active) {
         active.scrollIntoView(0);
