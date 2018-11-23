@@ -65,9 +65,4 @@ export class PersonSearchComponent implements OnInit {
           return of<Person[]>([]);
         }));
   }
-
-  gotoPerson(person: Person): void {
-    this.showPerson = false;
-    this.router.navigate(['/person', person.id]);
-  }
 }
