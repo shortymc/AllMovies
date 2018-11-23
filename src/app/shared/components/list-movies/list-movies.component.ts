@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -28,7 +28,8 @@ export class ListMoviesComponent implements OnInit {
   faBookmark = faBookmark;
 
   constructor(
-    public translate: TranslateService
+    public translate: TranslateService,
+    private elemRef: ElementRef
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +46,7 @@ export class ListMoviesComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.getMoviesToShow(this.movies, event);
+    this.elemRef.nativeElement.scrollIntoView();
   }
 
 }
