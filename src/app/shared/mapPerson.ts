@@ -39,7 +39,7 @@ export class MapPerson {
 
   static mapForSearchPersons(response: any): Person[] {
     console.log(response.results);
-    return response.results.slice(0, 10).map((r: any) => <Person>({
+    return response.results.slice(0, 6).map((r: any) => <Person>({
       id: r.id,
       name: r.name,
       adult: r.adult,

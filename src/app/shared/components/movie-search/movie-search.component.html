@@ -13,9 +13,10 @@
     <div *ngFor="let movie of movies | async" (click)="searchBox.value='';gotoDetail(movie)" class="search-result"
       [ngClass]="{'adult': movie.adult}">
       <div class="media">
-        <img class="mr-2" *ngIf="movie.thumbnail" src="{{movie.thumbnail}}" style="width: 5%;">
+        <img class="mr-2 thumbnail-result" *ngIf="movie.thumbnail" src="{{movie.thumbnail}}">
         <div class="media-body">
-          <div class="mt-0" [ngClass]="{'item-result' : !movie.original_title}">{{movie.title | capitalizeWord}}
+          <div class="mt-0 title-result" [ngClass]="{'item-result' : !movie.original_title}">{{movie.title |
+            capitalizeWord}}
             ({{movie.date | date : "yyyy"}})</div>
           <div *ngIf="movie.original_title" class="small">{{movie.original_title}}</div>
         </div>
