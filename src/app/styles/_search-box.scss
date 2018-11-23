@@ -1,0 +1,48 @@
+#res {
+  z-index: map-get($depth, 'overlay');
+  position: fixed;
+  padding-left: 36px;
+}
+
+.thumbnail-result {
+  height: 50px;
+  width: auto;
+}
+
+.title-result {
+  font-size: 80%;
+  white-space: normal !important;
+}
+
+.fa-search {
+  font-size: 2em;
+}
+
+.form-check-inline {
+  display: block !important;
+}
+
+@include media(#{$smallscreen}) {
+  :host,
+  .search-box {
+    max-width: 75vw !important;
+    margin-left: 0 !important;
+    @include full_width;
+  }
+
+  #res {
+    padding-left: 2vw;
+  }
+
+  .form-check-inline {
+    margin-right: 0 !important;
+  }
+
+  .icon {
+    display: none;
+  }
+
+  .fa-search {
+    font-size: 1em;
+  }
+}

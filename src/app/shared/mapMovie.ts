@@ -56,13 +56,13 @@ export class MapMovie {
 
   static mapForSearchMovies(response: any): Movie[] {
     console.log(response.results);
-    return response.results.slice(0, 5).map((r: any) => <Movie>({
+    return response.results.slice(0, 6).map((r: any) => <Movie>({
       id: r.id,
       title: r.title,
       date: r.release_date,
       adult: r.adult,
       original_title: Utils.getTitle(r),
-      thumbnail: Utils.getPosterPath(r, Utils.ORIGINAL_IMG_SIZE)
+      thumbnail: Utils.getPosterPath(r, Utils.SMALL_IMG_SIZE)
     }));
   }
 
