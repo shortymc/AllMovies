@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -21,6 +21,7 @@ export class GoToTopComponent implements OnInit, AfterViewInit {
 
   constructor(
     private cdRef: ChangeDetectorRef,
+    private elemRef: ElementRef
   ) { }
 
   ngOnInit(): void {
@@ -28,10 +29,10 @@ export class GoToTopComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.cdRef.detectChanges();
-    const scroll$ = fromEvent(window, 'scroll')
+    const scroll$ = fromEvent(this.elemRef.nativeElement.parentNode, 'scroll')
       .pipe(
         throttleTime(10),
-        map(() => window.pageYOffset > window.innerHeight / 3 && document.body.scrollHeight > window.innerHeight),
+        map((x: any) => x.target.scrollTop > x.target.scrollTopMax / 5 && x.target.scrollTopMax > x.target.offsetHeight),
         distinctUntilChanged(),
         share()
       );
@@ -54,7 +55,7 @@ export class GoToTopComponent implements OnInit, AfterViewInit {
   }
 
   onTop(): void {
-    window.scrollTo(0, 0);
+    this.elemRef.nativeElement.parentNode.scrollTo(0, 0);
   }
 
 }

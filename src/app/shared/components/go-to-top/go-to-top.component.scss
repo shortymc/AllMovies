@@ -2,15 +2,21 @@
 
 :host {
   position: fixed;
-  bottom: 0;
-  right: 0;
+  bottom: 20px;
+  right: 20px;
   z-index: map-get($depth, 'top');
-  width: 100px;
   height: 40px;
   margin: 10px;
   cursor: pointer;
 
   &:not(:hover) :not(.hidden) {
     background-color: white;
+  }
+}
+
+@include media(#{$smallscreen}) {
+  :host {
+    right: 0;
+    bottom: 0;
   }
 }
