@@ -1,14 +1,18 @@
 <div class="title">{{'dashboard.movies' | translate}}:</div>
-<a *ngFor="let movie of movies" class="col-1-3 movie-link myTooltip">
-  <div class="module" appOpenLink [label]="movie.title" url="/movie/{{movie.id}}">
-    <h5>{{movie.title | capitalizeWord}} - {{movie.date | date : "dd/MM/yyyy"}} - {{movie.note}} / 10</h5>
-  </div>
-  <img class="frame profile" [src]="movie.thumbnail" *ngIf="movie.thumbnail" />
-</a>
+<div class="wrapper">
+  <a *ngFor="let movie of movies" class="col-1-3 movie-link myTooltip">
+    <div class="module" appOpenLink [label]="movie.title" url="/movie/{{movie.id}}">
+      <h5>{{movie.title | capitalizeWord}} - {{movie.date | date : "dd/MM/yyyy"}} - {{movie.note}} / 10</h5>
+    </div>
+    <img class="frame profile" [src]="movie.thumbnail" *ngIf="movie.thumbnail" />
+  </a>
+</div>
 <div class="title">{{'dashboard.persons' | translate}}:</div>
-<a *ngFor="let person of persons" class="col-1-3 movie-link myTooltip" [ngClass]="{'woman': person.gender === 1, 'men': person.gender === 2, 'unknown': person.gender === 0}">
-  <div class="module" appOpenLink [label]="person.name" url="/person/{{person.id}}">
-    <h5>{{person.name | capitalizeWord}}</h5>
-  </div>
-  <img class="frame profile" [src]="person.thumbnail" *ngIf="person.thumbnail" />
-</a>
+<div class="wrapper">
+  <a *ngFor="let person of persons" class="col-1-3 movie-link myTooltip" [ngClass]="{'woman': person.gender === 1, 'men': person.gender === 2, 'unknown': person.gender === 0}">
+    <div class="module" appOpenLink [label]="person.name" url="/person/{{person.id}}">
+      <h5>{{person.name | capitalizeWord}}</h5>
+    </div>
+    <img class="frame profile" [src]="person.thumbnail" *ngIf="person.thumbnail" />
+  </a>
+</div>
