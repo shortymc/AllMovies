@@ -1,3 +1,4 @@
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgModule } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -35,6 +36,7 @@ const childRoutes: Routes = [
     MatInputModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
+    MatCheckboxModule,
     MatSlideToggleModule,
     MatSelectModule,
     NouisliderModule,
