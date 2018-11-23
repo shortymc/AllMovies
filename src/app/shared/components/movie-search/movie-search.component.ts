@@ -74,9 +74,4 @@ export class MovieSearchComponent implements OnInit {
           return of<Movie[]>([]);
         }));
   }
-
-  gotoDetail(movie: Movie): void {
-    this.showMovie = false;
-    this.router.navigate(['/movie', movie.id]);
-  }
 }

@@ -10,8 +10,8 @@
     </div>
   </div>
   <div id="res" *ngIf="showPerson">
-    <div *ngFor="let person of persons | async" (click)="searchBox.value='';gotoPerson(person)" class="search-result"
-      [ngClass]="{'adult': person.adult}">
+    <div *ngFor="let person of persons | async" (click)="searchBox.value='';showPerson = false;" appOpenLink [label]="person.name"
+      url="/person/{{person.id}}" class="search-result" [ngClass]="{'adult': person.adult}">
       <div class="media">
         <img class="mr-2 thumbnail-result" *ngIf="person.thumbnail" src="{{person.thumbnail}}">
         <div class="media-body person-result">
