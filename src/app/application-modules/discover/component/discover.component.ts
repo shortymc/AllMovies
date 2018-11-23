@@ -239,15 +239,6 @@ export class DiscoverComponent implements OnInit {
     });
   }
 
-  gotoDetail(id: number, event: any): void {
-    const key = event.which;
-    if (key === 1 && event.type !== 'mousedown') {
-      this.router.navigate(['movie', id]);
-    } else if (key === 2) {
-      window.open('/movie/' + id);
-    }
-  }
-
   updateSize(): void {
     this.nbChecked = this.discover.movies.filter(movie => movie.checked).length;
   }

@@ -1,5 +1,4 @@
 <div class="params">
-  <button type="button" class="btn btn-outline-primary" (click)="clear()">{{'discover.clear'|translate}}</button>
   <!-- Sort field -->
   <mat-form-field>
     <mat-select placeholder="{{'discover.sort' | translate}}" [(value)]="sortChosen">
@@ -63,25 +62,27 @@
   </mat-form-field>
 </div>
 <div class="params">
+  <!-- Add to Collection Btn -->
   <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" (click)="initSelection()"
     appAddCollection [movies]="discover.movies">
     <fa-icon [icon]="faBookmark"></fa-icon>
     {{'global.add_collection'|translate}}
   </button>
+  <!-- Init Btn -->
+  <button type="button" class="btn btn-outline-primary" (click)="clear()">{{'discover.clear'|translate}}</button>
   <!-- Search Button -->
   <button type="submit" id="searchBtn" class="btn btn-outline-primary" (click)="search(true)">{{'discover.search'|translate}}</button>
 </div>
 
 <!-- Result list -->
-<mat-list dense *ngIf="discover">
+<mat-list dense *ngIf="discover" class="result-list">
   <mat-paginator [length]="discover.total_results" [pageIndex]="page.pageIndex" [pageSize]="20" (page)="page = $event; search(false);"
     [showFirstLastButtons]="true">
   </mat-paginator>
   <h3 mat-subheader>{{'discover.result'|translate}}:</h3>
-  <mat-list-item *ngFor="let movie of discover.movies" (dblclick)="gotoDetail(movie.id, $event)" (mousedown)="movie.checked = !movie.checked; updateSize();gotoDetail(movie.id, $event)"
-    [ngClass]="{'selected':movie.checked, 'adult': movie.adult}">
+  <mat-list-item *ngFor="let movie of discover.movies" [ngClass]="{'selected':movie.checked, 'adult': movie.adult}">
     <app-image-viewer [images]="movie.affiche" [visible]="true"></app-image-viewer>
-    <p matLine>{{movie.title}}</p>
+    <p matLine appOpenLink [label]="movie.title" url="/movie/{{movie.id}}" class="result-title">{{movie.title}}</p>
     <p matLine>{{movie.original_title}}</p>
     <p matLine>{{movie.language | uppercase}}</p>
     <p matLine>{{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}</p>
@@ -89,6 +90,7 @@
       <span>{{movie.note}} / 10 </span>
       <span>({{movie.vote_count}})</span>
     </p>
+    <mat-checkbox class="result-checkbox" [(ngModel)]="movie.checked" (change)="updateSize()"></mat-checkbox>
   </mat-list-item>
   <mat-paginator [length]="discover.total_results" [pageIndex]="page.pageIndex" [pageSize]="20" (page)="page = $event; search(false);"
     [showFirstLastButtons]="true">
