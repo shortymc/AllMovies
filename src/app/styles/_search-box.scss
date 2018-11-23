@@ -2,6 +2,8 @@
   z-index: map-get($depth, 'overlay');
   position: fixed;
   padding-left: 36px;
+  overflow-y: auto;
+  height: 100%;
 }
 
 .thumbnail-result {
@@ -11,6 +13,11 @@
 
 .title-result {
   font-size: 80%;
+  white-space: normal !important;
+}
+
+.person-result {
+  font-size: 90%;
   white-space: normal !important;
 }
 

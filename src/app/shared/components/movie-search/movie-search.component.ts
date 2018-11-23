@@ -1,5 +1,5 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject, of } from 'rxjs';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -24,8 +24,24 @@ export class MovieSearchComponent implements OnInit {
   language: string;
   pseudo: string;
   faSearch = faSearch;
+  @HostListener('document:click', ['$event']) onMousClicked(event: any): void {
+    let result = false;
+    let clickedComponent = event.target;
+    do {
+      if (clickedComponent === this.elemRef.nativeElement) {
+        result = true;
+        break;
+      }
+      clickedComponent = clickedComponent.parentNode;
+    } while (clickedComponent);
+    this.showMovie = result;
+    if (this.showMovie) {
+      this.search(this.inputSearch.nativeElement.value);
+    }
+  }
 
   constructor(
+    private elemRef: ElementRef,
     private movieSearchService: MovieSearchService,
     private router: Router,
     private translate: TranslateService

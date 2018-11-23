@@ -3,7 +3,7 @@
     <div class="search-box">
       <fa-icon [icon]="faSearch"></fa-icon>
       <input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="{{'movie-search.placeholder'|translate}}"
-        (click)="showMovie = true" />
+        (click)="showMovie = true"/>
       <a class="icon pointer" (click)="showMovie = !showMovie; searchBox.value=''">
         <img src="./assets/exit.png" />
       </a>
@@ -16,9 +16,9 @@
         <img class="mr-2 thumbnail-result" *ngIf="movie.thumbnail" src="{{movie.thumbnail}}">
         <div class="media-body">
           <div class="mt-0 title-result" [ngClass]="{'item-result' : !movie.original_title}">{{movie.title |
-            capitalizeWord}}
+            capitalizeWord | truncate:20}}
             ({{movie.date | date : "yyyy"}})</div>
-          <div *ngIf="movie.original_title" class="small">{{movie.original_title}}</div>
+          <div *ngIf="movie.original_title" class="small">{{movie.original_title | truncate:20}}</div>
         </div>
       </div>
     </div>
