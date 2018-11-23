@@ -29,6 +29,23 @@
   }
 }
 
+.logo-wrapper {
+  position: relative;
+  bottom: 0;
+  clear: both;
+  margin-top: 80px;
+
+  #logo {
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    height: 50px;
+    width: auto;
+    margin: 5px;
+    fill: $blue;
+  }
+}
+
 @include media(#{$smallscreen}) {
   :host {
     top: 75px;
