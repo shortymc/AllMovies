@@ -14,8 +14,8 @@
       [ngClass]="{'adult': person.adult}">
       <div class="media">
         <img class="mr-2 thumbnail-result" *ngIf="person.thumbnail" src="{{person.thumbnail}}">
-        <div class="media-body">
-          <p>{{person.name | capitalizeWord}}</p>
+        <div class="media-body person-result">
+          {{person.name | capitalizeWord}}
         </div>
       </div>
     </div>
