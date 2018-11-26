@@ -7,7 +7,12 @@ import { Url } from '../constant/url';
 export class MapPerson {
 
   static mapForPerson(resp: any): Person {
-    // console.log(resp);
+    const keys = Object.keys(resp);
+    keys.forEach(key => {
+      if (resp[key] === null) {
+        resp[key] = undefined;
+      }
+    });
     const credits = resp.credits;
     let img;
     if (resp.images && resp.images.profiles.length > 0) {
@@ -15,7 +20,6 @@ export class MapPerson {
         .map(path => Url.IMAGE_URL_ORIGINAL.concat(path));
     }
 
-    const deathday = resp.deathday !== null ? resp.deathday : undefined;
     if (credits) {
       const asActor = credits.cast.map((r: any) => MapMovie.toMovie(r));
       const asDirector = credits.crew.filter((r: any) => Utils.jobEquals(r.job, Job.director)).map((r: any) => MapMovie.toMovie(r));
@@ -27,11 +31,11 @@ export class MapPerson {
         .map((r: any) => MapMovie.toMovie(r));
       const asNovel = credits.crew.filter((r: any) => Utils.jobEquals(r.job, 'Novel')).map((r: any) => MapMovie.toMovie(r));
 
-      return new Person(resp.id, resp.name, resp.gender, resp.birthday, deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
+      return new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
         Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img,
         asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel, resp.known_for_department);
     } else {
-      return new Person(resp.id, resp.name, resp.gender, resp.birthday, deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
+      return new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
         Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img,
         undefined, undefined, undefined, undefined, undefined, undefined, resp.known_for_department);
     }
