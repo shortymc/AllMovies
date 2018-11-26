@@ -1,7 +1,6 @@
 @import "../../../styles/styles";
 
 :host {
-
   & .release-content {
     display: inline-flex;
 
@@ -26,9 +25,8 @@
   }
 
   :host {
-
     & .release-content {
-    display: inherit !important;
+      display: inherit !important;
 
       > div {
         padding-left: 0;
