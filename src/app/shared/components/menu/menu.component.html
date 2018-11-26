@@ -11,7 +11,7 @@
 </ng-container>
 
 <mat-sidenav-container hasBackdrop="false" fullscreen>
-  <mat-sidenav #sidenav fixedTopGap="62" fixedInViewport="true" [disableClose]="false" autoFocus="false" [mode]="mobileQuery.matches ? 'over' : 'push'"
+  <mat-sidenav #sidenav fixedInViewport="true" [disableClose]="false" autoFocus="false" [mode]="mobileQuery.matches ? 'over' : 'push'"
     *ngIf="isLogged$ | async">
     <mat-nav-list class="nav-list">
       <a mat-list-item appOpenLink url="/dashboard" label="nav_bar.dashboard">

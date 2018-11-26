@@ -52,6 +52,10 @@ app-dropdown-language {
   background-color: #fff !important;
 }
 
+.mat-sidenav {
+  top: 50px !important;
+}
+
 @include media(#{$smallscreen}) {
   :host .nav-list {
     & > * {
@@ -63,6 +67,9 @@ app-dropdown-language {
     & .search-boxes {
       display: initial;
     }
+  }
+  .mat-sidenav {
+    top: 69px !important;
   }
 
   .header-buttons {
