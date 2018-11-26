@@ -1,11 +1,14 @@
 @import "../../../styles/styles";
 
 :host {
-  display: inline-flex;
 
-  > div {
-    padding-left: 5px;
-    padding-right: 5px;
+  & .release-content {
+    display: inline-flex;
+
+    > div {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
   }
 }
 
@@ -17,18 +20,22 @@
 @include media(#{$smallscreen}) {
   :host,
   .list-group,
+  .release-content,
   .row {
     @include full_width;
   }
 
   :host {
+
+    & .release-content {
     display: inherit !important;
 
-    > div {
-      padding-left: 0;
-      padding-right: 0;
-      padding-top: 10px;
-      padding-bottom: 10px;
+      > div {
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
     }
   }
 
