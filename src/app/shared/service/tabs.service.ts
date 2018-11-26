@@ -30,6 +30,7 @@ export class TabsService {
 
   onNavigation(event: NavigationStart): void {
     this.liens[this.liens.map(l => l.url).indexOf(this.activeLink.url)].url = event.url;
+    this.activeLink.url = event.url;
     this.links.next(this.liens);
     this.storeTabs();
   }
@@ -51,6 +52,7 @@ export class TabsService {
     this.liens[this.liens.map(l => l.url).indexOf(this.activeLink.url)].label = label;
     this.activeLink.label = label;
     this.links.next(this.liens);
+    this.storeTabs();
   }
 
   closeTab(link: Link): void {
