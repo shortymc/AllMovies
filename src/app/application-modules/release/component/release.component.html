@@ -15,8 +15,8 @@
   <div>
     <h3>{{'release.header' | translate:{begin:monday | date : "dd/MM/yyyy", end:sunday | date : "dd/MM/yyyy"} }}:</h3>
     <div class="list-group">
-      <a *ngFor="let movie of movies" (click)="onSelect(movie)" class="list-group-item list-group-item-action pointer"
-        [class.active]="selectedMovie !==undefined && movie.id === selectedMovie.id">
+      <a *ngFor="let movie of movies; let last = last" (click)="onSelect(movie)" class="list-group-item list-group-item-action pointer"
+        [class.active]="selectedMovie !==undefined && movie.id === selectedMovie.id" [ngClass]="{'selectedMovie': last}">
         <span *ngIf="movie.language">{{movie.language | uppercase}} - </span>
         <span class="font-weight-bold" [ngClass]="{'text-info': isInfo(movie), 'text-success': isSuccess(movie), 'text-danger': isDanger(movie)}">
           {{movie.title.slice(0,40) | capitalizeWord}}</span>
@@ -27,7 +27,7 @@
     </div>
   </div>
   <!-- Selected Movie -->
-  <div id="selectedMovie">
+  <div>
     <ng-container *ngIf="selectedMovie">
       <div>
         <app-image-viewer class="poster" [images]="selectedMovie.affiche" [visible]="true"></app-image-viewer>
