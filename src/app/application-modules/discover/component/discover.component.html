@@ -89,6 +89,7 @@
     <p matLine>
       <span>{{movie.note}} / 10 </span>
       <span>({{movie.vote_count}})</span>
+      <span> - {{movie.popularity | number:'1.0-2':translate.currentLang}}</span>
     </p>
     <mat-checkbox class="result-checkbox" [(ngModel)]="movie.checked" (change)="updateSize()"></mat-checkbox>
   </mat-list-item>
