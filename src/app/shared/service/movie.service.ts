@@ -45,7 +45,7 @@ export class MovieService {
           if (detail && (!movie.synopsis || (!movie.videos && video) || !movie.original_title)) {
             return this.getMovie(id, video, false, false, false, false, false, false, 'en').toPromise().then(enMovie => {
               movie.synopsis = Utils.isBlank(movie.synopsis) ? movie.synopsis : enMovie.synopsis;
-              movie.videos = movie.videos.length > 0 ? movie.videos : enMovie.videos;
+              movie.videos = movie.videos && movie.videos.length > 0 ? movie.videos : enMovie.videos;
               movie.original_title = Utils.isBlank(movie.original_title) ? movie.original_title : enMovie.original_title;
               return movie;
             }).then((film: Movie) => {
@@ -73,7 +73,7 @@ export class MovieService {
   getMoviesByReleaseDates(debut: string, fin: string, language: string): Promise<Movie[]> {
     const criteria = new DiscoverCriteria();
     criteria.language = language;
-    criteria.region = language;
+    criteria.region = 'fr';
     criteria.yearMin = debut;
     criteria.yearMax = fin;
     criteria.releaseType = [3, 2];
