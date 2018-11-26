@@ -129,6 +129,7 @@ export class MapMovie {
     movie.imdb_id = r.imdb_id;
     movie.checked = false;
     movie.production_countries = r.production_countries;
+    movie.popularity = r.popularity;
     console.log('movie', movie);
     return movie;
   }

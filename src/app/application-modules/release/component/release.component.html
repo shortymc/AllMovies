@@ -22,7 +22,7 @@
           {{movie.title.slice(0,40) | capitalizeWord}}</span>
         <span *ngIf="movie.note > 0"> - {{movie.note}}/10</span>
         <span *ngIf="movie.vote_count > 0">({{movie.vote_count}})</span>
-        <span *ngIf="movie.popularity > 0"> - {{movie.popularity | number: '1.0-0'}}</span>
+        <span *ngIf="movie.popularity > 0"> - {{movie.popularity | number:'1.0-2':translate.currentLang}}</span>
       </a>
     </div>
   </div>
