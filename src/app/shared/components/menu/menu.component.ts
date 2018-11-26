@@ -39,7 +39,6 @@ export class MenuComponent implements OnInit, OnDestroy {
     public changeDetectorRef: ChangeDetectorRef,
     public media: MediaMatcher,
     private auth: AuthService,
-    private title: TitleService,
     public menuService: MenuService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
@@ -48,7 +47,6 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.title.setTitle('');
     this.auth.isLogged.pipe(distinctUntilChanged()).subscribe(isLogged => {
       this.isLogged$.next(isLogged);
       if (isLogged) {
@@ -68,7 +66,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       }
       clickedComponent = clickedComponent.parentNode;
     } while (clickedComponent);
-    if (this.sidenav.opened && result) {
+    if (this.sidenav && this.sidenav.opened && result) {
       this.sidenav.toggle();
     }
   }
