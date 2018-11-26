@@ -169,12 +169,14 @@ export class ReleaseComponent implements OnInit {
   findSelectedMovie(id: number): void {
     this.movieService.getMovie(id, false, true, false, false, false, false, true, this.language).subscribe(selectedMovie => {
       this.selectedMovie = selectedMovie;
-      const selected = this.elemRef.nativeElement;
-      if (selected.offsetWidth < 700) {
-        selected.querySelector('.selectedMovie').scrollIntoView();
-      } else {
-        this.elemRef.nativeElement.scrollIntoView();
-      }
+      setTimeout(() => {
+        const selected = this.elemRef.nativeElement;
+        if (selected.offsetWidth < 700) {
+          selected.querySelector('.selectedMovie').scrollIntoView();
+        } else {
+          this.elemRef.nativeElement.scrollIntoView();
+        }
+      }, 500);
     });
   }
 
