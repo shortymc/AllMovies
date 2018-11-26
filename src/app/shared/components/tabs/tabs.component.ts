@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { delay, filter, distinctUntilChanged } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
@@ -22,12 +22,14 @@ export class TabsComponent implements OnInit {
     public tabsService: TabsService,
     private elemRef: ElementRef,
     private auth: AuthService,
+    private cdRef: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
     this.auth.isLogged.pipe(distinctUntilChanged()).subscribe(isLogged => this.isLogged$.next(isLogged));
     this.titleService.header.subscribe(title => {
       this.tabsService.updateCurTabLabel(title);
+      this.cdRef.detectChanges();
     });
     this.tabsService.isSelectAfterAdding.pipe(delay(1000), filter(x => x)).subscribe(() => {
       const active = this.elemRef.nativeElement.querySelector('.mat-tab-label-active');
@@ -36,5 +38,4 @@ export class TabsComponent implements OnInit {
       }
     });
   }
-
 }
