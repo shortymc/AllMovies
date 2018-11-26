@@ -87,7 +87,7 @@ export class ReleaseComponent implements OnInit {
       this.language = event.lang;
       this.getMoviesByReleaseDates();
       if (this.selectedMovie) {
-        this.onSelect(this.selectedMovie);
+        this.findSelectedMovie(this.selectedMovie.id);
       }
     });
     this.route.queryParams.subscribe(
@@ -98,7 +98,12 @@ export class ReleaseComponent implements OnInit {
         } else {
           this.dp.startDate = this.selectDate(date);
         }
-        this.getMoviesByReleaseDates();
+        if (params.selected) {
+          this.findSelectedMovie(params.selected);
+        }
+        if (!this.movies) {
+          this.getMoviesByReleaseDates();
+        }
       }
     );
   }
@@ -107,10 +112,12 @@ export class ReleaseComponent implements OnInit {
     this.model = this.formatter.parse(day);
     this.dp.navigateTo(this.model);
     this.selectedMovie = undefined;
+    this.movies = undefined;
     this.router.navigate(['.'], {
       relativeTo: this.route,
       queryParams: {
-        date: day
+        date: day,
+        selected: undefined
       }
     });
   }
@@ -150,9 +157,24 @@ export class ReleaseComponent implements OnInit {
   }
 
   onSelect(movie: Movie): void {
-    this.movieService.getMovie(movie.id, false, true, false, false, false, false, true, this.language).subscribe(selectedMovie => {
+    this.router.navigate(['.'], {
+      relativeTo: this.route,
+      queryParams: {
+        date: this.parseDate(),
+        selected: movie.id
+      }
+    });
+  }
+
+  findSelectedMovie(id: number): void {
+    this.movieService.getMovie(id, false, true, false, false, false, false, true, this.language).subscribe(selectedMovie => {
       this.selectedMovie = selectedMovie;
-      this.elemRef.nativeElement.querySelector('#selectedMovie').scrollIntoView();
+      const selected = this.elemRef.nativeElement;
+      if (selected.offsetWidth < 700) {
+        selected.querySelector('.selectedMovie').scrollIntoView();
+      } else {
+        this.elemRef.nativeElement.scrollIntoView();
+      }
     });
   }
 
