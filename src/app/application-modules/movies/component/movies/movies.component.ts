@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Sort } from '@angular/material/sort';
@@ -56,7 +55,6 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   constructor(
     private movieService: MovieService,
-    private router: Router,
     private breakpointObserver: BreakpointObserver,
     private dropboxService: DropboxService,
     private translate: TranslateService,
