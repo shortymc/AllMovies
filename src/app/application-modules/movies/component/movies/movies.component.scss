@@ -10,7 +10,7 @@
 }
 
 .mat-header-row {
-  top: 50px;
+  top: 64px;
 }
 
 .paginator {
@@ -55,6 +55,10 @@
   /* Mobile landscape */
   .mat-table {
     hyphens: auto;
+  }
+
+  .mat-header-row {
+    top: 74px;
   }
 
   .mat-header-cell .mat-text {
