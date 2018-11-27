@@ -59,7 +59,7 @@
       <!-- Keyword -->
       <div *ngIf="movie.keywords && movie.keywords.length > 0">
         <label>{{'movie.keyword' | translate}}: </label>
-        <div class="block">
+        <div class="synopsis">
           <span *ngFor="let keyword of movie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)">
             <span class="pointer">{{keyword.name| capitalizeWord}}</span>
             <span *ngIf="!last">/</span>
