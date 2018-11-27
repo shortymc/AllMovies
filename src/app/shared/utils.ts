@@ -17,7 +17,7 @@ export class Utils {
   }
 
   static isBlank(str: string): boolean {
-    return str === undefined || str === undefined || str.trim() === '';
+    return str === undefined || str === null || str.trim() === '';
   }
 
   static getPath(path: string, size: number, noEmpty?: boolean): string {
