@@ -27,10 +27,10 @@ export class Utils {
         result = (path === undefined || path === null) ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + path;
         break;
       case Utils.MEDIUM_IMG_SIZE:
-        result = (path === undefined || path === null) ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_154 + path;
+        result = (path === undefined || path === null) ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_MEDIUM + path;
         break;
       case Utils.SMALL_IMG_SIZE:
-        result = (path === undefined || path === null) ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_92 + path;
+        result = (path === undefined || path === null) ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_SMALL + path;
         break;
     }
     return noEmpty && result === Url.IMAGE_URL_EMPTY ? undefined : result;
