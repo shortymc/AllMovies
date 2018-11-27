@@ -29,7 +29,8 @@ export class MapMovie {
       date: r.release_date,
       note: r.vote_average,
       language: r.original_language,
-      thumbnail: Utils.getPosterPath(r, Utils.MEDIUM_IMG_SIZE)
+      thumbnail: Utils.getPosterPath(r, Utils.MEDIUM_IMG_SIZE),
+      popularity: r.popularity
     }));
   }
 
