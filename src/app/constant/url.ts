@@ -1,8 +1,8 @@
 export class Url {
   // Image
   static readonly IMAGE_URL_ORIGINAL = 'https://image.tmdb.org/t/p/original';
-  static readonly IMAGE_URL_154 = 'https://image.tmdb.org/t/p/w154';
-  static readonly IMAGE_URL_92 = 'https://image.tmdb.org/t/p/w92';
+  static readonly IMAGE_URL_MEDIUM = 'https://image.tmdb.org/t/p/w154';
+  static readonly IMAGE_URL_SMALL = 'https://image.tmdb.org/t/p/w92';
   static readonly IMAGE_URL_EMPTY = './assets/empty.jpg';
 
   // API MovieDB request

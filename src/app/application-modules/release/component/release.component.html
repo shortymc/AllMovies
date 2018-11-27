@@ -30,7 +30,7 @@
   <div>
     <ng-container *ngIf="selectedMovie">
       <div>
-        <app-image-viewer class="poster" [images]="selectedMovie.affiche" [visible]="true"></app-image-viewer>
+        <app-image-viewer class="poster" [images]="selectedMovie.affiche" [thumbnails]="selectedMovie.thumbnail" [visible]="true"></app-image-viewer>
       </div>
       <div>
         <h2>

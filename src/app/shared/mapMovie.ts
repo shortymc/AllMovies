@@ -106,6 +106,7 @@ export class MapMovie {
     }
     if (r.images && r.images.backdrops.length > 0) {
       movie.images = r.images.backdrops.map((i: any) => Url.IMAGE_URL_ORIGINAL.concat(i.file_path));
+      movie.images_thumb = r.images.backdrops.map((i: any) => Url.IMAGE_URL_MEDIUM.concat(i.file_path));
     }
     if (r.genres) {
       movie.genres = r.genres;

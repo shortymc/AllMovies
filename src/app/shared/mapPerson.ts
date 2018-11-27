@@ -15,9 +15,11 @@ export class MapPerson {
     });
     const credits = resp.credits;
     let img;
+    let img_thumb;
     if (resp.images && resp.images.profiles.length > 0) {
-      img = resp.images.profiles.map((i: any) => i.file_path).filter((i: any) => i !== resp.profile_path)
-        .map(path => Url.IMAGE_URL_ORIGINAL.concat(path));
+      const img_url = resp.images.profiles.map((i: any) => i.file_path).filter((i: any) => i !== resp.profile_path);
+      img = img_url.map(path => Url.IMAGE_URL_ORIGINAL.concat(path));
+      img_thumb = img_url.map(path => Url.IMAGE_URL_MEDIUM.concat(path));
     }
 
     if (credits) {
@@ -33,11 +35,11 @@ export class MapPerson {
 
       return new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
         Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img,
-        asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel, resp.known_for_department);
+        asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel, resp.known_for_department, img_thumb);
     } else {
       return new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
         Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img,
-        undefined, undefined, undefined, undefined, undefined, undefined, resp.known_for_department);
+        undefined, undefined, undefined, undefined, undefined, undefined, resp.known_for_department, img_thumb);
     }
   }
 
