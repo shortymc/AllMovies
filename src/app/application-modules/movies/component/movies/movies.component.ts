@@ -6,7 +6,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSelectChange } from '@angular/material/select';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import {
-  faTrash, faHashtag, faImage, faFilm, faFlag, faCalendar, faStar, faGlobeAmericas, faList
+  faTrash, faHashtag, faImage, faFilm, faFlag, faCalendar, faStar, faGlobeAmericas, faList, faChevronCircleRight
 } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
@@ -15,8 +15,6 @@ import { Utils } from './../../../../shared/utils';
 import { TitleService, AuthService, DropboxService, MovieService } from './../../../../shared/shared.module';
 import { Movie } from './../../../../model/movie';
 import { Genre } from '../../../../model/model';
-
-const init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'meta', 'language', 'genres', 'time', 'added', 'select'];
 
 library.add(faClock);
 library.add(faTimesCircle);
@@ -27,7 +25,9 @@ library.add(faTimesCircle);
   styleUrls: ['./movies.component.scss']
 })
 export class MoviesComponent implements OnInit, OnDestroy {
-  displayedColumns = init_columns;
+  init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details'];
+  mobile_columns = ['thumbnail', 'title', 'date', 'meta', 'language', 'time', 'genres', 'select', 'details'];
+  displayedColumns = this.init_columns;
   movies: Movie[];
   length: number;
   displayedData: Movie[];
@@ -52,6 +52,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   faStar = faStar;
   faGlobe = faGlobeAmericas;
   faList = faList;
+  faChevronCircleRight = faChevronCircleRight;
 
   constructor(
     private movieService: MovieService,
@@ -68,8 +69,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.breakpointObserver.observe([
       '(max-width: 700px)'
     ]).subscribe(result => {
-      this.displayedColumns = result.matches ?
-        ['thumbnail', 'title', 'date', 'meta', 'language', 'time', 'genres', 'select'] : init_columns;
+      this.displayedColumns = result.matches ? this.mobile_columns : this.init_columns;
     });
     this.getMovies();
     this.language = this.translate.currentLang;

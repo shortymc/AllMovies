@@ -168,13 +168,24 @@
     <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie" (mousedown)="$event.stopPropagation()">
+      <mat-cell *matCellDef="let movie">
         <mat-checkbox [color]="'primary'" (change)="movie.checked = !movie.checked; updateSize()" [checked]="movie.checked">
         </mat-checkbox>
       </mat-cell>
     </ng-container>
 
+    <!-- Details Column -->
+    <ng-container matColumnDef="details">
+      <mat-header-cell *matHeaderCellDef>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        <button class="btn btn-outline-primary" appOpenLink [label]="movie.title" url="/movie/{{movie.id}}">
+          <fa-icon [icon]="faChevronCircleRight"></fa-icon> {{'global.go_detail' | translate}}
+        </button>
+      </mat-cell>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" appOpenLink [label]="row.title" url="/movie/{{row.id}}"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </ng-container>
