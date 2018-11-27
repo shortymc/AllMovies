@@ -19,7 +19,7 @@ import { Keyword, Genre, DropDownChoice } from '../../../model/model';
   templateUrl: './movie-detail.component.html',
 })
 export class MovieDetailComponent implements OnInit {
-  movie$: Observable<Movie>;
+  movie: Movie;
   isImagesVisible = false;
   Url = DuckDuckGo;
   id: number;
@@ -42,19 +42,19 @@ export class MovieDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.id = +params.get('id');
-      this.movie$ = this.getMovie(this.id, this.translate.currentLang);
+      this.getMovie(this.id, this.translate.currentLang);
     });
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.movie$ = this.getMovie(this.id, event.lang);
-    });
-    this.movie$.subscribe((movie: Movie) => {
-      this.title.setTitle(movie.title);
+      this.getMovie(this.id, event.lang);
     });
     // this.allocine.allocine('movie', '143067').subscribe(response => console.log(response));
   }
 
-  getMovie(id: number, language: string): Observable<Movie> {
-    return this.movieService.getMovie(id, true, true, true, true, true, true, true, language);
+  getMovie(id: number, language: string): void {
+    this.movieService.getMovie(id, true, true, true, true, true, true, true, language).then((movie) => {
+      this.title.setTitle(movie.title);
+      this.movie = movie;
+    });
   }
 
   redirectGenreToDiscover(genre: Genre): void {

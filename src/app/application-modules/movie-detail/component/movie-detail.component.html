@@ -1,4 +1,4 @@
-<div *ngIf="(movie$ | async) as movie">
+<div *ngIf="movie">
   <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
     <app-image-viewer [images]="movie.images" [thumbnails]="movie.images_thumb" [visible]="isImagesVisible"></app-image-viewer>
   </app-modal>

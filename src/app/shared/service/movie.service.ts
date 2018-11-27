@@ -34,27 +34,23 @@ export class MovieService {
   }
 
   getMovie(id: number, video: boolean, credit: boolean, reco: boolean, keywords: boolean,
-    similar: boolean, image: boolean, detail: boolean, language: string): Observable<Movie> {
-    return this.serviceUtils.getObservable(UrlBuilder.movieUrlBuilder(id, video, credit, reco, keywords, similar, image, language))
-      .pipe(
-        map(response => {
-          const movie = MapMovie.mapForMovie(response);
-          movie.lang_version = language;
-          return movie;
-        }), flatMap((movie: Movie) => {
-          if (detail && (!movie.synopsis || (!movie.videos && video) || !movie.original_title)) {
-            return this.getMovie(id, video, false, false, false, false, false, false, 'en').toPromise().then(enMovie => {
-              movie.synopsis = Utils.isBlank(movie.synopsis) ? movie.synopsis : enMovie.synopsis;
-              movie.videos = movie.videos && movie.videos.length > 0 ? movie.videos : enMovie.videos;
-              movie.original_title = Utils.isBlank(movie.original_title) ? movie.original_title : enMovie.original_title;
-              return movie;
-            }).then((film: Movie) => {
-              return this.getImdbScore(film);
-            });
-          } else {
-            return this.getImdbScore(movie);
-          }
-        }), catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast)));
+    similar: boolean, image: boolean, detail: boolean, language: string): Promise<Movie> {
+    return this.serviceUtils.getPromise(UrlBuilder.movieUrlBuilder(id, video, credit, reco, keywords, similar, image, language))
+      .then(response => {
+        const movie = MapMovie.mapForMovie(response);
+        movie.lang_version = language;
+        if (detail && (!movie.synopsis || (!movie.videos && video) || !movie.original_title)) {
+          return this.getMovie(id, video, false, false, false, false, false, false, 'en').then(enMovie => {
+            movie.synopsis = Utils.isBlank(movie.synopsis) ? enMovie.synopsis : movie.synopsis;
+            movie.videos = movie.videos && movie.videos.length > 0 ? movie.videos : enMovie.videos;
+            movie.original_title = Utils.isBlank(movie.original_title) ? enMovie.original_title : movie.original_title;
+            movie.score = enMovie.score;
+            return movie;
+          });
+        } else {
+          return this.getImdbScore(movie);
+        }
+      }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   getImdbScore(movie: Movie): Promise<Movie> {
