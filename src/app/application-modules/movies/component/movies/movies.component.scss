@@ -1,7 +1,8 @@
 @import "../../../../styles/styles";
 
+/* THIS MAKES THE HEADER STICKY */
 .mat-header-row,
-.paginator { //THIS MAKES THE HEADER STICKY
+.paginator {
   position: sticky;
   position: -webkit-sticky;
   z-index: 99;
@@ -44,7 +45,7 @@
 }
 
 @include media(#{$smallscreen}) {
-  // Mobile landscape
+  /* Mobile landscape */
   .mat-header-cell .mat-text {
     display: none;
   }
@@ -73,13 +74,23 @@
 }
 
 @include media('400px') {
-  // Mobile portait
+  /* Mobile portait */
+  .movie-poster {
+    display: flex;
+    justify-content: center;
+    height: 20vh;
+
+    & ::ng-deep.frame-viewer {
+      box-shadow: 3px 1px 10px #000;
+    }
+  }
+
   /* stylelint-disable */
   mat-paginator::ng-deep .mat-paginator-page-size {
     display: none !important;
   }
 
-  // Reshape table
+  /* Reshape table */
   .mat-row:hover {
     background-color: inherit !important;
   }
@@ -105,14 +116,15 @@
     position: relative !important;
     min-height: 0;
 
+    &:first-of-type {
+      padding-top: 10px;
+      padding-left: 0 !important;
+      padding-bottom: 10px;
+    }
+
     &:last-of-type {
       padding-bottom: 5px;
       padding-right: 0 !important;
-    }
-
-    &:first-of-type {
-      padding-top: 5px;
-      padding-left: 0 !important;
     }
 
     &:before {
