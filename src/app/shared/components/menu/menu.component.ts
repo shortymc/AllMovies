@@ -20,6 +20,9 @@ import { MenuService } from '../../service/menu.service';
 export class MenuComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
   user: User;
+  isLogged$ = new BehaviorSubject<boolean>(false);
+  visible: boolean;
+
   faUser = faUser;
   faBars = faBars;
   faBookmark = faBookmark;
@@ -27,7 +30,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   faHome = faHome;
   faBoxOpen = faBoxOpen;
   faPowerOff = faPowerOff;
-  isLogged$ = new BehaviorSubject<boolean>(false);
+
   private _mobileQueryListener: () => void;
   @ViewChild('sidenav') sidenav: MatSidenav;
   @ViewChild('content') content: MatSidenavContent;
@@ -54,6 +57,10 @@ export class MenuComponent implements OnInit, OnDestroy {
       } else {
         this.user = undefined;
       }
+    });
+    this.menuService.visible$.subscribe((visible) => {
+      this.visible = visible;
+      this.changeDetectorRef.detectChanges();
     });
   }
 
