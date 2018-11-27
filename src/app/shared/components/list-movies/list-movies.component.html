@@ -15,7 +15,8 @@
             [label]="reco.title" url="/movie/{{reco.id}}">
           <p class="reco-infos center" [ngClass]="{'adult': reco.adult}">{{reco.title | capitalizeWord}} - {{reco.date
             | date : 'MMM yyyy':'':translate.currentLang | capitalizeWord}} -
-            {{reco.note}} / 10 ({{reco.vote_count}})</p>
+            {{reco.note}} / 10 ({{reco.vote_count}}) - {{reco.popularity |
+            number:'1.0-2':translate.currentLang}}</p>
           <input [(ngModel)]="reco.checked" type="checkbox">
         </div>
       </div>

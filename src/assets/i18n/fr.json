@@ -38,7 +38,8 @@
         "release": "Sorties Cinéma",
         "profile": "Mon Profil",
         "logout": "Déconnexion",
-        "discover": "Explorer"
+        "discover": "Explorer",
+        "change_language": "Changer de Langue"
     },
     "title": {
         "dashboard": "Tableau de Bord",
@@ -119,6 +120,7 @@
         "birth": "Naissance",
         "death": "Mort",
         "bio": "Biographie",
+        "popularity": "Popularité",
         "image": "Images",
         "films": "Films notables",
         "known_for": {

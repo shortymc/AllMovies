@@ -120,6 +120,7 @@
         "birth": "Birth",
         "death": "Death",
         "bio": "Biography",
+        "popularity": "Popularity",
         "image": "Images",
         "films": "Filmography",
         "known_for": {

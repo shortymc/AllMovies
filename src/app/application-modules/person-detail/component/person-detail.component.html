@@ -37,6 +37,9 @@
       <div>
         <label>{{'person.known_for.title' | translate}}:</label>{{'person.known_for.'+person.knownFor|translate}}
       </div>
+      <div>
+        <label>{{'person.popularity' | translate}}:</label>{{person.popularity | number:'1.0-2':translate.currentLang}}
+      </div>
       <button type="button" class="btn btn-outline-primary block" (click)="isImagesVisible = !isImagesVisible" *ngIf="person.images && person.images.length > 0">
         <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'person.image' | translate}}
       </button>
