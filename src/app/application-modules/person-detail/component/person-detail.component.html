@@ -1,10 +1,10 @@
 <div *ngIf="person">
   <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
-    <app-image-viewer [images]="person.images" [visible]="isImagesVisible"></app-image-viewer>
+    <app-image-viewer [images]="person.images" [thumbnails]="person.images_thumb" [visible]="isImagesVisible"></app-image-viewer>
   </app-modal>
   <h2>{{'person.header' | translate}} {{person.name}}:</h2>
   <div>
-    <app-image-viewer [images]="person.profile" [visible]="true"></app-image-viewer>
+    <app-image-viewer [images]="person.profile" [thumbnails]="person.thumbnail" [visible]="true"></app-image-viewer>
   </div>
   <div class="contenu">
     <button class="btn btn-outline-primary" (click)="goBack()">

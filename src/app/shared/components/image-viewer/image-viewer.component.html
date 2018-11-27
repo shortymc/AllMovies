@@ -7,6 +7,7 @@
   </app-modal>
   <!-- Swiper for gallery of images -->
   <ng-container *ngIf="!isOnePicture && !isFullscreen">
+    <!-- Full size gallery -->
     <div class="gallery-top">
       <swiper [config]="config" [(index)]="indexTop" #galleryTop>
         <div *ngFor="let img of images">
@@ -21,10 +22,11 @@
       <div class="swiper-button-prev" (click)="prev()"></div>
       <div class="swiper-button-next" (click)="next()"></div>
     </div>
+    <!-- Thumbnails gallery -->
     <div class="gallery-thumbs">
       <swiper [config]="thumbs" [(index)]="indexThumb" #galleryThumbs>
-        <div *ngFor="let img2 of images">
-          <img src="{{img2}}">
+        <div *ngFor="let thumb of thumbnails">
+          <img src="{{thumb}}">
         </div>
       </swiper>
     </div>
@@ -32,7 +34,7 @@
   <!-- One picture display -->
   <ng-container *ngIf="isOnePicture">
     <pinch-zoom [zoom-button]="false" class="frame-viewer pointer">
-      <img src="{{images}}" (click)="fullscreen(images)">
+      <img src="{{thumbnails}}" (click)="fullscreen(images)">
     </pinch-zoom>
   </ng-container>
 </ng-container>

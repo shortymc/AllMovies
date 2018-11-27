@@ -11,6 +11,7 @@ import { MenuService } from '../../service/menu.service';
 export class ImageViewerComponent implements OnChanges, AfterViewChecked {
   @Input() visible: boolean;
   @Input() images: string[] | string;
+  @Input() thumbnails: string[] | string;
   @ViewChild('galleryThumbs') swiperThumb: SwiperComponent;
   @ViewChild('galleryTop') swiperTop: SwiperComponent;
   indexThumb: number;
@@ -38,7 +39,6 @@ export class ImageViewerComponent implements OnChanges, AfterViewChecked {
   thumbs: SwiperConfigInterface = {
     observer: true,
     slidesPerView: 4,
-    centeredSlides: true,
     slideToClickedSlide: true,
   };
   isOnePicture: boolean;
@@ -54,6 +54,7 @@ export class ImageViewerComponent implements OnChanges, AfterViewChecked {
   ngOnChanges(changes: SimpleChanges): void {
     this.visible = changes.visible ? changes.visible.currentValue : this.visible;
     this.images = changes.images ? changes.images.currentValue : this.images;
+    this.thumbnails = changes.thumbnails ? changes.thumbnails.currentValue : this.thumbnails;
     if (this.visible) {
       this.isOnePicture = typeof this.images === 'string';
       this.indexThumb = 0;
