@@ -56,6 +56,10 @@ app-dropdown-language {
   top: 50px !important;
 }
 
+.sidenav-content {
+  width: 101vw;
+}
+
 @include media(#{$smallscreen}) {
   :host .nav-list {
     & > * {
