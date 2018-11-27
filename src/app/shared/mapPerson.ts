@@ -35,11 +35,11 @@ export class MapPerson {
 
       return new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
         Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img,
-        asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel, resp.known_for_department, img_thumb);
+        asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel, resp.known_for_department, img_thumb, resp.popularity);
     } else {
       return new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
         Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img,
-        undefined, undefined, undefined, undefined, undefined, undefined, resp.known_for_department, img_thumb);
+        undefined, undefined, undefined, undefined, undefined, undefined, resp.known_for_department, img_thumb, resp.popularity);
     }
   }
 
