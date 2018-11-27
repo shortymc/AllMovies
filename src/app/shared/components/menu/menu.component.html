@@ -1,5 +1,5 @@
 <ng-container *ngIf="isLogged$ | async">
-  <mat-toolbar class="toolbar" *ngIf="(menuService.visible$ | async) as visible">
+  <mat-toolbar class="toolbar" *ngIf="visible">
     <button class="btn" (click)="sidenav.toggle()">
       <fa-icon [icon]="faBars"></fa-icon>
     </button>
