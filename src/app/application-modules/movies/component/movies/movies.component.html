@@ -52,7 +52,7 @@
         <fa-icon class="mat-icon" [icon]="faImage"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let movie">
-        <img class="posterDT" src="{{movie.thumbnail}}" />
+        <app-image-viewer class="movie-poster" [images]="movie.affiche" [thumbnails]="movie.thumbnail" [visible]="true"></app-image-viewer>
       </mat-cell>
     </ng-container>
 
