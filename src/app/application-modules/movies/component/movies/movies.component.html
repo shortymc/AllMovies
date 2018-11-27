@@ -32,7 +32,7 @@
 
   <!-- Table -->
   <mat-table #table [dataSource]="displayedData" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
-    matSort>
+    matSort [matSortActive]="'date'" [matSortDirection]="'desc'">
 
     <!-- ID -->
     <ng-container matColumnDef="id">
@@ -91,7 +91,7 @@
 
     <!-- NOTE -->
     <ng-container matColumnDef="note">
-      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.rating'|translate }}">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'movies.rating'|translate }}">
         <span class="mat-text">{{ 'movies.rating'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faStar"></fa-icon>
       </mat-header-cell>
@@ -102,7 +102,7 @@
 
     <!-- METACRITIC -->
     <ng-container matColumnDef="meta">
-      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.rating'|translate }}">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'movies.rating'|translate }}">
         <span class="mat-text">{{ 'movies.rating'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faStar"></fa-icon>
       </mat-header-cell>
@@ -155,7 +155,7 @@
 
     <!-- ADDED -->
     <ng-container matColumnDef="added">
-      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.added'|translate }}">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'movies.added'|translate }}">
         <span class="mat-text">{{ 'movies.added'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="['far', 'clock']"></fa-icon>
       </mat-header-cell>

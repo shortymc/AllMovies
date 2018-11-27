@@ -66,6 +66,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.title.setTitle('title.movies');
+    this.sort = { active: 'date', direction: 'desc' };
     this.breakpointObserver.observe([
       '(max-width: 700px)'
     ]).subscribe(result => {
@@ -85,7 +86,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
         this.movies = movies.filter(movie => movie.lang_version === this.language);
         // this.checkAndFixData(this.movies, this.language);
         this.length = this.movies.length;
-        this.initPagination(this.movies);
+        this.initPagination(this.refreshData());
         this.getAllGenres();
         // localStorage.setItem('movies', JSON.stringify(movies));
       });
