@@ -167,7 +167,7 @@ export class ReleaseComponent implements OnInit {
   }
 
   findSelectedMovie(id: number): void {
-    this.movieService.getMovie(id, false, true, false, false, false, false, true, this.language).subscribe(selectedMovie => {
+    this.movieService.getMovie(id, false, true, false, false, false, false, true, this.language).then(selectedMovie => {
       this.selectedMovie = selectedMovie;
       setTimeout(() => {
         const selected = this.elemRef.nativeElement;
