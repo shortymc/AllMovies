@@ -27,25 +27,22 @@
   background-color: $gray_hover !important;
 }
 
-.posterDT {
-  width: 20%;
-  padding: 2px;
-
-  &:hover {
-    @extend .frame;
-
-    width: 100%;
-    margin: 3px 0 3px 8px !important;
-    padding: 1px !important;
-  }
-}
-
 .mat-header-cell .mat-icon {
   display: none;
 }
 
+.btn-detail {
+  & .btn-icon {
+    display: none;
+  }
+}
+
 @include media(#{$smallscreen}) {
   /* Mobile landscape */
+  .mat-table {
+    hyphens: auto;
+  }
+
   .mat-header-cell .mat-text {
     display: none;
   }
@@ -63,12 +60,35 @@
     }
   }
 
-  .posterDT {
-    width: 20%;
-    padding: 2px;
+  .movie-poster {
 
-    &:hover {
-      width: 20%;
+    & ::ng-deep.frame-viewer {
+      margin: 0;
+      box-shadow: 2px 5px 9px #000;
+
+      & > div {
+        display: contents;
+      }
+    }
+  }
+
+  .mat-cell {
+
+    &:first-of-type {
+      padding: 10px !important;
+    }
+
+    &:last-of-type {
+      padding-right: 0 !important;
+    }
+  }
+
+  .btn-detail {
+    & .btn-icon {
+      display: inherit;
+    }
+    & .btn-text {
+      display: none;
     }
   }
 }
@@ -136,6 +156,15 @@
       width: 45% !important;
       padding-right: 10px !important;
       white-space: nowrap !important;
+    }
+  }
+
+  .btn-detail {
+    & .btn-icon {
+      display: none;
+    }
+    & .btn-text {
+      display: inherit;
     }
   }
 }
