@@ -168,9 +168,11 @@
     <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        <mat-checkbox (change)="movie.checked = !movie.checked; updateSize()" [checked]="movie.checked">
-        </mat-checkbox>
+      <mat-cell *matCellDef="let movie" class="toto">
+        <div class="cell-content">
+          <mat-checkbox (change)="movie.checked = !movie.checked; updateSize()" [checked]="movie.checked">
+          </mat-checkbox>
+        </div>
       </mat-cell>
     </ng-container>
 
@@ -178,17 +180,19 @@
     <ng-container matColumnDef="details">
       <mat-header-cell *matHeaderCellDef>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        <button class="btn btn-outline-primary btn-detail" appOpenLink [label]="movie.title" url="/movie/{{movie.id}}"
-          matTooltip="{{'global.go_detail' | translate}}">
-          <span class="btn-text">
-            <fa-icon [icon]="faChevronCircleRight"></fa-icon>
-            {{'global.go_detail' | translate}}
-          </span>
-          <span class="btn-icon">
-            <fa-icon [icon]="faChevronCircleRight" size="2x"></fa-icon>
-          </span>
-        </button>
+      <mat-cell *matCellDef="let movie" class="toto">
+        <div class="cell-content">
+          <button class="btn btn-outline-primary btn-detail" appOpenLink [label]="movie.title" url="/movie/{{movie.id}}"
+            matTooltip="{{'global.go_detail' | translate}}">
+            <span class="btn-text">
+              <fa-icon [icon]="faChevronCircleRight"></fa-icon>
+              {{'global.go_detail' | translate}}
+            </span>
+            <span class="btn-icon">
+              <fa-icon [icon]="faChevronCircleRight" size="2x"></fa-icon>
+            </span>
+          </button>
+        </div>
       </mat-cell>
     </ng-container>
 
