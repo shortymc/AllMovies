@@ -49,7 +49,7 @@ export class PersonDetailComponent implements OnInit {
   }
 
   getPerson(id: number, language: string): void {
-    this.personService.getPerson(id, language)
+    this.personService.getPerson(id, language, true)
       .then(person => {
         this.person = person;
         switch (person.knownFor) {
