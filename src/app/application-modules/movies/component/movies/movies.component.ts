@@ -26,6 +26,7 @@ library.add(faTimesCircle);
 })
 export class MoviesComponent implements OnInit, OnDestroy {
   init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details'];
+  medium_columns = ['thumbnail', 'title', 'date', 'note', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details'];
   mobile_columns = ['thumbnail', 'title', 'date', 'meta', 'language', 'time', 'genres', 'select', 'details'];
   displayedColumns = this.init_columns;
   movies: Movie[];
@@ -68,9 +69,16 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.title.setTitle('title.movies');
     this.sort = { active: 'date', direction: 'desc' };
     this.breakpointObserver.observe([
-      '(max-width: 700px)'
+      '(max-width: 700px)',
+      '(max-width: 1000px)'
     ]).subscribe(result => {
-      this.displayedColumns = result.matches ? this.mobile_columns : this.init_columns;
+      if (result.breakpoints['(max-width: 1000px)'] && result.breakpoints['(max-width: 700px)']) {
+        this.displayedColumns = this.mobile_columns;
+      } else if (result.breakpoints['(max-width: 1000px)'] && !result.breakpoints['(max-width: 700px)']) {
+        this.displayedColumns = this.medium_columns;
+      } else {
+        this.displayedColumns = this.init_columns;
+      }
     });
     this.getMovies();
     this.language = this.translate.currentLang;
