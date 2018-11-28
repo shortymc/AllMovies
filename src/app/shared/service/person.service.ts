@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { map, catchError } from 'rxjs/operators';
 
+import { Utils } from './../utils';
 import { MapPerson } from './../../shared/mapPerson';
 import { UtilsService } from './utils.service';
 import { Url } from './../../constant/url';
@@ -16,12 +16,19 @@ export class PersonService {
     private toast: ToastService
   ) { }
 
-  getPerson(id: number, language: string): Promise<Person> {
-    return this.serviceUtils.getObservable(UrlBuilder.personUrlBuilder(id, language, true, true))
-      .pipe(
-        map(response => MapPerson.mapForPerson(response)),
-        catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast)))
-      .toPromise();
+  getPerson(id: number, language: string, detail: boolean): Promise<Person> {
+    return this.serviceUtils.getPromise(UrlBuilder.personUrlBuilder(id, language, true, true))
+      .then(response => {
+        const person = MapPerson.mapForPerson(response);
+        if (detail && !person.biography) {
+          return this.getPerson(id, 'en', false).then(enPerson => {
+            person.biography = Utils.isBlank(person.biography) ? enPerson.biography : person.biography;
+            return person;
+          });
+        } else {
+          return person;
+        }
+      }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   getPopularPersons(language: string): Promise<Person[]> {
