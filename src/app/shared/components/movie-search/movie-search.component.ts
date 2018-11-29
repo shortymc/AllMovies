@@ -1,5 +1,5 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ElementRef, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject, of } from 'rxjs';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +15,7 @@ import { AuthService } from '../../service/auth.service';
   styleUrls: ['./movie-search.component.scss'],
   providers: [MovieSearchService]
 })
-export class MovieSearchComponent implements OnInit {
+export class MovieSearchComponent implements OnInit, OnDestroy {
   @ViewChild('searchBox')
   inputSearch: HTMLFormElement;
   movies: Observable<Movie[]>;
@@ -23,7 +23,9 @@ export class MovieSearchComponent implements OnInit {
   showMovie = false;
   language: string;
   pseudo: string;
+  subs = [];
   faSearch = faSearch;
+
   @HostListener('document:click', ['$event']) onMousClicked(event: any): void {
     let result = false;
     let clickedComponent = event.target;
@@ -55,10 +57,10 @@ export class MovieSearchComponent implements OnInit {
   ngOnInit(): void {
     this.pseudo = AuthService.decodeToken().name;
     this.language = this.translate.currentLang;
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+    this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.language = event.lang;
       this.search(this.inputSearch.nativeElement.value);
-    });
+    }));
     this.movies = this.searchTerms
       .pipe(
         debounceTime(300),        // wait 300ms after each keystroke before considering the term
@@ -73,5 +75,9 @@ export class MovieSearchComponent implements OnInit {
           console.log(error);
           return of<Movie[]>([]);
         }));
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach((subscription) => subscription.unsubscribe());
   }
 }
