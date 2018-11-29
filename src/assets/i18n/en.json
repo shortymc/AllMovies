@@ -22,11 +22,7 @@
         "pageNotFound": "Page not found",
         "show": "Show",
         "hide": "Hide",
-        "id": "Id",
-        "selected": {
-            "singular": "selected",
-            "plural": "{{size}} selected"
-        }
+        "id": "Id"
     },
     "time": {
         "now": "now",
