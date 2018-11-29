@@ -22,7 +22,11 @@
         "pageNotFound": "Page not found",
         "show": "Show",
         "hide": "Hide",
-        "id": "Id"
+        "id": "Id",
+        "selected": {
+            "singular": "selected",
+            "plural": "{{size}} selected"
+        }
     },
     "time": {
         "now": "now",
@@ -169,7 +173,7 @@
         "genres": "Genres",
         "length": "Running Time",
         "added": "Added",
-        "remove": "Remove the {{size}} selected movies",
+        "remove": "Remove the selected movies ({{size}})",
         "search_title": "Search in {{param}}s",
         "filter": {
             "placeholder": "Search",
