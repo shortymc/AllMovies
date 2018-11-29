@@ -1,6 +1,6 @@
 import { PageEvent } from '@angular/material/paginator';
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NouiFormatter } from 'ng2-nouislider';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +20,7 @@ import { ReleaseType } from '../../../constant/release-type';
   templateUrl: './discover.component.html',
   styleUrls: ['./discover.component.scss']
 })
-export class DiscoverComponent implements OnInit {
+export class DiscoverComponent implements OnInit, OnDestroy {
   @ViewChild('sortDir') sortDir: any;
   discover: Discover;
   sortChoices: DropDownChoice[];
@@ -51,11 +51,11 @@ export class DiscoverComponent implements OnInit {
   selectedReleaseType: DropDownChoice[];
   faBookmark = faBookmark;
   clean = false;
+  subs = [];
 
   constructor(
     private movieService: MovieService,
     private translate: TranslateService,
-    private router: Router,
     public personService: PersonSearchService,
     public keywordService: KeywordSearchService,
     private genreService: GenreService,
@@ -91,11 +91,11 @@ export class DiscoverComponent implements OnInit {
         return res;
       }
     };
-    this.translate.onLangChange.subscribe(() => {
+    this.subs.push(this.translate.onLangChange.subscribe(() => {
       this.getAllGenres(this.selectedGenres ? this.selectedGenres.map(g => g.value) : []);
       this.getAllCertification(this.selectedCertif ? this.selectedCertif.value : '');
       this.search(false);
-    });
+    }));
     // Stored research
     const criteria = <DiscoverCriteria>Utils.parseJson(sessionStorage.getItem('criteria'));
     const people = <Person[]>Utils.parseJson(sessionStorage.getItem('people'));
@@ -111,17 +111,17 @@ export class DiscoverComponent implements OnInit {
   }
 
   getAllGenres(genresId: number[]): void {
-    this.genreService.getAllGenre(this.translate.currentLang).subscribe(genres => {
+    this.subs.push(this.genreService.getAllGenre(this.translate.currentLang).subscribe(genres => {
       this.allGenres = genres.map(genre => new DropDownChoice(genre.name, genre.id));
       this.selectedGenres = genresId ? this.allGenres.filter(genre => genresId.includes(genre.value)) : [];
-    });
+    }));
   }
 
   getAllCertification(certification: string): void {
-    this.certifService.getAllCertification().subscribe(certif => {
+    this.subs.push(this.certifService.getAllCertification().subscribe(certif => {
       this.allCertif = certif.map(c => new DropDownChoice(c.meaning, c.certification));
       this.selectedCertif = certification ? this.allCertif.find(c => c.value === certification) : undefined;
-    });
+    }));
   }
 
   initFromCriteria(criteria: DiscoverCriteria, people: Person[], genres: DropDownChoice[], keyword: Keyword[], certif: DropDownChoice): void {
@@ -247,4 +247,7 @@ export class DiscoverComponent implements OnInit {
     this.discover.movies.forEach((movie) => movie.checked = false);
   }
 
+  ngOnDestroy(): void {
+    this.subs.forEach((subscription) => subscription.unsubscribe());
+  }
 }

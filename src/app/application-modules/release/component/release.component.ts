@@ -1,5 +1,5 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Component, Injectable, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Injectable, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { faChevronCircleRight, faBookmark } from '@fortawesome/free-solid-svg-icons';
@@ -50,16 +50,17 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   styleUrls: ['./release.component.scss'],
   providers: [I18n, NgbDatepickerConfig, { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }]
 })
-export class ReleaseComponent implements OnInit {
+export class ReleaseComponent implements OnInit, OnDestroy {
   @ViewChild('dp') dp: NgbDatepicker;
   movies: Movie[];
   selectedMovie: Movie;
   model: NgbDateStruct;
   monday: Date;
   sunday: Date;
-  Url = DuckDuckGo;
   language: string;
+  subs = [];
 
+  Url = DuckDuckGo;
   faChevronCircleRight = faChevronCircleRight;
   faBookmark = faBookmark;
 
@@ -83,13 +84,13 @@ export class ReleaseComponent implements OnInit {
   ngOnInit(): void {
     this.title.setTitle('title.release');
     this.language = this.translate.currentLang;
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+    this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.language = event.lang;
       this.getMoviesByReleaseDates();
       if (this.selectedMovie) {
         this.findSelectedMovie(this.selectedMovie.id);
       }
-    });
+    }));
     this.route.queryParams.subscribe(
       params => {
         const date = params.date;
@@ -190,5 +191,9 @@ export class ReleaseComponent implements OnInit {
 
   isDanger(movie: Movie): boolean {
     return movie.note < 5 && movie.vote_count >= 10;
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach((subscription) => subscription.unsubscribe());
   }
 }

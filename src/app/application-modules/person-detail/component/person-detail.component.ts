@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -16,11 +16,12 @@ import { DuckDuckGo } from '../../../constant/duck-duck-go';
   styleUrls: ['./person-detail.component.scss'],
   templateUrl: './person-detail.component.html',
 })
-export class PersonDetailComponent implements OnInit {
+export class PersonDetailComponent implements OnInit, OnDestroy {
   person: Person;
   isImagesVisible = false;
   scrollTo: HTMLElement;
   listMoviesOrder: DropDownChoice[];
+  subs = [];
 
   Url = Url;
   DuckDuckGo = DuckDuckGo;
@@ -43,9 +44,9 @@ export class PersonDetailComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.getPerson(+params.get('id'), this.translate.currentLang);
     });
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+    this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.getPerson(this.person.id, event.lang);
-    });
+    }));
   }
 
   getPerson(id: number, language: string): void {
@@ -105,5 +106,9 @@ export class PersonDetailComponent implements OnInit {
     if (back === undefined) {
       this.router.navigate(['/']);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach((subscription) => subscription.unsubscribe());
   }
 }
