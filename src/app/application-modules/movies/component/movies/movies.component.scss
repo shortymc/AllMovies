@@ -39,6 +39,7 @@
   height: 100px;
   margin: 10px 0;
 
+  /* stylelint-disable selector-pseudo-element-no-unknown */
   & ::ng-deep.frame-viewer {
     margin: 0;
     box-shadow: 5px 3px 10px #000;
@@ -79,7 +80,6 @@
   }
 
   .movie-poster {
-
     & ::ng-deep.frame-viewer {
       margin: 0;
       box-shadow: 2px 5px 9px #000;
@@ -91,7 +91,6 @@
   }
 
   .mat-cell {
-
     &:first-of-type {
       padding: 10px !important;
     }
