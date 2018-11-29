@@ -1,5 +1,5 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { TitleService, PersonService } from './../../../../shared/shared.module';
 import { Movie } from '../../../../model/movie';
@@ -12,9 +12,10 @@ import { Url } from '../../../../constant/url';
   styleUrls: ['./dashboard.component.scss'],
   templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   movies: Movie[] = [];
   persons: Person[] = [];
+  subs = [];
   Url = Url;
 
   constructor(
@@ -28,10 +29,10 @@ export class DashboardComponent implements OnInit {
     this.title.setTitle('');
     this.getTopMovies(this.translate.currentLang);
     this.getToPersons(this.translate.currentLang);
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+    this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.getTopMovies(event.lang);
       this.getToPersons(event.lang);
-    });
+    }));
   }
 
   getTopMovies(language: string): void {
@@ -42,5 +43,9 @@ export class DashboardComponent implements OnInit {
   getToPersons(language: string): void {
     this.personService.getPopularPersons(language)
       .then(persons => this.persons = persons.slice(0, 5));
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach((subscription) => subscription.unsubscribe());
   }
 }

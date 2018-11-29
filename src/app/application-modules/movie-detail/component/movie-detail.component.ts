@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { faChevronCircleLeft, faImage, faBookmark } from '@fortawesome/free-solid-svg-icons';
@@ -18,12 +18,13 @@ import { Keyword, Genre, DropDownChoice } from '../../../model/model';
   styleUrls: ['./movie-detail.component.scss'],
   templateUrl: './movie-detail.component.html',
 })
-export class MovieDetailComponent implements OnInit {
+export class MovieDetailComponent implements OnInit, OnDestroy {
   movie: Movie;
   isImagesVisible = false;
   Url = DuckDuckGo;
   id: number;
   scrollTo: HTMLElement;
+  subs = [];
 
   faChevronCircleLeft = faChevronCircleLeft;
   faBookmark = faBookmark;
@@ -44,9 +45,9 @@ export class MovieDetailComponent implements OnInit {
       this.id = +params.get('id');
       this.getMovie(this.id, this.translate.currentLang);
     });
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+    this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.getMovie(this.id, event.lang);
-    });
+    }));
     // this.allocine.allocine('movie', '143067').subscribe(response => console.log(response));
   }
 
@@ -72,5 +73,9 @@ export class MovieDetailComponent implements OnInit {
     if (back === undefined) {
       this.router.navigate(['/']);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach((subscription) => subscription.unsubscribe());
   }
 }
