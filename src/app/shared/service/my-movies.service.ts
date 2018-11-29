@@ -11,8 +11,7 @@ import { Utils } from '../utils';
 
 @Injectable()
 export class MyMoviesService {
-  private myMovies = [];
-  myMovies$ = new BehaviorSubject(this.myMovies);
+  myMovies$ = new BehaviorSubject([]);
 
   constructor(
     private dropboxService: DropboxService,
@@ -46,8 +45,7 @@ export class MyMoviesService {
         }
       })
       .then((movies: Movie[]) => {
-        this.myMovies = movies;
-        this.myMovies$.next(this.myMovies);
+        this.myMovies$.next(movies);
       }).catch(err => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
@@ -84,9 +82,8 @@ export class MyMoviesService {
       console.log(res);
       if (res) {
         // all good, modifies inner data
-        this.myMovies = tempMovieList;
-        console.log('myMovies', this.myMovies);
-        this.myMovies$.next(this.myMovies);
+        console.log('myMovies', tempMovieList);
+        this.myMovies$.next(tempMovieList);
         this.toast.open(this.translate.instant('toast.movies_added', { size: tempMoviesAdded.length / 2 }));
       }
     }).catch((err) => this.serviceUtils.handleError(err, this.toast));
@@ -111,8 +108,7 @@ export class MyMoviesService {
       console.log(res);
       if (res) {
         // if ok, emit new array and toast
-        this.myMovies = tempMovieList;
-        this.myMovies$.next(this.myMovies);
+        this.myMovies$.next(tempMovieList);
         this.toast.open(this.translate.instant('toast.movies_removed', { size: idToRemove.length }));
       }
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
@@ -136,8 +132,7 @@ export class MyMoviesService {
       return this.dropboxService.uploadFile(MyMoviesService.moviesToBlob(movieList), fileName);
     }).then((res: any) => {
       console.log(res);
-      this.myMovies = tempMovieList;
-      this.myMovies$.next(this.myMovies);
+      this.myMovies$.next(tempMovieList);
       this.toast.open(this.translate.instant('toast.movies_updated', { size: moviesToReplace.length }));
     }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
