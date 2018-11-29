@@ -12,7 +12,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 
 import { Utils } from './../../../../shared/utils';
-import { TitleService, AuthService, DropboxService, MovieService } from './../../../../shared/shared.module';
+import { TitleService, AuthService, MovieService, MyMoviesService } from './../../../../shared/shared.module';
 import { Movie } from './../../../../model/movie';
 import { Genre } from '../../../../model/model';
 
@@ -41,7 +41,6 @@ export class MoviesComponent implements OnInit, OnDestroy {
   nbChecked = 0;
   genres: Genre[];
   filteredGenres: MatSelectChange;
-  language: string;
   scrollTo: HTMLElement;
 
   faTrash = faTrash;
@@ -58,7 +57,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   constructor(
     private movieService: MovieService,
     private breakpointObserver: BreakpointObserver,
-    private dropboxService: DropboxService,
+    private myMoviesService: MyMoviesService,
     private translate: TranslateService,
     private elemRef: ElementRef,
     private auth: AuthService,
@@ -80,24 +79,20 @@ export class MoviesComponent implements OnInit, OnDestroy {
         this.displayedColumns = this.init_columns;
       }
     });
-    this.getMovies();
-    this.language = this.translate.currentLang;
+    this.getMovies(this.translate.currentLang);
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.language = event.lang;
-      this.getMovies();
+      this.getMovies(event.lang);
     });
   }
 
-  getMovies(): void {
-    this.auth.getFileName().then((fileName) => {
-      this.dropboxService.getAllMovies(fileName).then(movies => {
-        this.movies = movies.filter(movie => movie.lang_version === this.language);
-        // this.checkAndFixData(this.movies, this.language);
-        this.length = this.movies.length;
-        this.initPagination(this.refreshData());
-        this.getAllGenres();
-        // localStorage.setItem('movies', JSON.stringify(movies));
-      });
+  getMovies(lang: string): void {
+    this.myMoviesService.myMovies$.subscribe(movies => {
+      this.movies = movies.filter(movie => movie.lang_version === lang);
+      // this.checkAndFixData(this.movies, this.language);
+      this.length = this.movies.length;
+      this.initPagination(this.refreshData());
+      this.getAllGenres();
+      // localStorage.setItem('movies', JSON.stringify(movies));
     });
   }
 
@@ -216,7 +211,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
       forkJoin(obs).subscribe(
         (data: Movie[]) => {
           this.auth.getFileName().then((fileName) => {
-            this.dropboxService.replaceMovies(data, fileName, lang);
+            this.myMoviesService.replaceMovies(data, fileName);
           });
         },
         err => console.error(err)
@@ -235,7 +230,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
       this.paginate(this.refreshData());
     }
     this.auth.getFileName().then((fileName) => {
-      this.dropboxService.removeMovieList(ids, fileName);
+      this.myMoviesService.remove(ids, fileName);
     });
     this.nbChecked = 0;
     this.onTop();

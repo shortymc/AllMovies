@@ -3,7 +3,7 @@ import { Directive, Input, HostListener } from '@angular/core';
 
 import { Movie } from '../../model/movie';
 import { MovieService } from '../service/movie.service';
-import { DropboxService } from '../service/dropbox.service';
+import { MyMoviesService } from './../service/my-movies.service';
 import { AuthService } from '../service/auth.service';
 
 @Directive({
@@ -16,11 +16,15 @@ export class AddCollectionDirective {
     this.add();
   }
 
-  constructor(private movieService: MovieService, private dropboxService: DropboxService, private auth: AuthService) { }
+  constructor(
+    private movieService: MovieService,
+    private myMoviesService: MyMoviesService,
+    private auth: AuthService
+  ) { }
 
   add(): void {
     if (this.movies.length > 1) {
-      this.movies = this.movies.filter((reco: Movie) => reco.checked);
+      this.movies = this.movies.filter((mov: Movie) => mov.checked);
     }
     this.addMovies();
   }
@@ -34,7 +38,7 @@ export class AddCollectionDirective {
     });
     forkJoin(prom).subscribe((movies: Movie[]) => {
       this.auth.getFileName().then((fileName) => {
-        this.dropboxService.addMovieList(movies, fileName);
+        this.myMoviesService.add(movies, fileName);
       });
     });
   }
