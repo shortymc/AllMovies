@@ -1,6 +1,8 @@
 # How to use it:
 
-* Install [node.js](https://www.npmjs.com/get-npm), [npm](https://www.npmjs.com/get-npm) and [git](https://git-scm.com/downloads). If you want you can install [yarn](https://yarnpkg.com/en/docs/install).
+* Install [node.js](https://www.npmjs.com/get-npm), [npm](https://www.npmjs.com/get-npm), [git](https://git-scm.com/downloads) and [http-server](https://github.com/indexzero/http-server) (`npm i -g http-server`). 
+
+  If you want you can install [yarn](https://yarnpkg.com/en/docs/install).
 
 * In your workspace: 
 
@@ -8,11 +10,7 @@
 
 * In the _AllMovies_ folder:
 
-  * `yarn` or `npm i`
-  * `yarn start` or `ng serve --port 4242`
+  * Downloads dependencies: `yarn` or `npm i`
+  * Builds the app: `yarn build` or `ng build --prod`
+  * Runs the app and opens the browser: `http-server .\dist -o`
 
-* In your browser go to:
-
-  `localhost:4242`
-
-  ​
