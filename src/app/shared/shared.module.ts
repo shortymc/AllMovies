@@ -53,6 +53,7 @@ import { TabsService } from './service/tabs.service';
 import { OpenLinkDialogComponent } from './components/open-link-dialog/open-link-dialog.component';
 import { OpenLinkDirective } from './directives/open-link.directive';
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { MyMoviesService } from './service/my-movies.service';
 
 @NgModule({
   declarations: [
@@ -137,6 +138,7 @@ export class SharedModule {
         AuthService,
         TitleService,
         PersonService,
+        MyMoviesService,
         GenreService,
         LangService,
         TabsService,
@@ -172,3 +174,4 @@ export { KeywordSearchService } from './service/keyword-search.service';
 export { ToastService } from './service/toast.service';
 export { MenuService } from './service/menu.service';
 export { TabsService } from './service/tabs.service';
+export { MyMoviesService } from './service/my-movies.service';
