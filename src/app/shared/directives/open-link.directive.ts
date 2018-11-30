@@ -27,7 +27,7 @@ export class OpenLinkDirective {
     if (this.dialogRef !== undefined) {
       this.dialogRef.close();
     }
-    this.tabsService.updateCurTabLabel(this.label);
+    this.tabsService.updateCurTabLabel(this.translate.instant(this.label));
     this.router.navigateByUrl(this.url);
   }
 
