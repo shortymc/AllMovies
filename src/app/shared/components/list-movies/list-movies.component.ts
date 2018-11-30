@@ -2,8 +2,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { SortDirection } from '@angular/material';
 
 import { Movie } from '../../../model/movie';
+import { Utils } from './../../utils';
+import { DropDownChoice } from '../../../model/model';
 
 @Component({
   selector: 'app-list-movies',
@@ -22,8 +25,13 @@ export class ListMoviesComponent implements OnInit {
   }
   @Input()
   label: string;
+
+  movieList: Movie[];
   page: number;
   moviesToShow: Movie[];
+  sortChoices: DropDownChoice[];
+  sortChosen: DropDownChoice;
+  sortDir: SortDirection;
   pageSize = 5;
   faBookmark = faBookmark;
 
@@ -33,10 +41,15 @@ export class ListMoviesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.sortChoices = [new DropDownChoice('discover.sort_field.popularity', 'popularity'),
+    new DropDownChoice('discover.sort_field.release_date', 'date'), new DropDownChoice('discover.sort_field.original_title', 'title'),
+    new DropDownChoice('discover.sort_field.vote_average', 'note'), new DropDownChoice('discover.sort_field.vote_count', 'vote_count')];
+    this.sortChosen = this.sortChoices[0];
+    this.sortDir = 'desc';
     this._movies
       .subscribe(x => {
-        this.page = 1;
-        this.getMoviesToShow(this.movies, this.page);
+        this.movieList = this.movies;
+        this.sortChanged(false);
       });
   }
 
@@ -44,8 +57,17 @@ export class ListMoviesComponent implements OnInit {
     this.moviesToShow = movies.slice((page - 1) * this.pageSize, page * this.pageSize);
   }
 
+  sortChanged(scroll: boolean): void {
+    this.movieList = Utils.sortMovie(this.movieList, { active: this.sortChosen.value, direction: this.sortDir });
+    this.page = 1;
+    this.getMoviesToShow(this.movieList, this.page);
+    if (scroll) {
+      this.elemRef.nativeElement.scrollIntoView();
+    }
+  }
+
   pageChanged(event: any): void {
-    this.getMoviesToShow(this.movies, event);
+    this.getMoviesToShow(this.movieList, event);
     this.elemRef.nativeElement.scrollIntoView();
   }
 

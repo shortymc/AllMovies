@@ -225,6 +225,7 @@ export class Utils {
     return false;
   }
 
+  /* tslint:disable cyclomatic-complexity */
   static sortMovie(list: Movie[], sort: Sort): Movie[] {
     if (sort && sort.active && sort.direction !== '') {
       return list.sort((a, b) => {
@@ -238,6 +239,10 @@ export class Utils {
             return Utils.compare(a.original_title, b.original_title, isAsc);
           case 'note':
             return Utils.compare(+a.note, +b.note, isAsc);
+          case 'vote_count':
+            return Utils.compare(+a.vote_count, +b.vote_count, isAsc);
+          case 'popularity':
+            return Utils.compare(+a.popularity, +b.popularity, isAsc);
           case 'meta':
             return this.compareMetaScore(a, b, isAsc);
           case 'language':
