@@ -1,4 +1,6 @@
 @import "../../../../styles/styles";
+/* stylelint-disable selector-pseudo-element-no-unknown */
+/* stylelint-disable selector-type-no-unknown */
 
 /* THIS MAKES THE HEADER STICKY */
 .mat-header-row,
@@ -23,6 +25,16 @@
   justify-content: center;
 }
 
+.delete-btn .btn {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+::ng-deep.mat-paginator-container {
+  justify-content: center !important;
+}
+
 .mat-row:hover {
   background-color: $gray_hover !important;
 }
@@ -39,7 +51,6 @@
   height: 100px;
   margin: 10px 0;
 
-  /* stylelint-disable selector-pseudo-element-no-unknown */
   & ::ng-deep.frame-viewer {
     margin: 0;
     box-shadow: 5px 3px 10px #000;
@@ -72,11 +83,6 @@
 
   .filters {
     display: flex;
-
-    & * {
-      width: 50%;
-      padding-right: 2px;
-    }
   }
 
   .movie-poster {
@@ -113,11 +119,6 @@
     }
   }
 
-  /* stylelint-disable */
-  mat-paginator::ng-deep .mat-paginator-page-size {
-    display: none !important;
-  }
-
   /* Reshape table */
   .mat-row:hover {
     background-color: inherit !important;
@@ -128,21 +129,21 @@
   mat-cell {
     display: block !important;
     text-align: center;
-	}
+  }
 
-	mat-row {
+  mat-row {
     border: 1px solid #ccc !important;
 
-    &:after {
+    &::after {
       display: initial !important;
     }
   }
 
-	mat-cell {
-		/* Behave  like a "row" */
-		border: none !important;
+  mat-cell {
+    /* Behave  like a "row" */
     position: relative !important;
     min-height: 0;
+    border: none !important;
 
     &:first-of-type {
       float: left;
@@ -157,9 +158,9 @@
 
       & > .cell-content {
         position: absolute;
-        width: 100vw;
         right: -15vw;
         bottom: 6%;
+        width: 100vw;
       }
     }
 
@@ -168,15 +169,22 @@
       padding-right: 0 !important;
     }
 
-    &:before {
+    &::before {
       /* Now like a table header */
       position: absolute !important;
-      /* Top/left values mimic padding */
       top: 6px !important;
       left: 6px !important;
       width: 45% !important;
       padding-right: 10px !important;
       white-space: nowrap !important;
+    }
+  }
+
+  .filters {
+    flex-direction: column;
+
+    & ::ng-deep.mat-form-field-flex {
+      flex-direction: row;
     }
   }
 
@@ -188,6 +196,7 @@
     & .btn-icon {
       display: none;
     }
+
     & .btn-text {
       display: inherit;
     }
