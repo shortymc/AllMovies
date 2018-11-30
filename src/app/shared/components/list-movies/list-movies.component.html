@@ -2,6 +2,20 @@
   <div class="card card-outline-primary">
     <div class="card-header">
       <label>{{label}}</label>
+      <mat-select placeholder="{{'discover.sort' | translate}}" [(value)]="sortChosen" (selectionChange)="sortChanged(true)">
+        <mat-option *ngFor="let sort of sortChoices" [value]="sort">{{sort.label_key | translate}}</mat-option>
+      </mat-select>
+      <mat-button-toggle-group [(value)]="sortDir" (change)="sortDir = $event.value; sortChanged(true)">
+        <div class="toogleHeader">
+          {{'discover.sort_direction'|translate}}:
+        </div>
+        <mat-button-toggle value="desc">
+          {{'discover.sort_up'|translate}}
+        </mat-button-toggle>
+        <mat-button-toggle value="asc">
+          {{'discover.sort_down'|translate}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
     <div class="d-flex justify-content-center">
       <ngb-pagination (pageChange)="pageChanged($event)" [collectionSize]="movies.length" [(page)]="page" [maxSize]="3"
