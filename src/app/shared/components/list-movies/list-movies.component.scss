@@ -12,6 +12,19 @@
   }
 }
 
+.movies-sorting {
+  display: inline-flex;
+  flex-wrap: wrap;
+
+  & .toogleHeader {
+    margin: auto;
+  }
+
+  & .mat-select {
+    width: calc(100% - 20px) !important;
+  }
+}
+
 .center {
   display: flex;
   justify-content: center;
