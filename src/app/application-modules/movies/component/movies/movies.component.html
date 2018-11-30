@@ -23,7 +23,10 @@
     <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
       (page)="page = $event; onPaginateChange();" [showFirstLastButtons]="true">
     </mat-paginator>
-    <!-- Delete -->
+  </div>
+
+  <!-- Delete -->
+  <div class="delete-btn">
     <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="remove()">{{'movies.remove' |
       translate:{size: nbChecked} }}
       <fa-icon [icon]="faTrash"></fa-icon>
