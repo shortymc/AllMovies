@@ -45,3 +45,9 @@ export class Link {
     this.url = url;
   }
 }
+
+export class MovieDetailConfig {
+  constructor(public img?: boolean, public credit?: boolean, public similar?: boolean,
+    public keywords?: boolean, public video?: boolean, public reco?: boolean) {
+  }
+}

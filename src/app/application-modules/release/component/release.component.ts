@@ -8,6 +8,7 @@ import { Movie } from '../../../model/movie';
 import { MovieService, TitleService } from '../../../shared/shared.module';
 import { MyNgbDate } from '../../../shared/my-ngb-date';
 import { DuckDuckGo } from '../../../constant/duck-duck-go';
+import { MovieDetailConfig } from '../../../model/model';
 
 const now: Date = new Date();
 
@@ -168,7 +169,7 @@ export class ReleaseComponent implements OnInit, OnDestroy {
   }
 
   findSelectedMovie(id: number): void {
-    this.movieService.getMovie(id, false, true, false, false, false, false, true, this.language).then(selectedMovie => {
+    this.movieService.getMovie(id, new MovieDetailConfig(false, true, false, false, false, false), true, this.language).then(selectedMovie => {
       this.selectedMovie = selectedMovie;
       setTimeout(() => {
         const selected = this.elemRef.nativeElement;

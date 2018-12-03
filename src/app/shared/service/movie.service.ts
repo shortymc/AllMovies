@@ -6,6 +6,7 @@ import { Discover } from './../../model/discover';
 import { MapMovie } from './../../shared/mapMovie';
 import { UtilsService } from './utils.service';
 import { Movie } from '../../model/movie';
+import { MovieDetailConfig } from './../../model/model';
 import { Url } from '../../constant/url';
 import { OmdbService } from './omdb.service';
 import { ToastService } from './toast.service';
@@ -28,18 +29,18 @@ export class MovieService {
   }
 
   getMovies(ids: number[], language: string): Promise<Movie[]> {
-    const obs = ids.map(id => this.getMovie(id, true, true, true, true, true, true, false, language));
+    const obs = ids.map(id => this.getMovie(id, new MovieDetailConfig(true, true, true, true, true, true), false, language));
     return forkJoin(obs).toPromise();
   }
 
-  getMovie(id: number, video: boolean, credit: boolean, reco: boolean, keywords: boolean,
-    similar: boolean, image: boolean, detail: boolean, language: string): Promise<Movie> {
-    return this.serviceUtils.getPromise(UrlBuilder.movieUrlBuilder(id, video, credit, reco, keywords, similar, image, language))
+  getMovie(id: number, config: MovieDetailConfig, detail: boolean, language: string): Promise<Movie> {
+    return this.serviceUtils.getPromise(UrlBuilder.movieUrlBuilder(id, config.video, config.credit,
+      config.reco, config.keywords, config.similar, config.img, language))
       .then(response => {
         const movie = MapMovie.mapForMovie(response);
         movie.lang_version = language;
-        if (detail && (!movie.synopsis || (!movie.videos && video) || !movie.original_title)) {
-          return this.getMovie(id, video, false, false, false, false, false, false, 'en').then(enMovie => {
+        if (detail && (!movie.synopsis || (!movie.videos && config.video) || !movie.original_title)) {
+          return this.getMovie(id, new MovieDetailConfig(false, false, false, false, config.video, false), false, 'en').then(enMovie => {
             movie.synopsis = Utils.isBlank(movie.synopsis) ? enMovie.synopsis : movie.synopsis;
             movie.videos = movie.videos && movie.videos.length > 0 ? movie.videos : enMovie.videos;
             movie.original_title = Utils.isBlank(movie.original_title) ? enMovie.original_title : movie.original_title;
