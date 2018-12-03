@@ -1,5 +1,5 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { faChevronCircleLeft, faImage, faBookmark } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +10,7 @@ import { TabsService } from './../../../shared/service/tabs.service';
 import { DuckDuckGo } from './../../../constant/duck-duck-go';
 import { MovieService } from '../../../shared/shared.module';
 import { Movie } from '../../../model/movie';
-import { Keyword, Genre, DropDownChoice } from '../../../model/model';
+import { Keyword, Genre, DropDownChoice, MovieDetailConfig } from '../../../model/model';
 
 @Component({
   selector: 'app-movie-detail',
@@ -18,6 +18,8 @@ import { Keyword, Genre, DropDownChoice } from '../../../model/model';
   templateUrl: './movie-detail.component.html',
 })
 export class MovieDetailComponent implements OnInit, OnDestroy {
+  @Input()
+  config: MovieDetailConfig;
   movie: Movie;
   isImagesVisible = false;
   Url = DuckDuckGo;
@@ -51,7 +53,8 @@ export class MovieDetailComponent implements OnInit, OnDestroy {
   }
 
   getMovie(id: number, language: string): void {
-    this.movieService.getMovie(id, true, true, true, true, true, true, true, language).then((movie) => {
+    this.config = this.config === undefined ? new MovieDetailConfig(true, true, true, true, true, true) : this.config;
+    this.movieService.getMovie(id, this.config, true, language).then((movie) => {
       this.title.setTitle(movie.title);
       this.movie = movie;
       this.menuService.scrollTo$.next(0);

@@ -14,7 +14,7 @@ import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { Utils } from './../../../../shared/utils';
 import { TitleService, AuthService, MovieService, MyMoviesService } from './../../../../shared/shared.module';
 import { Movie } from './../../../../model/movie';
-import { Genre } from '../../../../model/model';
+import { Genre, MovieDetailConfig } from '../../../../model/model';
 
 library.add(faClock);
 library.add(faTimesCircle);
@@ -204,7 +204,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     incomplete = incomplete.slice(0, 30);
     const obs = [];
     incomplete.map((id: number) => {
-      obs.push(this.movieService.getMovie(id, false, false, false, false, false, false, false, lang));
+      obs.push(this.movieService.getMovie(id, new MovieDetailConfig(false, false, false, false, false, false), false, lang));
     });
 
     try {
