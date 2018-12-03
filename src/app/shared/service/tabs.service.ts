@@ -66,6 +66,13 @@ export class TabsService {
     }
   }
 
+  closeAll(): void {
+    this.liens = [new Link('AllMovies', '/')];
+    this.activeLink = this.liens[0];
+    this.links.next(this.liens);
+    this.router.navigateByUrl(this.activeLink.url);
+  }
+
   changeTab(link: Link): void {
     this.activeLink = link;
     this.storeTabs();
