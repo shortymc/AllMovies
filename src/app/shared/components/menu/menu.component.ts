@@ -1,4 +1,3 @@
-import { TabsService } from './../../service/tabs.service';
 import { Component, OnInit, HostListener, OnDestroy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {
@@ -8,7 +7,7 @@ import { faUser, faBars, faAtom, faPowerOff, faHome, faBoxOpen, faBookmark } fro
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav, MatSidenavContent } from '@angular/material';
 
-import { TitleService } from '../../service/title.service';
+import { TabsService } from './../../service/tabs.service';
 import { AuthService } from '../../service/auth.service';
 import { User } from '../../../model/user';
 import { MenuService } from '../../service/menu.service';
