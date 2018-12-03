@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, Subject, of } from 'rxjs';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { switchMap, debounceTime, catchError } from 'rxjs/operators';
@@ -40,7 +39,6 @@ export class PersonSearchComponent implements OnInit {
   constructor(
     private elemRef: ElementRef,
     private personSearchService: PersonSearchService,
-    private router: Router
   ) { }
 
   // Push a search term into the observable stream.
