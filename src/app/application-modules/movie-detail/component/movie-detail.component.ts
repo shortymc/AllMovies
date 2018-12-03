@@ -1,11 +1,10 @@
-import { Observable } from 'rxjs';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { faChevronCircleLeft, faImage, faBookmark } from '@fortawesome/free-solid-svg-icons';
 
-import { TitleService } from './../../../shared/shared.module';
+import { TitleService, MenuService } from './../../../shared/shared.module';
 import { TabsService } from './../../../shared/service/tabs.service';
 // import { AllocineService } from './../../../service/allocine.service';
 import { DuckDuckGo } from './../../../constant/duck-duck-go';
@@ -23,7 +22,6 @@ export class MovieDetailComponent implements OnInit, OnDestroy {
   isImagesVisible = false;
   Url = DuckDuckGo;
   id: number;
-  scrollTo: HTMLElement;
   subs = [];
 
   faChevronCircleLeft = faChevronCircleLeft;
@@ -37,7 +35,8 @@ export class MovieDetailComponent implements OnInit, OnDestroy {
     private location: Location,
     private title: TitleService,
     private router: Router,
-    public tabsService: TabsService
+    public tabsService: TabsService,
+    private menuService: MenuService,
   ) { }
 
   ngOnInit(): void {
@@ -55,6 +54,7 @@ export class MovieDetailComponent implements OnInit, OnDestroy {
     this.movieService.getMovie(id, true, true, true, true, true, true, true, language).then((movie) => {
       this.title.setTitle(movie.title);
       this.movie = movie;
+      this.menuService.scrollTo$.next(0);
     });
   }
 
