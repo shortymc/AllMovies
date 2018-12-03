@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, OnDestroy, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -43,7 +43,8 @@ export class MenuComponent implements OnInit, OnDestroy {
     public media: MediaMatcher,
     private auth: AuthService,
     private tabs: TabsService,
-    public menuService: MenuService
+    public menuService: MenuService,
+    private elemRef: ElementRef
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -62,6 +63,10 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.menuService.visible$.subscribe((visible) => {
       this.visible = visible;
       this.changeDetectorRef.detectChanges();
+    });
+    this.menuService.scrollTo$.subscribe((scrollTo: number) => {
+      console.log('scrollTo', scrollTo);
+      this.elemRef.nativeElement.querySelector('.mat-sidenav-content').scrollTo(0, scrollTo);
     });
   }
 
