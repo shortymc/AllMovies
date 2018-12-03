@@ -1,7 +1,6 @@
 import { PageEvent } from '@angular/material/paginator';
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { NouiFormatter } from 'ng2-nouislider';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 

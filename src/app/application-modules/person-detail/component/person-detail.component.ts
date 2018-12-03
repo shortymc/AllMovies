@@ -5,7 +5,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { faAtom, faChevronCircleLeft, faPlusSquare, faMinusSquare, faImage } from '@fortawesome/free-solid-svg-icons';
 
 import { PersonService, TitleService } from '../../../shared/shared.module';
-import { DropDownChoice, Link } from './../../../model/model';
+import { DropDownChoice } from './../../../model/model';
 import { Person } from '../../../model/person';
 import { Job } from './../../../constant/job';
 import { Url } from '../../../constant/url';
