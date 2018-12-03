@@ -65,6 +65,7 @@
         "no-construct": true,
         "no-debugger": true,
         "no-duplicate-super": true,
+        "no-unused-variable": true,
         "no-for-in-array": true,
         "no-empty": false,
         "no-empty-interface": true,

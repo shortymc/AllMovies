@@ -1,5 +1,4 @@
-import { Observable, forkJoin } from 'rxjs';
-import { map, catchError, flatMap } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { DiscoverCriteria } from './../../model/discover-criteria';

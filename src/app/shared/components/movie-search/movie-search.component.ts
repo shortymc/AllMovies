@@ -45,7 +45,6 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   constructor(
     private elemRef: ElementRef,
     private movieSearchService: MovieSearchService,
-    private router: Router,
     private translate: TranslateService
   ) { }
 
