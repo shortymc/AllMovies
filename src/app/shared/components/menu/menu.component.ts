@@ -1,3 +1,4 @@
+import { TabsService } from './../../service/tabs.service';
 import { Component, OnInit, HostListener, OnDestroy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {
@@ -42,6 +43,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     public changeDetectorRef: ChangeDetectorRef,
     public media: MediaMatcher,
     private auth: AuthService,
+    private tabs: TabsService,
     public menuService: MenuService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
@@ -81,6 +83,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   logout(): void {
     this.user = undefined;
     this.auth.logout();
+    this.tabs.closeAll();
   }
 
   ngOnDestroy(): void {
