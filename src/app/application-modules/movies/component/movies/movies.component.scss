@@ -50,11 +50,7 @@
 .movie-poster {
   height: 100px;
   margin: 10px 0;
-
-  & ::ng-deep.frame-viewer {
-    margin: 0;
-    box-shadow: 5px 3px 10px #000;
-  }
+  box-shadow: 1px 1px 10px #000;
 }
 
 .btn-detail {
@@ -86,14 +82,8 @@
   }
 
   .movie-poster {
-    & ::ng-deep.frame-viewer {
-      margin: 0;
-      box-shadow: 2px 5px 9px #000;
-
-      & > div {
-        display: contents;
-      }
-    }
+    height: 15vw;
+    box-shadow: 2px 5px 9px #000;
   }
 
   .mat-cell {
@@ -107,16 +97,14 @@
   }
 }
 
-@include media('400px') {
+@include media('500px') {
   /* Mobile portait */
   .movie-poster {
     display: flex;
     justify-content: center;
-    height: 20vh;
-
-    & ::ng-deep.frame-viewer {
-      box-shadow: 3px 3px 8px #000;
-    }
+    height: 25vw;
+    min-height: 100px;
+    box-shadow: 3px 3px 8px #000;
   }
 
   /* Reshape table */

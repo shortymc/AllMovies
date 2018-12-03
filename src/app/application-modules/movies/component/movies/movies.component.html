@@ -34,7 +34,7 @@
   </div>
 
   <!-- Table -->
-  <mat-table #table [dataSource]="displayedData" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
+  <mat-table [dataSource]="displayedData" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
     matSort [matSortActive]="'date'" [matSortDirection]="'desc'">
 
     <!-- ID -->
@@ -55,7 +55,7 @@
         <fa-icon class="mat-icon" [icon]="faImage"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let movie">
-        <app-image-viewer class="movie-poster" [images]="movie.affiche" [thumbnails]="movie.thumbnail" [visible]="true"></app-image-viewer>
+        <img class="movie-poster" src="{{movie.thumbnail}}"/>
       </mat-cell>
     </ng-container>
 
