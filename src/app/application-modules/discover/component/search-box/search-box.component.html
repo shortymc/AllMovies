@@ -10,7 +10,7 @@
       [matChipInputFor]="chipList">
   </mat-chip-list>
 </mat-form-field>
-<mat-autocomplete #auto="matAutocomplete">
+<mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
   <mat-option *ngFor="let item of filteredItems | async" (onSelectionChange)="addItem(item); inputSearch.value = ''">
     <div class="media">
       <img class="align-self-center" *ngIf="item.thumbnail" src="{{item.thumbnail}}" style="width:22%;">
