@@ -1,7 +1,8 @@
 @import "../../../styles/styles";
 
 .mat-line {
-  margin-left: 72px !important;
+  margin-left: 85px !important;
+  margin-bottom: 2px !important;
 }
 
 .mat-button-toggle,
@@ -37,6 +38,10 @@
   align-self: center;
 }
 
+#runtime-slider {
+  margin-top: 4em;
+}
+
 .vote {
   display: flex;
   flex-wrap: wrap;
@@ -58,6 +63,14 @@
 .result-list {
   width: calc(50vw + 20px);
   margin-left: 25vw;
+
+  & img {
+    position: absolute;
+    float: left;
+    height: 100px;
+    box-shadow: 4px 6px 15px #000;
+    border: 3px solid $black;
+  }
 }
 
 .result-title {
@@ -74,29 +87,35 @@
   right: 10px;
 }
 
-app-image-viewer {
-  position: absolute !important;
-  float: left !important;
-  margin: 0 !important;
-
-  & ::ng-deep .frame-viewer {/* stylelint-disable-line */
-    height: 54px !important;
-  }
-}
-
 @include media(#{$smallscreen}) {
   .result-list {
     width: 100vw;
     margin-left: 0;
+
+    & img {
+      height: 25vw;
+      max-height: 100px;
+    }
+  }
+
+  .mat-line {
+    margin-bottom: 1vw !important;
+  }
+
+  ::ng-deep.mat-list-item-content {
+    padding: 0 0 8px 16px !important;
+  }
+
+  #runtime-slider {
+    margin-top: 2em;
   }
 
   .ng2-nouislider {
     width: 80vw;
-    margin-left: 5vh;
+    margin: auto;
   }
 
   #voteCount {
-    margin-left: 25%;
-    margin-top: 0;
+    margin: auto;
   }
 }

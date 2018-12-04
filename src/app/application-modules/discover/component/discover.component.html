@@ -47,7 +47,7 @@
 </div>
 <!-- Runtime range -->
 <nouislider [connect]="true" [min]="0" [max]="max" [step]="1" [(ngModel)]="runtimeRange" [format]="formatter"
-  [tooltips]="[true, true]" style="margin-top: 4em;"></nouislider>
+  [tooltips]="[true, true]" id="runtime-slider"></nouislider>
 <!-- Year range -->
 <nouislider [connect]="true" [min]="minYear" [max]="maxYear" [step]="1" [(ngModel)]="yearRange" [tooltips]="[true, true]"
   style="margin-top: 4em;"></nouislider>
@@ -81,7 +81,7 @@
   </mat-paginator>
   <h3 mat-subheader>{{'discover.result'|translate}}:</h3>
   <mat-list-item *ngFor="let movie of discover.movies" [ngClass]="{'selected':movie.checked, 'adult': movie.adult}">
-    <app-image-viewer [images]="movie.affiche" [thumbnails]="movie.thumbnail" [visible]="true"></app-image-viewer>
+    <img src="{{movie.thumbnail}}" />
     <p matLine appOpenLink [label]="movie.title" url="/movie/{{movie.id}}" class="result-title">{{movie.title}}</p>
     <p matLine>{{movie.original_title}}</p>
     <p matLine>{{movie.language | uppercase}}</p>
