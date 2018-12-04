@@ -1,7 +1,9 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+
 import { ToastService } from './toast.service';
+import { Level } from './../../model/model';
 
 @Injectable()
 export class UtilsService {
@@ -42,13 +44,13 @@ export class UtilsService {
   handleError(error: any, toast: ToastService): void {
     console.log('handleError');
     console.error('error', error);
-    toast.open(UtilsService.getErrorMessage(error));
+    toast.open(UtilsService.getErrorMessage(error), Level.error);
   }
 
   handlePromiseError(error: any, toast: ToastService): Promise<any> {
     console.log('handlePromiseError');
     console.error('error', error);
-    toast.open(UtilsService.getErrorMessage(error));
+    toast.open(UtilsService.getErrorMessage(error), Level.error);
     return new Promise<any>((resolve, reject) => {
       resolve();
     });

@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { DropboxService } from './dropbox.service';
 import { AuthService } from './auth.service';
+import { Level } from './../../model/model';
 import { Movie } from './../../model/movie';
 import { UtilsService } from './utils.service';
 import { ToastService } from './toast.service';
@@ -67,7 +68,7 @@ export class MyMoviesService {
         movieList.sort(Utils.compareObject);
         return movieList;
       } else {
-        this.toast.open(this.translate.instant('toast.already_added'));
+        this.toast.open(this.translate.instant('toast.already_added'), Level.info);
         return [];
       }
     }).then((list: Movie[]) => {
@@ -84,7 +85,7 @@ export class MyMoviesService {
         // all good, modifies inner data
         console.log('myMovies', tempMovieList);
         this.myMovies$.next(tempMovieList);
-        this.toast.open(this.translate.instant('toast.movies_added', { size: tempMoviesAdded.length / 2 }));
+        this.toast.open(this.translate.instant('toast.movies_added', { size: tempMoviesAdded.length / 2 }), Level.success);
       }
     }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
@@ -109,7 +110,7 @@ export class MyMoviesService {
       if (res) {
         // if ok, emit new array and toast
         this.myMovies$.next(tempMovieList);
-        this.toast.open(this.translate.instant('toast.movies_removed', { size: idToRemove.length }));
+        this.toast.open(this.translate.instant('toast.movies_removed', { size: idToRemove.length }), Level.success);
       }
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
@@ -133,7 +134,7 @@ export class MyMoviesService {
     }).then((res: any) => {
       console.log(res);
       this.myMovies$.next(tempMovieList);
-      this.toast.open(this.translate.instant('toast.movies_updated', { size: moviesToReplace.length }));
+      this.toast.open(this.translate.instant('toast.movies_updated', { size: moviesToReplace.length }), Level.success);
     }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 }
