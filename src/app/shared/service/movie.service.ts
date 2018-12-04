@@ -73,6 +73,7 @@ export class MovieService {
     criteria.yearMin = debut;
     criteria.yearMax = fin;
     criteria.releaseType = [3, 2];
+    criteria.runtimeMin = 60;
     const url = UrlBuilder.discoverUrlBuilder(criteria);
     return this.serviceUtils.getPromise(url)
       .then(response => MapMovie.mapForMoviesByReleaseDates(response))
