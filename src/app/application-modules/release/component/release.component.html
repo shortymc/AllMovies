@@ -3,7 +3,7 @@
   <!-- Date Picker -->
   <div class="column">
     <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="getMoviesByReleaseDates(); selectedMovie = undefined;"
-      (select)="navigate(parseDate())"></ngb-datepicker>
+      (select)="navigate(parseDate())" class="mat-elevation-z2"></ngb-datepicker>
     <button class="btn btn-outline-primary" (click)="navigate(addDays(-7))">{{'release.date.previous'
       | translate}}</button>
     <button class="btn btn-outline-primary" (click)="navigate(undefined)">{{'release.date.current'
@@ -14,7 +14,7 @@
   <!-- Movie list -->
   <div class="release-list">
     <h3>{{'release.header' | translate:{begin:monday | date : "dd/MM/yyyy", end:sunday | date : "dd/MM/yyyy"} }}:</h3>
-    <div class="list-group">
+    <div class="list-group mat-elevation-z4">
       <a *ngFor="let movie of movies; let last = last" (click)="onSelect(movie)" class="list-group-item list-group-item-action pointer"
         [class.active]="selectedMovie !==undefined && movie.id === selectedMovie.id" [ngClass]="{'selectedMovie': last}">
         <span *ngIf="movie.language">{{movie.language | uppercase}} - </span>
