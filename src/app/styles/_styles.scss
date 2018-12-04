@@ -38,6 +38,23 @@ label {
   background-color: $white;
 }
 
+@mixin background-color($color) {
+  background-color: $color;
+}
+
+$levels: (
+  ('success', $success),
+  ('warning', $warning),
+  ('error', $error),
+  ('info', $info)
+);
+
+@each $lvl, $color in $levels {
+  .toast-#{$lvl} {
+    @include background-color($color)
+  }
+}
+
 .card-deck {
   display: inline-flex !important;
   flex-wrap: wrap !important;

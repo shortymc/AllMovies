@@ -3,6 +3,13 @@ export enum Direction {
   Down = 'Down'
 }
 
+export enum Level {
+  info = 'info',
+  warning = 'warning',
+  success = 'success',
+  error = 'error'
+}
+
 export class DropDownChoice {
   label_key: string;
   value: any;

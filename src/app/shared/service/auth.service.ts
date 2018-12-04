@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { DropboxService } from './dropbox.service';
 import { ToastService } from './toast.service';
+import { Level } from './../../model/model';
 import { UtilsService } from './utils.service';
 import { Utils } from '../utils';
 import { Dropbox } from '../../constant/dropbox';
@@ -136,7 +137,7 @@ export class AuthService {
       this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE)
         .then((res: any) => {
           console.log(res);
-          this.toast.open(this.translate.instant('toast.user_changed'));
+          this.toast.open(this.translate.instant('toast.user_changed'), Level.success);
         }).catch((err) => this.serviceUtils.handleError(err, this.toast));
       return user;
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
@@ -201,7 +202,7 @@ export class AuthService {
       this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE)
         .then((res: any) => {
           console.log(res);
-          this.toast.open(this.translate.instant('toast.user_changed'));
+          this.toast.open(this.translate.instant('toast.user_changed'), Level.success);
         }).catch((err) => this.serviceUtils.handleError(err, this.toast));
       return user;
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
@@ -217,7 +218,7 @@ export class AuthService {
       this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE)
         .then((res: any) => {
           console.log(res);
-          this.toast.open(this.translate.instant('toast.user_added'));
+          this.toast.open(this.translate.instant('toast.user_added'), Level.success);
         }).catch((err) => this.serviceUtils.handleError(err, this.toast));
       return user;
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
