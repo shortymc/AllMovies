@@ -2,7 +2,7 @@
 <div class="release-content">
   <!-- Date Picker -->
   <div class="column">
-    <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="getMoviesByReleaseDates(); selectedMovie = undefined;"
+    <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="getMoviesByReleaseDates(); selectedId = undefined;"
       (select)="navigate(parseDate())" class="mat-elevation-z2"></ngb-datepicker>
     <button class="btn btn-outline-primary" (click)="navigate(addDays(-7))">{{'release.date.previous'
       | translate}}</button>
@@ -16,7 +16,7 @@
     <h3>{{'release.header' | translate:{begin:monday | date : "dd/MM/yyyy", end:sunday | date : "dd/MM/yyyy"} }}:</h3>
     <div class="list-group mat-elevation-z4">
       <a *ngFor="let movie of movies; let last = last" (click)="onSelect(movie)" class="list-group-item list-group-item-action pointer"
-        [class.active]="selectedMovie !==undefined && movie.id === selectedMovie.id" [ngClass]="{'selectedMovie': last}">
+        [class.active]="movie.id === selectedId" [ngClass]="{'selectedId': last}">
         <span *ngIf="movie.language">{{movie.language | uppercase}} - </span>
         <span class="font-weight-bold" [ngClass]="{'text-info': isInfo(movie), 'text-success': isSuccess(movie), 'text-danger': isDanger(movie)}">
           {{movie.title.slice(0,40) | capitalizeWord}}</span>
@@ -27,56 +27,7 @@
     </div>
   </div>
   <!-- Selected Movie -->
-  <div>
-    <ng-container *ngIf="selectedMovie">
-      <div>
-        <app-image-viewer class="poster" [images]="selectedMovie.affiche" [thumbnails]="selectedMovie.thumbnail" [visible]="true"></app-image-viewer>
-      </div>
-      <div>
-        <h2>
-          <span *ngFor="let country of selectedMovie.production_countries">
-            <span class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" matTooltip="{{country.name}}"></span>
-          </span>{{selectedMovie.title | capitalizeWord}}</h2>
-        <button class="btn btn-outline-primary" appAddCollection [movies]="[selectedMovie]">
-          <fa-icon [icon]="faBookmark"></fa-icon> {{'global.add_collection' | translate}}
-        </button>
-        <button class="btn btn-outline-primary" appOpenLink [label]="selectedMovie.title" url="/movie/{{selectedMovie.id}}">
-          <fa-icon [icon]="faChevronCircleRight"></fa-icon> {{'global.go_detail' | translate}}
-        </button>
-        <div>
-          <label>{{'movie.date' | translate}}: </label>{{selectedMovie.date | date:'EEEE dd MMMM yyyy':'':language |
-          capitalizeWord}}
-        </div>
-        <div *ngIf="selectedMovie.synopsis">
-          <label>{{'movie.synopsis' | translate}}: </label>
-          <div class="synopsis text-justify">{{selectedMovie.synopsis}}</div>
-        </div>
-        <div *ngIf="selectedMovie.time > 0">
-          <label>{{'movie.length' | translate}}: </label>{{selectedMovie.time | convertToHHmm}}
-        </div>
-        <div *ngIf="selectedMovie.score as score">
-          <div *ngFor="let rating of score.ratings"><label>{{rating.Source}}: </label>{{rating.Value}}</div>
-          <label>Awards: </label>{{score.awards}}
-        </div>
-        <div *ngIf="selectedMovie.genres && selectedMovie.genres.length > 0">
-          <label>{{'movie.genres' | translate}}: </label>
-          <div class="block">
-            <span *ngFor="let genre of selectedMovie.genres; let last=last;">
-              <span>{{genre.name| capitalizeWord}}</span>
-              <span *ngIf="!last">/</span>
-            </span>
-          </div>
-        </div>
-        <app-list-persons *ngIf="selectedMovie.actors" [persons]="selectedMovie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
-        <div *ngIf="(selectedMovie.crew | filterCrew:'director') as director">
-          <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
-        </div>
-        <div *ngIf="selectedMovie.note > 0">
-          <label>{{'movie.rating' | translate}}: </label>{{selectedMovie.note}} / 10
-          <rating [(ngModel)]="selectedMovie.note" [max]="10" [readonly]="true" [float]="true"></rating>
-        </div>
-        <app-meta [entry]="selectedMovie" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
-      </div>
-    </ng-container>
+  <div *ngIf="selectedId">
+    <app-movie-detail [id]="selectedId" [config]="config" (loaded)="onLoaded()"></app-movie-detail>
   </div>
 </div>
