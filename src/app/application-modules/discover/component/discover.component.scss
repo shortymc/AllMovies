@@ -68,8 +68,8 @@
     position: absolute;
     float: left;
     height: 100px;
-    box-shadow: 4px 6px 15px #000;
     border: 3px solid $black;
+    box-shadow: 4px 6px 15px #000;
   }
 }
 
@@ -102,6 +102,7 @@
     margin-bottom: 1vw !important;
   }
 
+  /* stylelint-disable selector-pseudo-element-no-unknown */
   ::ng-deep.mat-list-item-content {
     padding: 0 0 8px 16px !important;
   }
