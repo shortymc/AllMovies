@@ -32,6 +32,8 @@ export class Url {
   static readonly RELEASE_TYPE_URL = '&with_release_type=3|2';
   static readonly DISCOVER_URL =
     Url.MOVIE_DB_API_URL + 'discover/movie?' + Url.API_KEY;
+  static readonly PLAYING_URL =
+    Url.MOVIE_DB_API_URL + 'movie/now_playing?' + Url.API_KEY;
   static readonly MOST_POPULAR_URL = Url.DISCOVER_URL + '&sort_by=popularity.desc';
   static readonly SORT_BY_URL = '&sort_by=';
   static readonly PAGE_URL = '&page=';

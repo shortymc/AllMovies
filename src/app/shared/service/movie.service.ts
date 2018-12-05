@@ -90,4 +90,11 @@ export class MovieService {
       }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
+  getMoviesPlaying(criteria: DiscoverCriteria): Promise<Discover> {
+    return this.serviceUtils.getPromise(
+      UrlBuilder.playingUrlBuilder(criteria))
+      .then((response: any) => MapMovie.mapForDiscover(response))
+      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+  }
+
 }

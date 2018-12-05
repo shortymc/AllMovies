@@ -1,0 +1,72 @@
+@import "../../../styles/styles";
+
+.mat-line {
+  margin-left: 85px !important;
+  margin-bottom: 2px !important;
+}
+
+.params {
+  display: flex !important;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  & > *:not(button) {
+    padding: 0 10px 0 10px;
+  }
+}
+
+.mat-paginator {
+  display: flex;
+  justify-content: center;
+}
+
+.selected {
+  background-color: $light_gray;
+}
+
+.result-list {
+  width: calc(50vw + 20px);
+  margin-left: 25vw;
+
+  & img {
+    position: absolute;
+    float: left;
+    height: 100px;
+    box-shadow: 4px 6px 15px #000;
+    border: 3px solid $black;
+  }
+}
+
+.result-title {
+  color: $blue;
+  text-decoration: underline;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.result-checkbox {
+  position: absolute;
+  right: 10px;
+}
+
+@include media(#{$smallscreen}) {
+  .result-list {
+    width: 100vw;
+    margin-left: 0;
+
+    & img {
+      height: 25vw;
+      max-height: 100px;
+    }
+  }
+
+  .mat-line {
+    margin-bottom: 1vw !important;
+  }
+
+  ::ng-deep.mat-list-item-content {
+    padding: 0 0 8px 16px !important;
+  }
+}
