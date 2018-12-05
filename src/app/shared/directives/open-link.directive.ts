@@ -17,7 +17,7 @@ export class OpenLinkDirective {
   @HostListener('mouseover', ['$event']) onMouseEnter(event: MouseEvent): void {
     this.setTimeoutConst = setTimeout(() => {
       this.openDialog(event);
-    }, 1500);
+    }, 1250);
   }
   @HostListener('mouseout') onMouseOut(): void {
     clearTimeout(this.setTimeoutConst);
