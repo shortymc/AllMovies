@@ -2,7 +2,6 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, Injectable, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
-import { faChevronCircleRight, faBookmark } from '@fortawesome/free-solid-svg-icons';
 
 import { Movie } from '../../../model/movie';
 import { MovieService, TitleService } from '../../../shared/shared.module';
@@ -54,16 +53,15 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
 export class ReleaseComponent implements OnInit, OnDestroy {
   @ViewChild('dp') dp: NgbDatepicker;
   movies: Movie[];
-  selectedMovie: Movie;
+  selectedId: number;
   model: NgbDateStruct;
   monday: Date;
   sunday: Date;
   language: string;
+  config: MovieDetailConfig;
   subs = [];
 
   Url = DuckDuckGo;
-  faChevronCircleRight = faChevronCircleRight;
-  faBookmark = faBookmark;
 
   constructor(
     private movieService: MovieService,
@@ -85,12 +83,10 @@ export class ReleaseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.title.setTitle('title.release');
     this.language = this.translate.currentLang;
+    this.config = new MovieDetailConfig(true, true, false, false, false, false, this.language);
     this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.language = event.lang;
       this.getMoviesByReleaseDates();
-      if (this.selectedMovie) {
-        this.findSelectedMovie(this.selectedMovie.id);
-      }
     }));
     this.route.queryParams.subscribe(
       params => {
@@ -101,7 +97,7 @@ export class ReleaseComponent implements OnInit, OnDestroy {
           this.dp.startDate = this.selectDate(date);
         }
         if (params.selected) {
-          this.findSelectedMovie(params.selected);
+          this.selectedId = parseInt(params.selected, 10);
         }
         if (!this.movies) {
           this.getMoviesByReleaseDates();
@@ -113,7 +109,7 @@ export class ReleaseComponent implements OnInit, OnDestroy {
   navigate(day: string): void {
     this.model = this.formatter.parse(day);
     this.dp.navigateTo(this.model);
-    this.selectedMovie = undefined;
+    this.selectedId = undefined;
     this.movies = undefined;
     this.router.navigate(['.'], {
       relativeTo: this.route,
@@ -168,18 +164,15 @@ export class ReleaseComponent implements OnInit, OnDestroy {
     });
   }
 
-  findSelectedMovie(id: number): void {
-    this.movieService.getMovie(id, new MovieDetailConfig(false, true, false, false, false, false), true, this.language).then(selectedMovie => {
-      this.selectedMovie = selectedMovie;
-      setTimeout(() => {
-        const selected = this.elemRef.nativeElement;
-        if (selected.offsetWidth < 700) {
-          selected.querySelector('.selectedMovie').scrollIntoView();
-        } else {
-          this.elemRef.nativeElement.scrollIntoView();
-        }
-      }, 500);
-    });
+  onLoaded(): void {
+    setTimeout(() => {
+      const selected = this.elemRef.nativeElement;
+      if (selected.offsetWidth < 700) {
+        selected.querySelector('.selectedId').scrollIntoView();
+      } else {
+        this.elemRef.nativeElement.scrollIntoView();
+      }
+    }, 500);
   }
 
   isInfo(movie: Movie): boolean {
