@@ -8,8 +8,11 @@
   </div>
   <div class="contenu">
     <!-- Go Back Btn -->
-    <button class="btn btn-outline-primary" (click)="goBack()">
+    <button class="btn btn-outline-primary" (click)="goBack()" *ngIf="isDetail">
       <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'global.previous' | translate}}
+    </button>
+    <button class="btn btn-outline-primary" appOpenLink [label]="movie.title" url="/movie/{{movie.id}}" *ngIf="!isDetail">
+      <fa-icon [icon]="faChevronCircleRight"></fa-icon> {{'global.go_detail' | translate}}
     </button>
     <!-- Add to collection btn -->
     <button class="btn btn-outline-primary" appAddCollection [movies]="[movie]">
@@ -46,6 +49,12 @@
           <label>{{rating.Source}}: </label>{{rating.Value}}</div>
         <label>Awards: </label>{{score.awards}}
       </div>
+      <!-- Rating -->
+      <div *ngIf="movie.note > 0">
+        <label>{{'movie.rating' | translate}}: </label>{{movie.note}} / 10 - {{movie.popularity |
+        number:'1.0-2':translate.currentLang}}
+        <rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
+      </div>
       <!-- Genre -->
       <div *ngIf="movie.genres && movie.genres.length > 0">
         <label>{{'movie.genres' | translate}}: </label>
@@ -69,7 +78,7 @@
       <!-- Overview -->
       <div *ngIf="movie.synopsis">
         <label>{{'movie.synopsis' | translate}}: </label>
-        <div class="synopsis">{{movie.synopsis}}</div>
+        <div class="synopsis text-justify">{{movie.synopsis}}</div>
       </div>
       <!-- Pictures -->
       <ng-container *ngIf="config.img">
@@ -81,7 +90,7 @@
         <!-- Actors -->
         <app-list-persons [persons]="movie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
         <!-- Crew -->
-        <div *ngIf="movie.crew && movie.crew.length > 0">
+        <div *ngIf="isDetail && movie.crew && movie.crew.length > 0">
           <div *ngIf="(movie.crew | filterCrew:'director') as director">
             <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
           </div>
@@ -116,6 +125,9 @@
             <app-list-persons [persons]="music" [label]="'person-list.music' | translate"></app-list-persons>
           </div>
         </div>
+        <div *ngIf="!isDetail && (movie.crew | filterCrew:'director') as director">
+          <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
+        </div>
       </ng-container>
       <!-- Budget -->
       <div *ngIf="movie.budget > 0">
@@ -126,12 +138,6 @@
       <div *ngIf="movie.recette > 0">
         <label>{{'movie.revenu' | translate}}: </label>{{movie.recette |
         currency:'USD':'':'1.0-0':translate.currentLang}}
-      </div>
-      <!-- Rating -->
-      <div *ngIf="movie.note > 0">
-        <label>{{'movie.rating' | translate}}: </label>{{movie.note}} / 10 - {{movie.popularity |
-        number:'1.0-2':translate.currentLang}}
-        <rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
       </div>
       <!-- Links -->
       <app-meta [entry]="movie" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
@@ -157,3 +163,4 @@
       </ng-container>
     </div>
   </div>
+</div>

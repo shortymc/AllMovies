@@ -1,8 +1,8 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
-import { faChevronCircleLeft, faImage, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faChevronCircleLeft, faImage, faBookmark, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
 
 import { TitleService, MenuService } from './../../../shared/shared.module';
 import { TabsService } from './../../../shared/service/tabs.service';
@@ -17,16 +17,18 @@ import { Keyword, Genre, DropDownChoice, MovieDetailConfig } from '../../../mode
   styleUrls: ['./movie-detail.component.scss'],
   templateUrl: './movie-detail.component.html',
 })
-export class MovieDetailComponent implements OnInit, OnDestroy {
-  @Input()
-  config: MovieDetailConfig;
+export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
+  @Input() id: number;
+  @Input() config: MovieDetailConfig;
+  @Output() loaded = new EventEmitter<boolean>();
   movie: Movie;
   isImagesVisible = false;
+  isDetail: boolean;
   Url = DuckDuckGo;
-  id: number;
   subs = [];
 
   faChevronCircleLeft = faChevronCircleLeft;
+  faChevronCircleRight = faChevronCircleRight;
   faBookmark = faBookmark;
   faImage = faImage;
 
@@ -42,23 +44,44 @@ export class MovieDetailComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      this.id = +params.get('id');
-      this.getMovie(this.id, this.translate.currentLang);
-    });
+    this.subs.push(this.route.paramMap.subscribe((params: ParamMap) => {
+      if (params) {
+        const idParam = +params.get('id');
+        if (idParam && idParam !== 0) {
+          this.id = idParam;
+          this.isDetail = true;
+          this.getMovie(this.id);
+        }
+      }
+    }));
     this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.getMovie(this.id, event.lang);
+      this.config.lang = event.lang;
+      this.getMovie(this.id);
     }));
     // this.allocine.allocine('movie', '143067').subscribe(response => console.log(response));
   }
 
-  getMovie(id: number, language: string): void {
-    this.config = this.config === undefined ? new MovieDetailConfig(true, true, true, true, true, true) : this.config;
-    this.movieService.getMovie(id, this.config, true, language).then((movie) => {
-      this.title.setTitle(movie.title);
-      this.movie = movie;
-      this.menuService.scrollTo$.next(0);
-    });
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.id) {
+      this.id = changes.id.currentValue ? changes.id.currentValue : this.id;
+      this.isDetail = false;
+    }
+    this.getMovie(this.id);
+  }
+
+  getMovie(id: number): void {
+    if (this.id && this.id !== 0) {
+      this.loaded.emit(false);
+      this.config = this.config === undefined ? new MovieDetailConfig(true, true, true, true, true, true, this.translate.currentLang) : this.config;
+      this.movieService.getMovie(id, this.config, true).then((movie) => {
+        this.movie = movie;
+        this.loaded.emit(true);
+        if (this.isDetail) {
+          this.title.setTitle(movie.title);
+          this.menuService.scrollTo$.next(0);
+        }
+      });
+    }
   }
 
   redirectGenreToDiscover(genre: Genre): void {

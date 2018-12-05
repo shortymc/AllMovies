@@ -25,6 +25,7 @@ const childRoutes: Routes = [
     TranslateModule.forChild(),
     RouterModule.forChild(childRoutes),
   ],
+  exports: [MovieDetailComponent],
   declarations: [MovieDetailComponent],
   providers: [
     TranslateService
