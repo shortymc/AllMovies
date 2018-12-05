@@ -1,6 +1,5 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild, HostListener, ElementRef, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, Subject, of } from 'rxjs';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { switchMap, debounceTime, catchError } from 'rxjs/operators';
