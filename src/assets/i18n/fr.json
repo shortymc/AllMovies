@@ -36,6 +36,7 @@
         "dashboard": "Tableau de Bord",
         "movies": "Mes Films",
         "release": "Sorties Cinéma",
+        "playing": "À l'Affiche",
         "profile": "Mon Profil",
         "logout": "Déconnexion",
         "discover": "Explorer",
@@ -47,6 +48,7 @@
         "release": "Sorties Cinéma",
         "profile": "Mon Profil",
         "discover": "Explorer",
+        "playing": "À l'Affiche",
         "login": "Connection",
         "register": "Inscription"
     },
@@ -274,5 +276,8 @@
         "search": "Rechercher",
         "result": "Résultats",
         "vote_count_min": "Nombre de vote minimum"
+    },
+    "playing": {
+        "title": "Films à l'affiche"
     }
 }

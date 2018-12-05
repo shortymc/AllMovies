@@ -52,6 +52,21 @@ export class UrlBuilder {
     return url;
   }
 
+  static playingUrlBuilder(criteria: DiscoverCriteria): string {
+    let url = `${Url.PLAYING_URL}`;
+    const parametres = [];
+    if (criteria.page) {
+      parametres.push(`${Url.PAGE_URL}${criteria.page}`);
+    }
+    if (criteria.region) {
+      parametres.push(`${Url.REGION}${criteria.region.toUpperCase()}`);
+    }
+    url += parametres.join('');
+    url = UrlBuilder.langUrlBuilder(url, criteria.language);
+    console.log('playingUrlBuilder', url);
+    return url;
+  }
+
   static discoverUrlBuilder(criteria: DiscoverCriteria): string {
     let url = `${Url.DISCOVER_URL}`;
     const parametres = [];

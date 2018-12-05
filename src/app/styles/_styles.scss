@@ -96,6 +96,12 @@ $levels: (
   background-color: $pink !important;
 }
 
+.title {
+  margin-bottom: 0;
+  font-size: 28px;
+  text-align: center;
+}
+
 .search-result {
   width: calc(35vw - 18px);
   margin-top: 1px;

@@ -36,6 +36,7 @@
         "dashboard": "Dashboard",
         "movies": "My Movies",
         "release": "Movie Releases",
+        "playing": "Now Playing",
         "profile": "My Profile",
         "logout": "Log Out",
         "discover": "Discover",
@@ -47,6 +48,7 @@
         "release": "Movie Releases",
         "profile": "My Profile",
         "discover": "Explore",
+        "playing": "Now Playing",
         "login": "Login",
         "register": "Register"
     },
@@ -274,5 +276,8 @@
         "search": "Search",
         "result": "Results",
         "vote_count_min": "Vote count minimum"
+    },
+    "playing": {
+        "title": "Movies now playing"
     }
 }
