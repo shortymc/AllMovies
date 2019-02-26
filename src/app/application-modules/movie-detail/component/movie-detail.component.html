@@ -36,8 +36,17 @@
       </div>
       <!-- Date -->
       <div>
-        <label>{{'movie.date' | translate}}: </label>{{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang |
-        capitalizeWord}}
+        <label>{{'movie.date' | translate}}: </label>
+        <div *ngIf="movie.releaseDates; else defaultRelease">
+          <div *ngFor="let release of movie.releaseDates">
+            {{'release_type.' + release.type| translate}}: {{release.date| date:'dd MMMM
+            yyyy':'':translate.currentLang | capitalizeWord}}
+          </div>
+        </div>
+        <ng-template #defaultRelease>
+          {{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang |
+          capitalizeWord}}
+        </ng-template>
       </div>
       <!-- Time -->
       <div *ngIf="movie.time > 0">

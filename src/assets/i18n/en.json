@@ -70,12 +70,12 @@
         }
     },
     "release_type": {
-        "premiere": "Premiere",
-        "theatrical_limited": "Limited release",
-        "theatrical": "Theatrical",
-        "digital": "Digital",
-        "physical": "Physical",
-        "tv": "TV"
+        "1": "Premiere",
+        "2": "Limited release",
+        "3": "Theatrical",
+        "4": "Digital",
+        "5": "Physical",
+        "6": "TV"
     },
     "dashboard": {
         "movies": "Popular movies",

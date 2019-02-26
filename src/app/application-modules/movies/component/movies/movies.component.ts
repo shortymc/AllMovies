@@ -204,7 +204,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     incomplete = incomplete.slice(0, 30);
     const obs = [];
     incomplete.map((id: number) => {
-      obs.push(this.movieService.getMovie(id, new MovieDetailConfig(false, false, false, false, false, false, lang), false));
+      obs.push(this.movieService.getMovie(id, new MovieDetailConfig(false, false, false, false, false, false, false, lang), false));
     });
 
     try {

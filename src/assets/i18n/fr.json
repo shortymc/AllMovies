@@ -70,12 +70,12 @@
         }
     },
     "release_type": {
-        "premiere": "Première",
-        "theatrical_limited": "Sortie limitée",
-        "theatrical": "Cinéma",
-        "digital": "Numérique",
-        "physical": "Physique",
-        "tv": "Télé"
+        "1": "Première",
+        "2": "Sortie limitée",
+        "3": "Cinéma",
+        "4": "Numérique",
+        "5": "Physique",
+        "6": "Télé"
     },
     "dashboard": {
         "movies": "Films du moment",
