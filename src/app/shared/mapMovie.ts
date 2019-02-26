@@ -2,6 +2,7 @@ import { Url } from './../constant/url';
 import { Utils } from './utils';
 import { Movie } from './../model/movie';
 import { Discover } from '../model/discover';
+import { ReleaseDate } from '../model/model';
 
 export class MapMovie {
 
@@ -114,6 +115,12 @@ export class MapMovie {
     }
     if (r.keywords) {
       movie.keywords = r.keywords.keywords;
+    }
+    if (r.release_dates && r.release_dates.results) {
+      const release = r.release_dates.results.find(date => date.iso_3166_1 === 'FR');
+      if (release && release.release_dates) {
+        movie.releaseDates = release.release_dates.map(date => new ReleaseDate(date.release_date, date.type));
+      }
     }
     movie.id = r.id;
     movie.title = r.title;

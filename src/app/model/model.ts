@@ -53,8 +53,13 @@ export class Link {
   }
 }
 
+export class ReleaseDate {
+  constructor(public date: Date, public type: string) {
+  }
+}
+
 export class MovieDetailConfig {
-  constructor(public img?: boolean, public credit?: boolean, public similar?: boolean,
-    public keywords?: boolean, public video?: boolean, public reco?: boolean, public lang?: string) {
+  constructor(public img?: boolean, public credit?: boolean, public similar?: boolean, public keywords?: boolean,
+    public video?: boolean, public reco?: boolean, public release?: boolean, public lang?: string) {
   }
 }

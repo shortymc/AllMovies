@@ -188,7 +188,7 @@
         "directive-class-suffix": true,
         "cyclomatic-complexity": [
             true,
-            12
+            16
         ],
         "max-file-line-count": [
             true,

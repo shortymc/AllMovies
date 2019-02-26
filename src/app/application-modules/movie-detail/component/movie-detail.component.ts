@@ -72,7 +72,8 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
   getMovie(id: number): void {
     if (this.id && this.id !== 0) {
       this.loaded.emit(false);
-      this.config = this.config === undefined ? new MovieDetailConfig(true, true, true, true, true, true, this.translate.currentLang) : this.config;
+      this.config = this.config === undefined ?
+        new MovieDetailConfig(true, true, true, true, true, true, true, this.translate.currentLang) : this.config;
       this.movieService.getMovie(id, this.config, true).then((movie) => {
         this.movie = movie;
         this.loaded.emit(true);
