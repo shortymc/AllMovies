@@ -75,15 +75,15 @@ export class MovieService {
     criteria.yearMax = fin;
     criteria.releaseType = [3, 2];
     criteria.runtimeMin = 60;
-    const url = UrlBuilder.discoverUrlBuilder(criteria);
+    const url = UrlBuilder.discoverUrlBuilder(criteria, undefined, undefined, undefined);
     return this.serviceUtils.getPromise(url)
       .then(response => MapMovie.mapForMoviesByReleaseDates(response))
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  getMoviesDiscover(criteria: DiscoverCriteria): Promise<Discover> {
+  getMoviesDiscover(criteria: DiscoverCriteria, people: number[], genre: number[], keyword: number[]): Promise<Discover> {
     return this.serviceUtils.getPromise(
-      UrlBuilder.discoverUrlBuilder(criteria))
+      UrlBuilder.discoverUrlBuilder(criteria, people, genre, keyword))
       .then((response: any) => {
         const discover = MapMovie.mapForDiscover(response);
         // discover.movies.forEach((movie) => this.omdb.getMovie(movie.imdb_id).then(score => movie.score = score));

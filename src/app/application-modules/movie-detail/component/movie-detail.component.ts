@@ -10,7 +10,7 @@ import { TabsService } from './../../../shared/service/tabs.service';
 import { DuckDuckGo } from './../../../constant/duck-duck-go';
 import { MovieService } from '../../../shared/shared.module';
 import { Movie } from '../../../model/movie';
-import { Keyword, Genre, DropDownChoice, MovieDetailConfig } from '../../../model/model';
+import { Keyword, Genre, MovieDetailConfig } from '../../../model/model';
 
 @Component({
   selector: 'app-movie-detail',
@@ -89,13 +89,11 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   redirectGenreToDiscover(genre: Genre): void {
-    sessionStorage.setItem('genre', JSON.stringify([new DropDownChoice(genre.name, genre.id)]));
-    this.router.navigate(['discover']);
+    this.router.navigate(['discover'], { queryParams: { genre: JSON.stringify([genre.id]) } });
   }
 
   redirectKeywordToDiscover(keyword: Keyword): void {
-    sessionStorage.setItem('keyword', JSON.stringify([keyword]));
-    this.router.navigate(['discover']);
+    this.router.navigate(['discover'], { queryParams: { keyword: JSON.stringify([keyword.id]) } });
   }
 
   goBack(): void {

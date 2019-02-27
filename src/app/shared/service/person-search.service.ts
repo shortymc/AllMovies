@@ -26,4 +26,12 @@ export class PersonSearchService implements SearchServiceService<Person> {
         map(response => MapPerson.mapForSearchPersons(response)),
         catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast)));
   }
+
+  byId(id: number): Observable<Person> {
+    return this.serviceUtils
+      .getObservable(`${Url.PERSON_URL}/${id}?${Url.API_KEY}`, this.serviceUtils.getHeaders())
+      .pipe(
+        map((response: any) => MapPerson.mapForPerson(response)),
+        catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast)));
+  }
 }

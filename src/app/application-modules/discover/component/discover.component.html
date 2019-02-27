@@ -27,7 +27,7 @@
   <!-- Genres Filter -->
   <mat-form-field>
     <mat-select placeholder="{{'discover.genre' | translate}}" [(value)]="selectedGenres" multiple>
-      <mat-option *ngFor="let genre of allGenres" [value]="genre">{{genre.label_key}}</mat-option>
+      <mat-option *ngFor="let genre of allGenres" [value]="genre.value">{{genre.label_key}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-slide-toggle [color]="'primary'" [(checked)]="isWithoutGenre" (change)="isWithoutGenre = !isWithoutGenre">{{'discover.without'|translate}}</mat-slide-toggle>
@@ -76,8 +76,8 @@
 
 <!-- Result list -->
 <mat-list dense *ngIf="discover" class="result-list">
-  <mat-paginator class="mat-elevation-z4" [length]="discover.total_results" [pageIndex]="page.pageIndex" [pageSize]="20" (page)="page = $event; search(false);"
-    [showFirstLastButtons]="true">
+  <mat-paginator class="mat-elevation-z4" [length]="discover.total_results" [pageIndex]="page.pageIndex" [pageSize]="20"
+    (page)="page = $event; search(false);" [showFirstLastButtons]="true">
   </mat-paginator>
   <h3 mat-subheader>{{'discover.result'|translate}}:</h3>
   <mat-list-item *ngFor="let movie of discover.movies" [ngClass]="{'selected':movie.checked, 'adult': movie.adult}">
@@ -93,7 +93,7 @@
     </p>
     <mat-checkbox class="result-checkbox" [(ngModel)]="movie.checked" (change)="updateSize()"></mat-checkbox>
   </mat-list-item>
-  <mat-paginator class="mat-elevation-z4" [length]="discover.total_results" [pageIndex]="page.pageIndex" [pageSize]="20" (page)="page = $event; search(false);"
-    [showFirstLastButtons]="true">
+  <mat-paginator class="mat-elevation-z4" [length]="discover.total_results" [pageIndex]="page.pageIndex" [pageSize]="20"
+    (page)="page = $event; search(false);" [showFirstLastButtons]="true">
   </mat-paginator>
 </mat-list>
