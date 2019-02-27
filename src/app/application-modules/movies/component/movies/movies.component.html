@@ -3,19 +3,27 @@
 <ng-container *ngIf="movies">
   <div class="filters">
     <!-- Input Filter -->
-    <mat-form-field>
-      <input matInput type="search" placeholder="{{'movies.filter.placeholder' | translate}}" [(ngModel)]="filter"
-        (keyup)="paginator.firstPage(); onSearch();" />
-      <span *ngIf="filter" (click)="filter=''; onSearch();" class="pointer">
+    <div class="filter-item">
+      <mat-form-field>
+        <input matInput type="search" placeholder="{{'movies.filter.placeholder' | translate}}" [(ngModel)]="filter"
+          (keyup)="paginator.firstPage(); onSearch();" />
+      </mat-form-field>
+      <span *ngIf="filter" (click)="filter=''; paginator.firstPage(); onSearch();" class="pointer clear-btn">
         <fa-icon [icon]="['far', 'times-circle']"></fa-icon>
       </span>
-    </mat-form-field>
+    </div>
     <!-- Genres Filter -->
-    <mat-form-field>
-      <mat-select #select placeholder="{{'movies.filter.genres' | translate}}" multiple (selectionChange)="paginator.firstPage(); filteredGenres = $event; onFilterGenres($event)">
-        <mat-option *ngFor="let genre of genres" [value]="genre.id">{{genre.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="filter-item">
+      <mat-form-field>
+        <mat-select #select placeholder="{{'movies.filter.genres' | translate}}" multiple [(value)]="filteredGenres"
+          (selectionChange)="paginator.firstPage(); filteredGenres = $event.value; onFilterGenres($event.value)">
+          <mat-option *ngFor="let genre of genres" [value]="genre.id">{{genre.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span *ngIf="filteredGenres" class="pointer clear-btn" (click)="paginator.firstPage(); filteredGenres = null; onFilterGenres(null)">
+        <fa-icon [icon]="['far', 'times-circle']"></fa-icon>
+      </span>
+    </div>
   </div>
 
   <!-- Delete -->
