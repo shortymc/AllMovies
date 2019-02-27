@@ -24,10 +24,11 @@ export class Url {
   static readonly APPEND_CREDITS = 'credits';
   static readonly APPEND_IMAGES = 'images';
   static readonly APPEND_KEYWORDS = 'keywords';
-  static readonly INCLUDE_IMAGE_LANGUAGE = '&include_image_language=';
+  static readonly APPEND_ALTERNATIVE_TITLES = 'alternative_titles';
   static readonly APPEND_RECOMMENDATIONS = 'recommendations';
   static readonly APPEND_RELEASE_DATE = 'release_dates';
   static readonly APPEND_SIMILARS = 'similar';
+  static readonly INCLUDE_IMAGE_LANGUAGE = '&include_image_language=';
   static readonly RELEASE_DATE_GTE_URL = '&release_date.gte=';
   static readonly RELEASE_DATE_LTE_URL = '&release_date.lte=';
   static readonly RELEASE_TYPE_URL = '&with_release_type=3|2';

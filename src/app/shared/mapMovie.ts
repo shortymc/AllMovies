@@ -1,3 +1,5 @@
+import { AlternativeTitle } from './../model/model';
+import { map, filter } from 'rxjs/operators';
 import { Url } from './../constant/url';
 import { Utils } from './utils';
 import { Movie } from './../model/movie';
@@ -122,8 +124,13 @@ export class MapMovie {
         movie.releaseDates = release.release_dates.map(date => new ReleaseDate(date.release_date, date.type));
       }
     }
-    movie.id = r.id;
     movie.title = r.title;
+    if (r.alternative_titles && r.alternative_titles.titles) {
+      movie.alternativeTitles = r.alternative_titles.titles
+        .filter(title => title.title.toLowerCase() !== movie.title.toLowerCase())
+        .map(title => new AlternativeTitle(title.iso_3166_1, title.title));
+    }
+    movie.id = r.id;
     movie.original_title = r.original_title;
     movie.date = r.release_date;
     movie.synopsis = r.overview;

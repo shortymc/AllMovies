@@ -83,7 +83,7 @@ export class ReleaseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.title.setTitle('title.release');
     this.language = this.translate.currentLang;
-    this.config = new MovieDetailConfig(true, true, false, false, false, false, false, this.language);
+    this.config = new MovieDetailConfig(true, true, false, false, false, false, true, false, this.language);
     this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.language = event.lang;
       this.getMoviesByReleaseDates();

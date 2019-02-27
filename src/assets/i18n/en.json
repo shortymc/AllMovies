@@ -86,6 +86,7 @@
         "id": "Id",
         "title": "Title",
         "country": "Country",
+        "alternative_title": "Alternative Titles",
         "date": "Release Date",
         "length": "Running Time",
         "genres": "Genres",
@@ -94,9 +95,9 @@
         "revenu": "Revenu",
         "rating": "Ratings",
         "video": "Videos",
-        "image": "Movie images",
+        "image": "Movie Images",
         "reco": "You should like also",
-        "similar": "Similar movies",
+        "similar": "Similar Movies",
         "keyword": "Keywords"
     },
     "movie-search": {

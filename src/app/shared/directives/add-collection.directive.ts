@@ -33,8 +33,8 @@ export class AddCollectionDirective {
   addMovies(): void {
     const prom = [];
     this.movies.forEach(movie => {
-      prom.push(this.movieService.getMovie(movie.id, new MovieDetailConfig(false, false, false, false, false, false, false, 'fr'), false));
-      prom.push(this.movieService.getMovie(movie.id, new MovieDetailConfig(false, false, false, false, false, false, false, 'en'), false));
+      prom.push(this.movieService.getMovie(movie.id, new MovieDetailConfig(false, false, false, false, false, false, false, false, 'fr'), false));
+      prom.push(this.movieService.getMovie(movie.id, new MovieDetailConfig(false, false, false, false, false, false, false, false, 'en'), false));
       movie.added = new Date();
     });
     forkJoin(prom).subscribe((movies: Movie[]) => {
