@@ -110,7 +110,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   refreshData(): Movie[] {
     let list = this.filterGenres();
-    list = Utils.sortMovie(Utils.filterByFields(list, this.displayedColumns, this.filter), this.sort);
+    list = Utils.sortMovie(
+      Utils.filterByFields(list, this.displayedColumns.filter(col => !['added', 'select', 'details'].includes(col)), this.filter),
+      this.sort);
     this.length = list.length;
     return list;
   }
