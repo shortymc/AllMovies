@@ -73,7 +73,7 @@ export class UrlBuilder {
     return url;
   }
 
-  static discoverUrlBuilder(criteria: DiscoverCriteria): string {
+  static discoverUrlBuilder(criteria: DiscoverCriteria, people: number[], genre: number[], keyword: number[]): string {
     let url = `${Url.DISCOVER_URL}`;
     const parametres = [];
     if (criteria.sortField && criteria.sortDir) {
@@ -103,11 +103,11 @@ export class UrlBuilder {
     if (criteria.releaseType) {
       parametres.push(`${Url.WITH_RELEASE_TYPE_URL}${criteria.releaseType.join(Url.OR_URL)}`);
     }
-    if (criteria.personsIds) {
-      parametres.push(`${Url.WITH_PEOPLE_URL}${criteria.personsIds.join(Url.AND_URL)}`);
+    if (people && people.length > 0) {
+      parametres.push(`${Url.WITH_PEOPLE_URL}${people.join(Url.AND_URL)}`);
     }
-    UrlBuilder.genresUrlBuilder(parametres, criteria);
-    UrlBuilder.keywordsUrlBuilder(parametres, criteria);
+    UrlBuilder.genresUrlBuilder(parametres, genre, criteria.genresWithout);
+    UrlBuilder.keywordsUrlBuilder(parametres, keyword, criteria.keywordsWithout);
     url += parametres.join('');
     url = UrlBuilder.langUrlBuilder(url, criteria.language);
     console.log('discoverUrlBuilder', url);
@@ -135,21 +135,17 @@ export class UrlBuilder {
     }
   }
 
-  static genresUrlBuilder(parametres: string[], criteria: DiscoverCriteria): void {
-    if (criteria.genresId && !criteria.genresWithout) {
-      parametres.push(`${Url.WITH_GENRES_URL}${criteria.genresId.join(Url.AND_URL)}`);
-    }
-    if (criteria.genresId && criteria.genresWithout) {
-      parametres.push(`${Url.WITHOUT_GENRES_URL}${criteria.genresId.join(Url.AND_URL)}`);
+  static genresUrlBuilder(parametres: string[], genre: number[], genresWithout: boolean): void {
+    if (genre && genre.length > 0) {
+      const genreUrl = genresWithout ? Url.WITHOUT_GENRES_URL : Url.WITH_GENRES_URL;
+      parametres.push(`${genreUrl}${genre.join(Url.AND_URL)}`);
     }
   }
 
-  static keywordsUrlBuilder(parametres: string[], criteria: DiscoverCriteria): void {
-    if (criteria.keywordsIds && !criteria.keywordsWithout) {
-      parametres.push(`${Url.WITH_KEYWORDS_URL}${criteria.keywordsIds.join(Url.AND_URL)}`);
-    }
-    if (criteria.keywordsIds && criteria.keywordsWithout) {
-      parametres.push(`${Url.WITHOUT_KEYWORDS_URL}${criteria.keywordsIds.join(Url.OR_URL)}`);
+  static keywordsUrlBuilder(parametres: string[], keyword: number[], keywordsWithout: boolean): void {
+    if (keyword && keyword.length > 0) {
+      const keywordUrl = keywordsWithout ? Url.WITHOUT_KEYWORDS_URL : Url.WITH_KEYWORDS_URL;
+      parametres.push(`${keywordUrl}${keyword.join(Url.AND_URL)}`);
     }
   }
 

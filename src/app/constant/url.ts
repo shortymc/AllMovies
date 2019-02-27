@@ -13,6 +13,7 @@ export class Url {
   static readonly MOVIE_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/movie?';
   static readonly PERSON_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/person?';
   static readonly KEYWORD_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/keyword?';
+  static readonly KEYWORD_URL = Url.MOVIE_DB_API_URL + 'keyword/';
   static readonly MOVIE_CREDITS_URL = 'movie_credits';
   static readonly REGION = '&region=';
   static readonly LANGUE = '&language=';

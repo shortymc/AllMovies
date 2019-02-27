@@ -1,4 +1,4 @@
-import { Observable, of } from 'rxjs';
+import { Observable, of, forkJoin } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, catchError } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChange, OnChanges } from '@angular/core';
@@ -6,18 +6,22 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { SearchServiceService } from './../../../../shared/service/searchService.service';
 
+interface IdClass {
+  id: number;
+}
+
 @Component({
   selector: 'app-search-box',
   templateUrl: './search-box.component.html',
   styleUrls: ['./search-box.component.scss']
 })
-export class SearchBoxComponent<T> implements OnInit, OnChanges {
+export class SearchBoxComponent<T extends IdClass> implements OnInit, OnChanges {
   @Input() adult: boolean;
   @Input() service: SearchServiceService<T>;
   @Input() placeholder: string;
-  @Input() initList: T[];
+  @Input() initList: number[];
   @Input() clear: boolean;
-  @Output() items = new EventEmitter<T[]>();
+  @Output() items = new EventEmitter<number[]>();
   itemCtrl: FormControl;
   filteredItems: Observable<T[]>;
   list: T[] = [];
@@ -26,9 +30,7 @@ export class SearchBoxComponent<T> implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-    if (this.initList) {
-      this.list = this.initList;
-    }
+    this.initValues();
     this.itemCtrl = new FormControl();
     this.filteredItems = this.itemCtrl.valueChanges
       .pipe(
@@ -43,6 +45,19 @@ export class SearchBoxComponent<T> implements OnInit, OnChanges {
         }));
   }
 
+  initValues(): void {
+    if (this.initList) {
+      const obs = [];
+      this.initList.map((id: number) => {
+        obs.push(this.service.byId(id));
+      });
+      forkJoin(obs).subscribe(
+        (data: T[]) => {
+          this.list = data;
+        });
+    }
+  }
+
   ngOnChanges(changes: { [propKey: string]: SimpleChange }): void {
     for (const field of Object.keys(changes)) {
       if (field === 'clear') {
@@ -51,13 +66,16 @@ export class SearchBoxComponent<T> implements OnInit, OnChanges {
         if (this.clear) {
           this.list = [];
         }
+      } else if (field === 'initList') {
+        this.initList = changes[field].currentValue;
+        this.initValues();
       }
     }
   }
 
   addItem(item: T): void {
     this.list.push(item);
-    this.items.emit(this.list);
+    this.items.emit(this.list.map(element => element.id));
   }
 
   removeItem(item: T): void {
@@ -66,6 +84,7 @@ export class SearchBoxComponent<T> implements OnInit, OnChanges {
     if (index >= 0) {
       this.list.splice(index, 1);
     }
+    this.items.emit(this.list.map(element => element.id));
   }
 
 }

@@ -22,4 +22,12 @@ export class KeywordSearchService implements SearchServiceService<Keyword> {
         map((response: any) => response.results.slice(0, 10).map((r: any) => <Keyword>({ id: r.id, name: r.name }))),
         catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast)));
   }
+
+  byId(id: number): Observable<Keyword> {
+    return this.serviceUtils
+      .getObservable(`${Url.KEYWORD_URL}${id}?${Url.API_KEY}`, this.serviceUtils.getHeaders())
+      .pipe(
+        map((response: any) => <Keyword>({ id: response.id, name: response.name })),
+        catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast)));
+  }
 }

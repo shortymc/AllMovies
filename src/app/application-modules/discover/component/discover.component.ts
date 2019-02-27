@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
@@ -9,8 +10,7 @@ import { Discover } from './../../../model/discover';
 import {
   KeywordSearchService, CertificationService, GenreService, PersonSearchService, TitleService, AuthService, MovieService
 } from './../../../shared/shared.module';
-import { DropDownChoice, Keyword } from '../../../model/model';
-import { Person } from '../../../model/person';
+import { DropDownChoice } from '../../../model/model';
 import { Utils } from '../../../shared/utils';
 import { ReleaseType } from '../../../constant/release-type';
 
@@ -38,11 +38,11 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   voteRange: any[] = [this.minVote, this.maxVote];
   voteCountMin = 10;
   voteCountRange = [0, 10, 50, 100, 500, 1000, 5000, 10000];
-  people: Person[] = [];
-  keyword: Keyword[] = [];
+  people: number[] = [];
+  keyword: number[] = [];
   isWithoutKeyword = false;
   allGenres: DropDownChoice[];
-  selectedGenres: DropDownChoice[];
+  selectedGenres: number[] = [];
   isWithoutGenre = false;
   allCertif: DropDownChoice[];
   selectedCertif: DropDownChoice;
@@ -59,13 +59,16 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     public keywordService: KeywordSearchService,
     private genreService: GenreService,
     private certifService: CertificationService,
+    private route: ActivatedRoute,
     private title: TitleService,
+    private router: Router,
     private elemRef: ElementRef,
   ) { }
 
   ngOnInit(): void {
     this.title.setTitle('title.discover');
     this.adult = AuthService.decodeToken().name === 'Test';
+
     this.sortDir.value = 'desc';
     this.sortChoices = [new DropDownChoice('discover.sort_field.popularity', 'popularity'),
     new DropDownChoice('discover.sort_field.release_date', 'release_date'), new DropDownChoice('discover.sort_field.revenue', 'revenue'),
@@ -90,29 +93,35 @@ export class DiscoverComponent implements OnInit, OnDestroy {
         return res;
       }
     };
+
     this.subs.push(this.translate.onLangChange.subscribe(() => {
-      this.getAllGenres(this.selectedGenres ? this.selectedGenres.map(g => g.value) : []);
+      this.getAllGenres(this.selectedGenres ? this.selectedGenres : []);
       this.getAllCertification(this.selectedCertif ? this.selectedCertif.value : '');
       this.search(false);
     }));
+
     // Stored research
+    this.subs.push(this.route.queryParams.subscribe(
+      params => {
+        this.people = Utils.parseJson(params.people);
+        this.selectedGenres = Utils.parseJson(params.genre);
+        this.keyword = Utils.parseJson(params.keyword);
+      }
+    ));
     const criteria = <DiscoverCriteria>Utils.parseJson(sessionStorage.getItem('criteria'));
-    const people = <Person[]>Utils.parseJson(sessionStorage.getItem('people'));
-    const genres = <DropDownChoice[]>Utils.parseJson(sessionStorage.getItem('genre'));
-    const keyword = <Keyword[]>Utils.parseJson(sessionStorage.getItem('keyword'));
     const certif = <DropDownChoice>Utils.parseJson(sessionStorage.getItem('certif'));
-    if (criteria || people || keyword || genres || certif) {
-      this.initFromCriteria(criteria, people, genres, keyword, certif);
+    if (criteria || this.people || this.keyword || this.selectedGenres || certif) {
+      this.initFromCriteria(criteria, certif);
       this.search(false);
     }
-    this.getAllGenres(this.selectedGenres ? this.selectedGenres.map(g => g.value) : []);
+    this.getAllGenres(this.selectedGenres ? this.selectedGenres : []);
     this.getAllCertification(criteria ? criteria.certification : '');
   }
 
   getAllGenres(genresId: number[]): void {
     this.subs.push(this.genreService.getAllGenre(this.translate.currentLang).subscribe(genres => {
       this.allGenres = genres.map(genre => new DropDownChoice(genre.name, genre.id));
-      this.selectedGenres = genresId ? this.allGenres.filter(genre => genresId.includes(genre.value)) : [];
+      this.selectedGenres = genresId ? this.allGenres.filter(genre => genresId.includes(genre.value)).map(genre => genre.value) : [];
     }));
   }
 
@@ -123,7 +132,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     }));
   }
 
-  initFromCriteria(criteria: DiscoverCriteria, people: Person[], genres: DropDownChoice[], keyword: Keyword[], certif: DropDownChoice): void {
+  initFromCriteria(criteria: DiscoverCriteria, certif: DropDownChoice): void {
     if (criteria) {
       this.sortDir.value = criteria.sortDir;
       this.sortChosen = this.sortChoices.find(sort => sort.value === criteria.sortField);
@@ -140,17 +149,11 @@ export class DiscoverComponent implements OnInit, OnDestroy {
         this.selectedReleaseType = this.allReleaseType.filter(type => criteria.releaseType.includes(type.value));
       }
     }
-    this.people = people ? people : [];
-    this.keyword = keyword ? keyword : [];
-    this.selectedGenres = genres;
     this.selectedCertif = certif;
   }
 
   clear(): void {
     sessionStorage.removeItem('criteria');
-    sessionStorage.removeItem('people');
-    sessionStorage.removeItem('keyword');
-    sessionStorage.removeItem('genre');
     sessionStorage.removeItem('certif');
     const crit = new DiscoverCriteria();
     crit.language = this.translate.currentLang;
@@ -160,12 +163,21 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     crit.voteCountMin = 0;
     crit.genresWithout = false;
     crit.keywordsWithout = false;
-    this.initFromCriteria(crit, undefined, undefined, undefined, undefined);
+    this.people = [];
+    this.keyword = [];
+    this.selectedGenres = [];
+    this.initFromCriteria(crit, undefined);
     this.search(true);
     this.clean = true;
   }
 
   buildCriteria(): DiscoverCriteria {
+    this.router.navigate(['.'], {
+      relativeTo: this.route,
+      queryParams: {
+        people: JSON.stringify(this.people), keyword: JSON.stringify(this.keyword), genre: JSON.stringify(this.selectedGenres)
+      }
+    });
     const criteria = new DiscoverCriteria();
     this.buildRuntimeCriteria(criteria);
     if (this.yearRange[0] && this.yearRange[0] !== this.minYear) {
@@ -175,15 +187,6 @@ export class DiscoverComponent implements OnInit, OnDestroy {
       criteria.yearMax = this.yearRange[1];
     }
     this.buildVoteCriteria(criteria);
-    if (this.people.length > 0) {
-      criteria.personsIds = this.people.map(p => p.id);
-    }
-    if (this.keyword.length > 0) {
-      criteria.keywordsIds = this.keyword.map(p => p.id);
-    }
-    if (this.selectedGenres && this.selectedGenres.length > 0) {
-      criteria.genresId = this.selectedGenres.map(g => g.value);
-    }
     if (this.selectedCertif) {
       criteria.certification = this.selectedCertif.value;
     }
@@ -199,9 +202,6 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     criteria.genresWithout = this.isWithoutGenre;
     criteria.keywordsWithout = this.isWithoutKeyword;
     sessionStorage.setItem('criteria', Utils.stringifyJson(criteria));
-    sessionStorage.setItem('people', Utils.stringifyJson(this.people));
-    sessionStorage.setItem('keyword', Utils.stringifyJson(this.keyword));
-    sessionStorage.setItem('genre', Utils.stringifyJson(this.selectedGenres));
     sessionStorage.setItem('certif', Utils.stringifyJson(this.selectedCertif));
     return criteria;
   }
@@ -232,7 +232,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
       this.page = new PageEvent();
       this.nbChecked = 0;
     }
-    this.movieService.getMoviesDiscover(this.buildCriteria()).then(result => {
+    this.movieService.getMoviesDiscover(this.buildCriteria(), this.people, this.selectedGenres, this.keyword).then(result => {
       this.discover = result;
       this.elemRef.nativeElement.querySelector('#searchBtn').scrollIntoView();
     });
