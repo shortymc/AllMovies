@@ -97,8 +97,7 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
   }
 
   discover(): void {
-    sessionStorage.setItem('people', JSON.stringify([this.person]));
-    this.router.navigate(['discover']);
+    this.router.navigate(['discover'], { queryParams: { people: JSON.stringify([this.person.id]) } });
   }
 
   goBack(): void {

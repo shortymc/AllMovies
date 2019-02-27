@@ -14,9 +14,6 @@ export class DiscoverCriteria {
   runtimeMin: number;
   runtimeMax: number;
   releaseType: number[];
-  personsIds: number[];
-  genresId: number[];
   genresWithout: boolean;
-  keywordsIds: number[];
   keywordsWithout: boolean;
 }
