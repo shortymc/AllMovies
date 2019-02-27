@@ -2,7 +2,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
-import { faChevronCircleLeft, faImage, faBookmark, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronCircleLeft, faImage, faBookmark, faChevronCircleRight, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 import { TitleService, MenuService } from './../../../shared/shared.module';
 import { TabsService } from './../../../shared/service/tabs.service';
@@ -24,6 +24,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
   movie: Movie;
   isImagesVisible = false;
   isDetail: boolean;
+  showTitles = false;
   Url = DuckDuckGo;
   subs = [];
 
@@ -31,6 +32,8 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
   faChevronCircleRight = faChevronCircleRight;
   faBookmark = faBookmark;
   faImage = faImage;
+  faPlus = faPlus;
+  faMinus = faMinus;
 
   constructor(
     private movieService: MovieService,

@@ -29,9 +29,17 @@
       </div>
       <div *ngIf="movie.alternativeTitles">
         <label>{{'movie.alternative_title' | translate}}: </label>
-        <div *ngFor="let alternative of movie.alternativeTitles">
-          {{alternative.lang}}: {{alternative.title}}
-        </div>
+        <button class="btn btn-outline-primary alternative-btn" *ngIf="!showTitles" (click)="showTitles=!showTitles">
+          <fa-icon [icon]="faPlus" size="xs"></fa-icon>
+        </button>
+        <button class="btn btn-outline-primary alternative-btn" *ngIf="showTitles" (click)="showTitles=!showTitles">
+          <fa-icon [icon]="faMinus" size="xs"></fa-icon>
+        </button>
+        <ng-container *ngIf="showTitles">
+          <div *ngFor="let alternative of movie.alternativeTitles">
+            {{alternative.lang}}: {{alternative.title}}
+          </div>
+        </ng-container>
       </div>
       <!-- Country -->
       <div>
