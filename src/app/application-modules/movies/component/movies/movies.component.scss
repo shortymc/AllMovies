@@ -59,6 +59,17 @@
   }
 }
 
+.filter-item {
+  display: flex;
+  flex-direction: row;
+
+  & .clear-btn {
+    display: flex;
+    align-items: center;
+    margin: auto;
+  }
+}
+
 @include media(#{$smallscreen}) {
   /* Mobile landscape */
   .mat-table {
@@ -173,6 +184,10 @@
 
     & ::ng-deep.mat-form-field-flex {
       flex-direction: row;
+    }
+
+    & .filter-item .mat-form-field {
+      width: 90vw;
     }
   }
 
