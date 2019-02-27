@@ -1,5 +1,4 @@
-import { AlternativeTitle } from './../model/model';
-import { map, filter } from 'rxjs/operators';
+import { AlternativeTitle, Lang } from './../model/model';
 import { Url } from './../constant/url';
 import { Utils } from './utils';
 import { Movie } from './../model/movie';
@@ -123,6 +122,14 @@ export class MapMovie {
       if (release && release.release_dates) {
         movie.releaseDates = release.release_dates.map(date => new ReleaseDate(date.release_date, date.type));
       }
+    }
+    if (r.spoken_languages) {
+      movie.spokenLangs = r.spoken_languages.map(spoken => {
+        const lang = new Lang();
+        lang.code = spoken.iso_639_1 === 'en' ? 'gb' : spoken.iso_639_1;
+        lang.label = spoken.name;
+        return lang;
+      });
     }
     movie.title = r.title;
     if (r.alternative_titles && r.alternative_titles.titles) {
