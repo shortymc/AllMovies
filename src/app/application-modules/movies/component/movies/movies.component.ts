@@ -3,7 +3,6 @@ import { forkJoin } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
-import { MatSelectChange } from '@angular/material/select';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import {
   faTrash, faHashtag, faImage, faFilm, faFlag, faCalendar, faStar, faGlobeAmericas, faList, faChevronCircleRight
@@ -40,7 +39,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   sort: Sort;
   nbChecked = 0;
   genres: Genre[];
-  filteredGenres: MatSelectChange;
+  filteredGenres: number[];
   scrollTo: HTMLElement;
 
   faTrash = faTrash;
@@ -146,9 +145,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   filterGenres(): Movie[] {
     let list = [];
-    if (this.filteredGenres && this.filteredGenres.value.length > 0) {
+    if (this.filteredGenres && this.filteredGenres.length > 0) {
       list = this.movies.filter((movie: Movie) => {
-        return this.filteredGenres.value.every((genreId: number) => {
+        return this.filteredGenres.every((genreId: number) => {
           return movie.genres.map(genre => genre.id).includes(genreId);
         });
       });
@@ -158,8 +157,8 @@ export class MoviesComponent implements OnInit, OnDestroy {
     return list;
   }
 
-  onFilterGenres(event: MatSelectChange): void {
-    this.filteredGenres = event;
+  onFilterGenres(genres: number[]): void {
+    this.filteredGenres = genres;
     let list = this.filterGenres();
     list = Utils.sortMovie(Utils.filterByFields(list, this.displayedColumns, this.filter), this.sort);
     this.length = list.length;
