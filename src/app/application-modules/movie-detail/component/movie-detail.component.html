@@ -48,6 +48,14 @@
           <h1 class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" matTooltip="{{country.name}}"></h1>
         </span>
       </div>
+      <div>
+        <label>{{'movie.spoken_langs' | translate}}: </label>
+        <div class="d-flex">
+          <div *ngFor="let lang of movie.spokenLangs">
+            <h3 class="flag-icon flag-icon-{{lang.code | lowercase}}" matTooltip="{{lang.label}}"></h3>
+          </div>
+        </div>
+      </div>
       <!-- Date -->
       <div>
         <label>{{'movie.date' | translate}}: </label>
