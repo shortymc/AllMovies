@@ -58,8 +58,13 @@ export class ReleaseDate {
   }
 }
 
+export class AlternativeTitle {
+  constructor(public lang: string, public title: string) {
+  }
+}
+
 export class MovieDetailConfig {
   constructor(public img?: boolean, public credit?: boolean, public similar?: boolean, public keywords?: boolean,
-    public video?: boolean, public reco?: boolean, public release?: boolean, public lang?: string) {
+    public video?: boolean, public reco?: boolean, public release?: boolean, public titles?: boolean, public lang?: string) {
   }
 }

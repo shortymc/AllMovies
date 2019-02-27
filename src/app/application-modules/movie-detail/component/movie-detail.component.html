@@ -27,6 +27,12 @@
       <div *ngIf="movie.title !== movie.original_title">
         <label>{{'global.original_title' | translate}}: </label>{{movie.original_title | capitalizeWord}}
       </div>
+      <div *ngIf="movie.alternativeTitles">
+        <label>{{'movie.alternative_title' | translate}}: </label>
+        <div *ngFor="let alternative of movie.alternativeTitles">
+          {{alternative.lang}}: {{alternative.title}}
+        </div>
+      </div>
       <!-- Country -->
       <div>
         <label>{{'movie.country' | translate}}: </label>

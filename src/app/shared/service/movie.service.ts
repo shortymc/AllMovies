@@ -29,24 +29,25 @@ export class MovieService {
   }
 
   getMovies(ids: number[], language: string): Promise<Movie[]> {
-    const obs = ids.map(id => this.getMovie(id, new MovieDetailConfig(true, true, true, true, true, true, true, language), false));
+    const obs = ids.map(id => this.getMovie(id, new MovieDetailConfig(true, true, true, true, true, true, true, true, language), false));
     return forkJoin(obs).toPromise();
   }
 
   getMovie(id: number, config: MovieDetailConfig, detail: boolean): Promise<Movie> {
     return this.serviceUtils.getPromise(UrlBuilder.movieUrlBuilder(id, config.video, config.credit,
-      config.reco, config.release, config.keywords, config.similar, config.img, config.lang))
+      config.reco, config.release, config.keywords, config.similar, config.img, config.titles, config.lang))
       .then(response => {
         const movie = MapMovie.mapForMovie(response);
         movie.lang_version = config.lang;
         if (detail && (!movie.synopsis || (!movie.videos && config.video) || !movie.original_title)) {
-          return this.getMovie(id, new MovieDetailConfig(false, false, false, false, config.video, false, false, 'en'), false).then(enMovie => {
-            movie.synopsis = Utils.isBlank(movie.synopsis) ? enMovie.synopsis : movie.synopsis;
-            movie.videos = movie.videos && movie.videos.length > 0 ? movie.videos : enMovie.videos;
-            movie.original_title = Utils.isBlank(movie.original_title) ? enMovie.original_title : movie.original_title;
-            movie.score = enMovie.score;
-            return movie;
-          });
+          return this.getMovie(id,
+            new MovieDetailConfig(false, false, false, false, config.video, false, false, false, 'en'), false).then(enMovie => {
+              movie.synopsis = Utils.isBlank(movie.synopsis) ? enMovie.synopsis : movie.synopsis;
+              movie.videos = movie.videos && movie.videos.length > 0 ? movie.videos : enMovie.videos;
+              movie.original_title = Utils.isBlank(movie.original_title) ? enMovie.original_title : movie.original_title;
+              movie.score = enMovie.score;
+              return movie;
+            });
         } else {
           return this.getImdbScore(movie);
         }
