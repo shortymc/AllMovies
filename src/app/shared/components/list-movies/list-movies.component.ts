@@ -1,7 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { SortDirection } from '@angular/material';
 
 import { Movie } from '../../../model/movie';
@@ -33,7 +32,6 @@ export class ListMoviesComponent implements OnInit {
   sortChosen: DropDownChoice;
   sortDir: SortDirection;
   pageSize = 5;
-  faBookmark = faBookmark;
 
   constructor(
     public translate: TranslateService,
