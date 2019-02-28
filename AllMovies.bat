@@ -9,8 +9,10 @@ IF /i "%answer%"=="1" (
 	code .
 ) else IF /i "%answer%"=="3" (
 	call "AllMovies - Update.bat"
+	goto debut
 ) else IF /i "%answer%"=="4" (
 	call yarn build
+	goto debut
 ) else IF /i "%answer%"=="5" (
 	call http-serve .\dist -o
 ) else (
