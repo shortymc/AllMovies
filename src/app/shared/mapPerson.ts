@@ -22,6 +22,7 @@ export class MapPerson {
       img_thumb = img_url.map(path => Url.IMAGE_URL_MEDIUM.concat(path));
     }
 
+    let result;
     if (credits) {
       const asActor = credits.cast.map((r: any) => MapMovie.toMovie(r));
       const asDirector = credits.crew.filter((r: any) => Utils.jobEquals(r.job, Job.director)).map((r: any) => MapMovie.toMovie(r));
@@ -33,14 +34,16 @@ export class MapPerson {
         .map((r: any) => MapMovie.toMovie(r));
       const asNovel = credits.crew.filter((r: any) => Utils.jobEquals(r.job, 'Novel')).map((r: any) => MapMovie.toMovie(r));
 
-      return new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
+      result = new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
         Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img,
         asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel, resp.known_for_department, img_thumb, resp.popularity);
     } else {
-      return new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
+      result = new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
         Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img,
         undefined, undefined, undefined, undefined, undefined, undefined, resp.known_for_department, img_thumb, resp.popularity);
     }
+    console.log('mapPerson', result);
+    return result;
   }
 
   static mapForSearchPersons(response: any): Person[] {
