@@ -28,7 +28,7 @@
       <div class="reco">
         <div *ngFor="let reco of moviesToShow;" class="reco-item">
           <img class="frame center pointer" src="{{reco.thumbnail}}" alt="{{reco.title| capitalizeWord}}" appOpenLink
-            [label]="reco.title" url="/movie/{{reco.id}}">
+            [label]="reco.title" url="/movie/{{reco.id}}" matTooltip="{{reco.character}}">
           <p class="reco-infos center" [ngClass]="{'adult': reco.adult}">{{reco.title | capitalizeWord}} - {{reco.date
             | date : 'MMM yyyy':'':translate.currentLang | capitalizeWord}} -
             {{reco.note}} / 10 ({{reco.vote_count}}) - {{reco.popularity |
