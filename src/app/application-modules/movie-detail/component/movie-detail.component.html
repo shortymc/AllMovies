@@ -15,8 +15,7 @@
       <fa-icon [icon]="faChevronCircleRight"></fa-icon> {{'global.go_detail' | translate}}
     </button>
     <!-- Add to collection btn -->
-    <button class="btn btn-outline-primary" appAddCollection [movies]="[movie]">
-      <fa-icon [icon]="faBookmark"></fa-icon> {{'global.add_collection' | translate}}
+    <button class="btn btn-outline-primary" appAddCollection [movies]="[movie]" [label]="'global.add_collection'">
     </button>
     <div>
       <label>{{'movie.id' | translate}}:</label>{{movie.id}}
@@ -27,7 +26,7 @@
       <div *ngIf="movie.title !== movie.original_title">
         <label>{{'global.original_title' | translate}}: </label>{{movie.original_title | capitalizeWord}}
       </div>
-      <div *ngIf="movie.alternativeTitles">
+      <div *ngIf="movie.alternativeTitles && movie.alternativeTitles.length > 0">
         <label>{{'movie.alternative_title' | translate}}: </label>
         <button class="btn btn-outline-primary alternative-btn" *ngIf="!showTitles" (click)="showTitles=!showTitles">
           <fa-icon [icon]="faPlus" size="xs"></fa-icon>

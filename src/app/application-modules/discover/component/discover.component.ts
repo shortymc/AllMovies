@@ -3,7 +3,6 @@ import { PageEvent } from '@angular/material/paginator';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { NouiFormatter } from 'ng2-nouislider';
-import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 
 import { DiscoverCriteria } from './../../../model/discover-criteria';
 import { Discover } from './../../../model/discover';
@@ -48,7 +47,6 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   selectedCertif: DropDownChoice;
   allReleaseType: DropDownChoice[];
   selectedReleaseType: DropDownChoice[];
-  faBookmark = faBookmark;
   clean = false;
   subs = [];
 

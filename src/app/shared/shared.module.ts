@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule, FaIconComponent } from '@fortawesome/angular-fontawesome';
 import {
   SwiperModule,
   SWIPER_CONFIG
@@ -120,7 +120,7 @@ import { MyMoviesService } from './service/my-movies.service';
     ImageViewerComponent,
     MenuComponent,
   ],
-  entryComponents: [OpenLinkDialogComponent]
+  entryComponents: [OpenLinkDialogComponent, FaIconComponent]
 })
 
 export class SharedModule {
