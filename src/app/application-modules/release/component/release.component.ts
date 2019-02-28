@@ -143,9 +143,7 @@ export class ReleaseComponent implements OnInit, OnDestroy {
   }
 
   addDays(days: number): string {
-    let date = this.formatter.ngbDateToDate(this.model);
-    date = this.formatter.addNgbDays(this.model, days);
-    return this.formatter.dateToString(date, 'dd/MM/yyyy');
+    return this.formatter.dateToString(this.formatter.addNgbDays(this.model, days), 'dd/MM/yyyy');
   }
 
   parseDate(): string {
