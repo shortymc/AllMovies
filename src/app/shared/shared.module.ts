@@ -47,7 +47,7 @@ import { KeywordSearchService } from './service/keyword-search.service';
 import { ToastService } from './service/toast.service';
 import { MovieSearchComponent } from './components/movie-search/movie-search.component';
 import { PersonSearchComponent } from './components/person-search/person-search.component';
-import { LangService } from './service/lang.service';
+import { MockService } from './service/mock.service';
 import { MenuService } from './service/menu.service';
 import { TabsService } from './service/tabs.service';
 import { OpenLinkDialogComponent } from './components/open-link-dialog/open-link-dialog.component';
@@ -142,7 +142,7 @@ export class SharedModule {
         PersonService,
         MyMoviesService,
         GenreService,
-        LangService,
+        MockService,
         TabsService,
         PersonSearchService,
         MovieSearchService,

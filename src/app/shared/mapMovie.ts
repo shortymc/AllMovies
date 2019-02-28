@@ -1,11 +1,14 @@
-import { AlternativeTitle, Lang } from './../model/model';
+import { AlternativeTitle, Lang, Flag } from './../model/model';
 import { Url } from './../constant/url';
 import { Utils } from './utils';
 import { Movie } from './../model/movie';
 import { Discover } from '../model/discover';
 import { ReleaseDate } from '../model/model';
+import { MockService } from './service/mock.service';
 
 export class MapMovie {
+
+  private static flags: Flag[] = [];
 
   static mapForMoviesByReleaseDates(response: any): Movie[] {
     console.log(response.results);
@@ -87,7 +90,7 @@ export class MapMovie {
     }));
   }
 
-  static mapForMovie(r: any): Movie {
+  static mapForMovie(r: any, mockService: MockService<Flag>): Movie {
     console.log(r);
     const movie = new Movie();
     let cast;
@@ -126,7 +129,7 @@ export class MapMovie {
     if (r.spoken_languages) {
       movie.spokenLangs = r.spoken_languages.map(spoken => {
         const lang = new Lang();
-        lang.code = spoken.iso_639_1 === 'en' ? 'gb' : spoken.iso_639_1;
+        MapMovie.convertLangToCountry(spoken.iso_639_1, mockService).then(code => lang.code = code);
         lang.label = spoken.name;
         return lang;
       });
@@ -148,13 +151,32 @@ export class MapMovie {
     movie.note = r.vote_average;
     movie.budget = r.budget;
     movie.recette = r.revenue;
-    movie.language = r.original_language;
+    MapMovie.convertLangToCountry(r.original_language, mockService).then(code => movie.language = code);
     movie.imdb_id = r.imdb_id;
     movie.checked = false;
     movie.production_countries = r.production_countries;
     movie.popularity = r.popularity;
     console.log('movie', movie);
     return movie;
+  }
+
+  static convertLangToCountry(code: string, mockService: MockService<Flag>): Promise<string> {
+    if (!MapMovie.flags || MapMovie.flags.length === 0) {
+      return mockService.getAll('flags.json').then(flags => {
+        MapMovie.flags = flags;
+        return MapMovie.getFlag(code);
+      });
+    } else {
+      return new Promise((resolve) => resolve(MapMovie.getFlag(code)));
+    }
+  }
+
+  static getFlag(code: string): string {
+    if (MapMovie.flags.map(flag => flag.lang).includes(code)) {
+      return MapMovie.flags.find(flag => flag.lang === code).country;
+    } else {
+      return code;
+    }
   }
 
   static toMovie(r: any): Movie {
