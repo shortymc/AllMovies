@@ -32,6 +32,12 @@ export class GoToTopComponent implements OnInit, AfterViewInit {
     const scroll$ = fromEvent(this.elemRef.nativeElement.parentNode, 'scroll')
       .pipe(
         throttleTime(10),
+        map((x: any) => {
+          // console.log('scrollTop', x.target.scrollTop);
+          // console.log('scrollTopMax', x.target.scrollTopMax);
+          // console.log('offsetHeight', x.target.offsetHeight);
+          return x;
+        }),
         map((x: any) => x.target.scrollTop > x.target.scrollTopMax / 5 && x.target.scrollTopMax > x.target.offsetHeight),
         distinctUntilChanged(),
         share()

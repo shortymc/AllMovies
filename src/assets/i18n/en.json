@@ -13,6 +13,7 @@
         "username": "Pseudo",
         "original_title": "Original Title",
         "add": "Add",
+        "already_added":"Already Added",
         "next": "Next",
         "edit": "Edit",
         "save": "Save",
