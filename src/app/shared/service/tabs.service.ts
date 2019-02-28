@@ -60,7 +60,11 @@ export class TabsService {
     this.liens = this.liens.filter(lien => lien.url !== link.url);
     this.links.next(this.liens);
     if (this.activeLink === link) {
-      this.changeTab(index === 0 ? this.liens[0] : this.liens[index - 1]);
+      if (index < this.liens.length) {
+        this.changeTab(this.liens[index]);
+      } else {
+        this.changeTab(index === 0 ? this.liens[0] : this.liens[index - 1]);
+      }
     } else {
       this.storeTabs();
     }
