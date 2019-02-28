@@ -4,11 +4,24 @@
   position: absolute;
   z-index: 99;
   display: none;
-  border: 3px solid $black;
-  @include box-shadow;
+
+  & img {
+    border: 3px solid $black;
+    @include box-shadow;
+  }
 
   .myTooltip:hover & {
     display: block;
+    float: left;
+  }
+}
+
+.character {
+  z-index: 99;
+  display: none;
+
+  .myTooltip:hover & {
+    display: contents;
     float: left;
   }
 }
