@@ -42,7 +42,7 @@
         </ng-container>
       </div>
       <!-- Country -->
-      <div>
+      <div *ngIf="movie.production_countries && movie.production_countries.length > 0">
         <label>{{'movie.country' | translate}}: </label>
         <span *ngFor="let country of movie.production_countries">
           <h1 class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" matTooltip="{{country.name}}"></h1>
@@ -50,11 +50,14 @@
       </div>
       <div>
         <label>{{'movie.spoken_langs' | translate}}: </label>
-        <div class="d-flex">
+        <div class="d-flex" *ngIf="movie.spokenLangs && movie.spokenLangs.length > 0; else originalLang">
           <div *ngFor="let lang of movie.spokenLangs">
             <h3 class="flag-icon flag-icon-{{lang.code | lowercase}}" matTooltip="{{lang.label}}"></h3>
           </div>
         </div>
+        <ng-template #originalLang>
+          <h3 class="flag-icon flag-icon-{{movie.language | lowercase}}" matTooltip="{{movie.language}}"></h3>
+        </ng-template>
       </div>
       <!-- Date -->
       <div>

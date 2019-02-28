@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class LangService {
+export class MockService<T> {
 
   constructor() { }
 
-  getAll(): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
+  getAll(file: string): Promise<T[]> {
+    return new Promise<T[]>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open('GET', './assets/langs.json');
+      xhr.open('GET', './assets/' + file);
       xhr.send();
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
