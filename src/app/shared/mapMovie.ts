@@ -192,7 +192,8 @@ export class MapMovie {
       note: r.vote_average,
       vote_count: r.vote_count,
       language: r.original_language,
-      popularity: r.popularity
+      popularity: r.popularity,
+      character: r.character
     });
   }
 }
