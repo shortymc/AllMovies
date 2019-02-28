@@ -36,6 +36,11 @@ export class Certification {
   order: number;
 }
 
+export class Flag {
+  lang: string;
+  country: string;
+}
+
 export class Lang {
   id: number;
   code: string;

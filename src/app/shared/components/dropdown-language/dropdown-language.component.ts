@@ -1,7 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { LangService } from './../../service/lang.service';
+import { MockService } from '../../service/mock.service';
 import { Lang } from '../../../model/model';
 
 @Component({
@@ -19,11 +19,11 @@ export class DropdownLanguageComponent implements OnInit, OnChanges {
 
   constructor(
     private translate: TranslateService,
-    private langService: LangService,
+    private mockService: MockService<Lang>,
   ) { }
 
   ngOnInit(): void {
-    this.langService.getAll().then(langs => {
+    this.mockService.getAll('langs.json').then(langs => {
       this.langList = langs;
       this.updateLang(this.userLang ? this.userLang.code : this.translate.getBrowserLang());
     });

@@ -4,9 +4,10 @@ import { Injectable } from '@angular/core';
 import { DiscoverCriteria } from './../../model/discover-criteria';
 import { Discover } from './../../model/discover';
 import { MapMovie } from './../../shared/mapMovie';
+import { MockService } from './mock.service';
 import { UtilsService } from './utils.service';
 import { Movie } from '../../model/movie';
-import { MovieDetailConfig } from './../../model/model';
+import { MovieDetailConfig, Flag } from './../../model/model';
 import { Url } from '../../constant/url';
 import { OmdbService } from './omdb.service';
 import { ToastService } from './toast.service';
@@ -20,6 +21,7 @@ export class MovieService {
     private serviceUtils: UtilsService,
     private omdb: OmdbService,
     private toast: ToastService,
+    private mockService: MockService<Flag>
   ) { }
 
   getPopularMovies(language: string): Promise<Movie[]> {
@@ -37,7 +39,7 @@ export class MovieService {
     return this.serviceUtils.getPromise(UrlBuilder.movieUrlBuilder(id, config.video, config.credit,
       config.reco, config.release, config.keywords, config.similar, config.img, config.titles, config.lang))
       .then(response => {
-        const movie = MapMovie.mapForMovie(response);
+        const movie = MapMovie.mapForMovie(response, this.mockService);
         movie.lang_version = config.lang;
         if (detail && (!movie.synopsis || (!movie.videos && config.video) || !movie.original_title)) {
           return this.getMovie(id,
