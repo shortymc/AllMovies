@@ -18,9 +18,8 @@
 
 .character {
   z-index: 99;
-  display: none;
 
-  .myTooltip:hover & {
+  .myTooltip & {
     display: contents;
     float: left;
   }
