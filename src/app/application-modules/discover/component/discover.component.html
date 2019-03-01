@@ -49,7 +49,7 @@
 <nouislider [connect]="true" [min]="0" [max]="max" [step]="1" [(ngModel)]="runtimeRange" [format]="formatter"
   [tooltips]="[true, true]" id="runtime-slider"></nouislider>
 <!-- Year range -->
-<nouislider [connect]="true" [min]="minYear" [max]="maxYear" [step]="1" [(ngModel)]="yearRange" [tooltips]="[true, true]"
+<nouislider [connect]="true" [min]="minYear" [max]="maxYear" [step]="1" [(ngModel)]="yearRange" [tooltips]="[true, true]" [disabled]="playing"
   style="margin-top: 4em;"></nouislider>
 <!-- Vote range -->
 <div class="vote">
