@@ -1,6 +1,6 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { RouterTestingModule, SpyNgModuleFactoryLoader } from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NouisliderModule } from 'ng2-nouislider';
@@ -13,14 +13,13 @@ import {
   MatFormFieldModule, MatPaginatorModule, MatInputModule, MatAutocompleteModule, MatChipsModule, MatSlideToggleModule,
 } from '@angular/material';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { Directive, Input } from '@angular/core';
 
 import { MyMoviesService } from './../../../shared/service/my-movies.service';
 import { DiscoverComponent } from './discover.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { CapitalizeWordPipe } from './../../../shared/pipes/capitalizeWord.pipe';
 import { OpenLinkDirective } from './../../../shared/directives/open-link.directive';
-import { Movie } from './../../../model/movie';
+import { AddCollectionDirective } from './../../../shared/directives/add-collection.directive';
 import { ToastService } from './../../../shared/service/toast.service';
 import { MenuService } from './../../../shared/service/menu.service';
 import { KeywordSearchService } from './../../../shared/service/keyword-search.service';
@@ -43,17 +42,9 @@ describe('DiscoverComponent', () => {
   let component: DiscoverComponent;
   let fixture: ComponentFixture<DiscoverComponent>;
 
-  @Directive({ selector: '[appAddCollection]' })
-  class AddCollectionDirectiveStub {
-    @Input()
-    movies: Movie[];
-    @Input()
-    label: string;
-  }
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DiscoverComponent, SearchBoxComponent, AddCollectionDirectiveStub, OpenLinkDirective, CapitalizeWordPipe],
+      declarations: [DiscoverComponent, SearchBoxComponent, AddCollectionDirective, OpenLinkDirective, CapitalizeWordPipe],
       providers: [TranslateService, MetaService, UtilsService, MovieService, OmdbService, DropboxService, AuthService, TitleService, PersonService,
         { provide: MyMoviesService, useValue: jasmine.createSpyObj('MyMoviesService', ['getAll']) }, GenreService, MockService, TabsService,
         PersonSearchService, MovieSearchService, CertificationService, KeywordSearchService, MenuService, ToastService],
