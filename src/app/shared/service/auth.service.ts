@@ -24,8 +24,16 @@ export class AuthService {
   constructor(private dropbox: DropboxService, private router: Router, private serviceUtils: UtilsService,
     private toast: ToastService, private translate: TranslateService) { }
 
-  static decodeToken(): User {
-    return jwtDecode(AuthService.getToken());
+  static decodeToken(token: string): User {
+    let tkn = token;
+    if (!tkn) {
+      tkn = AuthService.getToken();
+    }
+    if (tkn) {
+      return jwtDecode(token);
+    } else {
+      return undefined;
+    }
   }
 
   static usersToBlob(movies: User[]): any {
@@ -61,7 +69,7 @@ export class AuthService {
     if (!token) {
       return this.reject();
     }
-    const user_infos: User = jwtDecode(token);
+    const user_infos: User = AuthService.decodeToken(token);
     if (token && user_infos && user_infos.id) {
       this.fileName = AuthService.getUserFileName(user_infos.id);
       this.isLogged.next(true);
@@ -76,7 +84,7 @@ export class AuthService {
     if (!token) {
       return this.reject();
     }
-    const user_infos: User = jwtDecode(token);
+    const user_infos: User = AuthService.decodeToken(token);
     if (token && user_infos && user_infos.id) {
       this.isLogged.next(true);
       this.fileName = AuthService.getUserFileName(user_infos.id);
@@ -105,7 +113,7 @@ export class AuthService {
 
   checkInfos(token: string): Promise<boolean> {
     // console.log('checkInfos');
-    const user_infos: User = jwtDecode(token);
+    const user_infos: User = AuthService.decodeToken(token);
     // console.log('token', user_infos);
     return this.getUserById(user_infos.id).then((user: User) => {
       // console.log('user', user);
@@ -239,7 +247,7 @@ export class AuthService {
     return this.isAllowed().then((isAuth) => {
       if (isAuth) {
         const token = AuthService.getToken();
-        const user_infos: User = jwtDecode(token);
+        const user_infos: User = AuthService.decodeToken(token);
         return this.getUserByName(user_infos.name);
       } else {
         this.logout();
