@@ -26,11 +26,11 @@ export class AuthService {
 
   static decodeToken(token: string): User {
     let tkn = token;
-    if (!tkn) {
+    if (!tkn || tkn.trim() === '') {
       tkn = AuthService.getToken();
     }
-    if (tkn) {
-      return jwtDecode(token);
+    if (tkn && tkn.trim() !== '') {
+      return jwtDecode(tkn);
     } else {
       return undefined;
     }
