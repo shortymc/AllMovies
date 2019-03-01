@@ -80,6 +80,7 @@
             "@angular/platform-browser",
             "@angular/core/testing",
             "@angular/common/locales",
+            "@angular/router/testing",
             "@angular/common/http",
             "core-js/es7",
             "zone.js/dist",
