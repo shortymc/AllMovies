@@ -53,7 +53,10 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.pseudo = AuthService.decodeToken().name;
+    const user = AuthService.decodeToken(undefined);
+    if (user) {
+      this.pseudo = user.name;
+    }
     this.language = this.translate.currentLang;
     this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.language = event.lang;

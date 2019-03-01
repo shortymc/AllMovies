@@ -47,7 +47,10 @@ export class PersonSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.pseudo = AuthService.decodeToken().name;
+    const user = AuthService.decodeToken(undefined);
+    if (user) {
+      this.pseudo = user.name;
+    }
     this.persons = this.searchTerms
       .pipe(
         debounceTime(300),        // wait 300ms after each keystroke before considering the term
