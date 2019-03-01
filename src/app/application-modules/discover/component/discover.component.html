@@ -67,8 +67,8 @@
 </div>
 <div class="params">
   <!-- Add to Collection Btn -->
-  <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" (click)="initSelection()"
-    appAddCollection [movies]="discover.movies" [label]="'global.add_collection'">
+  <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" appAddCollection [movies]="discover.movies"
+    [label]="'global.add_collection'">
   </button>
   <!-- Init Btn -->
   <button type="button" class="btn btn-outline-primary" (click)="clear()">{{'discover.clear'|translate}}</button>

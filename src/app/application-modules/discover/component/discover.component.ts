@@ -260,10 +260,6 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     this.nbChecked = this.discover.movies.filter(movie => movie.checked).length;
   }
 
-  initSelection(): void {
-    this.discover.movies.forEach((movie) => movie.checked = false);
-  }
-
   ngOnDestroy(): void {
     this.subs.forEach((subscription) => subscription.unsubscribe());
   }
