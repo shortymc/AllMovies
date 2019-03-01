@@ -13,7 +13,7 @@
         "username": "Pseudo",
         "original_title": "Titre Original",
         "add": "Ajouter",
-        "already_added":"Déjà Ajouté",
+        "already_added": "Déjà Ajouté",
         "next": "Suivant",
         "edit": "Modifier",
         "save": "Sauvegarder",
@@ -134,7 +134,8 @@
             "Directing": "Réalisateur",
             "Sound": "Compositeur",
             "Writing": "Scénariste",
-            "Production": "Producteur"
+            "Production": "Producteur",
+            "Editing": "Monteur"
         }
     },
     "person-search": {
@@ -278,9 +279,7 @@
         "vote": "Note",
         "search": "Rechercher",
         "result": "Résultats",
-        "vote_count_min": "Nombre de vote minimum"
-    },
-    "playing": {
-        "title": "Films à l'affiche"
+        "vote_count_min": "Nombre de vote minimum",
+        "playing": "Films à l'affiche"
     }
 }

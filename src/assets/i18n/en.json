@@ -13,7 +13,7 @@
         "username": "Pseudo",
         "original_title": "Original Title",
         "add": "Add",
-        "already_added":"Already Added",
+        "already_added": "Already Added",
         "next": "Next",
         "edit": "Edit",
         "save": "Save",
@@ -134,7 +134,8 @@
             "Directing": "Directing",
             "Sound": "Composer",
             "Writing": "Screenwriter",
-            "Production": "Productor"
+            "Production": "Productor",
+            "Editing": "Editor"
         }
     },
     "person-search": {
@@ -278,9 +279,7 @@
         "vote": "Rating",
         "search": "Search",
         "result": "Results",
-        "vote_count_min": "Vote count minimum"
-    },
-    "playing": {
-        "title": "Movies now playing"
+        "vote_count_min": "Vote count minimum",
+        "playing": "Movies now playing"
     }
 }
