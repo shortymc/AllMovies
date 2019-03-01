@@ -49,8 +49,8 @@
 <nouislider [connect]="true" [min]="0" [max]="max" [step]="1" [(ngModel)]="runtimeRange" [format]="formatter"
   [tooltips]="[true, true]" id="runtime-slider"></nouislider>
 <!-- Year range -->
-<nouislider [connect]="true" [min]="minYear" [max]="maxYear" [step]="1" [(ngModel)]="yearRange" [tooltips]="[true, true]" [disabled]="playing"
-  style="margin-top: 4em;"></nouislider>
+<nouislider [connect]="true" [min]="minYear" [max]="maxYear" [step]="1" [(ngModel)]="yearRange" [tooltips]="[true, true]"
+  [disabled]="playing" style="margin-top: 4em;"></nouislider>
 <!-- Vote range -->
 <div class="vote">
   <nouislider [connect]="true" [min]="minVote" [max]="maxVote" [step]="0.1" [(ngModel)]="voteRange" [tooltips]="[true, true]"
@@ -62,12 +62,14 @@
   </mat-form-field>
 </div>
 <div class="params">
+  <!-- Playing Slider -->
+  <mat-slide-toggle [color]="'primary'" [(checked)]="playing" (change)="playing = !playing">{{'discover.playing'|translate}}</mat-slide-toggle>
+</div>
+<div class="params">
   <!-- Add to Collection Btn -->
   <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" (click)="initSelection()"
     appAddCollection [movies]="discover.movies" [label]="'global.add_collection'">
   </button>
-  <!-- Playing Slider -->
-  <mat-slide-toggle [color]="'primary'" [(checked)]="playing" (change)="playing = !playing">{{'discover.playing'|translate}}</mat-slide-toggle>
   <!-- Init Btn -->
   <button type="button" class="btn btn-outline-primary" (click)="clear()">{{'discover.clear'|translate}}</button>
   <!-- Search Button -->
