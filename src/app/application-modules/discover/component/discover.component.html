@@ -66,6 +66,8 @@
   <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" (click)="initSelection()"
     appAddCollection [movies]="discover.movies" [label]="'global.add_collection'">
   </button>
+  <!-- Playing Slider -->
+  <mat-slide-toggle [color]="'primary'" [(checked)]="playing" (change)="playing = !playing">{{'discover.playing'|translate}}</mat-slide-toggle>
   <!-- Init Btn -->
   <button type="button" class="btn btn-outline-primary" (click)="clear()">{{'discover.clear'|translate}}</button>
   <!-- Search Button -->

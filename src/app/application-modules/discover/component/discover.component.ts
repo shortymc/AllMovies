@@ -47,6 +47,8 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   selectedCertif: DropDownChoice;
   allReleaseType: DropDownChoice[];
   selectedReleaseType: DropDownChoice[];
+  playing = false;
+  playingDate: string[];
   clean = false;
   subs = [];
 
@@ -91,6 +93,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
         return res;
       }
     };
+    this.initPlayingDate();
 
     this.subs.push(this.translate.onLangChange.subscribe(() => {
       this.getAllGenres(this.selectedGenres ? this.selectedGenres : []);
@@ -225,12 +228,26 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     }
   }
 
+  initPlayingDate(): void {
+    const crit = new DiscoverCriteria();
+    crit.region = 'FR';
+    crit.language = this.translate.currentLang;
+    this.movieService.getMoviesPlaying(crit).then(dates => {
+      this.playingDate = dates;
+    });
+  }
+
   search(initPagination: boolean): void {
     if (initPagination || !this.page) {
       this.page = new PageEvent();
       this.nbChecked = 0;
     }
-    this.movieService.getMoviesDiscover(this.buildCriteria(), this.people, this.selectedGenres, this.keyword).then(result => {
+    const criteria = this.buildCriteria();
+    if (this.playing) {
+      criteria.yearMin = this.playingDate[0];
+      criteria.yearMax = this.playingDate[1];
+    }
+    this.movieService.getMoviesDiscover(criteria, this.people, this.selectedGenres, this.keyword).then(result => {
       this.discover = result;
       this.elemRef.nativeElement.querySelector('#searchBtn').scrollIntoView();
     });
