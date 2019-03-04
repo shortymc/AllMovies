@@ -32,18 +32,20 @@ export class MetaComponent implements OnInit {
         let term;
         let isMovie = false;
         if (this.entry.title) {
+          // if movie
           const title = this.entry.title;
           const original = this.entry.original_title;
           term = !original || original.trim() === '' ? title : original;
           isMovie = true;
         } else {
+          // if person
           term = this.entry.name;
         }
         this.links = [];
         this.sites.forEach(site => {
-          this.metaService.getLinkScore(term, site.site, isMovie).then(result => {
+          this.metaService.getLinkScore(term, site.site, this.entry.imdb_id, isMovie).then(result => {
             if (!result && isMovie) {
-              this.metaService.getLinkScore(this.entry.title, site.site, isMovie).then(result_2 => {
+              this.metaService.getLinkScore(this.entry.title, site.site, undefined, isMovie).then(result_2 => {
                 this.handleResult(result_2, site);
               });
             } else {

@@ -36,11 +36,11 @@ export class MapPerson {
 
       result = new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
         Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img,
-        asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel, resp.known_for_department, img_thumb, resp.popularity);
+        asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel, resp.known_for_department, img_thumb, resp.popularity, resp.imdb_id);
     } else {
       result = new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
         Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img,
-        undefined, undefined, undefined, undefined, undefined, undefined, resp.known_for_department, img_thumb, resp.popularity);
+        undefined, undefined, undefined, undefined, undefined, undefined, resp.known_for_department, img_thumb, resp.popularity, resp.imdb_id);
     }
     console.log('mapPerson', result);
     return result;
