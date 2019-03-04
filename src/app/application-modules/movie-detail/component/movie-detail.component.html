@@ -84,8 +84,8 @@
       </div>
       <!-- Rating -->
       <div *ngIf="movie.note > 0">
-        <label>{{'movie.rating' | translate}}: </label>{{movie.note}} / 10 - {{movie.popularity |
-        number:'1.0-2':translate.currentLang}}
+        <label>{{'movie.rating' | translate}}: </label>
+        {{movie.note}} / 10 ({{movie.vote_count}}) - {{movie.popularity | number:'1.0-2':translate.currentLang}}
         <rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
       </div>
       <!-- Genre -->
