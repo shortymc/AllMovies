@@ -149,6 +149,10 @@ export class DiscoverComponent implements OnInit, OnDestroy {
       this.voteCountMin = criteria.voteCountMin;
       this.isWithoutGenre = criteria.genresWithout;
       this.isWithoutKeyword = criteria.keywordsWithout;
+      this.playing = criteria.playing;
+      if (criteria.playingDate && criteria.playingDate.length !== 0) {
+        this.playingDate = criteria.playingDate;
+      }
       if (criteria.releaseType) {
         this.selectedReleaseType = this.allReleaseType.filter(type => criteria.releaseType.includes(type.value));
       }
@@ -164,12 +168,13 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     crit.sortField = this.sortChoices[0].value;
     crit.sortDir = 'desc';
     crit.page = 0;
-    crit.voteCountMin = 0;
+    crit.voteCountMin = 10;
     crit.genresWithout = false;
     crit.keywordsWithout = false;
     this.people = [];
     this.keyword = [];
     this.selectedGenres = [];
+    this.playing = false;
     this.initFromCriteria(crit, undefined);
     this.search(true);
     this.clean = true;
@@ -205,6 +210,8 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     criteria.voteCountMin = this.voteCountMin;
     criteria.genresWithout = this.isWithoutGenre;
     criteria.keywordsWithout = this.isWithoutKeyword;
+    criteria.playing = this.playing;
+    criteria.playingDate = this.playingDate;
     sessionStorage.setItem('criteria', Utils.stringifyJson(criteria));
     sessionStorage.setItem('certif', Utils.stringifyJson(this.selectedCertif));
     return criteria;

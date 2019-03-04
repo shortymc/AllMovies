@@ -16,4 +16,6 @@ export class DiscoverCriteria {
   releaseType: number[];
   genresWithout: boolean;
   keywordsWithout: boolean;
+  playing: boolean;
+  playingDate: string[];
 }
