@@ -48,7 +48,7 @@
         <div class="biography">{{person.biography}}</div>
       </div>
     </div>
-    <app-meta [entry]="person" [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR]"></app-meta>
+    <app-meta [entry]="person" [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR, DuckDuckGo.SEARCH_BANG_IMDB]"></app-meta>
     <figure>
       <label style="display: flex">{{'person.films' | translate}}:</label>
       <app-list-movies [movies]="list.value" [label]="('movie-list.' + list.label_key | translate).concat(':')" *ngFor="let list of listMoviesOrder"></app-list-movies>
