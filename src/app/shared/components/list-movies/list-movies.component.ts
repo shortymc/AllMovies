@@ -1,10 +1,14 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, ElementRef, OnChanges, SimpleChange } from '@angular/core';
 import { SortDirection } from '@angular/material';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 
 import { Movie } from '../../../model/movie';
 import { Utils } from './../../utils';
 import { DropDownChoice } from '../../../model/model';
+
+library.add(faTimesCircle);
 
 @Component({
   selector: 'app-list-movies',
@@ -18,6 +22,8 @@ export class ListMoviesComponent implements OnChanges {
   movies: Movie[];
 
   page: number;
+  research: string;
+  resultLength: number;
   moviesToShow: Movie[];
   sortChoices: DropDownChoice[];
   sortChosen: DropDownChoice;
@@ -34,16 +40,21 @@ export class ListMoviesComponent implements OnChanges {
       if (field === 'movies') {
         this.movies = changes[field].currentValue;
         this.initSortProperties();
-        this.sortChanged(false);
+        this.sortOrSearchChanged(false);
       }
     }
   }
 
   getMoviesToShow(movies: Movie[], page: number): void {
-    this.moviesToShow = movies.slice((page - 1) * this.pageSize, page * this.pageSize);
+    let list = movies;
+    if (this.research && this.research.trim() !== '') {
+      list = Utils.filterByFields(movies, ['title'], this.research);
+    }
+    this.resultLength = list.length;
+    this.moviesToShow = list.slice((page - 1) * this.pageSize, page * this.pageSize);
   }
 
-  sortChanged(scroll: boolean): void {
+  sortOrSearchChanged(scroll: boolean): void {
     this.movies = Utils.sortMovie(this.movies, { active: this.sortChosen.value, direction: this.sortDir });
     this.page = 1;
     this.getMoviesToShow(this.movies, this.page);

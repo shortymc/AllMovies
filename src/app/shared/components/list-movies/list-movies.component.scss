@@ -12,16 +12,26 @@
   }
 }
 
-.movies-sorting {
+.movies-params {
   display: inline-flex;
   flex-wrap: wrap;
+}
 
+.movies-sorting {
   & .toogleHeader {
     margin: auto;
   }
 
   & .mat-select {
     width: calc(100% - 20px) !important;
+  }
+}
+
+.movies-search {
+  padding-right: 15px;
+
+  & .pointer {
+    margin: auto;
   }
 }
 
