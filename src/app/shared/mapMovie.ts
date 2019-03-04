@@ -149,6 +149,7 @@ export class MapMovie {
     movie.adult = r.adult;
     movie.time = r.runtime;
     movie.note = r.vote_average;
+    movie.vote_count = r.vote_count;
     movie.budget = r.budget;
     movie.recette = r.revenue;
     MapMovie.convertLangToCountry(r.original_language, mockService).then(code => movie.language = code);
