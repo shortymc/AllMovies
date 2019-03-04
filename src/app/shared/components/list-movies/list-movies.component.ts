@@ -1,6 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, Input, ElementRef, OnChanges, SimpleChange } from '@angular/core';
 import { SortDirection } from '@angular/material';
 
 import { Movie } from '../../../model/movie';
@@ -12,20 +11,12 @@ import { DropDownChoice } from '../../../model/model';
   templateUrl: './list-movies.component.html',
   styleUrls: ['./list-movies.component.scss']
 })
-export class ListMoviesComponent implements OnInit {
-  _movies = new BehaviorSubject<Movie[]>(undefined);
-  @Input()
-  set movies(value: Movie[]) {
-    this._movies.next(value);
-  }
-
-  get movies(): Movie[] {
-    return this._movies.getValue();
-  }
+export class ListMoviesComponent implements OnChanges {
   @Input()
   label: string;
+  @Input()
+  movies: Movie[];
 
-  movieList: Movie[];
   page: number;
   moviesToShow: Movie[];
   sortChoices: DropDownChoice[];
@@ -38,17 +29,14 @@ export class ListMoviesComponent implements OnInit {
     private elemRef: ElementRef
   ) { }
 
-  ngOnInit(): void {
-    this.sortChoices = [new DropDownChoice('discover.sort_field.popularity', 'popularity'),
-    new DropDownChoice('discover.sort_field.release_date', 'date'), new DropDownChoice('discover.sort_field.original_title', 'title'),
-    new DropDownChoice('discover.sort_field.vote_average', 'note'), new DropDownChoice('discover.sort_field.vote_count', 'vote_count')];
-    this.sortChosen = this.sortChoices[0];
-    this.sortDir = 'desc';
-    this._movies
-      .subscribe(x => {
-        this.movieList = this.movies;
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }): void {
+    for (const field of Object.keys(changes)) {
+      if (field === 'movies') {
+        this.movies = changes[field].currentValue;
+        this.initSortProperties();
         this.sortChanged(false);
-      });
+      }
+    }
   }
 
   getMoviesToShow(movies: Movie[], page: number): void {
@@ -56,16 +44,30 @@ export class ListMoviesComponent implements OnInit {
   }
 
   sortChanged(scroll: boolean): void {
-    this.movieList = Utils.sortMovie(this.movieList, { active: this.sortChosen.value, direction: this.sortDir });
+    this.movies = Utils.sortMovie(this.movies, { active: this.sortChosen.value, direction: this.sortDir });
     this.page = 1;
-    this.getMoviesToShow(this.movieList, this.page);
+    this.getMoviesToShow(this.movies, this.page);
     if (scroll) {
       this.elemRef.nativeElement.scrollIntoView();
     }
   }
 
+  initSortProperties(): void {
+    if (!this.sortDir) {
+      this.sortDir = 'desc';
+    }
+    if (!this.sortChoices || this.sortChoices.length === 0) {
+      this.sortChoices = [new DropDownChoice('discover.sort_field.popularity', 'popularity'),
+      new DropDownChoice('discover.sort_field.release_date', 'date'), new DropDownChoice('discover.sort_field.original_title', 'title'),
+      new DropDownChoice('discover.sort_field.vote_average', 'note'), new DropDownChoice('discover.sort_field.vote_count', 'vote_count')];
+    }
+    if (!this.sortChosen) {
+      this.sortChosen = this.sortChoices[0];
+    }
+  }
+
   pageChanged(event: any): void {
-    this.getMoviesToShow(this.movieList, event);
+    this.getMoviesToShow(this.movies, event);
     this.elemRef.nativeElement.scrollIntoView();
   }
 
