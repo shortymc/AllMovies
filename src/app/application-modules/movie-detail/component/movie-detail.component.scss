@@ -76,10 +76,6 @@ pinch-zoom {
   padding: 0 7px;
 }
 
-::ng-deep .img-container img {/* stylelint-disable-line */
-  // margin-top: 25vh !important;
-}
-
 @include media(#{$smallscreen}) {
   .videos {
     @include full_width;
