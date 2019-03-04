@@ -13,11 +13,13 @@ export class MetaService {
 
   constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 
-  getLinkScore(title: string, site: any, isMovie: boolean): Promise<string> {
+  getLinkScore(title: string, site: any, imdbId: string, isMovie: boolean): Promise<string> {
     // 'siteSearch=http%3A%2F%2Fwww.metacritic.com%2Fmovie';
     // '&format=json&no_redirect=1&callback=JSONP_CALLBACK';
     if (site === DuckDuckGo.SEARCH_BANG_WIKI_EN.site || site === DuckDuckGo.SEARCH_BANG_WIKI_FR.site) {
       return this.wikisearch(title, site).toPromise();
+    } else if (site === DuckDuckGo.SEARCH_BANG_IMDB.site && imdbId) {
+      return new Promise(resolve => resolve(DuckDuckGo.IMDB_URL + (isMovie ? DuckDuckGo.IMDB_MOVIE_SUFFIX : DuckDuckGo.IMDB_PERSON_SUFFIX) + imdbId));
     } else {
       let url = DuckDuckGo.DUCKDUCKGO_URL + site + '+';
       url += UtilsService.encodeQueryUrl(title) + '&format=json&no_redirect=1';
