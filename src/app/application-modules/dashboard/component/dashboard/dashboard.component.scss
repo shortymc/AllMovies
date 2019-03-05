@@ -8,21 +8,11 @@ a {
 
 #swiper-top {
   z-index: 99;
-
-  & ::ng-deep.swiper-button-next,
-  & ::ng-deep.swiper-button-prev {
-    top: 70px !important;
-  }
 }
 
 #swiper-bottom {
   z-index: 1;
   top: 485px;
-
-  & ::ng-deep.swiper-button-next,
-  & ::ng-deep.swiper-button-prev {
-    top: 50px !important;
-  }
 }
 
 *,
@@ -77,6 +67,17 @@ a {
     position: fixed;
     width: 100vw;
     margin: auto !important;
+  }
+
+  ::ng-deep.swiper-button-next,
+  ::ng-deep.swiper-button-prev {
+    #swiper-top & {
+      top: 70px !important;
+    }
+
+    #swiper-bottom & {
+      top: 50px !important;
+    }
   }
 
   #person_title {
