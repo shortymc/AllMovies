@@ -1,14 +1,30 @@
 @import "../../../../styles/styles";
 
-[class*='col-'] {
-  display: inline-block;
-  padding-right: 20px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-}
+/* stylelint-disable selector-type-no-unknown */
 
 a {
   text-decoration: none;
+}
+
+swiper {
+  position: fixed;
+  width: 100vw;
+}
+
+#swiper-top {
+  z-index: 99;
+  top: 20vh;
+}
+
+#swiper-bottom {
+  z-index: 1;
+  top: 53vh;
+}
+
+#person_title {
+  position: fixed;
+  top: 45vh;
+  width: 100vw;
 }
 
 *,
@@ -17,31 +33,39 @@ a {
   @include box-sizing;
 }
 
-.col-1-3 {
-  width: 20%;
+.title {
+  margin: 20px 0;
 }
 
 .module {
-  min-width: 120px;
+  margin: 5px;
   padding: 20px;
   color: $blue;
   text-align: center;
   background-color: $true_white;
   border: 1px solid $blue;
   border-radius: 1.5em;
+
+  &:hover {
+    color: $true_white;
+    background-color: $blue;
+    cursor: pointer;
+  }
 }
 
-.module:hover {
-  color: $true_white;
-  background-color: $blue;
-  cursor: pointer;
+.movie-link {
+  margin-right: 0 !important;
+
+  &:hover {
+    height: 50vh !important;
+  }
 }
 
 .profile {
-  position: absolute;
+  position: fixed;
   z-index: 99;
   display: none;
-  margin: 10px 0 0 5vw;
+  margin: 5px 0 0 4vw;
   border: 3px solid $black;
   @include box-shadow;
 
@@ -51,14 +75,30 @@ a {
 }
 
 @include media(#{$smallscreen}) {
-  .movie-link {
-    @include full_width;
+  swiper {
+    position: inherit;
+    width: inherit;
   }
 
-  [class*='col-'] {
-    padding-right: 10px;
-    padding-bottom: 5px;
-    padding-left: 10px;
+  .wrapper {
+    height: 55vh;
+  }
+
+  .movie-link {
+    height: auto !important;
+    margin-bottom: 0 !important;
+
+    &:hover {
+      height: auto !important;
+    }
+  }
+
+  #person_title {
+    position: static;
+  }
+
+  .profile {
+    margin: 10px 0 0 25vw;
   }
 
   .module {
