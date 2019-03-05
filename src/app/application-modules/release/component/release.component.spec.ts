@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 
 import { MyNgbDate } from './../../../shared/my-ngb-date';
 import { SharedModule } from '../../../shared/shared.module';
+import { MovieService } from './../../../shared/service/movie.service';
 import { ReleaseComponent } from './release.component';
 import { MovieDetailModule } from '../../movie-detail/movie-detail.module';
 
@@ -21,7 +22,11 @@ describe('ReleaseComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ReleaseComponent],
-      providers: [TranslateService, MyNgbDate, DatePipe],
+      providers: [{
+        provide: MovieService,
+        useValue: jasmine.createSpyObj('MovieService', ['getMoviesByReleaseDates'])
+      },
+        TranslateService, MyNgbDate, DatePipe],
       imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), HttpClientModule, MovieDetailModule,
         RouterTestingModule, SharedModule.forRoot(), MatSnackBarModule, FontAwesomeModule, RatingModule]
     })
@@ -31,6 +36,8 @@ describe('ReleaseComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ReleaseComponent);
     component = fixture.componentInstance;
+    const movieService: jasmine.SpyObj<MovieService> = TestBed.get(MovieService);
+    movieService.getMoviesByReleaseDates.and.callFake(() => new Promise((resolve) => resolve([])));
   });
 
   it('init', () => {
