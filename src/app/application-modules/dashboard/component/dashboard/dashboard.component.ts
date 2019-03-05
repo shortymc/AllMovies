@@ -21,7 +21,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     a11y: true,
     keyboard: true,
     mousewheel: true,
-    spaceBetween: 30,
     slidesPerView: 5,
     scrollbar: false,
     navigation: true,
