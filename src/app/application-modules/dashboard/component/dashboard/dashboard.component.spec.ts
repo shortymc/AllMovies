@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser/';
 import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { SwiperModule } from 'ngx-swiper-wrapper';
 
 import { SharedModule } from './../../../../shared/shared.module';
 import { DashboardComponent } from './dashboard.component';
@@ -18,7 +19,7 @@ describe('DashboardComponent', () => {
       declarations: [DashboardComponent],
       providers: [TranslateService],
       imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), HttpClientModule,
-        RouterTestingModule, SharedModule.forRoot(), MatSnackBarModule]
+        RouterTestingModule, SharedModule.forRoot(), MatSnackBarModule, SwiperModule]
     })
       .compileComponents();
   }));
