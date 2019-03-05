@@ -9,21 +9,31 @@ a {
 swiper {
   position: fixed;
   width: 100vw;
+  margin: auto !important;
 }
 
 #swiper-top {
   z-index: 99;
-  top: 20vh;
+
+  & ::ng-deep.swiper-button-next,
+  & ::ng-deep.swiper-button-prev {
+    top: 70px !important;
+  }
 }
 
 #swiper-bottom {
   z-index: 1;
-  top: 53vh;
+  top: 485px;
+
+  & ::ng-deep.swiper-button-next,
+  & ::ng-deep.swiper-button-prev {
+    top: 50px !important;
+  }
 }
 
 #person_title {
   position: fixed;
-  top: 45vh;
+  top: 410px;
   width: 100vw;
 }
 
@@ -38,7 +48,7 @@ swiper {
 }
 
 .module {
-  margin: 5px;
+  margin: 5px 5px 10px 5px;
   padding: 20px;
   color: $blue;
   text-align: center;
@@ -54,10 +64,10 @@ swiper {
 }
 
 .movie-link {
-  margin-right: 0 !important;
+  overflow: visible !important;
 
   &:hover {
-    height: 50vh !important;
+    height: 80vh !important;
   }
 }
 
@@ -86,7 +96,6 @@ swiper {
 
   .movie-link {
     height: auto !important;
-    margin-bottom: 0 !important;
 
     &:hover {
       height: auto !important;
