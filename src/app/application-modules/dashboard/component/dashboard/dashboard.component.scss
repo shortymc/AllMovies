@@ -6,12 +6,6 @@ a {
   text-decoration: none;
 }
 
-swiper {
-  position: fixed;
-  width: 100vw;
-  margin: auto !important;
-}
-
 #swiper-top {
   z-index: 99;
 
@@ -29,12 +23,6 @@ swiper {
   & ::ng-deep.swiper-button-prev {
     top: 50px !important;
   }
-}
-
-#person_title {
-  position: fixed;
-  top: 410px;
-  width: 100vw;
 }
 
 *,
@@ -84,12 +72,21 @@ swiper {
   }
 }
 
-@include media(#{$smallscreen}) {
+@include desktop {
   swiper {
-    position: inherit;
-    width: inherit;
+    position: fixed;
+    width: 100vw;
+    margin: auto !important;
   }
 
+  #person_title {
+    position: fixed;
+    top: 410px;
+    width: 100vw;
+  }
+}
+
+@include media(#{$smallscreen}) {
   .wrapper {
     height: 55vh;
   }
@@ -100,10 +97,6 @@ swiper {
     &:hover {
       height: auto !important;
     }
-  }
-
-  #person_title {
-    position: static;
   }
 
   .profile {

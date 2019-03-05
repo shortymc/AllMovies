@@ -4,6 +4,12 @@
   }
 }
 
+@mixin desktop {
+  @media all and (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
 @mixin box-shadow {
   -webkit-box-shadow: 1px 1px 20px $black;
   -moz-box-shadow: 1px 1px 20px $black;
