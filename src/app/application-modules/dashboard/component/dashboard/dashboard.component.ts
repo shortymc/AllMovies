@@ -1,4 +1,6 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { TitleService, PersonService } from './../../../../shared/shared.module';
@@ -15,6 +17,20 @@ import { Url } from '../../../../constant/url';
 export class DashboardComponent implements OnInit, OnDestroy {
   movies: Movie[] = [];
   persons: Person[] = [];
+  swiperConfig: SwiperConfigInterface = {
+    a11y: true,
+    keyboard: true,
+    mousewheel: true,
+    spaceBetween: 30,
+    slidesPerView: 5,
+    scrollbar: false,
+    navigation: true,
+    pagination: false,
+    centeredSlides: false,
+    zoom: false,
+    slideToClickedSlide: true,
+    touchEventsTarget: 'wrapper'
+  };
   subs = [];
   Url = Url;
 
@@ -23,6 +39,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private personService: PersonService,
     private translate: TranslateService,
     private title: TitleService,
+    private breakpointObserver: BreakpointObserver,
   ) { }
 
   ngOnInit(): void {
@@ -33,16 +50,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.getTopMovies(event.lang);
       this.getToPersons(event.lang);
     }));
+    this.breakpointObserver.observe(['(max-width: 700px)'])
+      .subscribe(result => {
+        this.swiperConfig.direction = result.breakpoints['(max-width: 700px)'] ? 'vertical' : 'horizontal';
+      });
   }
 
   getTopMovies(language: string): void {
     this.movieService.getPopularMovies(language)
-      .then(movies => this.movies = movies.slice(0, 5));
+      .then(movies => this.movies = movies);
   }
 
   getToPersons(language: string): void {
     this.personService.getPopularPersons(language)
-      .then(persons => this.persons = persons.slice(0, 5));
+      .then(persons => this.persons = persons);
   }
 
   ngOnDestroy(): void {

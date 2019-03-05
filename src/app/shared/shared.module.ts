@@ -122,6 +122,7 @@ import { MyMoviesService } from './service/my-movies.service';
     PersonSearchComponent,
     ImageViewerComponent,
     MenuComponent,
+    SwiperModule
   ],
   entryComponents: [OpenLinkDialogComponent, FaIconComponent]
 })
