@@ -28,7 +28,10 @@ export class MyMoviesService {
   }
 
   static removeFields(key: string, value: string): string {
-    if (['synopsis', 'actors', 'crew', 'recommendations', 'videos', 'images'].includes(key)) {
+    if (
+      ['synopsis', 'actors', 'crew', 'recommendations', 'videos', 'images', 'checked', 'similars', 'images_thumb', 'alternativeTitles', 'character']
+        .includes(key)
+    ) {
       return undefined;
     }
     return value;
@@ -125,8 +128,17 @@ export class MyMoviesService {
     let tempMovieList = [];
     this.dropboxService.downloadFile(fileName).then(file => {
       let movieList = <Movie[]>JSON.parse(file);
+      // Replaces added date with saved ones
+      const idList = movieList.map(m => m.id);
+      moviesToReplace.forEach(movie => {
+        if (idList.includes(movie.id)) {
+          movie.added = movieList.find(m => m.id === movie.id).added;
+        }
+      });
+      // Removes from saved list movies to replaced
       movieList = movieList.filter((m: Movie) => !moviesToReplace.map((movie: Movie) => movie.id).includes(m.id)
         || !moviesToReplace.map((movie: Movie) => movie.lang_version).includes(m.lang_version));
+      // Push in saved list new movies
       moviesToReplace.forEach((movie: Movie) => movieList.push(movie));
       movieList.sort(Utils.compareObject);
       tempMovieList = movieList;

@@ -1,3 +1,4 @@
+import { filter, take } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -9,6 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import * as moment from 'moment-mini-ts';
 
 import { Utils } from './../../../../shared/utils';
 import { TitleService, AuthService, MovieService, MyMoviesService } from './../../../../shared/shared.module';
@@ -41,6 +43,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   genres: Genre[];
   filteredGenres: number[];
   scrollTo: HTMLElement;
+  subs = [];
 
   faTrash = faTrash;
   faHashtag = faHashtag;
@@ -79,20 +82,22 @@ export class MoviesComponent implements OnInit, OnDestroy {
       }
     });
     this.getMovies(this.translate.currentLang);
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+    this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.getMovies(event.lang);
-    });
+    }));
   }
 
   getMovies(lang: string): void {
     this.myMoviesService.myMovies$.subscribe(movies => {
       this.movies = movies.filter(movie => movie.lang_version === lang);
-      // this.checkAndFixData(this.movies, this.language);
       this.length = this.movies.length;
       this.initPagination(this.refreshData());
       this.getAllGenres();
-      // localStorage.setItem('movies', JSON.stringify(movies));
     });
+    this.myMoviesService.myMovies$.pipe(
+      filter(movies => movies && movies.length !== 0),
+      take(1)
+    ).subscribe(movies => this.checkAndFixData(movies.filter(movie => movie.lang_version === lang), lang));
   }
 
   getAllGenres(): void {
@@ -174,43 +179,32 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   checkAndFixData(movies: Movie[], lang: string): void {
     let incomplete: number[] = [];
-    // const map = new Map();
+    const twoMonthsAgo = moment().add(-2, 'months');
     try {
       for (const movie of movies) {
-        if ((movie.time === undefined)
-          || (movie.genres === undefined)
-          || (movie.score === undefined)
-          || (movie.genres.map(genre => genre.name).every(name => name === undefined))
-          // || (movie.original_title === undefined || movie.original_title == null || movie.original_title === '')
-        ) {
+        if (movie.time === undefined || movie.genres === undefined || movie.genres.map(genre => genre.name).every(name => name === undefined) ||
+          movie.score === undefined || movie.updated === undefined || moment(movie.updated).isBefore(twoMonthsAgo)) {
           incomplete.push(movie.id);
         }
-        // const res = map.get(movie.id);
-        // if (!res) {
-        //   map.set(movie.id, [movie.lang_version]);
-        // } else {
-        //   res.push(movie.lang_version);
-        // }
       }
-      //   const ids = movies.map(movie => movie.id);
-      //   for (const id of ids) {
-      //     const val = map.get(id);
-      //     if (val.length !== 2) {
-      //       incomplete.push(id);
-      //     }
-      //   }
     } catch (err) {
       console.log(err);
     }
     incomplete = incomplete.slice(0, 30);
     const obs = [];
-    incomplete.map((id: number) => {
+    incomplete.forEach((id: number) => {
       obs.push(this.movieService.getMovie(id, new MovieDetailConfig(false, false, false, false, false, false, false, false, lang), false));
     });
 
     try {
       forkJoin(obs).subscribe(
         (data: Movie[]) => {
+          data.forEach(m => {
+            m.updated = new Date();
+            if (m.score === undefined) {
+              m.score = {};
+            }
+          });
           this.auth.getFileName().then((fileName) => {
             this.myMoviesService.replaceMovies(data, fileName);
           });
@@ -242,8 +236,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('destroy');
-    // this.dropboxService.uploadFile(new Date(), 'test.json');
+    this.subs.forEach((subscription) => subscription.unsubscribe());
   }
 
 }
