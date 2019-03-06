@@ -60,6 +60,13 @@ export class MenuComponent implements OnInit, OnDestroy {
         this.user = undefined;
       }
     });
+    this.auth.user$.subscribe(user => {
+      if (user) {
+        this.user = user;
+      } else {
+        this.auth.getCurrentUser().then(u => this.user = u);
+      }
+    });
     this.menuService.visible$.subscribe((visible) => {
       this.visible = visible;
       this.changeDetectorRef.detectChanges();
