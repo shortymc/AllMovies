@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { AuthService, TitleService } from './../../../shared/shared.module';
 import { User } from './../../../model/user';
@@ -8,8 +8,9 @@ import { User } from './../../../model/user';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   user: User;
+  subs = [];
 
   constructor(
     private auth: AuthService,
@@ -17,7 +18,13 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.auth.getCurrentUser().then(user => this.user = user);
+    this.subs.push(this.auth.user$.subscribe(user => {
+      if (user) {
+        this.user = user;
+      } else {
+        this.auth.getCurrentUser().then(u => this.user = u);
+      }
+    }));
     this.title.setTitle('title.profile');
   }
 
@@ -25,4 +32,7 @@ export class ProfileComponent implements OnInit {
     this.auth.changeUser(this.user);
   }
 
+  ngOnDestroy(): void {
+    this.subs.forEach((subscription) => subscription.unsubscribe());
+  }
 }
