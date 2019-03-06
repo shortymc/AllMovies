@@ -16,13 +16,18 @@ import { User } from '../../model/user';
 
 @Injectable()
 export class AuthService {
-
   redirectUrl: string;
+  user$ = new BehaviorSubject(undefined);
   isLogged = new BehaviorSubject<boolean>(false);
   private fileName: string;
 
-  constructor(private dropbox: DropboxService, private router: Router, private serviceUtils: UtilsService,
-    private toast: ToastService, private translate: TranslateService) { }
+  constructor(
+    private dropbox: DropboxService,
+    private router: Router,
+    private serviceUtils: UtilsService,
+    private toast: ToastService,
+    private translate: TranslateService
+  ) { }
 
   static decodeToken(token: string): User {
     let tkn = token;
@@ -102,10 +107,12 @@ export class AuthService {
         AuthService.setToken(this.createToken(found_users[0]));
         this.isLogged.next(true);
         this.fileName = AuthService.getUserFileName(found_users[0].id);
+        this.user$.next(found_users[0]);
         return true;
       } else {
         this.isLogged.next(false);
         this.fileName = '';
+        this.user$.next(undefined);
         return false;
       }
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
@@ -147,6 +154,7 @@ export class AuthService {
           console.log(res);
           this.toast.open(this.translate.instant('toast.user_changed'), Level.success);
         }).catch((err) => this.serviceUtils.handleError(err, this.toast));
+      this.user$.next(user);
       return user;
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
@@ -212,6 +220,7 @@ export class AuthService {
           console.log(res);
           this.toast.open(this.translate.instant('toast.user_changed'), Level.success);
         }).catch((err) => this.serviceUtils.handleError(err, this.toast));
+      this.user$.next(user);
       return user;
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
@@ -261,6 +270,7 @@ export class AuthService {
     this.fileName = '';
     AuthService.removeToken();
     sessionStorage.clear();
+    this.user$.next(undefined);
     this.router.navigate(['/login']);
   }
 }
