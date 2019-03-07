@@ -1,4 +1,4 @@
-import { AlternativeTitle, Lang, Flag } from './../model/model';
+import { AlternativeTitle, Lang, Flag, Genre } from './../model/model';
 import { Url } from './../constant/url';
 import { Utils } from './utils';
 import { Movie } from './../model/movie';
@@ -52,11 +52,17 @@ export class MapMovie {
       adult: r.adult,
       original_title: Utils.getTitle(r),
       popularity: r.popularity,
-      vote_count: r.vote_count
+      vote_count: r.vote_count,
+      genres: r.genre_ids.map(g => {
+        const genre = new Genre();
+        genre.id = g;
+        return genre;
+      })
     }));
     discover.total_pages = response.total_pages;
     discover.page = response.page;
     discover.total_results = response.total_results;
+    console.log('discover', discover);
     return discover;
   }
 
