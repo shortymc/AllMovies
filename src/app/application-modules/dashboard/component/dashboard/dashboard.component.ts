@@ -27,7 +27,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     pagination: false,
     centeredSlides: false,
     zoom: false,
-    slideToClickedSlide: true,
     touchEventsTarget: 'wrapper'
   };
   subs = [];
