@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { TranslateService } from '@ngx-translate/core';
@@ -50,6 +51,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   playing = false;
   playingDate: string[];
   clean = false;
+  genresLoaded$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   subs = [];
 
   constructor(
@@ -126,6 +128,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     this.subs.push(this.genreService.getAllGenre(this.translate.currentLang).subscribe(genres => {
       this.allGenres = genres.map(genre => new DropDownChoice(genre.name, genre.id));
       this.selectedGenres = genresId ? this.allGenres.filter(genre => genresId.includes(genre.value)).map(genre => genre.value) : [];
+      this.genresLoaded$.next(true);
     }));
   }
 
@@ -265,6 +268,15 @@ export class DiscoverComponent implements OnInit, OnDestroy {
 
   updateSize(): void {
     this.nbChecked = this.discover.movies.filter(movie => movie.checked).length;
+  }
+
+  getGenre(genreId: number): string {
+    return this.allGenres.find(genre => genre.value === genreId).label_key;
+  }
+
+  filterGenre(genreId: number): void {
+    this.selectedGenres = [genreId];
+    this.search(true);
   }
 
   ngOnDestroy(): void {
