@@ -58,38 +58,44 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
             this.listMoviesOrder = [
               new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.director, person.asDirector),
               new DropDownChoice(Job.producer, person.asProducer), new DropDownChoice(Job.screenwriter, person.asScreenplay),
-              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors)];
+              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors),
+              new DropDownChoice(Job.other, person.asOther)];
             break;
           case 'Directing':
             this.listMoviesOrder = [
               new DropDownChoice(Job.director, person.asDirector), new DropDownChoice(Job.producer, person.asProducer),
               new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.screenwriter, person.asScreenplay),
-              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors)];
+              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors),
+              new DropDownChoice(Job.other, person.asOther)];
             break;
           case 'Sound':
             this.listMoviesOrder = [
               new DropDownChoice(Job.composer, person.asCompositors), new DropDownChoice(Job.actor, person.asActor),
               new DropDownChoice(Job.director, person.asDirector), new DropDownChoice(Job.producer, person.asProducer),
-              new DropDownChoice(Job.screenwriter, person.asScreenplay), new DropDownChoice(Job.novelist, person.asNovel)];
+              new DropDownChoice(Job.screenwriter, person.asScreenplay), new DropDownChoice(Job.novelist, person.asNovel),
+              new DropDownChoice(Job.other, person.asOther)];
             break;
           case 'Writing':
             this.listMoviesOrder = [
               new DropDownChoice(Job.screenwriter, person.asScreenplay), new DropDownChoice(Job.novelist, person.asNovel),
               new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.director, person.asDirector),
-              new DropDownChoice(Job.producer, person.asProducer), new DropDownChoice(Job.composer, person.asCompositors)];
+              new DropDownChoice(Job.producer, person.asProducer), new DropDownChoice(Job.composer, person.asCompositors),
+              new DropDownChoice(Job.other, person.asOther)];
             break;
           case 'Production':
             this.listMoviesOrder = [
               new DropDownChoice(Job.producer, person.asProducer), new DropDownChoice(Job.director, person.asDirector),
               new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.screenwriter, person.asScreenplay),
-              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors)];
+              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors),
+              new DropDownChoice(Job.other, person.asOther)];
             break;
           default:
             console.log('default');
             this.listMoviesOrder = [
               new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.director, person.asDirector),
               new DropDownChoice(Job.producer, person.asProducer), new DropDownChoice(Job.screenwriter, person.asScreenplay),
-              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors)];
+              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors),
+              new DropDownChoice(Job.other, person.asOther)];
             break;
         }
         this.title.setTitle(person.name);
