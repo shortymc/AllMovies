@@ -1,5 +1,23 @@
 @import "../../../styles/styles";
 
+.movie-title {
+  font-size: 3em;
+  font-weight: 550;
+}
+
+.movie-poster {
+  display: flex;
+  margin: 20px;
+}
+
+.media-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 /* stylelint-disable selector-type-no-unknown */
 pinch-zoom {
   width: auto;
@@ -74,6 +92,18 @@ pinch-zoom {
 
 .alternative-btn {
   padding: 0 7px;
+}
+
+@include desktop {
+  .align-left {
+    text-align: left !important;
+    margin-left: 25vw;
+  }
+
+  .movie-content {
+    display: table;
+    margin-left: 25vw;
+  }
 }
 
 @include media(#{$smallscreen}) {
