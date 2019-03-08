@@ -113,6 +113,7 @@
         "composer": "As composer",
         "screenwriter": "As screenwriter",
         "novelist": "As novelist",
+        "technician": "As technician",
         "add": "Add Selected Movies To Collection",
         "total": "Total"
     },
@@ -135,7 +136,9 @@
             "Sound": "Composer",
             "Writing": "Screenwriter",
             "Production": "Productor",
-            "Editing": "Editor"
+            "Editing": "Editor",
+            "Art": "Decorator",
+            "Crew": "Technician"
         }
     },
     "person-search": {

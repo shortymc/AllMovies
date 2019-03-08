@@ -5,4 +5,5 @@ export class Job {
   static readonly screenwriter = 'screenwriter';
   static readonly composer = 'composer';
   static readonly novelist = 'novelist';
+  static readonly other = 'technician';
 }

@@ -33,14 +33,18 @@ export class MapPerson {
       const asScreenplay = credits.crew.filter((r: any) => (Utils.jobEquals(r.job, 'Screenplay') || Utils.jobEquals(r.job, 'Writer')))
         .map((r: any) => MapMovie.toMovie(r));
       const asNovel = credits.crew.filter((r: any) => Utils.jobEquals(r.job, 'Novel')).map((r: any) => MapMovie.toMovie(r));
+      const asOther = credits.crew.filter((r: any) =>
+        !Utils.jobEquals(r.job, Job.director) && !Utils.jobEquals(r.job, 'Compositors') && !Utils.jobEquals(r.job, 'Original Music Composer') &&
+        !Utils.jobEquals(r.job, 'Novel') && !Utils.jobEquals(r.job, Job.producer) && !Utils.jobEquals(r.job, 'Screenplay') &&
+        !Utils.jobEquals(r.job, 'Writer')).map((r: any) => MapMovie.toMovie(r));
 
       result = new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
-        Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img,
-        asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel, resp.known_for_department, img_thumb, resp.popularity, resp.imdb_id);
+        Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img, asActor, asDirector, asProducer,
+        asCompositors, asScreenplay, asNovel, asOther, resp.known_for_department, img_thumb, resp.popularity, resp.imdb_id);
     } else {
       result = new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
-        Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img,
-        undefined, undefined, undefined, undefined, undefined, undefined, resp.known_for_department, img_thumb, resp.popularity, resp.imdb_id);
+        Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img, undefined, undefined, undefined,
+        undefined, undefined, undefined, undefined, resp.known_for_department, img_thumb, resp.popularity, resp.imdb_id);
     }
     console.log('mapPerson', result);
     return result;
