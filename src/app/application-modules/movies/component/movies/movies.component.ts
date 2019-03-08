@@ -81,6 +81,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
         this.displayedColumns = this.init_columns;
       }
     });
+    if (this.page) {
+      this.page.pageIndex = 0;
+      this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
+    }
     this.getMovies(this.translate.currentLang);
     this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.getMovies(event.lang);
@@ -91,7 +95,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.myMoviesService.myMovies$.subscribe(movies => {
       this.movies = movies.filter(movie => movie.lang_version === lang);
       this.length = this.movies.length;
-      this.initPagination(this.refreshData());
+      this.paginate(this.refreshData());
       this.getAllGenres();
     });
     this.myMoviesService.myMovies$.pipe(
@@ -177,6 +181,11 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.nbChecked = this.movies.filter(movie => movie.checked).length;
   }
 
+  /**
+   * Requests movies to MovieDb if some properties (genres, time, score) are missing or if the last updated is from more than two months ago.
+   * @param  {Movie[]} movies movies to check
+   * @param  {string} lang the lang to request the movie to
+   */
   checkAndFixData(movies: Movie[], lang: string): void {
     let incomplete: number[] = [];
     const twoMonthsAgo = moment().add(-2, 'months');
@@ -217,15 +226,8 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   remove(): void {
-    const ids = this.movies.filter(movie => movie.checked).map(movie => movie.id);
-    this.movies = this.movies.filter(movie => !movie.checked);
-    if (this.filteredGenres) {
-      this.onFilterGenres(this.filteredGenres);
-    } else {
-      this.paginate(this.refreshData());
-    }
     this.auth.getFileName().then((fileName) => {
-      this.myMoviesService.remove(ids, fileName);
+      this.myMoviesService.remove(this.movies.filter(movie => movie.checked).map(movie => movie.id), fileName);
     });
     this.nbChecked = 0;
     this.onTop();
