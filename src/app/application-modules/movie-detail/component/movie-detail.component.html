@@ -2,198 +2,198 @@
   <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
     <app-image-viewer [images]="movie.images" [thumbnails]="movie.images_thumb" [visible]="isImagesVisible"></app-image-viewer>
   </app-modal>
-  <h2>{{'movie.header' | translate}} {{movie.title}}:</h2>
-  <div>
-    <app-image-viewer [images]="movie.affiche" [thumbnails]="movie.thumbnail" [visible]="true"></app-image-viewer>
-  </div>
-  <div class="contenu">
-    <!-- Go Back Btn -->
-    <button class="btn btn-outline-primary" (click)="goBack()" *ngIf="isDetail">
-      <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'global.previous' | translate}}
-    </button>
-    <button class="btn btn-outline-primary" appOpenLink [label]="movie.title" url="/movie/{{movie.id}}" *ngIf="!isDetail">
-      <fa-icon [icon]="faChevronCircleRight"></fa-icon> {{'global.go_detail' | translate}}
-    </button>
-    <!-- Add to collection btn -->
-    <button class="btn btn-outline-primary" appAddCollection [movies]="[movie]" [label]="'global.add_collection'">
-    </button>
+  <h1 class="movie-title align-left">{{movie.title}} ({{movie.date | date:'yyyy'}})</h1>
+  <!-- Time -->
+  <h3 class="movie-time align-left" *ngIf="movie.time > 0">
+    {{movie.time | convertToHHmm:'true'}}
+  </h3>
+  <div class="movie-content">
+    <app-image-viewer class="movie-poster" [images]="movie.affiche" [thumbnails]="movie.thumbnail" [visible]="true"></app-image-viewer>
+    <div class="movie-btn">
+      <!-- Go Back Btn -->
+      <button class="btn btn-outline-primary" (click)="goBack()" *ngIf="isDetail">
+        <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'global.previous' | translate}}
+      </button>
+      <!-- Detail Btn -->
+      <button class="btn btn-outline-primary" appOpenLink [label]="movie.title" url="/movie/{{movie.id}}" *ngIf="!isDetail">
+        <fa-icon [icon]="faChevronCircleRight"></fa-icon> {{'global.go_detail' | translate}}
+      </button>
+      <!-- Add to collection btn -->
+      <button class="btn btn-outline-primary" appAddCollection [movies]="[movie]" [label]="'global.add_collection'">
+      </button>
+    </div>
     <div>
       <label>{{'movie.id' | translate}}:</label>{{movie.id}}
     </div>
-    <div>
-      <!-- Title -->
-      <label>{{'movie.title' | translate}}: </label>{{movie.title | capitalizeWord}}
-      <div *ngIf="movie.title !== movie.original_title">
-        <label>{{'global.original_title' | translate}}: </label>{{movie.original_title | capitalizeWord}}
-      </div>
-      <div *ngIf="movie.alternativeTitles && movie.alternativeTitles.length > 0">
-        <label>{{'movie.alternative_title' | translate}}: </label>
-        <button class="btn btn-outline-primary alternative-btn" *ngIf="!showTitles" (click)="showTitles=!showTitles">
-          <fa-icon [icon]="faPlus" size="xs"></fa-icon>
-        </button>
-        <button class="btn btn-outline-primary alternative-btn" *ngIf="showTitles" (click)="showTitles=!showTitles">
-          <fa-icon [icon]="faMinus" size="xs"></fa-icon>
-        </button>
-        <ng-container *ngIf="showTitles">
-          <div *ngFor="let alternative of movie.alternativeTitles">
-            {{alternative.lang}}: {{alternative.title}}
-          </div>
-        </ng-container>
-      </div>
-      <!-- Country -->
-      <div *ngIf="movie.production_countries && movie.production_countries.length > 0">
-        <label>{{'movie.country' | translate}}: </label>
-        <span *ngFor="let country of movie.production_countries">
-          <h1 class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" matTooltip="{{country.name}}"></h1>
-        </span>
-      </div>
-      <div>
-        <label>{{'movie.spoken_langs' | translate}}: </label>
-        <div class="d-flex" *ngIf="movie.spokenLangs && movie.spokenLangs.length > 0; else originalLang">
-          <div *ngFor="let lang of movie.spokenLangs">
-            <h3 class="flag-icon flag-icon-{{lang.code | lowercase}}" matTooltip="{{lang.label}}"></h3>
-          </div>
+    <!-- Title -->
+    <div *ngIf="movie.title !== movie.original_title">
+      <label>{{'global.original_title' | translate}}: </label>{{movie.original_title | capitalizeWord}}
+    </div>
+    <div *ngIf="movie.alternativeTitles && movie.alternativeTitles.length > 0">
+      <label>{{'movie.alternative_title' | translate}}: </label>
+      <button class="btn btn-outline-primary alternative-btn" *ngIf="!showTitles" (click)="showTitles=!showTitles">
+        <fa-icon [icon]="faPlus" size="xs"></fa-icon>
+      </button>
+      <button class="btn btn-outline-primary alternative-btn" *ngIf="showTitles" (click)="showTitles=!showTitles">
+        <fa-icon [icon]="faMinus" size="xs"></fa-icon>
+      </button>
+      <ng-container *ngIf="showTitles">
+        <div *ngFor="let alternative of movie.alternativeTitles">
+          {{alternative.lang}}: {{alternative.title}}
         </div>
-        <ng-template #originalLang>
-          <h3 class="flag-icon flag-icon-{{movie.language | lowercase}}" matTooltip="{{movie.language}}"></h3>
-        </ng-template>
-      </div>
-      <!-- Date -->
-      <div>
-        <label>{{'movie.date' | translate}}: </label>
-        <div *ngIf="movie.releaseDates; else defaultRelease">
-          <div *ngFor="let release of movie.releaseDates">
-            {{'release_type.' + release.type| translate}}: {{release.date| date:'dd MMMM
-            yyyy':'':translate.currentLang | capitalizeWord}}
-          </div>
-        </div>
-        <ng-template #defaultRelease>
-          {{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang |
-          capitalizeWord}}
-        </ng-template>
-      </div>
-      <!-- Time -->
-      <div *ngIf="movie.time > 0">
-        <label>{{'movie.length' | translate}}: </label>{{movie.time | convertToHHmm}}
-      </div>
-      <!-- Score -->
-      <div *ngIf="movie.score as score">
-        <div *ngFor="let rating of score.ratings">
-          <label>{{rating.Source}}: </label>{{rating.Value}}</div>
-        <label>Awards: </label>{{score.awards}}
-      </div>
-      <!-- Rating -->
-      <div *ngIf="movie.note > 0">
-        <label>{{'movie.rating' | translate}}: </label>
-        {{movie.note}} / 10 ({{movie.vote_count}}) - {{movie.popularity | number:'1.0-2':translate.currentLang}}
-        <rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
-      </div>
-      <!-- Genre -->
-      <div *ngIf="movie.genres && movie.genres.length > 0">
-        <label>{{'movie.genres' | translate}}: </label>
-        <div class="block">
-          <span *ngFor="let genre of movie.genres; let last=last;" (click)="redirectGenreToDiscover(genre)">
-            <span class="pointer">{{genre.name| capitalizeWord}}</span>
-            <span *ngIf="!last">/</span>
-          </span>
-        </div>
-      </div>
-      <!-- Keyword -->
-      <div *ngIf="movie.keywords && movie.keywords.length > 0">
-        <label>{{'movie.keyword' | translate}}: </label>
-        <div class="synopsis">
-          <span *ngFor="let keyword of movie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)">
-            <span class="pointer">{{keyword.name| capitalizeWord}}</span>
-            <span *ngIf="!last">/</span>
-          </span>
-        </div>
-      </div>
-      <!-- Overview -->
-      <div *ngIf="movie.synopsis">
-        <label>{{'movie.synopsis' | translate}}: </label>
-        <div class="synopsis text-justify">{{movie.synopsis}}</div>
-      </div>
-      <!-- Pictures -->
-      <ng-container *ngIf="config.img">
-        <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible" *ngIf="movie.images">
-          <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'movie.image' | translate}}
-        </button>
-      </ng-container>
-      <ng-container *ngIf="config.credit">
-        <!-- Actors -->
-        <app-list-persons [persons]="movie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
-        <!-- Crew -->
-        <div *ngIf="isDetail && movie.crew && movie.crew.length > 0">
-          <div *ngIf="(movie.crew | filterCrew:'director') as director">
-            <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
-          </div>
-          <div *ngIf="(movie.crew | filterCrew:'producer') as producer">
-            <app-list-persons [persons]="producer" [label]="'person-list.producers' | translate"></app-list-persons>
-          </div>
-          <div *ngIf="(movie.crew | filterCrew:'Original Music Composer') as composer">
-            <app-list-persons [persons]="composer" [label]="'person-list.composers' | translate"></app-list-persons>
-          </div>
-          <div *ngIf="(movie.crew | filterCrew:'Compositors') as compositors">
-            <app-list-persons [persons]="compositors" [label]="'person-list.composers' | translate"></app-list-persons>
-          </div>
-          <div *ngIf="(movie.crew | filterCrew:'screenplay') as screenplay">
-            <app-list-persons [persons]="screenplay" [label]="'person-list.screenwriters' | translate"></app-list-persons>
-          </div>
-          <div *ngIf="(movie.crew | filterCrew:'writer') as screenplay">
-            <app-list-persons [persons]="screenplay" [label]="'person-list.screenwriters' | translate"></app-list-persons>
-          </div>
-          <div *ngIf="(movie.crew | filterCrew:'novel') as novel">
-            <app-list-persons [persons]="novel" [label]="'person-list.novelists' | translate"></app-list-persons>
-          </div>
-          <div *ngIf="(movie.crew | filterCrew:'cameo') as cameo">
-            <app-list-persons [persons]="cameo" [label]="'person-list.cameos' | translate"></app-list-persons>
-          </div>
-          <div *ngIf="(movie.crew | filterCrew:'special Guest') as guest">
-            <app-list-persons [persons]="guest" [label]="'person-list.guests' | translate"></app-list-persons>
-          </div>
-          <div *ngIf="(movie.crew | filterCrew:'songs') as songs">
-            <app-list-persons [persons]="songs" [label]="'person-list.song' | translate"></app-list-persons>
-          </div>
-          <div *ngIf="(movie.crew | filterCrew:'music') as music">
-            <app-list-persons [persons]="music" [label]="'person-list.music' | translate"></app-list-persons>
-          </div>
-        </div>
-        <div *ngIf="!isDetail && (movie.crew | filterCrew:'director') as director">
-          <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
-        </div>
-      </ng-container>
-      <!-- Budget -->
-      <div *ngIf="movie.budget > 0">
-        <label>{{'movie.budget' | translate}}: </label>{{movie.budget |
-        currency:'USD':'':'1.0-0':translate.currentLang}}
-      </div>
-      <!-- Revenu -->
-      <div *ngIf="movie.recette > 0">
-        <label>{{'movie.revenu' | translate}}: </label>{{movie.recette |
-        currency:'USD':'':'1.0-0':translate.currentLang}}
-      </div>
-      <!-- Links -->
-      <app-meta [entry]="movie" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
-      <!-- Video -->
-      <ng-container *ngIf="config.video">
-        <div *ngIf="movie.videos && movie.videos.length > 0">
-          <label>{{'movie.video' | translate}}:</label>
-          <ul class="videos">
-            <li *ngFor="let video of movie.videos">
-              <a href="https://www.youtube.com/watch?v={{video.key}}" class="badge" target="_blank">{{video.name |
-                capitalizeWord}}</a>
-            </li>
-          </ul>
-        </div>
-      </ng-container>
-      <!-- recommendations -->
-      <ng-container *ngIf="movie.recommendations">
-        <app-list-movies [movies]="movie.recommendations" [label]="('movie.reco' | translate).concat(':')"></app-list-movies>
-      </ng-container>
-      <!-- Similar movies -->
-      <ng-container *ngIf="movie.similars">
-        <app-list-movies [movies]="movie.similars" [label]="('movie.similar' | translate).concat(':')"></app-list-movies>
       </ng-container>
     </div>
+    <!-- Country -->
+    <div *ngIf="movie.production_countries && movie.production_countries.length > 0">
+      <label>{{'movie.country' | translate}}: </label>
+      <span *ngFor="let country of movie.production_countries">
+        <h1 class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" matTooltip="{{country.name}}"></h1>
+      </span>
+    </div>
+    <div>
+      <label>{{'movie.spoken_langs' | translate}}: </label>
+      <div class="d-flex" *ngIf="movie.spokenLangs && movie.spokenLangs.length > 0; else originalLang">
+        <div *ngFor="let lang of movie.spokenLangs">
+          <h3 class="flag-icon flag-icon-{{lang.code | lowercase}}" matTooltip="{{lang.label}}"></h3>
+        </div>
+      </div>
+      <ng-template #originalLang>
+        <h3 class="flag-icon flag-icon-{{movie.language | lowercase}}" matTooltip="{{movie.language}}"></h3>
+      </ng-template>
+    </div>
+    <!-- Date -->
+    <div>
+      <label>{{'movie.date' | translate}}: </label>
+      <div *ngIf="movie.releaseDates; else defaultRelease">
+        <div *ngFor="let release of movie.releaseDates">
+          {{'release_type.' + release.type| translate}}: {{release.date| date:'dd MMMM
+          yyyy':'':translate.currentLang | capitalizeWord}}
+        </div>
+      </div>
+      <ng-template #defaultRelease>
+        {{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang |
+        capitalizeWord}}
+      </ng-template>
+    </div>
+    <!-- Score -->
+    <div *ngIf="movie.score as score">
+      <div *ngFor="let rating of score.ratings">
+        <label>{{rating.Source}}: </label>{{rating.Value}}</div>
+      <label>Awards: </label>{{score.awards}}
+    </div>
+    <!-- Budget -->
+    <div *ngIf="movie.budget > 0">
+      <label>{{'movie.budget' | translate}}: </label>{{movie.budget |
+      currency:'USD':'':'1.0-0':translate.currentLang}}
+    </div>
+    <!-- Revenu -->
+    <div *ngIf="movie.recette > 0">
+      <label>{{'movie.revenu' | translate}}: </label>{{movie.recette |
+      currency:'USD':'':'1.0-0':translate.currentLang}}
+    </div>
+    <!-- Rating -->
+    <div *ngIf="movie.note > 0">
+      <label>{{'movie.rating' | translate}}: </label>
+      {{movie.note}} / 10 ({{movie.vote_count}}) - {{movie.popularity | number:'1.0-2':translate.currentLang}}
+      <rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
+    </div>
+    <!-- Genre -->
+    <div *ngIf="movie.genres && movie.genres.length > 0">
+      <label>{{'movie.genres' | translate}}: </label>
+      <div class="block">
+        <span *ngFor="let genre of movie.genres; let last=last;" (click)="redirectGenreToDiscover(genre)">
+          <span class="pointer">{{genre.name| capitalizeWord}}</span>
+          <span *ngIf="!last">/</span>
+        </span>
+      </div>
+    </div>
+    <!-- Keyword -->
+    <div *ngIf="movie.keywords && movie.keywords.length > 0">
+      <label>{{'movie.keyword' | translate}}: </label>
+      <div class="synopsis">
+        <span *ngFor="let keyword of movie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)">
+          <span class="pointer">{{keyword.name| capitalizeWord}}</span>
+          <span *ngIf="!last">/</span>
+        </span>
+      </div>
+    </div>
+    <!-- Overview -->
+    <div *ngIf="movie.synopsis">
+      <label>{{'movie.synopsis' | translate}}: </label>
+      <div class="synopsis text-justify">{{movie.synopsis}}</div>
+    </div>
+    <!-- Pictures -->
+    <ng-container *ngIf="config.img">
+      <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible" *ngIf="movie.images">
+        <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'movie.image' | translate}}
+      </button>
+    </ng-container>
+    <ng-container *ngIf="config.credit">
+      <!-- Actors -->
+      <app-list-persons [persons]="movie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
+      <!-- Crew -->
+      <div *ngIf="isDetail && movie.crew && movie.crew.length > 0">
+        <div *ngIf="(movie.crew | filterCrew:'director') as director">
+          <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(movie.crew | filterCrew:'producer') as producer">
+          <app-list-persons [persons]="producer" [label]="'person-list.producers' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(movie.crew | filterCrew:'Original Music Composer') as composer">
+          <app-list-persons [persons]="composer" [label]="'person-list.composers' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(movie.crew | filterCrew:'Compositors') as compositors">
+          <app-list-persons [persons]="compositors" [label]="'person-list.composers' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(movie.crew | filterCrew:'screenplay') as screenplay">
+          <app-list-persons [persons]="screenplay" [label]="'person-list.screenwriters' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(movie.crew | filterCrew:'writer') as screenplay">
+          <app-list-persons [persons]="screenplay" [label]="'person-list.screenwriters' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(movie.crew | filterCrew:'novel') as novel">
+          <app-list-persons [persons]="novel" [label]="'person-list.novelists' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(movie.crew | filterCrew:'cameo') as cameo">
+          <app-list-persons [persons]="cameo" [label]="'person-list.cameos' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(movie.crew | filterCrew:'special Guest') as guest">
+          <app-list-persons [persons]="guest" [label]="'person-list.guests' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(movie.crew | filterCrew:'songs') as songs">
+          <app-list-persons [persons]="songs" [label]="'person-list.song' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(movie.crew | filterCrew:'music') as music">
+          <app-list-persons [persons]="music" [label]="'person-list.music' | translate"></app-list-persons>
+        </div>
+      </div>
+      <div *ngIf="!isDetail && (movie.crew | filterCrew:'director') as director">
+        <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
+      </div>
+    </ng-container>
+    <!-- Links -->
+    <app-meta [entry]="movie" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
+    <!-- Video -->
+    <ng-container *ngIf="config.video">
+      <div *ngIf="movie.videos && movie.videos.length > 0">
+        <label>{{'movie.video' | translate}}:</label>
+        <ul class="videos">
+          <li *ngFor="let video of movie.videos">
+            <a href="https://www.youtube.com/watch?v={{video.key}}" class="badge" target="_blank">{{video.name |
+              capitalizeWord}}</a>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+  </div>
+  <div class="media-content">
+    <!-- recommendations -->
+    <ng-container *ngIf="movie.recommendations">
+      <app-list-movies [movies]="movie.recommendations" [label]="('movie.reco' | translate).concat(':')"></app-list-movies>
+    </ng-container>
+    <!-- Similar movies -->
+    <ng-container *ngIf="movie.similars">
+      <app-list-movies [movies]="movie.similars" [label]="('movie.similar' | translate).concat(':')"></app-list-movies>
+    </ng-container>
   </div>
 </div>
