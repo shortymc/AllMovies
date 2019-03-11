@@ -102,7 +102,8 @@
       <label>{{'movie.genres' | translate}}: </label>
       <div class="block">
         <span *ngFor="let genre of movie.genres; let last=last;" (click)="redirectGenreToDiscover(genre)">
-          <span class="pointer">{{genre.name| capitalizeWord}}</span>
+          <span class="pointer" appOpenLink [label]="genre.name" url="/discover?genre=[{{genre.id}}]">{{genre.name|
+            capitalizeWord}}</span>
           <span *ngIf="!last">/</span>
         </span>
       </div>
@@ -112,7 +113,8 @@
       <label>{{'movie.keyword' | translate}}: </label>
       <div class="synopsis">
         <span *ngFor="let keyword of movie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)">
-          <span class="pointer">{{keyword.name| capitalizeWord}}</span>
+          <span class="pointer" appOpenLink [label]="keyword.name" url="/discover?keyword=[{{keyword.id}}]">{{keyword.name|
+            capitalizeWord}}</span>
           <span *ngIf="!last">/</span>
         </span>
       </div>
