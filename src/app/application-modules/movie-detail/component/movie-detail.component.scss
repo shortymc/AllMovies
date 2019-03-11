@@ -6,7 +6,6 @@
 }
 
 .movie-poster {
-  display: flex;
   margin: 20px;
 }
 
@@ -19,9 +18,8 @@
 }
 
 /* stylelint-disable selector-type-no-unknown */
-pinch-zoom {
-  width: auto;
-  height: 100vh;
+::ng-deep pinch-zoom {
+  margin: 20px !important;
 }
 
 .gallery-top {
@@ -103,6 +101,7 @@ pinch-zoom {
   .movie-content {
     display: table;
     margin-left: 25vw;
+    width: 33vw;
   }
 }
 
