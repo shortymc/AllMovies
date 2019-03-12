@@ -1,6 +1,6 @@
 <ng-container *ngIf="isLogged$ | async">
   <mat-toolbar class="toolbar" *ngIf="visible">
-    <button class="btn" (click)="sidenav.toggle()">
+    <button class="btn btn-light" (click)="sidenav.toggle()">
       <fa-icon [icon]="faBars"></fa-icon>
     </button>
     <div class="search-boxes">
