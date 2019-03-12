@@ -4,7 +4,6 @@
   flex: 1 100%;
 
   & .movie-title {
-    font-size: 3em;
     font-weight: 550;
   }
 
@@ -111,7 +110,17 @@
   padding: 0 7px;
 }
 
+@include desktop {
+  .movie-title {
+    font-size: 3em;
+  }
+}
+
 @include media(#{$smallscreen}) {
+  .movie-title {
+      font-size: 1.5em;
+  }
+
   .synopsis {
     width: 95vw !important;
   }
@@ -121,7 +130,7 @@
 
     & li {
       width: 90vw;
-      margin-bottom: 1.5em;
+      margin-bottom: 1em;
     }
 
     & .badge {
