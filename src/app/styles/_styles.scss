@@ -237,9 +237,25 @@ input[type='checkbox'] {
   user-select: none;
 }
 
+.mobile {
+  display: none;
+}
+
+.desktop {
+  display: block;
+}
+
 @include media(#{$smallscreen}) {
   button {
     font-size: 0.8em !important;
+  }
+
+  .mobile {
+    display: block;
+  }
+
+  .desktop {
+    display: none;
   }
 
   .contenu {

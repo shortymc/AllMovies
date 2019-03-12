@@ -22,6 +22,8 @@ export class MetaComponent implements OnInit {
 
   @Input()
   sites: any[];
+  @Input()
+  orientation: 'vertical' | 'horizontal';
   links;
 
   constructor(private metaService: MetaService) { }
