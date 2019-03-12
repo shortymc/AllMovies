@@ -1,12 +1,29 @@
 @import "../../../styles/styles";
 
-.movie-title {
-  font-size: 3em;
-  font-weight: 550;
+.movie-header {
+  flex: 1 100%;
+
+  & .movie-title {
+    font-size: 3em;
+    font-weight: 550;
+  }
+
+  & .movie-btn {
+    display: flex;
+    justify-content: center;
+  }
 }
 
-.movie-poster {
-  margin: 20px;
+.movie-content {
+  &,
+  & > * {
+    padding: 5px;
+  }
+}
+
+.movie-meta {
+  float: left;
+  margin: 20px 10px 0 5px;
 }
 
 .media-content {
@@ -17,8 +34,10 @@
   text-align: center;
 }
 
+/* stylelint-disable selector-pseudo-element-no-unknown */
 /* stylelint-disable selector-type-no-unknown */
 ::ng-deep pinch-zoom {
+  height: auto !important;
   margin: 20px !important;
 }
 
@@ -92,26 +111,22 @@
   padding: 0 7px;
 }
 
-@include desktop {
-  .align-left {
-    text-align: left !important;
-    margin-left: 25vw;
-  }
-
-  .movie-content {
-    display: table;
-    margin-left: 25vw;
-    width: 33vw;
-  }
-}
-
 @include media(#{$smallscreen}) {
+  .synopsis {
+    width: 95vw !important;
+  }
+
   .videos {
     @include full_width;
 
     & li {
-      width: 95%;
-      overflow: hidden;
+      width: 90vw;
+      margin-bottom: 1.5em;
+    }
+
+    & .badge {
+      white-space: normal;
+      height: auto;
     }
   }
 }
