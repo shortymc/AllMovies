@@ -71,7 +71,8 @@ $levels: (
 .pointer {
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &:hover > * {
     text-decoration: underline !important;
   }
 }
