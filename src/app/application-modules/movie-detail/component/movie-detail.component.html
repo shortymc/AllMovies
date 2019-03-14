@@ -138,7 +138,7 @@
     <!-- Keyword -->
     <div *ngIf="movie.keywords && movie.keywords.length > 0">
       <label>{{'movie.keyword' | translate}}: </label>
-      <div class="synopsis">
+      <div class="synopsis break-word">
         <span *ngFor="let keyword of movie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)">
           <span class="pointer" appOpenLink [label]="keyword.name" url="/discover?keyword=[{{keyword.id}}]">{{keyword.name|
             capitalizeWord}}</span>
