@@ -63,7 +63,7 @@ a {
   }
 }
 
-@include desktop {
+@include media(#{$desktop}, false) {
   swiper {
     position: fixed;
     width: 100vw;

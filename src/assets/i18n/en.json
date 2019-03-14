@@ -100,7 +100,11 @@
         "image": "Movie Images",
         "reco": "You should like also",
         "similar": "Similar Movies",
-        "keyword": "Keywords"
+        "keyword": "Keywords",
+        "score": {
+            "source": "Site",
+            "value": "Rating"
+        }
     },
     "movie-search": {
         "header": "Movie Search",
