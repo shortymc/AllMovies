@@ -16,7 +16,7 @@
 .movie-content {
   &,
   & > * {
-    padding: 5px;
+    padding: 0 5px;
   }
 }
 
@@ -113,6 +113,12 @@
 @include desktop {
   .movie-title {
     font-size: 3em;
+  }
+
+  label,
+  label ~ div,
+  .pad-left {
+    margin-left: 20px !important;
   }
 }
 
