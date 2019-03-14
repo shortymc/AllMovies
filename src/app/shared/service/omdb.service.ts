@@ -14,9 +14,14 @@ export class OmdbService {
     return this.serviceUtils.getPromise(url)
       .then((response: any) => {
         const score = new Score();
-        score.awards = response.Awards;
-        score.ratings = response.Ratings;
-        score.imdb_votes = response.imdbVotes;
+        score.ratings = response.Ratings.map(r => {
+          if (r.Source === 'Internet Movie Database') {
+            r.Source = 'IMDb';
+          }
+          return r;
+        });
+        score.ratings.push({Source: 'Awards', Value: response.Awards});
+        score.imdb_votes = parseInt(response.imdbVotes.replace(/,/g, ''), 10);
         console.log('score', score);
         return score;
       });

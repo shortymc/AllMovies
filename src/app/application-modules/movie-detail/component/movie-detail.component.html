@@ -25,6 +25,34 @@
   <app-meta class="movie-meta" [entry]="movie" [orientation]="'vertical'" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
   <div class="movie-content">
     <app-image-viewer class="movie-poster" [images]="movie.affiche" [thumbnails]="movie.thumbnail" [visible]="true"></app-image-viewer>
+    <!-- Score -->
+    <div class="movie-score" *ngIf="movie.score as score">
+      <mat-table class="mat-elevation-z4" [dataSource]="score.ratings">
+
+        <ng-container matColumnDef="source">
+          <mat-header-cell *matHeaderCellDef>
+            <span class="mat-text">{{'movie.score.source' | translate}}</span>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let rating">
+            {{rating.Source}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="value">
+          <mat-header-cell *matHeaderCellDef>
+            <span class="mat-text">{{'movie.score.value' | translate}}</span>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let rating">
+            {{rating.Value}}
+            <ng-container *ngIf="rating.Source === 'IMDb'">
+              ({{score.imdb_votes|number:'1.0-2':translate.currentLang}})
+            </ng-container>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="['source', 'value']"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ['source', 'value'];"></mat-row>
+      </mat-table>
+    </div>
     <div>
       <label>{{'movie.id' | translate}}:</label>{{movie.id}}
     </div>
@@ -32,16 +60,18 @@
     <div *ngIf="movie.title !== movie.original_title">
       <label>{{'global.original_title' | translate}}: </label>{{movie.original_title | capitalizeWord}}
     </div>
-    <div *ngIf="movie.alternativeTitles && movie.alternativeTitles.length > 0">
-      <label>{{'movie.alternative_title' | translate}}: </label>
-      <button class="btn btn-outline-primary alternative-btn" *ngIf="!showTitles" (click)="showTitles=!showTitles">
-        <fa-icon [icon]="faPlus" size="xs"></fa-icon>
-      </button>
-      <button class="btn btn-outline-primary alternative-btn" *ngIf="showTitles" (click)="showTitles=!showTitles">
-        <fa-icon [icon]="faMinus" size="xs"></fa-icon>
-      </button>
+    <div *ngIf="movie.alternativeTitles && movie.alternativeTitles.length > 0" class="d-inline-flex flex-column">
+      <div>
+        <label>{{'movie.alternative_title' | translate}}: </label>
+        <button class="btn btn-outline-primary alternative-btn" *ngIf="!showTitles" (click)="showTitles=!showTitles">
+          <fa-icon [icon]="faPlus" size="xs"></fa-icon>
+        </button>
+        <button class="btn btn-outline-primary alternative-btn" *ngIf="showTitles" (click)="showTitles=!showTitles">
+          <fa-icon [icon]="faMinus" size="xs"></fa-icon>
+        </button>
+      </div>
       <ng-container *ngIf="showTitles">
-        <div *ngFor="let alternative of movie.alternativeTitles">
+        <div *ngFor="let alternative of movie.alternativeTitles" class="pad-left">
           {{alternative.lang}}: {{alternative.title}}
         </div>
       </ng-container>
@@ -64,11 +94,11 @@
         <h3 class="flag-icon flag-icon-{{movie.language | lowercase}}" matTooltip="{{movie.language}}"></h3>
       </ng-template>
     </div>
-    <!-- Date -->
-    <div class="d-inline-block">
+    <!-- Release Date -->
+    <div class="d-inline-flex flex-column">
       <label>{{'movie.date' | translate}}: </label>
       <ng-container *ngIf="movie.releaseDates; else defaultRelease">
-        <div *ngFor="let release of movie.releaseDates">
+        <div *ngFor="let release of movie.releaseDates" class="pad-left">
           {{'release_type.' + release.type| translate}}: {{release.date| date:'dd MMMM
           yyyy':'':translate.currentLang | capitalizeWord}}
         </div>
@@ -77,12 +107,6 @@
         {{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang |
         capitalizeWord}}
       </ng-template>
-    </div>
-    <!-- Score -->
-    <div *ngIf="movie.score as score">
-      <div *ngFor="let rating of score.ratings">
-        <label>{{rating.Source}}: </label>{{rating.Value}}</div>
-      <label>Awards: </label>{{score.awards}}
     </div>
     <!-- Budget -->
     <div *ngIf="movie.budget > 0">
