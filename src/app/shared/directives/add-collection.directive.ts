@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import { faBookmark, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { forkJoin } from 'rxjs';
 import {
   Directive, Input, HostListener, ViewContainerRef, ComponentFactoryResolver,
@@ -19,12 +19,18 @@ import { MovieDetailConfig } from '../../model/model';
 export class AddCollectionDirective implements OnChanges {
   faBookmark = faBookmark;
   faStar = faStar;
+  faTrash = faTrash;
   @Input()
   movies: Movie[];
   @Input()
   label: string;
+  isAlreadyAdded: boolean;
   @HostListener('click', ['$event']) onClick(): void {
-    this.add();
+    if (!this.isAlreadyAdded) {
+      this.add();
+    } else {
+      this.remove();
+    }
   }
 
   constructor(
@@ -53,17 +59,27 @@ export class AddCollectionDirective implements OnChanges {
     const component = this.vcRef.createComponent(cmpFactory);
     this.myMoviesService.myMovies$.subscribe(myMovies => {
       if (myMovies && myMovies.length > 0) {
-        this.insertIconAndText(this.movies.filter(movie => !myMovies.map(m => m.id).includes(movie.id)).length === 0, component);
+        this.isAlreadyAdded = this.movies.filter(movie => !myMovies.map(m => m.id).includes(movie.id)).length === 0;
+        this.insertIconAndText(component);
       }
     });
   }
 
-  insertIconAndText(isAlreadyAdded: boolean, component: ComponentRef<FaIconComponent>): void {
-    if (isAlreadyAdded) {
-      component.instance.iconProp = faStar;
-      this.el.nativeElement.innerText = this.translate.instant('global.already_added');
-      this.el.nativeElement.style.pointerEvents = 'none';
+  insertIconAndText(component: ComponentRef<FaIconComponent>): void {
+    if (this.isAlreadyAdded) {
+      if (this.movies.length > 1) {
+        // Movies list -> already added
+        component.instance.iconProp = faStar;
+        this.el.nativeElement.innerText = this.translate.instant('global.already_added');
+        this.el.nativeElement.style.pointerEvents = 'none';
+      } else {
+        // Single movie -> remove
+        component.instance.iconProp = faTrash;
+        this.el.nativeElement.innerText = this.translate.instant('global.delete');
+        this.el.nativeElement.style.pointerEvents = 'all';
+      }
     } else {
+      // Add movies
       component.instance.iconProp = faBookmark;
       this.el.nativeElement.innerText = this.translate.instant(this.label);
       this.el.nativeElement.style.pointerEvents = 'all';
@@ -81,6 +97,14 @@ export class AddCollectionDirective implements OnChanges {
       this.movies = this.movies.filter((mov: Movie) => mov.checked);
     }
     this.addMovies();
+  }
+
+  remove(): void {
+    if (this.movies.length === 1) {
+      this.auth.getFileName().then((fileName) => {
+        this.myMoviesService.remove(this.movies.map(movie => movie.id), fileName);
+      });
+    }
   }
 
   addMovies(): void {
