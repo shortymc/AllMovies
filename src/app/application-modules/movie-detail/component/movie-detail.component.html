@@ -53,7 +53,7 @@
         <h1 class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" matTooltip="{{country.name}}"></h1>
       </span>
     </div>
-    <div>
+    <div class="d-flex">
       <label>{{'movie.spoken_langs' | translate}}: </label>
       <div class="d-flex" *ngIf="movie.spokenLangs && movie.spokenLangs.length > 0; else originalLang">
         <div *ngFor="let lang of movie.spokenLangs">
@@ -65,14 +65,14 @@
       </ng-template>
     </div>
     <!-- Date -->
-    <div>
+    <div class="d-inline-block">
       <label>{{'movie.date' | translate}}: </label>
-      <div *ngIf="movie.releaseDates; else defaultRelease">
+      <ng-container *ngIf="movie.releaseDates; else defaultRelease">
         <div *ngFor="let release of movie.releaseDates">
           {{'release_type.' + release.type| translate}}: {{release.date| date:'dd MMMM
           yyyy':'':translate.currentLang | capitalizeWord}}
         </div>
-      </div>
+      </ng-container>
       <ng-template #defaultRelease>
         {{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang |
         capitalizeWord}}
@@ -128,12 +128,12 @@
       <div class="synopsis text-justify">{{movie.synopsis}}</div>
     </div>
     <!-- Pictures -->
-    <ng-container *ngIf="config.img">
+    <div class="pad-left" *ngIf="config.img">
       <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible" *ngIf="movie.images">
         <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'movie.image' | translate}}
       </button>
-    </ng-container>
-    <ng-container *ngIf="config.credit">
+    </div>
+    <div class="pad-left" *ngIf="config.credit">
       <!-- Actors -->
       <app-list-persons [persons]="movie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
       <!-- Crew -->
@@ -175,7 +175,7 @@
       <div *ngIf="!isDetail && (movie.crew | filterCrew:'director') as director">
         <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
       </div>
-    </ng-container>
+    </div>
     <!-- Video -->
     <ng-container *ngIf="config.video">
       <div *ngIf="movie.videos && movie.videos.length > 0">
