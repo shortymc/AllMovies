@@ -1,12 +1,13 @@
-@mixin media($width) {
-  @media all and (max-width: $width) {
-    @content;
+@mixin media($width, $max: true) {
+  @if ($max) {
+    @media all and (max-width: $width) {
+      @content;
+    }
   }
-}
-
-@mixin desktop {
-  @media all and (min-width: #{$desktop}) {
-    @content;
+  @else {
+    @media all and (min-width: $width) {
+      @content;
+    }
   }
 }
 

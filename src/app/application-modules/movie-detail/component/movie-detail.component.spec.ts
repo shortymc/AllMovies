@@ -1,3 +1,4 @@
+import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -20,7 +21,7 @@ describe('MovieDetailComponent', () => {
       declarations: [MovieDetailComponent],
       providers: [TranslateService],
       imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), HttpClientModule, RatingModule,
-        RouterTestingModule, SharedModule.forRoot(), MatSnackBarModule, FontAwesomeModule]
+        RouterTestingModule, SharedModule.forRoot(), MatSnackBarModule, FontAwesomeModule, MatTableModule]
     })
       .compileComponents();
   }));

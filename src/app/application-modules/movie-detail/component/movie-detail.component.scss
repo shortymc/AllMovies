@@ -13,6 +13,10 @@
   }
 }
 
+label {
+  display: inline !important;
+}
+
 .movie-content {
   &,
   & > * {
@@ -25,6 +29,11 @@
   margin: 20px 10px 0 20px;
 }
 
+.movie-score {
+  position: relative;
+  float: right;
+}
+
 .media-content {
   display: flex;
   flex-direction: column;
@@ -35,7 +44,7 @@
 
 /* stylelint-disable selector-pseudo-element-no-unknown */
 /* stylelint-disable selector-type-no-unknown */
-::ng-deep pinch-zoom {
+.movie-poster ::ng-deep pinch-zoom {
   height: auto !important;
   margin: 20px !important;
 }
@@ -110,25 +119,46 @@
   padding: 0 7px;
 }
 
-@include desktop {
+.mat-table {
+  width: min-content;
+}
+
+.mat-cell,
+.mat-header-cell {
+  justify-content: center;
+  overflow: visible !important;
+
+  &:first-of-type {
+    padding: 10px !important;
+  }
+
+  &:last-of-type {
+    padding-right: 15px !important;
+  }
+}
+
+@include media(#{$desktop}, false) {
   .movie-title {
     font-size: 3em;
   }
 
   label,
-  label ~ div,
   .pad-left {
     margin-left: 20px !important;
+  }
+
+  label ~ div {
+    display: inline;
+
+    & > span {
+      display: table-cell;
+    }
   }
 }
 
 @include media(#{$smallscreen}) {
   .movie-title {
-      font-size: 1.5em;
-  }
-
-  .movie-content > div {
-    clear: both;
+    font-size: 1.5em;
   }
 
   .synopsis {
@@ -147,5 +177,11 @@
       height: auto;
       white-space: normal;
     }
+  }
+}
+
+@include media(#{$big_screen}, false) {
+  .movie-score {
+    width: 25vw;
   }
 }

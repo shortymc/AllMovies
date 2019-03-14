@@ -100,7 +100,11 @@
         "image": "Images du film",
         "reco": "Vous aimerez aussi",
         "similar": "Films similaires",
-        "keyword": "Mots Clés"
+        "keyword": "Mots Clés",
+        "score": {
+            "source": "Site",
+            "value": "Note"
+        }
     },
     "movie-search": {
         "header": "Recherche de films",
