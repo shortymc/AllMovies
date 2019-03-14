@@ -137,6 +137,10 @@ label {
   }
 }
 
+.break-word {
+  word-break: break-word;
+}
+
 @include media(#{$desktop}, false) {
   .movie-title {
     font-size: 3em;
