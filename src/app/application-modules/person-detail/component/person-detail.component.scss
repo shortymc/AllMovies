@@ -35,6 +35,11 @@ label:not(#person-film) {
   margin-left: 10px !important;
 }
 
+figure {
+  display: flex;
+  flex-flow: column;
+}
+
 @include media(#{$desktop}, false) {
   .person-title {
     font-size: 3em;
