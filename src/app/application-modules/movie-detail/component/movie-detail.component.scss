@@ -145,6 +145,11 @@ label {
   word-break: break-word;
 }
 
+.movie-release {
+  display: inline-flex;
+  flex-direction: column;
+}
+
 @include media(#{$desktop}, false) {
   .movie-title {
     font-size: 3em;
@@ -158,9 +163,13 @@ label {
   label ~ div {
     display: inline;
 
-    & > span {
+    & > span:not(.movie-keyword) {
       display: table-cell;
     }
+  }
+
+  .movie-langs {
+    display: flex !important;
   }
 }
 
@@ -171,6 +180,12 @@ label {
 
   .synopsis {
     width: 95vw !important;
+  }
+
+  .movie-genre,
+  .movie-release {
+    display: flex;
+    flex-wrap: wrap;
   }
 
   .videos {
