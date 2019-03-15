@@ -43,9 +43,19 @@
             <span class="mat-text">{{'movie.score.value' | translate}}</span>
           </mat-header-cell>
           <mat-cell *matCellDef="let rating">
-            {{rating.Value}}
-            <ng-container *ngIf="rating.Source === 'IMDb'">
-              ({{score.imdb_votes|number:'1.0-2':translate.currentLang}})
+            <ng-container *ngIf="rating.Source != 'Popularity'; else popularity">
+              {{rating.Value}}
+            </ng-container>
+            <ng-template #popularity>
+              {{rating.Value|number:'1.0-2':translate.currentLang}}
+            </ng-template>
+            <ng-container [ngSwitch]="rating.Source">
+              <ng-container *ngSwitchCase="'IMDb'">
+                ({{score.imdb_votes|number:'1.0-2':translate.currentLang}})
+              </ng-container>
+              <ng-container *ngSwitchCase="'MovieDB'">
+                ({{score.moviedb_votes|number:'1.0-2':translate.currentLang}})
+              </ng-container>
             </ng-container>
           </mat-cell>
         </ng-container>
@@ -117,12 +127,6 @@
     <div *ngIf="movie.recette > 0">
       <label>{{'movie.revenu' | translate}}: </label>{{movie.recette |
       currency:'USD':'':'1.0-0':translate.currentLang}}
-    </div>
-    <!-- Rating -->
-    <div *ngIf="movie.note > 0">
-      <label>{{'movie.rating' | translate}}: </label>
-      {{movie.note}} / 10 ({{movie.vote_count}}) - {{movie.popularity | number:'1.0-2':translate.currentLang}}
-      <rating [(ngModel)]="movie.note" [max]="10" [readonly]="true" [float]="true"></rating>
     </div>
     <!-- Genre -->
     <div *ngIf="movie.genres && movie.genres.length > 0">

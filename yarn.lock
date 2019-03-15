@@ -6260,11 +6260,6 @@ ngx-pinch-zoom@^1.2.0:
   dependencies:
     tslib "^1.9.0"
 
-ngx-rating@0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/ngx-rating/-/ngx-rating-0.0.9.tgz#1c673d6e597642e430f980064be8571663b0fc16"
-  integrity sha1-HGc9bll2QuQw+YAGS+hXFmOw/BY=
-
 ngx-swiper-wrapper@^7.0.0:
   version "7.2.1"
   resolved "https://registry.yarnpkg.com/ngx-swiper-wrapper/-/ngx-swiper-wrapper-7.2.1.tgz#bc0c99c62b1b6186f2038e0f60035c993e8241f9"
