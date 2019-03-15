@@ -32,6 +32,24 @@ label {
 .movie-score {
   position: relative;
   float: right;
+
+  .mat-cell,
+  .mat-header-cell {
+    justify-content: center;
+    overflow: visible !important;
+
+    &:first-of-type {
+      padding: 10px !important;
+    }
+
+    &:last-of-type {
+      padding-right: 15px !important;
+    }
+  }
+
+  .mat-row {
+    min-height: 0;
+  }
 }
 
 .media-content {
@@ -121,20 +139,6 @@ label {
 
 .mat-table {
   width: min-content;
-}
-
-.mat-cell,
-.mat-header-cell {
-  justify-content: center;
-  overflow: visible !important;
-
-  &:first-of-type {
-    padding: 10px !important;
-  }
-
-  &:last-of-type {
-    padding-right: 15px !important;
-  }
 }
 
 .break-word {

@@ -1,7 +1,6 @@
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { RatingModule } from 'ngx-rating';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -22,7 +21,6 @@ const childRoutes: Routes = [
     FormsModule,
     RouterModule.forChild(childRoutes),
     SharedModule.forChild(),
-    RatingModule,
     MovieDetailModule,
     TranslateModule.forChild(),
   ],
