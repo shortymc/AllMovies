@@ -6,7 +6,6 @@ import { faChevronCircleLeft, faImage, faChevronCircleRight, faPlus, faMinus } f
 
 import { TitleService, MenuService } from './../../../shared/shared.module';
 import { TabsService } from './../../../shared/service/tabs.service';
-// import { AllocineService } from './../../../service/allocine.service';
 import { DuckDuckGo } from './../../../constant/duck-duck-go';
 import { MovieService } from '../../../shared/shared.module';
 import { Movie } from '../../../model/movie';
@@ -60,7 +59,6 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
       this.config.lang = event.lang;
       this.getMovie(this.id);
     }));
-    // this.allocine.allocine('movie', '143067').subscribe(response => console.log(response));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
