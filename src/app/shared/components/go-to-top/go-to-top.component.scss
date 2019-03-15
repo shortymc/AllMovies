@@ -15,7 +15,10 @@
 
   & button {
     height: auto;
-    cursor: pointer;
+
+    &:focus {
+      outline: 0;
+    }
   }
 }
 
