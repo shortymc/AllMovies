@@ -93,9 +93,10 @@
         <h1 class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" matTooltip="{{country.name}}"></h1>
       </span>
     </div>
-    <div class="d-flex">
+    <!-- Langs -->
+    <div class="movie-langs">
       <label>{{'movie.spoken_langs' | translate}}: </label>
-      <div class="d-flex" *ngIf="movie.spokenLangs && movie.spokenLangs.length > 0; else originalLang">
+      <div class="d-flex flex-wrap" *ngIf="movie.spokenLangs && movie.spokenLangs.length > 0; else originalLang">
         <div *ngFor="let lang of movie.spokenLangs">
           <h3 class="flag-icon flag-icon-{{lang.code | lowercase}}" matTooltip="{{lang.label}}"></h3>
         </div>
@@ -105,7 +106,7 @@
       </ng-template>
     </div>
     <!-- Release Date -->
-    <div class="d-inline-flex flex-column">
+    <div class="movie-release">
       <label>{{'movie.date' | translate}}: </label>
       <ng-container *ngIf="movie.releaseDates; else defaultRelease">
         <div *ngFor="let release of movie.releaseDates" class="pad-left">
@@ -131,7 +132,7 @@
     <!-- Genre -->
     <div *ngIf="movie.genres && movie.genres.length > 0">
       <label>{{'movie.genres' | translate}}: </label>
-      <div class="block">
+      <div class="movie-genre">
         <span *ngFor="let genre of movie.genres; let last=last;" (click)="redirectGenreToDiscover(genre)">
           <span class="pointer" appOpenLink [label]="genre.name" url="/discover?genre=[{{genre.id}}]">{{genre.name|
             capitalizeWord}}</span>
@@ -143,7 +144,7 @@
     <div *ngIf="movie.keywords && movie.keywords.length > 0">
       <label>{{'movie.keyword' | translate}}: </label>
       <div class="synopsis break-word">
-        <span *ngFor="let keyword of movie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)">
+        <span *ngFor="let keyword of movie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)" class="movie-keyword">
           <span class="pointer" appOpenLink [label]="keyword.name" url="/discover?keyword=[{{keyword.id}}]">{{keyword.name|
             capitalizeWord}}</span>
           <span *ngIf="!last">/</span>
