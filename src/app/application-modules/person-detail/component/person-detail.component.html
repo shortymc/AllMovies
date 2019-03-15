@@ -2,18 +2,21 @@
   <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
     <app-image-viewer [images]="person.images" [thumbnails]="person.images_thumb" [visible]="isImagesVisible"></app-image-viewer>
   </app-modal>
-  <h2>{{'person.header' | translate}} {{person.name}}:</h2>
-  <div>
-    <app-image-viewer [images]="person.profile" [thumbnails]="person.thumbnail" [visible]="true"></app-image-viewer>
+  <div class="person-header">
+    <h1 class="person-title">{{person.name}}</h1>
+    <div class="person-btn">
+      <button class="btn btn-outline-primary" (click)="goBack()">
+        <fa-icon [icon]="faChevronCircleLeft"></fa-icon> {{'global.previous' | translate}}
+      </button>
+      <button class="btn btn-outline-primary" appOpenLink [label]="person.name" url="/discover?people=[{{person.id}}]"
+        (click)="discover()">
+        <fa-icon [icon]="faAtom"></fa-icon> {{'title.discover' | translate}}
+      </button>
+    </div>
   </div>
-  <div class="contenu">
-    <button class="btn btn-outline-primary" (click)="goBack()">
-      <fa-icon [icon]="faChevronCircleLeft"></fa-icon> {{'global.previous' | translate}}
-    </button>
-    <button class="btn btn-outline-primary" appOpenLink [label]="person.name" url="/discover?people=[{{person.id}}]"
-      (click)="discover()">
-      <fa-icon [icon]="faAtom"></fa-icon> {{'title.discover' | translate}}
-    </button>
+  <app-meta class="person-meta" [entry]="person" [orientation]="'vertical'" [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR, DuckDuckGo.SEARCH_BANG_IMDB]"></app-meta>
+  <div class="person-content">
+    <app-image-viewer class="person-profile" [images]="person.profile" [thumbnails]="person.thumbnail" [visible]="true"></app-image-viewer>
     <div>
       <label>{{'person.id' | translate}}:</label>{{person.id}}
     </div>
@@ -25,33 +28,37 @@
         <label>{{'person.birthplace' | translate}}: </label>{{person.birthPlace | capitalizeWord}}
       </div>
       <div *ngIf="person.birthday">
-        <label>{{'person.birth' | translate}}: </label>{{person.birthday | date:'dd MMMM yyyy':'':translate.currentLang
+        <label>{{'person.birth' | translate}}: </label>{{person.birthday | date:'dd MMMM
+        yyyy':'':translate.currentLang
         | capitalizeWord}}
       </div>
       <div *ngIf="person.birthday | substractDate:person.deathday as age">
         <label>{{'person.age' | translate}}: </label>{{age}}
       </div>
       <div *ngIf="person.deathday">
-        <label>{{'person.death' | translate}}: </label>{{person.deathday | date:'dd MMMM yyyy':'':translate.currentLang
+        <label>{{'person.death' | translate}}: </label>{{person.deathday | date:'dd MMMM
+        yyyy':'':translate.currentLang
         | capitalizeWord}}
       </div>
       <div>
         <label>{{'person.known_for.title' | translate}}:</label>{{'person.known_for.'+person.knownFor|translate}}
       </div>
       <div>
-        <label>{{'person.popularity' | translate}}:</label>{{person.popularity | number:'1.0-2':translate.currentLang}}
+        <label>{{'person.popularity' | translate}}:</label>{{person.popularity |
+        number:'1.0-2':translate.currentLang}}
       </div>
-      <button type="button" class="btn btn-outline-primary block" (click)="isImagesVisible = !isImagesVisible" *ngIf="person.images && person.images.length > 0">
-        <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'person.image' | translate}}
-      </button>
+      <div class="pad-left d-inline" *ngIf="person.images && person.images.length > 0">
+        <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible">
+          <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'person.image' | translate}}
+        </button>
+      </div>
       <div *ngIf="person.biography">
         <label>{{'person.bio' | translate}}: </label>
-        <div class="biography">{{person.biography}}</div>
+        <div class="synopsis d-inline-block">{{person.biography}}</div>
       </div>
     </div>
-    <app-meta [entry]="person" [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR, DuckDuckGo.SEARCH_BANG_IMDB]"></app-meta>
     <figure>
-      <label style="display: flex">{{'person.films' | translate}}:</label>
+      <label id="person-film">{{'person.films' | translate}}:</label>
       <app-list-movies [movies]="list.value" [label]="('movie-list.' + list.label_key | translate).concat(':')" *ngFor="let list of listMoviesOrder"></app-list-movies>
     </figure>
   </div>
