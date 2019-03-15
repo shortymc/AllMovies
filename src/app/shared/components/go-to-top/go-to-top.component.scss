@@ -1,16 +1,21 @@
 @import "../../../styles/styles";
 
+/* stylelint-disable selector-pseudo-element-no-unknown */
 :host {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 0;
   z-index: map-get($depth, 'top');
-  height: 40px;
-  margin: 10px;
-  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
 
-  &:not(:hover) :not(.hidden) {
-    background-color: white;
+  & ::ng-deep.fa-angle-up {
+    color: $blue;
+  }
+
+  & button {
+    height: auto;
+    cursor: pointer;
   }
 }
 
