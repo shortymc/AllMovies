@@ -1,14 +1,70 @@
 @import "../../../styles/styles";
 
-.biography {
-  width: 70%;
+.person-header {
+  flex: 1 100%;
+
+  & .person-title {
+    font-weight: 550;
+  }
+
+  & .person-btn {
+    display: flex;
+    justify-content: center;
+  }
 }
 
-#bottomBtn {
-  clear: both;
-  margin-left: 180px;
+.person-meta {
+  float: left;
+  margin: 0 10px 20px 20px;
 }
 
-.block {
-  display: block;
+.person-content {
+  &,
+  & > * {
+    padding: 0 5px;
+  }
+}
+
+label:not(#person-film) {
+  display: inline !important;
+}
+
+#person-film {
+  display: flex;
+  width: 100%;
+  margin-left: 10px !important;
+}
+
+@include media(#{$desktop}, false) {
+  .person-title {
+    font-size: 3em;
+  }
+
+  label,
+  .pad-left,
+  label ~ div {
+    margin-left: 20px !important;
+  }
+}
+
+@include media(#{$smallscreen}) {
+  .person-meta {
+    margin: 20px 10px 0 20px;
+  }
+
+  .synopsis {
+    width: 95vw !important;
+  }
+
+  figure {
+    margin-left: -10px;
+    margin-right: 10px;
+  }
+
+  /* stylelint-disable selector-pseudo-element-no-unknown */
+  /* stylelint-disable selector-type-no-unknown */
+  .person-profile ::ng-deep pinch-zoom {
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
 }
