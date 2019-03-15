@@ -13,7 +13,10 @@ import {
   SWIPER_CONFIG
 } from 'ngx-swiper-wrapper';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
-import { MatSidenavModule, MatToolbarModule, MatIconModule, MatSelectModule, MatButtonToggleModule, MatFormFieldModule } from '@angular/material';
+import {
+  MatSidenavModule, MatToolbarModule, MatIconModule, MatSelectModule,
+  MatButtonToggleModule, MatFormFieldModule, MatButtonModule
+} from '@angular/material';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -88,6 +91,7 @@ import { MyMoviesService } from './service/my-movies.service';
     MatSelectModule,
     MatButtonToggleModule,
     MatListModule,
+    MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,

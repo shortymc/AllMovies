@@ -8,6 +8,7 @@ import {
   throttleTime
 } from 'rxjs/operators';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { MatButton } from '@angular/material';
 
 @Component({
   selector: 'app-go-to-top',
@@ -15,7 +16,7 @@ import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./go-to-top.component.scss']
 })
 export class GoToTopComponent implements OnInit, AfterViewInit {
-  @ViewChild('goToTop') goToTop: HTMLFormElement;
+  @ViewChild('goToTop') goToTop: MatButton;
   isVisible = false;
   faAngleUp = faAngleUp;
 
@@ -32,31 +33,26 @@ export class GoToTopComponent implements OnInit, AfterViewInit {
     const scroll$ = fromEvent(this.elemRef.nativeElement.parentNode, 'scroll')
       .pipe(
         throttleTime(10),
-        map((x: any) => {
-          // console.log('scrollTop', x.target.scrollTop);
-          // console.log('scrollTopMax', x.target.scrollTopMax);
-          // console.log('offsetHeight', x.target.offsetHeight);
-          return x;
-        }),
-        map((x: any) => x.target.scrollTop > x.target.scrollTopMax / 5 && x.target.scrollTopMax > x.target.offsetHeight),
+        map((x: any) => x.target.scrollTop > (x.target.scrollHeight - x.target.offsetHeight) / 5 &&
+          (x.target.scrollHeight - x.target.offsetHeight) > x.target.offsetHeight),
         distinctUntilChanged(),
         share()
       );
     scroll$.pipe(
       filter(direction => !direction)
     ).subscribe(() => {
-      this.goToTop.nativeElement.classList.add('hidden');
-      this.goToTop.nativeElement.classList.add('fadeOut');
-      this.goToTop.nativeElement.classList.remove('fadeIn');
+      this.goToTop._elementRef.nativeElement.classList.add('hidden');
+      this.goToTop._elementRef.nativeElement.classList.add('fadeOut');
+      this.goToTop._elementRef.nativeElement.classList.remove('fadeIn');
     });
 
     scroll$.pipe(
       filter(direction => direction)
     ).subscribe(() => {
-      this.goToTop.nativeElement.classList.remove('hidden');
-      this.goToTop.nativeElement.classList.remove('transparent');
-      this.goToTop.nativeElement.classList.remove('fadeOut');
-      this.goToTop.nativeElement.classList.add('fadeIn');
+      this.goToTop._elementRef.nativeElement.classList.remove('hidden');
+      this.goToTop._elementRef.nativeElement.classList.remove('transparent');
+      this.goToTop._elementRef.nativeElement.classList.remove('fadeOut');
+      this.goToTop._elementRef.nativeElement.classList.add('fadeIn');
     });
   }
 
