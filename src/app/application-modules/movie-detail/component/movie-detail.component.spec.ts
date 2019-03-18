@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { RatingModule } from 'ngx-rating';
 
 import { SharedModule } from './../../../shared/shared.module';
 import { MovieDetailComponent } from './movie-detail.component';
@@ -20,7 +19,7 @@ describe('MovieDetailComponent', () => {
     TestBed.configureTestingModule({
       declarations: [MovieDetailComponent],
       providers: [TranslateService],
-      imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), HttpClientModule, RatingModule,
+      imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), HttpClientModule,
         RouterTestingModule, SharedModule.forRoot(), MatSnackBarModule, FontAwesomeModule, MatTableModule]
     })
       .compileComponents();
@@ -34,5 +33,6 @@ describe('MovieDetailComponent', () => {
   it('init', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
+    console.log('MovieDetailComponent');
   });
 });
