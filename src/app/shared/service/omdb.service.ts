@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Score } from './../../model/score';
 import { UtilsService } from './utils.service';
-import { Url } from '../../constant/url';
+import { Constants } from './../../constant/constants';
 
 @Injectable()
 export class OmdbService {
@@ -10,7 +10,7 @@ export class OmdbService {
   constructor(private serviceUtils: UtilsService) { }
 
   getScore(id: string): Promise<Score> {
-    const url = `${Url.OMDB_URL}${Url.OMDB_ID}${id}${Url.OMDB_API_KEY}`;
+    const url = `${Constants.OMDB_URL}${Constants.OMDB_ID}${id}${Constants.OMDB_API_KEY}`;
     return this.serviceUtils.getPromise(url)
       .then((response: any) => {
         const score = new Score();

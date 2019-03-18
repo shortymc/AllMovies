@@ -59,9 +59,4 @@ export class Url {
   static readonly GET_ALL_GENRES_URL = Url.MOVIE_DB_API_URL + 'genre/movie/list?';
   static readonly GET_ALL_CERTIFICATIONS_URL = Url.MOVIE_DB_API_URL + 'certification/movie/list?';
   static readonly GET_POPULAR_PERSON = Url.MOVIE_DB_API_URL + 'person/popular?' + Url.API_KEY;
-
-  // API OMDB_API
-  static readonly OMDB_API_KEY = '&apikey=5dc08d05';
-  static readonly OMDB_URL = 'http://www.omdbapi.com/';
-  static readonly OMDB_ID = '?i=';
 }
