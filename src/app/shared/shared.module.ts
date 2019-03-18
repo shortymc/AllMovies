@@ -58,6 +58,7 @@ import { OpenLinkDialogComponent } from './components/open-link-dialog/open-link
 import { OpenLinkDirective } from './directives/open-link.directive';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { MyMoviesService } from './service/my-movies.service';
+import { MyTagsService } from './service/my-tags.service';
 
 @NgModule({
   declarations: [
@@ -149,6 +150,7 @@ export class SharedModule {
         TitleService,
         PersonService,
         MyMoviesService,
+        MyTagsService,
         GenreService,
         MockService,
         TabsService,

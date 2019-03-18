@@ -41,7 +41,8 @@
         "profile": "Mon Profil",
         "logout": "Déconnexion",
         "discover": "Explorer",
-        "change_language": "Changer de Langue"
+        "change_language": "Changer de Langue",
+        "tags": "Mes Tags"
     },
     "title": {
         "dashboard": "Tableau de Bord",
