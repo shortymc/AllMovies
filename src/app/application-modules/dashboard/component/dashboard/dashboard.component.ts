@@ -8,6 +8,7 @@ import { Movie } from '../../../../model/movie';
 import { MovieService } from '../../../../shared/shared.module';
 import { Person } from '../../../../model/person';
 import { Url } from '../../../../constant/url';
+import { Constants } from './../../../../constant/constants';
 
 @Component({
   selector: 'app-dashboard',
@@ -48,9 +49,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.getTopMovies(event.lang);
       this.getToPersons(event.lang);
     }));
-    this.breakpointObserver.observe(['(max-width: 700px)'])
+    this.breakpointObserver.observe([Constants.MEDIA_MAX_700])
       .subscribe(result => {
-        this.swiperConfig.direction = result.breakpoints['(max-width: 700px)'] ? 'vertical' : 'horizontal';
+        this.swiperConfig.direction = result.breakpoints[Constants.MEDIA_MAX_700] ? 'vertical' : 'horizontal';
       });
   }
 

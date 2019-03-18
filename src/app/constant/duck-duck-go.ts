@@ -8,7 +8,4 @@ export class DuckDuckGo {
   static readonly SEARCH_BANG_WIKI_EN = { site: 'wen', icon: faWikipediaW };
   static readonly SEARCH_BANG_WIKI_FR = { site: 'wikifr', icon: faWikipediaW };
   static readonly DUCKDUCKGO_URL = 'https://api.duckduckgo.com/?q=!';
-  static readonly IMDB_URL = 'https://www.imdb.com/';
-  static readonly IMDB_MOVIE_SUFFIX = 'title/';
-  static readonly IMDB_PERSON_SUFFIX = 'name/';
 }
