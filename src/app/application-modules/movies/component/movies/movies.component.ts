@@ -12,6 +12,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import * as moment from 'moment-mini-ts';
 
+import { Constants } from './../../../../constant/constants';
 import { Utils } from './../../../../shared/utils';
 import { TitleService, AuthService, MovieService, MyMoviesService } from './../../../../shared/shared.module';
 import { Movie } from './../../../../model/movie';
@@ -70,12 +71,12 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.title.setTitle('title.movies');
     this.sort = { active: 'date', direction: 'desc' };
     this.breakpointObserver.observe([
-      '(max-width: 700px)',
-      '(max-width: 1000px)'
+      Constants.MEDIA_MAX_700,
+      Constants.MEDIA_MAX_1000
     ]).subscribe(result => {
-      if (result.breakpoints['(max-width: 1000px)'] && result.breakpoints['(max-width: 700px)']) {
+      if (result.breakpoints[Constants.MEDIA_MAX_1000] && result.breakpoints[Constants.MEDIA_MAX_700]) {
         this.displayedColumns = this.mobile_columns;
-      } else if (result.breakpoints['(max-width: 1000px)'] && !result.breakpoints['(max-width: 700px)']) {
+      } else if (result.breakpoints[Constants.MEDIA_MAX_1000] && !result.breakpoints[Constants.MEDIA_MAX_700]) {
         this.displayedColumns = this.medium_columns;
       } else {
         this.displayedColumns = this.init_columns;

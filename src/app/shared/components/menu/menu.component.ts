@@ -8,6 +8,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav, MatSidenavContent } from '@angular/material';
 
 import { TabsService } from './../../service/tabs.service';
+import { Constants } from './../../../constant/constants';
 import { AuthService } from '../../service/auth.service';
 import { User } from '../../../model/user';
 import { MenuService } from '../../service/menu.service';
@@ -46,7 +47,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     public menuService: MenuService,
     private elemRef: ElementRef
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 700px)');
+    this.mobileQuery = media.matchMedia(Constants.MEDIA_MAX_700);
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
