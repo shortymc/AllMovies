@@ -45,9 +45,10 @@ describe('DiscoverComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DiscoverComponent, SearchBoxComponent, AddCollectionDirective, OpenLinkDirective, CapitalizeWordPipe],
-      providers: [TranslateService, MetaService, UtilsService, MovieService, OmdbService, DropboxService, AuthService, TitleService, PersonService,
-        { provide: MyMoviesService, useValue: jasmine.createSpyObj('MyMoviesService', ['getAll']) }, GenreService, MockService, TabsService,
-        PersonSearchService, MovieSearchService, CertificationService, KeywordSearchService, MenuService, ToastService],
+      providers: [TranslateService, MetaService, UtilsService, OmdbService, DropboxService, AuthService, TitleService, PersonService,
+        { provide: MovieService, useValue: jasmine.createSpyObj('MovieService', ['getMoviesPlaying']) },
+        { provide: MyMoviesService, useValue: jasmine.createSpyObj('MyMoviesService', ['getAll']) }, GenreService, MockService,
+        TabsService, PersonSearchService, MovieSearchService, CertificationService, KeywordSearchService, MenuService, ToastService],
       imports: [BrowserModule, FormsModule, BrowserAnimationsModule, ReactiveFormsModule, TranslateModule.forRoot(),
         MatListModule, FontAwesomeModule, MatIconModule, MatPaginatorModule, MatInputModule, MatCheckboxModule,
         MatAutocompleteModule, MatSlideToggleModule, NouisliderModule, MatSelectModule, MatFormFieldModule,
@@ -59,12 +60,15 @@ describe('DiscoverComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DiscoverComponent);
     component = fixture.componentInstance;
-    const spy = TestBed.get(MyMoviesService);
-    spy.getAll.and.returnValue([]);
+    const spyMyMoviesService = TestBed.get(MyMoviesService);
+    spyMyMoviesService.getAll.and.returnValue([]);
+    const spyMovieService = TestBed.get(MovieService);
+    spyMovieService.getMoviesPlaying.and.returnValue(new Promise(resolve => resolve([])));
   });
 
   it('init', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
+    console.log('DiscoverComponent');
   });
 });
