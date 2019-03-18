@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'release', loadChildren: './application-modules/release/release.module#ReleaseModule', canActivate: [AuthGard] },
   { path: 'movies', loadChildren: './application-modules/movies/movies.module#MoviesModule', canActivate: [AuthGard] },
   { path: 'discover', loadChildren: './application-modules/discover/discover.module#DiscoverModule', canActivate: [AuthGard] },
+  { path: 'tags', loadChildren: './application-modules/tags/tags.module#TagsModule', canActivate: [AuthGard] },
   { path: 'login', loadChildren: './application-modules/login/login.module#LoginModule' },
   { path: '**', redirectTo: '' }
 ];

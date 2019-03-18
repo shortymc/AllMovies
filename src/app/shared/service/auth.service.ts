@@ -46,7 +46,7 @@ export class AuthService {
   }
 
   static getUserFileName(id: number): string {
-    return Dropbox.DROPBOX_FILE_PREFIX + id + Dropbox.DROPBOX_FILE_SUFFIX;
+    return Dropbox.DROPBOX_MOVIE_FILE + id + Dropbox.DROPBOX_FILE_SUFFIX;
   }
 
   static getToken(): string {
@@ -237,6 +237,7 @@ export class AuthService {
           console.log(res);
           this.toast.open(this.translate.instant('toast.user_added'), Level.success);
         }).catch((err) => this.serviceUtils.handleError(err, this.toast));
+      this.dropbox.uploadFile(new Blob([]), Dropbox.DROPBOX_TAG_FILE);
       return user;
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
