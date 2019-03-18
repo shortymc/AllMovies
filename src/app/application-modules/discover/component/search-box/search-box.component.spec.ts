@@ -34,5 +34,6 @@ describe('SearchBoxComponent', () => {
   it('init', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
+    console.log('SearchBoxComponent');
   });
 });

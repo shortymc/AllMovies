@@ -1,4 +1,3 @@
-import { RatingModule } from 'ngx-rating';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
@@ -28,7 +27,7 @@ describe('ReleaseComponent', () => {
       },
         TranslateService, MyNgbDate, DatePipe],
       imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), HttpClientModule, MovieDetailModule,
-        RouterTestingModule, SharedModule.forRoot(), MatSnackBarModule, FontAwesomeModule, RatingModule]
+        RouterTestingModule, SharedModule.forRoot(), MatSnackBarModule, FontAwesomeModule]
     })
       .compileComponents();
   }));
@@ -43,5 +42,6 @@ describe('ReleaseComponent', () => {
   it('init', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
+    console.log('ReleaseComponent');
   });
 });
