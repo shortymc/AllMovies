@@ -38,5 +38,6 @@ describe('ChangePasswordComponent', () => {
   it('init', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
+    console.log('ChangePasswordComponent');
   });
 });

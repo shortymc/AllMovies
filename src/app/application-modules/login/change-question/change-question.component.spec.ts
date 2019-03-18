@@ -38,5 +38,6 @@ describe('ChangeQuestionComponent', () => {
   it('init', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
+    console.log('ChangeQuestionComponent');
   });
 });

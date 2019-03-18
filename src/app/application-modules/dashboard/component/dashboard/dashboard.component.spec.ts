@@ -45,5 +45,6 @@ describe('DashboardComponent', () => {
   it('init', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
+    console.log('DashboardComponent');
   });
 });
