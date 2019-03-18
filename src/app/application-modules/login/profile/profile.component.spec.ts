@@ -38,5 +38,6 @@ describe('ProfileComponent', () => {
   it('init', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
+    console.log('ProfileComponent');
   });
 });

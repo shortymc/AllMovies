@@ -42,5 +42,6 @@ describe('MoviesComponent', () => {
   it('init', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
+    console.log('MoviesComponent');
   });
 });
