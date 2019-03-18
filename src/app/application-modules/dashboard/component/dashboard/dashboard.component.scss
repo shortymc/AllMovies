@@ -7,23 +7,22 @@ a {
   text-decoration: none;
 }
 
+swiper {
+  width: 100vw;
+}
+
 #swiper-top {
   z-index: 99;
 }
 
 #swiper-bottom {
   z-index: 1;
-  top: 485px;
 }
 
 *,
 *::after,
 *::before {
   @include box-sizing;
-}
-
-.title {
-  margin: 20px 0;
 }
 
 .module {
@@ -64,10 +63,17 @@ a {
 }
 
 @include media(#{$desktop}, false) {
+  .title {
+    margin: 20px 0;
+  }
+
   swiper {
     position: fixed;
-    width: 100vw;
     margin: auto !important;
+  }
+
+  #swiper-bottom {
+    top: 485px;
   }
 
   ::ng-deep.swiper-button-next,
@@ -91,6 +97,10 @@ a {
 @include media(#{$smallscreen}) {
   .wrapper {
     height: 55vh;
+  }
+
+  .profile {
+    display: none !important;
   }
 
   .movie-link {
