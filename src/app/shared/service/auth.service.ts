@@ -1,6 +1,5 @@
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
-
 import { Injectable } from '@angular/core';
 import * as jwtDecode from 'jwt-decode';
 import * as KJUR from 'jsrsasign';
@@ -17,7 +16,7 @@ import { User } from '../../model/user';
 @Injectable()
 export class AuthService {
   redirectUrl: string;
-  user$ = new BehaviorSubject(undefined);
+  user$: BehaviorSubject<User> = new BehaviorSubject(undefined);
   isLogged = new BehaviorSubject<boolean>(false);
   private fileName: string;
 

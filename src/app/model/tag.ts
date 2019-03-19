@@ -7,5 +7,6 @@ export class TagMovie {
 export class Tag {
   id: number;
   label: string;
+  checked: boolean;
   movies: TagMovie[];
 }

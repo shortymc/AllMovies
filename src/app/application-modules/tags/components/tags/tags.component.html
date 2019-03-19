@@ -1,3 +1,106 @@
-<p>
-  tags works!
-</p>
+<h2>{{'tags.header' | translate}}:</h2>
+
+<ng-container *ngIf="tags">
+  <div class="filters">
+    <!-- Input Filter -->
+    <div class="filter-item">
+      <mat-form-field>
+        <input matInput type="search" placeholder="{{'tags.filter.placeholder' | translate}}" [(ngModel)]="filter"
+          (keyup)="paginator.firstPage(); onSearch();" />
+      </mat-form-field>
+      <span *ngIf="filter" (click)="filter=''; paginator.firstPage(); onSearch();" class="pointer clear-btn">
+        <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
+      </span>
+    </div>
+  </div>
+
+  <!-- Delete -->
+  <div class="delete-btn">
+    <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="remove()">{{'tags.remove' |
+      translate:{size: nbChecked} }}
+      <fa-icon [icon]="faTrash"></fa-icon>
+    </button>
+  </div>
+
+  <div class="paginator mat-elevation-z4">
+    <!-- Paginator -->
+    <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+      (page)="page = $event; onPaginateChange();" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </div>
+
+  <!-- Table -->
+  <mat-table class="mat-elevation-z4" [dataSource]="displayedTags" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
+    matSort [matSortActive]="'date'" [matSortDirection]="'desc'">
+
+    <!-- ID -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'tags.id'|translate }}">
+        <span class="mat-text">{{ 'tags.id'|translate }}</span>
+        <fa-icon class="mat-icon" [icon]="faHashtag"></fa-icon>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let tag">
+        {{tag.id}}
+      </mat-cell>
+    </ng-container>
+
+    <!-- LABEL -->
+    <ng-container matColumnDef="label">
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'tags.label'|translate }}">
+        <span class="mat-text">{{ 'tags.label'|translate }}</span>
+        <fa-icon class="mat-icon" [icon]="faList"></fa-icon>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let tag">
+        {{tag.label}}
+      </mat-cell>
+    </ng-container>
+
+    <!-- COUNT -->
+    <ng-container matColumnDef="count">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'tags.count'|translate }}">
+        <span class="mat-text">{{ 'tags.count'|translate }}</span>
+        <fa-icon class="mat-icon" [icon]="faStar"></fa-icon>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let tag">
+        <ng-container *ngIf="tag.movies; else zero">
+          {{tag.movies.length}}
+        </ng-container>
+        <ng-template #zero>0</ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let tag" class="toto">
+        <div class="cell-content">
+          <mat-checkbox (change)="tag.checked = !tag.checked; updateSize()" [checked]="tag.checked">
+          </mat-checkbox>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Details Column -->
+    <ng-container matColumnDef="details">
+      <mat-header-cell *matHeaderCellDef>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let tag" class="toto">
+        <div class="cell-content">
+          <button class="btn btn-outline-primary btn-detail" matTooltip="{{'global.go_detail' | translate}}">
+            <span class="btn-text">
+              <fa-icon [icon]="faChevronCircleRight"></fa-icon>
+              {{'global.go_detail' | translate}}
+            </span>
+            <span class="btn-icon">
+              <fa-icon [icon]="faChevronCircleRight" size="2x"></fa-icon>
+            </span>
+          </button>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</ng-container>
