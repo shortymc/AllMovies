@@ -283,5 +283,16 @@
         "result": "Results",
         "vote_count_min": "Vote count minimum",
         "playing": "Movies now playing"
+    },
+    "tags": {
+        "header": "My Tags",
+        "new": "Add a tag",
+        "filter": "Filter",
+        "remove": "Remove the selected tags ({{size}})",
+        "label": "Label",
+        "count": "Count",
+        "required": "Please enter a tag name",
+        "maxlength": "{{current}} is greater than the maximum length ({{maxSize}})",
+        "unique": "The tag name must be unique"
     }
 }
