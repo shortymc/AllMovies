@@ -1,5 +1,18 @@
 <h2>{{'tags.header' | translate}}:</h2>
-
+<form [formGroup]="tagForm" *ngIf="tagForm" (ngSubmit)="addTag()">
+  <mat-form-field>
+    <input matInput placeholder="{{'tag.new'|translate}}" type="text" name="toAdd" formControlName="toAdd" />
+  </mat-form-field>
+  <ng-container *ngIf="toAdd.invalid && (toAdd.dirty || toAdd.touched)">
+    <mat-error *ngIf="toAdd.errors.required">{{'global.required'|translate}}</mat-error>
+    <div *ngIf="!toAdd.errors.required && toAdd.errors.pending">Validating...</div>
+    <mat-error *ngIf="toAdd.errors.unique">{{'global.unique'|translate}}</mat-error>
+  </ng-container>
+  <div class="tags-btn">
+    <button type="button" class="btn btn-outline-primary" (click)="toAdd.value = ''">{{'global.clear'|translate}}</button>
+    <button type="submit" class="btn btn-outline-primary" [disabled]="tagForm.invalid">{{'global.add'|translate}}</button>
+  </div>
+</form>
 <ng-container *ngIf="tags">
   <div class="filters">
     <!-- Input Filter -->

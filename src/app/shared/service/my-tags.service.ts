@@ -6,6 +6,7 @@ import { DropboxService } from './dropbox.service';
 import { AuthService } from './auth.service';
 import { Level } from '../../model/model';
 import { Tag } from '../../model/tag';
+import { CapitalizeWordPipe } from './../pipes/capitalizeWord.pipe';
 import { Dropbox } from './../../constant/dropbox';
 import { UtilsService } from './utils.service';
 import { User } from './../../model/user';
@@ -22,6 +23,7 @@ export class MyTagsService {
     private translate: TranslateService,
     private serviceUtils: UtilsService,
     private toast: ToastService,
+    private capitalize: CapitalizeWordPipe
   ) { }
 
   static tagsToBlob(tags: Tag[]): Blob {
@@ -48,44 +50,43 @@ export class MyTagsService {
       }).catch(err => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  add(tagsToAdd: Tag[], fileName: string): void {
+  add(toAdd: Tag): void {
     let tempTagList = [];
-    let tempTagsAdded = [];
-    // download user file
-    this.dropboxService.downloadFile(fileName).then((tagsFromFile: string) => {
-      // parse tags
-      let tagList = [];
-      if (tagsFromFile && tagsFromFile.trim().length > 0) {
-        tagList = <Tag[]>JSON.parse(tagsFromFile);
-      }
-      // filter if not already in collection
-      const found = tagsToAdd.filter((add: Tag) => !tagList.map((tag: Tag) => tag.id).includes(add.id));
-      if (found.length > 0) {
-        tempTagsAdded = found;
-        found.forEach((tag: Tag) => tagList.push(tag));
+    let fileName;
+    this.getFileName()
+      .then((file: string) => {
+        // download file
+        fileName = file;
+        return this.dropboxService.downloadFile(fileName);
+      }).then((tagsFromFile: string) => {
+        // parse tags
+        let tagList = [];
+        if (tagsFromFile && tagsFromFile.trim().length > 0) {
+          tagList = <Tag[]>JSON.parse(tagsFromFile);
+        }
+        // add tag to list
         tagList.sort(Utils.compareObject);
+        toAdd.id = tagList[tagList.length - 1].id + 1;
+        toAdd.label = this.capitalize.transform(toAdd.label);
+        tagList.push(toAdd);
         return tagList;
-      } else {
-        this.toast.open(this.translate.instant('toast.already_added'), Level.info);
-        return [];
-      }
-    }).then((list: Tag[]) => {
-      if (list && list.length !== 0) {
-        tempTagList = list;
-        // replace with new array tags
-        return this.dropboxService.uploadFile(MyTagsService.tagsToBlob(list), fileName);
-      } else {
-        return undefined;
-      }
-    }).then((res: any) => {
-      console.log(res);
-      if (res) {
-        // all good, modifies inner data
-        console.log('myTags', tempTagList);
-        this.myTags$.next(tempTagList);
-        this.toast.open(this.translate.instant('toast.tags_added', { size: tempTagsAdded.length / 2 }), Level.success);
-      }
-    }).catch((err) => this.serviceUtils.handleError(err, this.toast));
+      }).then((list: Tag[]) => {
+        if (list && list.length !== 0) {
+          tempTagList = list;
+          // replace with new array tags
+          return this.dropboxService.uploadFile(MyTagsService.tagsToBlob(list), fileName);
+        } else {
+          return undefined;
+        }
+      }).then((res: any) => {
+        console.log(res);
+        if (res) {
+          // all good, modifies inner data
+          console.log('myTags', tempTagList);
+          this.myTags$.next(tempTagList);
+          this.toast.open(this.translate.instant('toast.tags_added'), Level.success);
+        }
+      }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
   remove(idToRemove: number[], fileName: string): void {
