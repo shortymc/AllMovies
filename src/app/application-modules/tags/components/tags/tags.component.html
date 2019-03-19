@@ -1,25 +1,27 @@
 <h2>{{'tags.header' | translate}}:</h2>
-<form [formGroup]="tagForm" *ngIf="tagForm" (ngSubmit)="addTag()">
-  <mat-form-field>
-    <input matInput placeholder="{{'tag.new'|translate}}" type="text" name="toAdd" formControlName="toAdd" />
-  </mat-form-field>
-  <ng-container *ngIf="toAdd.invalid && (toAdd.dirty || toAdd.touched)">
-    <mat-error *ngIf="toAdd.errors.required">{{'global.required'|translate}}</mat-error>
-    <div *ngIf="!toAdd.errors.required && toAdd.errors.pending">Validating...</div>
-    <mat-error *ngIf="toAdd.errors.unique">{{'global.unique'|translate}}</mat-error>
-  </ng-container>
-  <div class="tags-btn">
-    <button type="button" class="btn btn-outline-primary" (click)="toAdd.value = ''">{{'global.clear'|translate}}</button>
-    <button type="submit" class="btn btn-outline-primary" [disabled]="tagForm.invalid">{{'global.add'|translate}}</button>
-  </div>
-</form>
+<div class="tags-add">
+  <form [formGroup]="tagForm" *ngIf="tagForm" (ngSubmit)="addTag()">
+    <mat-form-field>
+      <input matInput placeholder="{{'tags.new'|translate}}" type="text" name="toAdd" formControlName="toAdd" />
+    </mat-form-field>
+    <ng-container *ngIf="toAdd.invalid && !toAdd.pristine">
+      <mat-error *ngIf="toAdd.errors.required">{{'tags.required'|translate}}</mat-error>
+      <mat-error *ngIf="toAdd.errors.maxlength">{{'tags.maxlength'|translate:{current:
+        toAdd.errors.maxlength.actualLength, maxSize: toAdd.errors.maxlength.requiredLength} }}</mat-error>
+      <mat-error *ngIf="toAdd.errors.unique">{{'tags.unique'|translate}}</mat-error>
+    </ng-container>
+    <div class="tags-btn">
+      <button type="button" class="btn btn-outline-primary" (click)="toAdd.reset()">{{'global.clear'|translate}}</button>
+      <button type="submit" class="btn btn-outline-primary" [disabled]="tagForm.invalid">{{'global.add'|translate}}</button>
+    </div>
+  </form>
+</div>
 <ng-container *ngIf="tags">
   <div class="filters">
     <!-- Input Filter -->
     <div class="filter-item">
       <mat-form-field>
-        <input matInput type="search" placeholder="{{'tags.filter.placeholder' | translate}}" [(ngModel)]="filter"
-          (keyup)="paginator.firstPage(); onSearch();" />
+        <input matInput type="search" placeholder="{{'tags.filter' | translate}}" [(ngModel)]="filter" (keyup)="paginator.firstPage(); onSearch();" />
       </mat-form-field>
       <span *ngIf="filter" (click)="filter=''; paginator.firstPage(); onSearch();" class="pointer clear-btn">
         <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
@@ -48,8 +50,8 @@
 
     <!-- ID -->
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'tags.id'|translate }}">
-        <span class="mat-text">{{ 'tags.id'|translate }}</span>
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'global.id'|translate }}">
+        <span class="mat-text">{{ 'global.id'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faHashtag"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let tag">

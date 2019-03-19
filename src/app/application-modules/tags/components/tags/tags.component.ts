@@ -63,7 +63,7 @@ export class TagsComponent implements OnInit, OnDestroy {
     }));
     this.tagForm = new FormGroup({
       toAdd: new FormControl('', {
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(20)],
         asyncValidators: [this.isTagUnique.bind(this)],
         updateOn: 'change'
       })

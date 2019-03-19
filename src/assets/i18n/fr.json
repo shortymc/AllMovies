@@ -283,5 +283,16 @@
         "result": "Résultats",
         "vote_count_min": "Nombre de vote minimum",
         "playing": "Films à l'affiche"
+    },
+    "tags": {
+        "header": "Mes Tags",
+        "new": "Ajouter un tag",
+        "filter": "Filtrer",
+        "remove": "Supprimer les tags sélectionnés ({{size}})",
+        "label": "Label",
+        "count": "Taille",
+        "required": "Veuillez renseigner un nom de tag",
+        "maxlength": "{{current}} est supérieur à longueure maximale ({{maxSize}})",
+        "unique": "Le nom du tag doit être unique"
     }
 }

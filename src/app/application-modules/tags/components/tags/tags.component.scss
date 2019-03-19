@@ -1,0 +1,38 @@
+@import "../../../../styles/styles";
+
+.mat-header-row {
+  top: 64px;
+}
+
+.paginator {
+  top: 0;
+}
+
+.paginator,
+.filters {
+  display: flex !important;
+  justify-content: center;
+}
+
+.tags-add {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+::ng-deep.mat-paginator-container {
+  justify-content: center !important;
+  width: 100vw !important;
+}
+
+.mat-row:hover {
+  background-color: $gray_hover !important;
+}
+
+.mat-header-cell .mat-icon {
+  display: none;
+}
+
+.mat-column-select > * {
+  padding-left: 25%;
+}
