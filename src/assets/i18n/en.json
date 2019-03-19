@@ -10,7 +10,7 @@
         "delete": "Delete",
         "cancel": "Cancel",
         "done": "Done",
-        "username": "Pseudo",
+        "username": "Username",
         "original_title": "Original Title",
         "add": "Add",
         "already_added": "Already Added",
@@ -23,7 +23,14 @@
         "pageNotFound": "Page not found",
         "show": "Show",
         "hide": "Hide",
-        "id": "Id"
+        "id": "Id",
+        "clear": "Reset",
+        "sort": "Sort",
+        "sort_direction": "Direction",
+        "sort_up": "Up",
+        "sort_down": "Down",
+        "keyword": "Keywords",
+        "genres": "Genres"
     },
     "time": {
         "now": "now",
@@ -52,7 +59,8 @@
         "discover": "Explore",
         "playing": "Now Playing",
         "login": "Login",
-        "register": "Register"
+        "register": "Register",
+        "tags": "My Tags"
     },
     "toast": {
         "movie_added": "Movie added !",
@@ -84,24 +92,20 @@
         "persons": "Trending people"
     },
     "movie": {
-        "header": "Details of",
         "id": "Id",
         "title": "Title",
         "country": "Country",
         "alternative_title": "Alternative Titles",
         "date": "Release Date",
         "length": "Running Time",
-        "genres": "Genres",
         "synopsis": "Synopsis",
         "budget": "Budget",
         "spoken_langs": "Spoken Languages",
         "revenu": "Revenu",
-        "rating": "Ratings",
         "video": "Videos",
         "image": "Movie Images",
         "reco": "You should like also",
         "similar": "Similar Movies",
-        "keyword": "Keywords",
         "score": {
             "source": "Site",
             "value": "Rating"
@@ -123,7 +127,6 @@
         "total": "Total"
     },
     "person": {
-        "header": "Details of",
         "id": "Id",
         "name": "Name",
         "birthplace": "Birthplace",
@@ -180,7 +183,6 @@
         "date": "Release Date",
         "rating": "Ratings",
         "language": "Languages",
-        "genres": "Genres",
         "length": "Running Time",
         "added": "Added",
         "remove": "Remove the selected movies ({{size}})",
@@ -208,7 +210,6 @@
         }
     },
     "login": {
-        "name": "Username",
         "name_required": "Username is required",
         "password": "Password",
         "password_required": "Password is required",
@@ -270,14 +271,7 @@
             "vote_average": "Vote",
             "vote_count": "Vote count"
         },
-        "clear": "Reset",
-        "sort": "Sort",
-        "sort_direction": "Direction",
-        "sort_up": "Up",
-        "sort_down": "Down",
         "people": "Persons",
-        "keyword": "Keywords",
-        "genre": "Genres",
         "certification": "Certification",
         "without": "Without",
         "none": "None",

@@ -3,9 +3,9 @@
   <form #connectForm="ngForm">
     <mat-error>{{message}}</mat-error>
     <mat-form-field>
-      <input matInput [(ngModel)]="name" placeholder="{{'login.name'|translate}}" type="text" #inputName="ngModel" name="inputName"
+      <input matInput [(ngModel)]="name" placeholder="{{'global.username'|translate}}" type="text" #inputName="ngModel" name="inputName"
         required />
-      <mat-error *ngIf="inputName.errors != null && inputName.errors.required && !inputName.pristine">{{'login.name_required'|translate}}</mat-error>
+      <mat-error *ngIf="inputName.errors != null && inputName.errors.required && !inputName.pristine">{{'global.username_required'|translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>

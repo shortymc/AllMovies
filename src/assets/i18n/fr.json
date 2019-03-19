@@ -23,7 +23,14 @@
         "pageNotFound": "Page introuvable",
         "show": "Afficher",
         "hide": "Cacher",
-        "id": "Id"
+        "id": "Id",
+        "clear": "Rénitialiser",
+        "sort": "Trier",
+        "sort_direction": "Direction",
+        "sort_up": "Croissant",
+        "sort_down": "Décroissant",
+        "keyword": "Mots Clés",
+        "genres": "Genres"
     },
     "time": {
         "now": "maintenant",
@@ -52,7 +59,8 @@
         "discover": "Explorer",
         "playing": "À l'Affiche",
         "login": "Connection",
-        "register": "Inscription"
+        "register": "Inscription",
+        "tags": "Mes Tags"
     },
     "toast": {
         "movie_added": "Film ajouté !",
@@ -84,24 +92,20 @@
         "persons": "Personnes populaires"
     },
     "movie": {
-        "header": "Détails de",
         "id": "Id",
         "title": "Titre",
         "alternative_title": "Titres Alternatif",
         "country": "Pays",
         "date": "Date de Sortie",
         "length": "Durée",
-        "genres": "Genres",
         "synopsis": "Synopsis",
         "budget": "Budget",
         "spoken_langs": "Langues Parlées",
         "revenu": "Recette",
-        "rating": "Note",
         "video": "Vidéo(s)",
         "image": "Images du film",
         "reco": "Vous aimerez aussi",
         "similar": "Films similaires",
-        "keyword": "Mots Clés",
         "score": {
             "source": "Site",
             "value": "Note"
@@ -123,7 +127,6 @@
         "total": "Total"
     },
     "person": {
-        "header": "Détails de",
         "id": "Id",
         "name": "Nom",
         "birthplace": "Lieu de naissance",
@@ -180,7 +183,6 @@
         "date": "Date",
         "rating": "Note",
         "language": "Langues",
-        "genres": "Genres",
         "length": "Durée",
         "added": "Ajouté",
         "remove": "Retirer les films sélectionnés ({{size}})",
@@ -208,7 +210,6 @@
         }
     },
     "login": {
-        "name": "Pseudo",
         "name_required": "Veuillez renseigner votre pseudo",
         "password": "Mot de passe",
         "password_required": "Veuillez renseigner votre mot de passe",
@@ -270,14 +271,7 @@
             "vote_average": "Note",
             "vote_count": "Nombre de vote"
         },
-        "clear": "Rénitialiser",
-        "sort": "Trier",
-        "sort_direction": "Direction",
-        "sort_up": "Croissant",
-        "sort_down": "Décroissant",
         "people": "Personnes",
-        "keyword": "Mots clé",
-        "genre": "Genres",
         "certification": "Certifications",
         "without": "Sans",
         "none": "Aucun",
