@@ -1,6 +1,7 @@
 import { Sort } from '@angular/material/sort';
 import { Movie } from './../model/movie';
 import { Url } from './../constant/url';
+import { Tag } from './../model/tag';
 
 export class Utils {
 
@@ -253,6 +254,25 @@ export class Utils {
             return Utils.compareDate(a.date, b.date, isAsc);
           case 'time':
             return Utils.compare(+a.time, +b.time, isAsc);
+          default:
+            return 0;
+        }
+      });
+    } else {
+      return list;
+    }
+  }
+  static sortTags(list: Tag[], sort: Sort): Tag[] {
+    if (sort && sort.active && sort.direction !== '') {
+      return list.sort((a, b) => {
+        const isAsc: boolean = sort.direction === 'asc';
+        switch (sort.active) {
+          case 'id':
+            return Utils.compare(+a.id, +b.id, isAsc);
+          case 'label':
+            return Utils.compare(a.label, b.label, isAsc);
+          case 'count':
+            return Utils.compare(a.movies.length, b.movies.length, isAsc);
           default:
             return 0;
         }
