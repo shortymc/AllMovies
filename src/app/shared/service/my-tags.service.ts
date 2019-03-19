@@ -8,6 +8,7 @@ import { Level } from '../../model/model';
 import { Tag } from '../../model/tag';
 import { Dropbox } from './../../constant/dropbox';
 import { UtilsService } from './utils.service';
+import { User } from './../../model/user';
 import { ToastService } from './toast.service';
 import { Utils } from '../utils';
 
@@ -29,11 +30,10 @@ export class MyTagsService {
   }
 
   getFileName(): Promise<string> {
-    return this.auth.user$.toPromise().then(user => `${Dropbox.DROPBOX_TAG_FILE}${user.id}${Dropbox.DROPBOX_FILE_SUFFIX}`);
+    return this.auth.getCurrentUser().then((user: User) => `${Dropbox.DROPBOX_TAG_FILE}${user.id}${Dropbox.DROPBOX_FILE_SUFFIX}`);
   }
 
   getAll(): void {
-    console.log('getAll');
     this.getFileName()
       .then((fileName: string) => this.dropboxService.downloadFile(fileName))
       .then((tagsFromFile: string) => {

@@ -43,6 +43,7 @@ export class DropboxService {
   }
 
   downloadFile(fileName: string): Promise<any> {
+    console.log('downloadFile', fileName);
     return this.getDbx().filesDownload({ path: this.getPath(fileName) })
       .then((response: any) => {
         const fileReader = new FileReader();
