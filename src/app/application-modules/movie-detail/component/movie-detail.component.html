@@ -131,7 +131,7 @@
     </div>
     <!-- Genre -->
     <div *ngIf="movie.genres && movie.genres.length > 0">
-      <label>{{'movie.genres' | translate}}: </label>
+      <label>{{'global.genres' | translate}}: </label>
       <div class="movie-genre">
         <span *ngFor="let genre of movie.genres; let last=last;" (click)="redirectGenreToDiscover(genre)">
           <span class="pointer" appOpenLink [label]="genre.name" url="/discover?genre=[{{genre.id}}]">{{genre.name|
@@ -142,7 +142,7 @@
     </div>
     <!-- Keyword -->
     <div *ngIf="movie.keywords && movie.keywords.length > 0">
-      <label>{{'movie.keyword' | translate}}: </label>
+      <label>{{'global.keyword' | translate}}: </label>
       <div class="synopsis break-word">
         <span *ngFor="let keyword of movie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)" class="movie-keyword">
           <span class="pointer" appOpenLink [label]="keyword.name" url="/discover?keyword=[{{keyword.id}}]">{{keyword.name|

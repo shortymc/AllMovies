@@ -1,18 +1,18 @@
 <div class="params">
   <!-- Sort field -->
   <mat-form-field>
-    <mat-select placeholder="{{'discover.sort' | translate}}" [(value)]="sortChosen">
+    <mat-select placeholder="{{'global.sort' | translate}}" [(value)]="sortChosen">
       <mat-option *ngFor="let sort of sortChoices" [value]="sort">{{sort.label_key | translate}}</mat-option>
     </mat-select>
   </mat-form-field>
   <!-- Sort direction -->
   <mat-button-toggle-group #sortDir="matButtonToggleGroup">
-    <div class="toogleHeader">{{'discover.sort_direction'|translate}}:</div>
+    <div class="toogleHeader">{{'global.sort_direction'|translate}}:</div>
     <mat-button-toggle value="desc">
-      {{'discover.sort_up'|translate}}
+      {{'global.sort_up'|translate}}
     </mat-button-toggle>
     <mat-button-toggle value="asc">
-      {{'discover.sort_down'|translate}}
+      {{'global.sort_down'|translate}}
     </mat-button-toggle>
   </mat-button-toggle-group>
 </div>
@@ -21,12 +21,12 @@
   <app-search-box [adult]="adult" (items)="people = $event" [service]="personService" placeholder="{{'discover.people'|translate}}"
     [initList]="people" [clear]="clean"></app-search-box>
   <!-- Keyword search -->
-  <app-search-box [adult]="adult" (items)="keyword = $event" [service]="keywordService" placeholder="{{'discover.keyword'|translate}}"
+  <app-search-box [adult]="adult" (items)="keyword = $event" [service]="keywordService" placeholder="{{'global.keyword'|translate}}"
     [initList]="keyword" [clear]="clean"></app-search-box>
   <mat-slide-toggle [color]="'primary'" [(checked)]="isWithoutKeyword" (change)="isWithoutKeyword = !isWithoutKeyword">{{'discover.without'|translate}}</mat-slide-toggle>
   <!-- Genres Filter -->
   <mat-form-field>
-    <mat-select placeholder="{{'discover.genre' | translate}}" [(value)]="selectedGenres" multiple>
+    <mat-select placeholder="{{'global.genres' | translate}}" [(value)]="selectedGenres" multiple>
       <mat-option *ngFor="let genre of allGenres" [value]="genre.value">{{genre.label_key}}</mat-option>
     </mat-select>
   </mat-form-field>
@@ -71,7 +71,7 @@
     [label]="'global.add_collection'">
   </button>
   <!-- Init Btn -->
-  <button type="button" class="btn btn-outline-primary" (click)="clear()">{{'discover.clear'|translate}}</button>
+  <button type="button" class="btn btn-outline-primary" (click)="clear()">{{'global.clear'|translate}}</button>
   <!-- Search Button -->
   <button type="submit" id="searchBtn" class="btn btn-outline-primary" (click)="search(true)">{{'discover.search'|translate}}</button>
 </div>
