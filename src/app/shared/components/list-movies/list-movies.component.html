@@ -2,18 +2,18 @@
   <div class="card card-outline-primary">
     <div class="card-header">
       <div class="movies-params movies-sorting">
-        <mat-select placeholder="{{'discover.sort' | translate}}" [(value)]="sortChosen" (selectionChange)="sortOrSearchChanged(true)">
+        <mat-select placeholder="{{'global.sort' | translate}}" [(value)]="sortChosen" (selectionChange)="sortOrSearchChanged(true)">
           <mat-option *ngFor="let sort of sortChoices" [value]="sort">{{sort.label_key | translate}}</mat-option>
         </mat-select>
         <mat-button-toggle-group [(value)]="sortDir" (change)="sortDir = $event.value; sortOrSearchChanged(true)">
           <div class="toogleHeader">
-            {{'discover.sort_direction'|translate}}:
+            {{'global.sort_direction'|translate}}:
           </div>
           <mat-button-toggle value="desc">
-            {{'discover.sort_up'|translate}}
+            {{'global.sort_up'|translate}}
           </mat-button-toggle>
           <mat-button-toggle value="asc">
-            {{'discover.sort_down'|translate}}
+            {{'global.sort_down'|translate}}
           </mat-button-toggle>
         </mat-button-toggle-group>
       </div>

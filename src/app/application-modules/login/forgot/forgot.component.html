@@ -8,7 +8,7 @@
       <form #nameForm="ngForm">
         <ng-template matStepLabel>{{'login.forgot.name'|translate}}</ng-template>
         <mat-form-field>
-          <input matInput [(ngModel)]="name" placeholder="{{'login.name'|translate}}" type="text" #inputName="ngModel" name="inputName"
+          <input matInput [(ngModel)]="name" placeholder="{{'global.username'|translate}}" type="text" #inputName="ngModel" name="inputName"
             required/>
         </mat-form-field>
         <mat-error *ngIf="messageName">{{messageName | translate}}</mat-error>
