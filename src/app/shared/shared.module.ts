@@ -160,6 +160,7 @@ export class SharedModule {
         KeywordSearchService,
         MenuService,
         ToastService,
+        CapitalizeWordPipe,
         {
           provide: SWIPER_CONFIG,
           useValue: {}

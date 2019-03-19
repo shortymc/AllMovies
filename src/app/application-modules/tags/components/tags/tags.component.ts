@@ -7,6 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimesCircle, faStar } from '@fortawesome/free-regular-svg-icons';
+import { FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
 import { Utils } from './../../../../shared/utils';
@@ -33,6 +34,7 @@ export class TagsComponent implements OnInit, OnDestroy {
   sort: Sort;
   nbChecked = 0;
   scrollTo: HTMLElement;
+  tagForm: FormGroup;
   subs = [];
 
   faTrash = faTrash;
@@ -59,6 +61,20 @@ export class TagsComponent implements OnInit, OnDestroy {
     this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.getTags(event.lang);
     }));
+    this.tagForm = new FormGroup({
+      toAdd: new FormControl('', {
+        validators: [Validators.required],
+        asyncValidators: [this.isTagUnique.bind(this)],
+        updateOn: 'change'
+      })
+    });
+  }
+
+  get toAdd(): AbstractControl { return this.tagForm.get('toAdd'); }
+
+  isTagUnique(control: AbstractControl): Promise<any> {
+    return new Promise(resolve =>
+      resolve(this.tags.map(tag => tag.label.toLowerCase()).find(label => label === control.value.toLowerCase()) ? { unique: true } : undefined));
   }
 
   getTags(lang: string): void {
@@ -106,6 +122,13 @@ export class TagsComponent implements OnInit, OnDestroy {
       this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
     }
     this.paginate(list);
+  }
+
+  addTag(): void {
+    const tag = new Tag();
+    tag.label = this.toAdd.value;
+    tag.movies = [];
+    this.myTagsService.add(tag);
   }
 
   remove(): void {
