@@ -30,7 +30,8 @@
         "sort_up": "Croissant",
         "sort_down": "Décroissant",
         "keyword": "Mots Clés",
-        "genres": "Genres"
+        "genres": "Genres",
+        "placeholder": "Rechercher"
     },
     "time": {
         "now": "maintenant",
