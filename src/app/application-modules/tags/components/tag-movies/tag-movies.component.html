@@ -1,0 +1,59 @@
+<ng-container *ngIf="visible && tag">
+
+  <!-- Delete -->
+  <div class="delete-btn">
+    <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="remove()">{{'tags.remove' |
+      translate:{size: nbChecked} }}
+      <fa-icon [icon]="faTrash"></fa-icon>
+    </button>
+  </div>
+
+  <div class="paginator mat-elevation-z4">
+    <!-- Paginator -->
+    <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+      (page)="page = $event; onPaginateChange();" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </div>
+
+  <!-- Table -->
+  <mat-table class="mat-elevation-z4" [dataSource]="displayedData" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
+    matSort [matSortActive]="'date'" [matSortDirection]="'desc'">
+
+    <!-- ID -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'global.id'|translate }}">
+        <span class="mat-text">{{ 'global.id'|translate }}</span>
+        <fa-icon class="mat-icon" [icon]="faHashtag"></fa-icon>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        {{movie.id}}
+      </mat-cell>
+    </ng-container>
+
+    <!-- LABEL -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movie.title'|translate }}">
+        <span class="mat-text">{{ 'movie.title'|translate }}</span>
+        <fa-icon class="mat-icon" [icon]="faList"></fa-icon>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        {{movie.title}}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie" class="toto">
+        <div class="cell-content">
+          <mat-checkbox (change)="movie.checked = !movie.checked; updateSize()" [checked]="movie.checked">
+          </mat-checkbox>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</ng-container>

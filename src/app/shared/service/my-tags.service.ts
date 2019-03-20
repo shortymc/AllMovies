@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { DropboxService } from './dropbox.service';
 import { AuthService } from './auth.service';
 import { Level } from '../../model/model';
+import { TagMovie } from './../../model/tag';
 import { Tag } from '../../model/tag';
 import { CapitalizeWordPipe } from './../pipes/capitalizeWord.pipe';
 import { Dropbox } from './../../constant/dropbox';
@@ -114,35 +115,30 @@ export class MyTagsService {
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  /**
-   * Replace the tags contains in the given file by the given tags.
-   * @param  {Tag[]} tagsToReplace
-   * @param  {string} fileName
-   * @returns void
-   */
-  // replaceTags(tagsToReplace: Tag[], fileName: string): void {
-  //   let tempTagList = [];
-  //   this.dropboxService.downloadFile(fileName).then(file => {
-  //     let tagList = <Tag[]>JSON.parse(file);
-  //     // Replaces added date with saved ones
-  //     const idList = tagList.map(m => m.id);
-  //     tagsToReplace.forEach(tag => {
-  //       if (idList.includes(tag.id)) {
-  //         tag.added = tagList.find(m => m.id === tag.id).added;
-  //       }
-  //     });
-  //     // Removes from saved list tags to replaced
-  //     tagList = tagList.filter((m: Tag) => !tagsToReplace.map((tag: Tag) => tag.id).includes(m.id)
-  //       || !tagsToReplace.map((tag: Tag) => tag.lang_version).includes(m.lang_version));
-  //     // Push in saved list new tags
-  //     tagsToReplace.forEach((tag: Tag) => tagList.push(tag));
-  //     tagList.sort(Utils.compareObject);
-  //     tempTagList = tagList;
-  //     return this.dropboxService.uploadFile(MyTagsService.tagsToBlob(tagList), fileName);
-  //   }).then((res: any) => {
-  //     console.log(res);
-  //     this.myTags$.next(tempTagList);
-  //     this.toast.open(this.translate.instant('toast.tags_updated', { size: tagsToReplace.length }), Level.success);
-  //   }).catch((err) => this.serviceUtils.handleError(err, this.toast));
-  // }
+  updateMovies(tag: Tag, movies: TagMovie[]): void {
+    let tempTagList = [];
+    let fileName;
+    this.getFileName()
+      .then((file: string) => {
+        // download file
+        fileName = file;
+        return this.dropboxService.downloadFile(fileName);
+      }).then((tagsFromFile: string) => {
+        // parse tags
+        let tagList: Tag[] = [];
+        if (tagsFromFile && tagsFromFile.trim().length > 0) {
+          tagList = <Tag[]>JSON.parse(tagsFromFile);
+        }
+        // Find tag to update and replace its movies
+        const toUpdate = tagList.find(t => t.id === tag.id);
+        toUpdate.movies = movies;
+        toUpdate.movies.sort(Utils.compareObject);
+        tempTagList = tagList;
+        return this.dropboxService.uploadFile(MyTagsService.tagsToBlob(tagList), fileName);
+      }).then((res: any) => {
+        console.log(res);
+        this.myTags$.next(tempTagList);
+        this.toast.open(this.translate.instant('toast.tags_updated'), Level.success);
+      }).catch((err) => this.serviceUtils.handleError(err, this.toast));
+  }
 }
