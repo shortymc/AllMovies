@@ -18,7 +18,15 @@
 .tags-add {
   display: flex;
   justify-content: center;
-  margin: auto;
+
+  & form,
+  & .tags-btn,
+  & .clear-btn,
+  & .btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
 ::ng-deep.mat-paginator-container {
