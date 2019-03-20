@@ -84,8 +84,7 @@ export class TagsComponent implements OnInit, OnDestroy {
     this.myTagsService.myTags$.subscribe((tags: Tag[]) => {
       this.tags = tags;
       this.tableTags = tags.map(tag => {
-        const clone = { ...tag };
-        clone.movies = Array.from(tag.movies);
+        const clone = Tag.clone(tag);
         clone.movies = clone.movies.filter(movie => movie.lang_version === lang);
         return clone;
       });
@@ -156,6 +155,13 @@ export class TagsComponent implements OnInit, OnDestroy {
 
   updateSize(): void {
     this.nbChecked = this.tableTags.filter(tag => tag.checked).length;
+  }
+
+  updateModal(visible: boolean): void {
+    this.isMoviesVisible = visible;
+    if (!visible) {
+      this.selectedTag = undefined;
+    }
   }
 
   ngOnDestroy(): void {

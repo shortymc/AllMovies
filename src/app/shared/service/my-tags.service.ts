@@ -61,13 +61,13 @@ export class MyTagsService {
         return this.dropboxService.downloadFile(fileName);
       }).then((tagsFromFile: string) => {
         // parse tags
-        let tagList = [];
+        let tagList: Tag[] = [];
         if (tagsFromFile && tagsFromFile.trim().length > 0) {
           tagList = <Tag[]>JSON.parse(tagsFromFile);
         }
         // add tag to list
         tagList.sort(Utils.compareObject);
-        toAdd.id = tagList[tagList.length - 1].id + 1;
+        toAdd.id = tagList.length > 0 ? tagList[tagList.length - 1].id + 1 : 1;
         toAdd.label = this.capitalize.transform(toAdd.label);
         tagList.push(toAdd);
         return tagList;
