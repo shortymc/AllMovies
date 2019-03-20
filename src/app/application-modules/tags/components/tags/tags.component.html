@@ -5,16 +5,20 @@
     <mat-form-field>
       <input matInput placeholder="{{'tags.new'|translate}}" type="text" name="toAdd" formControlName="toAdd" />
     </mat-form-field>
+    <div class="tags-btn">
+      <span *ngIf="toAdd.value" (click)="tagForm.reset()" class="pointer clear-btn">
+        <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
+      </span>
+      <button type="submit" class="btn btn-outline-primary" [disabled]="tagForm.invalid">
+        <fa-icon [icon]="faPlus" size="xs"></fa-icon>
+      </button>
+    </div>
     <ng-container *ngIf="toAdd.invalid && !toAdd.pristine">
       <mat-error *ngIf="toAdd.errors.required">{{'tags.required'|translate}}</mat-error>
       <mat-error *ngIf="toAdd.errors.maxlength">{{'tags.maxlength'|translate:{current:
         toAdd.errors.maxlength.actualLength, maxSize: toAdd.errors.maxlength.requiredLength} }}</mat-error>
       <mat-error *ngIf="toAdd.errors.unique">{{'tags.unique'|translate}}</mat-error>
     </ng-container>
-    <div class="tags-btn">
-      <button type="button" class="btn btn-outline-primary" (click)="tagForm.reset()">{{'global.clear'|translate}}</button>
-      <button type="submit" class="btn btn-outline-primary" [disabled]="tagForm.invalid">{{'global.add'|translate}}</button>
-    </div>
   </form>
 </div>
 <ng-container *ngIf="tags">
@@ -107,9 +111,12 @@
       <mat-cell *matCellDef="let tag" class="toto">
         <div class="cell-content">
           <button class="btn btn-outline-primary btn-detail" matTooltip="{{'global.go_detail' | translate}}" (click)="selectTag(tag)">
-            <span class="btn-text">
+            <span class="btn-text desktop">
               {{'global.go_detail' | translate}}
               <fa-icon [icon]="faChevronCircleRight"></fa-icon>
+            </span>
+            <span class="btn-icon mobile">
+              <fa-icon [icon]="faChevronCircleRight" size="2x"></fa-icon>
             </span>
           </button>
         </div>
