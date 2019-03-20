@@ -91,6 +91,10 @@ export class TagMoviesComponent implements OnChanges {
     this.paginate(data);
   }
 
+  addMovie(movies: TagMovie[]): void {
+    console.log('movies', movies);
+  }
+
   remove(): void {
     this.nbChecked = 0;
   }
