@@ -1,7 +1,7 @@
 <h2>{{'tags.header' | translate}}:</h2>
 <!-- Add Tag -->
 <div class="tags-add">
-  <form [formGroup]="tagForm" *ngIf="tagForm" (ngSubmit)="addTag()">
+  <form [formGroup]="tagForm" *ngIf="tagForm" (ngSubmit)="addTag();tagForm.reset()">
     <mat-form-field>
       <input matInput placeholder="{{'tags.new'|translate}}" type="text" name="toAdd" formControlName="toAdd" />
     </mat-form-field>
@@ -12,13 +12,13 @@
       <mat-error *ngIf="toAdd.errors.unique">{{'tags.unique'|translate}}</mat-error>
     </ng-container>
     <div class="tags-btn">
-      <button type="button" class="btn btn-outline-primary" (click)="toAdd.reset()">{{'global.clear'|translate}}</button>
+      <button type="button" class="btn btn-outline-primary" (click)="tagForm.reset()">{{'global.clear'|translate}}</button>
       <button type="submit" class="btn btn-outline-primary" [disabled]="tagForm.invalid">{{'global.add'|translate}}</button>
     </div>
   </form>
 </div>
 <ng-container *ngIf="tags">
-  <app-modal [visible]="isMoviesVisible" (update)="isMoviesVisible = $event">
+  <app-modal [visible]="isMoviesVisible" (update)="updateModal($event)">
     <app-tag-movies [tag]="selectedTag" [visible]="isMoviesVisible"></app-tag-movies>
   </app-modal>
   <div class="filters">

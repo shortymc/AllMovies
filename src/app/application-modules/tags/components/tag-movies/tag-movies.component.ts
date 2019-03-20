@@ -43,7 +43,7 @@ export class TagMoviesComponent implements OnChanges {
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.tag = changes.tag ? changes.tag.currentValue : this.tag;
+    this.tag = changes.tag.currentValue ? Tag.clone(<Tag> changes.tag.currentValue) : this.tag;
     this.visible = changes.visible ? changes.visible.currentValue : this.visible;
     this.menuService.visible$.next(!this.visible);
     if (this.visible) {
@@ -53,18 +53,24 @@ export class TagMoviesComponent implements OnChanges {
         this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
       }
       this.length = this.tag.movies.length;
-      this.paginate(this.refreshData());
+    } else {
+      this.displayedData = [];
     }
+    this.paginate(this.refreshData());
   }
 
   refreshData(): Tag {
-    let data = { ...this.tag };
-    data.movies = Array.from(this.tag.movies);
-    data.movies = data.movies.filter(movie => movie.lang_version === this.translate.currentLang);
-    data.movies = Utils.filterByFields(data.movies, this.displayedColumns, this.filter);
-    data = Utils.sortTagMovies(data, this.sort);
-    this.length = data.movies.length;
-    return data;
+    if (this.tag && this.tag.movies && this.tag.movies.length > 0) {
+      let data = { ...this.tag };
+      data.movies = Array.from(this.tag.movies);
+      data.movies = data.movies.filter(movie => movie.lang_version === this.translate.currentLang);
+      data.movies = Utils.filterByFields(data.movies, this.displayedColumns, this.filter);
+      data = Utils.sortTagMovies(data, this.sort);
+      this.length = data.movies.length;
+      return data;
+    } else {
+      return undefined;
+    }
   }
 
   onSearch(): void {
@@ -80,9 +86,13 @@ export class TagMoviesComponent implements OnChanges {
   }
 
   paginate(data: Tag): void {
-    this.displayedData = this.page ?
-      data.movies.slice(this.page.pageIndex * this.page.pageSize, (this.page.pageIndex + 1) * this.page.pageSize)
-      : data.movies.slice(0, this.pageSize);
+    if (data) {
+      this.displayedData = this.page ?
+        data.movies.slice(this.page.pageIndex * this.page.pageSize, (this.page.pageIndex + 1) * this.page.pageSize)
+        : data.movies.slice(0, this.pageSize);
+    } else {
+      this.displayedData = [];
+    }
   }
 
   initPagination(data: Tag): void {
