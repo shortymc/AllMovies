@@ -30,7 +30,8 @@
         "sort_up": "Up",
         "sort_down": "Down",
         "keyword": "Keywords",
-        "genres": "Genres"
+        "genres": "Genres",
+        "placeholder": "Search"
     },
     "time": {
         "now": "now",
