@@ -106,7 +106,7 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let tag" class="toto">
         <div class="cell-content">
-          <button class="btn btn-outline-primary btn-detail" matTooltip="{{'global.go_detail' | translate}}" (click)="isMoviesVisible = true;selectedTag = tag">
+          <button class="btn btn-outline-primary btn-detail" matTooltip="{{'global.go_detail' | translate}}" (click)="selectTag(tag)">
             <span class="btn-text">
               {{'global.go_detail' | translate}}
               <fa-icon [icon]="faChevronCircleRight"></fa-icon>

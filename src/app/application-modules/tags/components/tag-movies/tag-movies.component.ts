@@ -1,6 +1,7 @@
 import { FormGroup } from '@angular/forms';
 import { faTrash, faHashtag, faList } from '@fortawesome/free-solid-svg-icons';
 import { PageEvent, Sort } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
 
 import { Utils } from './../../../../shared/utils';
@@ -36,6 +37,7 @@ export class TagMoviesComponent implements OnChanges {
   constructor(
     private menuService: MenuService,
     private myTagsService: MyTagsService,
+    private translate: TranslateService,
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -54,8 +56,10 @@ export class TagMoviesComponent implements OnChanges {
   }
 
   refreshData(): Tag {
-    let data = this.tag;
-    data.movies = Utils.filterByFields(this.tag.movies, this.displayedColumns, this.filter);
+    let data = { ...this.tag };
+    data.movies = Array.from(this.tag.movies);
+    data.movies = data.movies.filter(movie => movie.lang_version === this.translate.currentLang);
+    data.movies = Utils.filterByFields(data.movies, this.displayedColumns, this.filter);
     data = Utils.sortTagMovies(data, this.sort);
     this.length = data.movies.length;
     return data;

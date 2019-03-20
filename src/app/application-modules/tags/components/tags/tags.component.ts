@@ -24,6 +24,7 @@ library.add(faTimesCircle);
 export class TagsComponent implements OnInit, OnDestroy {
   displayedColumns = ['id', 'label', 'count', 'select', 'details'];
   tags: Tag[];
+  tableTags: Tag[];
   length: number;
   displayedTags: Tag[];
   filter: string;
@@ -75,23 +76,27 @@ export class TagsComponent implements OnInit, OnDestroy {
 
   isTagUnique(control: AbstractControl): Promise<any> {
     return new Promise(resolve =>
-      resolve(this.tags.map(tag => tag.label.toLowerCase()).find(label => label === control.value.toLowerCase()) ? { unique: true } : undefined));
+      resolve(this.tableTags.map(tag => tag.label.toLowerCase()).find(label => label === control.value.toLowerCase())
+        ? { unique: true } : undefined));
   }
 
   getTags(lang: string): void {
     this.myTagsService.myTags$.subscribe((tags: Tag[]) => {
-      this.tags = tags.map(tag => {
-        tag.movies = tag.movies.filter(movie => movie.lang_version === lang);
-        return tag;
+      this.tags = tags;
+      this.tableTags = tags.map(tag => {
+        const clone = { ...tag };
+        clone.movies = Array.from(tag.movies);
+        clone.movies = clone.movies.filter(movie => movie.lang_version === lang);
+        return clone;
       });
-      this.length = this.tags.length;
+      this.length = this.tableTags.length;
       this.paginate(this.refreshData());
     });
   }
 
   refreshData(): Tag[] {
     const list = Utils.sortTags(
-      Utils.filterByFields(this.tags, this.displayedColumns, this.filter),
+      Utils.filterByFields(this.tableTags, this.displayedColumns, this.filter),
       this.sort);
     this.length = list.length;
     return list;
@@ -132,6 +137,11 @@ export class TagsComponent implements OnInit, OnDestroy {
     this.myTagsService.add(tag);
   }
 
+  selectTag(selected: Tag): void {
+    this.selectedTag = this.tags.find(tag => tag.id === selected.id);
+    this.isMoviesVisible = true;
+  }
+
   remove(): void {
     // this.auth.getFileName().then((fileName) => {
     //   this.myMoviesService.remove(this.movies.filter(movie => movie.checked).map(movie => movie.id), fileName);
@@ -145,7 +155,7 @@ export class TagsComponent implements OnInit, OnDestroy {
   }
 
   updateSize(): void {
-    this.nbChecked = this.tags.filter(tag => tag.checked).length;
+    this.nbChecked = this.tableTags.filter(tag => tag.checked).length;
   }
 
   ngOnDestroy(): void {
