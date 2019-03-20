@@ -3,7 +3,7 @@ import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import {
-  faTrash, faHashtag, faList, faChevronCircleRight
+  faTrash, faHashtag, faList, faChevronCircleRight, faPlus
 } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimesCircle, faStar } from '@fortawesome/free-regular-svg-icons';
@@ -41,6 +41,7 @@ export class TagsComponent implements OnInit, OnDestroy {
 
   faTrash = faTrash;
   faHashtag = faHashtag;
+  faPlus = faPlus;
   faList = faList;
   faStar = faStar;
   faChevronCircleRight = faChevronCircleRight;
