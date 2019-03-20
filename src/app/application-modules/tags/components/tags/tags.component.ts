@@ -22,7 +22,7 @@ library.add(faTimesCircle);
   styleUrls: ['./tags.component.scss']
 })
 export class TagsComponent implements OnInit, OnDestroy {
-  displayedColumns = ['id', 'label', 'count', 'select'];
+  displayedColumns = ['id', 'label', 'count', 'select', 'details'];
   tags: Tag[];
   length: number;
   displayedTags: Tag[];
@@ -33,8 +33,9 @@ export class TagsComponent implements OnInit, OnDestroy {
   page: PageEvent;
   sort: Sort;
   nbChecked = 0;
-  scrollTo: HTMLElement;
   tagForm: FormGroup;
+  isMoviesVisible = false;
+  selectedTag: Tag;
   subs = [];
 
   faTrash = faTrash;
@@ -51,7 +52,7 @@ export class TagsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.title.setTitle('title.tabs');
+    this.title.setTitle('title.tags');
     this.myTagsService.getAll();
     if (this.page) {
       this.page.pageIndex = 0;

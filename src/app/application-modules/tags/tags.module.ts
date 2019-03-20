@@ -16,6 +16,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TagsComponent } from './components/tags/tags.component';
 import { SharedModule } from './../../shared/shared.module';
 import { MyPaginator } from '../movies/component/my-paginator';
+import { TagMoviesComponent } from './components/tag-movies/tag-movies.component';
 
 const childRoutes: Routes = [
   {
@@ -41,7 +42,7 @@ const childRoutes: Routes = [
     MatSelectModule,
     MatCheckboxModule
   ],
-  declarations: [TagsComponent],
+  declarations: [TagsComponent, TagMoviesComponent],
   providers: [
     TranslateService,
     { provide: MatPaginatorIntl, useClass: MyPaginator, deps: [TranslateService] }
