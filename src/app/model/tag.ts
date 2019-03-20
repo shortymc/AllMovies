@@ -10,4 +10,10 @@ export class Tag {
   label: string;
   checked: boolean;
   movies: TagMovie[];
+
+  static clone(tag: Tag): Tag {
+    const cloneTag = { ...tag };
+    cloneTag.movies = Array.from(tag.movies);
+    return cloneTag;
+  }
 }
