@@ -2,6 +2,7 @@ export class TagMovie {
   id: number;
   title: string;
   lang_version = 'fr';
+  checked: boolean;
 }
 
 export class Tag {

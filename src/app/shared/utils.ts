@@ -262,6 +262,7 @@ export class Utils {
       return list;
     }
   }
+
   static sortTags(list: Tag[], sort: Sort): Tag[] {
     if (sort && sort.active && sort.direction !== '') {
       return list.sort((a, b) => {
@@ -280,5 +281,22 @@ export class Utils {
     } else {
       return list;
     }
+  }
+
+  static sortTagMovies(tag: Tag, sort: Sort): Tag {
+    if (sort && sort.active && sort.direction !== '') {
+      tag.movies.sort((a, b) => {
+        const isAsc: boolean = sort.direction === 'asc';
+        switch (sort.active) {
+          case 'id':
+            return Utils.compare(+a.id, +b.id, isAsc);
+          case 'title':
+            return Utils.compare(a.title, b.title, isAsc);
+          default:
+            return 0;
+        }
+      });
+    }
+    return tag;
   }
 }

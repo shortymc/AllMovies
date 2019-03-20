@@ -70,7 +70,9 @@
         "movies_updated": "{{size}} Movies updated !",
         "already_added": "Already added !",
         "user_added": "User added !",
-        "user_changed": "User changed !"
+        "user_changed": "User changed !",
+        "tags_added": "Tag added !",
+        "tags_updated": "Tag updated !"
     },
     "tabs": {
         "open_link": {

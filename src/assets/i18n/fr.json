@@ -70,7 +70,9 @@
         "movies_updated": "{{size}} Films mis à jour !",
         "already_added": "Déjà ajouté !",
         "user_added": "Utilisateur ajouté !",
-        "user_changed": "Utilisateur Modifié !"
+        "user_changed": "Utilisateur Modifié !",
+        "tags_added": "Tag ajouté !",
+        "tags_updated": "Tag mis à jour !"
     },
     "tabs": {
         "open_link": {
