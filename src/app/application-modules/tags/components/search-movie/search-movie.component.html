@@ -1,0 +1,13 @@
+<mat-form-field>
+  <input #inputSearch matInput placeholder="{{'movie.placeholder'|translate}}" [matAutocomplete]="auto" [formControl]="movieCtrl">
+</mat-form-field>
+<mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+  <mat-option *ngFor="let movie of filteredMovies | async" (onSelectionChange)="add(movie); inputSearch.value = ''">
+    <div class="media">
+      <img class="align-self-center" *ngIf="movie.thumbnail" src="{{movie.thumbnail}}" style="width:22%;">
+      <div class="media-body">
+        <p class="mt-0">{{movie.title | capitalizeWord}}</p>
+      </div>
+    </div>
+  </mat-option>
+</mat-autocomplete>

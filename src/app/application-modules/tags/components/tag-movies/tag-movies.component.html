@@ -1,5 +1,5 @@
 <ng-container *ngIf="visible && tag">
-
+  <app-search-movie [adult]="true" (added)="addMovie($event)"></app-search-movie>
   <!-- Delete -->
   <div class="delete-btn">
     <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="remove()">{{'tags.remove' |
