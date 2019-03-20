@@ -3,6 +3,7 @@ import { faTrash, faHashtag, faList } from '@fortawesome/free-solid-svg-icons';
 import { PageEvent, Sort } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { faSave } from '@fortawesome/free-regular-svg-icons';
 
 import { Utils } from './../../../../shared/utils';
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
@@ -33,6 +34,7 @@ export class TagMoviesComponent implements OnChanges {
   faTrash = faTrash;
   faHashtag = faHashtag;
   faList = faList;
+  faSave = faSave;
 
   constructor(
     private menuService: MenuService,
@@ -92,11 +94,19 @@ export class TagMoviesComponent implements OnChanges {
   }
 
   addMovie(movies: TagMovie[]): void {
-    console.log('movies', movies);
+    this.tag.movies.push(...movies);
+    this.initPagination(this.refreshData());
   }
 
-  remove(): void {
+  removeMovie(): void {
+    const toRemove = this.tag.movies.filter(movie => movie.checked).map(movie => movie.id);
+    this.tag.movies = this.tag.movies.filter(movie => !toRemove.includes(movie.id));
     this.nbChecked = 0;
+    this.initPagination(this.refreshData());
+  }
+
+  save(): void {
+    this.myTagsService.updateMovies(this.tag);
   }
 
   updateSize(): void {
