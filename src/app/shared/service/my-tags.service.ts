@@ -115,7 +115,7 @@ export class MyTagsService {
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  updateMovies(tag: Tag, movies: TagMovie[]): void {
+  updateMovies(tag: Tag): void {
     let tempTagList = [];
     let fileName;
     this.getFileName()
@@ -131,7 +131,7 @@ export class MyTagsService {
         }
         // Find tag to update and replace its movies
         const toUpdate = tagList.find(t => t.id === tag.id);
-        toUpdate.movies = movies;
+        toUpdate.movies = tag.movies;
         toUpdate.movies.sort(Utils.compareObject);
         tempTagList = tagList;
         return this.dropboxService.uploadFile(MyTagsService.tagsToBlob(tagList), fileName);

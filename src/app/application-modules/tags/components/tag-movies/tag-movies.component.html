@@ -1,8 +1,11 @@
 <ng-container *ngIf="visible && tag">
   <app-search-movie [adult]="true" (added)="addMovie($event)"></app-search-movie>
   <!-- Delete -->
-  <div class="delete-btn">
-    <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="remove()">{{'tags.remove' |
+  <div class="tag-btn">
+    <button class="btn btn-outline-primary" (click)="save()">{{'global.save' | translate}}
+      <fa-icon [icon]="faSave"></fa-icon>
+    </button>
+    <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="removeMovie()">{{'tags.remove' |
       translate:{size: nbChecked} }}
       <fa-icon [icon]="faTrash"></fa-icon>
     </button>
