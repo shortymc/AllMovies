@@ -1,1 +1,35 @@
 @import "../../../../styles/styles";
+
+img {
+  height: 94px;
+}
+
+.mat-form-field {
+  width: 20vw;
+}
+
+::ng-deep.mat-autocomplete-panel {
+  min-height: 576px !important;
+}
+
+::ng-deep.mat-option {
+  min-height: 96px !important;
+}
+
+@include media(#{$smallscreen}) {
+  img {
+    height: 64px;
+  }
+
+  .mat-form-field {
+    width: 75vw;
+  }
+
+  ::ng-deep.mat-autocomplete-panel {
+    min-height: 402px !important;
+  }
+
+  ::ng-deep.mat-option {
+    min-height: 66px !important;
+  }
+}

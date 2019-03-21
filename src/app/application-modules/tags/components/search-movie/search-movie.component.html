@@ -4,7 +4,7 @@
 <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
   <mat-option *ngFor="let movie of filteredMovies | async" (onSelectionChange)="add(movie); inputSearch.value = ''">
     <div class="media">
-      <img class="align-self-center" *ngIf="movie.thumbnail" src="{{movie.thumbnail}}" style="width:22%;">
+      <img class="align-self-center" *ngIf="movie.thumbnail" src="{{movie.thumbnail}}">
       <div class="media-body">
         <p class="mt-0">{{movie.title | capitalizeWord}}</p>
       </div>
