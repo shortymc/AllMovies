@@ -3,7 +3,7 @@
   <app-search-movie [adult]="true" (added)="addMovie($event)"></app-search-movie>
   <!-- Buttons -->
   <div class="tag-btn">
-    <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="removeMovie()">{{'tags.remove' |
+    <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="removeMovie()">{{'tags.remove_movies' |
       translate:{size: nbChecked} }}
       <fa-icon [icon]="faTrash"></fa-icon>
     </button>
