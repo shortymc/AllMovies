@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { faTrash, faHashtag, faList } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faHashtag, faList, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { PageEvent, Sort } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
@@ -29,12 +29,15 @@ export class TagMoviesComponent implements OnChanges {
   sort: Sort;
   nbChecked = 0;
   tagForm: FormGroup;
+  edit = false;
+  editedLabel: string;
   subs = [];
 
   faTrash = faTrash;
   faHashtag = faHashtag;
   faList = faList;
   faSave = faSave;
+  faEdit = faEdit;
 
   constructor(
     private menuService: MenuService,
@@ -43,7 +46,7 @@ export class TagMoviesComponent implements OnChanges {
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.tag = changes.tag.currentValue ? Tag.clone(<Tag> changes.tag.currentValue) : this.tag;
+    this.tag = changes.tag.currentValue ? Tag.clone(<Tag>changes.tag.currentValue) : this.tag;
     this.visible = changes.visible ? changes.visible.currentValue : this.visible;
     this.menuService.visible$.next(!this.visible);
     if (this.visible) {
@@ -116,7 +119,21 @@ export class TagMoviesComponent implements OnChanges {
   }
 
   save(): void {
-    this.myTagsService.updateMovies(this.tag);
+    this.myTagsService.updateTag(this.tag);
+  }
+
+  toogleEdit(): void {
+    if (this.edit && this.editedLabel !== this.tag.label) {
+      this.editTag();
+    } else {
+      this.editedLabel = this.tag.label;
+      this.edit = !this.edit;
+    }
+  }
+
+  editTag(): void {
+    this.edit = false;
+    this.tag.label = this.editedLabel;
   }
 
   updateSize(): void {
