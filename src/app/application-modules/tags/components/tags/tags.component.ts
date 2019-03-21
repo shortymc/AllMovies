@@ -139,9 +139,7 @@ export class TagsComponent implements OnInit, OnDestroy {
   }
 
   remove(): void {
-    // this.auth.getFileName().then((fileName) => {
-    //   this.myMoviesService.remove(this.movies.filter(movie => movie.checked).map(movie => movie.id), fileName);
-    // });
+    this.myTagsService.remove(this.tableTags.filter(tag => tag.checked).map(tag => tag.id));
     this.nbChecked = 0;
   }
 
