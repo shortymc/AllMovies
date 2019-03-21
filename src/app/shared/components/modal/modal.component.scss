@@ -1,5 +1,9 @@
 @import "../../../styles/styles";
 
+:host > div {
+  overflow-y: scroll;
+}
+
 .open {
   position: fixed;
   z-index: map-get($depth, 'modal');
