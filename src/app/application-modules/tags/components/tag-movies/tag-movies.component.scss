@@ -1,5 +1,21 @@
 @import "../../../../styles/styles";
 
+.tag-label  {
+  display: inline-flex;
+  justify-content: center;
+  width: 100vw;
+
+  & .edit {
+    display: none;
+    align-self: center;
+    padding-left: 12px;
+  }
+
+  &:hover .edit {
+    display: block;
+  }
+}
+
 app-search-movie,
 .tag-btn {
   display: flex;

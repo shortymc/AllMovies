@@ -1,5 +1,15 @@
 <ng-container *ngIf="visible && tag">
-  <h2>{{tag.label}}:</h2>
+  <div class="tag-label">
+    <h2 *ngIf="!edit">{{tag.label}}</h2>
+    <h2 *ngIf="edit">
+        <mat-form-field>
+          <input matInput type="search" [(ngModel)]="editedLabel" (keyup.enter)="editTag()"/>
+        </mat-form-field>
+    </h2>
+    <span class="edit pointer" (click)="toogleEdit()">
+      <fa-icon [icon]="faEdit"></fa-icon>
+    </span>
+  </div>
   <app-search-movie [adult]="true" (added)="addMovie($event)"></app-search-movie>
   <!-- Buttons -->
   <div class="tag-btn">
