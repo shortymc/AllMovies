@@ -7,7 +7,9 @@ import { faSave } from '@fortawesome/free-regular-svg-icons';
 
 import { Utils } from './../../../../shared/utils';
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
+import { Level } from './../../../../model/model';
 import { MenuService } from './../../../../shared/service/menu.service';
+import { ToastService } from './../../../../shared/service/toast.service';
 import { Tag, TagMovie } from './../../../../model/tag';
 
 @Component({
@@ -43,6 +45,7 @@ export class TagMoviesComponent implements OnChanges {
     private menuService: MenuService,
     private myTagsService: MyTagsService,
     private translate: TranslateService,
+    private toast: ToastService
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -107,8 +110,12 @@ export class TagMoviesComponent implements OnChanges {
   }
 
   addMovie(movies: TagMovie[]): void {
-    this.tag.movies.push(...movies);
-    this.initPagination(this.refreshData());
+    if (this.tag.movies.map(m => m.id).includes(movies[0].id)) {
+      this.toast.open('toast.already_added', Level.warning);
+    } else {
+      this.tag.movies.push(...movies);
+      this.initPagination(this.refreshData());
+    }
   }
 
   removeMovie(): void {
