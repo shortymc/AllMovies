@@ -300,6 +300,7 @@
         "required": "Veuillez renseigner un nom de tag",
         "maxlength": "{{current}} est supérieur à longueure maximale ({{maxSize}})",
         "unique": "Le nom du tag doit être unique",
+        "remove_movies": "Retirer les films sélectionnés ({{size}})",
         "mat-table": {
             "itemsPerPageLabel": "Tags par Page: "
         }
