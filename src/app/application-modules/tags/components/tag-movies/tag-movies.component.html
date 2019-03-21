@@ -1,15 +1,23 @@
 <ng-container *ngIf="visible && tag">
   <h2>{{tag.label}}:</h2>
   <app-search-movie [adult]="true" (added)="addMovie($event)"></app-search-movie>
-  <!-- Delete -->
+  <!-- Buttons -->
   <div class="tag-btn">
-    <button class="btn btn-outline-primary" (click)="save()">{{'global.save' | translate}}
-      <fa-icon [icon]="faSave"></fa-icon>
-    </button>
     <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="removeMovie()">{{'tags.remove' |
       translate:{size: nbChecked} }}
       <fa-icon [icon]="faTrash"></fa-icon>
     </button>
+    <button class="btn btn-outline-primary" (click)="save()">{{'global.save' | translate}}
+      <fa-icon [icon]="faSave"></fa-icon>
+    </button>
+    <div class="tags-filter">
+      <mat-form-field>
+        <input matInput type="search" placeholder="{{'tags.filter' | translate}}" [(ngModel)]="search" (keyup)="paginator.firstPage(); onSearch();" />
+      </mat-form-field>
+      <span *ngIf="search" (click)="search=''; paginator.firstPage(); onSearch();" class="pointer clear-btn">
+        <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
+      </span>
+    </div>
   </div>
 
   <div class="paginator mat-elevation-z4">
