@@ -120,7 +120,7 @@ export class MyTagsService {
       }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  updateMovies(tag: Tag): void {
+  updateTag(tag: Tag): void {
     let tempTagList = [];
     let fileName;
     this.getFileName()
@@ -135,9 +135,10 @@ export class MyTagsService {
           tagList = <Tag[]>JSON.parse(tagsFromFile);
         }
         // Find tag to update and replace its movies
-        const toUpdate = tagList.find(t => t.id === tag.id);
-        toUpdate.movies = tag.movies;
+        let toUpdate = tagList.find(t => t.id === tag.id);
+        toUpdate = Tag.clone(tag);
         toUpdate.movies.sort(Utils.compareObject);
+        tagList.splice(tagList.map(t => t.id).indexOf(tag.id), 1, tag);
         tempTagList = tagList;
         return this.dropboxService.uploadFile(MyTagsService.tagsToBlob(tagList), fileName);
       }).then((res: any) => {
