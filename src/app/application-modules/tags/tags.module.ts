@@ -48,7 +48,10 @@ const childRoutes: Routes = [
   declarations: [TagsComponent, TagMoviesComponent, SearchMovieComponent],
   providers: [
     TranslateService,
-    { provide: MatPaginatorIntl, useClass: MyPaginator, deps: [TranslateService] }
+    {
+      provide: MatPaginatorIntl, useFactory: (translate: TranslateService): MyPaginator => new MyPaginator(translate, 'tags'),
+      deps: [TranslateService]
+    }
   ]
 })
 export class TagsModule { }

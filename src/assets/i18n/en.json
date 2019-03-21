@@ -31,7 +31,15 @@
         "sort_down": "Down",
         "keyword": "Keywords",
         "genres": "Genres",
-        "placeholder": "Search"
+        "placeholder": "Search",
+        "mat-table": {
+            "of": " of ",
+            "no_result": "No Data",
+            "nextPageLabel": "Next Page",
+            "previousPageLabel": "Previous Page",
+            "lastPageLabel": "Last Page",
+            "firstPageLabel": "First Page"
+        }
     },
     "time": {
         "now": "now",
@@ -196,13 +204,7 @@
             "genres": "Genres"
         },
         "mat-table": {
-            "itemsPerPageLabel": "Movies per page: ",
-            "of": " of ",
-            "no_result": "No Data",
-            "nextPageLabel": "Next Page",
-            "previousPageLabel": "Previous Page",
-            "lastPageLabel": "Last Page",
-            "firstPageLabel": "First Page"
+            "itemsPerPageLabel": "Movies per page: "
         }
     },
     "release": {
@@ -297,6 +299,9 @@
         "count": "Count",
         "required": "Please enter a tag name",
         "maxlength": "{{current}} is greater than the maximum length ({{maxSize}})",
-        "unique": "The tag name must be unique"
+        "unique": "The tag name must be unique",
+        "mat-table": {
+            "itemsPerPageLabel": "Tags per page: "
+        }
     }
 }
