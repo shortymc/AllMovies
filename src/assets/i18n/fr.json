@@ -31,7 +31,15 @@
         "sort_down": "Décroissant",
         "keyword": "Mots Clés",
         "genres": "Genres",
-        "placeholder": "Rechercher"
+        "placeholder": "Rechercher",
+        "mat-table": {
+            "of": " sur ",
+            "no_result": "Aucune Donnée",
+            "nextPageLabel": "Page Suivante",
+            "previousPageLabel": "Page Précédente",
+            "lastPageLabel": "Dernière Page",
+            "firstPageLabel": "Première Page"
+        }
     },
     "time": {
         "now": "maintenant",
@@ -196,13 +204,7 @@
             "genres": "Genres"
         },
         "mat-table": {
-            "itemsPerPageLabel": "Films par Page: ",
-            "of": " sur ",
-            "no_result": "Aucune Donnée",
-            "nextPageLabel": "Page Suivante",
-            "previousPageLabel": "Page Précédente",
-            "lastPageLabel": "Dernière Page",
-            "firstPageLabel": "Première Page"
+            "itemsPerPageLabel": "Films par Page: "
         }
     },
     "release": {
@@ -297,6 +299,9 @@
         "count": "Taille",
         "required": "Veuillez renseigner un nom de tag",
         "maxlength": "{{current}} est supérieur à longueure maximale ({{maxSize}})",
-        "unique": "Le nom du tag doit être unique"
+        "unique": "Le nom du tag doit être unique",
+        "mat-table": {
+            "itemsPerPageLabel": "Tags par Page: "
+        }
     }
 }
