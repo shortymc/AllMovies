@@ -90,29 +90,34 @@ export class MyTagsService {
       }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
-  remove(idToRemove: number[], fileName: string): void {
+  remove(idToRemove: number[]): void {
     let tempTagList = [];
-    // download my tags
-    this.dropboxService.downloadFile(fileName).then(tagsFromFile => {
-      // parse them
-      let tagList = <Tag[]>JSON.parse(tagsFromFile);
-      if (idToRemove.length > 0) {
-        // remove given tags
-        idToRemove.forEach((id: number) => tagList = tagList.filter((film: Tag) => film.id !== id));
-        tempTagList = tagList;
-        // repplace file with new tag array
-        return this.dropboxService.uploadFile(MyTagsService.tagsToBlob(tagList), fileName);
-      } else {
-        return undefined;
-      }
-    }).then((res: any) => {
-      console.log(res);
-      if (res) {
-        // if ok, emit new array and toast
-        this.myTags$.next(tempTagList);
-        this.toast.open(this.translate.instant('toast.tags_removed', { size: idToRemove.length }), Level.success);
-      }
-    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+    let fileName;
+    this.getFileName()
+      .then((file: string) => {
+        // download file
+        fileName = file;
+        return this.dropboxService.downloadFile(fileName);
+      }).then((tagsFromFile: string) => {
+        // parse them
+        let tagList = <Tag[]>JSON.parse(tagsFromFile);
+        if (idToRemove.length > 0) {
+          // remove given tags
+          idToRemove.forEach((id: number) => tagList = tagList.filter((tag: Tag) => tag.id !== id));
+          tempTagList = tagList;
+          // replace file with new tag array
+          return this.dropboxService.uploadFile(MyTagsService.tagsToBlob(tagList), fileName);
+        } else {
+          return undefined;
+        }
+      }).then((res: any) => {
+        console.log(res);
+        if (res) {
+          // if ok, emit new array and toast
+          this.myTags$.next(tempTagList);
+          this.toast.open(this.translate.instant('toast.tags_removed', { size: idToRemove.length }), Level.success);
+        }
+      }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   updateMovies(tag: Tag): void {

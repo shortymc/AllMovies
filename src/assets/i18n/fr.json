@@ -65,15 +65,16 @@
     },
     "toast": {
         "movie_added": "Film ajouté !",
-        "movies_added": "{{size}} Films ajoutés !",
+        "movies_added": "{{size}} Film(s) ajoutés !",
         "movie_removed": "Film supprimé !",
-        "movies_removed": "{{size}} Films supprimés !",
-        "movies_updated": "{{size}} Films mis à jour !",
+        "movies_removed": "{{size}} Film(s) supprimés !",
+        "movies_updated": "{{size}} Film(s) mis à jour !",
         "already_added": "Déjà ajouté !",
         "user_added": "Utilisateur ajouté !",
-        "user_changed": "Utilisateur Modifié !",
+        "user_changed": "Utilisateur modifié !",
         "tags_added": "Tag ajouté !",
-        "tags_updated": "Tag mis à jour !"
+        "tags_updated": "Tag mis à jour !",
+        "tags_removed": "{{size}} Tag(s) supprimés !"
     },
     "tabs": {
         "open_link": {
