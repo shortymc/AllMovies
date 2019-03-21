@@ -65,15 +65,16 @@
     },
     "toast": {
         "movie_added": "Movie added !",
-        "movies_added": "{{size}} Movies added !",
+        "movies_added": "{{size}} Movie(s) added !",
         "movie_removed": "Movie removed !",
-        "movies_removed": "{{size}} Movies removed !",
-        "movies_updated": "{{size}} Movies updated !",
+        "movies_removed": "{{size}} Movie(s) removed !",
+        "movies_updated": "{{size}} Movie(s) updated !",
         "already_added": "Already added !",
         "user_added": "User added !",
         "user_changed": "User changed !",
         "tags_added": "Tag added !",
-        "tags_updated": "Tag updated !"
+        "tags_updated": "Tag updated !",
+        "tags_removed": "{{size}} Tag(s) removed !"
     },
     "tabs": {
         "open_link": {
