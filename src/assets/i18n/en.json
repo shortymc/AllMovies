@@ -300,6 +300,7 @@
         "required": "Please enter a tag name",
         "maxlength": "{{current}} is greater than the maximum length ({{maxSize}})",
         "unique": "The tag name must be unique",
+        "remove_movies": "Remove the selected movies ({{size}})",
         "mat-table": {
             "itemsPerPageLabel": "Tags per page: "
         }
