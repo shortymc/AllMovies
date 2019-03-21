@@ -25,16 +25,14 @@
   <app-modal [visible]="isMoviesVisible" (update)="updateModal($event)">
     <app-tag-movies [tag]="selectedTag" [visible]="isMoviesVisible"></app-tag-movies>
   </app-modal>
-  <div class="filters">
-    <!-- Input Filter -->
-    <div class="filter-item">
-      <mat-form-field>
-        <input matInput type="search" placeholder="{{'tags.filter' | translate}}" [(ngModel)]="filter" (keyup)="paginator.firstPage(); onSearch();" />
-      </mat-form-field>
-      <span *ngIf="filter" (click)="filter=''; paginator.firstPage(); onSearch();" class="pointer clear-btn">
-        <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
-      </span>
-    </div>
+  <!-- Input Filter -->
+  <div class="tags-filter">
+    <mat-form-field>
+      <input matInput type="search" placeholder="{{'tags.filter' | translate}}" [(ngModel)]="search" (keyup)="paginator.firstPage(); onSearch();" />
+    </mat-form-field>
+    <span *ngIf="search" (click)="search=''; paginator.firstPage(); onSearch();" class="pointer clear-btn">
+      <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
+    </span>
   </div>
 
   <!-- Delete -->
