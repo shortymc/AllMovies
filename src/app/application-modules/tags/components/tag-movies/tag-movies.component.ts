@@ -21,7 +21,7 @@ export class TagMoviesComponent implements OnChanges {
   displayedColumns = ['id', 'title', 'select'];
   length: number;
   displayedData: TagMovie[];
-  filter: string;
+  search = '';
   pageSize = 25;
   pageIndex = 0;
   pageSizeOptions = [10, 25, 50, 100];
@@ -64,7 +64,7 @@ export class TagMoviesComponent implements OnChanges {
       let data = { ...this.tag };
       data.movies = Array.from(this.tag.movies);
       data.movies = data.movies.filter(movie => movie.lang_version === this.translate.currentLang);
-      data.movies = Utils.filterByFields(data.movies, this.displayedColumns, this.filter);
+      data.movies = Utils.filterByFields(data.movies, this.displayedColumns, this.search);
       data = Utils.sortTagMovies(data, this.sort);
       this.length = data.movies.length;
       return data;

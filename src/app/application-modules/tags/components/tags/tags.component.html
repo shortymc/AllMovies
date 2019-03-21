@@ -21,7 +21,7 @@
     </ng-container>
   </form>
 </div>
-<ng-container *ngIf="tags">
+<ng-container>
   <app-modal [visible]="isMoviesVisible" (update)="updateModal($event)">
     <app-tag-movies [tag]="selectedTag" [visible]="isMoviesVisible"></app-tag-movies>
   </app-modal>
