@@ -17,7 +17,7 @@
       translate:{size: nbChecked} }}
       <fa-icon [icon]="faTrash"></fa-icon>
     </button>
-    <button class="btn btn-outline-primary" (click)="save()">{{'global.save' | translate}}
+    <button class="btn btn-outline-primary" [ngClass]="{'pulse': edited}" (click)="save()">{{'global.save' | translate}}
       <fa-icon [icon]="faSave"></fa-icon>
     </button>
     <div class="tags-filter">
