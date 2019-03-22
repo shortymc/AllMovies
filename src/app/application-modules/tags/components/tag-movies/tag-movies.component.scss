@@ -16,8 +16,28 @@
   }
 }
 
+.pulse {
+  animation: 2s linear infinite pulse;
+}
+
 app-search-movie,
 .tag-btn {
   display: flex;
   justify-content: center;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.015);
+    color: $warning;
+    border-color: $warning;
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
