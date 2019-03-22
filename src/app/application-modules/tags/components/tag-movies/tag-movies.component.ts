@@ -44,7 +44,7 @@ export class TagMoviesComponent implements OnChanges {
   constructor(
     private menuService: MenuService,
     private myTagsService: MyTagsService,
-    private translate: TranslateService,
+    public translate: TranslateService,
     private toast: ToastService
   ) { }
 
@@ -69,9 +69,8 @@ export class TagMoviesComponent implements OnChanges {
     if (this.tag && this.tag.movies && this.tag.movies.length > 0) {
       let data = { ...this.tag };
       data.movies = Array.from(this.tag.movies);
-      data.movies = data.movies.filter(movie => movie.lang_version === this.translate.currentLang);
       data.movies = Utils.filterByFields(data.movies, this.displayedColumns, this.search);
-      data = Utils.sortTagMovies(data, this.sort);
+      data = Utils.sortTagMovies(data, this.sort, this.translate.currentLang);
       this.length = data.movies.length;
       return data;
     } else {
@@ -109,11 +108,11 @@ export class TagMoviesComponent implements OnChanges {
     this.paginate(data);
   }
 
-  addMovie(movies: TagMovie[]): void {
-    if (this.tag.movies.map(m => m.id).includes(movies[0].id)) {
+  addMovie(movie: TagMovie): void {
+    if (this.tag.movies.map(m => m.id).includes(movie.id)) {
       this.toast.open('toast.already_added', Level.warning);
     } else {
-      this.tag.movies.push(...movies);
+      this.tag.movies.push(movie);
       this.initPagination(this.refreshData());
     }
   }

@@ -85,7 +85,6 @@ export class TagsComponent implements OnInit, OnDestroy {
       this.tags = tags;
       this.tableTags = tags.map(tag => {
         const clone = Tag.clone(tag);
-        clone.movies = clone.movies.filter(movie => movie.lang_version === lang);
         return clone;
       });
       this.length = this.tableTags.length;

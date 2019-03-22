@@ -18,7 +18,7 @@ import { MovieSearchService } from './../../../../shared/service/movie-search.se
 })
 export class SearchMovieComponent implements OnInit {
   @Input() adult: boolean;
-  @Output() added = new EventEmitter<TagMovie[]>();
+  @Output() selected = new EventEmitter<TagMovie>();
   filteredMovies: Observable<Movie[]>;
   movieCtrl: FormControl;
   faRemove = faTimes;
@@ -47,15 +47,12 @@ export class SearchMovieComponent implements OnInit {
   add(item: Movie): void {
     const lang = this.translate.currentLang === 'fr' ? 'en' : 'fr';
     this.movieService.getMovie(item.id, new MovieDetailConfig(false, false, false, false, false, false, false, false, lang), false).then(movie => {
-      const tag1 = new TagMovie();
-      tag1.id = item.id;
-      tag1.title = item.title;
-      tag1.lang_version = this.translate.currentLang;
-      const tag2 = new TagMovie();
-      tag2.id = movie.id;
-      tag2.title = movie.title;
-      tag2.lang_version = lang;
-      this.added.emit([tag1, tag2]);
+      const tag = new TagMovie();
+      tag.id = item.id;
+      tag.titles = new Map();
+      tag.titles.set(this.translate.currentLang, item.title);
+      tag.titles.set(lang, movie.title);
+      this.selected.emit(tag);
     });
   }
 
