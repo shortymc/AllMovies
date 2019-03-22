@@ -118,6 +118,7 @@
         "image": "Movie Images",
         "reco": "You should like also",
         "similar": "Similar Movies",
+        "tagged": "Tagged",
         "score": {
             "source": "Site",
             "value": "Rating"

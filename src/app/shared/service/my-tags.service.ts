@@ -16,7 +16,7 @@ import { Utils } from '../utils';
 
 @Injectable()
 export class MyTagsService {
-  myTags$ = new BehaviorSubject([]);
+  myTags$: BehaviorSubject<Tag[]> = new BehaviorSubject([]);
 
   constructor(
     private dropboxService: DropboxService,
