@@ -246,6 +246,14 @@ input[type='checkbox'] {
   display: block;
 }
 
+.movies-autocomplete {
+  min-height: 576px !important;
+
+  & .mat-option {
+    min-height: 96px !important;
+  }
+}
+
 @include media(#{$smallscreen}) {
   button {
     font-size: 0.8em !important;
@@ -301,5 +309,13 @@ input[type='checkbox'] {
     margin-top: 0.5vh;
     padding: 0 5px 0 15px;
     font-size: 14px;
+  }
+
+  .movies-autocomplete {
+    min-height: 402px !important;
+
+    & .mat-option {
+      min-height: 66px !important;
+    }
   }
 }
