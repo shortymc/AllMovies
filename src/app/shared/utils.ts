@@ -2,7 +2,7 @@ import { Sort } from '@angular/material/sort';
 import { Movie } from './../model/movie';
 import { Url } from './../constant/url';
 import { Tag } from './../model/tag';
-
+/* tslint:disable max-file-line-count */
 export class Utils {
 
   static readonly ORIGINAL_IMG_SIZE = 0;
@@ -283,7 +283,7 @@ export class Utils {
     }
   }
 
-  static sortTagMovies(tag: Tag, sort: Sort): Tag {
+  static sortTagMovies(tag: Tag, sort: Sort, lang: string = 'fr'): Tag {
     if (sort && sort.active && sort.direction !== '') {
       tag.movies.sort((a, b) => {
         const isAsc: boolean = sort.direction === 'asc';
@@ -291,7 +291,7 @@ export class Utils {
           case 'id':
             return Utils.compare(+a.id, +b.id, isAsc);
           case 'title':
-            return Utils.compare(a.title, b.title, isAsc);
+            return Utils.compare(a.titles.get(lang), b.titles.get(lang), isAsc);
           default:
             return 0;
         }
@@ -299,4 +299,13 @@ export class Utils {
     }
     return tag;
   }
+
+  static mapToJson(map: Map<any, any>): string {
+    return JSON.stringify(Array.from(map.entries()));
+  }
+
+  static jsonToMap(json: string): Map<any, any> {
+    return new Map(JSON.parse(json));
+  }
+
 }
