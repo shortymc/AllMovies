@@ -32,6 +32,7 @@ export class TagMoviesComponent implements OnChanges {
   nbChecked = 0;
   tagForm: FormGroup;
   edit = false;
+  edited = false;
   editedLabel: string;
   subs = [];
 
@@ -53,16 +54,25 @@ export class TagMoviesComponent implements OnChanges {
     this.visible = changes.visible ? changes.visible.currentValue : this.visible;
     this.menuService.visible$.next(!this.visible);
     if (this.visible) {
-      this.displayedData = this.tag.movies;
+      this.initData();
       if (this.page) {
         this.page.pageIndex = 0;
         this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
       }
-      this.length = this.tag.movies.length;
     } else {
       this.displayedData = [];
     }
     this.paginate(this.refreshData());
+  }
+
+  initData(): void {
+    this.displayedData = this.tag.movies;
+    this.edited = false;
+    this.search = '';
+    this.nbChecked = 0;
+    this.displayedData.forEach(t => t.checked = false);
+    this.length = this.tag.movies.length;
+    this.edit = false;
   }
 
   refreshData(): Tag {
@@ -114,6 +124,7 @@ export class TagMoviesComponent implements OnChanges {
     } else {
       this.tag.movies.push(movie);
       this.initPagination(this.refreshData());
+      this.edited = true;
     }
   }
 
@@ -122,10 +133,12 @@ export class TagMoviesComponent implements OnChanges {
     this.tag.movies = this.tag.movies.filter(movie => !toRemove.includes(movie.id));
     this.nbChecked = 0;
     this.initPagination(this.refreshData());
+    this.edited = true;
   }
 
   save(): void {
     this.myTagsService.updateTag(this.tag);
+    this.edited = false;
   }
 
   toogleEdit(): void {
@@ -140,6 +153,7 @@ export class TagMoviesComponent implements OnChanges {
   editTag(): void {
     this.edit = false;
     this.tag.label = this.editedLabel;
+    this.edited = true;
   }
 
   updateSize(): void {
