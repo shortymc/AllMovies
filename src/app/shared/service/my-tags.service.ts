@@ -28,7 +28,7 @@ export class MyTagsService {
   ) { }
 
   static tagsToBlob(tags: Tag[]): Blob {
-    const theJSON = JSON.stringify(tags);
+    const theJSON = '[' + tags.map(tag => Tag.toJson(tag)).join(',') + ']';
     return new Blob([theJSON], { type: 'text/json' });
   }
 

@@ -10,7 +10,7 @@
       <fa-icon [icon]="faEdit"></fa-icon>
     </span>
   </div>
-  <app-search-movie [adult]="true" (added)="addMovie($event)"></app-search-movie>
+  <app-search-movie [adult]="true" (selected)="addMovie($event)"></app-search-movie>
   <!-- Buttons -->
   <div class="tag-btn">
     <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="removeMovie()">{{'tags.remove_movies' |
@@ -39,7 +39,7 @@
 
   <!-- Table -->
   <mat-table class="mat-elevation-z4" [dataSource]="displayedData" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
-    matSort [matSortActive]="'date'" [matSortDirection]="'desc'">
+    matSort [matSortActive]="'title'" [matSortDirection]="'asc'">
 
     <!-- ID -->
     <ng-container matColumnDef="id">
@@ -52,14 +52,14 @@
       </mat-cell>
     </ng-container>
 
-    <!-- LABEL -->
+    <!-- TITLE -->
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movie.title'|translate }}">
         <span class="mat-text">{{ 'movie.title'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faList"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let movie">
-        {{movie.title}}
+        {{movie.titles?.get(translate.currentLang)}}
       </mat-cell>
     </ng-container>
 
