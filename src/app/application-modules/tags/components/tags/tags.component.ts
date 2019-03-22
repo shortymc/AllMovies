@@ -9,8 +9,10 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimesCircle, faStar } from '@fortawesome/free-regular-svg-icons';
 import { FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 
+import { AuthService } from './../../../../shared/service/auth.service';
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
 import { Utils } from './../../../../shared/utils';
+import { MyMoviesService } from './../../../../shared/service/my-movies.service';
 import { TitleService } from './../../../../shared/service/title.service';
 import { Tag } from './../../../../model/tag';
 
@@ -49,12 +51,13 @@ export class TagsComponent implements OnInit, OnDestroy {
   constructor(
     private myTagsService: MyTagsService,
     private translate: TranslateService,
+    private myMoviesService: MyMoviesService,
+    private auth: AuthService,
     private title: TitleService
   ) { }
 
   ngOnInit(): void {
     this.title.setTitle('title.tags');
-    this.myTagsService.getAll();
     if (this.page) {
       this.page.pageIndex = 0;
       this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
@@ -138,7 +141,15 @@ export class TagsComponent implements OnInit, OnDestroy {
   }
 
   remove(): void {
-    this.myTagsService.remove(this.tableTags.filter(tag => tag.checked).map(tag => tag.id));
+    const checkedTags = this.tableTags.filter(tag => tag.checked);
+    this.myTagsService.remove(checkedTags.map(tag => tag.id));
+    this.auth.getFileName().then(file => {
+      let p = Promise.resolve(true);
+      checkedTags.forEach(removed => {
+        removed.movies = [];
+        p = p.then(() => this.myMoviesService.updateTag(removed, file));
+      });
+    });
     this.nbChecked = 0;
   }
 

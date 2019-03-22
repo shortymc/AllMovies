@@ -9,7 +9,7 @@ export class Movie {
     public vote_count?: number, public production_countries?: string[], public lang_version: string = 'fr', public added: Date = new Date(),
     public imdb_id?: string, public score?: Score, public similars?: Movie[], public keywords?: Keyword[], public images_thumb?: string[],
     public releaseDates?: ReleaseDate[], public alternativeTitles?: AlternativeTitle[], public spokenLangs?: Lang[], public character?: string,
-    public updated: Date = new Date()) { }
+    public updated: Date = new Date(), public tags?: number[]) { }
 }
 /*
 title

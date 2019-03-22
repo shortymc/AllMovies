@@ -6,6 +6,7 @@ import { DropboxService } from './dropbox.service';
 import { AuthService } from './auth.service';
 import { Level } from './../../model/model';
 import { Movie } from './../../model/movie';
+import { Tag } from './../../model/tag';
 import { UtilsService } from './utils.service';
 import { ToastService } from './toast.service';
 import { Utils } from '../utils';
@@ -148,5 +149,41 @@ export class MyMoviesService {
       this.myMovies$.next(tempMovieList);
       this.toast.open(this.translate.instant('toast.movies_updated', { size: moviesToReplace.length }), Level.success);
     }).catch((err) => this.serviceUtils.handleError(err, this.toast));
+  }
+
+  updateTag(tag: Tag, fileName: string): Promise<boolean> {
+    let tempMovieList = [];
+    return this.dropboxService.downloadFile(fileName).then(file => {
+      const movieList = <Movie[]>JSON.parse(file);
+      // Looking for removed movies from tag
+      const moviesHavingTag = movieList.filter(movie => movie.tags && movie.tags.includes(tag.id));
+      moviesHavingTag.forEach(movie => {
+        if (movie.tags && movie.tags.length > 0 && !tag.movies.map(m => m.id).includes(movie.id)) {
+          movie.tags = movie.tags.filter(t => t !== tag.id);
+          movie.tags.sort(Utils.compareObject);
+        }
+      });
+      // Looking for added movies in tag
+      tag.movies.forEach(movie => {
+        movieList.filter(m => m.id === movie.id).forEach(found => {
+          if (!found.tags || found.tags.length === 0) {
+            found.tags = [tag.id];
+          } else if (!found.tags.includes(tag.id)) {
+            found.tags.push(tag.id);
+            found.tags.sort(Utils.compareObject);
+          }
+        });
+      });
+      movieList.sort(Utils.compareObject);
+      tempMovieList = movieList;
+      return this.dropboxService.uploadFile(MyMoviesService.moviesToBlob(movieList), fileName);
+    }).then((res: any) => {
+      console.log(res);
+      this.myMovies$.next(tempMovieList);
+      return true;
+    }).catch((err) => {
+      this.serviceUtils.handleError(err, this.toast);
+      return false;
+    });
   }
 }
