@@ -6,6 +6,8 @@ import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { faSave } from '@fortawesome/free-regular-svg-icons';
 
 import { Utils } from './../../../../shared/utils';
+import { MyMoviesService } from './../../../../shared/service/my-movies.service';
+import { AuthService } from './../../../../shared/service/auth.service';
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
 import { Level } from './../../../../model/model';
 import { MenuService } from './../../../../shared/service/menu.service';
@@ -45,6 +47,8 @@ export class TagMoviesComponent implements OnChanges {
   constructor(
     private menuService: MenuService,
     private myTagsService: MyTagsService,
+    private myMoviesService: MyMoviesService,
+    private auth: AuthService,
     public translate: TranslateService,
     private toast: ToastService
   ) { }
@@ -139,6 +143,7 @@ export class TagMoviesComponent implements OnChanges {
   save(): void {
     this.myTagsService.updateTag(this.tag);
     this.edited = false;
+    this.auth.getFileName().then(file => this.myMoviesService.updateTag(this.tag, file));
   }
 
   toogleEdit(): void {
