@@ -129,6 +129,11 @@
       <label>{{'movie.revenu' | translate}}: </label>{{movie.recette |
       currency:'USD':'':'1.0-0':translate.currentLang}}
     </div>
+    <!-- Tags -->
+    <div *ngIf="tags">
+      <label>{{'movie.tagged' | translate}}: </label>
+      <span>{{tags|capitalizeWord}}</span>
+    </div>
     <!-- Genre -->
     <div *ngIf="movie.genres && movie.genres.length > 0">
       <label>{{'global.genres' | translate}}: </label>

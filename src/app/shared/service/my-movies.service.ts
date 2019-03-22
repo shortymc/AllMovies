@@ -13,7 +13,7 @@ import { Utils } from '../utils';
 
 @Injectable()
 export class MyMoviesService {
-  myMovies$ = new BehaviorSubject([]);
+  myMovies$: BehaviorSubject<Movie[]> = new BehaviorSubject([]);
 
   constructor(
     private dropboxService: DropboxService,

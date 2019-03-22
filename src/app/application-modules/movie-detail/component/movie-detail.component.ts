@@ -1,11 +1,14 @@
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
 import { Location } from '@angular/common';
 import { faChevronCircleLeft, faImage, faChevronCircleRight, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
-import { TitleService, MenuService } from './../../../shared/shared.module';
+import { TitleService, MenuService, MyMoviesService } from './../../../shared/shared.module';
 import { TabsService } from './../../../shared/service/tabs.service';
+import { MyTagsService } from './../../../shared/service/my-tags.service';
 import { DuckDuckGo } from './../../../constant/duck-duck-go';
 import { MovieService } from '../../../shared/shared.module';
 import { Movie } from '../../../model/movie';
@@ -21,6 +24,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
   @Input() config: MovieDetailConfig;
   @Output() loaded = new EventEmitter<boolean>();
   movie: Movie;
+  tags: string;
   isImagesVisible = false;
   isDetail: boolean;
   showTitles = false;
@@ -42,6 +46,8 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
     private router: Router,
     public tabsService: TabsService,
     private menuService: MenuService,
+    private myTagsService: MyTagsService,
+    private myMoviesService: MyMoviesService,
   ) { }
 
   ngOnInit(): void {
@@ -82,6 +88,14 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
           this.menuService.scrollTo$.next(0);
         }
       });
+      this.subs.push(combineLatest(this.myTagsService.myTags$, this.myMoviesService.myMovies$)
+        .pipe(filter(([tags, movies]) => tags !== undefined && movies !== undefined))
+        .subscribe(([tags, movies]) => {
+          this.tags = undefined;
+          if (movies.map(m => m.id).includes(this.id)) {
+            this.tags = tags.filter(t => t.movies.map(m => m.id).includes(this.id)).map(t => t.label).join('/');
+          }
+        }));
     }
   }
 
