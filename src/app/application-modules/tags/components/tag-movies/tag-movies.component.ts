@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { faTrash, faHashtag, faList, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faHashtag, faList, faEdit, faPaintBrush } from '@fortawesome/free-solid-svg-icons';
 import { PageEvent, Sort } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
@@ -37,6 +37,7 @@ export class TagMoviesComponent implements OnChanges {
   edit = false;
   edited = false;
   editedLabel: string;
+  editedColor: string;
   moviesToAdd: Movie[] = [];
   subs = [];
 
@@ -45,6 +46,7 @@ export class TagMoviesComponent implements OnChanges {
   faList = faList;
   faSave = faSave;
   faEdit = faEdit;
+  faBrush = faPaintBrush;
 
   constructor(
     private menuService: MenuService,
@@ -76,6 +78,7 @@ export class TagMoviesComponent implements OnChanges {
     this.edited = false;
     this.search = '';
     this.nbChecked = 0;
+    this.editedColor = this.tag.color;
     this.displayedData.forEach(t => t.checked = false);
     this.length = this.tag.movies.length;
     this.edit = false;
@@ -166,10 +169,11 @@ export class TagMoviesComponent implements OnChanges {
   }
 
   toogleEdit(): void {
-    if (this.edit && this.editedLabel !== this.tag.label) {
+    if (this.edit && (this.editedLabel !== this.tag.label || this.editedColor !== this.tag.color)) {
       this.editTag();
     } else {
       this.editedLabel = this.tag.label;
+      this.editedColor = this.tag.color;
       this.edit = !this.edit;
     }
   }
@@ -177,6 +181,7 @@ export class TagMoviesComponent implements OnChanges {
   editTag(): void {
     this.edit = false;
     this.tag.label = this.editedLabel;
+    this.tag.color = this.editedColor;
     this.edited = true;
   }
 
