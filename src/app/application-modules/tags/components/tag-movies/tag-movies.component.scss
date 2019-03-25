@@ -1,6 +1,6 @@
 @import "../../../../styles/styles";
 
-.tag-label  {
+.tag-label {
   display: inline-flex;
   justify-content: center;
   width: 100vw;
@@ -17,7 +17,7 @@
 }
 
 .pulse {
-  animation: 2s linear infinite pulse;
+  animation: 3s linear infinite pulse;
 }
 
 app-search-movie,
@@ -32,9 +32,9 @@ app-search-movie,
   }
 
   50% {
-    transform: scale(1.015);
     color: $warning;
     border-color: $warning;
+    transform: scale(1.02);
   }
 
   100% {
