@@ -39,6 +39,14 @@
   background-color: $gray_hover !important;
 }
 
+.mat-row > td {
+  padding: 0 !important;
+}
+
+mat-row {
+  min-height: 0 !important;
+}
+
 .mat-header-cell .mat-icon {
   display: none;
 }
@@ -68,6 +76,18 @@
     align-items: center;
     margin: auto;
   }
+}
+
+.tag-row td.mat-cell {
+  border-bottom-style: unset !important;
+}
+
+.tag-detail {
+  overflow: hidden;
+}
+
+.movie-row {
+  border-bottom-width: 0;
 }
 
 @include media(#{$smallscreen}) {
