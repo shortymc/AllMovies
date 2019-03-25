@@ -54,11 +54,11 @@ export class MyMoviesService {
       }).catch(err => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  add(moviesToAdd: Movie[], fileName: string): void {
+  add(moviesToAdd: Movie[], fileName: string): Promise<boolean> {
     let tempMovieList = [];
     let tempMoviesAdded = [];
     // download user file
-    this.dropboxService.downloadFile(fileName).then((moviesFromFile: string) => {
+    return this.dropboxService.downloadFile(fileName).then((moviesFromFile: string) => {
       // parse movies
       let movieList = [];
       if (moviesFromFile && moviesFromFile.trim().length > 0) {
@@ -68,7 +68,10 @@ export class MyMoviesService {
       const found = moviesToAdd.filter((add: Movie) => !movieList.map((movie: Movie) => movie.id).includes(add.id));
       if (found.length > 0) {
         tempMoviesAdded = found;
-        found.forEach((movie: Movie) => movieList.push(movie));
+        found.forEach((movie: Movie) => {
+          movie.added = new Date();
+          movieList.push(movie);
+        });
         movieList.sort(Utils.compareObject);
         return movieList;
       } else {
@@ -91,7 +94,11 @@ export class MyMoviesService {
         this.myMovies$.next(tempMovieList);
         this.toast.open(this.translate.instant('toast.movies_added', { size: tempMoviesAdded.length / 2 }), Level.success);
       }
-    }).catch((err) => this.serviceUtils.handleError(err, this.toast));
+      return true;
+    }).catch((err) => {
+      this.serviceUtils.handleError(err, this.toast);
+      return false;
+    });
   }
 
   remove(idToRemove: number[], fileName: string): void {

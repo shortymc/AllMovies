@@ -112,7 +112,6 @@ export class AddCollectionDirective implements OnChanges {
     this.movies.forEach(movie => {
       prom.push(this.movieService.getMovie(movie.id, new MovieDetailConfig(false, false, false, false, false, false, false, false, 'fr'), false));
       prom.push(this.movieService.getMovie(movie.id, new MovieDetailConfig(false, false, false, false, false, false, false, false, 'en'), false));
-      movie.added = new Date();
     });
     forkJoin(prom).subscribe((movies: Movie[]) => {
       this.auth.getFileName().then((fileName) => {
