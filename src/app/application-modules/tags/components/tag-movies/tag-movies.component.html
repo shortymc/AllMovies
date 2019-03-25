@@ -2,10 +2,14 @@
   <div class="tag-label">
     <h2 *ngIf="!edit">{{tag.label}}</h2>
     <h2 *ngIf="edit">
-        <mat-form-field>
-          <input matInput type="search" [(ngModel)]="editedLabel" (keyup.enter)="editTag()"/>
-        </mat-form-field>
+      <mat-form-field>
+        <input matInput type="search" [(ngModel)]="editedLabel" (keyup.enter)="editTag()" />
+      </mat-form-field>
     </h2>
+    <span class="tag-color pointer" [(colorPicker)]="editedColor" [style.background]="editedColor" [cpOutputFormat]="'hex'"
+      [cpDisabled]="!edit">
+      <fa-icon [icon]="faBrush" size="lg" *ngIf="edit"></fa-icon>
+    </span>
     <span class="edit pointer" (click)="toogleEdit()">
       <fa-icon [icon]="faEdit"></fa-icon>
     </span>
@@ -17,7 +21,8 @@
       translate:{size: nbChecked} }}
       <fa-icon [icon]="faTrash"></fa-icon>
     </button>
-    <button class="btn btn-outline-primary" [ngClass]="{'pulse': edited}" (click)="save()">{{'global.save' | translate}}
+    <button class="btn btn-outline-primary" [ngClass]="{'pulse': edited}" (click)="save()">{{'global.save' |
+      translate}}
       <fa-icon [icon]="faSave"></fa-icon>
     </button>
     <div class="tags-filter">
