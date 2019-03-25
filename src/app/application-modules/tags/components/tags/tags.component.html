@@ -9,6 +9,9 @@
       <span *ngIf="toAdd.value" (click)="tagForm.reset()" class="pointer clear-btn">
         <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
       </span>
+      <span class="tag-color pointer" [(colorPicker)]="color" [style.background]="color" [cpOutputFormat]="'hex'">
+        <fa-icon [icon]="faBrush" size="lg"></fa-icon>
+      </span>
       <button type="submit" class="btn btn-outline-primary" [disabled]="tagForm.invalid">
         <fa-icon [icon]="faPlus" size="xs"></fa-icon>
       </button>
@@ -87,6 +90,16 @@
           {{tag.movies.length}}
         </ng-container>
         <ng-template #zero>0</ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <!-- COLOR -->
+    <ng-container matColumnDef="color">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'tags.color'|translate }}">
+        <span class="mat-text">{{ 'tags.color'|translate }}</span>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let tag">
+        <span [style.background-color]="tag.color" class="tag-color"></span>
       </mat-cell>
     </ng-container>
 
