@@ -7,6 +7,7 @@ import { faSave } from '@fortawesome/free-regular-svg-icons';
 
 import { Utils } from './../../../../shared/utils';
 import { MyMoviesService } from './../../../../shared/service/my-movies.service';
+import { Movie } from './../../../../model/movie';
 import { AuthService } from './../../../../shared/service/auth.service';
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
 import { Level } from './../../../../model/model';
@@ -36,6 +37,7 @@ export class TagMoviesComponent implements OnChanges {
   edit = false;
   edited = false;
   editedLabel: string;
+  moviesToAdd: Movie[] = [];
   subs = [];
 
   faTrash = faTrash;
@@ -122,19 +124,26 @@ export class TagMoviesComponent implements OnChanges {
     this.paginate(data);
   }
 
-  addMovie(movie: TagMovie): void {
-    if (this.tag.movies.map(m => m.id).includes(movie.id)) {
+  addMovie(movies: Movie[]): void {
+    const tag = new TagMovie();
+    tag.id = movies[0].id;
+    tag.titles = new Map();
+    tag.titles.set(movies[0].lang_version, movies[0].title);
+    tag.titles.set(movies[1].lang_version, movies[1].title);
+    if (this.tag.movies.map(m => m.id).includes(tag.id)) {
       this.toast.open('toast.already_added', Level.warning);
     } else {
-      this.tag.movies.push(movie);
+      this.tag.movies.push(tag);
       this.initPagination(this.refreshData());
       this.edited = true;
+      this.moviesToAdd.push(...movies);
     }
   }
 
   removeMovie(): void {
     const toRemove = this.tag.movies.filter(movie => movie.checked).map(movie => movie.id);
     this.tag.movies = this.tag.movies.filter(movie => !toRemove.includes(movie.id));
+    this.moviesToAdd = this.moviesToAdd.filter(movie => !toRemove.includes(movie.id));
     this.nbChecked = 0;
     this.initPagination(this.refreshData());
     this.edited = true;
@@ -143,7 +152,17 @@ export class TagMoviesComponent implements OnChanges {
   save(): void {
     this.myTagsService.updateTag(this.tag);
     this.edited = false;
-    this.auth.getFileName().then(file => this.myMoviesService.updateTag(this.tag, file));
+    let filename;
+    this.auth.getFileName().then(file => {
+      filename = file;
+      return this.myMoviesService.updateTag(this.tag, file);
+    }).then(() => {
+      if (this.moviesToAdd && this.moviesToAdd.length > 0) {
+        this.myMoviesService.add(this.moviesToAdd, filename).then(() => this.moviesToAdd = []);
+      } else {
+        this.moviesToAdd = [];
+      }
+    });
   }
 
   toogleEdit(): void {
