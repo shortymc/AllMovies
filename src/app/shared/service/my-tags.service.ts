@@ -5,7 +5,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { DropboxService } from './dropbox.service';
 import { AuthService } from './auth.service';
 import { Level } from '../../model/model';
-import { TagMovie } from './../../model/tag';
 import { Tag } from '../../model/tag';
 import { CapitalizeWordPipe } from './../pipes/capitalizeWord.pipe';
 import { Dropbox } from './../../constant/dropbox';

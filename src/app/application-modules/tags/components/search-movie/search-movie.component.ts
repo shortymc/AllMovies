@@ -6,7 +6,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { MovieDetailConfig } from './../../../../model/model';
-import { TagMovie } from './../../../../model/tag';
 import { MovieService } from './../../../../shared/service/movie.service';
 import { Movie } from './../../../../model/movie';
 import { MovieSearchService } from './../../../../shared/service/movie-search.service';
@@ -18,7 +17,7 @@ import { MovieSearchService } from './../../../../shared/service/movie-search.se
 })
 export class SearchMovieComponent implements OnInit {
   @Input() adult: boolean;
-  @Output() selected = new EventEmitter<TagMovie>();
+  @Output() selected = new EventEmitter<Movie[]>();
   filteredMovies: Observable<Movie[]>;
   movieCtrl: FormControl;
   faRemove = faTimes;
@@ -46,13 +45,10 @@ export class SearchMovieComponent implements OnInit {
 
   add(item: Movie): void {
     const lang = this.translate.currentLang === 'fr' ? 'en' : 'fr';
+    item.lang_version = this.translate.currentLang;
     this.movieService.getMovie(item.id, new MovieDetailConfig(false, false, false, false, false, false, false, false, lang), false).then(movie => {
-      const tag = new TagMovie();
-      tag.id = item.id;
-      tag.titles = new Map();
-      tag.titles.set(this.translate.currentLang, item.title);
-      tag.titles.set(lang, movie.title);
-      this.selected.emit(tag);
+      movie.lang_version = lang;
+      this.selected.emit([item, movie]);
     });
   }
 
