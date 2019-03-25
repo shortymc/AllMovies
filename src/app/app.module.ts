@@ -11,7 +11,6 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import 'bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { SharedModule } from './shared/shared.module';
@@ -23,7 +22,6 @@ import { AuthGard } from './app.gards';
   imports: [
     NgbModule,
     BrowserAnimationsModule,
-    BrowserModule,
     HttpClientModule,
     HttpClientJsonpModule,
     CommonModule,

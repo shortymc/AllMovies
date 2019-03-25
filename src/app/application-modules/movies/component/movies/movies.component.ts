@@ -1,6 +1,6 @@
 import { filter, take } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { forkJoin, BehaviorSubject } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
@@ -11,10 +11,13 @@ import {
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import * as moment from 'moment-mini-ts';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { Constants } from './../../../../constant/constants';
 import { Utils } from './../../../../shared/utils';
+import { MyTagsService } from './../../../../shared/service/my-tags.service';
 import { TitleService, AuthService, MovieService, MyMoviesService } from './../../../../shared/shared.module';
+import { Tag } from './../../../../model/tag';
 import { Movie } from './../../../../model/movie';
 import { Genre, MovieDetailConfig } from '../../../../model/model';
 
@@ -24,7 +27,14 @@ library.add(faTimesCircle);
 @Component({
   selector: 'app-my-movies',
   templateUrl: './movies.component.html',
-  styleUrls: ['./movies.component.scss']
+  styleUrls: ['./movies.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]
 })
 export class MoviesComponent implements OnInit, OnDestroy {
   init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details'];
@@ -32,6 +42,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   mobile_columns = ['thumbnail', 'title', 'date', 'meta', 'language', 'time', 'genres', 'select', 'details'];
   displayedColumns = this.init_columns;
   movies: Movie[];
+  tags: Tag[];
   length: number;
   displayedData: Movie[];
   filter: string;
@@ -43,6 +54,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
   nbChecked = 0;
   genres: Genre[];
   filteredGenres: number[];
+  expandedElement: Movie;
+  expandedColumn = 'tags';
+  displayedTags: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
   scrollTo: HTMLElement;
   subs = [];
 
@@ -61,6 +75,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     private movieService: MovieService,
     private breakpointObserver: BreakpointObserver,
     private myMoviesService: MyMoviesService,
+    private myTagsService: MyTagsService,
     private translate: TranslateService,
     private elemRef: ElementRef,
     private auth: AuthService,
@@ -87,6 +102,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
       this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
     }
     this.getMovies(this.translate.currentLang);
+    this.getTags();
     this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.getMovies(event.lang);
     }));
@@ -103,6 +119,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
       filter(movies => movies && movies.length !== 0),
       take(1)
     ).subscribe(movies => this.checkAndFixData(movies.filter(movie => movie.lang_version === lang), lang));
+  }
+
+  getTags(): void {
+    this.subs.push(this.myTagsService.myTags$.subscribe((tags) => this.tags = tags));
   }
 
   getAllGenres(): void {
@@ -232,6 +252,13 @@ export class MoviesComponent implements OnInit, OnDestroy {
     });
     this.nbChecked = 0;
     this.onTop();
+  }
+
+  expand(element: Movie): void {
+    this.expandedElement = this.expandedElement === element ? undefined : element;
+    if (this.expandedElement) {
+      this.displayedTags.next(this.tags.filter(t => t.movies.map(m => m.id).includes(this.expandedElement.id)).map(t => t.label));
+    }
   }
 
   onTop(): void {
