@@ -6253,6 +6253,11 @@ ngrok@*:
     request-promise-native "^1.0.5"
     uuid "^3.3.2"
 
+ngx-color-picker@^7.4.0:
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/ngx-color-picker/-/ngx-color-picker-7.4.0.tgz#9b06db74d0f5f76bc4c9524f316871d43fa2f4d0"
+  integrity sha512-OQ245mopsNuturjwEbsh9lgOAJDeOYzYxn4reb3UEJU0QK2MXYvPXosgZkx+X/fRqTmcigKeAQDCfCq/f+VHew==
+
 ngx-pinch-zoom@^1.2.0:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/ngx-pinch-zoom/-/ngx-pinch-zoom-1.2.3.tgz#0bb082a3fada2b10d5d99e6e98817ff3ab6b7c6e"
