@@ -56,7 +56,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   filteredGenres: number[];
   expandedElement: Movie;
   expandedColumn = 'tags';
-  displayedTags: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+  displayedTags: BehaviorSubject<Tag[]> = new BehaviorSubject<Tag[]>([]);
   scrollTo: HTMLElement;
   subs = [];
 
@@ -257,7 +257,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   expand(element: Movie): void {
     this.expandedElement = this.expandedElement === element ? undefined : element;
     if (this.expandedElement) {
-      this.displayedTags.next(this.tags.filter(t => t.movies.map(m => m.id).includes(this.expandedElement.id)).map(t => t.label));
+      this.displayedTags.next(this.tags.filter(t => t.movies.map(m => m.id).includes(this.expandedElement.id)));
     }
   }
 
