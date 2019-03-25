@@ -209,14 +209,10 @@
 
     <!-- TAGS -->
     <ng-container matColumnDef="{{expandedColumn}}">
-      <td mat-cell *matCellDef="let movie" [attr.colspan]="displayedColumns.length" [@detailExpand]="movie == expandedElement ? 'expanded' : 'collapsed'">
-        <div class="tag-detail">
-          <ng-container *ngIf="movie == expandedElement">
-            <span *ngFor="let tag of displayedTags | async">
-              {{tag}}
-            </span>
-          </ng-container>
-        </div>
+      <td mat-cell *matCellDef="let movie" class="tag-detail" [attr.colspan]="displayedColumns.length" [@detailExpand]="movie == expandedElement ? 'expanded' : 'collapsed'">
+        <ng-container *ngIf="movie == expandedElement">
+          <span class="tag-color" *ngFor="let tag of displayedTags | async" [style.background]="tag.color">{{tag.label}}</span>
+        </ng-container>
       </td>
     </ng-container>
 
