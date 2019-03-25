@@ -48,15 +48,6 @@
   padding-left: 25%;
 }
 
-.tag-color {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  width: 40px;
-  height: 40px;
-  border-radius: 40px;
-}
-
 @include media(#{$smallscreen}, false) {
   .tag-color {
     margin: 0 15px;

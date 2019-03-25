@@ -83,7 +83,13 @@ mat-row {
 }
 
 .tag-detail {
+  display: flex;
+  margin: auto;
   overflow: hidden;
+}
+
+.tag-color {
+  margin: 0 5px;
 }
 
 .movie-row {
