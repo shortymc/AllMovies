@@ -46,7 +46,10 @@ const childRoutes: Routes = [
   ],
   providers: [
     TranslateService,
-    { provide: MatPaginatorIntl, useClass: MyPaginator, deps: [TranslateService] }],
+    {
+      provide: MatPaginatorIntl, useFactory: (translate: TranslateService): MyPaginator => new MyPaginator(translate, 'movies'),
+      deps: [TranslateService]
+    }],
   declarations: [DiscoverComponent, SearchBoxComponent]
 })
 export class DiscoverModule { }
