@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 import { SearchMovieComponent } from './components/search-movie/search-movie.component';
 import { TagsComponent } from './components/tags/tags.component';
@@ -37,6 +38,7 @@ const childRoutes: Routes = [
     FontAwesomeModule,
     MatTableModule,
     LayoutModule,
+    ColorPickerModule,
     MatSortModule,
     MatPaginatorModule,
     MatInputModule,

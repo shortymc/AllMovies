@@ -298,6 +298,7 @@
         "remove": "Remove the selected tags ({{size}})",
         "label": "Label",
         "count": "Count",
+        "color": "Color",
         "required": "Please enter a tag name",
         "maxlength": "{{current}} is greater than the maximum length ({{maxSize}})",
         "unique": "The tag name must be unique",

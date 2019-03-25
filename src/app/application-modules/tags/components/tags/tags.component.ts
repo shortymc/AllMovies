@@ -3,7 +3,7 @@ import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import {
-  faTrash, faHashtag, faList, faChevronCircleRight, faPlus
+  faTrash, faHashtag, faList, faChevronCircleRight, faPlus, faPaintBrush
 } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimesCircle, faStar } from '@fortawesome/free-regular-svg-icons';
@@ -24,7 +24,7 @@ library.add(faTimesCircle);
   styleUrls: ['./tags.component.scss']
 })
 export class TagsComponent implements OnInit, OnDestroy {
-  displayedColumns = ['id', 'label', 'count', 'select', 'details'];
+  displayedColumns = ['id', 'label', 'count', 'color', 'select', 'details'];
   tags: Tag[];
   tableTags: Tag[];
   length: number;
@@ -39,6 +39,7 @@ export class TagsComponent implements OnInit, OnDestroy {
   tagForm: FormGroup;
   isMoviesVisible = false;
   selectedTag: Tag;
+  color: string;
   subs = [];
 
   faTrash = faTrash;
@@ -46,6 +47,7 @@ export class TagsComponent implements OnInit, OnDestroy {
   faPlus = faPlus;
   faList = faList;
   faStar = faStar;
+  faBrush = faPaintBrush;
   faChevronCircleRight = faChevronCircleRight;
 
   constructor(
@@ -62,6 +64,7 @@ export class TagsComponent implements OnInit, OnDestroy {
       this.page.pageIndex = 0;
       this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
     }
+    this.color = this.getRandomColor();
     this.getTags(this.translate.currentLang);
     this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.getTags(event.lang);
@@ -93,6 +96,10 @@ export class TagsComponent implements OnInit, OnDestroy {
       this.length = this.tableTags.length;
       this.paginate(this.refreshData());
     });
+  }
+
+  getRandomColor(): string {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16);
   }
 
   refreshData(): Tag[] {
@@ -132,7 +139,9 @@ export class TagsComponent implements OnInit, OnDestroy {
     const tag = new Tag();
     tag.label = this.toAdd.value;
     tag.movies = [];
+    tag.color = this.color;
     this.myTagsService.add(tag);
+    this.color = this.getRandomColor();
   }
 
   selectTag(selected: Tag): void {

@@ -15,6 +15,7 @@ export class TagMovie {
 export class Tag {
   id: number;
   label: string;
+  color: string;
   checked: boolean;
   movies: TagMovie[];
 
