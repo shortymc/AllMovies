@@ -64,7 +64,7 @@ export class TagsComponent implements OnInit, OnDestroy {
       this.page.pageIndex = 0;
       this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
     }
-    this.color = this.getRandomColor();
+    this.color = Utils.randomColor();
     this.getTags(this.translate.currentLang);
     this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.getTags(event.lang);
@@ -96,10 +96,6 @@ export class TagsComponent implements OnInit, OnDestroy {
       this.length = this.tableTags.length;
       this.paginate(this.refreshData());
     });
-  }
-
-  getRandomColor(): string {
-    return '#' + Math.floor(Math.random() * 16777215).toString(16);
   }
 
   refreshData(): Tag[] {
@@ -141,7 +137,7 @@ export class TagsComponent implements OnInit, OnDestroy {
     tag.movies = [];
     tag.color = this.color;
     this.myTagsService.add(tag);
-    this.color = this.getRandomColor();
+    this.color = Utils.randomColor();
   }
 
   selectTag(selected: Tag): void {

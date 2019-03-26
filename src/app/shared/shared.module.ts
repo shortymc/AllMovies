@@ -3,7 +3,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
@@ -15,7 +15,7 @@ import {
 import { PinchZoomModule } from 'ngx-pinch-zoom';
 import {
   MatSidenavModule, MatToolbarModule, MatIconModule, MatSelectModule,
-  MatButtonToggleModule, MatFormFieldModule, MatButtonModule
+  MatButtonToggleModule, MatFormFieldModule, MatButtonModule, MatAutocompleteModule
 } from '@angular/material';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
@@ -59,6 +59,7 @@ import { OpenLinkDirective } from './directives/open-link.directive';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { MyMoviesService } from './service/my-movies.service';
 import { MyTagsService } from './service/my-tags.service';
+import { SearchTagComponent } from './components/search-tag/search-tag.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { MyTagsService } from './service/my-tags.service';
     ModalComponent,
     MovieSearchComponent,
     OpenLinkDirective,
+    SearchTagComponent,
     PersonSearchComponent,
     OpenLinkDialogComponent,
     MenuComponent,
@@ -85,6 +87,7 @@ import { MyTagsService } from './service/my-tags.service';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MatStepperModule,
     FontAwesomeModule,
     MatSidenavModule,
@@ -93,6 +96,7 @@ import { MyTagsService } from './service/my-tags.service';
     MatButtonToggleModule,
     MatListModule,
     MatButtonModule,
+    MatAutocompleteModule,
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
@@ -115,6 +119,7 @@ import { MyTagsService } from './service/my-tags.service';
     ListMoviesComponent,
     MetaComponent,
     OpenLinkDirective,
+    SearchTagComponent,
     ListPersonsComponent,
     DropdownLanguageComponent,
     AddCollectionDirective,
