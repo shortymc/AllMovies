@@ -25,6 +25,13 @@
       </span>
     </div>
   </div>
+  <div class="tags-search">
+    <app-search-tag (selected)="selectedTag = $event"></app-search-tag>
+    <button type="button" class="btn btn-outline-primary" [style.background]="selectedTag.color" *ngIf="selectedTag"
+      (click)="addTag()">
+      {{'movies.add_tag' |translate:{tag: selectedTag.label, size: nbChecked} }}
+    </button>
+  </div>
 
   <!-- Delete -->
   <div class="delete-btn">

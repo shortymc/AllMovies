@@ -17,7 +17,7 @@ import { Constants } from './../../../../constant/constants';
 import { Utils } from './../../../../shared/utils';
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
 import { TitleService, AuthService, MovieService, MyMoviesService } from './../../../../shared/shared.module';
-import { Tag } from './../../../../model/tag';
+import { Tag, TagMovie } from './../../../../model/tag';
 import { Movie } from './../../../../model/movie';
 import { Genre, MovieDetailConfig } from '../../../../model/model';
 
@@ -42,6 +42,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   mobile_columns = ['thumbnail', 'title', 'date', 'meta', 'language', 'time', 'genres', 'select', 'details'];
   displayedColumns = this.init_columns;
   movies: Movie[];
+  allMovies: Movie[];
   tags: Tag[];
   length: number;
   displayedData: Movie[];
@@ -57,6 +58,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   expandedElement: Movie;
   expandedColumn = 'tags';
   displayedTags: BehaviorSubject<Tag[]> = new BehaviorSubject<Tag[]>([]);
+  selectedTag: Tag;
   scrollTo: HTMLElement;
   subs = [];
 
@@ -110,6 +112,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   getMovies(lang: string): void {
     this.myMoviesService.myMovies$.subscribe(movies => {
+      this.allMovies = movies;
       this.movies = movies.filter(movie => movie.lang_version === lang);
       this.length = this.movies.length;
       this.paginate(this.refreshData());
@@ -259,6 +262,24 @@ export class MoviesComponent implements OnInit, OnDestroy {
     if (this.expandedElement) {
       this.displayedTags.next(this.tags.filter(t => t.movies.map(m => m.id).includes(this.expandedElement.id)));
     }
+  }
+
+  addTag(): void {
+    const selectedMoviesIds = this.movies.filter(movie => movie.checked).map(movie => movie.id);
+    this.selectedTag.movies.push(...selectedMoviesIds.map(id => {
+      const movie = this.allMovies.filter(m => m.id === id);
+      const tagMovie = new TagMovie();
+      tagMovie.id = movie[0].id;
+      tagMovie.titles = new Map();
+      tagMovie.titles.set(movie[0].lang_version, movie[0].title);
+      tagMovie.titles.set(movie[1].lang_version, movie[1].title);
+      return tagMovie;
+    }));
+    this.myTagsService.updateTag(this.selectedTag);
+    this.auth.getFileName().then(file => this.myMoviesService.updateTag(this.selectedTag, file)).then(() => {
+      this.nbChecked = 0;
+      this.selectedTag = undefined;
+    });
   }
 
   onTop(): void {

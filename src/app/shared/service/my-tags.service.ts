@@ -50,10 +50,10 @@ export class MyTagsService {
       }).catch(err => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  add(toAdd: Tag): void {
+  add(toAdd: Tag): Promise<Tag> {
     let tempTagList = [];
     let fileName;
-    this.getFileName()
+    return this.getFileName()
       .then((file: string) => {
         // download file
         fileName = file;
@@ -86,7 +86,11 @@ export class MyTagsService {
           this.myTags$.next(tempTagList);
           this.toast.open(this.translate.instant('toast.tags_added'), Level.success);
         }
-      }).catch((err) => this.serviceUtils.handleError(err, this.toast));
+        return toAdd;
+      }).catch((err) => {
+        this.serviceUtils.handleError(err, this.toast);
+        return undefined;
+      });
   }
 
   remove(idToRemove: number[]): void {
