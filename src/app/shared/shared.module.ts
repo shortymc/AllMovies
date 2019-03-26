@@ -15,7 +15,7 @@ import {
 import { PinchZoomModule } from 'ngx-pinch-zoom';
 import {
   MatSidenavModule, MatToolbarModule, MatIconModule, MatSelectModule,
-  MatButtonToggleModule, MatFormFieldModule, MatButtonModule, MatAutocompleteModule
+  MatButtonToggleModule, MatFormFieldModule, MatButtonModule, MatAutocompleteModule, MatChipsModule
 } from '@angular/material';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
@@ -60,6 +60,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { MyMoviesService } from './service/my-movies.service';
 import { MyTagsService } from './service/my-tags.service';
 import { SearchTagComponent } from './components/search-tag/search-tag.component';
+import { ListTagsComponent } from './components/list-tags/list-tags.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { SearchTagComponent } from './components/search-tag/search-tag.component
     DropdownLanguageComponent,
     GoToTopComponent,
     AddCollectionDirective,
+    ListTagsComponent,
     ModalComponent,
     MovieSearchComponent,
     OpenLinkDirective,
@@ -99,6 +101,7 @@ import { SearchTagComponent } from './components/search-tag/search-tag.component
     MatAutocompleteModule,
     MatInputModule,
     MatFormFieldModule,
+    MatChipsModule,
     MatIconModule,
     SwiperModule,
     MatDialogModule,
@@ -122,6 +125,7 @@ import { SearchTagComponent } from './components/search-tag/search-tag.component
     SearchTagComponent,
     ListPersonsComponent,
     DropdownLanguageComponent,
+    ListTagsComponent,
     AddCollectionDirective,
     TabsComponent,
     NgbModule,

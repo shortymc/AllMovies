@@ -8,6 +8,7 @@ import { faChevronCircleLeft, faImage, faChevronCircleRight, faPlus, faMinus } f
 
 import { TitleService, MenuService, MyMoviesService } from './../../../shared/shared.module';
 import { TabsService } from './../../../shared/service/tabs.service';
+import { Tag } from './../../../model/tag';
 import { MyTagsService } from './../../../shared/service/my-tags.service';
 import { DuckDuckGo } from './../../../constant/duck-duck-go';
 import { MovieService } from '../../../shared/shared.module';
@@ -24,7 +25,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
   @Input() config: MovieDetailConfig;
   @Output() loaded = new EventEmitter<boolean>();
   movie: Movie;
-  tags: string;
+  tags: Tag[];
   isImagesVisible = false;
   isDetail: boolean;
   showTitles = false;
@@ -93,7 +94,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
         .subscribe(([tags, movies]) => {
           this.tags = undefined;
           if (movies.map(m => m.id).includes(this.id)) {
-            this.tags = tags.filter(t => t.movies.map(m => m.id).includes(this.id)).map(t => t.label).join('/');
+            this.tags = tags.filter(t => t.movies.map(m => m.id).includes(this.id));
           }
         }));
     }
