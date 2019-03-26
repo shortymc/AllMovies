@@ -130,9 +130,9 @@
       currency:'USD':'':'1.0-0':translate.currentLang}}
     </div>
     <!-- Tags -->
-    <div *ngIf="tags">
+    <div *ngIf="tags" class="movie-tags">
       <label>{{'movie.tagged' | translate}}: </label>
-      <span>{{tags|capitalizeWord}}</span>
+      <app-list-tags [tags]="tags" [movie]="movie"></app-list-tags>
     </div>
     <!-- Genre -->
     <div *ngIf="movie.genres && movie.genres.length > 0">
