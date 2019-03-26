@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { faTrash, faHashtag, faList, faEdit, faPaintBrush } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faHashtag, faList, faPen, faPaintBrush } from '@fortawesome/free-solid-svg-icons';
 import { PageEvent, Sort } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
@@ -45,7 +45,7 @@ export class TagMoviesComponent implements OnChanges {
   faHashtag = faHashtag;
   faList = faList;
   faSave = faSave;
-  faEdit = faEdit;
+  faEdit = faPen;
   faBrush = faPaintBrush;
 
   constructor(

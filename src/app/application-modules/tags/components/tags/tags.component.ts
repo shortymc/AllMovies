@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import {
   faTrash, faHashtag, faList, faChevronCircleRight, faPlus, faPaintBrush
 } from '@fortawesome/free-solid-svg-icons';
@@ -52,7 +52,7 @@ export class TagsComponent implements OnInit, OnDestroy {
 
   constructor(
     private myTagsService: MyTagsService,
-    private translate: TranslateService,
+    public translate: TranslateService,
     private myMoviesService: MyMoviesService,
     private auth: AuthService,
     private title: TitleService
@@ -65,10 +65,7 @@ export class TagsComponent implements OnInit, OnDestroy {
       this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
     }
     this.color = Utils.randomColor();
-    this.getTags(this.translate.currentLang);
-    this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.getTags(event.lang);
-    }));
+    this.getTags();
     this.tagForm = new FormGroup({
       toAdd: new FormControl('', {
         validators: [Validators.required, Validators.maxLength(20)],
@@ -86,7 +83,7 @@ export class TagsComponent implements OnInit, OnDestroy {
         ? { unique: true } : undefined));
   }
 
-  getTags(lang: string): void {
+  getTags(): void {
     this.myTagsService.myTags$.subscribe((tags: Tag[]) => {
       this.tags = tags;
       this.tableTags = tags.map(tag => {
