@@ -200,6 +200,7 @@
         "added": "Ajouté",
         "remove": "Retirer les films sélectionnés ({{size}})",
         "search_title": "Rechercher dans les {{param}}s",
+        "add_tag": "Ajouter le tag {{tag}} aux films sélectionnés ({{size}})",
         "filter": {
             "placeholder": "Rechercher",
             "genres": "Genres"
@@ -299,6 +300,7 @@
         "label": "Label",
         "count": "Taille",
         "color": "Couleur",
+        "select": "Sélectionner un tag",
         "required": "Veuillez renseigner un nom de tag",
         "maxlength": "{{current}} est supérieur à longueure maximale ({{maxSize}})",
         "unique": "Le nom du tag doit être unique",
