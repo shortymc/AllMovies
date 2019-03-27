@@ -250,9 +250,12 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   remove(): void {
-    this.auth.getFileName().then((fileName) => {
-      this.myMoviesService.remove(this.movies.filter(movie => movie.checked).map(movie => movie.id), fileName);
-    });
+    const moviesToRemove = this.movies.filter(movie => movie.checked);
+    const tagsToReplace = this.tags.filter(t => moviesToRemove.map(m => m.tags).reduce((x, y) => x.concat(y), []).includes(t.id));
+    tagsToReplace.forEach(t => t.movies = t.movies.filter(movie => !moviesToRemove.map(m => m.id).includes(movie.id)));
+    this.auth.getFileName()
+      .then((fileName) => this.myMoviesService.remove(moviesToRemove.map(movie => movie.id), fileName))
+      .then(() => this.myTagsService.replaceTags(tagsToReplace));
     this.nbChecked = 0;
     this.onTop();
   }
@@ -283,5 +286,4 @@ export class MoviesComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subs.forEach((subscription) => subscription.unsubscribe());
   }
-
 }
