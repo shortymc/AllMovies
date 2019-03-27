@@ -12,7 +12,7 @@ export class ToastService {
     private translate: TranslateService
   ) { }
 
-  open(message: string, level: Level, translateArgs?: Object): void {
+  open(level: Level, message: string, translateArgs?: Object): void {
     this.snackBar.open(this.translate.instant(message, translateArgs), undefined, {
       duration: 1500,
       panelClass: 'toast-' + level
