@@ -13,13 +13,14 @@ import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import * as moment from 'moment-mini-ts';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
+import { ToastService } from './../../../../shared/service/toast.service';
 import { Constants } from './../../../../constant/constants';
 import { Utils } from './../../../../shared/utils';
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
 import { TitleService, AuthService, MovieService, MyMoviesService } from './../../../../shared/shared.module';
 import { Tag, TagMovie } from './../../../../model/tag';
 import { Movie } from './../../../../model/movie';
-import { Genre, MovieDetailConfig } from '../../../../model/model';
+import { Genre, MovieDetailConfig, Level } from '../../../../model/model';
 
 library.add(faClock);
 library.add(faTimesCircle);
@@ -79,6 +80,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     private myMoviesService: MyMoviesService,
     private myTagsService: MyTagsService,
     private translate: TranslateService,
+    private toast: ToastService,
     private elemRef: ElementRef,
     private auth: AuthService,
     private title: TitleService
@@ -268,15 +270,23 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   addTag(): void {
-    const selectedMoviesIds = this.movies.filter(movie => movie.checked).map(movie => movie.id);
-    this.selectedTag.movies.push(...selectedMoviesIds.map(id =>
-      TagMovie.fromMovie(this.allMovies.filter(m => m.id === id))
-    ));
-    this.myTagsService.updateTag(this.selectedTag);
-    this.auth.getFileName().then(file => this.myMoviesService.updateTag(this.selectedTag, file)).then(() => {
+    let selectedMoviesIds = this.movies.filter(movie => movie.checked).map(movie => movie.id);
+    selectedMoviesIds = selectedMoviesIds.filter(id => !this.selectedTag.movies.map(m => m.id).includes(id));
+    if (selectedMoviesIds.length > 0) {
+      this.selectedTag.movies.push(...selectedMoviesIds.map(id =>
+        TagMovie.fromMovie(this.allMovies.filter(m => m.id === id))
+      ));
+      this.myTagsService.updateTag(this.selectedTag);
+      this.auth.getFileName().then(file => this.myMoviesService.updateTag(this.selectedTag, file)).then(() => {
+        this.nbChecked = 0;
+        this.selectedTag = undefined;
+      });
+    } else {
+      this.toast.open(Level.warning, 'toast.already_added');
       this.nbChecked = 0;
       this.selectedTag = undefined;
-    });
+      this.movies.forEach(m => m.checked = false);
+    }
   }
 
   onTop(): void {
