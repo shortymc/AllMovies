@@ -97,6 +97,13 @@ mat-row {
   border-bottom-width: 0;
 }
 
+.tags-header {
+  display: flex;
+  align-items: center;
+  margin: 0 !important;
+  padding: 0 5px;
+}
+
 @include media('1000px', false) {
   .movie-poster {
     margin: 10px;
