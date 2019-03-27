@@ -52,7 +52,7 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   getTags(): Tag[] {
-    return this.tags.map(tag => Tag.clone(<Tag>tag));
+    return this.tags.map(tag => Tag.clone(tag));
   }
 
   add(tag: Tag): void {
