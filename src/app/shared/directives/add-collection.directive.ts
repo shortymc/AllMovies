@@ -3,20 +3,22 @@ import { faBookmark, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { forkJoin } from 'rxjs';
 import {
   Directive, Input, HostListener, ViewContainerRef, ComponentFactoryResolver,
-  Renderer2, ElementRef, OnChanges, SimpleChange, ComponentRef
+  Renderer2, ElementRef, OnChanges, SimpleChange, ComponentRef, OnInit, OnDestroy
 } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
+import { Tag } from './../../model/tag';
 import { Movie } from '../../model/movie';
 import { MovieService } from '../service/movie.service';
 import { MyMoviesService } from './../service/my-movies.service';
 import { AuthService } from '../service/auth.service';
 import { MovieDetailConfig } from '../../model/model';
+import { MyTagsService } from '../service/my-tags.service';
 
 @Directive({
   selector: '[appAddCollection]'
 })
-export class AddCollectionDirective implements OnChanges {
+export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
   faBookmark = faBookmark;
   faStar = faStar;
   faTrash = faTrash;
@@ -24,6 +26,9 @@ export class AddCollectionDirective implements OnChanges {
   movies: Movie[];
   @Input()
   label: string;
+  tags: Tag[];
+  myMovies: Movie[];
+  subs = [];
   isAlreadyAdded: boolean;
   @HostListener('click', ['$event']) onClick(): void {
     if (!this.isAlreadyAdded) {
@@ -36,6 +41,7 @@ export class AddCollectionDirective implements OnChanges {
   constructor(
     private movieService: MovieService,
     private myMoviesService: MyMoviesService,
+    private myTagsService: MyTagsService,
     private translate: TranslateService,
     private auth: AuthService,
     private vcRef: ViewContainerRef,
@@ -43,6 +49,11 @@ export class AddCollectionDirective implements OnChanges {
     private cfr: ComponentFactoryResolver,
     private render: Renderer2
   ) {
+  }
+
+  ngOnInit(): void {
+    this.subs.push(this.myTagsService.myTags$.subscribe((tags) => this.tags = tags));
+    this.subs.push(this.myMoviesService.myMovies$.subscribe((movies) => this.myMovies = movies));
   }
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }): void {
@@ -57,12 +68,12 @@ export class AddCollectionDirective implements OnChanges {
   initBtnIcon(): void {
     const cmpFactory = this.cfr.resolveComponentFactory(FaIconComponent);
     const component = this.vcRef.createComponent(cmpFactory);
-    this.myMoviesService.myMovies$.subscribe(myMovies => {
+    this.subs.push(this.myMoviesService.myMovies$.subscribe(myMovies => {
       if (myMovies && myMovies.length > 0) {
         this.isAlreadyAdded = this.movies.filter(movie => !myMovies.map(m => m.id).includes(movie.id)).length === 0;
         this.insertIconAndText(component);
       }
-    });
+    }));
   }
 
   insertIconAndText(component: ComponentRef<FaIconComponent>): void {
@@ -101,9 +112,12 @@ export class AddCollectionDirective implements OnChanges {
 
   remove(): void {
     if (this.movies.length === 1) {
-      this.auth.getFileName().then((fileName) => {
-        this.myMoviesService.remove(this.movies.map(movie => movie.id), fileName);
-      });
+      const movieRemoved = this.myMovies.find(m => m.id === this.movies[0].id);
+      const tagsToReplace = this.tags.filter(t => movieRemoved.tags.includes(t.id));
+      tagsToReplace.forEach(t => t.movies = t.movies.filter(movie => movieRemoved.id !== movie.id));
+      this.auth.getFileName()
+        .then((fileName) => this.myMoviesService.remove([movieRemoved.id], fileName))
+        .then(() => this.myTagsService.replaceTags(tagsToReplace));
     }
   }
 
@@ -119,5 +133,9 @@ export class AddCollectionDirective implements OnChanges {
         this.movies.forEach((movie) => movie.checked = false);
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach((subscription) => subscription.unsubscribe());
   }
 }

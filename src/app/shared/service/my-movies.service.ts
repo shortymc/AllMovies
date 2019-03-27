@@ -99,10 +99,10 @@ export class MyMoviesService {
     });
   }
 
-  remove(idToRemove: number[], fileName: string): void {
+  remove(idToRemove: number[], fileName: string): Promise<boolean> {
     let tempMovieList = [];
     // download my movies
-    this.dropboxService.downloadFile(fileName).then(moviesFromFile => {
+    return this.dropboxService.downloadFile(fileName).then(moviesFromFile => {
       // parse them
       let movieList = <Movie[]>JSON.parse(moviesFromFile);
       if (idToRemove.length > 0) {
@@ -121,7 +121,11 @@ export class MyMoviesService {
         this.myMovies$.next(tempMovieList);
         this.toast.open(Level.success, 'toast.movies_removed', { size: idToRemove.length });
       }
-    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+      return true;
+    }).catch((err) => {
+      this.serviceUtils.handlePromiseError(err, this.toast);
+      return false;
+    });
   }
 
   /**
