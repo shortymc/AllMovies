@@ -92,7 +92,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
       this.subs.push(combineLatest(this.myTagsService.myTags$, this.myMoviesService.myMovies$)
         .pipe(filter(([tags, movies]) => tags !== undefined && movies !== undefined))
         .subscribe(([tags, movies]) => {
-          this.tags = undefined;
+          this.tags = [];
           if (movies.map(m => m.id).includes(this.id)) {
             this.tags = tags.filter(t => t.movies.map(m => m.id).includes(this.id));
           }
