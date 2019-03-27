@@ -44,13 +44,13 @@ export class UtilsService {
   handleError(error: any, toast: ToastService): void {
     console.log('handleError');
     console.error('error', error);
-    toast.open(UtilsService.getErrorMessage(error), Level.error);
+    toast.open(Level.error, UtilsService.getErrorMessage(error));
   }
 
   handlePromiseError(error: any, toast: ToastService): Promise<any> {
     console.log('handlePromiseError');
     console.error('error', error);
-    toast.open(UtilsService.getErrorMessage(error), Level.error);
+    toast.open(Level.error, UtilsService.getErrorMessage(error));
     return new Promise<any>((resolve, reject) => {
       resolve();
     });

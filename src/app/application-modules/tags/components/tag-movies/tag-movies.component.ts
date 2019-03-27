@@ -130,7 +130,7 @@ export class TagMoviesComponent implements OnChanges {
   addMovie(movies: Movie[]): void {
     const tag = TagMovie.fromMovie(movies);
     if (this.tag.movies.map(m => m.id).includes(tag.id)) {
-      this.toast.open('toast.already_added', Level.warning);
+      this.toast.open(Level.warning, 'toast.already_added');
     } else {
       this.tag.movies.push(tag);
       this.initPagination(this.refreshData());

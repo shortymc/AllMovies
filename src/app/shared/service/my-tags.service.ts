@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
 
 import { DropboxService } from './dropbox.service';
 import { AuthService } from './auth.service';
@@ -20,7 +19,6 @@ export class MyTagsService {
   constructor(
     private dropboxService: DropboxService,
     private auth: AuthService,
-    private translate: TranslateService,
     private serviceUtils: UtilsService,
     private toast: ToastService,
     private capitalize: CapitalizeWordPipe
@@ -84,7 +82,7 @@ export class MyTagsService {
           // all good, modifies inner data
           console.log('myTags', tempTagList);
           this.myTags$.next(tempTagList);
-          this.toast.open(this.translate.instant('toast.tags_added'), Level.success);
+          this.toast.open(Level.success, 'toast.tags_added');
         }
         return toAdd;
       }).catch((err) => {
@@ -118,7 +116,7 @@ export class MyTagsService {
         if (res) {
           // if ok, emit new array and toast
           this.myTags$.next(tempTagList);
-          this.toast.open(this.translate.instant('toast.tags_removed', { size: idToRemove.length }), Level.success);
+          this.toast.open(Level.success, 'toast.tags_removed', { size: idToRemove.length });
         }
       }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
@@ -147,7 +145,7 @@ export class MyTagsService {
       }).then((res: any) => {
         console.log(res);
         this.myTags$.next(tempTagList);
-        this.toast.open(this.translate.instant('toast.tags_updated'), Level.success);
+        this.toast.open(Level.success, 'toast.tags_updated');
       }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
@@ -171,7 +169,7 @@ export class MyTagsService {
       }).then((res: any) => {
         console.log(res);
         this.myTags$.next(tempTagList);
-        this.toast.open(this.translate.instant('toast.tags_updated', { size: tagsToReplace.length }), Level.success);
+        this.toast.open(Level.success, 'toast.tags_updated', { size: tagsToReplace.length });
         return true;
       }).catch((err) => {
         this.serviceUtils.handleError(err, this.toast);
