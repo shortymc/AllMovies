@@ -1,4 +1,5 @@
 import { Utils } from '../shared/utils';
+import { Movie } from './movie';
 
 export class TagMovie {
   id: number;
@@ -9,6 +10,19 @@ export class TagMovie {
     const titles = Utils.mapToJson(<Map<any, any>>movie.titles);
     const json = JSON.stringify(movie);
     return json.replace(',"titles":{}', ',"titles":' + titles);
+  }
+
+  static fromMovie(movie: Movie[]): TagMovie {
+    if (!movie || movie.length !== 2 || movie[0].id !== movie[1].id) {
+      console.error('Incorrect movies', movie);
+      return undefined;
+    }
+    const tagMovie = new TagMovie();
+    tagMovie.id = movie[0].id;
+    tagMovie.titles = new Map();
+    tagMovie.titles.set(movie[0].lang_version, movie[0].title);
+    tagMovie.titles.set(movie[1].lang_version, movie[1].title);
+    return tagMovie;
   }
 }
 

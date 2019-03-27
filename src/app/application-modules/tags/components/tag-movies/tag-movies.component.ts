@@ -128,11 +128,7 @@ export class TagMoviesComponent implements OnChanges {
   }
 
   addMovie(movies: Movie[]): void {
-    const tag = new TagMovie();
-    tag.id = movies[0].id;
-    tag.titles = new Map();
-    tag.titles.set(movies[0].lang_version, movies[0].title);
-    tag.titles.set(movies[1].lang_version, movies[1].title);
+    const tag = TagMovie.fromMovie(movies);
     if (this.tag.movies.map(m => m.id).includes(tag.id)) {
       this.toast.open('toast.already_added', Level.warning);
     } else {

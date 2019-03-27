@@ -266,15 +266,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   addTag(): void {
     const selectedMoviesIds = this.movies.filter(movie => movie.checked).map(movie => movie.id);
-    this.selectedTag.movies.push(...selectedMoviesIds.map(id => {
-      const movie = this.allMovies.filter(m => m.id === id);
-      const tagMovie = new TagMovie();
-      tagMovie.id = movie[0].id;
-      tagMovie.titles = new Map();
-      tagMovie.titles.set(movie[0].lang_version, movie[0].title);
-      tagMovie.titles.set(movie[1].lang_version, movie[1].title);
-      return tagMovie;
-    }));
+    this.selectedTag.movies.push(...selectedMoviesIds.map(id =>
+      TagMovie.fromMovie(this.allMovies.filter(m => m.id === id))
+    ));
     this.myTagsService.updateTag(this.selectedTag);
     this.auth.getFileName().then(file => this.myMoviesService.updateTag(this.selectedTag, file)).then(() => {
       this.nbChecked = 0;
