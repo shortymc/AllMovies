@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
 
 import { DropboxService } from './dropbox.service';
 import { AuthService } from './auth.service';
@@ -18,7 +17,6 @@ export class MyMoviesService {
   constructor(
     private dropboxService: DropboxService,
     private auth: AuthService,
-    private translate: TranslateService,
     private serviceUtils: UtilsService,
     private toast: ToastService,
   ) { }
@@ -75,7 +73,7 @@ export class MyMoviesService {
         movieList.sort(Utils.compareObject);
         return movieList;
       } else {
-        this.toast.open(this.translate.instant('toast.already_added'), Level.info);
+        this.toast.open(Level.info, 'toast.already_added');
         return [];
       }
     }).then((list: Movie[]) => {
@@ -92,7 +90,7 @@ export class MyMoviesService {
         // all good, modifies inner data
         console.log('myMovies', tempMovieList);
         this.myMovies$.next(tempMovieList);
-        this.toast.open(this.translate.instant('toast.movies_added', { size: tempMoviesAdded.length / 2 }), Level.success);
+        this.toast.open(Level.success, 'toast.movies_added', { size: tempMoviesAdded.length / 2 });
       }
       return true;
     }).catch((err) => {
@@ -121,7 +119,7 @@ export class MyMoviesService {
       if (res) {
         // if ok, emit new array and toast
         this.myMovies$.next(tempMovieList);
-        this.toast.open(this.translate.instant('toast.movies_removed', { size: idToRemove.length }), Level.success);
+        this.toast.open(Level.success, 'toast.movies_removed', { size: idToRemove.length });
       }
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
@@ -154,7 +152,7 @@ export class MyMoviesService {
     }).then((res: any) => {
       console.log(res);
       this.myMovies$.next(tempMovieList);
-      this.toast.open(this.translate.instant('toast.movies_updated', { size: moviesToReplace.length }), Level.success);
+      this.toast.open(Level.success, 'toast.movies_updated', { size: moviesToReplace.length });
     }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
