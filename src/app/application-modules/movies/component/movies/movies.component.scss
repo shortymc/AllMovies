@@ -97,6 +97,29 @@ mat-row {
   border-bottom-width: 0;
 }
 
+@include media('1000px', false) {
+  .movie-poster {
+    margin: 10px;
+  }
+}
+
+@include media('1000px') {
+  .mat-cell {
+    &:first-of-type {
+      justify-content: center;
+      padding: 0 5px !important;
+    }
+
+    &:last-of-type {
+      padding-right: 0 !important;
+    }
+  }
+
+  .movie-poster {
+    height: 85px;
+  }
+}
+
 @include media(#{$smallscreen}) {
   /* Mobile landscape */
   .mat-table {
@@ -123,20 +146,14 @@ mat-row {
     height: 15vw;
     box-shadow: 2px 5px 9px #000;
   }
-
-  .mat-cell {
-    &:first-of-type {
-      padding: 10px !important;
-    }
-
-    &:last-of-type {
-      padding-right: 0 !important;
-    }
-  }
 }
 
 @include media('500px') {
   /* Mobile portait */
+  .mat-cell:first-of-type {
+    padding: 10px !important;
+  }
+
   .movie-poster {
     display: flex;
     justify-content: center;
