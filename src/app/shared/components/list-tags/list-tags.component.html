@@ -1,6 +1,6 @@
-<ng-container *ngIf="tags && tags.length > 0; else noTags">
+<ng-container *ngIf="tagsDisplayed && tagsDisplayed.length > 0; else noTags">
   <mat-chip-list #chipList>
-    <mat-chip *ngFor="let tag of tagDisplayed" [selectable]="true" [removable]="editing" (removed)="remove(tag)"
+    <mat-chip *ngFor="let tag of tagsDisplayed" [selectable]="true" [removable]="editing" (removed)="remove(tag)"
       [style.background]="tag.color">
       {{tag.label}}
       <span matChipRemove *ngIf="editing">
