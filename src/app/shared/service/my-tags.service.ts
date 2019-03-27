@@ -150,4 +150,32 @@ export class MyTagsService {
         this.toast.open(this.translate.instant('toast.tags_updated'), Level.success);
       }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
+
+  replaceTags(tagsToReplace: Tag[]): Promise<boolean> {
+    let tempTagList = [];
+    let fileName;
+    return this.getFileName()
+      .then((file: string) => {
+        // download file
+        fileName = file;
+        return this.dropboxService.downloadFile(fileName);
+      }).then((tagsFromFile: string) => {
+        let tagList = <Tag[]>JSON.parse(tagsFromFile);
+        // Removes from saved list the tags to replace
+        tagList = tagList.filter((m: Tag) => !tagsToReplace.map((tag: Tag) => tag.id).includes(m.id));
+        // Push in saved list new tags
+        tagList.push(...tagsToReplace);
+        tagList.sort(Utils.compareObject);
+        tempTagList = tagList;
+        return this.dropboxService.uploadFile(MyTagsService.tagsToBlob(tagList), fileName);
+      }).then((res: any) => {
+        console.log(res);
+        this.myTags$.next(tempTagList);
+        this.toast.open(this.translate.instant('toast.tags_updated', { size: tagsToReplace.length }), Level.success);
+        return true;
+      }).catch((err) => {
+        this.serviceUtils.handleError(err, this.toast);
+        return false;
+      });
+  }
 }
