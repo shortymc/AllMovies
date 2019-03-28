@@ -14,7 +14,7 @@
       <fa-icon [icon]="faEdit"></fa-icon>
     </span>
   </div>
-  <app-search-movie [adult]="true" (selected)="addMovie($event)"></app-search-movie>
+  <app-search-movie [adult]="adult" (selected)="addMovie($event)"></app-search-movie>
   <!-- Buttons -->
   <div class="tag-btn">
     <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="removeMovie()">{{'tags.remove_movies' |

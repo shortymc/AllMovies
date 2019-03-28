@@ -2,13 +2,14 @@ import { FormGroup } from '@angular/forms';
 import { faTrash, faList, faPen, faPaintBrush, faImage } from '@fortawesome/free-solid-svg-icons';
 import { PageEvent, Sort } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, Input, SimpleChanges, OnInit } from '@angular/core';
 import { faSave } from '@fortawesome/free-regular-svg-icons';
 
 import { Utils } from './../../../../shared/utils';
 import { MyMoviesService } from './../../../../shared/service/my-movies.service';
 import { Movie } from './../../../../model/movie';
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
+import { AuthService } from './../../../../shared/service/auth.service';
 import { Level } from './../../../../model/model';
 import { MenuService } from './../../../../shared/service/menu.service';
 import { ToastService } from './../../../../shared/service/toast.service';
@@ -19,7 +20,7 @@ import { Tag, TagMovie } from './../../../../model/tag';
   templateUrl: './tag-movies.component.html',
   styleUrls: ['./tag-movies.component.scss']
 })
-export class TagMoviesComponent implements OnChanges {
+export class TagMoviesComponent implements OnInit, OnChanges {
   @Input() tag: Tag;
   @Input() visible: boolean;
   displayedColumns = ['poster', 'title', 'select'];
@@ -35,6 +36,7 @@ export class TagMoviesComponent implements OnChanges {
   tagForm: FormGroup;
   edit = false;
   edited = false;
+  adult: boolean;
   editedLabel: string;
   editedColor: string;
   moviesToAdd: Movie[] = [];
@@ -52,8 +54,17 @@ export class TagMoviesComponent implements OnChanges {
     private myTagsService: MyTagsService,
     private myMoviesService: MyMoviesService,
     public translate: TranslateService,
-    private toast: ToastService
+    private toast: ToastService,
+    private auth: AuthService
   ) { }
+
+  ngOnInit(): void {
+    this.auth.user$.subscribe(user => {
+      if (user) {
+        this.adult = user.adult;
+      }
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.tag = changes.tag.currentValue ? Tag.clone(<Tag>changes.tag.currentValue) : this.tag;

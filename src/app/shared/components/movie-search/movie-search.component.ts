@@ -22,6 +22,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   showMovie = false;
   language: string;
   pseudo: string;
+  adult: boolean;
   subs = [];
   faSearch = faSearch;
 
@@ -44,7 +45,8 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   constructor(
     private elemRef: ElementRef,
     private movieSearchService: MovieSearchService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private auth: AuthService
   ) { }
 
   // Push a search term into the observable stream.
@@ -53,10 +55,11 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const user = AuthService.decodeToken(undefined);
-    if (user) {
-      this.pseudo = user.name;
-    }
+    this.auth.user$.subscribe(user => {
+      if (user) {
+        this.adult = user.adult;
+      }
+    });
     this.language = this.translate.currentLang;
     this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.language = event.lang;
@@ -68,7 +71,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
         // .distinctUntilChanged()   // ignore if next search term is same as previous
         switchMap(term => term   // switch to new observable each time the term changes
           // return the http search observable
-          ? this.movieSearchService.search(term, this.pseudo === 'Test', this.language)
+          ? this.movieSearchService.search(term, this.adult, this.language)
           // or the observable of empty movies if there was no search term
           : of<Movie[]>([])),
         catchError(error => {
