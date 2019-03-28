@@ -8,7 +8,7 @@ export class TagMovie {
 
   static toJson(movie: TagMovie): string {
     const titles = Utils.mapToJson(<Map<any, any>>movie.titles);
-    const json = JSON.stringify(movie);
+    const json = JSON.stringify(movie, Tag.removeFields);
     return json.replace(',"titles":{}', ',"titles":' + titles);
   }
 
@@ -45,7 +45,14 @@ export class Tag {
     temp.movies = temp.movies.map(m => TagMovie.toJson(m));
     const movies = temp.movies;
     temp.movies = undefined;
-    const json = JSON.stringify(temp);
+    const json = JSON.stringify(temp, Tag.removeFields);
     return json.substr(0, json.length - 1) + ',"movies":[' + movies + ']}';
+  }
+
+  static removeFields(key: string, value: string): string {
+    if (['checked'].includes(key)) {
+      return undefined;
+    }
+    return value;
   }
 }
