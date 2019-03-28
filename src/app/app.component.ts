@@ -33,6 +33,10 @@ export class AppComponent implements OnInit {
         this.myTagsService.getAll();
       }
     });
-    this.auth.getCurrentUser().then(user => this.translate.use(user.lang.code));
+    this.auth.user$.subscribe(user => {
+      if (user) {
+        this.translate.use(user.lang.code);
+      }
+    });
   }
 }
