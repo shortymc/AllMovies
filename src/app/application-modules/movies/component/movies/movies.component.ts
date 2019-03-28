@@ -6,7 +6,7 @@ import { Sort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import {
-  faTrash, faHashtag, faImage, faFilm, faFlag, faCalendar, faStar, faGlobeAmericas, faList, faChevronCircleRight
+  faTrash, faHashtag, faImage, faFilm, faFlag, faCalendar, faStar, faGlobeAmericas, faList, faChevronCircleRight, faAngleDown
 } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
@@ -38,9 +38,10 @@ library.add(faTimesCircle);
   ]
 })
 export class MoviesComponent implements OnInit, OnDestroy {
-  init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details'];
-  medium_columns = ['thumbnail', 'title', 'date', 'note', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details'];
-  mobile_columns = ['thumbnail', 'title', 'date', 'meta', 'language', 'time', 'genres', 'select', 'details'];
+  init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'meta', 'language',
+    'genres', 'time', 'added', 'select', 'details', 'tag-icon'];
+  medium_columns = ['thumbnail', 'title', 'date', 'note', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details', 'tag-icon'];
+  mobile_columns = ['thumbnail', 'title', 'date', 'meta', 'language', 'time', 'genres', 'select', 'details', 'tag-icon'];
   displayedColumns = this.init_columns;
   movies: Movie[];
   allMovies: Movie[];
@@ -72,6 +73,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   faStar = faStar;
   faGlobe = faGlobeAmericas;
   faList = faList;
+  faAngleDown = faAngleDown;
   faChevronCircleRight = faChevronCircleRight;
 
   constructor(

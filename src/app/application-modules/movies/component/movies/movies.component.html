@@ -215,6 +215,14 @@
       </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="tag-icon">
+      <mat-header-cell *matHeaderCellDef>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let movie" class="tag-icon bounce">
+        <fa-icon [icon]="faAngleDown" size="3x"></fa-icon>
+      </mat-cell>
+    </ng-container>
+
     <!-- TAGS -->
     <ng-container matColumnDef="{{expandedColumn}}">
       <td mat-cell *matCellDef="let movie" class="tag-detail" [attr.colspan]="displayedColumns.length" [@detailExpand]="movie == expandedElement ? 'expanded' : 'collapsed'">
