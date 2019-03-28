@@ -9,7 +9,6 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimesCircle, faStar } from '@fortawesome/free-regular-svg-icons';
 import { FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 
-import { AuthService } from './../../../../shared/service/auth.service';
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
 import { Utils } from './../../../../shared/utils';
 import { MyMoviesService } from './../../../../shared/service/my-movies.service';
@@ -54,7 +53,6 @@ export class TagsComponent implements OnInit, OnDestroy {
     private myTagsService: MyTagsService,
     public translate: TranslateService,
     private myMoviesService: MyMoviesService,
-    private auth: AuthService,
     private title: TitleService
   ) { }
 
@@ -145,12 +143,10 @@ export class TagsComponent implements OnInit, OnDestroy {
   remove(): void {
     const checkedTags = this.tableTags.filter(tag => tag.checked);
     this.myTagsService.remove(checkedTags.map(tag => tag.id));
-    this.auth.getFileName().then(file => {
-      let p = Promise.resolve(true);
-      checkedTags.forEach(removed => {
-        removed.movies = [];
-        p = p.then(() => this.myMoviesService.updateTag(removed, file));
-      });
+    let p = Promise.resolve(true);
+    checkedTags.forEach(removed => {
+      removed.movies = [];
+      p = p.then(() => this.myMoviesService.updateTag(removed));
     });
     this.nbChecked = 0;
   }

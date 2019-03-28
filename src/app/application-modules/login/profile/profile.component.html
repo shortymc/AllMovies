@@ -13,10 +13,10 @@
     </button>
   </div>
   <div class="profile-footer">
-    <button type="button" class="btn btn-outline-primary" routerLink="/login/changePassword">
+    <button type="button" class="btn btn-outline-primary" routerLink="/login/changePassword" [queryParams]="{name: user.name}">
       {{'login.profile.change_password'|translate}}
     </button>
-    <button type="button" class="btn btn-outline-primary" routerLink="/login/changeQuestion">
+    <button type="button" class="btn btn-outline-primary" routerLink="/login/changeQuestion" [queryParams]="{name: user.name}">
       {{'login.profile.change_question'|translate}}
     </button>
   </div>

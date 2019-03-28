@@ -1,6 +1,7 @@
 import { filter, distinctUntilChanged } from 'rxjs/operators';
 import { Router, NavigationStart } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { MyTagsService } from './shared/service/my-tags.service';
 import { TabsService } from './shared/service/tabs.service';
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
     private auth: AuthService,
     private myMoviesService: MyMoviesService,
     private myTagsService: MyTagsService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -31,5 +33,6 @@ export class AppComponent implements OnInit {
         this.myTagsService.getAll();
       }
     });
+    this.auth.getCurrentUser().then(user => this.translate.use(user.lang.code));
   }
 }
