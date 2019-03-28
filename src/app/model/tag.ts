@@ -3,6 +3,7 @@ import { Movie } from './movie';
 
 export class TagMovie {
   id: number;
+  poster: string;
   titles: Map<string, string>; // key: lang, value: title
   checked: boolean;
 
@@ -19,6 +20,7 @@ export class TagMovie {
     }
     const tagMovie = new TagMovie();
     tagMovie.id = movie[0].id;
+    tagMovie.poster = movie[0].thumbnail;
     tagMovie.titles = new Map();
     tagMovie.titles.set(movie[0].lang_version, movie[0].title);
     tagMovie.titles.set(movie[1].lang_version, movie[1].title);
