@@ -97,6 +97,36 @@ mat-row {
   border-bottom-width: 0;
 }
 
+.tag-icon {
+  display: none;
+
+  .movie-row:hover & {
+    position: absolute;
+    left: 50%;
+    display: flex;
+    align-self: end;
+    flex-grow: 0;
+    margin-bottom: -5px;
+    animation: 1s bounce;
+
+    & ::ng-deep.fa-angle-down {
+      color: $blue;
+    }
+  }
+}
+
+@keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+	40% {
+    transform: translateY(-20px);
+  }
+	60% {
+    transform: translateY(-10px);
+  }
+}
+
 .tags-header {
   display: flex;
   align-items: center;
@@ -174,19 +204,8 @@ mat-row {
     background-color: inherit !important;
   }
 
-  mat-table,
-  mat-row,
-  mat-cell {
-    display: block !important;
-    text-align: center;
-  }
-
-  mat-row {
-    border: 1px solid #ccc !important;
-
-    &::after {
-      display: initial !important;
-    }
+  mat-row::after {
+    display: initial !important;
   }
 
   mat-cell {
@@ -228,6 +247,13 @@ mat-row {
       padding-right: 10px !important;
       white-space: nowrap !important;
     }
+  }
+
+  mat-table,
+  mat-row,
+  mat-cell:not(.tag-icon) {
+    display: block !important;
+    text-align: center;
   }
 
   .filters {
