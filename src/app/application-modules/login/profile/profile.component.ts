@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.title.setTitle('title.profile');
   }
 
-  changeLang(): void {
+  changeUser(): void {
     this.auth.changeUser(this.user);
   }
 

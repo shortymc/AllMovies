@@ -19,6 +19,7 @@ export class PersonSearchComponent implements OnInit {
   private searchTerms = new Subject<string>();
   showPerson = false;
   pseudo: string;
+  adult: boolean;
   faSearch = faSearch;
   @HostListener('document:click', ['$event']) onMousClicked(event: any): void {
     let result = false;
@@ -39,6 +40,7 @@ export class PersonSearchComponent implements OnInit {
   constructor(
     private elemRef: ElementRef,
     private personSearchService: PersonSearchService,
+    private auth: AuthService
   ) { }
 
   // Push a search term into the observable stream.
@@ -47,17 +49,18 @@ export class PersonSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const user = AuthService.decodeToken(undefined);
-    if (user) {
-      this.pseudo = user.name;
-    }
+    this.auth.user$.subscribe(user => {
+      if (user) {
+        this.adult = user.adult;
+      }
+    });
     this.persons = this.searchTerms
       .pipe(
         debounceTime(300),        // wait 300ms after each keystroke before considering the term
         // .distinctUntilChanged()   // ignore if next search term is same as previous
         switchMap(term => term   // switch to new observable each time the term changes
           // return the http search observable
-          ? this.personSearchService.search(term, this.pseudo === 'Test')
+          ? this.personSearchService.search(term, this.adult)
           // or the observable of empty persons if there was no search term
           : of<Person[]>([])),
         catchError(error => {

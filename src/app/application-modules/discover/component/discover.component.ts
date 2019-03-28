@@ -65,15 +65,16 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     private title: TitleService,
     private router: Router,
     private elemRef: ElementRef,
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
     this.title.setTitle('title.discover');
-    const user = AuthService.decodeToken(undefined);
-    if (user) {
-      this.adult = user.name === 'Test';
-    }
-
+    this.auth.user$.subscribe(user => {
+      if (user) {
+        this.adult = user.adult;
+      }
+    });
     this.sortDir.value = 'desc';
     this.sortChoices = [new DropDownChoice('discover.sort_field.popularity', 'popularity'),
     new DropDownChoice('discover.sort_field.release_date', 'release_date'), new DropDownChoice('discover.sort_field.revenue', 'revenue'),
