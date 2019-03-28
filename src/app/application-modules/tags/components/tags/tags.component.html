@@ -107,7 +107,7 @@
     <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef>
       </mat-header-cell>
-      <mat-cell *matCellDef="let tag" class="toto">
+      <mat-cell *matCellDef="let tag">
         <div class="cell-content">
           <mat-checkbox (change)="tag.checked = !tag.checked; updateSize()" [checked]="tag.checked">
           </mat-checkbox>
@@ -119,7 +119,7 @@
     <ng-container matColumnDef="details">
       <mat-header-cell *matHeaderCellDef>
       </mat-header-cell>
-      <mat-cell *matCellDef="let tag" class="toto">
+      <mat-cell *matCellDef="let tag">
         <div class="cell-content">
           <button class="btn btn-outline-primary btn-detail" matTooltip="{{'global.go_detail' | translate}}" (click)="selectTag(tag)">
             <span class="btn-text desktop">
