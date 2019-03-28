@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as crypto from 'crypto-js';
 
 import { TitleService } from './../../../shared/shared.module';
@@ -11,22 +11,27 @@ import { AuthService } from '../../../shared/shared.module';
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss']
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent implements OnInit, OnDestroy {
   oldPass: string;
   pass1: string;
   pass2: string;
   message: string;
   user: User;
+  subs = [];
 
   constructor(
     private auth: AuthService,
     private router: Router,
-    private title: TitleService
+    private title: TitleService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
     this.title.setTitle('title.profile');
-    this.auth.getCurrentUser().then((user) => this.user = user);
+    this.subs.push(this.route.queryParams.subscribe(
+      params => {
+        this.auth.getUserByName(params.name).then((user) => this.user = user);
+      }));
   }
 
   change(): void {
@@ -42,4 +47,7 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.subs.forEach((subscription) => subscription.unsubscribe());
+  }
 }

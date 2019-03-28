@@ -8,7 +8,6 @@ import { faSave } from '@fortawesome/free-regular-svg-icons';
 import { Utils } from './../../../../shared/utils';
 import { MyMoviesService } from './../../../../shared/service/my-movies.service';
 import { Movie } from './../../../../model/movie';
-import { AuthService } from './../../../../shared/service/auth.service';
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
 import { Level } from './../../../../model/model';
 import { MenuService } from './../../../../shared/service/menu.service';
@@ -52,7 +51,6 @@ export class TagMoviesComponent implements OnChanges {
     private menuService: MenuService,
     private myTagsService: MyTagsService,
     private myMoviesService: MyMoviesService,
-    private auth: AuthService,
     public translate: TranslateService,
     private toast: ToastService
   ) { }
@@ -151,13 +149,9 @@ export class TagMoviesComponent implements OnChanges {
   save(): void {
     this.myTagsService.updateTag(this.tag);
     this.edited = false;
-    let filename;
-    this.auth.getFileName().then(file => {
-      filename = file;
-      return this.myMoviesService.updateTag(this.tag, file);
-    }).then(() => {
+    this.myMoviesService.updateTag(this.tag).then(() => {
       if (this.moviesToAdd && this.moviesToAdd.length > 0) {
-        this.myMoviesService.add(this.moviesToAdd, filename).then(() => this.moviesToAdd = []);
+        this.myMoviesService.add(this.moviesToAdd).then(() => this.moviesToAdd = []);
       } else {
         this.moviesToAdd = [];
       }

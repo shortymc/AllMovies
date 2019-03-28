@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as crypto from 'crypto-js';
 
 import { User } from './../../../model/user';
@@ -10,26 +10,31 @@ import { AuthService, TitleService } from '../../../shared/shared.module';
   templateUrl: './change-question.component.html',
   styleUrls: ['./change-question.component.scss']
 })
-export class ChangeQuestionComponent implements OnInit {
+export class ChangeQuestionComponent implements OnInit, OnDestroy {
   oldQuestion: string;
   oldAnswer: string;
   newQuestion: string;
   newAnswer: string;
   message: string;
   user: User;
+  subs = [];
 
   constructor(
     private auth: AuthService,
     private router: Router,
-    private title: TitleService
+    private title: TitleService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
     this.title.setTitle('title.profile');
-    this.auth.getCurrentUser().then((user) => {
-      this.user = user;
-      this.oldQuestion = user.question;
-    });
+    this.subs.push(this.route.queryParams.subscribe(
+      params => {
+        this.auth.getUserByName(params.name).then((user) => {
+          this.user = user;
+          this.oldQuestion = user.question;
+        });
+      }));
   }
 
   change(): void {
@@ -44,4 +49,7 @@ export class ChangeQuestionComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.subs.forEach((subscription) => subscription.unsubscribe());
+  }
 }

@@ -6,7 +6,6 @@ import { Movie } from './../../../model/movie';
 import { Tag, TagMovie } from './../../../model/tag';
 import { MyMoviesService } from '../../service/my-movies.service';
 import { Level } from './../../../model/model';
-import { AuthService } from './../../service/auth.service';
 import { ToastService } from '../../service/toast.service';
 import { MyTagsService } from '../../service/my-tags.service';
 
@@ -31,7 +30,6 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   faSave = faSave;
 
   constructor(
-    private auth: AuthService,
     private myMoviesService: MyMoviesService,
     private myTagsService: MyTagsService,
     private toast: ToastService
@@ -73,8 +71,7 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   save(): void {
     this.editing = false;
     this.movie.tags = this.tagsToSave.map(t => t.id);
-    this.auth.getFileName()
-      .then(file => this.myMoviesService.replaceMovies([this.movie], file))
+    this.myMoviesService.replaceMovies([this.movie])
       .then(() => this.myTagsService.replaceTags(this.tagsToSave));
   }
 

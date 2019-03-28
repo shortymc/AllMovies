@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import * as crypto from 'crypto-js';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
@@ -10,7 +10,7 @@ import { ToastService, AuthService, TitleService, UtilsService } from './../../.
   templateUrl: './forgot.component.html',
   styleUrls: ['./forgot.component.scss']
 })
-export class ForgotComponent implements OnInit {
+export class ForgotComponent implements OnInit, OnDestroy {
   @ViewChild('nameNext') nameNext: ElementRef;
   @ViewChild('answerNext') answerNext: ElementRef;
   @ViewChild('passwordNext') passwordNext: ElementRef;
@@ -22,6 +22,7 @@ export class ForgotComponent implements OnInit {
   messagePassword: string;
   password1: string;
   password2: string;
+  subs = [];
   faCheck = faCheck;
 
   constructor(
@@ -34,10 +35,10 @@ export class ForgotComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('title.login');
-    this.route.queryParams.subscribe(
+    this.subs.push(this.route.queryParams.subscribe(
       params => {
         this.name = params.name ? params.name : '';
-      });
+      }));
   }
 
   loadQuestion(): void {
@@ -71,5 +72,9 @@ export class ForgotComponent implements OnInit {
       this.auth.changePassword(this.name, crypto.SHA512(this.password1).toString());
       this.passwordNext.nativeElement.click();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach((subscription) => subscription.unsubscribe());
   }
 }

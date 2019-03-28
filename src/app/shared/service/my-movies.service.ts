@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+import { Dropbox } from './../../constant/dropbox';
+import { User } from './../../model/user';
 import { DropboxService } from './dropbox.service';
 import { AuthService } from './auth.service';
 import { Level } from './../../model/model';
@@ -36,9 +38,13 @@ export class MyMoviesService {
     return value;
   }
 
+  getFileName(): Promise<string> {
+    return this.auth.getCurrentUser().then((user: User) => `${Dropbox.DROPBOX_MOVIE_FILE}${user.id}${Dropbox.DROPBOX_FILE_SUFFIX}`);
+  }
+
   getAll(): void {
     console.log('getAll');
-    this.auth.getFileName()
+    this.getFileName()
       .then((fileName: string) => this.dropboxService.downloadFile(fileName))
       .then((moviesFromFile: string) => {
         if (moviesFromFile && moviesFromFile.trim().length > 0) {
@@ -52,11 +58,14 @@ export class MyMoviesService {
       }).catch(err => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  add(moviesToAdd: Movie[], fileName: string): Promise<boolean> {
+  add(moviesToAdd: Movie[]): Promise<boolean> {
     let tempMovieList = [];
     let tempMoviesAdded = [];
-    // download user file
-    return this.dropboxService.downloadFile(fileName).then((moviesFromFile: string) => {
+    let fileName;
+    return this.getFileName().then((file: string) => {
+      fileName = file;
+      return this.dropboxService.downloadFile(fileName);
+    }).then((moviesFromFile: string) => {
       // parse movies
       let movieList = [];
       if (moviesFromFile && moviesFromFile.trim().length > 0) {
@@ -99,10 +108,13 @@ export class MyMoviesService {
     });
   }
 
-  remove(idToRemove: number[], fileName: string): Promise<boolean> {
+  remove(idToRemove: number[]): Promise<boolean> {
     let tempMovieList = [];
-    // download my movies
-    return this.dropboxService.downloadFile(fileName).then(moviesFromFile => {
+    let fileName;
+    return this.getFileName().then((file: string) => {
+      fileName = file;
+      return this.dropboxService.downloadFile(fileName);
+    }).then(moviesFromFile => {
       // parse them
       let movieList = <Movie[]>JSON.parse(moviesFromFile);
       if (idToRemove.length > 0) {
@@ -134,9 +146,13 @@ export class MyMoviesService {
    * @param  {string} fileName
    * @returns void
    */
-  replaceMovies(moviesToReplace: Movie[], fileName: string): void {
+  replaceMovies(moviesToReplace: Movie[]): Promise<boolean> {
     let tempMovieList = [];
-    this.dropboxService.downloadFile(fileName).then(file => {
+    let fileName;
+    return this.getFileName().then((file: string) => {
+      fileName = file;
+      return this.dropboxService.downloadFile(fileName);
+    }).then(file => {
       let movieList = <Movie[]>JSON.parse(file);
       // Replaces added date with saved ones
       const idList = movieList.map(m => m.id);
@@ -157,12 +173,20 @@ export class MyMoviesService {
       console.log(res);
       this.myMovies$.next(tempMovieList);
       this.toast.open(Level.success, 'toast.movies_updated', { size: moviesToReplace.length });
-    }).catch((err) => this.serviceUtils.handleError(err, this.toast));
+      return true;
+    }).catch((err) => {
+      this.serviceUtils.handleError(err, this.toast);
+      return false;
+    });
   }
 
-  updateTag(tag: Tag, fileName: string): Promise<boolean> {
+  updateTag(tag: Tag): Promise<boolean> {
     let tempMovieList = [];
-    return this.dropboxService.downloadFile(fileName).then(file => {
+    let fileName;
+    return this.getFileName().then((file: string) => {
+      fileName = file;
+      return this.dropboxService.downloadFile(fileName);
+    }).then(file => {
       const movieList = <Movie[]>JSON.parse(file);
       // Looking for removed movies from tag
       const moviesHavingTag = movieList.filter(movie => movie.tags && movie.tags.includes(tag.id));
