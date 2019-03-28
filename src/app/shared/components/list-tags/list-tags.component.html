@@ -18,7 +18,7 @@
   {{'global.edit' |translate}}
 </button>
 <button class="btn btn-outline-primary" (click)="cancel()" *ngIf="editing">{{'global.cancel' |translate}}</button>
-<button class="btn btn-outline-primary" (click)="save()" *ngIf="editing">
+<button class="btn btn-outline-primary" (click)="save()" *ngIf="editing" [disabled]="isBtnSaveDisabled">
   <fa-icon [icon]="faSave"></fa-icon>
   {{'global.save' |translate}}
 </button>

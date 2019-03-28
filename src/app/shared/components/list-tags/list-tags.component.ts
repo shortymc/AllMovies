@@ -19,6 +19,7 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   tags: Tag[] = [];
   @Input()
   movie: Movie;
+  isBtnSaveDisabled = true;
   allMovies: Movie[];
   tagsDisplayed: Tag[];
   tagsToSave: Tag[];
@@ -60,12 +61,14 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
       tag.movies.push(TagMovie.fromMovie(this.allMovies.filter(m => m.id === this.movie.id)));
       this.tagsDisplayed.push(tag);
       this.tagsToSave.push(tag);
+      this.isTagsChanged();
     }
   }
 
   remove(tag: Tag): void {
     this.tagsToSave.find(t => t.id === tag.id).movies = tag.movies.filter(m => m.id !== this.movie.id);
     this.tagsDisplayed = this.tagsDisplayed.filter(t => t.id !== tag.id);
+    this.isTagsChanged();
   }
 
   save(): void {
@@ -79,6 +82,23 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
     this.editing = false;
     this.tagsDisplayed = this.getTags();
     this.tagsToSave = this.getTags();
+  }
+
+  isTagsChanged(): void {
+    const ids = this.tags.map(t => t.id).sort();
+    const displayed = this.tagsDisplayed.map(t => t.id).sort();
+    if (ids.length === displayed.length) {
+      let res = true;
+      for (let index = 0; index < ids.length; index++) {
+        if (ids[index] !== displayed[index]) {
+          res = false;
+          break;
+        }
+      }
+      this.isBtnSaveDisabled = res;
+    } else {
+      this.isBtnSaveDisabled = false;
+    }
   }
 
   ngOnDestroy(): void {
