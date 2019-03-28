@@ -43,11 +43,13 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.tags = changes.tags ? changes.tags.currentValue.map(tag => Tag.clone(<Tag>tag)) : this.tags;
-    this.movie = changes.movie ? changes.movie.currentValue : this.movie;
-    this.editing = false;
-    this.tagsDisplayed = this.getTags();
-    this.tagsToSave = this.getTags();
+    if (changes.movie) {
+      this.movie = changes.movie.currentValue;
+      this.editing = false;
+      this.tags = changes.tags ? changes.tags.currentValue.map(tag => Tag.clone(<Tag>tag)) : this.tags;
+      this.tagsDisplayed = this.getTags();
+      this.tagsToSave = this.getTags();
+    }
   }
 
   getTags(): Tag[] {
