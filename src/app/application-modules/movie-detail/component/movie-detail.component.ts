@@ -26,6 +26,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
   @Output() loaded = new EventEmitter<boolean>();
   movie: Movie;
   tags: Tag[];
+  showTags = false;
   isImagesVisible = false;
   isDetail: boolean;
   showTitles = false;
@@ -94,6 +95,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
         .subscribe(([tags, movies]) => {
           this.tags = [];
           if (movies.map(m => m.id).includes(this.id)) {
+            this.showTags = true;
             this.tags = tags.filter(t => t.movies.map(m => m.id).includes(this.id));
           }
         }));
