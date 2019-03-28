@@ -29,6 +29,12 @@ app-search-movie,
   justify-content: center;
 }
 
+.movie-poster {
+  height: 100px;
+  margin: 10px 0;
+  box-shadow: 1px 1px 10px #000;
+}
+
 @keyframes pulse {
   0% {
     transform: scale(1);

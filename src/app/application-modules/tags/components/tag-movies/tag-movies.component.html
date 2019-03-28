@@ -46,14 +46,14 @@
   <mat-table class="mat-elevation-z4" [dataSource]="displayedData" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
     matSort [matSortActive]="'title'" [matSortDirection]="'asc'">
 
-    <!-- ID -->
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'global.id'|translate }}">
-        <span class="mat-text">{{ 'global.id'|translate }}</span>
-        <fa-icon class="mat-icon" [icon]="faHashtag"></fa-icon>
+    <!-- POSTER -->
+    <ng-container matColumnDef="poster">
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.poster'|translate }}">
+        <span class="mat-text">{{ 'movies.poster'|translate }}</span>
+        <fa-icon class="mat-icon" [icon]="faImage"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let movie">
-        {{movie.id}}
+          <img class="movie-poster" src="{{movie.poster}}" />
       </mat-cell>
     </ng-container>
 

@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { faTrash, faHashtag, faList, faPen, faPaintBrush } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faList, faPen, faPaintBrush, faImage } from '@fortawesome/free-solid-svg-icons';
 import { PageEvent, Sort } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
@@ -23,7 +23,7 @@ import { Tag, TagMovie } from './../../../../model/tag';
 export class TagMoviesComponent implements OnChanges {
   @Input() tag: Tag;
   @Input() visible: boolean;
-  displayedColumns = ['id', 'title', 'select'];
+  displayedColumns = ['poster', 'title', 'select'];
   length: number;
   displayedData: TagMovie[];
   search = '';
@@ -42,7 +42,7 @@ export class TagMoviesComponent implements OnChanges {
   subs = [];
 
   faTrash = faTrash;
-  faHashtag = faHashtag;
+  faImage = faImage;
   faList = faList;
   faSave = faSave;
   faEdit = faPen;
