@@ -17,7 +17,7 @@ import { ToastService } from './../../../../shared/service/toast.service';
 import { Constants } from './../../../../constant/constants';
 import { Utils } from './../../../../shared/utils';
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
-import { TitleService, AuthService, MovieService, MyMoviesService } from './../../../../shared/shared.module';
+import { TitleService, MovieService, MyMoviesService } from './../../../../shared/shared.module';
 import { Tag, TagMovie } from './../../../../model/tag';
 import { Movie } from './../../../../model/movie';
 import { Genre, MovieDetailConfig, Level } from '../../../../model/model';
@@ -84,7 +84,6 @@ export class MoviesComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private toast: ToastService,
     private elemRef: ElementRef,
-    private auth: AuthService,
     private title: TitleService
   ) { }
 
@@ -242,9 +241,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
               m.score = {};
             }
           });
-          this.auth.getFileName().then((fileName) => {
-            this.myMoviesService.replaceMovies(data, fileName);
-          });
+          this.myMoviesService.replaceMovies(data);
         },
         err => console.error(err)
       );
@@ -257,8 +254,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     const moviesToRemove = this.movies.filter(movie => movie.checked);
     const tagsToReplace = this.tags.filter(t => moviesToRemove.map(m => m.tags).reduce((x, y) => x.concat(y), []).includes(t.id));
     tagsToReplace.forEach(t => t.movies = t.movies.filter(movie => !moviesToRemove.map(m => m.id).includes(movie.id)));
-    this.auth.getFileName()
-      .then((fileName) => this.myMoviesService.remove(moviesToRemove.map(movie => movie.id), fileName))
+    this.myMoviesService.remove(moviesToRemove.map(movie => movie.id))
       .then(() => this.myTagsService.replaceTags(tagsToReplace));
     this.nbChecked = 0;
     this.onTop();
@@ -279,7 +275,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
         TagMovie.fromMovie(this.allMovies.filter(m => m.id === id))
       ));
       this.myTagsService.updateTag(this.selectedTag);
-      this.auth.getFileName().then(file => this.myMoviesService.updateTag(this.selectedTag, file)).then(() => {
+      this.myMoviesService.updateTag(this.selectedTag).then(() => {
         this.nbChecked = 0;
         this.selectedTag = undefined;
       });

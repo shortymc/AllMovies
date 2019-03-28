@@ -11,7 +11,6 @@ import { Tag } from './../../model/tag';
 import { Movie } from '../../model/movie';
 import { MovieService } from '../service/movie.service';
 import { MyMoviesService } from './../service/my-movies.service';
-import { AuthService } from '../service/auth.service';
 import { MovieDetailConfig } from '../../model/model';
 import { MyTagsService } from '../service/my-tags.service';
 
@@ -43,7 +42,6 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
     private myMoviesService: MyMoviesService,
     private myTagsService: MyTagsService,
     private translate: TranslateService,
-    private auth: AuthService,
     private vcRef: ViewContainerRef,
     private el: ElementRef,
     private cfr: ComponentFactoryResolver,
@@ -115,8 +113,7 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
       const movieRemoved = this.myMovies.find(m => m.id === this.movies[0].id);
       const tagsToReplace = this.tags.filter(t => movieRemoved.tags.includes(t.id));
       tagsToReplace.forEach(t => t.movies = t.movies.filter(movie => movieRemoved.id !== movie.id));
-      this.auth.getFileName()
-        .then((fileName) => this.myMoviesService.remove([movieRemoved.id], fileName))
+      this.myMoviesService.remove([movieRemoved.id])
         .then(() => this.myTagsService.replaceTags(tagsToReplace));
     }
   }
@@ -128,10 +125,8 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
       prom.push(this.movieService.getMovie(movie.id, new MovieDetailConfig(false, false, false, false, false, false, false, false, 'en'), false));
     });
     forkJoin(prom).subscribe((movies: Movie[]) => {
-      this.auth.getFileName().then((fileName) => {
-        this.myMoviesService.add(movies, fileName);
-        this.movies.forEach((movie) => movie.checked = false);
-      });
+      this.myMoviesService.add(movies);
+      this.movies.forEach((movie) => movie.checked = false);
     });
   }
 
