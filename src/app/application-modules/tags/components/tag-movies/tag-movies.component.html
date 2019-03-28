@@ -72,7 +72,7 @@
     <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie" class="toto">
+      <mat-cell *matCellDef="let movie" class="cell-checkbox">
         <div class="cell-content">
           <mat-checkbox (change)="movie.checked = !movie.checked; updateSize()" [checked]="movie.checked">
           </mat-checkbox>
