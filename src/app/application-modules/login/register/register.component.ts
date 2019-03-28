@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
         if (resp) {
           this.message = 'login.register.already_exist';
         } else {
-          const user = new User(0, this.name, crypto.SHA512(this.password).toString(),
+          const user = new User(0, this.name, false, crypto.SHA512(this.password).toString(),
             this.question, crypto.SHA512(this.answer).toString(), this.lang);
           this.auth.register(user);
         }
