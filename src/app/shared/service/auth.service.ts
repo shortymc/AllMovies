@@ -183,7 +183,7 @@ export class AuthService {
     let addedUser;
     this.addUser(user).then((result) => {
       addedUser = result;
-      return this.dropbox.uploadNewFile('', `${Dropbox.DROPBOX_TAG_FILE}${addedUser.id}${Dropbox.DROPBOX_FILE_SUFFIX}`);
+      return this.dropbox.uploadNewFile('[]', `${Dropbox.DROPBOX_TAG_FILE}${addedUser.id}${Dropbox.DROPBOX_FILE_SUFFIX}`);
     }).then(() => this.dropbox.uploadNewFile('', `${Dropbox.DROPBOX_MOVIE_FILE}${addedUser.id}${Dropbox.DROPBOX_FILE_SUFFIX}`))
       .then(() => {
         AuthService.setToken(this.createToken(addedUser));
@@ -251,6 +251,6 @@ export class AuthService {
     AuthService.removeToken();
     sessionStorage.clear();
     this.user$.next(undefined);
-    this.router.navigate(['/login']);
+    document.location.href = '/login';
   }
 }
