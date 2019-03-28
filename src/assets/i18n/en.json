@@ -254,7 +254,8 @@
             "title": "My profile",
             "change_password": "Change password",
             "change_question": "Change secret question",
-            "change_language": "Change Language"
+            "change_language": "Change language",
+            "adult": "Adult content"
         },
         "change_password": {
             "title": "Change password",

@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSlideToggleModule } from '@angular/material';
 import { Routes, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -38,6 +39,7 @@ const childRoutes: Routes = [
     TranslateModule.forChild(),
     SharedModule.forChild(),
     FontAwesomeModule,
+    MatSlideToggleModule,
     MatFormFieldModule,
     RouterModule.forChild(childRoutes),
   ],
