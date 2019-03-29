@@ -39,7 +39,7 @@ export class MyMoviesService {
   }
 
   getFileName(): Promise<string> {
-    return this.auth.getCurrentUser(true).then((user: User) => `${Dropbox.DROPBOX_MOVIE_FILE}${user.id}${Dropbox.DROPBOX_FILE_SUFFIX}`);
+    return new Promise(resolve => resolve(`${Dropbox.DROPBOX_MOVIE_FILE}${this.auth.user$.getValue().id}${Dropbox.DROPBOX_FILE_SUFFIX}`));
   }
 
   getAll(): void {
