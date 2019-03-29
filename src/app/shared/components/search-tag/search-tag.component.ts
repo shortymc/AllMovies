@@ -7,6 +7,7 @@ import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Utils } from './../../utils';
 import { Tag } from './../../../model/tag';
 import { MyTagsService } from '../../service/my-tags.service';
+import { Sort } from '@angular/material';
 
 @Component({
   selector: 'app-search-tag',
@@ -19,6 +20,7 @@ export class SearchTagComponent implements OnInit {
   tagCtrl: FormControl;
   faRemove = faTimes;
   faPlus = faPlus;
+  sort: Sort = { active: 'label', direction: 'asc' };
 
   constructor(
     private myTagsService: MyTagsService,
@@ -30,8 +32,8 @@ export class SearchTagComponent implements OnInit {
       pipe(
         startWith(''),
         switchMap((term: any) => this.myTagsService.myTags$.pipe(map((tags: Tag[]) =>
-          term && typeof term === 'string' && term !== '' ?
-            tags.filter(tag => tag.label.toLowerCase().includes(term.toLowerCase())) : tags))));
+          Utils.sortTags(term && typeof term === 'string' && term !== '' ?
+            tags.filter(tag => tag.label.toLowerCase().includes(term.toLowerCase())) : tags, this.sort)))));
   }
 
   add(item: string): void {
