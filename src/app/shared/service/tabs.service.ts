@@ -14,18 +14,18 @@ export class TabsService {
   constructor(
     private router: Router
   ) {
-    if (!sessionStorage.getItem('tabs')) {
+    if (!localStorage.getItem('tabs')) {
       this.storeTabs();
     } else {
-      this.liens = JSON.parse(sessionStorage.getItem('tabs'));
+      this.liens = JSON.parse(localStorage.getItem('tabs'));
       this.links.next(this.liens);
-      this.activeLink = JSON.parse(sessionStorage.getItem('active'));
+      this.activeLink = JSON.parse(localStorage.getItem('active'));
     }
   }
 
   storeTabs(): void {
-    sessionStorage.setItem('tabs', JSON.stringify(this.liens));
-    sessionStorage.setItem('active', JSON.stringify(this.activeLink));
+    localStorage.setItem('tabs', JSON.stringify(this.liens));
+    localStorage.setItem('active', JSON.stringify(this.activeLink));
   }
 
   onNavigation(event: NavigationStart): void {
