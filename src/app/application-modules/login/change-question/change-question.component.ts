@@ -44,7 +44,7 @@ export class ChangeQuestionComponent implements OnInit, OnDestroy {
     } else {
       this.user.question = this.newQuestion;
       this.user.answer = crypto.SHA512(this.newAnswer).toString();
-      this.auth.changeUser(this.user);
+      this.auth.updateUser(this.user);
       this.router.navigate(['/login/profile']);
     }
   }

@@ -23,6 +23,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   user: User;
   isLogged$ = new BehaviorSubject<boolean>(false);
   visible: boolean;
+  subs = [];
 
   faUser = faUser;
   faBars = faBars;
@@ -54,29 +55,23 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.auth.isLogged.pipe(distinctUntilChanged()).subscribe(isLogged => {
-      this.isLogged$.next(isLogged);
-      if (isLogged) {
-        this.auth.getCurrentUser().then(user => this.user = user);
-      } else {
-        this.user = undefined;
-      }
-    });
-    this.auth.user$.subscribe(user => {
+    this.subs.push(this.auth.user$.subscribe(user => {
+      console.log('hello', user);
       if (user) {
         this.user = user;
+        this.isLogged$.next(true);
       } else {
-        this.auth.getCurrentUser().then(u => this.user = u);
+        this.isLogged$.next(false);
       }
-    });
-    this.menuService.visible$.subscribe((visible) => {
+    }));
+    this.subs.push(this.menuService.visible$.subscribe((visible) => {
       this.visible = visible;
       this.changeDetectorRef.detectChanges();
-    });
-    this.menuService.scrollTo$.subscribe((scrollTo: number) => {
+    }));
+    this.subs.push(this.menuService.scrollTo$.subscribe((scrollTo: number) => {
       console.log('scrollTo', scrollTo);
       this.elemRef.nativeElement.querySelector('.mat-sidenav-content').scrollTo(0, scrollTo);
-    });
+    }));
   }
 
   handleClick(event: any): void {
@@ -101,5 +96,6 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
+    this.subs.forEach(sub => sub.unsubscribe());
   }
 }

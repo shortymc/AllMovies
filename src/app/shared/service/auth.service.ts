@@ -16,110 +16,82 @@ import { User } from '../../model/user';
 @Injectable()
 export class AuthService {
   user$: BehaviorSubject<User> = new BehaviorSubject(undefined);
-  isLogged = new BehaviorSubject<boolean>(false);
 
   constructor(
     private dropbox: DropboxService,
     private router: Router,
     private serviceUtils: UtilsService,
     private toast: ToastService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) { }
 
-  static decodeToken(token: string): User {
-    let tkn = token;
-    if (!tkn || tkn.trim() === '') {
-      tkn = AuthService.getToken();
-    }
-    if (tkn && tkn.trim() !== '') {
-      return jwtDecode(tkn);
+  static usersToBlob(user: User[]): any {
+    return new Blob([JSON.stringify(user)], { type: 'text/json' });
+  }
+
+  static decodeToken(): User {
+    const token = localStorage.getItem('token');
+    if (token && token.trim() !== '') {
+      return jwtDecode(token);
     } else {
       return undefined;
     }
   }
 
-  static usersToBlob(movies: User[]): any {
-    return new Blob([JSON.stringify(movies)], { type: 'text/json' });
-  }
-
-  static getToken(): string {
-    // console.log('getToken');
-    return localStorage.getItem('token');
-  }
-
-  static removeToken(): void {
-    localStorage.removeItem('token');
-  }
-
   static setToken(token: string): void {
-    this.removeToken();
+    localStorage.removeItem('token');
     localStorage.setItem('token', token);
   }
 
-  reject(): Promise<boolean> {
-    this.isLogged.next(false);
-    return new Promise((resolve) => { resolve(false); });
+  static createToken(user: User): string {
+    const oHeader = { alg: 'HS256', typ: 'JWT' };
+    const sHeader = JSON.stringify(oHeader);
+    return KJUR.jws.JWS.sign('HS256', sHeader, JSON.stringify(user), 'secret');
   }
 
-  isAuthenticated(): Promise<boolean> {
-    const token = AuthService.getToken();
-    if (!token) {
-      return this.reject();
+  private reject(loggout: boolean): Promise<User> {
+    if (loggout) {
+      this.logout();
     }
-    const user_infos: User = AuthService.decodeToken(token);
-    if (token && user_infos && user_infos.id) {
-      this.isLogged.next(true);
-      return new Promise((resolve) => { resolve(true); });
+    return new Promise(resolve => resolve(undefined));
+  }
+
+  isAuthenticated(): Promise<User> {
+    const user = this.user$.getValue();
+    if (user && user.id) {
+      return new Promise(resolve => resolve(user));
     } else {
-      return this.reject();
+      return this.reject(true);
     }
   }
 
-  isAllowed(): Promise<boolean> {
-    const token: string = AuthService.getToken();
-    if (!token) {
-      return this.reject();
-    }
-    const user_infos: User = AuthService.decodeToken(token);
-    if (token && user_infos && user_infos.id) {
-      this.isLogged.next(true);
-      return this.checkInfos(token);
+  isAllowed(loggout: boolean): Promise<User> {
+    const user = AuthService.decodeToken();
+    if (user && user.id) {
+      return this.getUserFile()
+        .then(users => users.find(u => u.id === user.id))
+        .then((found: User) => {
+          if (user.name === found.name && user.password === found.password && user.answer === user.answer && user.id === found.id) {
+            return user;
+          } else {
+            return this.reject(loggout);
+          }
+        }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
     } else {
-      return this.reject();
+      return this.reject(loggout);
     }
   }
 
-  login(name: string, password: string): Promise<boolean> {
+  login(name: string, password: string): Promise<User> {
     return this.getUserFile().then((users: User[]) => {
-      const found_users = users.filter((user: User) => user.name === name && user.password === password);
-      if (found_users.length === 1) {
-        sessionStorage.clear();
-        AuthService.setToken(this.createToken(found_users[0]));
-        this.isLogged.next(true);
-        this.user$.next(found_users[0]);
-        return true;
+      const found_user = users.find((user: User) => user.name === name && user.password === password);
+      if (found_user) {
+        this.user$.next(found_user);
+        return found_user;
       } else {
-        this.isLogged.next(false);
-        this.user$.next(undefined);
-        return false;
+        return this.reject(false);
       }
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
-  }
-
-  checkInfos(token: string): Promise<boolean> {
-    const user_infos: User = AuthService.decodeToken(token);
-    return this.getUserById(user_infos.id).then((user: User) => {
-      if (!user) {
-        return false;
-      }
-      return user.name === user_infos.name && user.password === user_infos.password;
-    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
-  }
-
-  getUserById(id: number): Promise<User> {
-    return this.getUserFile()
-      .then((users: User[]) => new Promise<User>((resolve, reject) => resolve(users.find((user: User) => user.id === id))))
-      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   changePassword(name: string, password: string): Promise<User> {
@@ -160,23 +132,9 @@ export class AuthService {
   }
 
   getUserFile(): Promise<User[]> {
-    // console.log('getUserFile');
-    return this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE).then(file =>
-      <User[]>JSON.parse(file)
-    ).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
-  }
-
-  createToken(user: User): string {
-    const payload = {
-      id: user.id,
-      name: user.name,
-      lang: user.lang,
-      password: user.password
-    };
-    const oHeader = { alg: 'HS256', typ: 'JWT' };
-    const sHeader = JSON.stringify(oHeader);
-    const sPayload = JSON.stringify(payload);
-    return KJUR.jws.JWS.sign('HS256', sHeader, sPayload, 'secret');
+    return this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE)
+      .then(file => <User[]>JSON.parse(file))
+      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   register(user: User): void {
@@ -186,13 +144,13 @@ export class AuthService {
       return this.dropbox.uploadNewFile('[]', `${Dropbox.DROPBOX_TAG_FILE}${addedUser.id}${Dropbox.DROPBOX_FILE_SUFFIX}`);
     }).then(() => this.dropbox.uploadNewFile('', `${Dropbox.DROPBOX_MOVIE_FILE}${addedUser.id}${Dropbox.DROPBOX_FILE_SUFFIX}`))
       .then(() => {
-        AuthService.setToken(this.createToken(addedUser));
-        this.isLogged.next(true);
+        AuthService.setToken(AuthService.createToken(addedUser));
+        this.user$.next(addedUser);
         this.router.navigate(['/']);
       }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
-  changeUser(user: User): Promise<User> {
+  updateUser(user: User): Promise<User> {
     return this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE).then(file => {
       let users = <User[]>JSON.parse(file);
       users = users.filter(item => item.name !== user.name);
@@ -224,31 +182,14 @@ export class AuthService {
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  getCurrentUser(): Promise<User> {
-    return this.isAllowed().then((isAuth) => {
-      if (isAuth) {
-        return AuthService.decodeToken(AuthService.getToken());
-      } else {
-        this.logout();
-        return undefined;
-      }
-    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
-  }
-
-  getProfile(): Promise<User> {
-    return this.isAllowed().then((isAuth) => {
-      if (isAuth) {
-        return this.getUserByName(AuthService.decodeToken(AuthService.getToken()).name);
-      } else {
-        this.logout();
-        return undefined;
-      }
+  getCurrentUser(loggout: boolean): Promise<User> {
+    return this.isAllowed(loggout).then((user) => {
+      this.user$.next(user);
+      return user;
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   logout(): void {
-    this.isLogged.next(false);
-    AuthService.removeToken();
     sessionStorage.clear();
     this.user$.next(undefined);
     document.location.href = '/login';

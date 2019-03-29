@@ -42,7 +42,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
       this.message = 'login.change_password.wrong';
     } else {
       this.user.password = crypto.SHA512(this.pass1).toString();
-      this.auth.changeUser(this.user);
+      this.auth.updateUser(this.user);
       this.router.navigate(['/login/profile']);
     }
   }
