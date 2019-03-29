@@ -36,7 +36,7 @@
     <div class="card-body">
       <div class="reco">
         <div *ngFor="let reco of moviesToShow;" class="reco-item">
-          <img class="frame center pointer" src="{{reco.thumbnail}}" alt="{{reco.title| capitalizeWord}}" appOpenLink
+          <img class="frame center pointer" src="{{reco.affiche | image:'small'}}" alt="{{reco.title| capitalizeWord}}" appOpenLink
             [label]="reco.title" url="/movie/{{reco.id}}" matTooltip="{{reco.character}}">
           <p class="reco-infos center" [ngClass]="{'adult': reco.adult}">{{reco.title | capitalizeWord}} - {{reco.date
             | date : 'MMM yyyy':'':translate.currentLang | capitalizeWord}} -

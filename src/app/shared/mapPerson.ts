@@ -2,7 +2,6 @@ import { Job } from './../constant/job';
 import { MapMovie } from './mapMovie';
 import { Person } from './../model/person';
 import { Utils } from './utils';
-import { Url } from '../constant/url';
 
 export class MapPerson {
 
@@ -15,11 +14,8 @@ export class MapPerson {
     });
     const credits = resp.credits;
     let img;
-    let img_thumb;
     if (resp.images && resp.images.profiles.length > 0) {
-      const img_url = resp.images.profiles.map((i: any) => i.file_path).filter((i: any) => i !== resp.profile_path);
-      img = img_url.map(path => Url.IMAGE_URL_ORIGINAL.concat(path));
-      img_thumb = img_url.map(path => Url.IMAGE_URL_MEDIUM.concat(path));
+      img = resp.images.profiles.map((i: any) => i.file_path).filter((i: any) => i !== resp.profile_path);
     }
 
     let result;
@@ -38,13 +34,13 @@ export class MapPerson {
         !Utils.jobEquals(r.job, 'Novel') && !Utils.jobEquals(r.job, Job.producer) && !Utils.jobEquals(r.job, 'Screenplay') &&
         !Utils.jobEquals(r.job, 'Writer')).map((r: any) => MapMovie.toMovie(r));
 
-      result = new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
-        Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img, asActor, asDirector, asProducer,
-        asCompositors, asScreenplay, asNovel, asOther, resp.known_for_department, img_thumb, resp.popularity, resp.imdb_id);
+      result = new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, resp.profile_path, resp.biography, resp.adult,
+        resp.place_of_birth, img, asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel, asOther, resp.known_for_department,
+        resp.popularity, resp.imdb_id);
     } else {
-      result = new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, Utils.getProfilPath(resp, Utils.ORIGINAL_IMG_SIZE),
-        Utils.getProfilPath(resp, Utils.MEDIUM_IMG_SIZE), resp.biography, resp.adult, resp.place_of_birth, img, undefined, undefined, undefined,
-        undefined, undefined, undefined, undefined, resp.known_for_department, img_thumb, resp.popularity, resp.imdb_id);
+      result = new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, resp.profile_path, resp.biography, resp.adult,
+        resp.place_of_birth, img, undefined, undefined, undefined, undefined, undefined, undefined, undefined, resp.known_for_department,
+        resp.popularity, resp.imdb_id);
     }
     console.log('mapPerson', result);
     return result;
@@ -56,7 +52,7 @@ export class MapPerson {
       id: r.id,
       name: r.name,
       adult: r.adult,
-      thumbnail: Utils.getProfilPath(r, Utils.SMALL_IMG_SIZE, true)
+      profile: r.profile_path
     }));
   }
 }
