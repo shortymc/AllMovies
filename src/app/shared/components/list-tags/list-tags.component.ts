@@ -57,7 +57,7 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   add(tag: Tag): void {
-    if (this.tags.map(t => t.id).includes(tag.id)) {
+    if (this.tagsDisplayed.map(t => t.id).includes(tag.id)) {
       this.toast.open(Level.warning, 'toast.already_added');
     } else {
       tag.movies.push(TagMovie.fromMovie(this.allMovies.filter(m => m.id === this.movie.id)));
