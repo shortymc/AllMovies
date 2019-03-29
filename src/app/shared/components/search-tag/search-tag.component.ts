@@ -3,11 +3,11 @@ import { Observable } from 'rxjs';
 import { switchMap, map, startWith } from 'rxjs/operators';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Sort } from '@angular/material';
 
 import { Utils } from './../../utils';
 import { Tag } from './../../../model/tag';
 import { MyTagsService } from '../../service/my-tags.service';
-import { Sort } from '@angular/material';
 
 @Component({
   selector: 'app-search-tag',
@@ -18,9 +18,11 @@ export class SearchTagComponent implements OnInit {
   @Output() selected = new EventEmitter<Tag>();
   filteredTags: Observable<Tag[]>;
   tagCtrl: FormControl;
+  sort: Sort = { active: 'label', direction: 'asc' };
+  alreadyExist = false;
+
   faRemove = faTimes;
   faPlus = faPlus;
-  sort: Sort = { active: 'label', direction: 'asc' };
 
   constructor(
     private myTagsService: MyTagsService,
@@ -31,9 +33,15 @@ export class SearchTagComponent implements OnInit {
     this.filteredTags = this.tagCtrl.valueChanges.
       pipe(
         startWith(''),
-        switchMap((term: any) => this.myTagsService.myTags$.pipe(map((tags: Tag[]) =>
-          Utils.sortTags(term && typeof term === 'string' && term !== '' ?
-            tags.filter(tag => tag.label.toLowerCase().includes(term.toLowerCase())) : tags, this.sort)))));
+        switchMap((term: any) => this.myTagsService.myTags$.pipe(map((tags: Tag[]) => {
+          if (term && typeof term === 'string' && term !== '') {
+            this.alreadyExist = tags.find(t => t.label.toLowerCase() === term.toLowerCase()) !== undefined;
+            return Utils.sortTags(tags.filter(tag => tag.label.toLowerCase().includes(term.toLowerCase())), this.sort);
+          } else {
+            this.alreadyExist = false;
+            return Utils.sortTags(tags, this.sort);
+          }
+        }))));
   }
 
   add(item: string): void {
