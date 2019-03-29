@@ -59,9 +59,11 @@ export class MovieService {
   getImdbScore(movie: Movie): Promise<Movie> {
     if (movie.imdb_id) {
       return this.omdb.getScore(movie.imdb_id).then(score => {
-        score.ratings.splice(-1, 0, ...[{ Source: 'MovieDB', Value: movie.note + '/10' }, { Source: 'Popularity', Value: movie.popularity }]);
-        score.moviedb_votes = movie.vote_count;
-        movie.score = score;
+        if (score) {
+          score.ratings.splice(-1, 0, ...[{ Source: 'MovieDB', Value: movie.note + '/10' }, { Source: 'Popularity', Value: movie.popularity }]);
+          score.moviedb_votes = movie.vote_count;
+          movie.score = score;
+        }
         return movie;
       });
     } else {
