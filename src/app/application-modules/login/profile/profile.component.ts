@@ -22,14 +22,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
       if (user) {
         this.user = user;
       } else {
-        this.auth.getProfile().then(u => this.user = u);
+        this.auth.getCurrentUser(true);
       }
     }));
     this.title.setTitle('title.profile');
   }
 
-  changeUser(): void {
-    this.auth.changeUser(this.user);
+  updateUser(): void {
+    this.auth.updateUser(this.user);
   }
 
   ngOnDestroy(): void {

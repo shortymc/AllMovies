@@ -27,14 +27,11 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe((event: NavigationStart) => {
       this.tabsService.onNavigation(event);
     });
-    this.auth.isLogged.pipe(distinctUntilChanged()).subscribe(isLogged => {
-      if (isLogged) {
-        this.myMoviesService.getAll();
-        this.myTagsService.getAll();
-      }
-    });
+    this.auth.getCurrentUser(false);
     this.auth.user$.subscribe(user => {
       if (user) {
+        this.myMoviesService.getAll();
+        this.myTagsService.getAll();
         this.translate.use(user.lang.code);
       }
     });

@@ -30,7 +30,7 @@ export class MyTagsService {
   }
 
   getFileName(): Promise<string> {
-    return this.auth.getCurrentUser().then((user: User) => `${Dropbox.DROPBOX_TAG_FILE}${user.id}${Dropbox.DROPBOX_FILE_SUFFIX}`);
+    return this.auth.getCurrentUser(true).then((user: User) => `${Dropbox.DROPBOX_TAG_FILE}${user.id}${Dropbox.DROPBOX_FILE_SUFFIX}`);
   }
 
   getAll(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { delay, filter, distinctUntilChanged } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
@@ -12,10 +12,11 @@ import { AuthService } from '../../service/auth.service';
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss']
 })
-export class TabsComponent implements OnInit {
+export class TabsComponent implements OnInit, OnDestroy {
   title: string;
   faClose = faTimes;
   isLogged$ = new BehaviorSubject<boolean>(false);
+  subs = [];
 
   constructor(
     private titleService: TitleService,
@@ -26,7 +27,7 @@ export class TabsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.auth.isLogged.pipe(distinctUntilChanged()).subscribe(isLogged => this.isLogged$.next(isLogged));
+    this.subs.push(this.auth.user$.subscribe(user => this.isLogged$.next(user !== undefined)));
     this.titleService.header.subscribe(title => {
       this.tabsService.updateCurTabLabel(title);
       this.cdRef.detectChanges();
@@ -37,5 +38,9 @@ export class TabsComponent implements OnInit {
         active.scrollIntoView(0);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(sub => sub.unsubscribe());
   }
 }
