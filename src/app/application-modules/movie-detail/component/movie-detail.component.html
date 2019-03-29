@@ -1,6 +1,6 @@
 <div *ngIf="movie">
   <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
-    <app-image-viewer [images]="movie.images" [thumbnails]="movie.images_thumb" [visible]="isImagesVisible"></app-image-viewer>
+    <app-image-viewer [images]="movie.images" [thumbnails]="movie.images" [visible]="isImagesVisible"></app-image-viewer>
   </app-modal>
   <div class="movie-header">
     <h1 class="movie-title">{{movie.title}} ({{movie.date | date:'yyyy'}})</h1>
@@ -24,7 +24,7 @@
   </div>
   <app-meta class="movie-meta" [entry]="movie" [orientation]="'vertical'" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
   <div class="movie-content">
-    <app-image-viewer class="movie-poster" [images]="movie.affiche" [thumbnails]="movie.thumbnail" [visible]="true"></app-image-viewer>
+    <app-image-viewer class="movie-poster" [images]="movie.affiche" [thumbnails]="movie.affiche" [visible]="true"></app-image-viewer>
     <!-- Score -->
     <div class="movie-score" *ngIf="movie.score as score">
       <mat-table class="mat-elevation-z4" [dataSource]="score.ratings">

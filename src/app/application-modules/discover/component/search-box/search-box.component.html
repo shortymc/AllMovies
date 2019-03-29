@@ -13,7 +13,7 @@
 <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
   <mat-option *ngFor="let item of filteredItems | async" (onSelectionChange)="addItem(item); inputSearch.value = ''">
     <div class="media">
-      <img class="align-self-center" *ngIf="item.thumbnail" src="{{item.thumbnail}}" style="width:22%;">
+      <img class="align-self-center" *ngIf="item.profile" src="{{item.profile | image:'small':'true'}}" style="width:22%;">
       <div class="media-body">
         <p class="mt-0">{{item.name | capitalizeWord}}</p>
       </div>

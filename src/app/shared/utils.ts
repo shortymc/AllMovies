@@ -1,40 +1,10 @@
 import { Sort } from '@angular/material/sort';
 import { Movie } from './../model/movie';
-import { Url } from './../constant/url';
 import { Tag } from './../model/tag';
-/* tslint:disable max-file-line-count */
+
 export class Utils {
-
-  static readonly ORIGINAL_IMG_SIZE = 0;
-  static readonly MEDIUM_IMG_SIZE = 154;
-  static readonly SMALL_IMG_SIZE = 92;
-
-  static getPosterPath(r: any, size: number): string {
-    return Utils.getPath(r.poster_path, size);
-  }
-
-  static getProfilPath(r: any, size: number, noEmpty?: boolean): string {
-    return Utils.getPath(r.profile_path, size, noEmpty);
-  }
-
   static isBlank(str: string): boolean {
     return str === undefined || str === null || str.trim() === '';
-  }
-
-  static getPath(path: string, size: number, noEmpty?: boolean): string {
-    let result: string;
-    switch (size) {
-      case Utils.ORIGINAL_IMG_SIZE:
-        result = (path === undefined || path === null) ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_ORIGINAL + path;
-        break;
-      case Utils.MEDIUM_IMG_SIZE:
-        result = (path === undefined || path === null) ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_MEDIUM + path;
-        break;
-      case Utils.SMALL_IMG_SIZE:
-        result = (path === undefined || path === null) ? Url.IMAGE_URL_EMPTY : Url.IMAGE_URL_SMALL + path;
-        break;
-    }
-    return noEmpty && result === Url.IMAGE_URL_EMPTY ? undefined : result;
   }
 
   static getTitle(r: any): string {

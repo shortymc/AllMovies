@@ -1,5 +1,4 @@
 import { AlternativeTitle, Lang, Flag, Genre } from './../model/model';
-import { Url } from './../constant/url';
 import { Utils } from './utils';
 import { Movie } from './../model/movie';
 import { Discover } from '../model/discover';
@@ -18,8 +17,7 @@ export class MapMovie {
       date: r.release_date,
       note: r.vote_average,
       language: r.original_language,
-      thumbnail: Utils.getPosterPath(r, Utils.SMALL_IMG_SIZE),
-      affiche: Utils.getPosterPath(r, Utils.ORIGINAL_IMG_SIZE),
+      affiche: r.poster_path,
       synopsis: r.overview,
       time: r.runtime,
       popularity: r.popularity,
@@ -34,7 +32,7 @@ export class MapMovie {
       date: r.release_date,
       note: r.vote_average,
       language: r.original_language,
-      thumbnail: Utils.getPosterPath(r, Utils.MEDIUM_IMG_SIZE),
+      affiche: r.poster_path,
       popularity: r.popularity
     }));
   }
@@ -47,8 +45,7 @@ export class MapMovie {
       date: r.release_date,
       note: r.vote_average,
       language: r.original_language,
-      thumbnail: Utils.getPosterPath(r, Utils.SMALL_IMG_SIZE),
-      affiche: Utils.getPosterPath(r, Utils.ORIGINAL_IMG_SIZE),
+      affiche: r.poster_path,
       adult: r.adult,
       original_title: Utils.getTitle(r),
       popularity: r.popularity,
@@ -74,7 +71,7 @@ export class MapMovie {
       date: r.release_date,
       adult: r.adult,
       original_title: Utils.getTitle(r),
-      thumbnail: Utils.getPosterPath(r, Utils.SMALL_IMG_SIZE)
+      affiche: r.poster_path,
     }));
   }
 
@@ -83,7 +80,7 @@ export class MapMovie {
       id: r.id,
       title: r.title,
       date: r.release_date,
-      thumbnail: Utils.getPosterPath(r, Utils.SMALL_IMG_SIZE),
+      affiche: r.poster_path,
       original_title: Utils.getTitle(r),
       adult: r.adult,
       time: r.runtime,
@@ -117,8 +114,7 @@ export class MapMovie {
       movie.similars = MapMovie.mapForRecommendationsMovies(r.similar.results);
     }
     if (r.images && r.images.backdrops.length > 0) {
-      movie.images = r.images.backdrops.map((i: any) => Url.IMAGE_URL_ORIGINAL.concat(i.file_path));
-      movie.images_thumb = r.images.backdrops.map((i: any) => Url.IMAGE_URL_MEDIUM.concat(i.file_path));
+      movie.images = r.images.backdrops.map((i: any) => i.file_path);
     }
     if (r.genres) {
       movie.genres = r.genres;
@@ -150,8 +146,7 @@ export class MapMovie {
     movie.original_title = r.original_title;
     movie.date = r.release_date;
     movie.synopsis = r.overview;
-    movie.affiche = Utils.getPosterPath(r, Utils.ORIGINAL_IMG_SIZE);
-    movie.thumbnail = Utils.getPosterPath(r, Utils.MEDIUM_IMG_SIZE);
+    movie.affiche = r.poster_path;
     movie.adult = r.adult;
     movie.time = r.runtime;
     movie.note = r.vote_average;
@@ -193,8 +188,7 @@ export class MapMovie {
       original_title: Utils.getTitle(r),
       date: r.release_date,
       synopsis: r.overview,
-      affiche: Utils.getPosterPath(r, Utils.ORIGINAL_IMG_SIZE),
-      thumbnail: Utils.getPosterPath(r, Utils.MEDIUM_IMG_SIZE),
+      affiche: r.poster_path,
       adult: r.adult,
       note: r.vote_average,
       vote_count: r.vote_count,

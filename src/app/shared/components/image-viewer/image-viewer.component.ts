@@ -56,7 +56,7 @@ export class ImageViewerComponent implements OnChanges, AfterViewChecked {
     this.images = changes.images ? changes.images.currentValue : this.images;
     this.thumbnails = changes.thumbnails ? changes.thumbnails.currentValue : this.thumbnails;
     if (this.visible) {
-      this.isOnePicture = typeof this.images === 'string';
+      this.isOnePicture = typeof this.images === 'string' || this.images === undefined || this.images === null;
       this.indexThumb = 0;
       this.indexTop = 0;
       if (!this.isOnePicture) {
