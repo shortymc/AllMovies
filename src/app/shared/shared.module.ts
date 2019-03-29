@@ -61,6 +61,7 @@ import { MyMoviesService } from './service/my-movies.service';
 import { MyTagsService } from './service/my-tags.service';
 import { SearchTagComponent } from './components/search-tag/search-tag.component';
 import { ListTagsComponent } from './components/list-tags/list-tags.component';
+import { ImagePipe } from './pipes/image.pipe';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ListTagsComponent } from './components/list-tags/list-tags.component';
     CapitalizeWordPipe,
     FilterCrewPipe,
     TruncatePipe,
+    ImagePipe,
     ListMoviesComponent,
     MetaComponent,
     ListPersonsComponent,
@@ -118,6 +120,7 @@ import { ListTagsComponent } from './components/list-tags/list-tags.component';
     TruncatePipe,
     CapitalizeWordPipe,
     FilterCrewPipe,
+    ImagePipe,
     GoToTopComponent,
     ListMoviesComponent,
     MetaComponent,

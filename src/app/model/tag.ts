@@ -20,7 +20,7 @@ export class TagMovie {
     }
     const tagMovie = new TagMovie();
     tagMovie.id = movie[0].id;
-    tagMovie.poster = movie[0].thumbnail;
+    tagMovie.poster = movie[0].affiche;
     tagMovie.titles = new Map();
     tagMovie.titles.set(movie[0].lang_version, movie[0].title);
     tagMovie.titles.set(movie[1].lang_version, movie[1].title);

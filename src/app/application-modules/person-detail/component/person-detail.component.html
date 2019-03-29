@@ -1,6 +1,6 @@
 <div *ngIf="person">
   <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
-    <app-image-viewer [images]="person.images" [thumbnails]="person.images_thumb" [visible]="isImagesVisible"></app-image-viewer>
+    <app-image-viewer [images]="person.images" [thumbnails]="person.images" [visible]="isImagesVisible"></app-image-viewer>
   </app-modal>
   <div class="person-header">
     <h1 class="person-title">{{person.name}}</h1>
@@ -16,7 +16,7 @@
   </div>
   <app-meta class="person-meta" [entry]="person" [orientation]="'vertical'" [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR, DuckDuckGo.SEARCH_BANG_IMDB]"></app-meta>
   <div class="person-content">
-    <app-image-viewer class="person-profile" [images]="person.profile" [thumbnails]="person.thumbnail" [visible]="true"></app-image-viewer>
+    <app-image-viewer class="person-profile" [images]="person.profile" [thumbnails]="person.profile" [visible]="true"></app-image-viewer>
     <div>
       <label>{{'person.id' | translate}}:</label>{{person.id}}
     </div>
