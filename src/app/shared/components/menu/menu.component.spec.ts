@@ -22,6 +22,7 @@ import { TruncatePipe } from '../../pipes/truncate.pipe';
 import { DropboxService } from '../../service/dropbox.service';
 import { ToastService } from '../../service/toast.service';
 import { UtilsService } from '../../service/utils.service';
+import { ImagePipe } from '../../pipes/image.pipe';
 
 describe('MenuComponent', () => {
   let component: MenuComponent;
@@ -32,7 +33,7 @@ describe('MenuComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MenuComponent, PersonSearchComponent, MovieSearchComponent, DropdownLanguageComponent,
-        GoToTopComponent, TabsStubComponent, OpenLinkDirective, CapitalizeWordPipe, TruncatePipe],
+        GoToTopComponent, TabsStubComponent, OpenLinkDirective, CapitalizeWordPipe, TruncatePipe, ImagePipe],
       providers: [TranslateService, AuthService, TabsService, MenuService, DropboxService, ToastService, UtilsService],
       imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), RouterTestingModule, FontAwesomeModule, MatToolbarModule, MatSidenavModule,
         MatListModule, MatSnackBarModule, HttpClientModule]
