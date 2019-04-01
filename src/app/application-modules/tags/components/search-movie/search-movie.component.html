@@ -6,7 +6,7 @@
     <div class="media">
       <img class="align-self-center" *ngIf="movie.affiche" src="{{movie.affiche | image:'small'}}">
       <div class="media-body">
-        <p class="mt-0">{{movie.title | capitalizeWord}}</p>
+        <p class="mt-0" [ngClass]="{'adult': movie.adult}">{{movie.title | capitalizeWord}}</p>
       </div>
     </div>
   </mat-option>

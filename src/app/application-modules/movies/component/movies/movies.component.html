@@ -235,7 +235,7 @@
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let element; let i = dataIndex; columns: displayedColumns;" class="movie-row"
-      [class.example-expanded-row]="expandedElement === element" (click)="expand(element)">
+      [class.example-expanded-row]="expandedElement === element" (click)="expand(element)" [ngClass]="{'adult': element.adult}">
     </mat-row>
     <mat-row *matRowDef="let row; let i = dataIndex; columns: [expandedColumn];" class="tag-row"></mat-row>
 
