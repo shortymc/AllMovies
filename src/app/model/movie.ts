@@ -11,11 +11,3 @@ export class Movie {
     public releaseDates?: ReleaseDate[], public alternativeTitles?: AlternativeTitle[], public spokenLangs?: Lang[], public character?: string,
     public updated: Date = new Date(), public tags?: number[]) { }
 }
-/*
-title
-original_title
-genres
-
-synopsis
-videos
-*/

@@ -29,7 +29,8 @@ export class MyMoviesService {
 
   static removeFields(key: string, value: string): string {
     if (
-      ['synopsis', 'actors', 'crew', 'recommendations', 'videos', 'images', 'checked', 'similars', 'images_thumb', 'alternativeTitles', 'character']
+      ['synopsis', 'actors', 'crew', 'recommendations', 'videos', 'images', 'checked', 'similars',
+        'alternativeTitles', 'character', 'keywords', 'production_countries', 'releaseDates', 'spokenLangs']
         .includes(key)
     ) {
       return undefined;
