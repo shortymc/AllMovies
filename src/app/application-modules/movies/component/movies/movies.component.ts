@@ -81,7 +81,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     private breakpointObserver: BreakpointObserver,
     private myMoviesService: MyMoviesService,
     private myTagsService: MyTagsService,
-    private translate: TranslateService,
+    public translate: TranslateService,
     private toast: ToastService,
     private elemRef: ElementRef,
     private title: TitleService
@@ -116,7 +116,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   getMovies(lang: string): void {
     this.myMoviesService.myMovies$.subscribe(movies => {
       this.allMovies = movies;
-      this.movies = movies.filter(movie => movie.lang_version === lang);
+      this.movies = movies;
       this.length = this.movies.length;
       this.paginate(this.refreshData());
       this.getAllGenres();
@@ -124,7 +124,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.myMoviesService.myMovies$.pipe(
       filter(movies => movies && movies.length !== 0),
       take(1)
-    ).subscribe(movies => this.checkAndFixData(movies.filter(movie => movie.lang_version === lang), lang));
+    ).subscribe(movies => this.checkAndFixData(movies, lang));
   }
 
   getTags(): void {
@@ -218,6 +218,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     const twoMonthsAgo = moment().add(-2, 'months');
     try {
       for (const movie of movies) {
+        // TODO if a map is empty for a lang
         if (movie.time === undefined || movie.genres === undefined || movie.genres.map(genre => genre.name).every(name => name === undefined) ||
           movie.score === undefined || movie.updated === undefined || moment(movie.updated).isBefore(twoMonthsAgo)) {
           incomplete.push(movie.id);

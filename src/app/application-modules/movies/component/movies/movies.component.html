@@ -81,7 +81,7 @@
         <fa-icon class="mat-icon" [icon]="faFilm"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let movie">
-        {{movie.title}}
+        {{movie.titles.get(translate.currentLang)}}
       </mat-cell>
     </ng-container>
 
