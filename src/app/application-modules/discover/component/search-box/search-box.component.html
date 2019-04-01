@@ -15,7 +15,7 @@
     <div class="media">
       <img class="align-self-center" *ngIf="item.profile" src="{{item.profile | image:'small':'true'}}" style="width:22%;">
       <div class="media-body">
-        <p class="mt-0">{{item.name | capitalizeWord}}</p>
+        <p class="mt-0" [ngClass]="{'adult': item.adult}">{{item.name | capitalizeWord}}</p>
       </div>
     </div>
   </mat-option>

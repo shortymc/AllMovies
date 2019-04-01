@@ -3,7 +3,7 @@
     <app-image-viewer [images]="movie.images" [thumbnails]="movie.images" [visible]="isImagesVisible"></app-image-viewer>
   </app-modal>
   <div class="movie-header">
-    <h1 class="movie-title">{{movie.title}} ({{movie.date | date:'yyyy'}})</h1>
+    <h1 class="movie-title" [ngClass]="{'adult': movie.adult}">{{movie.title}} ({{movie.date | date:'yyyy'}})</h1>
     <!-- Time -->
     <h3 class="movie-time" *ngIf="movie.time > 0">
       {{movie.time | convertToHHmm:'true'}}

@@ -3,7 +3,7 @@
     <app-image-viewer [images]="person.images" [thumbnails]="person.images" [visible]="isImagesVisible"></app-image-viewer>
   </app-modal>
   <div class="person-header">
-    <h1 class="person-title">{{person.name}}</h1>
+    <h1 class="person-title" [ngClass]="{'adult': person.adult}">{{person.name}}</h1>
     <div class="person-btn">
       <button class="btn btn-outline-primary" (click)="goBack()">
         <fa-icon [icon]="faChevronCircleLeft"></fa-icon> {{'global.previous' | translate}}
