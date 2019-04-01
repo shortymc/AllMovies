@@ -105,21 +105,24 @@ export class AuthService {
   }
 
   changePassword(name: string, password: string): Promise<User> {
-    return this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE).then(file => {
-      let users = <User[]>JSON.parse(file);
-      const user = users.find(item => item.name === name);
-      user.password = password;
-      users = users.filter(item => item.name !== name);
-      users.push(user);
-      users.sort(Utils.compareObject);
-      this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE)
-        .then((res: any) => {
-          console.log(res);
-          this.toast.open(this.translate.instant('toast.user_changed'), Level.success);
-        }).catch((err) => this.serviceUtils.handleError(err, this.toast));
-      this.user$.next(user);
-      return user;
-    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+    let updatedUser;
+    return this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE)
+      .then(file => {
+        let users = <User[]>JSON.parse(file);
+        const user = users.find(item => item.name === name);
+        user.password = password;
+        updatedUser = user;
+        users = users.filter(item => item.name !== name);
+        users.push(user);
+        users.sort(Utils.compareObject);
+        return users;
+      }).then(users => this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE)
+      ).then((res: any) => {
+        console.log(res);
+        this.toast.open(this.translate.instant('toast.user_changed'), Level.success);
+        this.user$.next(updatedUser);
+        return updatedUser;
+      }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   checkAnswer(name: string, answer: string): Promise<boolean> {
@@ -148,14 +151,22 @@ export class AuthService {
 
   register(user: User): void {
     let addedUser;
-    this.addUser(user).then((result) => {
-      addedUser = result;
-      return this.dropbox.uploadNewFile('[]', `${Dropbox.DROPBOX_TAG_FILE}${addedUser.id}${Dropbox.DROPBOX_FILE_SUFFIX}`);
-    }).then(() => this.dropbox.uploadNewFile('', `${Dropbox.DROPBOX_MOVIE_FILE}${addedUser.id}${Dropbox.DROPBOX_FILE_SUFFIX}`))
+    this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE).then(file => {
+      const users = <User[]>JSON.parse(file);
+      const idMax = Math.max(...users.map(item => item.id));
+      user.id = idMax + 1;
+      addedUser = user;
+      users.push(user);
+      users.sort(Utils.compareObject);
+      return users;
+    }).then(users => this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE))
+      .then(() => this.dropbox.uploadNewFile('[]', `${Dropbox.DROPBOX_TAG_FILE}${addedUser.id}${Dropbox.DROPBOX_FILE_SUFFIX}`))
+      .then(() => this.dropbox.uploadNewFile('[]', `${Dropbox.DROPBOX_MOVIE_FILE}${addedUser.id}${Dropbox.DROPBOX_FILE_SUFFIX}`))
       .then(() => {
         AuthService.setToken(AuthService.createToken(addedUser));
         this.user$.next(addedUser);
         this.router.navigate(['/']);
+        this.toast.open(this.translate.instant('toast.user_added'), Level.success);
       }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
@@ -165,30 +176,14 @@ export class AuthService {
       users = users.filter(item => item.name !== user.name);
       users.push(user);
       users.sort(Utils.compareObject);
-      this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE)
-        .then((res: any) => {
-          console.log(res);
-          this.toast.open(this.translate.instant('toast.user_changed'), Level.success);
-        }).catch((err) => this.serviceUtils.handleError(err, this.toast));
-      this.user$.next(user);
-      return user;
-    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
-  }
-
-  addUser(user: User): Promise<User> {
-    return this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE).then(file => {
-      const users = <User[]>JSON.parse(file);
-      const idMax = Math.max(...users.map(item => item.id));
-      user.id = idMax + 1;
-      users.push(user);
-      users.sort(Utils.compareObject);
-      this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE)
-        .then((res: any) => {
-          console.log(res);
-          this.toast.open(this.translate.instant('toast.user_added'), Level.success);
-        }).catch((err) => this.serviceUtils.handleError(err, this.toast));
-      return user;
-    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+      return users;
+    }).then(users => this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE))
+      .then((res: any) => {
+        console.log(res);
+        this.toast.open(this.translate.instant('toast.user_changed'), Level.success);
+        this.user$.next(user);
+        return user;
+      }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   getCurrentUser(loggout: boolean): Promise<User> {
