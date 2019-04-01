@@ -167,7 +167,7 @@ export class AuthService {
         AuthService.setToken(AuthService.createToken(addedUser));
         this.user$.next(addedUser);
         this.router.navigate(['/']);
-        this.toast.open(this.translate.instant('toast.user_added'), Level.success);
+        this.toast.open(Level.success, this.translate.instant('toast.user_added'));
       }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
 
@@ -182,7 +182,7 @@ export class AuthService {
       .then((res: any) => {
         console.log(res);
         AuthService.setToken(AuthService.createToken(user));
-        this.toast.open(this.translate.instant('toast.user_changed'), Level.success);
+        this.toast.open(Level.success, this.translate.instant('toast.user_changed'));
         this.user$.next(user);
         return user;
       }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
