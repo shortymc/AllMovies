@@ -22,22 +22,6 @@ export class MyMoviesService {
     private toast: ToastService,
   ) { }
 
-  static moviesToBlob(movies: Movie[]): Blob {
-    const theJSON = JSON.stringify(movies, MyMoviesService.removeFields);
-    return new Blob([theJSON], { type: 'text/json' });
-  }
-
-  static removeFields(key: string, value: string): string {
-    if (
-      ['synopsis', 'actors', 'crew', 'recommendations', 'videos', 'images', 'checked', 'similars',
-        'alternativeTitles', 'character', 'keywords', 'production_countries', 'releaseDates', 'spokenLangs']
-        .includes(key)
-    ) {
-      return undefined;
-    }
-    return value;
-  }
-
   getFileName(): Promise<string> {
     return new Promise(resolve => resolve(`${Dropbox.DROPBOX_MOVIE_FILE}${this.auth.user$.getValue().id}${Dropbox.DROPBOX_FILE_SUFFIX}`));
   }
@@ -54,11 +38,26 @@ export class MyMoviesService {
         }
       })
       .then((movies: Movie[]) => {
+        this.dropboxService.uploadFile(Movie.moviesToBlob(movies.filter(m => m.lang_version === 'fr')), 'fr.json');
+        this.dropboxService.uploadFile(Movie.moviesToBlob(movies.filter(m => m.lang_version === 'en')), 'en.json');
+        console.log('getAll', movies);
         this.myMovies$.next(movies);
       }).catch(err => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   add(moviesToAdd: Movie[]): Promise<boolean> {
+    const byId = Utils.groupBy(moviesToAdd, 'id');
+    const mapped = byId.map(by => {
+      let result: Movie;
+      moviesToAdd.filter(m => m.id === +by.key).forEach(movie => {
+        if (!result) {
+          result = movie;
+          result.titles = new Map();
+        }
+        result.titles.set(movie.lang_version, movie.title);
+      });
+      return result;
+    });
     let tempMovieList = [];
     let tempMoviesAdded = [];
     let fileName;
@@ -72,7 +71,7 @@ export class MyMoviesService {
         movieList = <Movie[]>JSON.parse(moviesFromFile);
       }
       // filter if not already in collection
-      const found = moviesToAdd.filter((add: Movie) => !movieList.map((movie: Movie) => movie.id).includes(add.id));
+      const found = mapped.filter((add: Movie) => !movieList.map((movie: Movie) => movie.id).includes(add.id));
       if (found.length > 0) {
         tempMoviesAdded = found;
         found.forEach((movie: Movie) => {
@@ -89,7 +88,7 @@ export class MyMoviesService {
       if (list && list.length !== 0) {
         tempMovieList = list;
         // replace with new array movies
-        return this.dropboxService.uploadFile(MyMoviesService.moviesToBlob(list), fileName);
+        return this.dropboxService.uploadFile(Movie.moviesToBlob(list), fileName);
       } else {
         return undefined;
       }
@@ -122,7 +121,7 @@ export class MyMoviesService {
         idToRemove.forEach((id: number) => movieList = movieList.filter((film: Movie) => film.id !== id));
         tempMovieList = movieList;
         // repplace file with new movie array
-        return this.dropboxService.uploadFile(MyMoviesService.moviesToBlob(movieList), fileName);
+        return this.dropboxService.uploadFile(Movie.moviesToBlob(movieList), fileName);
       } else {
         return undefined;
       }
@@ -168,7 +167,7 @@ export class MyMoviesService {
       moviesToReplace.forEach((movie: Movie) => movieList.push(movie));
       movieList.sort(Utils.compareObject);
       tempMovieList = movieList;
-      return this.dropboxService.uploadFile(MyMoviesService.moviesToBlob(movieList), fileName);
+      return this.dropboxService.uploadFile(Movie.moviesToBlob(movieList), fileName);
     }).then((res: any) => {
       console.log(res);
       this.myMovies$.next(tempMovieList);
@@ -209,7 +208,7 @@ export class MyMoviesService {
       });
       movieList.sort(Utils.compareObject);
       tempMovieList = movieList;
-      return this.dropboxService.uploadFile(MyMoviesService.moviesToBlob(movieList), fileName);
+      return this.dropboxService.uploadFile(Movie.moviesToBlob(movieList), fileName);
     }).then((res: any) => {
       console.log(res);
       this.myMovies$.next(tempMovieList);

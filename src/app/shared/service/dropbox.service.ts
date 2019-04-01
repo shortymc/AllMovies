@@ -35,7 +35,7 @@ export class DropboxService {
       }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  uploadNewFile(fichier: string, fileName: string): Promise<Dropbox.files.FileMetadata> {
+  uploadNewFile(fichier: any, fileName: string): Promise<Dropbox.files.FileMetadata> {
     const pathFile = this.getPath(fileName);
     return this.getDbx().filesUpload({ path: pathFile, contents: fichier })
       .then(() => new Promise((resolve, reject) => resolve()))
