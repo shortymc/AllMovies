@@ -224,7 +224,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
         }
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     incomplete = incomplete.slice(0, 30);
     const obs = [];
