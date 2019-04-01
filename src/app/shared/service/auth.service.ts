@@ -25,11 +25,11 @@ export class AuthService {
     private translate: TranslateService,
   ) { }
 
-  static usersToBlob(user: User[]): any {
+  private static usersToBlob(user: User[]): any {
     return new Blob([JSON.stringify(user)], { type: 'text/json' });
   }
 
-  static decodeToken(): User {
+  private static decodeToken(): User {
     const token = localStorage.getItem('token');
     if (token && token.trim() !== '') {
       return jwtDecode(token);
@@ -38,12 +38,12 @@ export class AuthService {
     }
   }
 
-  static setToken(token: string): void {
+  private static setToken(token: string): void {
     localStorage.removeItem('token');
     localStorage.setItem('token', token);
   }
 
-  static createToken(user: User): string {
+  private static createToken(user: User): string {
     const oHeader = { alg: 'HS256', typ: 'JWT' };
     const sHeader = JSON.stringify(oHeader);
     return KJUR.jws.JWS.sign('HS256', sHeader, JSON.stringify(user), 'secret');
@@ -57,15 +57,24 @@ export class AuthService {
   }
 
   isAuthenticated(): Promise<User> {
-    const user = this.user$.getValue();
-    if (user && user.id) {
-      return new Promise(resolve => resolve(user));
-    } else {
-      return this.reject(true);
+    console.log('isAuthenticated');
+    let user = this.user$.getValue();
+    if (!user || !user.id) {
+      user = AuthService.decodeToken();
+      if (!user || !user.id) {
+        return this.reject(true);
+      }
     }
+    return new Promise(resolve => resolve(user));
   }
 
+  /**
+   * Checks in db that the user stored in the token is allowed.
+   * @param  {boolean} loggout if the user will logged out if not allowed
+   * @returns Promise the user from the db, undefined if not allowed
+   */
   isAllowed(loggout: boolean): Promise<User> {
+    console.log('isAllowed');
     const user = AuthService.decodeToken();
     if (user && user.id) {
       return this.getUserFile()
@@ -86,6 +95,7 @@ export class AuthService {
     return this.getUserFile().then((users: User[]) => {
       const found_user = users.find((user: User) => user.name === name && user.password === password);
       if (found_user) {
+        AuthService.setToken(AuthService.createToken(found_user));
         this.user$.next(found_user);
         return found_user;
       } else {
@@ -113,25 +123,24 @@ export class AuthService {
   }
 
   checkAnswer(name: string, answer: string): Promise<boolean> {
-    return this.getUserByName(name).then((user: User) => {
-      return user.name === name && user.answer === answer;
-    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+    return this.getUserByName(name)
+      .then((user: User) => user.name === name && user.answer === answer)
+      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   getUserByName(name: string): Promise<User> {
-    return this.getUserFile().then((users: User[]) => {
-      return new Promise<User>((resolve, reject) => {
-        resolve(users.find((user: User) => user.name === name));
-      });
-    }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+    return this.getUserFile()
+      .then((users: User[]) => users.find((user: User) => user.name === name))
+      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   isUserExist(name: string): Promise<boolean> {
-    return this.getUserFile().then(users => users.find(user => user.name === name) !== undefined
-    ).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+    return this.getUserFile()
+      .then(users => users.find(user => user.name === name) !== undefined)
+      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  getUserFile(): Promise<User[]> {
+  private getUserFile(): Promise<User[]> {
     return this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE)
       .then(file => <User[]>JSON.parse(file))
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
