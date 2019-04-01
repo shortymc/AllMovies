@@ -120,6 +120,7 @@ export class AuthService {
       ).then((res: any) => {
         console.log(res);
         this.toast.open(this.translate.instant('toast.user_changed'), Level.success);
+        AuthService.setToken(AuthService.createToken(updatedUser));
         this.user$.next(updatedUser);
         return updatedUser;
       }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
@@ -180,6 +181,7 @@ export class AuthService {
     }).then(users => this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE))
       .then((res: any) => {
         console.log(res);
+        AuthService.setToken(AuthService.createToken(user));
         this.toast.open(this.translate.instant('toast.user_changed'), Level.success);
         this.user$.next(user);
         return user;
