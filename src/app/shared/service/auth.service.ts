@@ -197,6 +197,7 @@ export class AuthService {
 
   logout(): void {
     sessionStorage.clear();
+    localStorage.clear();
     this.user$.next(undefined);
     document.location.href = '/login';
   }
