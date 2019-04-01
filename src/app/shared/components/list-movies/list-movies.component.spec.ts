@@ -11,6 +11,7 @@ import { OpenLinkDirective } from './../../directives/open-link.directive';
 import { CapitalizeWordPipe } from './../../pipes/capitalizeWord.pipe';
 import { ListMoviesComponent } from './list-movies.component';
 import { AddCollectionDirective } from '../../directives/add-collection.directive';
+import { ImagePipe } from '../../pipes/image.pipe';
 
 describe('ListMoviesComponent', () => {
   let component: ListMoviesComponent;
@@ -18,7 +19,7 @@ describe('ListMoviesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ListMoviesComponent, OpenLinkDirective, CapitalizeWordPipe, AddCollectionDirective],
+      declarations: [ListMoviesComponent, OpenLinkDirective, CapitalizeWordPipe, AddCollectionDirective, ImagePipe],
       providers: [TranslateService],
       imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), RouterTestingModule, FontAwesomeModule, MatButtonToggleModule,
         MatSelectModule, MatFormFieldModule, NgbModule, MatTooltipModule]

@@ -5,9 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { CapitalizeWordPipe } from './../../pipes/capitalizeWord.pipe';
+import { SharedModule } from './../../shared.module';
 import { ListPersonsComponent } from './list-persons.component';
-import { OpenLinkDirective } from '../../directives/open-link.directive';
 
 describe('ListPersonsComponent', () => {
   let component: ListPersonsComponent;
@@ -15,9 +14,8 @@ describe('ListPersonsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ListPersonsComponent, OpenLinkDirective, CapitalizeWordPipe],
       providers: [TranslateService],
-      imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), RouterTestingModule, FontAwesomeModule]
+      imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), RouterTestingModule, FontAwesomeModule, SharedModule.forChild()]
     })
       .compileComponents();
   }));

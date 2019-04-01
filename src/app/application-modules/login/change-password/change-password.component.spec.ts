@@ -32,7 +32,7 @@ describe('ChangePasswordComponent', () => {
     fixture = TestBed.createComponent(ChangePasswordComponent);
     component = fixture.componentInstance;
     const auth = TestBed.get(AuthService);
-    spyOn(auth, 'getCurrentUser').and.returnValue(new Promise(resolve => resolve(new User(1, 'name', 'pass', 'q'))));
+    spyOn(auth, 'getCurrentUser').and.returnValue(new Promise(resolve => resolve(new User(1, 'name', false, 'pass', 'q'))));
   });
 
   it('init', () => {
