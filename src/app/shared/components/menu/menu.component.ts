@@ -1,8 +1,5 @@
 import { Component, OnInit, HostListener, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import {
-  distinctUntilChanged,
-} from 'rxjs/operators';
 import { faUser, faBars, faAtom, faPowerOff, faHome, faBoxOpen, faBookmark, faTags } from '@fortawesome/free-solid-svg-icons';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav, MatSidenavContent } from '@angular/material';

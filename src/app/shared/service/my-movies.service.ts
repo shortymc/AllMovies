@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { Dropbox } from './../../constant/dropbox';
-import { User } from './../../model/user';
 import { DropboxService } from './dropbox.service';
 import { AuthService } from './auth.service';
 import { Level } from './../../model/model';
