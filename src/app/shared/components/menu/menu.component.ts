@@ -56,7 +56,6 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs.push(this.auth.user$.subscribe(user => {
-      console.log('hello', user);
       if (user) {
         this.user = user;
         this.isLogged$.next(true);
@@ -69,7 +68,6 @@ export class MenuComponent implements OnInit, OnDestroy {
       this.changeDetectorRef.detectChanges();
     }));
     this.subs.push(this.menuService.scrollTo$.subscribe((scrollTo: number) => {
-      console.log('scrollTo', scrollTo);
       this.elemRef.nativeElement.querySelector('.mat-sidenav-content').scrollTo(0, scrollTo);
     }));
   }
