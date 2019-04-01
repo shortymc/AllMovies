@@ -21,8 +21,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.subs.push(this.auth.user$.subscribe(user => {
       if (user) {
         this.user = user;
-      } else {
-        this.auth.getCurrentUser(true);
       }
     }));
     this.title.setTitle('title.profile');
