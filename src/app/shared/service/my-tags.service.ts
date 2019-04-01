@@ -8,7 +8,6 @@ import { Tag } from '../../model/tag';
 import { CapitalizeWordPipe } from './../pipes/capitalizeWord.pipe';
 import { Dropbox } from './../../constant/dropbox';
 import { UtilsService } from './utils.service';
-import { User } from './../../model/user';
 import { ToastService } from './toast.service';
 import { Utils } from '../utils';
 
