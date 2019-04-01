@@ -8,6 +8,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material';
 
 import { User } from '../../../model/user';
 import { SharedModule } from '../../../shared/shared.module';
@@ -22,8 +23,8 @@ describe('ProfileComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ProfileComponent],
       providers: [TranslateService],
-      imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), HttpClientModule,
-        RouterTestingModule, SharedModule.forRoot(), MatSnackBarModule, BrowserAnimationsModule, MatFormFieldModule, MatInputModule]
+      imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), HttpClientModule, RouterTestingModule, SharedModule.forRoot(),
+        MatSnackBarModule, BrowserAnimationsModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule]
     })
       .compileComponents();
   }));
@@ -32,7 +33,7 @@ describe('ProfileComponent', () => {
     fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;
     const auth = TestBed.get(AuthService);
-    spyOn(auth, 'getCurrentUser').and.returnValue(new Promise(resolve => resolve(new User(1, 'name', 'pass', 'q'))));
+    spyOn(auth, 'getCurrentUser').and.returnValue(new Promise(resolve => resolve(new User(1, 'name', false, 'pass', 'q'))));
   });
 
   it('init', () => {

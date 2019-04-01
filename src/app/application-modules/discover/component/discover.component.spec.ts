@@ -17,6 +17,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MyMoviesService } from './../../../shared/service/my-movies.service';
 import { DiscoverComponent } from './discover.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
+import { ImagePipe } from './../../../shared/pipes/image.pipe';
 import { CapitalizeWordPipe } from './../../../shared/pipes/capitalizeWord.pipe';
 import { OpenLinkDirective } from './../../../shared/directives/open-link.directive';
 import { AddCollectionDirective } from './../../../shared/directives/add-collection.directive';
@@ -44,7 +45,7 @@ describe('DiscoverComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DiscoverComponent, SearchBoxComponent, AddCollectionDirective, OpenLinkDirective, CapitalizeWordPipe],
+      declarations: [DiscoverComponent, SearchBoxComponent, AddCollectionDirective, OpenLinkDirective, CapitalizeWordPipe, ImagePipe],
       providers: [TranslateService, MetaService, UtilsService, OmdbService, DropboxService, AuthService, TitleService, PersonService,
         { provide: MovieService, useValue: jasmine.createSpyObj('MovieService', ['getMoviesPlaying']) },
         { provide: MyMoviesService, useValue: jasmine.createSpyObj('MyMoviesService', ['getAll']) }, GenreService, MockService,
