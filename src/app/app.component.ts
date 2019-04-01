@@ -1,4 +1,4 @@
-import { filter, distinctUntilChanged } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { Router, NavigationStart } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';

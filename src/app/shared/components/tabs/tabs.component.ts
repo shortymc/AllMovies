@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { delay, filter, distinctUntilChanged } from 'rxjs/operators';
+import { delay, filter } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 
 import { TabsService } from './../../service/tabs.service';
