@@ -218,8 +218,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
     const twoMonthsAgo = moment().add(-2, 'months');
     try {
       for (const movie of movies) {
+        const tr = movie.translation.get(this.translate.currentLang);
         // TODO if a map is empty for a lang
-        if (movie.time === undefined || movie.genres === undefined || movie.genres.map(genre => genre.name).every(name => name === undefined) ||
+        if (movie.time === undefined || tr.category === undefined || tr.category.map(genre => genre.name).every(name => name === undefined) ||
           movie.score === undefined || movie.updated === undefined || moment(movie.updated).isBefore(twoMonthsAgo)) {
           incomplete.push(movie.id);
         }

@@ -70,7 +70,7 @@
         <fa-icon class="mat-icon" [icon]="faImage"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let movie">
-        <img class="movie-poster" src="{{movie.affiche | image:'medium'}}" />
+        <img class="movie-poster" src="{{movie.translation?.get(translate.currentLang)?.poster | image:'medium'}}" />
       </mat-cell>
     </ng-container>
 
@@ -81,7 +81,7 @@
         <fa-icon class="mat-icon" [icon]="faFilm"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let movie">
-        {{movie.titles.get(translate.currentLang)}}
+        {{movie.translation?.get(translate.currentLang)?.name}}
       </mat-cell>
     </ng-container>
 
@@ -153,9 +153,11 @@
         <fa-icon class="mat-icon" [icon]="faList"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let movie">
-        <ng-container *ngFor="let genre of movie.genres; let last=last">
-          {{genre.name}}
-          <ng-container *ngIf="!last">/</ng-container>
+        <ng-container *ngIf="movie.translation?.get(translate.currentLang)?.category as genres">
+          <ng-container *ngFor="let genre of genres; let last=last">
+            {{genre.name}}
+            <ng-container *ngIf="!last">/</ng-container>
+          </ng-container>
         </ng-container>
       </mat-cell>
     </ng-container>
@@ -201,7 +203,7 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let movie" class="toto">
         <div class="cell-content">
-          <button class="btn btn-outline-primary btn-detail" appOpenLink [label]="movie.title" url="/movie/{{movie.id}}"
+          <button class="btn btn-outline-primary btn-detail" appOpenLink [label]="movie.translation?.get(translate.currentLang)?.name" url="/movie/{{movie.id}}"
             matTooltip="{{'global.go_detail' | translate}}">
             <span class="btn-text">
               <fa-icon [icon]="faChevronCircleRight"></fa-icon>

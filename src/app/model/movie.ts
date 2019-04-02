@@ -2,10 +2,15 @@ import { Utils } from './../shared/utils';
 import { Score } from './score';
 import { Genre, Keyword, ReleaseDate, AlternativeTitle, Lang } from './model';
 
+export class MovieI18N {
+  constructor(public name: string, public poster: string, public category: Genre[]) {
+  }
+}
+
 export class Movie {
   public id: number;
   public title: string;
-  public titles: Map<string, string>; // key: lang, value: title
+  public translation: Map<string, MovieI18N>; // key: lang
   public original_title: string;
   public date: string;
   public synopsis: string;
@@ -42,10 +47,24 @@ export class Movie {
 
   static toJson(movies: Movie[]): string {
     return '[' + movies.map(movie => {
-      const titles = Utils.mapToJson(<Map<any, any>>movie.titles);
+      const translation = Utils.mapToJson(<Map<any, any>>movie.translation);
       const json = JSON.stringify(movie, Movie.removeFields);
-      return json.replace(',"titles":{}', ',"titles":' + titles);
+      return json.replace(',"translation":{}', ',"translation":' + translation);
     }).join(',') + ']';
+  }
+
+  static fromJson(json: string): Movie[] {
+    if (json && json.trim().length > 0) {
+      const movies = <Movie[]>JSON.parse(json);
+      movies.forEach(m => {
+        const mapResult = new Map();
+        m.translation.forEach(tr => mapResult.set(tr[0], tr[1]));
+        m.translation = mapResult;
+      });
+      return movies;
+    } else {
+      return [];
+    }
   }
 
   static moviesToBlob(movies: Movie[]): Blob {
@@ -55,8 +74,8 @@ export class Movie {
 
   static removeFields(key: string, value: string): string {
     if (
-      ['title', 'synopsis', 'actors', 'crew', 'recommendations', 'videos', 'images', 'checked', 'similars',
-        'alternativeTitles', 'character', 'keywords', 'production_countries', 'releaseDates', 'spokenLangs']
+      ['title', 'synopsis', 'actors', 'crew', 'recommendations', 'videos', 'images', 'checked', 'similars', 'affiche',
+        'alternativeTitles', 'character', 'keywords', 'production_countries', 'releaseDates', 'spokenLangs', 'genres']
         .includes(key)
     ) {
       return undefined;
