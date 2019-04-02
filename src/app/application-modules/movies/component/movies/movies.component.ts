@@ -114,27 +114,27 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   getMovies(lang: string): void {
-    this.myMoviesService.myMovies$.subscribe(movies => {
+    this.subs.push(this.myMoviesService.myMovies$.subscribe(movies => {
       this.allMovies = movies;
       this.movies = movies;
       this.length = this.movies.length;
       this.paginate(this.refreshData());
-      this.getAllGenres();
-    });
-    this.myMoviesService.myMovies$.pipe(
+      this.getAllGenres(lang);
+    }));
+    this.subs.push(this.myMoviesService.myMovies$.pipe(
       filter(movies => movies && movies.length !== 0),
       take(1)
-    ).subscribe(movies => this.checkAndFixData(movies, lang));
+    ).subscribe(movies => this.checkAndFixData(movies, lang)));
   }
 
   getTags(): void {
     this.subs.push(this.myTagsService.myTags$.subscribe((tags) => this.tags = tags));
   }
 
-  getAllGenres(): void {
+  getAllGenres(lang: string): void {
     const all: Genre[] = [];
     this.movies.forEach((movie: Movie) => {
-      all.push(...movie.genres);
+      all.push(...movie.translation.get(lang).category);
     });
     this.genres = [];
     all.forEach((genre: Genre) => {
@@ -142,6 +142,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
         this.genres.push(genre);
       }
     });
+    this.genres.sort((a, b) => Utils.compare(a.name.toLowerCase(), b.name.toLowerCase(), true));
   }
 
   refreshData(): Movie[] {
@@ -184,11 +185,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
   filterGenres(): Movie[] {
     let list = [];
     if (this.filteredGenres && this.filteredGenres.length > 0) {
-      list = this.movies.filter((movie: Movie) => {
-        return this.filteredGenres.every((genreId: number) => {
-          return movie.genres.map(genre => genre.id).includes(genreId);
-        });
-      });
+      list = this.movies.filter((movie: Movie) =>
+        this.filteredGenres.every((genreId: number) =>
+          movie.translation.get(this.translate.currentLang).category.map(genre => genre.id).includes(genreId)));
     } else {
       list = this.movies;
     }
