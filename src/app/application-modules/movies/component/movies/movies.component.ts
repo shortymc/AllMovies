@@ -81,7 +81,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     private breakpointObserver: BreakpointObserver,
     private myMoviesService: MyMoviesService,
     private myTagsService: MyTagsService,
-    private translate: TranslateService,
+    public translate: TranslateService,
     private toast: ToastService,
     private elemRef: ElementRef,
     private title: TitleService
@@ -114,27 +114,27 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   getMovies(lang: string): void {
-    this.myMoviesService.myMovies$.subscribe(movies => {
+    this.subs.push(this.myMoviesService.myMovies$.subscribe(movies => {
       this.allMovies = movies;
-      this.movies = movies.filter(movie => movie.lang_version === lang);
+      this.movies = movies;
       this.length = this.movies.length;
       this.paginate(this.refreshData());
-      this.getAllGenres();
-    });
-    this.myMoviesService.myMovies$.pipe(
+      this.getAllGenres(lang);
+    }));
+    this.subs.push(this.myMoviesService.myMovies$.pipe(
       filter(movies => movies && movies.length !== 0),
       take(1)
-    ).subscribe(movies => this.checkAndFixData(movies.filter(movie => movie.lang_version === lang), lang));
+    ).subscribe(movies => this.checkAndFixData(movies, lang)));
   }
 
   getTags(): void {
     this.subs.push(this.myTagsService.myTags$.subscribe((tags) => this.tags = tags));
   }
 
-  getAllGenres(): void {
+  getAllGenres(lang: string): void {
     const all: Genre[] = [];
     this.movies.forEach((movie: Movie) => {
-      all.push(...movie.genres);
+      all.push(...movie.translation.get(lang).category);
     });
     this.genres = [];
     all.forEach((genre: Genre) => {
@@ -142,6 +142,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
         this.genres.push(genre);
       }
     });
+    this.genres.sort((a, b) => Utils.compare(a.name.toLowerCase(), b.name.toLowerCase(), true));
   }
 
   refreshData(): Movie[] {
@@ -184,11 +185,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
   filterGenres(): Movie[] {
     let list = [];
     if (this.filteredGenres && this.filteredGenres.length > 0) {
-      list = this.movies.filter((movie: Movie) => {
-        return this.filteredGenres.every((genreId: number) => {
-          return movie.genres.map(genre => genre.id).includes(genreId);
-        });
-      });
+      list = this.movies.filter((movie: Movie) =>
+        this.filteredGenres.every((genreId: number) =>
+          movie.translation.get(this.translate.currentLang).category.map(genre => genre.id).includes(genreId)));
     } else {
       list = this.movies;
     }
@@ -218,18 +217,22 @@ export class MoviesComponent implements OnInit, OnDestroy {
     const twoMonthsAgo = moment().add(-2, 'months');
     try {
       for (const movie of movies) {
-        if (movie.time === undefined || movie.genres === undefined || movie.genres.map(genre => genre.name).every(name => name === undefined) ||
-          movie.score === undefined || movie.updated === undefined || moment(movie.updated).isBefore(twoMonthsAgo)) {
+        const tr = movie.translation.get(lang);
+        // TODO if a map is empty for a lang
+        if (movie.time === undefined || tr.category === undefined || movie.score === undefined ||
+          movie.updated === undefined || moment(movie.updated).isBefore(twoMonthsAgo)) {
           incomplete.push(movie.id);
         }
       }
     } catch (err) {
       console.error(err);
     }
-    incomplete = incomplete.slice(0, 30);
+    incomplete = incomplete.slice(0, 15);
     const obs = [];
+    const otherLang = lang === 'fr' ? 'en' : 'fr';
     incomplete.forEach((id: number) => {
       obs.push(this.movieService.getMovie(id, new MovieDetailConfig(false, false, false, false, false, false, false, false, lang), false));
+      obs.push(this.movieService.getMovie(id, new MovieDetailConfig(false, false, false, false, false, false, false, false, otherLang), false));
     });
 
     try {
@@ -272,7 +275,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     selectedMoviesIds = selectedMoviesIds.filter(id => !this.selectedTag.movies.map(m => m.id).includes(id));
     if (selectedMoviesIds.length > 0) {
       this.selectedTag.movies.push(...selectedMoviesIds.map(id =>
-        TagMovie.fromMovie(this.allMovies.filter(m => m.id === id))
+        TagMovie.fromMovie(this.allMovies.find(m => m.id === id))
       ));
       this.myTagsService.updateTag(this.selectedTag);
       this.myMoviesService.updateTag(this.selectedTag).then(() => {
