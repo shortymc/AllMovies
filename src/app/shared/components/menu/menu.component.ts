@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, HostListener, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { faUser, faBars, faAtom, faPowerOff, faHome, faBoxOpen, faBookmark, faTags } from '@fortawesome/free-solid-svg-icons';
@@ -43,6 +44,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     public media: MediaMatcher,
     private auth: AuthService,
     private tabs: TabsService,
+    private router: Router,
     public menuService: MenuService,
     private elemRef: ElementRef
   ) {
@@ -84,9 +86,9 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.user = undefined;
     this.auth.logout();
     this.tabs.closeAll();
+    this.router.navigate(['/login']);
   }
 
   ngOnDestroy(): void {
