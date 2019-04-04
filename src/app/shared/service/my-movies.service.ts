@@ -113,7 +113,7 @@ export class MyMoviesService {
       return this.dropboxService.downloadFile(fileName);
     }).then(moviesFromFile => {
       // parse them
-      let movieList = Movie.fromJson(moviesFromFile);;
+      let movieList = Movie.fromJson(moviesFromFile);
       if (idToRemove.length > 0) {
         // remove given movies
         idToRemove.forEach((id: number) => movieList = movieList.filter((film: Movie) => film.id !== id));
@@ -146,17 +146,21 @@ export class MyMoviesService {
   replaceMovies(moviesToReplace: Movie[]): Promise<boolean> {
     let tempMovieList = [];
     let fileName;
-    const mapped = MyMoviesService.formatMovies(moviesToReplace);
+    let mapped = moviesToReplace;
+    if (moviesToReplace.every(m => m.translation === undefined)) {
+      mapped = MyMoviesService.formatMovies(moviesToReplace);
+    }
     return this.getFileName().then((file: string) => {
       fileName = file;
       return this.dropboxService.downloadFile(fileName);
     }).then(file => {
       let movieList = Movie.fromJson(file);
-      // Replaces added date with saved ones
+      // Keeps added and tags fields from being replaced
       const idList = movieList.map(m => m.id);
       mapped.forEach(movie => {
         if (idList.includes(movie.id)) {
           movie.added = movieList.find(m => m.id === movie.id).added;
+          movie.tags = movieList.find(m => m.id === movie.id).tags;
         }
       });
       // Removes from saved list movies to replaced
