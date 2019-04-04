@@ -47,8 +47,6 @@ export class MyMoviesService {
       .then((fileName: string) => this.dropboxService.downloadFile(fileName))
       .then((moviesFromFile: string) => Movie.fromJson(moviesFromFile))
       .then((movies: Movie[]) => {
-        // this.dropboxService.uploadFile(Movie.moviesToBlob(movies.filter(m => m.lang_version === 'fr')), 'fr.json');
-        // this.dropboxService.uploadFile(Movie.moviesToBlob(movies.filter(m => m.lang_version === 'en')), 'en.json');
         console.log('getAll', movies);
         this.myMovies$.next(movies);
       }).catch(err => this.serviceUtils.handlePromiseError(err, this.toast));
@@ -96,7 +94,7 @@ export class MyMoviesService {
         // all good, modifies inner data
         console.log('myMovies', tempMovieList);
         this.myMovies$.next(tempMovieList);
-        this.toast.open(Level.success, 'toast.movies_added', { size: tempMoviesAdded.length / 2 });
+        this.toast.open(Level.success, 'toast.movies_added', { size: tempMoviesAdded.length });
       }
       return true;
     }).catch((err) => {
