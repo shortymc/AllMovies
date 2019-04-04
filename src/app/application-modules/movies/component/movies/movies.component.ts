@@ -227,7 +227,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     } catch (err) {
       console.error(err);
     }
-    incomplete = incomplete.slice(0, 30);
+    incomplete = incomplete.slice(0, 15);
     const obs = [];
     const otherLang = lang === 'fr' ? 'en' : 'fr';
     incomplete.forEach((id: number) => {
