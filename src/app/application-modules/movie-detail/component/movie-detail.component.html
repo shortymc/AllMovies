@@ -132,7 +132,7 @@
     <!-- Tags -->
     <div class="movie-tags" *ngIf="showTags">
       <label>{{'movie.tagged' | translate}}: </label>
-      <app-list-tags [tags]="tags" [movie]="movie.id"></app-list-tags>
+      <app-list-tags [tags]="tags" [movieId]="movie.id"></app-list-tags>
     </div>
     <!-- Genre -->
     <div *ngIf="movie.genres && movie.genres.length > 0">
