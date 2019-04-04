@@ -18,7 +18,7 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   tags: Tag[] = [];
   @Input()
-  movie: Movie;
+  movieId: number;
   isBtnSaveDisabled = true;
   allMovies: Movie[];
   tagsDisplayed: Tag[];
@@ -44,7 +44,7 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.movie) {
-      this.movie = changes.movie.currentValue;
+      this.movieId = changes.movie.currentValue;
       this.editing = false;
       this.tags = changes.tags ? changes.tags.currentValue.map(tag => Tag.clone(<Tag>tag)) : this.tags;
       this.tagsDisplayed = this.getTags();
@@ -60,7 +60,7 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
     if (this.tagsDisplayed.map(t => t.id).includes(tag.id)) {
       this.toast.open(Level.warning, 'toast.already_added');
     } else {
-      tag.movies.push(TagMovie.fromMovie(this.allMovies.find(m => m.id === this.movie.id)));
+      tag.movies.push(TagMovie.fromMovie(this.allMovies.find(m => m.id === this.movieId)));
       this.tagsDisplayed.push(tag);
       this.tagsToSave.push(tag);
       this.isTagsChanged();
@@ -68,14 +68,14 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   remove(tag: Tag): void {
-    this.tagsToSave.find(t => t.id === tag.id).movies = tag.movies.filter(m => m.id !== this.movie.id);
+    this.tagsToSave.find(t => t.id === tag.id).movies = tag.movies.filter(m => m.id !== this.movieId);
     this.tagsDisplayed = this.tagsDisplayed.filter(t => t.id !== tag.id);
     this.isTagsChanged();
   }
 
   save(): void {
     this.editing = false;
-    const toUpdate = this.allMovies.find(m => m.id === this.movie.id);
+    const toUpdate = this.allMovies.find(m => m.id === this.movieId);
     toUpdate.tags = this.tagsToSave.map(t => t.id);
     this.myMoviesService.replaceMovies([toUpdate])
       .then(() => this.myTagsService.replaceTags(this.tagsToSave));
