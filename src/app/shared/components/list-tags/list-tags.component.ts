@@ -60,7 +60,7 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
     if (this.tagsDisplayed.map(t => t.id).includes(tag.id)) {
       this.toast.open(Level.warning, 'toast.already_added');
     } else {
-      tag.movies.push(TagMovie.fromMovie(this.allMovies.filter(m => m.id === this.movie.id)));
+      tag.movies.push(TagMovie.fromMovie(this.allMovies.find(m => m.id === this.movie.id)));
       this.tagsDisplayed.push(tag);
       this.tagsToSave.push(tag);
       this.isTagsChanged();
@@ -75,8 +75,9 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
 
   save(): void {
     this.editing = false;
-    this.movie.tags = this.tagsToSave.map(t => t.id);
-    this.myMoviesService.replaceMovies([this.movie])
+    const toUpdate = this.allMovies.find(m => m.id === this.movie.id);
+    toUpdate.tags = this.tagsToSave.map(t => t.id);
+    this.myMoviesService.replaceMovies([toUpdate])
       .then(() => this.myTagsService.replaceTags(this.tagsToSave));
   }
 

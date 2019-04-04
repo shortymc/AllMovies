@@ -160,13 +160,17 @@ export class TagMoviesComponent implements OnInit, OnChanges {
   save(): void {
     this.myTagsService.updateTag(this.tag);
     this.edited = false;
-    this.myMoviesService.updateTag(this.tag).then(() => {
+    new Promise(resolve => {
       if (this.moviesToAdd && this.moviesToAdd.length > 0) {
-        this.myMoviesService.add(this.moviesToAdd).then(() => this.moviesToAdd = []);
+        this.myMoviesService.add(this.moviesToAdd).then(() => {
+          this.moviesToAdd = [];
+          resolve(true);
+        });
       } else {
         this.moviesToAdd = [];
+        resolve(true);
       }
-    });
+    }).then(() => this.myMoviesService.updateTag(this.tag));
   }
 
   toogleEdit(): void {
