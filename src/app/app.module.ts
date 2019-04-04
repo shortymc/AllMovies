@@ -1,9 +1,6 @@
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import localeEn from '@angular/common/locales/en';
-import localeDe from '@angular/common/locales/de';
-import localeEs from '@angular/common/locales/es';
-import localeIt from '@angular/common/locales/it';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HttpClientJsonpModule, HttpClient } from '@angular/common/http';
@@ -53,8 +50,5 @@ export class AppModule {
     translate.use(translate.getBrowserLang());
     registerLocaleData(localeFr);
     registerLocaleData(localeEn);
-    registerLocaleData(localeDe);
-    registerLocaleData(localeIt);
-    registerLocaleData(localeEs);
   }
 }
