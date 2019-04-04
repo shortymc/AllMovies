@@ -10,23 +10,5 @@
         "code": "en",
         "label": "English",
         "icon": "gb"
-    },
-    {
-        "id": 3,
-        "code": "es",
-        "label": "Español",
-        "icon": "es"
-    },
-    {
-        "id": 4,
-        "code": "de",
-        "label": "Deutsch",
-        "icon": "de"
-    },
-    {
-        "id": 5,
-        "code": "it",
-        "label": "Italiano",
-        "icon": "it"
     }
 ]
