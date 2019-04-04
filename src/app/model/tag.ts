@@ -10,20 +10,30 @@ export class TagMovie {
   static toJson(movie: TagMovie): string {
     const titles = Utils.mapToJson(<Map<any, any>>movie.titles);
     const json = JSON.stringify(movie, TagMovie.removeFields);
-    return json.replace(',"titles":{}', ',"titles":' + titles);
+    return json.replace('"titles":{}', '"titles":' + titles);
   }
 
-  static fromMovie(movie: Movie[]): TagMovie {
-    if (!movie || movie.length !== 2 || movie[0].id !== movie[1].id) {
-      console.error('Incorrect movies', movie);
-      return undefined;
-    }
+  static fromMovie(movie: Movie[] | Movie): TagMovie {
     const tagMovie = new TagMovie();
-    tagMovie.id = movie[0].id;
-    tagMovie.poster = movie[0].affiche;
     tagMovie.titles = new Map();
-    tagMovie.titles.set(movie[0].lang_version, movie[0].title);
-    tagMovie.titles.set(movie[1].lang_version, movie[1].title);
+    if (Array.isArray(movie)) {
+      if (!movie || movie.length !== 2 || movie[0].id !== movie[1].id) {
+        console.error('Incorrect movies', movie);
+        throw new Error('Incorrect movies in TagMovie#fromMovie');
+      }
+      tagMovie.id = movie[0].id;
+      tagMovie.poster = movie[0].affiche;
+      tagMovie.titles.set(movie[0].lang_version, movie[0].title);
+      tagMovie.titles.set(movie[1].lang_version, movie[1].title);
+    } else {
+      if (!movie || !movie.translation) {
+        console.error('Incorrect movie', movie);
+        throw new Error('Incorrect movie in TagMovie#fromMovie');
+      }
+      tagMovie.id = movie.id;
+      tagMovie.poster = movie.translation.get('fr').poster;
+      movie.translation.forEach((value, key) => tagMovie.titles.set(key, value.name));
+    }
     return tagMovie;
   }
 

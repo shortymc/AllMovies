@@ -49,7 +49,7 @@ export class Movie {
     return '[' + movies.map(movie => {
       const translation = Utils.mapToJson(<Map<any, any>>movie.translation);
       const json = JSON.stringify(movie, Movie.removeFields);
-      return json.replace(',"translation":{}', ',"translation":' + translation);
+      return json.replace('"translation":{}', '"translation":' + translation);
     }).join(',') + ']';
   }
 

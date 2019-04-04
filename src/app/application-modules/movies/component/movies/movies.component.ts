@@ -217,7 +217,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     const twoMonthsAgo = moment().add(-2, 'months');
     try {
       for (const movie of movies) {
-        const tr = movie.translation.get(this.translate.currentLang);
+        const tr = movie.translation.get(lang);
         // TODO if a map is empty for a lang
         if (movie.time === undefined || tr.category === undefined || tr.category.map(genre => genre.name).every(name => name === undefined) ||
           movie.score === undefined || movie.updated === undefined || moment(movie.updated).isBefore(twoMonthsAgo)) {
@@ -229,8 +229,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
     }
     incomplete = incomplete.slice(0, 30);
     const obs = [];
+    const otherLang = lang === 'fr' ? 'en' : 'fr';
     incomplete.forEach((id: number) => {
       obs.push(this.movieService.getMovie(id, new MovieDetailConfig(false, false, false, false, false, false, false, false, lang), false));
+      obs.push(this.movieService.getMovie(id, new MovieDetailConfig(false, false, false, false, false, false, false, false, otherLang), false));
     });
 
     try {
@@ -273,7 +275,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     selectedMoviesIds = selectedMoviesIds.filter(id => !this.selectedTag.movies.map(m => m.id).includes(id));
     if (selectedMoviesIds.length > 0) {
       this.selectedTag.movies.push(...selectedMoviesIds.map(id =>
-        TagMovie.fromMovie(this.allMovies.filter(m => m.id === id))
+        TagMovie.fromMovie(this.allMovies.find(m => m.id === id))
       ));
       this.myTagsService.updateTag(this.selectedTag);
       this.myMoviesService.updateTag(this.selectedTag).then(() => {
