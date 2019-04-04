@@ -1,4 +1,6 @@
 import { Sort } from '@angular/material/sort';
+
+import { GroupBy } from './../model/model';
 import { Movie } from './../model/movie';
 import { Tag } from './../model/tag';
 
@@ -247,6 +249,20 @@ export class Utils {
       });
     }
     return tag;
+  }
+
+  static groupBy<T>(items: T[], field: string): GroupBy<T>[] {
+    const groupedObj = items.reduce((prev: T, cur: T) => {
+      if (!prev[cur[field]]) {
+        prev[cur[field]] = [cur];
+      } else {
+        prev[cur[field]].push(cur);
+      }
+      return prev;
+    }, {
+
+      });
+    return Object.keys(groupedObj).map(key => new GroupBy(key, <T[]>groupedObj[key]));
   }
 
   static mapToJson(map: Map<any, any>): string {

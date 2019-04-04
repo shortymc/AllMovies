@@ -5,7 +5,7 @@ import { Dropbox } from './../../constant/dropbox';
 import { DropboxService } from './dropbox.service';
 import { AuthService } from './auth.service';
 import { Level } from './../../model/model';
-import { Movie } from './../../model/movie';
+import { Movie, MovieI18N } from './../../model/movie';
 import { Tag } from './../../model/tag';
 import { UtilsService } from './utils.service';
 import { ToastService } from './toast.service';
@@ -22,20 +22,19 @@ export class MyMoviesService {
     private toast: ToastService,
   ) { }
 
-  static moviesToBlob(movies: Movie[]): Blob {
-    const theJSON = JSON.stringify(movies, MyMoviesService.removeFields);
-    return new Blob([theJSON], { type: 'text/json' });
-  }
-
-  static removeFields(key: string, value: string): string {
-    if (
-      ['synopsis', 'actors', 'crew', 'recommendations', 'videos', 'images', 'checked', 'similars',
-        'alternativeTitles', 'character', 'keywords', 'production_countries', 'releaseDates', 'spokenLangs']
-        .includes(key)
-    ) {
-      return undefined;
-    }
-    return value;
+  private static formatMovies(movies: Movie[]): Movie[] {
+    const byId = Utils.groupBy(movies, 'id');
+    return byId.map(by => {
+      let result: Movie;
+      movies.filter(m => m.id === +by.key).forEach(movie => {
+        if (!result) {
+          result = movie;
+          result.translation = new Map();
+        }
+        result.translation.set(movie.lang_version, new MovieI18N(movie.title, movie.affiche, movie.genres));
+      });
+      return result;
+    });
   }
 
   getFileName(): Promise<string> {
@@ -46,14 +45,9 @@ export class MyMoviesService {
     console.log('getAll');
     this.getFileName()
       .then((fileName: string) => this.dropboxService.downloadFile(fileName))
-      .then((moviesFromFile: string) => {
-        if (moviesFromFile && moviesFromFile.trim().length > 0) {
-          return <Movie[]>JSON.parse(moviesFromFile);
-        } else {
-          return [];
-        }
-      })
+      .then((moviesFromFile: string) => Movie.fromJson(moviesFromFile))
       .then((movies: Movie[]) => {
+        console.log('getAll', movies);
         this.myMovies$.next(movies);
       }).catch(err => this.serviceUtils.handlePromiseError(err, this.toast));
   }
@@ -62,6 +56,7 @@ export class MyMoviesService {
     let tempMovieList = [];
     let tempMoviesAdded = [];
     let fileName;
+    const mapped = MyMoviesService.formatMovies(moviesToAdd);
     return this.getFileName().then((file: string) => {
       fileName = file;
       return this.dropboxService.downloadFile(fileName);
@@ -69,10 +64,10 @@ export class MyMoviesService {
       // parse movies
       let movieList = [];
       if (moviesFromFile && moviesFromFile.trim().length > 0) {
-        movieList = <Movie[]>JSON.parse(moviesFromFile);
+        movieList = Movie.fromJson(moviesFromFile);
       }
       // filter if not already in collection
-      const found = moviesToAdd.filter((add: Movie) => !movieList.map((movie: Movie) => movie.id).includes(add.id));
+      const found = mapped.filter((add: Movie) => !movieList.map((movie: Movie) => movie.id).includes(add.id));
       if (found.length > 0) {
         tempMoviesAdded = found;
         found.forEach((movie: Movie) => {
@@ -89,7 +84,7 @@ export class MyMoviesService {
       if (list && list.length !== 0) {
         tempMovieList = list;
         // replace with new array movies
-        return this.dropboxService.uploadFile(MyMoviesService.moviesToBlob(list), fileName);
+        return this.dropboxService.uploadFile(Movie.moviesToBlob(list), fileName);
       } else {
         return undefined;
       }
@@ -99,7 +94,7 @@ export class MyMoviesService {
         // all good, modifies inner data
         console.log('myMovies', tempMovieList);
         this.myMovies$.next(tempMovieList);
-        this.toast.open(Level.success, 'toast.movies_added', { size: tempMoviesAdded.length / 2 });
+        this.toast.open(Level.success, 'toast.movies_added', { size: tempMoviesAdded.length });
       }
       return true;
     }).catch((err) => {
@@ -116,13 +111,13 @@ export class MyMoviesService {
       return this.dropboxService.downloadFile(fileName);
     }).then(moviesFromFile => {
       // parse them
-      let movieList = <Movie[]>JSON.parse(moviesFromFile);
+      let movieList = Movie.fromJson(moviesFromFile);
       if (idToRemove.length > 0) {
         // remove given movies
         idToRemove.forEach((id: number) => movieList = movieList.filter((film: Movie) => film.id !== id));
         tempMovieList = movieList;
         // repplace file with new movie array
-        return this.dropboxService.uploadFile(MyMoviesService.moviesToBlob(movieList), fileName);
+        return this.dropboxService.uploadFile(Movie.moviesToBlob(movieList), fileName);
       } else {
         return undefined;
       }
@@ -149,30 +144,35 @@ export class MyMoviesService {
   replaceMovies(moviesToReplace: Movie[]): Promise<boolean> {
     let tempMovieList = [];
     let fileName;
+    let mapped = moviesToReplace;
+    if (moviesToReplace.every(m => m.translation === undefined)) {
+      mapped = MyMoviesService.formatMovies(moviesToReplace);
+    }
     return this.getFileName().then((file: string) => {
       fileName = file;
       return this.dropboxService.downloadFile(fileName);
     }).then(file => {
-      let movieList = <Movie[]>JSON.parse(file);
-      // Replaces added date with saved ones
+      let movieList = Movie.fromJson(file);
+      // Keeps added and tags fields from being replaced
       const idList = movieList.map(m => m.id);
-      moviesToReplace.forEach(movie => {
+      mapped.forEach(movie => {
         if (idList.includes(movie.id)) {
           movie.added = movieList.find(m => m.id === movie.id).added;
+          movie.tags = movieList.find(m => m.id === movie.id).tags;
         }
       });
       // Removes from saved list movies to replaced
-      movieList = movieList.filter((m: Movie) => !moviesToReplace.map((movie: Movie) => movie.id).includes(m.id)
-        || !moviesToReplace.map((movie: Movie) => movie.lang_version).includes(m.lang_version));
+      movieList = movieList.filter((m: Movie) => !mapped.map((movie: Movie) => movie.id).includes(m.id)
+        || !mapped.map((movie: Movie) => movie.lang_version).includes(m.lang_version));
       // Push in saved list new movies
-      moviesToReplace.forEach((movie: Movie) => movieList.push(movie));
+      mapped.forEach((movie: Movie) => movieList.push(movie));
       movieList.sort(Utils.compareObject);
       tempMovieList = movieList;
-      return this.dropboxService.uploadFile(MyMoviesService.moviesToBlob(movieList), fileName);
+      return this.dropboxService.uploadFile(Movie.moviesToBlob(movieList), fileName);
     }).then((res: any) => {
       console.log(res);
       this.myMovies$.next(tempMovieList);
-      this.toast.open(Level.success, 'toast.movies_updated', { size: moviesToReplace.length });
+      this.toast.open(Level.success, 'toast.movies_updated', { size: mapped.length });
       return true;
     }).catch((err) => {
       this.serviceUtils.handleError(err, this.toast);
@@ -187,7 +187,7 @@ export class MyMoviesService {
       fileName = file;
       return this.dropboxService.downloadFile(fileName);
     }).then(file => {
-      const movieList = <Movie[]>JSON.parse(file);
+      const movieList = Movie.fromJson(file);
       // Looking for removed movies from tag
       const moviesHavingTag = movieList.filter(movie => movie.tags && movie.tags.includes(tag.id));
       moviesHavingTag.forEach(movie => {
@@ -209,7 +209,7 @@ export class MyMoviesService {
       });
       movieList.sort(Utils.compareObject);
       tempMovieList = movieList;
-      return this.dropboxService.uploadFile(MyMoviesService.moviesToBlob(movieList), fileName);
+      return this.dropboxService.uploadFile(Movie.moviesToBlob(movieList), fileName);
     }).then((res: any) => {
       console.log(res);
       this.myMovies$.next(tempMovieList);
