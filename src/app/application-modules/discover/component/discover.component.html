@@ -19,10 +19,10 @@
 <div class="params">
   <!-- Person search -->
   <app-search-box [adult]="adult" (items)="people = $event" [service]="personService" placeholder="{{'discover.people'|translate}}"
-    [initList]="people" [clear]="clean"></app-search-box>
+    [initList]="people" [clear]="clean" [hasImage]="true"></app-search-box>
   <!-- Keyword search -->
   <app-search-box [adult]="adult" (items)="keyword = $event" [service]="keywordService" placeholder="{{'global.keyword'|translate}}"
-    [initList]="keyword" [clear]="clean"></app-search-box>
+    [initList]="keyword" [clear]="clean" [hasImage]="false"></app-search-box>
   <mat-slide-toggle [color]="'primary'" [(checked)]="isWithoutKeyword" (change)="isWithoutKeyword = !isWithoutKeyword">{{'discover.without'|translate}}</mat-slide-toggle>
   <!-- Genres Filter -->
   <mat-form-field>

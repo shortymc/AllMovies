@@ -1,18 +1,10 @@
 @import "../../../../styles/styles";
 
-img {
-  height: 94px;
-}
-
 .mat-form-field {
   width: 20vw;
 }
 
 @include media(#{$smallscreen}) {
-  img {
-    height: 64px;
-  }
-
   .mat-form-field {
     width: 75vw;
   }

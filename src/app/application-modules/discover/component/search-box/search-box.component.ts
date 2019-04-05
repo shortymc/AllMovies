@@ -21,6 +21,7 @@ export class SearchBoxComponent<T extends IdClass> implements OnInit, OnChanges 
   @Input() placeholder: string;
   @Input() initList: number[];
   @Input() clear: boolean;
+  @Input() hasImage: boolean;
   @Output() items = new EventEmitter<number[]>();
   itemCtrl: FormControl;
   filteredItems: Observable<T[]>;
