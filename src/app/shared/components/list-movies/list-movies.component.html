@@ -52,7 +52,7 @@
       <span><span class="total">{{'movie-list.total' | translate}}: {{resultLength}}</span></span>
     </div>
     <div class="card-footer text-center">
-      <button class="btn btn-outline-primary" appAddCollection [movies]="movies" [label]="'movie-list.add'">
+      <button class="btn btn-outline-primary" appAddCollection [movies]="movies" [label]="'movie-list.add'" [isSingleMovie]="false">
       </button>
     </div>
   </div>

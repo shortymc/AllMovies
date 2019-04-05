@@ -68,7 +68,7 @@
 <div class="params">
   <!-- Add to Collection Btn -->
   <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" appAddCollection [movies]="discover.movies"
-    [label]="'global.add_collection'">
+    [label]="'global.add_collection'" [isSingleMovie]="false">
   </button>
   <!-- Init Btn -->
   <button type="button" class="btn btn-outline-primary" (click)="clear()">{{'global.clear'|translate}}</button>
