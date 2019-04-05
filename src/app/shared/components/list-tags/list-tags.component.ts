@@ -21,8 +21,8 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   movieId: number;
   isBtnSaveDisabled = true;
   allMovies: Movie[];
-  tagsDisplayed: Tag[];
-  tagsToSave: Tag[];
+  tagsDisplayed: Tag[] = [];
+  tagsToSave: Tag[] = [];
   editing = false;
   subs = [];
 
@@ -43,8 +43,8 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.movie) {
-      this.movieId = changes.movie.currentValue;
+    if (changes.movieId) {
+      this.movieId = changes.movieId.currentValue;
       this.editing = false;
       this.tags = changes.tags ? changes.tags.currentValue.map(tag => Tag.clone(<Tag>tag)) : this.tags;
       this.tagsDisplayed = this.getTags();
@@ -77,7 +77,7 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
     this.editing = false;
     const toUpdate = this.allMovies.find(m => m.id === this.movieId);
     toUpdate.tags = this.tagsToSave.map(t => t.id);
-    this.myMoviesService.replaceMovies([toUpdate])
+    this.myMoviesService.replaceMovies([toUpdate], true)
       .then(() => this.myTagsService.replaceTags(this.tagsToSave));
   }
 
