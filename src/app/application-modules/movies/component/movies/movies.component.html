@@ -31,6 +31,9 @@
       (click)="addTag()">
       {{'movies.add_tag' |translate:{tag: selectedTag.label, size: nbChecked} }}
     </button>
+    <span *ngIf="selectedTag" class="pointer clear-btn" (click)="selectedTag = undefined">
+      <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
+    </span>
   </div>
 
   <!-- Delete -->
