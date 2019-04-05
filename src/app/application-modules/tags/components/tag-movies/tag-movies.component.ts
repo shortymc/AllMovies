@@ -2,7 +2,7 @@ import { FormGroup } from '@angular/forms';
 import { faTrash, faList, faPen, faPaintBrush, faImage } from '@fortawesome/free-solid-svg-icons';
 import { PageEvent, Sort } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnChanges, Input, SimpleChanges, OnInit } from '@angular/core';
+import { Component, OnChanges, Input, SimpleChanges, OnInit, OnDestroy } from '@angular/core';
 import { faSave } from '@fortawesome/free-regular-svg-icons';
 
 import { Utils } from './../../../../shared/utils';
@@ -20,12 +20,13 @@ import { Tag, TagMovie } from './../../../../model/tag';
   templateUrl: './tag-movies.component.html',
   styleUrls: ['./tag-movies.component.scss']
 })
-export class TagMoviesComponent implements OnInit, OnChanges {
+export class TagMoviesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() tag: Tag;
   @Input() visible: boolean;
   displayedColumns = ['poster', 'title', 'select'];
   length: number;
   displayedData: TagMovie[];
+  allMovies: Movie[];
   search = '';
   pageSize = 25;
   pageIndex = 0;
@@ -59,11 +60,16 @@ export class TagMoviesComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-    this.auth.user$.subscribe(user => {
+    this.subs.push(this.auth.user$.subscribe(user => {
       if (user) {
         this.adult = user.adult;
       }
-    });
+    }));
+    this.subs.push(this.myMoviesService.myMovies$.subscribe(movies => {
+      if (movies) {
+        this.allMovies = movies;
+      }
+    }));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -161,6 +167,7 @@ export class TagMoviesComponent implements OnInit, OnChanges {
     this.myTagsService.updateTag(this.tag);
     this.edited = false;
     new Promise(resolve => {
+      this.moviesToAdd = this.moviesToAdd.filter(movie => !this.allMovies.map(m => m.id).includes(movie.id));
       if (this.moviesToAdd && this.moviesToAdd.length > 0) {
         this.myMoviesService.add(this.moviesToAdd).then(() => {
           this.moviesToAdd = [];
@@ -194,4 +201,7 @@ export class TagMoviesComponent implements OnInit, OnChanges {
     this.nbChecked = this.tag.movies.filter(movie => movie.checked).length;
   }
 
+  ngOnDestroy(): void {
+    this.subs.forEach((subscription) => subscription.unsubscribe());
+  }
 }
