@@ -182,6 +182,20 @@ mat-row {
 
   .filters {
     display: flex;
+    flex-direction: column;
+
+    & ::ng-deep.mat-form-field-flex {
+      flex-direction: row;
+    }
+
+    & .filter-item .mat-form-field {
+      width: 90vw;
+      margin: auto;
+    }
+
+    .clear-btn {
+      margin: auto;
+    }
   }
 
   .movie-poster {
@@ -259,18 +273,6 @@ mat-row {
   mat-cell:not(.tag-icon) {
     display: block !important;
     text-align: center;
-  }
-
-  .filters {
-    flex-direction: column;
-
-    & ::ng-deep.mat-form-field-flex {
-      flex-direction: row;
-    }
-
-    & .filter-item .mat-form-field {
-      width: 90vw;
-    }
   }
 
   .clear-btn {
