@@ -104,28 +104,6 @@ export class AuthService {
     }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  changePassword(name: string, password: string): Promise<User> {
-    let updatedUser;
-    return this.dropbox.downloadFile(Dropbox.DROPBOX_USER_FILE)
-      .then(file => {
-        let users = <User[]>JSON.parse(file);
-        const user = users.find(item => item.name === name);
-        user.password = password;
-        updatedUser = user;
-        users = users.filter(item => item.name !== name);
-        users.push(user);
-        users.sort(Utils.compareObject);
-        return users;
-      }).then(users => this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE)
-      ).then((res: any) => {
-        console.log(res);
-        this.toast.open(this.translate.instant('toast.user_changed'), Level.success);
-        AuthService.setToken(AuthService.createToken(updatedUser));
-        this.user$.next(updatedUser);
-        return updatedUser;
-      }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
-  }
-
   checkAnswer(name: string, answer: string): Promise<boolean> {
     return this.getUserByName(name)
       .then((user: User) => user.name === name && user.answer === answer)
