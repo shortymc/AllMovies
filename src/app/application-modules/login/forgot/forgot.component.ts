@@ -4,6 +4,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 
 import { ToastService, AuthService, TitleService, UtilsService } from './../../../shared/shared.module';
+import { User } from './../../../model/user';
 
 @Component({
   selector: 'app-forgot',
@@ -22,6 +23,7 @@ export class ForgotComponent implements OnInit, OnDestroy {
   messagePassword: string;
   password1: string;
   password2: string;
+  user: User;
   subs = [];
   faCheck = faCheck;
 
@@ -48,8 +50,10 @@ export class ForgotComponent implements OnInit, OnDestroy {
         this.question = user.question;
         this.nameNext.nativeElement.click();
         this.messageName = undefined;
+        this.user = user;
       } else {
         this.messageName = 'login.forgot.wrong_name';
+        this.user = undefined;
       }
     }).catch((err) => this.serviceUtils.handleError(err, this.toast));
   }
@@ -69,7 +73,8 @@ export class ForgotComponent implements OnInit, OnDestroy {
     if (this.password1 !== this.password2) {
       this.messagePassword = 'login.error_password';
     } else {
-      this.auth.changePassword(this.name, crypto.SHA512(this.password1).toString());
+      this.user.password = crypto.SHA512(this.password1).toString();
+      this.auth.updateUser(this.user);
       this.passwordNext.nativeElement.click();
     }
   }
