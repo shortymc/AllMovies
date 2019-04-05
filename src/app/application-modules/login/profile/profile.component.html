@@ -17,10 +17,10 @@
     <mat-slide-toggle (change)="updateUser()" [(ngModel)]="user.adult"></mat-slide-toggle>
   </div>
   <div class="profile-footer">
-    <button type="button" class="btn btn-outline-primary" routerLink="/login/changePassword" [queryParams]="{name: user.name}">
+    <button type="button" class="btn btn-outline-primary" routerLink="/login/changePassword">
       {{'login.profile.change_password'|translate}}
     </button>
-    <button type="button" class="btn btn-outline-primary" routerLink="/login/changeQuestion" [queryParams]="{name: user.name}">
+    <button type="button" class="btn btn-outline-primary" routerLink="/login/changeQuestion">
       {{'login.profile.change_question'|translate}}
     </button>
   </div>
