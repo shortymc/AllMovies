@@ -43,7 +43,6 @@ export class MoviesComponent implements OnInit, OnDestroy {
   medium_columns = ['thumbnail', 'title', 'date', 'note', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details', 'tag-icon'];
   mobile_columns = ['thumbnail', 'title', 'date', 'meta', 'language', 'time', 'genres', 'select', 'details', 'tag-icon'];
   displayedColumns = this.init_columns;
-  movies: Movie[];
   allMovies: Movie[];
   tags: Tag[];
   filteredTags: number[];
@@ -117,8 +116,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   getMovies(lang: string): void {
     this.subs.push(this.myMoviesService.myMovies$.subscribe(movies => {
       this.allMovies = movies;
-      this.movies = movies;
-      this.length = this.movies.length;
+      this.length = this.allMovies.length;
       this.paginate(this.refreshData());
       this.getAllGenres(lang);
     }));
@@ -134,7 +132,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   getAllGenres(lang: string): void {
     const all: Genre[] = [];
-    this.movies.forEach((movie: Movie) => {
+    this.allMovies.forEach((movie: Movie) => {
       all.push(...movie.translation.get(lang).category);
     });
     this.genres = [];
@@ -186,11 +184,11 @@ export class MoviesComponent implements OnInit, OnDestroy {
   filterGenres(): Movie[] {
     let list = [];
     if (this.filteredGenres && this.filteredGenres.length > 0) {
-      list = this.movies.filter((movie: Movie) =>
+      list = this.allMovies.filter((movie: Movie) =>
         this.filteredGenres.every((genreId: number) =>
           movie.translation.get(this.translate.currentLang).category.map(genre => genre.id).includes(genreId)));
     } else {
-      list = this.movies;
+      list = this.allMovies;
     }
     return list;
   }
@@ -205,14 +203,14 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   filterTags(): Movie[] {
     return this.filteredTags && this.filteredTags.length > 0
-      ? this.movies.filter((movie: Movie) => this.filteredTags.every((tagId: number) => {
+      ? this.allMovies.filter((movie: Movie) => this.filteredTags.every((tagId: number) => {
         if (movie.tags) {
           return movie.tags.includes(tagId);
         } else {
           return false;
         }
       }))
-      : this.movies;
+      : this.allMovies;
   }
 
   onFilterTags(tags: number[]): void {
@@ -224,7 +222,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   updateSize(): void {
-    this.nbChecked = this.movies.filter(movie => movie.checked).length;
+    this.nbChecked = this.allMovies.filter(movie => movie.checked).length;
   }
 
   /**
@@ -274,7 +272,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   remove(): void {
-    const moviesToRemove = this.movies.filter(movie => movie.checked);
+    const moviesToRemove = this.allMovies.filter(movie => movie.checked);
     const tagsToReplace = this.tags.filter(t => moviesToRemove.map(m => m.tags).reduce((x, y) => x.concat(y), []).includes(t.id));
     tagsToReplace.forEach(t => t.movies = t.movies.filter(movie => !moviesToRemove.map(m => m.id).includes(movie.id)));
     this.myMoviesService.remove(moviesToRemove.map(movie => movie.id))
@@ -291,7 +289,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   addTag(): void {
-    let selectedMoviesIds = this.movies.filter(movie => movie.checked).map(movie => movie.id);
+    let selectedMoviesIds = this.allMovies.filter(movie => movie.checked).map(movie => movie.id);
     selectedMoviesIds = selectedMoviesIds.filter(id => !this.selectedTag.movies.map(m => m.id).includes(id));
     if (selectedMoviesIds.length > 0) {
       this.selectedTag.movies.push(...selectedMoviesIds.map(id =>
@@ -306,7 +304,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
       this.toast.open(Level.warning, 'toast.already_added');
       this.nbChecked = 0;
       this.selectedTag = undefined;
-      this.movies.forEach(m => m.checked = false);
+      this.allMovies.forEach(m => m.checked = false);
     }
   }
 
