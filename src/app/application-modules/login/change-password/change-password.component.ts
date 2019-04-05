@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import * as crypto from 'crypto-js';
 
 import { TitleService } from './../../../shared/shared.module';
@@ -23,15 +23,15 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private router: Router,
     private title: TitleService,
-    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
     this.title.setTitle('title.profile');
-    this.subs.push(this.route.queryParams.subscribe(
-      params => {
-        this.auth.getUserByName(params.name).then((user) => this.user = user);
-      }));
+    this.subs.push(this.auth.user$.subscribe(user => {
+      if (user) {
+        this.user = user;
+      }
+    }));
   }
 
   change(): void {
@@ -42,8 +42,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
       this.message = 'login.change_password.wrong';
     } else {
       this.user.password = crypto.SHA512(this.pass1).toString();
-      this.auth.updateUser(this.user);
-      this.router.navigate(['/login/profile']);
+      this.auth.updateUser(this.user).then(() => this.router.navigate(['/login/profile']));
     }
   }
 
