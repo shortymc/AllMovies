@@ -137,11 +137,11 @@ export class MyMoviesService {
 
   /**
    * Replace the movies contains in the given file by the given movies.
-   * @param  {Movie[]} moviesToReplace
-   * @param  {string} fileName
+   * @param  {Movie[]} moviesToReplace the movies replacing
+   * @param  {boolean} isReplaceTags if tags are replaced
    * @returns void
    */
-  replaceMovies(moviesToReplace: Movie[]): Promise<boolean> {
+  replaceMovies(moviesToReplace: Movie[], isReplaceTags: boolean): Promise<boolean> {
     let tempMovieList = [];
     let fileName;
     let mapped = moviesToReplace;
@@ -158,7 +158,9 @@ export class MyMoviesService {
       mapped.forEach(movie => {
         if (idList.includes(movie.id)) {
           movie.added = movieList.find(m => m.id === movie.id).added;
-          movie.tags = movieList.find(m => m.id === movie.id).tags;
+          if (isReplaceTags) {
+            movie.tags = movieList.find(m => m.id === movie.id).tags;
+          }
         }
       });
       // Removes from saved list movies to replaced
