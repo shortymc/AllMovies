@@ -10,10 +10,10 @@
       [matChipInputFor]="chipList">
   </mat-chip-list>
 </mat-form-field>
-<mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+<mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption class="{{hasImage ? 'big-autocomplete': ''}}">
   <mat-option *ngFor="let item of filteredItems | async" (onSelectionChange)="addItem(item); inputSearch.value = ''">
     <div class="media">
-      <img class="align-self-center" *ngIf="item.profile" src="{{item.profile | image:'small':'true'}}" style="width:22%;">
+      <img class="align-self-center" *ngIf="hasImage" src="{{item.profile | image:'small':'true'}}">
       <div class="media-body">
         <p class="mt-0" [ngClass]="{'adult': item.adult}">{{item.name | capitalizeWord}}</p>
       </div>

@@ -246,8 +246,12 @@ input[type='checkbox'] {
   display: block;
 }
 
-.movies-autocomplete {
+.big-autocomplete {
   min-height: 576px !important;
+
+  & img {
+    height: 94px;
+  }
 
   & .mat-option {
     min-height: 96px !important;
@@ -321,8 +325,12 @@ input[type='checkbox'] {
     font-size: 14px;
   }
 
-  .movies-autocomplete {
+  .big-autocomplete {
     min-height: 402px !important;
+
+    & img {
+      height: 64px;
+    }
 
     & .mat-option {
       min-height: 66px !important;

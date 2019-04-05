@@ -1,7 +1,7 @@
 <mat-form-field>
   <input #inputSearch matInput placeholder="{{'global.add'|translate}}" [matAutocomplete]="auto" [formControl]="movieCtrl">
 </mat-form-field>
-<mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption class="movies-autocomplete">
+<mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption class="big-autocomplete">
   <mat-option *ngFor="let movie of filteredMovies | async" (onSelectionChange)="add(movie); inputSearch.value = ''">
     <div class="media">
       <img class="align-self-center" *ngIf="movie.affiche" src="{{movie.affiche | image:'small'}}">
