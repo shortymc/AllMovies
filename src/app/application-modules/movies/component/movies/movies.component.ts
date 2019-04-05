@@ -244,7 +244,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
               m.score = {};
             }
           });
-          this.myMoviesService.replaceMovies(data);
+          this.myMoviesService.replaceMovies(data, false);
         },
         err => console.error(err)
       );
