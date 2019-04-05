@@ -62,7 +62,7 @@ label {
 
 /* stylelint-disable selector-pseudo-element-no-unknown */
 /* stylelint-disable selector-type-no-unknown */
-.movie-poster ::ng-deep pinch-zoom {
+.movie-poster ::ng-deep.frame-viewer {
   height: 100% !important;
   margin: 20px !important;
 }

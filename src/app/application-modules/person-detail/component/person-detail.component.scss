@@ -68,7 +68,7 @@ figure {
 
   /* stylelint-disable selector-pseudo-element-no-unknown */
   /* stylelint-disable selector-type-no-unknown */
-  .person-profile ::ng-deep pinch-zoom {
+  .person-profile ::ng-deep.frame-viewer {
     margin-top: 20px;
     margin-bottom: 0;
   }
