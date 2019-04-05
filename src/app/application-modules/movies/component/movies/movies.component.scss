@@ -71,12 +71,11 @@ mat-row {
 .filter-item {
   display: flex;
   flex-direction: row;
+}
 
-  & .clear-btn {
-    display: flex;
-    align-items: center;
-    margin: auto;
-  }
+.clear-btn {
+  display: flex;
+  align-items: center;
 }
 
 .tag-row td.mat-cell {
@@ -272,6 +271,10 @@ mat-row {
     & .filter-item .mat-form-field {
       width: 90vw;
     }
+  }
+
+  .clear-btn {
+    margin: auto;
   }
 
   .mat-column-select > * {
