@@ -25,6 +25,8 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
   movies: Movie[];
   @Input()
   label: string;
+  @Input()
+  isSingleMovie: boolean;
   tags: Tag[];
   myMovies: Movie[];
   subs = [];
@@ -51,7 +53,9 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.subs.push(this.myTagsService.myTags$.subscribe((tags) => this.tags = tags));
-    this.subs.push(this.myMoviesService.myMovies$.subscribe((movies) => this.myMovies = movies));
+    if (this.isSingleMovie && this.movies.length > 1) {
+      throw new Error('Too many movies for addCollection on single movie mode');
+    }
   }
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }): void {
@@ -67,16 +71,17 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
     const cmpFactory = this.cfr.resolveComponentFactory(FaIconComponent);
     const component = this.vcRef.createComponent(cmpFactory);
     this.subs.push(this.myMoviesService.myMovies$.subscribe(myMovies => {
+      this.myMovies = myMovies;
       if (myMovies && myMovies.length > 0) {
-        this.isAlreadyAdded = this.movies.filter(movie => !myMovies.map(m => m.id).includes(movie.id)).length === 0;
-        this.insertIconAndText(component);
+        this.isAlreadyAdded = this.movies.every(movie => myMovies.map(m => m.id).includes(movie.id));
       }
+      this.insertIconAndText(component);
     }));
   }
 
   insertIconAndText(component: ComponentRef<FaIconComponent>): void {
     if (this.isAlreadyAdded) {
-      if (this.movies.length > 1) {
+      if (!this.isSingleMovie) {
         // Movies list -> already added
         component.instance.iconProp = faStar;
         this.el.nativeElement.innerText = this.translate.instant('global.already_added');
@@ -102,14 +107,11 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   add(): void {
-    if (this.movies.length > 1) {
-      this.movies = this.movies.filter((mov: Movie) => mov.checked);
-    }
-    this.addMovies();
+    this.addMovies(!this.isSingleMovie ? this.movies.filter((mov: Movie) => mov.checked) : this.movies);
   }
 
   remove(): void {
-    if (this.movies.length === 1) {
+    if (this.isSingleMovie) {
       const movieRemoved = this.myMovies.find(m => m.id === this.movies[0].id);
       const tagsToReplace = this.tags.filter(t => movieRemoved.tags.includes(t.id));
       tagsToReplace.forEach(t => t.movies = t.movies.filter(movie => movieRemoved.id !== movie.id));
@@ -118,9 +120,9 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  addMovies(): void {
+  addMovies(moviesToAdd: Movie[]): void {
     const prom = [];
-    this.movies.forEach(movie => {
+    moviesToAdd.forEach(movie => {
       prom.push(this.movieService.getMovie(movie.id, new MovieDetailConfig(false, false, false, false, false, false, false, false, 'fr'), false));
       prom.push(this.movieService.getMovie(movie.id, new MovieDetailConfig(false, false, false, false, false, false, false, false, 'en'), false));
     });
