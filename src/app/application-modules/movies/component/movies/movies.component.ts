@@ -46,6 +46,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   movies: Movie[];
   allMovies: Movie[];
   tags: Tag[];
+  filteredTags: number[];
   length: number;
   displayedData: Movie[];
   filter: string;
@@ -200,7 +201,26 @@ export class MoviesComponent implements OnInit, OnDestroy {
     list = Utils.sortMovie(Utils.filterByFields(list, this.displayedColumns, this.filter), this.sort);
     this.length = list.length;
     this.initPagination(list);
-    // this.onTop();
+  }
+
+  filterTags(): Movie[] {
+    return this.filteredTags && this.filteredTags.length > 0
+      ? this.movies.filter((movie: Movie) => this.filteredTags.every((tagId: number) => {
+        if (movie.tags) {
+          return movie.tags.includes(tagId);
+        } else {
+          return false;
+        }
+      }))
+      : this.movies;
+  }
+
+  onFilterTags(tags: number[]): void {
+    this.filteredTags = tags;
+    let list = this.filterTags();
+    list = Utils.sortMovie(Utils.filterByFields(list, this.displayedColumns, this.filter), this.sort);
+    this.length = list.length;
+    this.initPagination(list);
   }
 
   updateSize(): void {
