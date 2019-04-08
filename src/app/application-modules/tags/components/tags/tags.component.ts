@@ -11,7 +11,6 @@ import { FormGroup, Validators, FormControl, AbstractControl } from '@angular/fo
 
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
 import { Utils } from './../../../../shared/utils';
-import { MyMoviesService } from './../../../../shared/service/my-movies.service';
 import { TitleService } from './../../../../shared/service/title.service';
 import { Tag } from './../../../../model/tag';
 
@@ -52,7 +51,6 @@ export class TagsComponent implements OnInit, OnDestroy {
   constructor(
     private myTagsService: MyTagsService,
     public translate: TranslateService,
-    private myMoviesService: MyMoviesService,
     private title: TitleService
   ) { }
 
