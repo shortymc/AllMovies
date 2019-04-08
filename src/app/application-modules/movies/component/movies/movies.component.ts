@@ -259,7 +259,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
               m.score = {};
             }
           });
-          this.myMoviesService.replaceMovies(data, false);
+          this.myMoviesService.replaceMovies(data);
         },
         err => console.error(err)
       );
@@ -269,10 +269,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   remove(): void {
-    const moviesToRemove = this.allMovies.filter(movie => movie.checked);
-    const tagsToReplace = this.tags.filter(t => moviesToRemove.map(m => m.tags).reduce((x, y) => x.concat(y), []).includes(t.id));
-    tagsToReplace.forEach(t => t.movies = t.movies.filter(movie => !moviesToRemove.map(m => m.id).includes(movie.id)));
-    this.myMoviesService.remove(moviesToRemove.map(movie => movie.id))
+    const moviesToRemove = this.allMovies.filter(movie => movie.checked).map(m => m.id);
+    const tagsToReplace = this.tags.filter(t => t.movies.map(m => m.id).some(id => moviesToRemove.includes(id)));
+    tagsToReplace.forEach(t => t.movies = t.movies.filter(movie => !moviesToRemove.includes(movie.id)));
+    this.myMoviesService.remove(moviesToRemove)
       .then(() => this.myTagsService.replaceTags(tagsToReplace));
     this.nbChecked = 0;
     this.onTop();
