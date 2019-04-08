@@ -295,6 +295,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
       this.myTagsService.updateTag(this.selectedTag).then(() => {
         this.nbChecked = 0;
         this.selectedTag = undefined;
+        this.allMovies.forEach(m => m.checked = false);
       });
     } else {
       this.toast.open(Level.warning, 'toast.already_added');
