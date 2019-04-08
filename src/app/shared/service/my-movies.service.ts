@@ -6,7 +6,6 @@ import { DropboxService } from './dropbox.service';
 import { AuthService } from './auth.service';
 import { Level } from './../../model/model';
 import { Movie, MovieI18N } from './../../model/movie';
-import { Tag } from './../../model/tag';
 import { UtilsService } from './utils.service';
 import { ToastService } from './toast.service';
 import { Utils } from '../utils';
