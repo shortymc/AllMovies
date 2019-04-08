@@ -29,7 +29,7 @@
       <mat-form-field>
         <mat-select placeholder="{{'movie.tagged' | translate}}" multiple [(value)]="filteredTags"
           (selectionChange)="paginator.firstPage(); filteredTags = $event.value; onFilterTags($event.value)">
-          <mat-option *ngFor="let tag of tags" [value]="tag.id">{{tag.label}}</mat-option>
+          <mat-option *ngFor="let tag of tags" [value]="tag">{{tag.label}}</mat-option>
         </mat-select>
       </mat-form-field>
       <span *ngIf="filteredTags && filteredTags.length > 0" class="pointer clear-btn" (click)="paginator.firstPage(); filteredTags = null; onFilterTags(null)">
