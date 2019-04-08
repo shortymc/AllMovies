@@ -37,9 +37,7 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subs.push(this.myMoviesService.myMovies$.subscribe(movies => {
-      this.allMovies = movies;
-    }));
+    this.subs.push(this.myMoviesService.myMovies$.subscribe(movies => this.allMovies = movies));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -75,10 +73,7 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
 
   save(): void {
     this.editing = false;
-    const toUpdate = this.allMovies.find(m => m.id === this.movieId);
-    toUpdate.tags = this.tagsToSave.map(t => t.id);
-    this.myMoviesService.replaceMovies([toUpdate], true)
-      .then(() => this.myTagsService.replaceTags(this.tagsToSave));
+    this.myTagsService.replaceTags(this.tagsToSave);
   }
 
   cancel(): void {
