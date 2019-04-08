@@ -120,10 +120,10 @@ export class MyTagsService {
       }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
-  updateTag(tag: Tag): void {
+  updateTag(tag: Tag): Promise<boolean> {
     let tempTagList = [];
     let fileName;
-    this.getFileName()
+    return this.getFileName()
       .then((file: string) => {
         // download file
         fileName = file;
@@ -145,7 +145,11 @@ export class MyTagsService {
         console.log(res);
         this.myTags$.next(tempTagList);
         this.toast.open(Level.success, 'toast.tags_updated');
-      }).catch((err) => this.serviceUtils.handleError(err, this.toast));
+        return true;
+      }).catch((err) => {
+        this.serviceUtils.handleError(err, this.toast);
+        return false;
+      });
   }
 
   replaceTags(tagsToReplace: Tag[]): Promise<boolean> {
