@@ -164,7 +164,6 @@ export class TagMoviesComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   save(): void {
-    this.myTagsService.updateTag(this.tag);
     this.edited = false;
     new Promise(resolve => {
       this.moviesToAdd = this.moviesToAdd.filter(movie => !this.allMovies.map(m => m.id).includes(movie.id));
@@ -177,7 +176,7 @@ export class TagMoviesComponent implements OnInit, OnChanges, OnDestroy {
         this.moviesToAdd = [];
         resolve(true);
       }
-    }).then(() => this.myMoviesService.updateTag(this.tag));
+    }).then(() => this.myTagsService.updateTag(this.tag));
   }
 
   toogleEdit(): void {
