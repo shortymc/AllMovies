@@ -143,11 +143,6 @@ export class TagsComponent implements OnInit, OnDestroy {
   remove(): void {
     const checkedTags = this.tableTags.filter(tag => tag.checked);
     this.myTagsService.remove(checkedTags.map(tag => tag.id));
-    let p = Promise.resolve(true);
-    checkedTags.forEach(removed => {
-      removed.movies = [];
-      p = p.then(() => this.myMoviesService.updateTag(removed));
-    });
     this.nbChecked = 0;
   }
 
