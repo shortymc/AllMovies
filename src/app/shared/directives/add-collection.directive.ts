@@ -112,10 +112,10 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
 
   remove(): void {
     if (this.isSingleMovie) {
-      const movieRemoved = this.myMovies.find(m => m.id === this.movies[0].id);
-      const tagsToReplace = this.tags.filter(t => movieRemoved.tags.includes(t.id));
-      tagsToReplace.forEach(t => t.movies = t.movies.filter(movie => movieRemoved.id !== movie.id));
-      this.myMoviesService.remove([movieRemoved.id])
+      const movieRemoved = this.myMovies.find(m => m.id === this.movies[0].id).id;
+      const tagsToReplace = this.tags.filter(t => t.movies.map(m => m.id).includes(movieRemoved));
+      tagsToReplace.forEach(t => t.movies = t.movies.filter(movie => movieRemoved !== movie.id));
+      this.myMoviesService.remove([movieRemoved])
         .then(() => this.myTagsService.replaceTags(tagsToReplace));
     }
   }
