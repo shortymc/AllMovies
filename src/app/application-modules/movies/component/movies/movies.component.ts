@@ -45,7 +45,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   displayedColumns = this.init_columns;
   allMovies: Movie[];
   tags: Tag[];
-  filteredTags: number[];
+  filteredTags: Tag[];
   length: number;
   displayedData: Movie[];
   filter: string;
@@ -202,18 +202,15 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   filterTags(): Movie[] {
-    return this.filteredTags && this.filteredTags.length > 0
-      ? this.allMovies.filter((movie: Movie) => this.filteredTags.every((tagId: number) => {
-        if (movie.tags) {
-          return movie.tags.includes(tagId);
-        } else {
-          return false;
-        }
-      }))
-      : this.allMovies;
+    if (this.filteredTags && this.filteredTags.length > 0) {
+      const ids = Utils.unique(Utils.flatMap<Tag, TagMovie>(this.filteredTags, 'movies').map(movie => movie.id));
+      return this.allMovies.filter((m: Movie) => ids.includes(m.id));
+    } else {
+      return this.allMovies;
+    }
   }
 
-  onFilterTags(tags: number[]): void {
+  onFilterTags(tags: Tag[]): void {
     this.filteredTags = tags;
     let list = this.filterTags();
     list = Utils.sortMovie(Utils.filterByFields(list, this.displayedColumns, this.filter), this.sort);

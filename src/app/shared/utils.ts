@@ -251,6 +251,26 @@ export class Utils {
     return tag;
   }
 
+  static flatMap<T, K>(array: T[], field: string): K[] {
+    if (!array || array.length === 0) {
+      return [];
+    } else if (!Object.keys(array[0]).includes(field)) {
+      console.log('array[0]', array[0]);
+      throw new Error('Given array doesn\'t have the requested field: ' + field);
+    }
+    return array.map(obj => obj[field]).reduce((x, y) => x.concat(y), []);
+  }
+
+  static unique<T>(array: T[]): T[] {
+    const result = [];
+    array.forEach(element => {
+      if (!result.includes(element)) {
+        result.push(element);
+      }
+    });
+    return result;
+  }
+
   static groupBy<T>(items: T[], field: string): GroupBy<T>[] {
     const groupedObj = items.reduce((prev: T, cur: T) => {
       if (!prev[cur[field]]) {
