@@ -42,7 +42,6 @@ export class Movie {
   public spokenLangs: Lang[];
   public character: string;
   public updated: Date = new Date();
-  public tags: number[];
   constructor() { }
 
   static toJson(movies: Movie[]): string {
