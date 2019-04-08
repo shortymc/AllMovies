@@ -146,9 +146,14 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   refreshData(): Movie[] {
     let list = this.filterGenres();
-    list = Utils.sortMovie(
-      Utils.filterByFields(list, this.displayedColumns.filter(col => !['added', 'select', 'details'].includes(col)), this.filter),
-      this.sort);
+    const byFields = Utils.filterByFields(list,
+      this.displayedColumns.filter(col => !['added', 'select', 'details', 'genres', 'meta', 'thumbnail', 'tag-icon', 'title'].includes(col)),
+      this.filter);
+    let byTitle = [];
+    if (this.filter) {
+      byTitle = list.filter(m => m.translation.get(this.translate.currentLang).name.toLowerCase().includes(this.filter.toLowerCase()));
+    }
+    list = Utils.sortMovie(Utils.unique(byFields.concat(byTitle)), this.sort);
     this.length = list.length;
     return list;
   }
