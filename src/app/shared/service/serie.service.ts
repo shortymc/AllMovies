@@ -9,7 +9,7 @@ import { ToastService } from './toast.service';
 import { UtilsService } from './utils.service';
 
 @Injectable()
-export class SerieSearchService {
+export class SerieService {
 
   constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 

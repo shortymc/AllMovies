@@ -5,13 +5,12 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { switchMap, debounceTime, catchError } from 'rxjs/operators';
 
 import { Serie } from '../../../model/serie';
-import { SerieSearchService } from '../../service/serie-search.service';
+import { SerieService } from '../../shared.module';
 
 @Component({
   selector: 'app-serie-search',
   templateUrl: './serie-search.component.html',
   styleUrls: ['./serie-search.component.scss'],
-  providers: [SerieSearchService]
 })
 export class SerieSearchComponent implements OnInit, OnDestroy {
   @ViewChild('searchBox')
@@ -41,7 +40,7 @@ export class SerieSearchComponent implements OnInit, OnDestroy {
 
   constructor(
     private elemRef: ElementRef,
-    private serieSearchService: SerieSearchService,
+    private serieService: SerieService,
     private translate: TranslateService,
   ) { }
 
@@ -62,7 +61,7 @@ export class SerieSearchComponent implements OnInit, OnDestroy {
         // .distinctUntilChanged()   // ignore if next search term is same as previous
         switchMap(term => term   // switch to new observable each time the term changes
           // return the http search observable
-          ? this.serieSearchService.search(term, this.language)
+          ? this.serieService.search(term, this.language)
           // or the observable of empty series if there was no search term
           : of<Serie[]>([])),
         catchError(error => {
