@@ -19,7 +19,7 @@
       </button> -->
     </div>
   </div>
-  <app-meta class="serie-meta" [entry]="serie" [orientation]="'vertical'" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
+  <app-meta class="serie-meta" [entry]="serie" [isMovie]="false" [isSerie]="true" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
   <div class="serie-content">
     <app-image-viewer class="serie-poster" [images]="serie.affiche" [thumbnails]="serie.affiche" [visible]="true"></app-image-viewer>
     <div>
