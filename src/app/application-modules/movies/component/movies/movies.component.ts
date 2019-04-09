@@ -20,7 +20,7 @@ import { MyTagsService } from './../../../../shared/service/my-tags.service';
 import { TitleService, MovieService, MyMoviesService } from './../../../../shared/shared.module';
 import { Tag, TagMovie } from './../../../../model/tag';
 import { Movie } from './../../../../model/movie';
-import { Genre, MovieDetailConfig, Level } from '../../../../model/model';
+import { Genre, DetailConfig, Level } from '../../../../model/model';
 
 library.add(faClock);
 library.add(faTimesCircle);
@@ -246,8 +246,8 @@ export class MoviesComponent implements OnInit, OnDestroy {
     const obs = [];
     const otherLang = lang === 'fr' ? 'en' : 'fr';
     incomplete.forEach((id: number) => {
-      obs.push(this.movieService.getMovie(id, new MovieDetailConfig(false, false, false, false, false, false, false, false, lang), false));
-      obs.push(this.movieService.getMovie(id, new MovieDetailConfig(false, false, false, false, false, false, false, false, otherLang), false));
+      obs.push(this.movieService.getMovie(id, new DetailConfig(false, false, false, false, false, false, false, false, lang), false));
+      obs.push(this.movieService.getMovie(id, new DetailConfig(false, false, false, false, false, false, false, false, otherLang), false));
     });
 
     try {

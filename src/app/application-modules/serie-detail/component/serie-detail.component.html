@@ -1,0 +1,178 @@
+<div *ngIf="serie">
+  <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
+    <app-image-viewer [images]="serie.images" [thumbnails]="serie.images" [visible]="isImagesVisible"></app-image-viewer>
+  </app-modal>
+  <div class="serie-header">
+    <h1 class="serie-title">{{serie.title}} ({{serie.firstAired | date:'yyyy'}})</h1>
+    <!-- Time -->
+    <h3 class="serie-time" *ngFor="let time of serie.runtimes">
+      {{time}} {{'time.minute' | translate}}s
+    </h3>
+    <div class="serie-btn">
+      <!-- Go Back Btn -->
+      <button class="btn btn-outline-primary" (click)="goBack()">
+        <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'global.previous' | translate}}
+      </button>
+      <!-- Add to collection btn -->
+      <!-- <button class="btn btn-outline-primary" appAddCollection [series]="[serie]" [label]="'global.add_collection'"
+        [isSingleSerie]="true">
+      </button> -->
+    </div>
+  </div>
+  <app-meta class="serie-meta" [entry]="serie" [orientation]="'vertical'" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
+  <div class="serie-content">
+    <app-image-viewer class="serie-poster" [images]="serie.affiche" [thumbnails]="serie.affiche" [visible]="true"></app-image-viewer>
+    <div>
+      <label>{{'global.id' | translate}}:</label>{{serie.id}}
+    </div>
+    <!-- Title -->
+    <div *ngIf="serie.title !== serie.originTitle">
+      <label>{{'global.originTitle' | translate}}: </label>{{serie.originTitle | capitalizeWord}}
+    </div>
+    <div *ngIf="serie.alternativeTitles && serie.alternativeTitles.length > 0" class="d-inline-flex flex-column">
+      <div>
+        <label>{{'serie.alternative_title' | translate}}: </label>
+        <button class="btn btn-outline-primary alternative-btn" *ngIf="!showTitles" (click)="showTitles=!showTitles">
+          <fa-icon [icon]="faPlus" size="xs"></fa-icon>
+        </button>
+        <button class="btn btn-outline-primary alternative-btn" *ngIf="showTitles" (click)="showTitles=!showTitles">
+          <fa-icon [icon]="faMinus" size="xs"></fa-icon>
+        </button>
+      </div>
+      <ng-container *ngIf="showTitles">
+        <div *ngFor="let alternative of serie.alternativeTitles" class="pad-left">
+          {{alternative.lang}}: {{alternative.title}}
+        </div>
+      </ng-container>
+    </div>
+    <!-- Country -->
+    <div *ngIf="serie.originCountries && serie.originCountries.length > 0">
+      <label>{{'serie.country' | translate}}: </label>
+      <span *ngFor="let country of serie.originCountries; let last=last;">
+        <span>{{country}}</span>
+        <span *ngIf="!last">/</span>
+      </span>
+    </div>
+    <!-- Langs -->
+    <div>
+      <label>{{'serie.languages' | translate}}: </label>
+      <div *ngIf="serie.languages && serie.languages.length > 0; else originLang">
+        <span *ngFor="let lang of serie.languages; let last=last;">
+          <span>{{lang | uppercase}}</span>
+          <span *ngIf="!last">/</span>
+        </span>
+      </div>
+      <ng-template #originLang>{{serie.originLang}}</ng-template>
+    </div>
+    <!-- Aired Date -->
+    <div class="serie-aired" *ngIf="serie.firstAired || serie.lastAired">
+      <label>{{'serie.date' | translate}}: </label>
+      <ng-container>
+        <div class="pad-left">
+          <ng-container *ngIf="serie.firstAired">
+            {{serie.firstAired | date:'dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}
+          </ng-container>
+          <ng-container *ngIf="serie.firstAired || serie.lastAired"> - </ng-container>
+          <ng-container *ngIf="serie.lastAired">
+            {{serie.lastAired | date:'dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+    <!-- Genre -->
+    <div *ngIf="serie.genres && serie.genres.length > 0">
+      <label>{{'global.genres' | translate}}: </label>
+      <div class="serie-genre">
+        <span *ngFor="let genre of serie.genres; let last=last;" (click)="redirectGenreToDiscover(genre)">
+          <span class="pointer" appOpenLink [label]="genre.name" url="/discover?genre=[{{genre.id}}]">{{genre.name|
+            capitalizeWord}}</span>
+          <span *ngIf="!last">/</span>
+        </span>
+      </div>
+    </div>
+    <!-- Keyword -->
+    <div *ngIf="serie.keywords && serie.keywords.length > 0">
+      <label>{{'global.keyword' | translate}}: </label>
+      <div class="synopsis break-word">
+        <span *ngFor="let keyword of serie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)" class="serie-keyword">
+          <span class="pointer" appOpenLink [label]="keyword.name" url="/discover?keyword=[{{keyword.id}}]">{{keyword.name|
+            capitalizeWord}}</span>
+          <span *ngIf="!last">/</span>
+        </span>
+      </div>
+    </div>
+    <!-- Overview -->
+    <div *ngIf="serie.overview">
+      <label>{{'global.overview' | translate}}: </label>
+      <div class="synopsis text-justify">{{serie.overview}}</div>
+    </div>
+    <!-- Pictures -->
+    <div class="pad-left" *ngIf="config.img">
+      <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible" *ngIf="serie.images">
+        <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'serie.image' | translate}}
+      </button>
+    </div>
+    <div class="pad-left" *ngIf="config.credit">
+      <!-- Actors -->
+      <app-list-persons [persons]="serie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
+      <!-- Crew -->
+      <div *ngIf="serie.crew && serie.crew.length > 0">
+        <div *ngIf="(serie.crew | filterCrew:'director') as director">
+          <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(serie.crew | filterCrew:'producer') as producer">
+          <app-list-persons [persons]="producer" [label]="'person-list.producers' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(serie.crew | filterCrew:'Original Music Composer') as composer">
+          <app-list-persons [persons]="composer" [label]="'person-list.composers' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(serie.crew | filterCrew:'Compositors') as compositors">
+          <app-list-persons [persons]="compositors" [label]="'person-list.composers' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(serie.crew | filterCrew:'screenplay') as screenplay">
+          <app-list-persons [persons]="screenplay" [label]="'person-list.screenwriters' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(serie.crew | filterCrew:'writer') as screenplay">
+          <app-list-persons [persons]="screenplay" [label]="'person-list.screenwriters' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(serie.crew | filterCrew:'novel') as novel">
+          <app-list-persons [persons]="novel" [label]="'person-list.novelists' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(serie.crew | filterCrew:'cameo') as cameo">
+          <app-list-persons [persons]="cameo" [label]="'person-list.cameos' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(serie.crew | filterCrew:'special Guest') as guest">
+          <app-list-persons [persons]="guest" [label]="'person-list.guests' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(serie.crew | filterCrew:'songs') as songs">
+          <app-list-persons [persons]="songs" [label]="'person-list.song' | translate"></app-list-persons>
+        </div>
+        <div *ngIf="(serie.crew | filterCrew:'music') as music">
+          <app-list-persons [persons]="music" [label]="'person-list.music' | translate"></app-list-persons>
+        </div>
+      </div>
+    </div>
+    <!-- Video -->
+    <ng-container *ngIf="config.video">
+      <div *ngIf="serie.videos && serie.videos.length > 0">
+        <label>{{'global.video' | translate}}:</label>
+        <ul class="videos">
+          <li *ngFor="let video of serie.videos">
+            <a href="https://www.youtube.com/watch?v={{video.key}}" class="badge" target="_blank">{{video.name |
+              capitalizeWord}}</a>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+  </div>
+  <div class="media-content">
+    <!-- recommendations -->
+    <ng-container *ngIf="serie.recommendations">
+      <app-list-movies [movies]="serie.recommendations" [label]="('global.reco' | translate).concat(':')"></app-list-movies>
+    </ng-container>
+    <!-- Similar series -->
+    <ng-container *ngIf="serie.similars">
+      <app-list-movies [movies]="serie.similars" [label]="('global.similar' | translate).concat(':')"></app-list-movies>
+    </ng-container>
+  </div>
+</div>

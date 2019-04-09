@@ -24,6 +24,10 @@
         "show": "Afficher",
         "hide": "Cacher",
         "id": "Id",
+        "video": "Vidéo(s)",
+        "reco": "Vous aimerez aussi",
+        "similar": "Films similaires",
+        "synopsis": "Synopsis",
         "clear": "Rénitialiser",
         "sort": "Trier",
         "sort_direction": "Direction",
@@ -104,20 +108,15 @@
         "persons": "Personnes populaires"
     },
     "movie": {
-        "id": "Id",
         "title": "Titre",
         "alternative_title": "Titres Alternatif",
         "country": "Pays",
         "date": "Date de Sortie",
         "length": "Durée",
-        "synopsis": "Synopsis",
         "budget": "Budget",
         "spoken_langs": "Langues Parlées",
         "revenu": "Recette",
-        "video": "Vidéo(s)",
         "image": "Images du film",
-        "reco": "Vous aimerez aussi",
-        "similar": "Films similaires",
         "tagged": "Tags",
         "score": {
             "source": "Site",
@@ -140,7 +139,6 @@
         "total": "Total"
     },
     "person": {
-        "id": "Id",
         "name": "Nom",
         "birthplace": "Lieu de naissance",
         "age": "Age",
@@ -190,7 +188,6 @@
     },
     "movies": {
         "header": "Mes Films",
-        "id": "Id",
         "poster": "Affiche",
         "title": "Titre",
         "date": "Date",

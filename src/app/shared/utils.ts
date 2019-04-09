@@ -46,9 +46,9 @@ export class Utils {
   }
 
   static sortCast(a1: any, a2: any): any {
-    if (a1.cast_id < a2.cast_id) {
+    if (a1.order < a2.order) {
       return -1;
-    } else if (a1.cast_id > a2.cast_id) {
+    } else if (a1.order > a2.order) {
       return 1;
     } else {
       return 0;
