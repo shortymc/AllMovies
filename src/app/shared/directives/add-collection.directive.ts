@@ -11,7 +11,7 @@ import { Tag } from './../../model/tag';
 import { Movie } from '../../model/movie';
 import { MovieService } from '../service/movie.service';
 import { MyMoviesService } from './../service/my-movies.service';
-import { MovieDetailConfig } from '../../model/model';
+import { DetailConfig } from '../../model/model';
 import { MyTagsService } from '../service/my-tags.service';
 
 @Directive({
@@ -123,8 +123,8 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
   addMovies(moviesToAdd: Movie[]): void {
     const prom = [];
     moviesToAdd.forEach(movie => {
-      prom.push(this.movieService.getMovie(movie.id, new MovieDetailConfig(false, false, false, false, false, false, false, false, 'fr'), false));
-      prom.push(this.movieService.getMovie(movie.id, new MovieDetailConfig(false, false, false, false, false, false, false, false, 'en'), false));
+      prom.push(this.movieService.getMovie(movie.id, new DetailConfig(false, false, false, false, false, false, false, false, 'fr'), false));
+      prom.push(this.movieService.getMovie(movie.id, new DetailConfig(false, false, false, false, false, false, false, false, 'en'), false));
     });
     forkJoin(prom).subscribe((movies: Movie[]) => {
       this.myMoviesService.add(movies);

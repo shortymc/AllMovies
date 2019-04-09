@@ -1,9 +1,9 @@
 export class Season {
   id: number;
-  airDate: string;
-  episodeCount: number;
   name: string;
   overview: string;
-  poster: string;
+  airDate: string;
   seasonNumber: number;
+  episodeCount: number;
+  poster: string;
 }

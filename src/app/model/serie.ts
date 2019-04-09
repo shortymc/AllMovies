@@ -18,7 +18,7 @@ export class Serie {
   originCountries: string[];
   overview: string;
   affiche: string;
-  createdBy: Person[];
+  creators: Person[];
   runtimes: number[];
   firstAired: Date;
   lastAired: Date;
@@ -45,7 +45,6 @@ export class Serie {
   type: string;
   similars: Serie[];
   keywords: Keyword[];
-  releaseDates: ReleaseDate[];
   alternativeTitles: AlternativeTitle[];
   character: string;
   updated: Date = new Date();

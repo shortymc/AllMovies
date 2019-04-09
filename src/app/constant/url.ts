@@ -7,6 +7,7 @@ export class Url {
   static readonly API_KEY = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
   static readonly MOVIE_DB_API_URL = 'https://api.themoviedb.org/3/';
   static readonly MOVIE_URl = Url.MOVIE_DB_API_URL + 'movie';
+  static readonly SERIE_URl = Url.MOVIE_DB_API_URL + 'tv';
   static readonly PERSON_URL = Url.MOVIE_DB_API_URL + 'person';
   static readonly MOVIE_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/movie?';
   static readonly SERIE_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/tv?';
@@ -19,6 +20,8 @@ export class Url {
   static readonly LANGUE_FR = '&language=fr';
   static readonly ADULT_URL = '&include_adult=true';
   static readonly QUERY_URL = '&query=';
+
+  // APPEND
   static readonly APPEND = '&append_to_response=';
   static readonly APPEND_VIDEOS = 'videos';
   static readonly APPEND_CREDITS = 'credits';
@@ -28,6 +31,8 @@ export class Url {
   static readonly APPEND_RECOMMENDATIONS = 'recommendations';
   static readonly APPEND_RELEASE_DATE = 'release_dates';
   static readonly APPEND_SIMILARS = 'similar';
+  static readonly APPEND_TRANSLATIONS = 'translations';
+
   static readonly INCLUDE_IMAGE_LANGUAGE = '&include_image_language=';
   static readonly RELEASE_DATE_GTE_URL = '&release_date.gte=';
   static readonly RELEASE_DATE_LTE_URL = '&release_date.lte=';

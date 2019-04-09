@@ -13,7 +13,7 @@ import { MyTagsService } from './../../../shared/service/my-tags.service';
 import { DuckDuckGo } from './../../../constant/duck-duck-go';
 import { MovieService } from '../../../shared/shared.module';
 import { Movie } from '../../../model/movie';
-import { Keyword, Genre, MovieDetailConfig } from '../../../model/model';
+import { Keyword, Genre, DetailConfig } from '../../../model/model';
 
 @Component({
   selector: 'app-movie-detail',
@@ -22,7 +22,7 @@ import { Keyword, Genre, MovieDetailConfig } from '../../../model/model';
 })
 export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
   @Input() id: number;
-  @Input() config: MovieDetailConfig;
+  @Input() config: DetailConfig;
   @Output() loaded = new EventEmitter<boolean>();
   movie: Movie;
   tags: Tag[];
@@ -81,7 +81,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
     if (this.id && this.id !== 0) {
       this.loaded.emit(false);
       this.config = this.config === undefined ?
-        new MovieDetailConfig(true, true, true, true, true, true, true, true, this.translate.currentLang) : this.config;
+        new DetailConfig(true, true, true, true, true, true, true, true, this.translate.currentLang) : this.config;
       this.movieService.getMovie(id, this.config, true).then((movie) => {
         this.movie = movie;
         this.loaded.emit(true);

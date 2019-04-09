@@ -5,7 +5,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { switchMap, debounceTime, catchError } from 'rxjs/operators';
 
 import { Serie } from '../../../model/serie';
-import { SerieService } from '../../shared.module';
+import { SerieService } from '../../service/serie.service';
 
 @Component({
   selector: 'app-serie-search',
