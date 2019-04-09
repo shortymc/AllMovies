@@ -146,6 +146,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   refreshData(): Movie[] {
     let list = this.filterGenres();
+    list = this.filterTags(list);
     const byFields = Utils.filterByFields(list,
       this.displayedColumns.filter(col => !['added', 'select', 'details', 'genres', 'meta', 'thumbnail', 'tag-icon', 'title'].includes(col)),
       this.filter);
@@ -200,27 +201,21 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   onFilterGenres(genres: number[]): void {
     this.filteredGenres = genres;
-    let list = this.filterGenres();
-    list = Utils.sortMovie(Utils.filterByFields(list, this.displayedColumns, this.filter), this.sort);
-    this.length = list.length;
-    this.initPagination(list);
+    this.initPagination(this.refreshData());
   }
 
-  filterTags(): Movie[] {
+  filterTags(list: Movie[]): Movie[] {
     if (this.filteredTags && this.filteredTags.length > 0) {
       const ids = Utils.unique(Utils.flatMap<Tag, TagMovie>(this.filteredTags, 'movies').map(movie => movie.id));
-      return this.allMovies.filter((m: Movie) => ids.includes(m.id));
+      return list.filter((m: Movie) => ids.includes(m.id));
     } else {
-      return this.allMovies;
+      return list;
     }
   }
 
   onFilterTags(tags: Tag[]): void {
     this.filteredTags = tags;
-    let list = this.filterTags();
-    list = Utils.sortMovie(Utils.filterByFields(list, this.displayedColumns, this.filter), this.sort);
-    this.length = list.length;
-    this.initPagination(list);
+    this.initPagination(this.refreshData());
   }
 
   updateSize(): void {
