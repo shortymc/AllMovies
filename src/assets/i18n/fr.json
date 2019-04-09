@@ -28,6 +28,9 @@
         "reco": "Vous aimerez aussi",
         "similar": "Films similaires",
         "synopsis": "Synopsis",
+        "alternative_title": "Titres Alternatif",
+        "country": "Pays",
+        "languages": "Langues",
         "clear": "Rénitialiser",
         "sort": "Trier",
         "sort_direction": "Direction",
@@ -109,8 +112,6 @@
     },
     "movie": {
         "title": "Titre",
-        "alternative_title": "Titres Alternatif",
-        "country": "Pays",
         "date": "Date de Sortie",
         "length": "Durée",
         "budget": "Budget",
@@ -192,7 +193,6 @@
         "title": "Titre",
         "date": "Date",
         "rating": "Note",
-        "language": "Langues",
         "length": "Durée",
         "added": "Ajouté",
         "remove": "Retirer les films sélectionnés ({{size}})",
@@ -306,5 +306,9 @@
         "mat-table": {
             "itemsPerPageLabel": "Tags par Page: "
         }
+    },
+    "serie": {
+        "dates": "Dates de diffusion",
+        "images": "Images de la série"
     }
 }
