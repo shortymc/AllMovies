@@ -80,7 +80,7 @@
 
     <!-- POSTER -->
     <ng-container matColumnDef="thumbnail">
-      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.poster'|translate }}">
+      <mat-header-cell *matHeaderCellDef matTooltip="{{ 'movies.poster'|translate }}">
         <span class="mat-text">{{ 'movies.poster'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faImage"></fa-icon>
       </mat-header-cell>
@@ -163,7 +163,7 @@
 
     <!-- GENRES -->
     <ng-container matColumnDef="genres">
-      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'global.genres'|translate }}">
+      <mat-header-cell *matHeaderCellDef matTooltip="{{ 'global.genres'|translate }}">
         <span class="mat-text">{{ 'global.genres'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faList"></fa-icon>
       </mat-header-cell>
