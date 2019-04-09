@@ -1,0 +1,26 @@
+<div id="search-component">
+  <div class="form-check form-check-inline">
+    <div class="search-box">
+      <fa-icon [icon]="faSearch"></fa-icon>
+      <input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="{{'serie-search.placeholder'|translate}}"
+        (click)="showSerie = true" />
+      <a class="icon pointer" (click)="showSerie = !showSerie; searchBox.value=''">
+        <img src="./assets/exit.png" />
+      </a>
+    </div>
+  </div>
+  <div id="res" *ngIf="showSerie">
+    <div *ngFor="let serie of series | async" (click)="searchBox.value='';showSerie = false;" appOpenLink [label]="serie.title"
+      url="/serie/{{serie.id}}" class="search-result">
+      <div class="media">
+        <img class="mr-2 thumbnail-result" *ngIf="serie.affiche" src="{{serie.affiche | image:'small'}}">
+        <div class="media-body">
+          <div class="mt-0 title-result" [ngClass]="{'item-result' : !serie.originTitle}">{{serie.title |
+            capitalizeWord | truncate:20}}
+            ({{serie.firstAired | date : "yyyy"}})</div>
+          <div *ngIf="serie.originTitle" class="small">{{serie.originTitle | truncate:20}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

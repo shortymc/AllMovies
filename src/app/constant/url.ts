@@ -9,6 +9,7 @@ export class Url {
   static readonly MOVIE_URl = Url.MOVIE_DB_API_URL + 'movie';
   static readonly PERSON_URL = Url.MOVIE_DB_API_URL + 'person';
   static readonly MOVIE_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/movie?';
+  static readonly SERIE_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/tv?';
   static readonly PERSON_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/person?';
   static readonly KEYWORD_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/keyword?';
   static readonly KEYWORD_URL = Url.MOVIE_DB_API_URL + 'keyword/';
