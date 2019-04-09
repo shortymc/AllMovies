@@ -72,7 +72,7 @@
     </div>
     <div *ngIf="movie.alternativeTitles && movie.alternativeTitles.length > 0" class="d-inline-flex flex-column">
       <div>
-        <label>{{'movie.alternative_title' | translate}}: </label>
+        <label>{{'global.alternative_title' | translate}}: </label>
         <button class="btn btn-outline-primary alternative-btn" *ngIf="!showTitles" (click)="showTitles=!showTitles">
           <fa-icon [icon]="faPlus" size="xs"></fa-icon>
         </button>
@@ -88,7 +88,7 @@
     </div>
     <!-- Country -->
     <div *ngIf="movie.production_countries && movie.production_countries.length > 0">
-      <label>{{'movie.country' | translate}}: </label>
+      <label>{{'global.country' | translate}}: </label>
       <span *ngFor="let country of movie.production_countries">
         <h1 class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" matTooltip="{{country.name}}"></h1>
       </span>

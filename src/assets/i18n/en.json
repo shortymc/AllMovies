@@ -28,6 +28,9 @@
         "reco": "You should also like",
         "similar": "Similar Movies",
         "synopsis": "Overview",
+        "alternative_title": "Alternative Titles",
+        "country": "Country",
+        "languages": "Languages",
         "clear": "Reset",
         "sort": "Sort",
         "sort_direction": "Direction",
@@ -109,14 +112,12 @@
     },
     "movie": {
         "title": "Title",
-        "country": "Country",
-        "alternative_title": "Alternative Titles",
         "date": "Release Date",
         "length": "Running Time",
         "budget": "Budget",
         "spoken_langs": "Spoken Languages",
         "revenu": "Revenu",
-        "image": "Movie Images",
+        "image": "Movie images",
         "tagged": "Tagged",
         "score": {
             "source": "Site",
@@ -192,7 +193,6 @@
         "title": "Title",
         "date": "Release Date",
         "rating": "Ratings",
-        "language": "Languages",
         "length": "Running Time",
         "added": "Added",
         "remove": "Remove the selected movies ({{size}})",
@@ -306,5 +306,9 @@
         "mat-table": {
             "itemsPerPageLabel": "Tags per page: "
         }
+    },
+    "serie": {
+        "dates": "Aired dates",
+        "images": "Serie image"
     }
 }

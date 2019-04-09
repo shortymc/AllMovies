@@ -31,7 +31,7 @@
     </div>
     <div *ngIf="serie.alternativeTitles && serie.alternativeTitles.length > 0" class="d-inline-flex flex-column">
       <div>
-        <label>{{'serie.alternative_title' | translate}}: </label>
+        <label>{{'global.alternative_title' | translate}}: </label>
         <button class="btn btn-outline-primary alternative-btn" *ngIf="!showTitles" (click)="showTitles=!showTitles">
           <fa-icon [icon]="faPlus" size="xs"></fa-icon>
         </button>
@@ -47,7 +47,7 @@
     </div>
     <!-- Country -->
     <div *ngIf="serie.originCountries && serie.originCountries.length > 0">
-      <label>{{'serie.country' | translate}}: </label>
+      <label>{{'global.country' | translate}}: </label>
       <span *ngFor="let country of serie.originCountries; let last=last;">
         <span>{{country}}</span>
         <span *ngIf="!last">/</span>
@@ -55,7 +55,7 @@
     </div>
     <!-- Langs -->
     <div>
-      <label>{{'serie.languages' | translate}}: </label>
+      <label>{{'global.languages' | translate}}: </label>
       <div *ngIf="serie.languages && serie.languages.length > 0; else originLang">
         <span *ngFor="let lang of serie.languages; let last=last;">
           <span>{{lang | uppercase}}</span>
@@ -66,7 +66,7 @@
     </div>
     <!-- Aired Date -->
     <div class="serie-aired" *ngIf="serie.firstAired || serie.lastAired">
-      <label>{{'serie.date' | translate}}: </label>
+      <label>{{'serie.dates' | translate}}: </label>
       <ng-container>
         <div class="pad-left">
           <ng-container *ngIf="serie.firstAired">
@@ -103,13 +103,13 @@
     </div>
     <!-- Overview -->
     <div *ngIf="serie.overview">
-      <label>{{'global.overview' | translate}}: </label>
+      <label>{{'global.synopsis' | translate}}: </label>
       <div class="synopsis text-justify">{{serie.overview}}</div>
     </div>
     <!-- Pictures -->
     <div class="pad-left" *ngIf="config.img">
       <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible" *ngIf="serie.images">
-        <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'serie.image' | translate}}
+        <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'serie.images' | translate}}
       </button>
     </div>
     <div class="pad-left" *ngIf="config.credit">
