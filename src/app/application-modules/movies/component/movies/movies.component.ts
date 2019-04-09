@@ -154,7 +154,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     if (this.filter) {
       byTitle = list.filter(m => m.translation.get(this.translate.currentLang).name.toLowerCase().includes(this.filter.toLowerCase()));
     }
-    list = Utils.sortMovie(Utils.unique(byFields.concat(byTitle)), this.sort);
+    list = Utils.sortMovie(Utils.unique(byFields.concat(byTitle)), this.sort, this.translate.currentLang);
     this.length = list.length;
     return list;
   }

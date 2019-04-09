@@ -178,7 +178,7 @@ export class Utils {
   }
 
   /* tslint:disable cyclomatic-complexity */
-  static sortMovie(list: Movie[], sort: Sort): Movie[] {
+  static sortMovie(list: Movie[], sort: Sort, lang: string = 'fr'): Movie[] {
     if (sort && sort.active && sort.direction !== '') {
       return list.sort((a, b) => {
         const isAsc: boolean = sort.direction === 'asc';
@@ -186,7 +186,7 @@ export class Utils {
           case 'id':
             return Utils.compare(+a.id, +b.id, isAsc);
           case 'title':
-            return Utils.compare(a.title, b.title, isAsc);
+            return Utils.compare(a.translation.get(lang).name, b.translation.get(lang).name, isAsc);
           case 'original_title':
             return Utils.compare(a.original_title, b.original_title, isAsc);
           case 'note':
