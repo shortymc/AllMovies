@@ -14,7 +14,7 @@
       </button>
     </div>
   </div>
-  <app-meta class="person-meta" [entry]="person" [orientation]="'vertical'" [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR, DuckDuckGo.SEARCH_BANG_IMDB]"></app-meta>
+  <app-meta class="person-meta" [entry]="person" [isMovie]="false" [isSerie]="false" [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR, DuckDuckGo.SEARCH_BANG_IMDB]"></app-meta>
   <div class="person-content">
     <app-image-viewer class="person-profile" [images]="person.profile" [thumbnails]="person.profile" [visible]="true"></app-image-viewer>
     <div>
