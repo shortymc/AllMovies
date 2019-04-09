@@ -24,7 +24,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MetaComponent } from './components/meta/component/meta.component';
 import { GoToTopComponent } from './components/go-to-top/go-to-top.component';
 import { ListPersonsComponent } from './components/list-persons/list-persons.component';
-import { SerieSearchService } from './service/serie-search.service';
+import { SerieService } from './service/serie.service';
 import { ListMoviesComponent } from './components/list-movies/list-movies.component';
 import { UtilsService } from './service/utils.service';
 import { AddCollectionDirective } from './directives/add-collection.directive';
@@ -160,7 +160,7 @@ export class SharedModule {
         TranslateService,
         MovieService,
         OmdbService,
-        SerieSearchService,
+        SerieService,
         DropboxService,
         AuthService,
         TitleService,
@@ -204,3 +204,4 @@ export { ToastService } from './service/toast.service';
 export { MenuService } from './service/menu.service';
 export { TabsService } from './service/tabs.service';
 export { MyMoviesService } from './service/my-movies.service';
+export { SerieService } from './service/serie.service';
