@@ -23,7 +23,9 @@ export class MetaComponent implements OnInit {
   @Input()
   sites: any[];
   @Input()
-  orientation: 'vertical' | 'horizontal';
+  isMovie: boolean;
+  @Input()
+  isSerie: boolean;
   links;
 
   constructor(private metaService: MetaService) { }
@@ -32,22 +34,25 @@ export class MetaComponent implements OnInit {
     this._entry
       .subscribe(x => {
         let term;
-        let isMovie = false;
-        if (this.entry.title) {
+        if (this.isMovie) {
           // if movie
           const title = this.entry.title;
           const original = this.entry.original_title;
           term = !original || original.trim() === '' ? title : original;
-          isMovie = true;
+        } else if (this.isSerie) {
+          // if serie
+          const title = this.entry.title;
+          const original = this.entry.originTitle;
+          term = !original || original.trim() === '' ? title : original;
         } else {
           // if person
           term = this.entry.name;
         }
         this.links = [];
         this.sites.forEach(site => {
-          this.metaService.getLinkScore(term, site.site, this.entry.imdb_id, isMovie).then(result => {
-            if (!result && isMovie) {
-              this.metaService.getLinkScore(this.entry.title, site.site, undefined, isMovie).then(result_2 => {
+          this.metaService.getLinkScore(term, site.site, this.entry.imdb_id, this.isMovie, this.isSerie).then(result => {
+            if (!result && (this.isMovie || this.isSerie)) {
+              this.metaService.getLinkScore(this.entry.title, site.site, undefined, this.isMovie, this.isSerie).then(result_2 => {
                 this.handleResult(result_2, site);
               });
             } else {
