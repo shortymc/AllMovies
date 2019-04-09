@@ -24,6 +24,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MetaComponent } from './components/meta/component/meta.component';
 import { GoToTopComponent } from './components/go-to-top/go-to-top.component';
 import { ListPersonsComponent } from './components/list-persons/list-persons.component';
+import { SerieSearchService } from './service/serie-search.service';
 import { ListMoviesComponent } from './components/list-movies/list-movies.component';
 import { UtilsService } from './service/utils.service';
 import { AddCollectionDirective } from './directives/add-collection.directive';
@@ -62,6 +63,7 @@ import { MyTagsService } from './service/my-tags.service';
 import { SearchTagComponent } from './components/search-tag/search-tag.component';
 import { ListTagsComponent } from './components/list-tags/list-tags.component';
 import { ImagePipe } from './pipes/image.pipe';
+import { SerieSearchComponent } from './components/serie-search/serie-search.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +81,7 @@ import { ImagePipe } from './pipes/image.pipe';
     AddCollectionDirective,
     ListTagsComponent,
     ModalComponent,
+    SerieSearchComponent,
     MovieSearchComponent,
     OpenLinkDirective,
     SearchTagComponent,
@@ -157,6 +160,7 @@ export class SharedModule {
         TranslateService,
         MovieService,
         OmdbService,
+        SerieSearchService,
         DropboxService,
         AuthService,
         TitleService,
