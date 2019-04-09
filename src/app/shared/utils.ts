@@ -9,8 +9,9 @@ export class Utils {
     return str === undefined || str === null || str.trim() === '';
   }
 
-  static getTitle(r: any): string {
-    return r.original_title === r.title ? ' ' : r.original_title;
+  static getTitle(r: any, isMovie: boolean = true): string {
+    const field = isMovie ? 'title' : 'name';
+    return r['original_' + field] === r[field] ? ' ' : r['original_' + field];
   }
 
   static convertTimeStringToNumber(time: string): number {
