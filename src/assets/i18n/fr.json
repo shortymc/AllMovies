@@ -39,6 +39,8 @@
         "keyword": "Mots Clés",
         "genres": "Genres",
         "placeholder": "Rechercher",
+        "true": "Oui",
+        "false": "Non",
         "mat-table": {
             "of": " sur ",
             "no_result": "Aucune Donnée",
@@ -309,6 +311,14 @@
     },
     "serie": {
         "dates": "Dates de diffusion",
-        "images": "Images de la série"
+        "images": "Images de la série",
+        "creators": "Créateurs",
+        "in_prod": "En production",
+        "network": "Diffuseur",
+        "season_count": "Nombre de saison",
+        "episode_count": "Nombre d'épisode",
+        "seasons": "Saison",
+        "status": "Statut",
+        "type": "Type"
     }
 }
