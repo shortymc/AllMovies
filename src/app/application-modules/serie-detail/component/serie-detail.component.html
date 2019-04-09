@@ -45,6 +45,30 @@
         </div>
       </ng-container>
     </div>
+    <div *ngIf="serie.seasonCount">
+      <label>{{'serie.season_count' | translate}}: </label>{{serie.seasonCount}}
+    </div>
+    <div *ngIf="serie.episodeCount">
+      <label>{{'serie.episode_count' | translate}}: </label>{{serie.episodeCount}}
+    </div>
+    <div>
+      <label>{{'serie.in_prod' | translate}}: </label>{{'global.' + serie.inProduction | translate}}
+    </div>
+    <!-- Aired Date -->
+    <div class="serie-aired" *ngIf="serie.firstAired || serie.lastAired">
+      <label>{{'serie.dates' | translate}}: </label>
+      <ng-container>
+        <div class="pad-left">
+          <ng-container *ngIf="serie.firstAired">
+            {{serie.firstAired | date:'dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}
+          </ng-container>
+          <ng-container *ngIf="serie.firstAired || serie.lastAired"> - </ng-container>
+          <ng-container *ngIf="serie.lastAired">
+            {{serie.lastAired | date:'dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
     <!-- Country -->
     <div *ngIf="serie.originCountries && serie.originCountries.length > 0">
       <label>{{'global.country' | translate}}: </label>
@@ -63,21 +87,6 @@
         </span>
       </div>
       <ng-template #originLang>{{serie.originLang}}</ng-template>
-    </div>
-    <!-- Aired Date -->
-    <div class="serie-aired" *ngIf="serie.firstAired || serie.lastAired">
-      <label>{{'serie.dates' | translate}}: </label>
-      <ng-container>
-        <div class="pad-left">
-          <ng-container *ngIf="serie.firstAired">
-            {{serie.firstAired | date:'dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}
-          </ng-container>
-          <ng-container *ngIf="serie.firstAired || serie.lastAired"> - </ng-container>
-          <ng-container *ngIf="serie.lastAired">
-            {{serie.lastAired | date:'dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}
-          </ng-container>
-        </div>
-      </ng-container>
     </div>
     <!-- Genre -->
     <div *ngIf="serie.genres && serie.genres.length > 0">
@@ -105,6 +114,12 @@
     <div *ngIf="serie.overview">
       <label>{{'global.synopsis' | translate}}: </label>
       <div class="synopsis text-justify">{{serie.overview}}</div>
+    </div>
+    <div *ngIf="serie.status">
+      <label>{{'serie.status' | translate}}: </label>{{serie.status}}
+    </div>
+    <div *ngIf="serie.type">
+      <label>{{'serie.type' | translate}}: </label>{{serie.type}}
     </div>
     <!-- Pictures -->
     <div class="pad-left" *ngIf="config.img">
