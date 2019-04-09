@@ -40,6 +40,13 @@ export class Genre {
   name: string;
 }
 
+export class Network {
+  id: number;
+  name: string;
+  logo_path: string;
+  origin_country: string;
+}
+
 export class Certification {
   certification: string;
   meaning: string;
