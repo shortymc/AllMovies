@@ -1,8 +1,8 @@
-import { AlternativeTitle, Lang, Flag, Genre } from '../model/model';
+import { MapSeason } from './mapSeason';
+import { AlternativeTitle } from '../model/model';
 import { Utils } from './utils';
 import { Serie } from '../model/serie';
-import { Discover } from '../model/discover';
-import { MockService } from './service/mock.service';
+import { Person } from '../model/person';
 
 export class MapSerie {
 
@@ -55,27 +55,53 @@ export class MapSerie {
     }));
   }
 
-  // static mapForRecommendationsSeries(reco: any): Serie[] {
-  //   return reco.map((r: any) => <Serie>({
-  //     id: r.id,
-  //     title: r.title,
-  //     date: r.release_date,
-  //     affiche: r.poster_path,
-  //     original_title: Utils.getTitle(r),
-  //     adult: r.adult,
-  //     time: r.runtime,
-  //     note: r.vote_average,
-  //     vote_count: r.vote_count,
-  //     budget: r.budget,
-  //     recette: r.revenue,
-  //     language: r.original_language,
-  //     popularity: r.popularity
-  //   }));
-  // }
+  static mapForRecommendationsSeries(reco: any): Serie[] {
+    return reco.map((r: any) => <Serie>({
+      id: r.id,
+      title: r.name,
+      firstAired: r.first_air_date,
+      affiche: r.poster_path,
+      originTitle: Utils.getTitle(r),
+      vote: r.vote_average,
+      voteCount: r.vote_count,
+      originLang: r.original_language,
+      popularity: r.popularity
+    }));
+  }
 
-  static mapForSerie(r: any, mockService: MockService<Flag>): Serie {
+  static mapForSerie(r: any): Serie {
     console.log(r);
     const serie = new Serie();
+    serie.id = r.id;
+    serie.title = r.name;
+    serie.originTitle = r.original_name;
+    serie.originLang = r.original_language;
+    serie.originCountries = r.origin_country;
+    serie.overview = r.overview;
+    serie.affiche = r.poster_path;
+    serie.runtimes = r.episode_run_time;
+    serie.vote = r.vote_average;
+    serie.voteCount = r.vote_count;
+    serie.checked = false;
+    serie.popularity = r.popularity;
+    serie.status = r.status;
+    serie.type = r.type;
+    serie.seasonCount = r.number_of_seasons;
+    serie.episodeCount = r.number_of_episodes;
+    serie.languages = r.languages;
+    serie.inProduction = r.in_production;
+    serie.firstAired = r.first_air_date;
+    serie.lastAired = r.last_air_date;
+    serie.runtimes = r.episode_run_time;
+    if (r.created_by) {
+      serie.creators = r.created_by;
+    }
+    if (r.networks) {
+      serie.networks = r.networks;
+    }
+    if (r.seasons) {
+      serie.seasons = MapSeason.mapSeason(r.seasons);
+    }
     let cast;
     if (r.credits) {
       cast = r.credits.cast.sort((a1: any, a2: any) => Utils.sortCast(a1, a2));
@@ -88,10 +114,10 @@ export class MapSerie {
       serie.videos = r.videos.results;
     }
     if (r.recommendations) {
-      // serie.recommendations = MapSerie.mapForRecommendationsSeries(r.recommendations.results);
+      serie.recommendations = MapSerie.mapForRecommendationsSeries(r.recommendations.results);
     }
     if (r.similar) {
-      // serie.similars = MapSerie.mapForRecommendationsSeries(r.similar.results);
+      serie.similars = MapSerie.mapForRecommendationsSeries(r.similar.results);
     }
     if (r.images && r.images.backdrops.length > 0) {
       serie.images = r.images.backdrops.map((i: any) => i.file_path);
@@ -100,25 +126,13 @@ export class MapSerie {
       serie.genres = r.genres;
     }
     if (r.keywords) {
-      serie.keywords = r.keywords.keywords;
+      serie.keywords = r.keywords.results;
     }
-    serie.title = r.title;
-    if (r.alternative_titles && r.alternative_titles.titles) {
-      serie.alternativeTitles = r.alternative_titles.titles
+    if (r.alternative_titles && r.alternative_titles.results) {
+      serie.alternativeTitles = r.alternative_titles.results
         .filter(title => title.title.toLowerCase() !== serie.title.toLowerCase())
         .map(title => new AlternativeTitle(title.iso_3166_1, title.title));
     }
-    serie.id = r.id;
-    serie.originTitle = r.original_title;
-    // serie.date = r.release_date;
-    serie.overview = r.overview;
-    serie.affiche = r.poster_path;
-    serie.runtimes = r.episode_run_time;
-    serie.vote = r.vote_average;
-    serie.voteCount = r.vote_count;
-    // MapSerie.convertLangToCountry(r.original_language, mockService).then(code => serie.language = code);
-    serie.checked = false;
-    serie.popularity = r.popularity;
     console.log('serie', serie);
     return serie;
   }

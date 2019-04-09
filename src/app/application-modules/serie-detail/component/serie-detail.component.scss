@@ -1,0 +1,181 @@
+@import "../../../styles/styles";
+
+.serie-header {
+  flex: 1 100%;
+
+  & .serie-title {
+    font-weight: 550;
+  }
+
+  & .serie-btn {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+label {
+  display: inline !important;
+}
+
+.serie-content {
+  &,
+  & > * {
+    padding: 0 5px;
+  }
+}
+
+.serie-meta {
+  float: left;
+  margin: 20px 10px 0 20px;
+}
+
+.media-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* stylelint-disable selector-pseudo-element-no-unknown */
+/* stylelint-disable selector-type-no-unknown */
+.serie-poster ::ng-deep.frame-viewer {
+  height: 100% !important;
+  margin: 20px !important;
+}
+
+.gallery-top {
+  height: 80% !important;
+}
+
+.gallery-thumbs {
+  & .swiper-slide {
+    box-sizing: border-box;
+    width: 25% !important;
+    padding: 10px 0;
+    overflow: hidden !important;
+    opacity: 0.4;
+  }
+
+  & img {
+    height: auto;
+    width: auto;
+    max-width: 20vw;
+  }
+
+  & .swiper-slide-active {
+    opacity: 1;
+  }
+}
+
+.videos {
+  width: 30em;
+  margin: 10px 0 0 0;
+  padding: 0;
+  list-style-type: none;
+
+  & li {
+    position: relative;
+    left: 0;
+    width: 100%;
+    height: 1.6em;
+    margin: 0.5em;
+    padding: 0.3em 0;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      left: 0.1em;
+      color: $blue_hover !important;
+    }
+  }
+
+  & .text {
+    position: relative;
+    top: -3px;
+  }
+
+  & .badge {
+    position: relative;
+    left: -1px;
+    top: -4px;
+    display: inline-block;
+    height: 1.8em;
+    margin-right: 0.8em;
+    font-size: small;
+    line-height: 1em;
+    text-align: center;
+    background-color: $light_blue;
+    border-radius: 4px 4px 4px 4px;
+  }
+}
+
+.alternative-btn {
+  padding: 0 7px;
+}
+
+.mat-table {
+  width: min-content;
+}
+
+.break-word {
+  word-break: break-word;
+}
+
+.serie-aired {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+@include media(#{$desktop}, false) {
+  .serie-title {
+    font-size: 3em;
+  }
+
+  label,
+  .pad-left {
+    margin-left: 20px !important;
+  }
+
+  label ~ div {
+    display: inline;
+
+    & > span:not(.serie-keyword) {
+      display: table-cell;
+    }
+  }
+
+  .serie-tags {
+    display: flex !important;
+  }
+}
+
+@include media(#{$smallscreen}) {
+  .serie-title {
+    font-size: 1.5em;
+  }
+
+  .synopsis {
+    width: 95vw !important;
+  }
+
+  .serie-genre,
+  .serie-aired {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .videos {
+    @include full_width;
+
+    & li {
+      width: 90vw;
+      margin-bottom: 1em;
+    }
+
+    & .badge {
+      height: auto;
+      white-space: normal;
+    }
+  }
+}

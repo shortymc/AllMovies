@@ -24,6 +24,10 @@
         "show": "Show",
         "hide": "Hide",
         "id": "Id",
+        "video": "Video(s)",
+        "reco": "You should also like",
+        "similar": "Similar Movies",
+        "synopsis": "Overview",
         "clear": "Reset",
         "sort": "Sort",
         "sort_direction": "Direction",
@@ -104,20 +108,15 @@
         "persons": "Trending people"
     },
     "movie": {
-        "id": "Id",
         "title": "Title",
         "country": "Country",
         "alternative_title": "Alternative Titles",
         "date": "Release Date",
         "length": "Running Time",
-        "synopsis": "Synopsis",
         "budget": "Budget",
         "spoken_langs": "Spoken Languages",
         "revenu": "Revenu",
-        "video": "Videos",
         "image": "Movie Images",
-        "reco": "You should like also",
-        "similar": "Similar Movies",
         "tagged": "Tagged",
         "score": {
             "source": "Site",
@@ -140,7 +139,6 @@
         "total": "Total"
     },
     "person": {
-        "id": "Id",
         "name": "Name",
         "birthplace": "Birthplace",
         "age": "Age",
@@ -190,7 +188,6 @@
     },
     "movies": {
         "header": "My Movies",
-        "id": "Id",
         "poster": "Poster",
         "title": "Title",
         "date": "Release Date",

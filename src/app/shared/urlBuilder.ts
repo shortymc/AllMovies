@@ -21,9 +21,10 @@ export class UrlBuilder {
     return url;
   }
 
-  static movieUrlBuilder(id: number, video: boolean, credit: boolean, reco: boolean, release: boolean, keywords: boolean,
+  static detailUrlBuilder(isMovie: boolean, id: number, video: boolean, credit: boolean, reco: boolean, release: boolean, keywords: boolean,
     similar: boolean, image: boolean, titles: boolean, language: string): string {
-    let url = `${Url.MOVIE_URl}/${id}?${Url.API_KEY}`;
+    let url = isMovie ? Url.MOVIE_URl : Url.SERIE_URl;
+    url += `/${id}?${Url.API_KEY}`;
     if (video || credit || reco || image) {
       url += `${Url.APPEND}`;
       const parametres = [];
