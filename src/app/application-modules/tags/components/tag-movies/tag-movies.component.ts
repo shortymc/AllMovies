@@ -6,7 +6,7 @@ import { Component, OnChanges, Input, SimpleChanges, OnInit, OnDestroy } from '@
 import { faSave } from '@fortawesome/free-regular-svg-icons';
 
 import { Utils } from './../../../../shared/utils';
-import { MyMoviesService } from './../../../../shared/service/my-movies.service';
+import { MyDatasService } from './../../../../shared/shared.module';
 import { Movie } from './../../../../model/movie';
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
 import { AuthService } from './../../../../shared/service/auth.service';
@@ -53,7 +53,7 @@ export class TagMoviesComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private menuService: MenuService,
     private myTagsService: MyTagsService,
-    private myMoviesService: MyMoviesService,
+    private myDatasService: MyDatasService<Movie>,
     public translate: TranslateService,
     private toast: ToastService,
     private auth: AuthService
@@ -65,7 +65,7 @@ export class TagMoviesComponent implements OnInit, OnChanges, OnDestroy {
         this.adult = user.adult;
       }
     }));
-    this.subs.push(this.myMoviesService.myMovies$.subscribe(movies => {
+    this.subs.push(this.myDatasService.myDatas$.subscribe(movies => {
       if (movies) {
         this.allMovies = movies;
       }
@@ -168,7 +168,7 @@ export class TagMoviesComponent implements OnInit, OnChanges, OnDestroy {
     new Promise(resolve => {
       this.moviesToAdd = this.moviesToAdd.filter(movie => !this.allMovies.map(m => m.id).includes(movie.id));
       if (this.moviesToAdd && this.moviesToAdd.length > 0) {
-        this.myMoviesService.add(this.moviesToAdd).then(() => {
+        this.myDatasService.add(this.moviesToAdd, true).then(() => {
           this.moviesToAdd = [];
           resolve(true);
         });

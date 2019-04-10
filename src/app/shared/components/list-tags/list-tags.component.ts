@@ -4,7 +4,7 @@ import { Component, OnChanges, Input, SimpleChanges, OnDestroy, OnInit } from '@
 
 import { Movie } from './../../../model/movie';
 import { Tag, TagMovie } from './../../../model/tag';
-import { MyMoviesService } from '../../service/my-movies.service';
+import { MyDatasService } from '../../service/my-datas.service';
 import { Level } from './../../../model/model';
 import { ToastService } from '../../service/toast.service';
 import { MyTagsService } from '../../service/my-tags.service';
@@ -31,13 +31,13 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   faSave = faSave;
 
   constructor(
-    private myMoviesService: MyMoviesService,
+    private myDatasService: MyDatasService<Movie>,
     private myTagsService: MyTagsService,
     private toast: ToastService
   ) { }
 
   ngOnInit(): void {
-    this.subs.push(this.myMoviesService.myMovies$.subscribe(movies => this.allMovies = movies));
+    this.subs.push(this.myDatasService.myDatas$.subscribe(movies => this.allMovies = movies));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
