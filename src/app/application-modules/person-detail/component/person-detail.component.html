@@ -44,7 +44,7 @@
         <label>{{'person.known_for.title' | translate}}:</label>{{'person.known_for.'+person.knownFor|translate}}
       </div>
       <div>
-        <label>{{'person.popularity' | translate}}:</label>{{person.popularity |
+        <label>{{'global.popularity' | translate}}:</label>{{person.popularity |
         number:'1.0-2':translate.currentLang}}
       </div>
       <div class="pad-left d-inline" *ngIf="person.images && person.images.length > 0">
