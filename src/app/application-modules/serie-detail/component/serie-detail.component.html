@@ -128,7 +128,8 @@
       </button>
     </div>
     <!-- Credits -->
-    <app-credit-list class="pad-left" *ngIf="config.credit" [crew]="serie.crew" [actors]="serie.actors" [isDetail]="true"></app-credit-list>
+    <app-credit-list class="pad-left" *ngIf="config.credit" [creators]="serie.creators" [crew]="serie.crew" [actors]="serie.actors"
+      [isDetail]="true"></app-credit-list>
     <!-- Videos -->
     <app-videos [videos]="serie.videos" *ngIf="config.video"></app-videos>
   </div>
