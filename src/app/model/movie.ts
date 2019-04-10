@@ -17,7 +17,6 @@ export class Movie extends Data {
   public crew: string[];
   public recommendations: Movie[];
   public images: string[];
-  public checked: boolean;
   public popularity: number;
   public vote_count: number;
   public production_countries: string[];

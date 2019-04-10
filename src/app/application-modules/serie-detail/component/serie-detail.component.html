@@ -14,9 +14,9 @@
         <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'global.previous' | translate}}
       </button>
       <!-- Add to collection btn -->
-      <!-- <button class="btn btn-outline-primary" appAddCollection [series]="[serie]" [label]="'global.add_collection'"
-        [isSingleSerie]="true">
-      </button> -->
+      <button class="btn btn-outline-primary" appAddCollection [datas]="[serie]" [label]="'global.add_collection'"
+        [isSingleData]="true" [isMovie]="false">
+      </button>
     </div>
   </div>
   <app-meta class="serie-meta" [entry]="serie" [isMovie]="false" [isSerie]="true" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>

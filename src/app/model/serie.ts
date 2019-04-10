@@ -24,7 +24,6 @@ export class Serie extends Data {
   seasonCount: number;
   images: string[];
   seasons: Season[];
-  checked: boolean;
   popularity: number;
   vote: number;
   voteCount: number;

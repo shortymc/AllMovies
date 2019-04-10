@@ -75,7 +75,7 @@ export class MyDatasService<T extends Data> {
       .then((fileName: string) => this.dropboxService.downloadFile(fileName))
       .then((datasFromFile: string) => this.fromJson(datasFromFile))
       .then((datas: T[]) => {
-        console.log('getAll', datas);
+        console.log(isMovie ? 'movies' : 'series', datas);
         this.myDatas$.next(datas);
       }).catch(err => this.serviceUtils.handlePromiseError(err, this.toast));
   }

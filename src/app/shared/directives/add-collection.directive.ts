@@ -8,29 +8,35 @@ import {
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
 import { Tag } from './../../model/tag';
-import { Movie } from '../../model/movie';
-import { MovieService } from '../service/movie.service';
+import { Data } from './../../model/data';
 import { MyDatasService } from './../service/my-datas.service';
 import { DetailConfig } from '../../model/model';
 import { MyTagsService } from '../service/my-tags.service';
+import { SerieService } from '../service/serie.service';
+import { MovieService } from './../service/movie.service';
 
 @Directive({
   selector: '[appAddCollection]'
 })
-export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
-  faBookmark = faBookmark;
-  faStar = faStar;
-  faTrash = faTrash;
+export class AddCollectionDirective<T extends Data> implements OnInit, OnChanges, OnDestroy {
   @Input()
-  movies: Movie[];
+  datas: T[];
   @Input()
   label: string;
   @Input()
-  isSingleMovie: boolean;
+  isSingleData: boolean;
+  @Input()
+  isMovie: boolean;
+
   tags: Tag[];
-  myMovies: Movie[];
-  subs = [];
+  myDatas: T[];
   isAlreadyAdded: boolean;
+
+  subs = [];
+  faBookmark = faBookmark;
+  faStar = faStar;
+  faTrash = faTrash;
+
   @HostListener('click', ['$event']) onClick(): void {
     if (!this.isAlreadyAdded) {
       this.add();
@@ -41,7 +47,8 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     private movieService: MovieService,
-    private myDatasService: MyDatasService<Movie>,
+    private serieService: SerieService,
+    private myDatasService: MyDatasService<T>,
     private myTagsService: MyTagsService,
     private translate: TranslateService,
     private vcRef: ViewContainerRef,
@@ -53,15 +60,18 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.subs.push(this.myTagsService.myTags$.subscribe((tags) => this.tags = tags));
-    if (this.isSingleMovie && this.movies.length > 1) {
-      throw new Error('Too many movies for addCollection on single movie mode');
+    if (this.isSingleData && this.datas.length > 1) {
+      throw new Error('Too many datas for addCollection on single data mode');
     }
   }
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }): void {
     for (const field of Object.keys(changes)) {
-      if (field === 'movies') {
-        this.movies = changes[field].currentValue;
+      if (field === 'datas') {
+        this.datas = changes[field].currentValue;
+        this.initBtnIcon();
+      } else if (field === 'isMovie') {
+        this.isMovie = changes[field].currentValue;
         this.initBtnIcon();
       }
     }
@@ -70,10 +80,10 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
   initBtnIcon(): void {
     const cmpFactory = this.cfr.resolveComponentFactory(FaIconComponent);
     const component = this.vcRef.createComponent(cmpFactory);
-    this.subs.push(this.myDatasService.myDatas$.subscribe(myMovies => {
-      this.myMovies = myMovies;
-      if (myMovies && myMovies.length > 0) {
-        this.isAlreadyAdded = this.movies.every(movie => myMovies.map(m => m.id).includes(movie.id));
+    this.subs.push(this.myDatasService.myDatas$.subscribe(myDatas => {
+      this.myDatas = myDatas;
+      if (myDatas && myDatas.length > 0) {
+        this.isAlreadyAdded = this.datas.every(data => myDatas.map(m => m.id).includes(data.id));
       }
       this.insertIconAndText(component);
     }));
@@ -81,19 +91,19 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
 
   insertIconAndText(component: ComponentRef<FaIconComponent>): void {
     if (this.isAlreadyAdded) {
-      if (!this.isSingleMovie) {
-        // Movies list -> already added
+      if (!this.isSingleData) {
+        // Datas list -> already added
         component.instance.iconProp = faStar;
         this.el.nativeElement.innerText = this.translate.instant('global.already_added');
         this.el.nativeElement.style.pointerEvents = 'none';
       } else {
-        // Single movie -> remove
+        // Single data -> remove
         component.instance.iconProp = faTrash;
         this.el.nativeElement.innerText = this.translate.instant('global.delete');
         this.el.nativeElement.style.pointerEvents = 'all';
       }
     } else {
-      // Add movies
+      // Add datas
       component.instance.iconProp = faBookmark;
       this.el.nativeElement.innerText = this.translate.instant(this.label);
       this.el.nativeElement.style.pointerEvents = 'all';
@@ -107,28 +117,39 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   add(): void {
-    this.addMovies(!this.isSingleMovie ? this.movies.filter((mov: Movie) => mov.checked) : this.movies);
+    this.addDatas(!this.isSingleData ? this.datas.filter((data: T) => data.checked) : this.datas);
   }
 
   remove(): void {
-    if (this.isSingleMovie) {
-      const movieRemoved = this.myMovies.find(m => m.id === this.movies[0].id).id;
-      const tagsToReplace = this.tags.filter(t => t.movies.map(m => m.id).includes(movieRemoved));
-      tagsToReplace.forEach(t => t.movies = t.movies.filter(movie => movieRemoved !== movie.id));
-      this.myDatasService.remove([movieRemoved], true)
-        .then(() => this.myTagsService.replaceTags(tagsToReplace));
+    if (this.isSingleData) {
+      const dataRemoved = this.myDatas.find(m => m.id === this.datas[0].id).id;
+      if (this.isMovie) {
+        const tagsToReplace = this.tags.filter(t => t.movies.map(m => m.id).includes(dataRemoved));
+        tagsToReplace.forEach(t => t.movies = t.movies.filter(data => dataRemoved !== data.id));
+        this.myDatasService.remove([dataRemoved], this.isMovie)
+          .then(() => this.myTagsService.replaceTags(tagsToReplace));
+        } else {
+          this.myDatasService.remove([dataRemoved], this.isMovie);
+      }
     }
   }
 
-  addMovies(moviesToAdd: Movie[]): void {
+  addDatas(datasToAdd: T[]): void {
     const prom = [];
-    moviesToAdd.forEach(movie => {
-      prom.push(this.movieService.getMovie(movie.id, new DetailConfig(false, false, false, false, false, false, false, false, 'fr'), false));
-      prom.push(this.movieService.getMovie(movie.id, new DetailConfig(false, false, false, false, false, false, false, false, 'en'), false));
+    datasToAdd.forEach(data => {
+      const confFr = new DetailConfig(false, false, false, false, false, false, false, false, 'fr');
+      const confEn = new DetailConfig(false, false, false, false, false, false, false, false, 'en');
+      if (this.isMovie) {
+        prom.push(this.movieService.getMovie(data.id, confFr, false));
+        prom.push(this.movieService.getMovie(data.id, confEn, false));
+      } else {
+        prom.push(this.serieService.getSerie(data.id, confFr, false));
+        prom.push(this.serieService.getSerie(data.id, confEn, false));
+      }
     });
-    forkJoin(prom).subscribe((movies: Movie[]) => {
-      this.myDatasService.add(movies, true);
-      this.movies.forEach((movie) => movie.checked = false);
+    forkJoin(prom).subscribe((datas: T[]) => {
+      this.myDatasService.add(datas, this.isMovie);
+      this.datas.forEach((data) => data.checked = false);
     });
   }
 

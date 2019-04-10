@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { Movie } from './model/movie';
 import { AuthService, MyDatasService, MyTagsService, TabsService } from './shared/shared.module';
+import { Serie } from './model/serie';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit {
     private router: Router,
     private tabsService: TabsService,
     private auth: AuthService,
-    private myDatasService: MyDatasService<Movie>,
+    private myMoviesService: MyDatasService<Movie>,
+    private mySeriesService: MyDatasService<Serie>,
     private myTagsService: MyTagsService,
     private translate: TranslateService
   ) { }
@@ -29,7 +31,8 @@ export class AppComponent implements OnInit {
     this.auth.getCurrentUser(false);
     this.auth.user$.subscribe(user => {
       if (user) {
-        this.myDatasService.getAll(true);
+        this.myMoviesService.getAll(true);
+        this.mySeriesService.getAll(false);
         this.myTagsService.getAll();
         this.translate.use(user.lang.code);
       }
