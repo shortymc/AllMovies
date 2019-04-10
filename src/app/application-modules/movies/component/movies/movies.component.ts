@@ -17,7 +17,7 @@ import { ToastService } from './../../../../shared/service/toast.service';
 import { Constants } from './../../../../constant/constants';
 import { Utils } from './../../../../shared/utils';
 import { MyTagsService } from './../../../../shared/service/my-tags.service';
-import { TitleService, MovieService, MyMoviesService } from './../../../../shared/shared.module';
+import { TitleService, MovieService, MyDatasService } from './../../../../shared/shared.module';
 import { Tag, TagMovie } from './../../../../model/tag';
 import { Movie } from './../../../../model/movie';
 import { Genre, DetailConfig, Level } from '../../../../model/model';
@@ -79,7 +79,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   constructor(
     private movieService: MovieService,
     private breakpointObserver: BreakpointObserver,
-    private myMoviesService: MyMoviesService,
+    private myDatasService: MyDatasService<Movie>,
     private myTagsService: MyTagsService,
     public translate: TranslateService,
     private toast: ToastService,
@@ -114,13 +114,13 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   getMovies(lang: string): void {
-    this.subs.push(this.myMoviesService.myMovies$.subscribe(movies => {
+    this.subs.push(this.myDatasService.myDatas$.subscribe(movies => {
       this.allMovies = movies;
       this.length = this.allMovies.length;
       this.paginate(this.refreshData());
       this.getAllGenres(lang);
     }));
-    this.subs.push(this.myMoviesService.myMovies$.pipe(
+    this.subs.push(this.myDatasService.myDatas$.pipe(
       filter(movies => movies && movies.length !== 0),
       take(1)
     ).subscribe(movies => this.checkAndFixData(movies, lang)));
@@ -259,7 +259,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
               m.score = {};
             }
           });
-          this.myMoviesService.replaceMovies(data);
+          this.myDatasService.update(data, true);
         },
         err => console.error(err)
       );
@@ -272,7 +272,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     const moviesToRemove = this.allMovies.filter(movie => movie.checked).map(m => m.id);
     const tagsToReplace = this.tags.filter(t => t.movies.map(m => m.id).some(id => moviesToRemove.includes(id)));
     tagsToReplace.forEach(t => t.movies = t.movies.filter(movie => !moviesToRemove.includes(movie.id)));
-    this.myMoviesService.remove(moviesToRemove)
+    this.myDatasService.remove(moviesToRemove, true)
       .then(() => this.myTagsService.replaceTags(tagsToReplace));
     this.nbChecked = 0;
     this.onTop();
