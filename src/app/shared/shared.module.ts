@@ -191,7 +191,6 @@ export class SharedModule {
 
 export { UtilsService } from './service/utils.service';
 export { MovieService } from './service/movie.service';
-export { DropboxService } from './service/dropbox.service';
 export { AuthService } from './service/auth.service';
 export { TitleService } from './service/title.service';
 export { PersonService } from './service/person.service';
@@ -205,3 +204,4 @@ export { MenuService } from './service/menu.service';
 export { TabsService } from './service/tabs.service';
 export { SerieService } from './service/serie.service';
 export { MyDatasService } from './service/my-datas.service';
+export { MyTagsService } from './service/my-tags.service';

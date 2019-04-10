@@ -3,11 +3,8 @@ import { Router, NavigationStart } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { MyTagsService } from './shared/service/my-tags.service';
-import { TabsService } from './shared/service/tabs.service';
 import { Movie } from './model/movie';
-import { AuthService } from './shared/shared.module';
-import { MyDatasService } from './shared/service/my-datas.service';
+import { AuthService, MyDatasService, MyTagsService, TabsService } from './shared/shared.module';
 
 @Component({
   selector: 'app-root',

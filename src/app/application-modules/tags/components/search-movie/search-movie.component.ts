@@ -6,9 +6,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { DetailConfig } from './../../../../model/model';
-import { MovieService } from './../../../../shared/service/movie.service';
+import { MovieService, MovieSearchService } from './../../../../shared/shared.module';
 import { Movie } from './../../../../model/movie';
-import { MovieSearchService } from './../../../../shared/service/movie-search.service';
 
 @Component({
   selector: 'app-search-movie',
