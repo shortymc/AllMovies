@@ -13,11 +13,9 @@ import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import * as moment from 'moment-mini-ts';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
-import { ToastService } from './../../../../shared/service/toast.service';
 import { Constants } from './../../../../constant/constants';
 import { Utils } from './../../../../shared/utils';
-import { MyTagsService } from './../../../../shared/service/my-tags.service';
-import { TitleService, MovieService, MyDatasService } from './../../../../shared/shared.module';
+import { TitleService, MovieService, MyDatasService, MyTagsService, ToastService } from './../../../../shared/shared.module';
 import { Tag, TagMovie } from './../../../../model/tag';
 import { Movie } from './../../../../model/movie';
 import { Genre, DetailConfig, Level } from '../../../../model/model';

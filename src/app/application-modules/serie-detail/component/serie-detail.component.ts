@@ -4,8 +4,7 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { faChevronCircleLeft, faImage, faChevronCircleRight, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
-import { TitleService, MenuService } from './../../../shared/shared.module';
-import { TabsService } from './../../../shared/service/tabs.service';
+import { TitleService, MenuService, TabsService } from './../../../shared/shared.module';
 import { Tag } from './../../../model/tag';
 import { DuckDuckGo } from './../../../constant/duck-duck-go';
 import { SerieService } from '../../../shared/shared.module';
