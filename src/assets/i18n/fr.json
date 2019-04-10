@@ -170,6 +170,7 @@
     "person-list": {
         "hide": "Cacher les",
         "show": "Afficher tous les",
+        "creators": "Créateurs",
         "actors": "Acteurs",
         "directors": "Réalisateur",
         "producers": "Producteur",
