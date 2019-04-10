@@ -64,6 +64,7 @@ import { SearchTagComponent } from './components/search-tag/search-tag.component
 import { ListTagsComponent } from './components/list-tags/list-tags.component';
 import { ImagePipe } from './pipes/image.pipe';
 import { SerieSearchComponent } from './components/serie-search/serie-search.component';
+import { VideosComponent } from './components/videos/videos.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { SerieSearchComponent } from './components/serie-search/serie-search.com
     FilterCrewPipe,
     TruncatePipe,
     ImagePipe,
+    VideosComponent,
     ListMoviesComponent,
     MetaComponent,
     ListPersonsComponent,
@@ -126,6 +128,7 @@ import { SerieSearchComponent } from './components/serie-search/serie-search.com
     ImagePipe,
     GoToTopComponent,
     ListMoviesComponent,
+    VideosComponent,
     MetaComponent,
     OpenLinkDirective,
     SearchTagComponent,

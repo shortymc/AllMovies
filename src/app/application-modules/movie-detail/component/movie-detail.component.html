@@ -211,18 +211,8 @@
         <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
       </div>
     </div>
-    <!-- Video -->
-    <ng-container *ngIf="config.video">
-      <div *ngIf="movie.videos && movie.videos.length > 0">
-        <label>{{'global.video' | translate}}:</label>
-        <ul class="videos">
-          <li *ngFor="let video of movie.videos">
-            <a href="https://www.youtube.com/watch?v={{video.key}}" class="badge" target="_blank">{{video.name |
-              capitalizeWord}}</a>
-          </li>
-        </ul>
-      </div>
-    </ng-container>
+    <!-- Videos -->
+    <app-videos [videos]="movie.videos" *ngIf="config.video"></app-videos>
   </div>
   <div class="media-content">
     <!-- recommendations -->
