@@ -86,6 +86,10 @@ label {
 }
 
 @include media(#{$desktop}, false) {
+  .serie-content {
+    display: table;
+  }
+
   .serie-title {
     font-size: 3em;
   }
