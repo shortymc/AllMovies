@@ -5,9 +5,12 @@
   <div class="serie-header">
     <h1 class="serie-title">{{serie.title}} ({{serie.firstAired | date:'yyyy'}})</h1>
     <!-- Time -->
-    <h3 class="serie-time" *ngFor="let time of serie.runtimes">
-      {{time}} {{'time.minute' | translate}}s
-    </h3>
+    <span class="serie-time">
+      <div *ngFor="let time of serie.runtimes;let last=last;">
+        <h3>{{time}} {{'time.minute' | translate}}s</h3>
+        <h3 *ngIf="!last">/</h3>
+      </div>
+    </span>
     <div class="serie-btn">
       <!-- Go Back Btn -->
       <button class="btn btn-outline-primary" (click)="goBack()">
