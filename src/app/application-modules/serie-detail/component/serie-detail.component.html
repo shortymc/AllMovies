@@ -4,6 +4,11 @@
   </app-modal>
   <div class="serie-header">
     <h1 class="serie-title">{{serie.title}} ({{serie.firstAired | date:'yyyy'}})</h1>
+    <!-- Networks -->
+    <span class="serie-networks">
+      <img [src]="network.logo_path | image:'small'" *ngFor="let network of serie.networks;"
+      matTooltip="{{network.origin_country ? network.name + ' (' + network.origin_country + ')' : network.name}}">
+    </span>
     <!-- Time -->
     <span class="serie-time">
       <div *ngFor="let time of serie.runtimes;let last=last;">
