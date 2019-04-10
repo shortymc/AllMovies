@@ -7,6 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CreditListComponent implements OnInit {
   @Input()
+  creators: any[];
+  @Input()
   actors: any[];
   @Input()
   crew: any[];

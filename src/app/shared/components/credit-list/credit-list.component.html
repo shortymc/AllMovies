@@ -1,3 +1,6 @@
+<div *ngIf="creators">
+  <app-list-persons [persons]="creators" [label]="'person-list.creators' | translate"></app-list-persons>
+</div>
 <!-- Actors -->
 <app-list-persons [persons]="actors" [label]="'person-list.actors' | translate"></app-list-persons>
 <!-- Crew -->
