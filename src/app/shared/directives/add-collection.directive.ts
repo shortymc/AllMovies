@@ -10,7 +10,7 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { Tag } from './../../model/tag';
 import { Movie } from '../../model/movie';
 import { MovieService } from '../service/movie.service';
-import { MyMoviesService } from './../service/my-movies.service';
+import { MyDatasService } from './../service/my-datas.service';
 import { DetailConfig } from '../../model/model';
 import { MyTagsService } from '../service/my-tags.service';
 
@@ -41,7 +41,7 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     private movieService: MovieService,
-    private myMoviesService: MyMoviesService,
+    private myDatasService: MyDatasService<Movie>,
     private myTagsService: MyTagsService,
     private translate: TranslateService,
     private vcRef: ViewContainerRef,
@@ -70,7 +70,7 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
   initBtnIcon(): void {
     const cmpFactory = this.cfr.resolveComponentFactory(FaIconComponent);
     const component = this.vcRef.createComponent(cmpFactory);
-    this.subs.push(this.myMoviesService.myMovies$.subscribe(myMovies => {
+    this.subs.push(this.myDatasService.myDatas$.subscribe(myMovies => {
       this.myMovies = myMovies;
       if (myMovies && myMovies.length > 0) {
         this.isAlreadyAdded = this.movies.every(movie => myMovies.map(m => m.id).includes(movie.id));
@@ -115,7 +115,7 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
       const movieRemoved = this.myMovies.find(m => m.id === this.movies[0].id).id;
       const tagsToReplace = this.tags.filter(t => t.movies.map(m => m.id).includes(movieRemoved));
       tagsToReplace.forEach(t => t.movies = t.movies.filter(movie => movieRemoved !== movie.id));
-      this.myMoviesService.remove([movieRemoved])
+      this.myDatasService.remove([movieRemoved], true)
         .then(() => this.myTagsService.replaceTags(tagsToReplace));
     }
   }
@@ -127,7 +127,7 @@ export class AddCollectionDirective implements OnInit, OnChanges, OnDestroy {
       prom.push(this.movieService.getMovie(movie.id, new DetailConfig(false, false, false, false, false, false, false, false, 'en'), false));
     });
     forkJoin(prom).subscribe((movies: Movie[]) => {
-      this.myMoviesService.add(movies);
+      this.myDatasService.add(movies, true);
       this.movies.forEach((movie) => movie.checked = false);
     });
   }

@@ -2,7 +2,6 @@ import { MapSeason } from './mapSeason';
 import { AlternativeTitle } from '../model/model';
 import { Utils } from './utils';
 import { Serie } from '../model/serie';
-import { Person } from '../model/person';
 
 export class MapSerie {
 

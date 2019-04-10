@@ -6,7 +6,7 @@ import { combineLatest } from 'rxjs';
 import { Location } from '@angular/common';
 import { faChevronCircleLeft, faImage, faChevronCircleRight, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
-import { TitleService, MenuService, MyMoviesService } from './../../../shared/shared.module';
+import { TitleService, MenuService, MyDatasService } from './../../../shared/shared.module';
 import { TabsService } from './../../../shared/service/tabs.service';
 import { Tag } from './../../../model/tag';
 import { MyTagsService } from './../../../shared/service/my-tags.service';
@@ -49,7 +49,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
     public tabsService: TabsService,
     private menuService: MenuService,
     private myTagsService: MyTagsService,
-    private myMoviesService: MyMoviesService,
+    private myDatasService: MyDatasService<Movie>,
   ) { }
 
   ngOnInit(): void {
@@ -90,7 +90,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
           this.menuService.scrollTo$.next(0);
         }
       });
-      this.subs.push(combineLatest(this.myTagsService.myTags$, this.myMoviesService.myMovies$)
+      this.subs.push(combineLatest(this.myTagsService.myTags$, this.myDatasService.myDatas$)
         .pipe(filter(([tags, movies]) => tags !== undefined && movies !== undefined))
         .subscribe(([tags, movies]) => {
           this.tags = [];
