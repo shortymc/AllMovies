@@ -178,7 +178,8 @@
           </li>
         </ul>
       </div>
-    </ng-container>
+    <!-- Videos -->
+    <app-videos [videos]="serie.videos" *ngIf="config.video"></app-videos>
   </div>
   <div class="media-content">
     <!-- recommendations -->
