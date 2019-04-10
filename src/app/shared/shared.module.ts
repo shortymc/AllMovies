@@ -65,6 +65,7 @@ import { ListTagsComponent } from './components/list-tags/list-tags.component';
 import { ImagePipe } from './pipes/image.pipe';
 import { SerieSearchComponent } from './components/serie-search/serie-search.component';
 import { VideosComponent } from './components/videos/videos.component';
+import { CreditListComponent } from './components/credit-list/credit-list.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { VideosComponent } from './components/videos/videos.component';
     MovieSearchComponent,
     OpenLinkDirective,
     SearchTagComponent,
+    CreditListComponent,
     PersonSearchComponent,
     OpenLinkDialogComponent,
     MenuComponent,
@@ -130,6 +132,7 @@ import { VideosComponent } from './components/videos/videos.component';
     ListMoviesComponent,
     VideosComponent,
     MetaComponent,
+    CreditListComponent,
     OpenLinkDirective,
     SearchTagComponent,
     ListPersonsComponent,

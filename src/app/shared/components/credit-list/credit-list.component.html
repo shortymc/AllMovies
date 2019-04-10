@@ -1,0 +1,38 @@
+<!-- Actors -->
+<app-list-persons [persons]="actors" [label]="'person-list.actors' | translate"></app-list-persons>
+<!-- Crew -->
+<div *ngIf="isDetail && crew && crew.length > 0">
+  <div *ngIf="(crew | filterCrew:['director']) as director">
+    <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
+  </div>
+  <div *ngIf="(crew | filterCrew:['producer', 'Co-Producer', 'Executive Producer', 'Co-Executive Producer']) as producer">
+    <app-list-persons [persons]="producer" [label]="'person-list.producers' | translate"></app-list-persons>
+  </div>
+  <div *ngIf="(crew | filterCrew:['Original Music Composer', 'Main Title Theme Composer']) as composer">
+    <app-list-persons [persons]="composer" [label]="'person-list.composers' | translate"></app-list-persons>
+  </div>
+  <div *ngIf="(crew | filterCrew:['Compositors']) as compositors">
+    <app-list-persons [persons]="compositors" [label]="'person-list.composers' | translate"></app-list-persons>
+  </div>
+  <div *ngIf="(crew | filterCrew:['songs', 'Theme Song Performance']) as songs">
+    <app-list-persons [persons]="songs" [label]="'person-list.song' | translate"></app-list-persons>
+  </div>
+  <div *ngIf="(crew | filterCrew:['music']) as music">
+    <app-list-persons [persons]="music" [label]="'person-list.music' | translate"></app-list-persons>
+  </div>
+  <div *ngIf="(crew | filterCrew:['Screenplay','Adaptation','Dialogue','Writer','Scenario Writer','Co-Writer']) as screenplay">
+    <app-list-persons [persons]="screenplay" [label]="'person-list.screenwriters' | translate"></app-list-persons>
+  </div>
+  <div *ngIf="(crew | filterCrew:['Graphic Novel','Author','Novel','Theatre Play','Opera','Musical','Book','Comic Book','Story','Short Story','Original Story','Original Concept','Original Film Writer','Original Series Creator','Idea']) as author">
+    <app-list-persons [persons]="author" [label]="'person-list.authors' | translate"></app-list-persons>
+  </div>
+  <div *ngIf="(crew | filterCrew:['cameo']) as cameo">
+    <app-list-persons [persons]="cameo" [label]="'person-list.cameos' | translate"></app-list-persons>
+  </div>
+  <div *ngIf="(crew | filterCrew:['special Guest']) as guest">
+    <app-list-persons [persons]="guest" [label]="'person-list.guests' | translate"></app-list-persons>
+  </div>
+</div>
+<div *ngIf="!isDetail && (crew | filterCrew:['director']) as director">
+  <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
+</div>
