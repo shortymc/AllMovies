@@ -13,6 +13,19 @@
     justify-content: center;
   }
 
+  & .serie-networks {
+    display: flex;
+    justify-content: center;
+
+    & > img {
+      margin: 0 0 10px 0;
+      padding: 3px;
+      border: 3px solid $black;
+      border-radius: 5px;
+      box-shadow: 1px 1px 10px $black;
+    }
+  }
+
   & .serie-btn {
     display: flex;
     justify-content: center;
