@@ -6,13 +6,9 @@ import { Component, OnChanges, Input, SimpleChanges, OnInit, OnDestroy } from '@
 import { faSave } from '@fortawesome/free-regular-svg-icons';
 
 import { Utils } from './../../../../shared/utils';
-import { MyDatasService } from './../../../../shared/shared.module';
+import { MyDatasService, MyTagsService, AuthService, MenuService, ToastService } from './../../../../shared/shared.module';
 import { Movie } from './../../../../model/movie';
-import { MyTagsService } from './../../../../shared/service/my-tags.service';
-import { AuthService } from './../../../../shared/service/auth.service';
 import { Level } from './../../../../model/model';
-import { MenuService } from './../../../../shared/service/menu.service';
-import { ToastService } from './../../../../shared/service/toast.service';
 import { Tag, TagMovie } from './../../../../model/tag';
 
 @Component({

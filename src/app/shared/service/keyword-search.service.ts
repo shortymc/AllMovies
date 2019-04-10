@@ -6,10 +6,10 @@ import { Url } from './../../constant/url';
 import { Keyword } from './../../model/model';
 import { UtilsService } from './utils.service';
 import { ToastService } from './toast.service';
-import { SearchServiceService } from './searchService.service';
+import { SearchService } from './search.service';
 
 @Injectable()
-export class KeywordSearchService implements SearchServiceService<Keyword> {
+export class KeywordSearchService implements SearchService<Keyword> {
 
   constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 
