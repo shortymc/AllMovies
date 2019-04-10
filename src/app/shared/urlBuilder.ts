@@ -55,7 +55,7 @@ export class UrlBuilder {
       url += parametres.join(',');
     }
     url = UrlBuilder.langUrlBuilder(url, language);
-    console.log('movieUrlBuilder', url);
+    console.log('detailUrlBuilder', url);
     return url;
   }
 

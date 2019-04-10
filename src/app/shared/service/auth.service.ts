@@ -141,6 +141,7 @@ export class AuthService {
     }).then(users => this.dropbox.uploadFile(AuthService.usersToBlob(users), Dropbox.DROPBOX_USER_FILE))
       .then(() => this.dropbox.uploadNewFile('[]', `${Dropbox.DROPBOX_TAG_FILE}${addedUser.id}${Dropbox.DROPBOX_FILE_SUFFIX}`))
       .then(() => this.dropbox.uploadNewFile('[]', `${Dropbox.DROPBOX_MOVIE_FILE}${addedUser.id}${Dropbox.DROPBOX_FILE_SUFFIX}`))
+      .then(() => this.dropbox.uploadNewFile('[]', `${Dropbox.DROPBOX_SERIE_FILE}${addedUser.id}${Dropbox.DROPBOX_FILE_SUFFIX}`))
       .then(() => {
         AuthService.setToken(AuthService.createToken(addedUser));
         this.user$.next(addedUser);

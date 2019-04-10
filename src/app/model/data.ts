@@ -13,6 +13,7 @@ export class Data {
   translation: Map<string, DataI18N>; // key: lang
   added: Date = new Date();
   lang_version = 'fr';
+  checked: boolean;
 
   constructor() { }
 
