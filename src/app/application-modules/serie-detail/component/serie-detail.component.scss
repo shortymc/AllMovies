@@ -7,6 +7,12 @@
     font-weight: 550;
   }
 
+  & .serie-time,
+  & .serie-time > * {
+    display: flex;
+    justify-content: center;
+  }
+
   & .serie-btn {
     display: flex;
     justify-content: center;
