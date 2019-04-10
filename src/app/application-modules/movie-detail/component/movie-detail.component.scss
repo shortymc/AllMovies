@@ -109,6 +109,10 @@ label {
 }
 
 @include media(#{$desktop}, false) {
+  .movie-content {
+    display: table;
+  }
+
   .movie-title {
     font-size: 3em;
   }
@@ -145,11 +149,5 @@ label {
   .movie-release {
     display: flex;
     flex-wrap: wrap;
-  }
-}
-
-@include media(#{$big_screen}, false) {
-  .movie-score {
-    width: 25vw;
   }
 }
