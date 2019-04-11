@@ -92,6 +92,9 @@ export class MapSerie {
     serie.firstAired = r.first_air_date;
     serie.lastAired = r.last_air_date;
     serie.runtimes = r.episode_run_time;
+    if (r.external_ids) {
+      serie.imdb_id = r.external_ids.imdb_id;
+    }
     if (r.created_by) {
       serie.creators = r.created_by;
     }

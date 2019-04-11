@@ -244,8 +244,8 @@ export class MoviesComponent implements OnInit, OnDestroy {
     const obs = [];
     const otherLang = lang === 'fr' ? 'en' : 'fr';
     incomplete.forEach((id: number) => {
-      obs.push(this.movieService.getMovie(id, new DetailConfig(false, false, false, false, false, false, false, false, lang), false));
-      obs.push(this.movieService.getMovie(id, new DetailConfig(false, false, false, false, false, false, false, false, otherLang), false));
+      obs.push(this.movieService.getMovie(id, new DetailConfig(false, false, false, false, false, false, false, false, false, lang), false));
+      obs.push(this.movieService.getMovie(id, new DetailConfig(false, false, false, false, false, false, false, false, false, otherLang), false));
     });
 
     try {

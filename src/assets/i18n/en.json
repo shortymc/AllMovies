@@ -123,15 +123,15 @@
         "spoken_langs": "Spoken Languages",
         "revenu": "Revenu",
         "image": "Movie images",
-        "tagged": "Tagged",
-        "score": {
-            "source": "Site",
-            "value": "Rating"
-        }
+        "tagged": "Tagged"
     },
     "movie-search": {
         "header": "Movie Search",
         "placeholder": "Search movies"
+    },
+    "score": {
+        "source": "Site",
+        "value": "Rating"
     },
     "data-list": {
         "actor": "As actors",

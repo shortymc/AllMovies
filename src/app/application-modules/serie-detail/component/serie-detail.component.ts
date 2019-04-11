@@ -45,7 +45,7 @@ export class SerieDetailComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.config = new DetailConfig(true, true, true, true, true, true, true, true, this.translate.currentLang);
+    this.config = new DetailConfig(true, true, true, true, true, true, true, true, true, this.translate.currentLang);
     this.subs.push(this.route.paramMap.subscribe((params: ParamMap) => {
       if (params) {
         const idParam = +params.get('id');

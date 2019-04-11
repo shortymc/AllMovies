@@ -32,6 +32,7 @@ export class Url {
   static readonly APPEND_RELEASE_DATE = 'release_dates';
   static readonly APPEND_SIMILARS = 'similar';
   static readonly APPEND_TRANSLATIONS = 'translations';
+  static readonly APPEND_EXTERNAL_IDS = 'external_ids';
 
   static readonly INCLUDE_IMAGE_LANGUAGE = '&include_image_language=';
   static readonly RELEASE_DATE_GTE_URL = '&release_date.gte=';
