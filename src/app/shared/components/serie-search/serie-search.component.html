@@ -15,10 +15,10 @@
       <div class="media">
         <img class="mr-2 thumbnail-result" *ngIf="serie.affiche" src="{{serie.affiche | image:'small'}}">
         <div class="media-body">
-          <div class="mt-0 title-result" [ngClass]="{'item-result' : !serie.originTitle}">{{serie.title |
+          <div class="mt-0 title-result" [ngClass]="{'item-result' : !serie.original_title}">{{serie.title |
             capitalizeWord | truncate:20}}
             ({{serie.firstAired | date : "yyyy"}})</div>
-          <div *ngIf="serie.originTitle" class="small">{{serie.originTitle | truncate:20}}</div>
+          <div *ngIf="serie.original_title" class="small">{{serie.original_title | truncate:20}}</div>
         </div>
       </div>
     </div>

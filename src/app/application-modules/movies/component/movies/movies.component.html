@@ -123,13 +123,13 @@
     </ng-container>
 
     <!-- NOTE -->
-    <ng-container matColumnDef="note">
+    <ng-container matColumnDef="vote">
       <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'movies.rating'|translate }}">
         <span class="mat-text">{{ 'movies.rating'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faStar"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let movie">
-        {{movie.note}}
+        {{movie.vote}}
       </mat-cell>
     </ng-container>
 

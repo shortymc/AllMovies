@@ -34,8 +34,8 @@
       <label>{{'global.id' | translate}}:</label>{{serie.id}}
     </div>
     <!-- Title -->
-    <div *ngIf="serie.title !== serie.originTitle">
-      <label>{{'global.originTitle' | translate}}: </label>{{serie.originTitle | capitalizeWord}}
+    <div *ngIf="serie.title !== serie.original_title">
+      <label>{{'global.original_title' | translate}}: </label>{{serie.original_title | capitalizeWord}}
     </div>
     <div *ngIf="serie.alternativeTitles && serie.alternativeTitles.length > 0" class="d-inline-flex flex-column">
       <div>
@@ -81,7 +81,7 @@
       <label>{{'global.popularity' | translate}}: </label>{{serie.popularity}}
     </div>
     <div *ngIf="serie.vote">
-      <label>{{'global.vote' | translate}}: </label>{{serie.vote}} ({{serie.voteCount}})
+      <label>{{'global.vote' | translate}}: </label>{{serie.vote}} ({{serie.vote_count}})
     </div>
     <!-- Country -->
     <div *ngIf="serie.originCountries && serie.originCountries.length > 0">
@@ -116,7 +116,7 @@
     <!-- Keyword -->
     <div *ngIf="serie.keywords && serie.keywords.length > 0">
       <label>{{'global.keyword' | translate}}: </label>
-      <div class="synopsis break-word">
+      <div class="overview break-word">
         <span *ngFor="let keyword of serie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)" class="serie-keyword">
           <span class="pointer" appOpenLink [label]="keyword.name" url="/discover?keyword=[{{keyword.id}}]">{{keyword.name|
             capitalizeWord}}</span>
@@ -126,8 +126,8 @@
     </div>
     <!-- Overview -->
     <div *ngIf="serie.overview">
-      <label>{{'global.synopsis' | translate}}: </label>
-      <div class="synopsis text-justify">{{serie.overview}}</div>
+      <label>{{'global.overview' | translate}}: </label>
+      <div class="overview text-justify">{{serie.overview}}</div>
     </div>
     <div *ngIf="serie.status">
       <label>{{'serie.status' | translate}}: </label>{{serie.status}}

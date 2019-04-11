@@ -22,12 +22,12 @@ export class SerieService {
       .then(response => {
         const serie = MapSerie.mapForSerie(response);
         serie.lang_version = config.lang;
-        if (detail && (!serie.overview || (!serie.videos && config.video) || !serie.originTitle)) {
+        if (detail && (!serie.overview || (!serie.videos && config.video) || !serie.original_title)) {
           return this.getSerie(id,
             new DetailConfig(false, false, false, false, config.video, false, false, false, 'en'), false).then(enSerie => {
               serie.overview = Utils.isBlank(serie.overview) ? enSerie.overview : serie.overview;
               serie.videos = serie.videos && serie.videos.length > 0 ? serie.videos : enSerie.videos;
-              serie.originTitle = Utils.isBlank(serie.originTitle) ? enSerie.overview : serie.originTitle;
+              serie.original_title = Utils.isBlank(serie.original_title) ? enSerie.overview : serie.original_title;
               serie.score = enSerie.score;
               return serie;
             });

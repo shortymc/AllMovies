@@ -34,15 +34,10 @@ export class MetaComponent implements OnInit {
     this._entry
       .subscribe(x => {
         let term;
-        if (this.isMovie) {
-          // if movie
-          const title = this.entry.title;
-          const original = this.entry.original_title;
-          term = !original || original.trim() === '' ? title : original;
-        } else if (this.isSerie) {
+        if (this.isMovie || this.isSerie) {
           // if serie
           const title = this.entry.title;
-          const original = this.entry.originTitle;
+          const original = this.entry.original_title;
           term = !original || original.trim() === '' ? title : original;
         } else {
           // if person

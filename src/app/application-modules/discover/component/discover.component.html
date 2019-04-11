@@ -89,7 +89,7 @@
     <p matLine>{{movie.language | uppercase}}</p>
     <p matLine>{{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}</p>
     <p matLine>
-      <span>{{movie.note}} / 10 </span>
+      <span>{{movie.vote}} / 10 </span>
       <span>({{movie.vote_count}})</span>
       <span> - {{movie.popularity | number:'1.0-2':translate.currentLang}}</span>
     </p>
