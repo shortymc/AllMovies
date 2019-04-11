@@ -149,7 +149,7 @@
     <!-- Keyword -->
     <div *ngIf="movie.keywords && movie.keywords.length > 0">
       <label>{{'global.keyword' | translate}}: </label>
-      <div class="synopsis break-word">
+      <div class="overview break-word">
         <span *ngFor="let keyword of movie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)" class="movie-keyword">
           <span class="pointer" appOpenLink [label]="keyword.name" url="/discover?keyword=[{{keyword.id}}]">{{keyword.name|
             capitalizeWord}}</span>
@@ -158,9 +158,9 @@
       </div>
     </div>
     <!-- Overview -->
-    <div *ngIf="movie.synopsis">
-      <label>{{'global.synopsis' | translate}}: </label>
-      <div class="synopsis text-justify">{{movie.synopsis}}</div>
+    <div *ngIf="movie.overview">
+      <label>{{'global.overview' | translate}}: </label>
+      <div class="overview text-justify">{{movie.overview}}</div>
     </div>
     <!-- Pictures -->
     <div class="pad-left" *ngIf="config.img">

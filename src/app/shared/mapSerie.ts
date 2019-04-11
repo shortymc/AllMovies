@@ -10,7 +10,7 @@ export class MapSerie {
   //     id: r.id,
   //     title: r.title,
   //     date: r.release_date,
-  //     note: r.vote_average,
+  //     vote: r.vote_average,
   //     language: r.original_language,
   //     affiche: r.poster_path,
   //     popularity: r.popularity
@@ -23,7 +23,7 @@ export class MapSerie {
   //     id: r.id,
   //     title: r.title,
   //     date: r.release_date,
-  //     note: r.vote_average,
+  //     vote: r.vote_average,
   //     language: r.original_language,
   //     affiche: r.poster_path,
   //     adult: r.adult,
@@ -49,7 +49,7 @@ export class MapSerie {
       id: r.id,
       title: r.name,
       firstAired: r.first_air_date,
-      originTitle: Utils.getTitle(r, false),
+      original_title: Utils.getTitle(r, false),
       affiche: r.poster_path,
     }));
   }
@@ -60,9 +60,9 @@ export class MapSerie {
       title: r.name,
       firstAired: r.first_air_date,
       affiche: r.poster_path,
-      originTitle: Utils.getTitle(r),
+      original_title: Utils.getTitle(r),
       vote: r.vote_average,
-      voteCount: r.vote_count,
+      vote_count: r.vote_count,
       originLang: r.original_language,
       popularity: r.popularity
     }));
@@ -73,14 +73,14 @@ export class MapSerie {
     const serie = new Serie();
     serie.id = r.id;
     serie.title = r.name;
-    serie.originTitle = r.original_name;
+    serie.original_title = r.original_name;
     serie.originLang = r.original_language;
     serie.originCountries = r.origin_country;
     serie.overview = r.overview;
     serie.affiche = r.poster_path;
     serie.runtimes = r.episode_run_time;
     serie.vote = r.vote_average;
-    serie.voteCount = r.vote_count;
+    serie.vote_count = r.vote_count;
     serie.checked = false;
     serie.popularity = r.popularity;
     serie.status = r.status;
@@ -142,10 +142,10 @@ export class MapSerie {
   //     title: r.title,
   //     original_title: Utils.getTitle(r),
   //     date: r.release_date,
-  //     synopsis: r.overview,
+  //     overview: r.overview,
   //     affiche: r.poster_path,
   //     adult: r.adult,
-  //     note: r.vote_average,
+  //     vote: r.vote_average,
   //     vote_count: r.vote_count,
   //     language: r.original_language,
   //     popularity: r.popularity,

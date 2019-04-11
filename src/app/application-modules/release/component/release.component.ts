@@ -178,11 +178,11 @@ export class ReleaseComponent implements OnInit, OnDestroy {
   }
 
   isSuccess(movie: Movie): boolean {
-    return movie.note >= 7 && movie.vote_count >= 10;
+    return movie.vote >= 7 && movie.vote_count >= 10;
   }
 
   isDanger(movie: Movie): boolean {
-    return movie.note < 5 && movie.vote_count >= 10;
+    return movie.vote < 5 && movie.vote_count >= 10;
   }
 
   ngOnDestroy(): void {

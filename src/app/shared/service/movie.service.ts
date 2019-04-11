@@ -41,10 +41,10 @@ export class MovieService {
       .then(response => {
         const movie = MapMovie.mapForMovie(response, this.mockService);
         movie.lang_version = config.lang;
-        if (detail && (!movie.synopsis || (!movie.videos && config.video) || !movie.original_title)) {
+        if (detail && (!movie.overview || (!movie.videos && config.video) || !movie.original_title)) {
           return this.getMovie(id,
             new DetailConfig(false, false, false, false, config.video, false, false, false, 'en'), false).then(enMovie => {
-              movie.synopsis = Utils.isBlank(movie.synopsis) ? enMovie.synopsis : movie.synopsis;
+              movie.overview = Utils.isBlank(movie.overview) ? enMovie.overview : movie.overview;
               movie.videos = movie.videos && movie.videos.length > 0 ? movie.videos : enMovie.videos;
               movie.original_title = Utils.isBlank(movie.original_title) ? enMovie.original_title : movie.original_title;
               movie.score = enMovie.score;
@@ -60,7 +60,7 @@ export class MovieService {
     if (movie.imdb_id) {
       return this.omdb.getScore(movie.imdb_id).then(score => {
         if (score) {
-          score.ratings.splice(-1, 0, ...[{ Source: 'MovieDB', Value: movie.note + '/10' }, { Source: 'Popularity', Value: movie.popularity }]);
+          score.ratings.splice(-1, 0, ...[{ Source: 'MovieDB', Value: movie.vote + '/10' }, { Source: 'Popularity', Value: movie.popularity }]);
           score.moviedb_votes = movie.vote_count;
           movie.score = score;
         }

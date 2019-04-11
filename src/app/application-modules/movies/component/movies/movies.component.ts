@@ -36,9 +36,9 @@ library.add(faTimesCircle);
   ]
 })
 export class MoviesComponent implements OnInit, OnDestroy {
-  init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'note', 'meta', 'language',
+  init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'vote', 'meta', 'language',
     'genres', 'time', 'added', 'select', 'details', 'tag-icon'];
-  medium_columns = ['thumbnail', 'title', 'date', 'note', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details', 'tag-icon'];
+  medium_columns = ['thumbnail', 'title', 'date', 'vote', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details', 'tag-icon'];
   mobile_columns = ['thumbnail', 'title', 'date', 'meta', 'language', 'time', 'genres', 'select', 'details', 'tag-icon'];
   displayedColumns = this.init_columns;
   allMovies: Movie[];
@@ -152,7 +152,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     if (this.filter) {
       byTitle = list.filter(m => m.translation.get(this.translate.currentLang).name.toLowerCase().includes(this.filter.toLowerCase()));
     }
-    list = Utils.sortMovie(Utils.unique(byFields.concat(byTitle)), this.sort, this.translate.currentLang);
+    list = Utils.sortData(Utils.unique(byFields.concat(byTitle)), this.sort, this.translate.currentLang);
     this.length = list.length;
     return list;
   }
