@@ -38,6 +38,7 @@ export class DropdownLanguageComponent implements OnInit, OnChanges {
 
   updateLang(newCode: string): void {
     this.language = this.langList.find(l => l.code === newCode);
+    this.change(this.language);
   }
 
   change(language: Lang): void {
