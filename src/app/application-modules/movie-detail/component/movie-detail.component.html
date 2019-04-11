@@ -176,11 +176,11 @@
   <div class="media-content">
     <!-- recommendations -->
     <ng-container *ngIf="movie.recommendations">
-      <app-list-movies [movies]="movie.recommendations" [label]="('global.reco' | translate).concat(':')"></app-list-movies>
+      <app-list-datas [datas]="movie.recommendations" [isMovie]="true" [label]="('global.reco' | translate).concat(':')"></app-list-datas>
     </ng-container>
     <!-- Similar movies -->
     <ng-container *ngIf="movie.similars">
-      <app-list-movies [movies]="movie.similars" [label]="('global.similar' | translate).concat(':')"></app-list-movies>
+      <app-list-datas [datas]="movie.similars" [isMovie]="true" [label]="('global.similar' | translate).concat(':')"></app-list-datas>
     </ng-container>
   </div>
 </div>
