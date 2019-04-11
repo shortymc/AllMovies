@@ -4,27 +4,29 @@ import { SortDirection } from '@angular/material';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 
-import { Movie } from '../../../model/movie';
-import { Utils } from './../../utils';
+import { Data } from '../../../model/data';
+import { Utils } from '../../utils';
 import { DropDownChoice } from '../../../model/model';
 
 library.add(faTimesCircle);
 
 @Component({
-  selector: 'app-list-movies',
-  templateUrl: './list-movies.component.html',
-  styleUrls: ['./list-movies.component.scss']
+  selector: 'app-list-datas',
+  templateUrl: './list-datas.component.html',
+  styleUrls: ['./list-datas.component.scss']
 })
-export class ListMoviesComponent implements OnChanges {
+export class ListDatasComponent<T extends Data> implements OnChanges {
+  @Input()
+  datas: T[];
+  @Input()
+  isMovie: boolean;
   @Input()
   label: string;
-  @Input()
-  movies: Movie[];
 
   page: number;
   research: string;
   resultLength: number;
-  moviesToShow: Movie[];
+  datasToShow: T[];
   sortChoices: DropDownChoice[];
   sortChosen: DropDownChoice;
   sortDir: SortDirection;
@@ -37,29 +39,29 @@ export class ListMoviesComponent implements OnChanges {
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }): void {
     for (const field of Object.keys(changes)) {
-      if (field === 'movies') {
-        this.movies = changes[field].currentValue;
+      if (field === 'datas') {
+        this.datas = changes[field].currentValue;
         this.initSortProperties();
         this.sortOrSearchChanged(false);
       }
     }
   }
 
-  getMoviesToShow(movies: Movie[], page: number): void {
-    let list = movies;
+  getDatasToShow(datas: T[], page: number): void {
+    let list = datas;
     if (this.research && this.research.trim() !== '') {
-      list = Utils.filterByFields(movies, ['title'], this.research);
+      list = Utils.filterByFields(datas, ['title'], this.research);
     }
     this.resultLength = list.length;
-    this.moviesToShow = list.slice((page - 1) * this.pageSize, page * this.pageSize);
+    this.datasToShow = list.slice((page - 1) * this.pageSize, page * this.pageSize);
   }
 
   sortOrSearchChanged(scroll: boolean): void {
-    this.movies = Utils.sortMovie(this.movies, { active: this.sortChosen.value, direction: this.sortDir });
+    this.datas = Utils.sortData(this.datas, { active: this.sortChosen.value, direction: this.sortDir });
     this.page = 1;
-    this.getMoviesToShow(this.movies, this.page);
+    this.getDatasToShow(this.datas, this.page);
     if (scroll) {
-      this.elemRef.nativeElement.scrollIntoView();
+      this.elemRef.nativeElement.scrollIntoView({ block: 'center', inline: 'center' });
     }
   }
 
@@ -70,7 +72,10 @@ export class ListMoviesComponent implements OnChanges {
     if (!this.sortChoices || this.sortChoices.length === 0) {
       this.sortChoices = [new DropDownChoice('discover.sort_field.popularity', 'popularity'),
       new DropDownChoice('discover.sort_field.release_date', 'date'), new DropDownChoice('discover.sort_field.original_title', 'title'),
-      new DropDownChoice('discover.sort_field.vote_average', 'note'), new DropDownChoice('discover.sort_field.vote_count', 'vote_count')];
+      new DropDownChoice('discover.sort_field.vote_average', 'vote'), new DropDownChoice('discover.sort_field.vote_count', 'vote_count')];
+      if (!this.isMovie) {
+        this.sortChoices.splice(1, 1, new DropDownChoice('discover.sort_field.first_air_date', 'firstAired'));
+      }
     }
     if (!this.sortChosen) {
       this.sortChosen = this.sortChoices[0];
@@ -78,8 +83,7 @@ export class ListMoviesComponent implements OnChanges {
   }
 
   pageChanged(event: any): void {
-    this.getMoviesToShow(this.movies, event);
-    this.elemRef.nativeElement.scrollIntoView();
+    this.getDatasToShow(this.datas, event);
+    this.elemRef.nativeElement.scrollIntoView({ block: 'center', inline: 'center' });
   }
-
 }

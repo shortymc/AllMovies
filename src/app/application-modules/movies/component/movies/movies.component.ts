@@ -36,10 +36,10 @@ library.add(faTimesCircle);
   ]
 })
 export class MoviesComponent implements OnInit, OnDestroy {
-  init_columns = ['id', 'thumbnail', 'title', 'original_title', 'date', 'vote', 'meta', 'language',
+  init_columns = ['id', 'thumbnail', 'name', 'original_title', 'date', 'vote', 'meta', 'language',
     'genres', 'time', 'added', 'select', 'details', 'tag-icon'];
-  medium_columns = ['thumbnail', 'title', 'date', 'vote', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details', 'tag-icon'];
-  mobile_columns = ['thumbnail', 'title', 'date', 'meta', 'language', 'time', 'genres', 'select', 'details', 'tag-icon'];
+  medium_columns = ['thumbnail', 'name', 'date', 'vote', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details', 'tag-icon'];
+  mobile_columns = ['thumbnail', 'name', 'date', 'meta', 'language', 'time', 'genres', 'select', 'details', 'tag-icon'];
   displayedColumns = this.init_columns;
   allMovies: Movie[];
   tags: Tag[];
@@ -146,7 +146,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     let list = this.filterGenres();
     list = this.filterTags(list);
     const byFields = Utils.filterByFields(list,
-      this.displayedColumns.filter(col => !['added', 'select', 'details', 'genres', 'meta', 'thumbnail', 'tag-icon', 'title'].includes(col)),
+      this.displayedColumns.filter(col => !['added', 'select', 'details', 'genres', 'meta', 'thumbnail', 'tag-icon', 'name'].includes(col)),
       this.filter);
     let byTitle = [];
     if (this.filter) {
