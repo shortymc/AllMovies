@@ -15,10 +15,10 @@ export class MapMovie {
       id: r.id,
       title: r.title,
       date: r.release_date,
-      note: r.vote_average,
+      vote: r.vote_average,
       language: r.original_language,
       affiche: r.poster_path,
-      synopsis: r.overview,
+      overview: r.overview,
       time: r.runtime,
       popularity: r.popularity,
       vote_count: r.vote_count
@@ -30,7 +30,7 @@ export class MapMovie {
       id: r.id,
       title: r.title,
       date: r.release_date,
-      note: r.vote_average,
+      vote: r.vote_average,
       language: r.original_language,
       affiche: r.poster_path,
       popularity: r.popularity
@@ -43,7 +43,7 @@ export class MapMovie {
       id: r.id,
       title: r.title,
       date: r.release_date,
-      note: r.vote_average,
+      vote: r.vote_average,
       language: r.original_language,
       affiche: r.poster_path,
       adult: r.adult,
@@ -84,7 +84,7 @@ export class MapMovie {
       original_title: Utils.getTitle(r),
       adult: r.adult,
       time: r.runtime,
-      note: r.vote_average,
+      vote: r.vote_average,
       vote_count: r.vote_count,
       budget: r.budget,
       recette: r.revenue,
@@ -145,11 +145,11 @@ export class MapMovie {
     movie.id = r.id;
     movie.original_title = r.original_title;
     movie.date = r.release_date;
-    movie.synopsis = r.overview;
+    movie.overview = r.overview;
     movie.affiche = r.poster_path;
     movie.adult = r.adult;
     movie.time = r.runtime;
-    movie.note = r.vote_average;
+    movie.vote = r.vote_average;
     movie.vote_count = r.vote_count;
     movie.budget = r.budget;
     movie.recette = r.revenue;
@@ -187,10 +187,10 @@ export class MapMovie {
       title: r.title,
       original_title: Utils.getTitle(r),
       date: r.release_date,
-      synopsis: r.overview,
+      overview: r.overview,
       affiche: r.poster_path,
       adult: r.adult,
-      note: r.vote_average,
+      vote: r.vote_average,
       vote_count: r.vote_count,
       language: r.original_language,
       popularity: r.popularity,
