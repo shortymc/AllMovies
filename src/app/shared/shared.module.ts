@@ -26,7 +26,7 @@ import { MyDatasService } from './service/my-datas.service';
 import { GoToTopComponent } from './components/go-to-top/go-to-top.component';
 import { ListPersonsComponent } from './components/list-persons/list-persons.component';
 import { SerieService } from './service/serie.service';
-import { ListMoviesComponent } from './components/list-movies/list-movies.component';
+import { ListDatasComponent } from './components/list-datas/list-datas.component';
 import { UtilsService } from './service/utils.service';
 import { AddCollectionDirective } from './directives/add-collection.directive';
 import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
@@ -76,7 +76,7 @@ import { CreditListComponent } from './components/credit-list/credit-list.compon
     TruncatePipe,
     ImagePipe,
     VideosComponent,
-    ListMoviesComponent,
+    ListDatasComponent,
     MetaComponent,
     ListPersonsComponent,
     DropdownLanguageComponent,
@@ -129,7 +129,7 @@ import { CreditListComponent } from './components/credit-list/credit-list.compon
     FilterCrewPipe,
     ImagePipe,
     GoToTopComponent,
-    ListMoviesComponent,
+    ListDatasComponent,
     VideosComponent,
     MetaComponent,
     CreditListComponent,

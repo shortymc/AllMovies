@@ -150,11 +150,11 @@
   <div class="media-content">
     <!-- recommendations -->
     <ng-container *ngIf="serie.recommendations">
-      <app-list-movies [movies]="serie.recommendations" [label]="('global.reco' | translate).concat(':')"></app-list-movies>
+      <app-list-datas [datas]="serie.recommendations" [isMovie]="false" [label]="('global.reco' | translate).concat(':')"></app-list-datas>
     </ng-container>
     <!-- Similar series -->
     <ng-container *ngIf="serie.similars">
-      <app-list-movies [movies]="serie.similars" [label]="('global.similar' | translate).concat(':')"></app-list-movies>
+      <app-list-datas [datas]="serie.similars" [isMovie]="false" [label]="('global.similar' | translate).concat(':')"></app-list-datas>
     </ng-container>
   </div>
 </div>

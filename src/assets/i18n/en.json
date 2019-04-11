@@ -133,7 +133,7 @@
         "header": "Movie Search",
         "placeholder": "Search movies"
     },
-    "movie-list": {
+    "data-list": {
         "actor": "As actors",
         "director": "As director",
         "producer": "As producer",
@@ -141,7 +141,8 @@
         "screenwriter": "As screenwriter",
         "novelist": "As novelist",
         "technician": "As technician",
-        "add": "Add Selected Movies To Collection",
+        "add_movies": "Add selected movies",
+        "add_series": "Add Selected series",
         "total": "Total"
     },
     "person": {
@@ -279,6 +280,7 @@
             "release_date": "Release date",
             "revenue": "Revenue",
             "original_title": "Title",
+            "first_air_date": "First aired",
             "vote_average": "Vote",
             "vote_count": "Vote count"
         },

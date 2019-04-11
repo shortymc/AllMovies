@@ -184,9 +184,9 @@ export class Utils {
       return list.sort((a, b) => {
         const isAsc: boolean = sort.direction === 'asc';
         const field = sort.active;
-        if (['original_title', 'language'].includes(field)) {
+        if (['original_title', 'language', 'title'].includes(field)) {
           return Utils.compare(a[field], b[field], isAsc);
-        } else if (['date', 'first_aired'].includes(sort.active)) {
+        } else if (['date', 'firstAired'].includes(sort.active)) {
           return Utils.compareDate(a[field], b[field], isAsc);
         } else if (['added'].includes(sort.active)) {
           return Utils.compare(new Date(a[field]), new Date(b[field]), isAsc);
@@ -194,7 +194,7 @@ export class Utils {
           return this.compareMetaScore(a, b, isAsc);
         } else if (['id', 'vote', 'vote_count', 'popularity', 'time'].includes(sort.active)) {
           return Utils.compare(+a[field], +b[field], isAsc);
-        } else if (['title'].includes(sort.active)) {
+        } else if (['name'].includes(sort.active)) {
           return Utils.compare(a.translation.get(lang).name, b.translation.get(lang).name, isAsc);
         } else {
           return 0;

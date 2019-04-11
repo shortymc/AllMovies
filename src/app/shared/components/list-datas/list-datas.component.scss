@@ -5,20 +5,12 @@
   margin-left: 0 !important;
 }
 
-.reco {
-  display: flex;
-
-  & input {
-    width: 100% !important;
-  }
-}
-
-.movies-params {
+.datas-params {
   display: inline-flex;
   flex-wrap: wrap;
 }
 
-.movies-sorting {
+.datas-sorting {
   & .toogleHeader {
     margin: auto;
   }
@@ -28,7 +20,7 @@
   }
 }
 
-.movies-search {
+.datas-search {
   padding-right: 15px;
 
   & .pointer {
@@ -44,12 +36,16 @@
   margin: auto;
 }
 
-.reco-item {
+.data-item {
   display: inline-flex;
   flex-direction: column;
+
+  & input {
+    width: 100% !important;
+  }
 }
 
-.reco-infos {
+.data-infos {
   width: 75%;
   margin: auto;
   margin-top: 15px;
@@ -66,14 +62,18 @@
   border: 1px solid #dee2e6;
 }
 
+.bottom-page ::ng-deep ngb-pagination ul {
+  margin-bottom: 0 !important;
+}
+
 @include media(#{$smallscreen}) {
-  .reco {
+  .data {
     display: inline-flex !important;
     flex-wrap: wrap;
     flex-direction: column;
   }
 
-  .reco-item {
+  .data-item {
     width: 100%;
     margin-bottom: 20px;
   }

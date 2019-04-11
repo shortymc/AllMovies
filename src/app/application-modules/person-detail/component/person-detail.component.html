@@ -59,7 +59,7 @@
     </div>
     <figure>
       <label id="person-film">{{'person.films' | translate}}:</label>
-      <app-list-movies [movies]="list.value" [label]="('movie-list.' + list.label_key | translate).concat(':')" *ngFor="let list of listMoviesOrder"></app-list-movies>
+      <app-list-datas [datas]="list.value" [isMovie]="true" [label]="('data-list.' + list.label_key | translate).concat(':')" *ngFor="let list of listMoviesOrder"></app-list-datas>
     </figure>
   </div>
 </div>

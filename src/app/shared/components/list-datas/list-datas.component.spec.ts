@@ -7,19 +7,19 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonToggleModule, MatSelectModule, MatFormFieldModule, MatTooltipModule } from '@angular/material';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { OpenLinkDirective } from './../../directives/open-link.directive';
-import { CapitalizeWordPipe } from './../../pipes/capitalizeWord.pipe';
-import { ListMoviesComponent } from './list-movies.component';
+import { OpenLinkDirective } from '../../directives/open-link.directive';
+import { CapitalizeWordPipe } from '../../pipes/capitalizeWord.pipe';
+import { ListDatasComponent } from './list-datas.component';
 import { AddCollectionDirective } from '../../directives/add-collection.directive';
 import { ImagePipe } from '../../pipes/image.pipe';
 
 describe('ListMoviesComponent', () => {
-  let component: ListMoviesComponent;
-  let fixture: ComponentFixture<ListMoviesComponent>;
+  let component: ListDatasComponent;
+  let fixture: ComponentFixture<ListDatasComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ListMoviesComponent, OpenLinkDirective, CapitalizeWordPipe, AddCollectionDirective, ImagePipe],
+      declarations: [ListDatasComponent, OpenLinkDirective, CapitalizeWordPipe, AddCollectionDirective, ImagePipe],
       providers: [TranslateService],
       imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), RouterTestingModule, FontAwesomeModule, MatButtonToggleModule,
         MatSelectModule, MatFormFieldModule, NgbModule, MatTooltipModule]
@@ -28,7 +28,7 @@ describe('ListMoviesComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListMoviesComponent);
+    fixture = TestBed.createComponent(ListDatasComponent);
     component = fixture.componentInstance;
     component.label = 'TEST';
     component.movies = [];

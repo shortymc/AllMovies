@@ -133,7 +133,7 @@
         "header": "Recherche de films",
         "placeholder": "Chercher des films"
     },
-    "movie-list": {
+    "data-list": {
         "actor": "En tant qu'acteur",
         "director": "En tant que réalisateur",
         "producer": "En tant que producteur",
@@ -141,7 +141,8 @@
         "screenwriter": "En tant que scénariste",
         "novelist": "En tant qu'écrivain",
         "technician": "En tant que technicien",
-        "add": "Ajouter les films sélectionnés à la Collection",
+        "add_movies": "Ajouter les films sélectionnés",
+        "add_series": "Ajouter les séries sélectionnées",
         "total": "Total"
     },
     "person": {
@@ -279,6 +280,7 @@
             "release_date": "Date de sortie",
             "revenue": "Recette",
             "original_title": "Titre",
+            "first_air_date": "Première diffusion",
             "vote_average": "Note",
             "vote_count": "Nombre de vote"
         },
