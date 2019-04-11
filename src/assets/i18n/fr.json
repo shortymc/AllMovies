@@ -123,15 +123,15 @@
         "spoken_langs": "Langues Parlées",
         "revenu": "Recette",
         "image": "Images du film",
-        "tagged": "Tags",
-        "score": {
-            "source": "Site",
-            "value": "Note"
-        }
+        "tagged": "Tags"
     },
     "movie-search": {
         "header": "Recherche de films",
         "placeholder": "Chercher des films"
+    },
+    "score": {
+        "source": "Site",
+        "value": "Note"
     },
     "data-list": {
         "actor": "En tant qu'acteur",

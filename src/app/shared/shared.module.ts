@@ -1,3 +1,4 @@
+import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -25,6 +26,7 @@ import { MetaComponent } from './components/meta/component/meta.component';
 import { MyDatasService } from './service/my-datas.service';
 import { GoToTopComponent } from './components/go-to-top/go-to-top.component';
 import { ListPersonsComponent } from './components/list-persons/list-persons.component';
+import { ScoreComponent } from './components/score/score.component';
 import { SerieService } from './service/serie.service';
 import { ListDatasComponent } from './components/list-datas/list-datas.component';
 import { UtilsService } from './service/utils.service';
@@ -80,6 +82,7 @@ import { CreditListComponent } from './components/credit-list/credit-list.compon
     MetaComponent,
     ListPersonsComponent,
     DropdownLanguageComponent,
+    ScoreComponent,
     GoToTopComponent,
     AddCollectionDirective,
     ListTagsComponent,
@@ -102,6 +105,7 @@ import { CreditListComponent } from './components/credit-list/credit-list.compon
     MatStepperModule,
     FontAwesomeModule,
     MatSidenavModule,
+    MatTableModule,
     MatToolbarModule,
     MatSelectModule,
     MatButtonToggleModule,
@@ -140,6 +144,7 @@ import { CreditListComponent } from './components/credit-list/credit-list.compon
     ListTagsComponent,
     AddCollectionDirective,
     TabsComponent,
+    ScoreComponent,
     NgbModule,
     MatTooltipModule,
     MatStepperModule,

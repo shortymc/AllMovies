@@ -10,21 +10,26 @@ import { DetailConfig } from './../../model/model';
 import { Serie } from '../../model/serie';
 import { ToastService } from './toast.service';
 import { UtilsService } from './utils.service';
+import { OmdbService } from './omdb.service';
 
 @Injectable()
 export class SerieService {
 
-  constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
+  constructor(
+    private omdb: OmdbService,
+    private serviceUtils: UtilsService,
+    private toast: ToastService
+  ) { }
 
   getSerie(id: number, config: DetailConfig, detail: boolean): Promise<Serie> {
-    return this.serviceUtils.getPromise(UrlBuilder.detailUrlBuilder(false, id, config.video, config.credit,
-      config.reco, config.release, config.keywords, config.similar, config.img, config.titles, config.lang))
+    return this.serviceUtils.getPromise(UrlBuilder.detailUrlBuilder(false, id, config.video, config.credit, config.reco, config.release,
+      config.keywords, config.similar, config.img, config.titles, config.external, config.lang))
       .then(response => {
         const serie = MapSerie.mapForSerie(response);
         serie.lang_version = config.lang;
         if (detail && (!serie.overview || (!serie.videos && config.video) || !serie.original_title)) {
           return this.getSerie(id,
-            new DetailConfig(false, false, false, false, config.video, false, false, false, 'en'), false).then(enSerie => {
+            new DetailConfig(false, false, false, false, config.video, false, false, false, false, 'en'), false).then(enSerie => {
               serie.overview = Utils.isBlank(serie.overview) ? enSerie.overview : serie.overview;
               serie.videos = serie.videos && serie.videos.length > 0 ? serie.videos : enSerie.videos;
               serie.original_title = Utils.isBlank(serie.original_title) ? enSerie.overview : serie.original_title;
@@ -32,9 +37,26 @@ export class SerieService {
               return serie;
             });
         } else {
-          return serie;
+          return this.getImdbScore(serie);
         }
       }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+  }
+
+  getImdbScore(serie: Serie): Promise<Serie> {
+    if (serie.imdb_id) {
+      return this.omdb.getScore(serie.imdb_id).then(score => {
+        if (score) {
+          score.ratings.splice(-1, 0, ...[{ Source: 'MovieDB', Value: serie.vote + '/10' }, { Source: 'Popularity', Value: serie.popularity }]);
+          score.moviedb_votes = serie.vote_count;
+          serie.score = score;
+        }
+        return serie;
+      });
+    } else {
+      return new Promise<Serie>((resolve, reject) => {
+        resolve(serie);
+      });
+    }
   }
 
   search(term: string, language: string): Observable<Serie[]> {

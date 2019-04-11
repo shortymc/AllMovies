@@ -1,4 +1,3 @@
-import { MatTableModule } from '@angular/material/table';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +20,6 @@ const childRoutes: Routes = [
     FormsModule,
     SharedModule.forChild(),
     FontAwesomeModule,
-    MatTableModule,
     TranslateModule.forChild(),
     RouterModule.forChild(childRoutes),
   ],

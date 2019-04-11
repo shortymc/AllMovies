@@ -128,8 +128,8 @@ export class AddCollectionDirective<T extends Data> implements OnInit, OnChanges
         tagsToReplace.forEach(t => t.movies = t.movies.filter(data => dataRemoved !== data.id));
         this.myDatasService.remove([dataRemoved], this.isMovie)
           .then(() => this.myTagsService.replaceTags(tagsToReplace));
-        } else {
-          this.myDatasService.remove([dataRemoved], this.isMovie);
+      } else {
+        this.myDatasService.remove([dataRemoved], this.isMovie);
       }
     }
   }
@@ -137,8 +137,8 @@ export class AddCollectionDirective<T extends Data> implements OnInit, OnChanges
   addDatas(datasToAdd: T[]): void {
     const prom = [];
     datasToAdd.forEach(data => {
-      const confFr = new DetailConfig(false, false, false, false, false, false, false, false, 'fr');
-      const confEn = new DetailConfig(false, false, false, false, false, false, false, false, 'en');
+      const confFr = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, 'fr');
+      const confEn = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, 'en');
       if (this.isMovie) {
         prom.push(this.movieService.getMovie(data.id, confFr, false));
         prom.push(this.movieService.getMovie(data.id, confEn, false));

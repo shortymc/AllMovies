@@ -27,43 +27,7 @@
   <div class="movie-content">
     <app-image-viewer class="movie-poster" [images]="movie.affiche" [thumbnails]="movie.affiche" [visible]="true"></app-image-viewer>
     <!-- Score -->
-    <div class="movie-score" *ngIf="movie.score as score">
-      <mat-table class="mat-elevation-z4" [dataSource]="score.ratings">
-
-        <ng-container matColumnDef="source">
-          <mat-header-cell *matHeaderCellDef>
-            <span class="mat-text">{{'movie.score.source' | translate}}</span>
-          </mat-header-cell>
-          <mat-cell *matCellDef="let rating">
-            {{rating.Source}}
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="value">
-          <mat-header-cell *matHeaderCellDef>
-            <span class="mat-text">{{'movie.score.value' | translate}}</span>
-          </mat-header-cell>
-          <mat-cell *matCellDef="let rating">
-            <ng-container *ngIf="rating.Source != 'Popularity'; else popularity">
-              {{rating.Value}}
-            </ng-container>
-            <ng-template #popularity>
-              {{rating.Value|number:'1.0-2':translate.currentLang}}
-            </ng-template>
-            <ng-container [ngSwitch]="rating.Source">
-              <ng-container *ngSwitchCase="'IMDb'">
-                ({{score.imdb_votes|number:'1.0-2':translate.currentLang}})
-              </ng-container>
-              <ng-container *ngSwitchCase="'MovieDB'">
-                ({{score.moviedb_votes|number:'1.0-2':translate.currentLang}})
-              </ng-container>
-            </ng-container>
-          </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="['source', 'value']"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: ['source', 'value'];"></mat-row>
-      </mat-table>
-    </div>
+    <app-score [score]="movie.score"></app-score>
     <div>
       <label>{{'global.id' | translate}}:</label>{{movie.id}}
     </div>
