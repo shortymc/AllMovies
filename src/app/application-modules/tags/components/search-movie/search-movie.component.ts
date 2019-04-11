@@ -45,7 +45,7 @@ export class SearchMovieComponent implements OnInit {
   add(item: Movie): void {
     const lang = this.translate.currentLang === 'fr' ? 'en' : 'fr';
     item.lang_version = this.translate.currentLang;
-    this.movieService.getMovie(item.id, new DetailConfig(false, false, false, false, false, false, false, false, lang), false).then(movie => {
+    this.movieService.getMovie(item.id, new DetailConfig(false, false, false, false, false, false, false, false, false, lang), false).then(movie => {
       movie.lang_version = lang;
       this.selected.emit([item, movie]);
     });

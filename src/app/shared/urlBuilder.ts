@@ -22,7 +22,7 @@ export class UrlBuilder {
   }
 
   static detailUrlBuilder(isMovie: boolean, id: number, video: boolean, credit: boolean, reco: boolean, release: boolean, keywords: boolean,
-    similar: boolean, image: boolean, titles: boolean, language: string): string {
+    similar: boolean, image: boolean, titles: boolean, external: boolean, language: string): string {
     let url = isMovie ? Url.MOVIE_URl : Url.SERIE_URl;
     url += `/${id}?${Url.API_KEY}`;
     if (video || credit || reco || image) {
@@ -51,6 +51,9 @@ export class UrlBuilder {
       }
       if (image) {
         parametres.push(`${Url.APPEND_IMAGES}`);
+      }
+      if (external) {
+        parametres.push(`${Url.APPEND_EXTERNAL_IDS}`);
       }
       url += parametres.join(',');
     }

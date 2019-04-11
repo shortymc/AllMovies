@@ -31,19 +31,19 @@ export class MovieService {
   }
 
   getMovies(ids: number[], language: string): Promise<Movie[]> {
-    const obs = ids.map(id => this.getMovie(id, new DetailConfig(true, true, true, true, true, true, true, true, language), false));
+    const obs = ids.map(id => this.getMovie(id, new DetailConfig(true, true, true, true, true, true, true, true, false, language), false));
     return forkJoin(obs).toPromise();
   }
 
   getMovie(id: number, config: DetailConfig, detail: boolean): Promise<Movie> {
     return this.serviceUtils.getPromise(UrlBuilder.detailUrlBuilder(true, id, config.video, config.credit,
-      config.reco, config.release, config.keywords, config.similar, config.img, config.titles, config.lang))
+      config.reco, config.release, config.keywords, config.similar, config.img, config.titles, false, config.lang))
       .then(response => {
         const movie = MapMovie.mapForMovie(response, this.mockService);
         movie.lang_version = config.lang;
         if (detail && (!movie.overview || (!movie.videos && config.video) || !movie.original_title)) {
           return this.getMovie(id,
-            new DetailConfig(false, false, false, false, config.video, false, false, false, 'en'), false).then(enMovie => {
+            new DetailConfig(false, false, false, false, config.video, false, false, false, false, 'en'), false).then(enMovie => {
               movie.overview = Utils.isBlank(movie.overview) ? enMovie.overview : movie.overview;
               movie.videos = movie.videos && movie.videos.length > 0 ? movie.videos : enMovie.videos;
               movie.original_title = Utils.isBlank(movie.original_title) ? enMovie.original_title : movie.original_title;
