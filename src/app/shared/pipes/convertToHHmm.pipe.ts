@@ -4,17 +4,23 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ConvertToHHmmPipe implements PipeTransform {
   transform(minutes: number, args: boolean): string {
     let result = '';
-    result += Math.floor(minutes / 60);
-    if (args) {
-      result += 'h ';
-    } else {
-      result += ' heures ';
+    const div = Math.floor(minutes / 60);
+    if (div !== 0) {
+      result += div;
+      if (args) {
+        result += 'h ';
+      } else {
+        result += ' heures ';
+      }
     }
-    result += minutes % 60;
-    if (args) {
-      result += 'min ';
-    } else {
-      result += ' minutes ';
+    const mod = minutes % 60;
+    if (mod !== 0) {
+      result += mod;
+      if (args) {
+        result += 'min ';
+      } else {
+        result += ' minutes ';
+      }
     }
     return result;
   }

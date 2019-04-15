@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'serie', loadChildren: './application-modules/serie-detail/serie-detail.module#SerieDetailModule', canActivate: [AuthGard] },
   { path: 'person', loadChildren: './application-modules/person-detail/person-detail.module#PersonDetailModule', canActivate: [AuthGard] },
   { path: 'release', loadChildren: './application-modules/release/release.module#ReleaseModule', canActivate: [AuthGard] },
-  { path: 'movies', loadChildren: './application-modules/movies/movies.module#MoviesModule', canActivate: [AuthGard] },
+  { path: 'datas', loadChildren: './application-modules/datas/datas.module#DatasModule', canActivate: [AuthGard] },
   { path: 'discover', loadChildren: './application-modules/discover/discover.module#DiscoverModule', canActivate: [AuthGard] },
   { path: 'tags', loadChildren: './application-modules/tags/tags.module#TagsModule', canActivate: [AuthGard] },
   { path: 'login', loadChildren: './application-modules/login/login.module#LoginModule' },

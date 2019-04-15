@@ -18,7 +18,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { SearchMovieComponent } from './components/search-movie/search-movie.component';
 import { TagsComponent } from './components/tags/tags.component';
 import { SharedModule } from './../../shared/shared.module';
-import { MyPaginator } from '../movies/component/my-paginator';
+// import { MyPaginator } from '../movies/component/my-paginator';
 import { TagMoviesComponent } from './components/tag-movies/tag-movies.component';
 
 const childRoutes: Routes = [
@@ -50,10 +50,10 @@ const childRoutes: Routes = [
   declarations: [TagsComponent, TagMoviesComponent, SearchMovieComponent],
   providers: [
     TranslateService,
-    {
-      provide: MatPaginatorIntl, useFactory: (translate: TranslateService): MyPaginator => new MyPaginator(translate, 'tags'),
-      deps: [TranslateService]
-    }
+    // {
+    //   provide: MatPaginatorIntl, useFactory: (translate: TranslateService): MyPaginator => new MyPaginator(translate, 'tags'),
+    //   deps: [TranslateService]
+    // }
   ]
 })
 export class TagsModule { }

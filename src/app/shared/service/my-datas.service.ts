@@ -12,7 +12,8 @@ import { Utils } from '../utils';
 
 @Injectable()
 export class MyDatasService<T extends Data> {
-  myDatas$: BehaviorSubject<T[]> = new BehaviorSubject([]);
+  myMovies$: BehaviorSubject<T[]> = new BehaviorSubject([]);
+  mySeries$: BehaviorSubject<T[]> = new BehaviorSubject([]);
 
   constructor(
     private dropboxService: DropboxService,
@@ -76,7 +77,7 @@ export class MyDatasService<T extends Data> {
       .then((datasFromFile: string) => this.fromJson(datasFromFile))
       .then((datas: T[]) => {
         console.log(isMovie ? 'movies' : 'series', datas);
-        this.myDatas$.next(datas);
+        this.next(datas, isMovie);
       }).catch(err => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
@@ -121,7 +122,7 @@ export class MyDatasService<T extends Data> {
       if (res) {
         // all good, modifies inner data
         console.log('myDatas', tempDataList);
-        this.myDatas$.next(tempDataList);
+        this.next(tempDataList, isMovie);
         this.toast.open(Level.success, isMovie ? 'toast.movies_added' : 'toast.series_added', { size: tempDatasAdded.length });
       }
       return true;
@@ -132,7 +133,7 @@ export class MyDatasService<T extends Data> {
   }
 
   remove(idToRemove: number[], isMovie: boolean): Promise<boolean> {
-    let tempDataList = [];
+    let tempDataList: T[] = [];
     let fileName;
     return this.getFileName(isMovie).then((file: string) => {
       fileName = file;
@@ -153,7 +154,7 @@ export class MyDatasService<T extends Data> {
       console.log(res);
       if (res) {
         // if ok, emit new array and toast
-        this.myDatas$.next(tempDataList);
+        this.next(tempDataList, isMovie);
         this.toast.open(Level.success, isMovie ? 'toast.movies_removed' : 'toast.series_removed', { size: idToRemove.length });
       }
       return true;
@@ -169,7 +170,7 @@ export class MyDatasService<T extends Data> {
    * @returns void
    */
   update(datasToUpdate: T[], isMovie: boolean): Promise<boolean> {
-    let tempDataList = [];
+    let tempDataList: T[] = [];
     let fileName;
     let mapped = datasToUpdate;
     if (datasToUpdate.every(m => m.translation === undefined)) {
@@ -197,12 +198,16 @@ export class MyDatasService<T extends Data> {
       return this.dropboxService.uploadFile(this.toBlob(dataList), fileName);
     }).then((res: any) => {
       console.log(res);
-      this.myDatas$.next(tempDataList);
+      this.next(tempDataList, isMovie);
       this.toast.open(Level.success, isMovie ? 'toast.movies_updated' : 'toast.series_updated', { size: mapped.length });
       return true;
     }).catch((err) => {
       this.serviceUtils.handleError(err, this.toast);
       return false;
     });
+  }
+
+  next(datas: T[], isMovie: boolean): void {
+    isMovie ? this.myMovies$.next(datas) : this.mySeries$.next(datas);
   }
 }

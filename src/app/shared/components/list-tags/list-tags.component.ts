@@ -37,7 +37,7 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subs.push(this.myDatasService.myDatas$.subscribe(movies => this.allMovies = movies));
+    this.subs.push(this.myDatasService.myMovies$.subscribe(movies => this.allMovies = movies));
   }
 
   ngOnChanges(changes: SimpleChanges): void {

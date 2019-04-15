@@ -1,11 +1,11 @@
-<h2>{{'movies.header' | translate}}:</h2>
+<h2>{{'datas.header' | translate}}:</h2>
 
-<ng-container *ngIf="allMovies">
+<ng-container *ngIf="allDatas">
   <div class="filters">
     <!-- Input Filter -->
     <div class="filter-item">
       <mat-form-field>
-        <input matInput type="search" placeholder="{{'movies.filter.placeholder' | translate}}" [(ngModel)]="filter"
+        <input matInput type="search" placeholder="{{'datas.filter.placeholder' | translate}}" [(ngModel)]="filter"
           (keyup)="paginator.firstPage(); onSearch();" />
       </mat-form-field>
       <span *ngIf="filter" (click)="filter=''; paginator.firstPage(); onSearch();" class="pointer clear-btn">
@@ -15,7 +15,7 @@
     <!-- Genres Filter -->
     <div class="filter-item">
       <mat-form-field>
-        <mat-select placeholder="{{'movies.filter.genres' | translate}}" multiple [(value)]="filteredGenres"
+        <mat-select placeholder="{{'datas.filter.genres' | translate}}" multiple [(value)]="filteredGenres"
           (selectionChange)="paginator.firstPage(); filteredGenres = $event.value; onFilterGenres($event.value)">
           <mat-option *ngFor="let genre of genres" [value]="genre.id">{{genre.name}}</mat-option>
         </mat-select>
@@ -27,8 +27,7 @@
     <!-- Tags Filter -->
     <div class="filter-item">
       <mat-form-field>
-        <mat-select placeholder="{{'movie.tagged' | translate}}" multiple [(value)]="filteredTags"
-          (selectionChange)="paginator.firstPage(); filteredTags = $event.value; onFilterTags($event.value)">
+        <mat-select placeholder="{{'data.tagged' | translate}}" multiple [(value)]="filteredTags" (selectionChange)="paginator.firstPage(); filteredTags = $event.value; onFilterTags($event.value)">
           <mat-option *ngFor="let tag of tags" [value]="tag">{{tag.label}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -41,7 +40,7 @@
     <app-search-tag (selected)="selectedTag = $event"></app-search-tag>
     <button type="button" class="btn btn-outline-primary" [style.background]="selectedTag.color" *ngIf="selectedTag"
       (click)="addTag()">
-      {{'movies.add_tag' |translate:{tag: selectedTag.label, size: nbChecked} }}
+      {{'datas.add_tag' |translate:{tag: selectedTag.label, size: nbChecked} }}
     </button>
     <span *ngIf="selectedTag" class="pointer clear-btn" (click)="selectedTag = undefined">
       <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
@@ -50,7 +49,7 @@
 
   <!-- Delete -->
   <div class="delete-btn">
-    <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="remove()">{{'movies.remove' |
+    <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="remove()">{{'datas.remove' |
       translate:{size: nbChecked} }}
       <fa-icon [icon]="faTrash"></fa-icon>
     </button>
@@ -65,7 +64,7 @@
 
   <!-- Table -->
   <mat-table class="mat-elevation-z4" [dataSource]="displayedData" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
-    matSort [matSortActive]="'date'" [matSortDirection]="'desc'" multiTemplateDataRows>
+    matSort [matSortActive]="isMovie ? 'date' : 'firstAired'" [matSortDirection]="'desc'" multiTemplateDataRows>
 
     <!-- ID -->
     <ng-container matColumnDef="id">
@@ -73,30 +72,30 @@
         <span class="mat-text">{{ 'global.id'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faHashtag"></fa-icon>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        {{movie.id}}
+      <mat-cell *matCellDef="let data">
+        {{data.id}}
       </mat-cell>
     </ng-container>
 
     <!-- POSTER -->
     <ng-container matColumnDef="thumbnail">
-      <mat-header-cell *matHeaderCellDef matTooltip="{{ 'movies.poster'|translate }}">
-        <span class="mat-text">{{ 'movies.poster'|translate }}</span>
+      <mat-header-cell *matHeaderCellDef matTooltip="{{ 'datas.poster'|translate }}">
+        <span class="mat-text">{{ 'datas.poster'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faImage"></fa-icon>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        <img class="movie-poster" src="{{movie.translation?.get(translate.currentLang)?.poster | image:'medium'}}" />
+      <mat-cell *matCellDef="let data">
+        <img class="data-poster" src="{{data.translation?.get(translate.currentLang)?.poster | image:'medium'}}" />
       </mat-cell>
     </ng-container>
 
     <!-- TITLE -->
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.title'|translate }}">
-        <span class="mat-text">{{ 'movies.title'|translate }}</span>
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'datas.title'|translate }}">
+        <span class="mat-text">{{ 'datas.title'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faFilm"></fa-icon>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        {{movie.translation?.get(translate.currentLang)?.name}}
+      <mat-cell *matCellDef="let data">
+        {{data.translation?.get(translate.currentLang)?.name}}
       </mat-cell>
     </ng-container>
 
@@ -106,47 +105,80 @@
         <span class="mat-text">{{ 'global.original_title'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faFlag"></fa-icon>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        {{movie.original_title}}
+      <mat-cell *matCellDef="let data">
+        {{data.original_title}}
+      </mat-cell>
+    </ng-container>
+
+    <!-- SEASON COUNT -->
+    <ng-container matColumnDef="seasonCount">
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'global.seasonCount'|translate }}">
+        <span class="mat-text">{{ 'global.seasonCount'|translate }}</span>
+        <fa-icon class="mat-icon" [icon]="faFlag"></fa-icon>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let data">
+        {{data.seasonCount}}
       </mat-cell>
     </ng-container>
 
     <!-- DATE -->
     <ng-container matColumnDef="date">
-      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.date'|translate }}">
-        <span class="mat-text">{{ 'movies.date'|translate }}</span>
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'datas.date'|translate }}">
+        <span class="mat-text">{{ 'datas.date'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faCalendar"></fa-icon>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        {{movie.date | date:'MM/yyyy'}}
+      <mat-cell *matCellDef="let data">
+        {{data.date | date:'MM/yyyy'}}
+      </mat-cell>
+    </ng-container>
+
+    <!-- FIRST AIRED -->
+    <ng-container matColumnDef="firstAired">
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'datas.firstAired'|translate }}">
+        <span class="mat-text">{{ 'datas.firstAired'|translate }}</span>
+        <fa-icon class="mat-icon" [icon]="faCalendar"></fa-icon>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let data">
+        {{data.firstAired | date:'MM/yyyy'}}
       </mat-cell>
     </ng-container>
 
     <!-- NOTE -->
     <ng-container matColumnDef="vote">
-      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'movies.rating'|translate }}">
-        <span class="mat-text">{{ 'movies.rating'|translate }}</span>
+      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'datas.rating'|translate }}">
+        <span class="mat-text">{{ 'datas.rating'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faStar"></fa-icon>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        {{movie.vote}}
+      <mat-cell *matCellDef="let data">
+        {{data.vote}}
       </mat-cell>
     </ng-container>
 
     <!-- METACRITIC -->
     <ng-container matColumnDef="meta">
-      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'movies.rating'|translate }}">
-        <span class="mat-text">{{ 'movies.rating'|translate }}</span>
+      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'datas.rating'|translate }}">
+        <span class="mat-text">{{ 'datas.rating'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faStar"></fa-icon>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        <ng-container *ngIf="movie.score">
-          <ng-container *ngFor="let rating of movie.score.ratings">
+      <mat-cell *matCellDef="let data">
+        <ng-container *ngIf="data.score">
+          <ng-container *ngFor="let rating of data.score.ratings">
             <ng-container *ngIf="rating.Source === 'Metacritic'">
               {{rating.Value}}
             </ng-container>
           </ng-container>
         </ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <!-- IN PROD -->
+    <ng-container matColumnDef="inProduction">
+      <mat-header-cell *matHeaderCellDef start='desc' matTooltip="{{ 'datas.inProduction'|translate }}">
+        <span class="mat-text">{{ 'datas.inProduction'|translate }}</span>
+        <fa-icon class="mat-icon" [icon]="faStar"></fa-icon>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let data">
+        {{'global.' + data.inProduction | translate}}
       </mat-cell>
     </ng-container>
 
@@ -156,8 +188,13 @@
         <span class="mat-text">{{ 'global.languages'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faGlobe"></fa-icon>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        {{movie.language | uppercase}}
+      <mat-cell *matCellDef="let data">
+        <ng-container *ngIf="isMovie; else langSerie">
+          {{data.language | uppercase}}
+        </ng-container>
+        <ng-template #langSerie>
+            {{data.originLang | uppercase}}
+        </ng-template>
       </mat-cell>
     </ng-container>
 
@@ -167,8 +204,8 @@
         <span class="mat-text">{{ 'global.genres'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faList"></fa-icon>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        <ng-container *ngIf="movie.translation?.get(translate.currentLang)?.category as genres">
+      <mat-cell *matCellDef="let data">
+        <ng-container *ngIf="data.translation?.get(translate.currentLang)?.category as genres">
           <ng-container *ngFor="let genre of genres; let last=last">
             {{genre.name}}
             <ng-container *ngIf="!last">/</ng-container>
@@ -179,23 +216,37 @@
 
     <!-- TIME -->
     <ng-container matColumnDef="time">
-      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'movies.length'|translate }}">
-        <span class="mat-text">{{ 'movies.length'|translate }}</span>
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'datas.length'|translate }}">
+        <span class="mat-text">{{ 'datas.length'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="['far', 'clock']"></fa-icon>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        {{movie.time | convertToHHmm:'true'}}
+      <mat-cell *matCellDef="let data">
+        {{data.time | convertToHHmm:'true'}}
+      </mat-cell>
+    </ng-container>
+
+    <!-- RUNTIMES -->
+    <ng-container matColumnDef="runtimes">
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'datas.length'|translate }}">
+        <span class="mat-text">{{ 'datas.length'|translate }}</span>
+        <fa-icon class="mat-icon" [icon]="['far', 'clock']"></fa-icon>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let data">
+        <div *ngFor="let time of data.runtimes;let last=last;">
+          <span>{{time | convertToHHmm:'true'}}</span>
+          <span *ngIf="!last">/</span>
+        </div>
       </mat-cell>
     </ng-container>
 
     <!-- ADDED -->
     <ng-container matColumnDef="added">
-      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'movies.added'|translate }}">
-        <span class="mat-text">{{ 'movies.added'|translate }}</span>
+      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'datas.added'|translate }}">
+        <span class="mat-text">{{ 'datas.added'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="['far', 'clock']"></fa-icon>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        {{movie.added | date:'dd/MM/yy HH:mm:ss'}}
+      <mat-cell *matCellDef="let data">
+        {{data.added | date:'dd/MM/yy HH:mm:ss'}}
       </mat-cell>
     </ng-container>
 
@@ -203,10 +254,10 @@
     <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie" class="toto">
+      <mat-cell *matCellDef="let data" class="toto">
         <div class="cell-content">
-          <mat-checkbox (change)="movie.checked = !movie.checked; updateSize()" (click)="$event.stopPropagation()"
-            [checked]="movie.checked">
+          <mat-checkbox (change)="data.checked = !data.checked; updateSize()" (click)="$event.stopPropagation()"
+            [checked]="data.checked">
           </mat-checkbox>
         </div>
       </mat-cell>
@@ -216,10 +267,10 @@
     <ng-container matColumnDef="details">
       <mat-header-cell *matHeaderCellDef>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie" class="toto">
+      <mat-cell *matCellDef="let data" class="toto">
         <div class="cell-content">
-          <button class="btn btn-outline-primary btn-detail" appOpenLink [label]="movie.translation?.get(translate.currentLang)?.name" url="/movie/{{movie.id}}"
-            matTooltip="{{'global.go_detail' | translate}}">
+          <button class="btn btn-outline-primary btn-detail" appOpenLink [label]="data.translation?.get(translate.currentLang)?.name"
+            url="/data/{{data.id}}" matTooltip="{{'global.go_detail' | translate}}">
             <span class="btn-text">
               <fa-icon [icon]="faChevronCircleRight"></fa-icon>
               {{'global.go_detail' | translate}}
@@ -235,23 +286,23 @@
     <ng-container matColumnDef="tag-icon">
       <mat-header-cell *matHeaderCellDef>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie" class="tag-icon bounce">
+      <mat-cell *matCellDef="let data" class="tag-icon bounce">
         <fa-icon [icon]="faAngleDown" size="3x"></fa-icon>
       </mat-cell>
     </ng-container>
 
     <!-- TAGS -->
     <ng-container matColumnDef="{{expandedColumn}}">
-      <td mat-cell *matCellDef="let movie" class="tag-detail" [attr.colspan]="displayedColumns.length" [@detailExpand]="movie == expandedElement ? 'expanded' : 'collapsed'">
-        <ng-container *ngIf="movie == expandedElement">
+      <td mat-cell *matCellDef="let data" class="tag-detail" [attr.colspan]="displayedColumns.length" [@detailExpand]="data == expandedElement ? 'expanded' : 'collapsed'">
+        <ng-container *ngIf="data == expandedElement">
           <h5 class="tags-header">{{'tags.header'|translate}}:</h5>
-          <app-list-tags [tags]="displayedTags | async" [movieId]="movie.id"></app-list-tags>
+          <app-list-tags [tags]="displayedTags | async" [movieId]="data.id"></app-list-tags>
         </ng-container>
       </td>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let element; let i = dataIndex; columns: displayedColumns;" class="movie-row"
+    <mat-row *matRowDef="let element; let i = dataIndex; columns: displayedColumns;" class="data-row"
       [class.example-expanded-row]="expandedElement === element" (click)="expand(element)" [ngClass]="{'adult': element.adult}">
     </mat-row>
     <mat-row *matRowDef="let row; let i = dataIndex; columns: [expandedColumn];" class="tag-row"></mat-row>
