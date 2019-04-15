@@ -192,8 +192,10 @@ export class Utils {
           return Utils.compare(new Date(a[field]), new Date(b[field]), isAsc);
         } else if (['meta'].includes(sort.active)) {
           return this.compareMetaScore(a, b, isAsc);
-        } else if (['id', 'vote', 'vote_count', 'popularity', 'time'].includes(sort.active)) {
+        } else if (['id', 'vote', 'vote_count', 'popularity', 'time', 'seasonCount'].includes(sort.active)) {
           return Utils.compare(+a[field], +b[field], isAsc);
+        } else if (['runtimes'].includes(sort.active)) {
+          return Utils.compare(+a[field][0], +b[field][0], isAsc);
         } else if (['name'].includes(sort.active)) {
           return Utils.compare(a.translation.get(lang).name, b.translation.get(lang).name, isAsc);
         } else {

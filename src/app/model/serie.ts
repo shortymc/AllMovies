@@ -28,7 +28,7 @@ export class Serie extends Data {
   removeFields(key: string, value: string): string {
     if (
       ['title', 'overview', 'actors', 'crew', 'recommendations', 'videos', 'images', 'checked', 'similars', 'affiche',
-        'alternativeTitles', 'character', 'keywords', 'originCountries', 'genres', 'networks', 'seasons']
+        'alternativeTitles', 'character', 'keywords', 'originCountries', 'genres', 'networks', 'seasons', 'creators']
         .includes(key)
     ) {
       return undefined;

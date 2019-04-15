@@ -56,7 +56,7 @@ mat-row {
   padding-left: 25%;
 }
 
-.movie-poster {
+.data-poster {
   height: 100px;
   margin: 10px 0;
   box-shadow: 1px 1px 10px #000;
@@ -92,14 +92,14 @@ mat-row {
   margin: 0 5px;
 }
 
-.movie-row {
+.data-row {
   border-bottom-width: 0;
 }
 
 .tag-icon {
   display: none;
 
-  .movie-row:hover & {
+  .data-row:hover & {
     position: absolute;
     left: 50%;
     display: flex;
@@ -140,7 +140,7 @@ mat-row {
 }
 
 @include media('1000px', false) {
-  .movie-poster {
+  .data-poster {
     margin: 10px;
   }
 }
@@ -157,7 +157,7 @@ mat-row {
     }
   }
 
-  .movie-poster {
+  .data-poster {
     height: 85px;
   }
 }
@@ -198,7 +198,7 @@ mat-row {
     }
   }
 
-  .movie-poster {
+  .data-poster {
     height: 15vw;
     box-shadow: 2px 5px 9px #000;
   }
@@ -210,7 +210,7 @@ mat-row {
     padding: 10px !important;
   }
 
-  .movie-poster {
+  .data-poster {
     display: flex;
     justify-content: center;
     height: 25vw;

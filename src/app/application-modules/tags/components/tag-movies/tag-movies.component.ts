@@ -61,7 +61,7 @@ export class TagMoviesComponent implements OnInit, OnChanges, OnDestroy {
         this.adult = user.adult;
       }
     }));
-    this.subs.push(this.myDatasService.myDatas$.subscribe(movies => {
+    this.subs.push(this.myDatasService.myMovies$.subscribe(movies => {
       if (movies) {
         this.allMovies = movies;
       }

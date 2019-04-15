@@ -17,15 +17,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule } from './../../../../shared/shared.module';
-import { MoviesComponent } from './movies.component';
+import { DatasComponent } from './datas.component';
 
-describe('MoviesComponent', () => {
-  let component: MoviesComponent;
-  let fixture: ComponentFixture<MoviesComponent>;
+describe('DatasComponent', () => {
+  let component: DatasComponent;
+  let fixture: ComponentFixture<DatasComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MoviesComponent],
+      declarations: [DatasComponent],
       providers: [TranslateService, MatPaginatorIntl],
       imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), HttpClientModule, FontAwesomeModule, BrowserAnimationsModule,
         MatTableModule, LayoutModule, MatSortModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, MatSelectModule,
@@ -35,13 +35,13 @@ describe('MoviesComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MoviesComponent);
+    fixture = TestBed.createComponent(DatasComponent);
     component = fixture.componentInstance;
   });
 
   it('init', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
-    console.log('MoviesComponent');
+    console.log('DatasComponent');
   });
 });
