@@ -193,7 +193,7 @@
         "imdb": "IMDB",
         "links": "Ouvrir les 4 liens"
     },
-    "movies": {
+    "datas": {
         "header": "Mes Films",
         "poster": "Affiche",
         "title": "Titre",

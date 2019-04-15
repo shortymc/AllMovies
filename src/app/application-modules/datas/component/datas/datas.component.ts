@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { filter, take } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { forkJoin, BehaviorSubject } from 'rxjs';
@@ -13,20 +14,20 @@ import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import * as moment from 'moment-mini-ts';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
-import { Constants } from './../../../../constant/constants';
-import { Utils } from './../../../../shared/utils';
-import { TitleService, MovieService, MyDatasService, MyTagsService, ToastService } from './../../../../shared/shared.module';
-import { Tag, TagMovie } from './../../../../model/tag';
-import { Movie } from './../../../../model/movie';
+import { Constants } from '../../../../constant/constants';
+import { Utils } from '../../../../shared/utils';
+import { TitleService, MovieService, MyDatasService, MyTagsService, ToastService } from '../../../../shared/shared.module';
+import { Tag, TagMovie } from '../../../../model/tag';
+import { Data } from '../../../../model/data';
 import { Genre, DetailConfig, Level } from '../../../../model/model';
 
 library.add(faClock);
 library.add(faTimesCircle);
 
 @Component({
-  selector: 'app-my-movies',
-  templateUrl: './movies.component.html',
-  styleUrls: ['./movies.component.scss'],
+  selector: 'app-my-datas',
+  templateUrl: './datas.component.html',
+  styleUrls: ['./datas.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),
@@ -35,17 +36,17 @@ library.add(faTimesCircle);
     ]),
   ]
 })
-export class MoviesComponent implements OnInit, OnDestroy {
-  init_columns = ['id', 'thumbnail', 'name', 'original_title', 'date', 'vote', 'meta', 'language',
-    'genres', 'time', 'added', 'select', 'details', 'tag-icon'];
-  medium_columns = ['thumbnail', 'name', 'date', 'vote', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details', 'tag-icon'];
-  mobile_columns = ['thumbnail', 'name', 'date', 'meta', 'language', 'time', 'genres', 'select', 'details', 'tag-icon'];
-  displayedColumns = this.init_columns;
-  allMovies: Movie[];
+export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
+  init_columns: string[];
+  medium_columns: string[];
+  mobile_columns: string[];
+  displayedColumns: string[];
+  isMovie: boolean;
+  allDatas: T[];
   tags: Tag[];
   filteredTags: Tag[];
   length: number;
-  displayedData: Movie[];
+  displayedData: T[];
   filter: string;
   pageSize = 25;
   pageIndex = 0;
@@ -55,7 +56,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   nbChecked = 0;
   genres: Genre[];
   filteredGenres: number[];
-  expandedElement: Movie;
+  expandedElement: T;
   expandedColumn = 'tags';
   displayedTags: BehaviorSubject<Tag[]> = new BehaviorSubject<Tag[]>([]);
   selectedTag: Tag;
@@ -77,17 +78,17 @@ export class MoviesComponent implements OnInit, OnDestroy {
   constructor(
     private movieService: MovieService,
     private breakpointObserver: BreakpointObserver,
-    private myDatasService: MyDatasService<Movie>,
+    private myDatasService: MyDatasService<T>,
     private myTagsService: MyTagsService,
     public translate: TranslateService,
     private toast: ToastService,
     private elemRef: ElementRef,
-    private title: TitleService
+    private title: TitleService,
+    private activeRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.title.setTitle('title.movies');
-    this.sort = { active: 'date', direction: 'desc' };
+    this.title.setTitle('title.datas');
     this.breakpointObserver.observe([
       Constants.MEDIA_MAX_700,
       Constants.MEDIA_MAX_1000
@@ -104,24 +105,31 @@ export class MoviesComponent implements OnInit, OnDestroy {
       this.page.pageIndex = 0;
       this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
     }
-    this.getMovies(this.translate.currentLang);
-    this.getTags();
-    this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.getMovies(event.lang);
+    this.subs.push(this.activeRoute.data.subscribe(data => {
+      console.log('data', data);
+      this.isMovie = data.isMovie;
+      this.sort = { active: this.isMovie ? 'date' : 'firstAired', direction: 'desc' };
+      this.init_columns = ['id', 'thumbnail', 'name', this.isMovie ? 'original_title' : 'seasonCount', this.isMovie ? 'date' : 'firstAired', 'vote',
+        this.isMovie ? 'meta' : 'inProduction', 'language', 'genres', this.isMovie ? 'time' : 'runtimes', 'added', 'select', 'details', 'tag-icon'];
+      this.medium_columns = ['thumbnail', 'name', this.isMovie ? 'date' : 'firstAired', 'vote', this.isMovie ? 'meta' : 'inProduction', 'language',
+        'genres', this.isMovie ? 'time' : 'runtimes', 'added', 'select', 'details', 'tag-icon'];
+      this.mobile_columns = ['thumbnail', 'name', this.isMovie ? 'date' : 'firstAired', this.isMovie ? 'meta' : 'inProduction', 'language',
+        this.isMovie ? 'time' : 'runtimes', 'genres', 'select', 'details', 'tag-icon'];
+      this.displayedColumns = this.init_columns;
+      this.getDatas(this.translate.currentLang, data.dataList);
+      this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+        this.getDatas(event.lang, data.dataList);
+      }));
     }));
+    this.getTags();
   }
 
-  getMovies(lang: string): void {
-    this.subs.push(this.myDatasService.myDatas$.subscribe(movies => {
-      this.allMovies = movies;
-      this.length = this.allMovies.length;
-      this.paginate(this.refreshData());
-      this.getAllGenres(lang);
-    }));
-    this.subs.push(this.myDatasService.myDatas$.pipe(
-      filter(movies => movies && movies.length !== 0),
-      take(1)
-    ).subscribe(movies => this.checkAndFixData(movies, lang)));
+  getDatas(lang: string, datas: T[]): void {
+    this.allDatas = datas;
+    this.length = this.allDatas.length;
+    this.paginate(this.refreshData());
+    this.getAllGenres(lang);
+    this.checkAndFixData(datas, lang);
   }
 
   getTags(): void {
@@ -130,8 +138,8 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   getAllGenres(lang: string): void {
     const all: Genre[] = [];
-    this.allMovies.forEach((movie: Movie) => {
-      all.push(...movie.translation.get(lang).category);
+    this.allDatas.forEach((data: T) => {
+      all.push(...data.translation.get(lang).category);
     });
     this.genres = [];
     all.forEach((genre: Genre) => {
@@ -142,7 +150,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.genres.sort((a, b) => Utils.compare(a.name.toLowerCase(), b.name.toLowerCase(), true));
   }
 
-  refreshData(): Movie[] {
+  refreshData(): T[] {
     let list = this.filterGenres();
     list = this.filterTags(list);
     const byFields = Utils.filterByFields(list,
@@ -172,12 +180,12 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.onTop();
   }
 
-  paginate(data: Movie[]): void {
+  paginate(data: T[]): void {
     this.displayedData = this.page ?
       data.slice(this.page.pageIndex * this.page.pageSize, (this.page.pageIndex + 1) * this.page.pageSize) : data.slice(0, this.pageSize);
   }
 
-  initPagination(list: Movie[]): void {
+  initPagination(list: T[]): void {
     if (this.page) {
       this.page.pageIndex = 0;
       this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
@@ -185,14 +193,14 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.paginate(list);
   }
 
-  filterGenres(): Movie[] {
+  filterGenres(): T[] {
     let list = [];
     if (this.filteredGenres && this.filteredGenres.length > 0) {
-      list = this.allMovies.filter((movie: Movie) =>
+      list = this.allDatas.filter((data: T) =>
         this.filteredGenres.every((genreId: number) =>
-          movie.translation.get(this.translate.currentLang).category.map(genre => genre.id).includes(genreId)));
+          data.translation.get(this.translate.currentLang).category.map(genre => genre.id).includes(genreId)));
     } else {
-      list = this.allMovies;
+      list = this.allDatas;
     }
     return list;
   }
@@ -202,10 +210,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.initPagination(this.refreshData());
   }
 
-  filterTags(list: Movie[]): Movie[] {
+  filterTags(list: T[]): T[] {
     if (this.filteredTags && this.filteredTags.length > 0) {
-      const ids = Utils.unique(Utils.flatMap<Tag, TagMovie>(this.filteredTags, 'movies').map(movie => movie.id));
-      return list.filter((m: Movie) => ids.includes(m.id));
+      const ids = Utils.unique(Utils.flatMap<Tag, TagMovie>(this.filteredTags, 'datas').map(data => data.id));
+      return list.filter((m: T) => ids.includes(m.id));
     } else {
       return list;
     }
@@ -217,25 +225,25 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   updateSize(): void {
-    this.nbChecked = this.allMovies.filter(movie => movie.checked).length;
+    this.nbChecked = this.allDatas.filter(data => data.checked).length;
   }
 
   /**
-   * Requests movies to MovieDb if some properties (genres, time, score) are missing or if the last updated is from more than two months ago.
-   * @param  {Movie[]} movies movies to check
-   * @param  {string} lang the lang to request the movie to
+   * Requests datas to DataDb if some properties (genres, time, score) are missing or if the last updated is from more than two months ago.
+   * @param  {T[]} datas datas to check
+   * @param  {string} lang the lang to request the data to
    */
-  checkAndFixData(movies: Movie[], lang: string): void {
+  checkAndFixData(datas: T[], lang: string): void {
     let incomplete: number[] = [];
     const twoMonthsAgo = moment().add(-2, 'months');
     try {
-      for (const movie of movies) {
-        const tr = movie.translation.get(lang);
+      for (const data of datas) {
+        const tr = data.translation.get(lang);
         // TODO if a map is empty for a lang
-        if (movie.time === undefined || tr.category === undefined || movie.score === undefined ||
-          movie.updated === undefined || moment(movie.updated).isBefore(twoMonthsAgo)) {
-          incomplete.push(movie.id);
-        }
+        // if (data.time === undefined || tr.category === undefined || data.score === undefined ||
+        //   data.updated === undefined || moment(data.updated).isBefore(twoMonthsAgo)) {
+        //   incomplete.push(data.id);
+        // }
       }
     } catch (err) {
       console.error(err);
@@ -250,7 +258,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
     try {
       forkJoin(obs).subscribe(
-        (data: Movie[]) => {
+        (data: T[]) => {
           data.forEach(m => {
             m.updated = new Date();
             if (m.score === undefined) {
@@ -267,16 +275,16 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   remove(): void {
-    const moviesToRemove = this.allMovies.filter(movie => movie.checked).map(m => m.id);
-    const tagsToReplace = this.tags.filter(t => t.movies.map(m => m.id).some(id => moviesToRemove.includes(id)));
-    tagsToReplace.forEach(t => t.movies = t.movies.filter(movie => !moviesToRemove.includes(movie.id)));
-    this.myDatasService.remove(moviesToRemove, true)
+    const datasToRemove = this.allDatas.filter(data => data.checked).map(m => m.id);
+    const tagsToReplace = this.tags.filter(t => t.movies.map(m => m.id).some(id => datasToRemove.includes(id)));
+    tagsToReplace.forEach(t => t.movies = t.movies.filter(data => !datasToRemove.includes(data.id)));
+    this.myDatasService.remove(datasToRemove, true)
       .then(() => this.myTagsService.replaceTags(tagsToReplace));
     this.nbChecked = 0;
     this.onTop();
   }
 
-  expand(element: Movie): void {
+  expand(element: T): void {
     this.expandedElement = this.expandedElement === element ? undefined : element;
     if (this.expandedElement) {
       this.displayedTags.next(this.tags.filter(t => t.movies.map(m => m.id).includes(this.expandedElement.id)));
@@ -284,23 +292,23 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   addTag(): void {
-    let selectedMoviesIds = this.allMovies.filter(movie => movie.checked).map(movie => movie.id);
-    selectedMoviesIds = selectedMoviesIds.filter(id => !this.selectedTag.movies.map(m => m.id).includes(id));
-    if (selectedMoviesIds.length > 0) {
-      this.selectedTag.movies.push(...selectedMoviesIds.map(id =>
-        TagMovie.fromMovie(this.allMovies.find(m => m.id === id))
-      ));
-      this.myTagsService.updateTag(this.selectedTag).then(() => {
-        this.nbChecked = 0;
-        this.selectedTag = undefined;
-        this.allMovies.forEach(m => m.checked = false);
-      });
-    } else {
-      this.toast.open(Level.warning, 'toast.already_added');
-      this.nbChecked = 0;
-      this.selectedTag = undefined;
-      this.allMovies.forEach(m => m.checked = false);
-    }
+    // let selectedDatasIds = this.allDatas.filter(data => data.checked).map(data => data.id);
+    // selectedDatasIds = selectedDatasIds.filter(id => !this.selectedTag.movies.map(m => m.id).includes(id));
+    // if (selectedDatasIds.length > 0) {
+    //   this.selectedTag.movies.push(...selectedDatasIds.map(id =>
+    //     TagMovie.fromMovie(this.allDatas.find(m => m.id === id))
+    //   ));
+    //   this.myTagsService.updateTag(this.selectedTag).then(() => {
+    //     this.nbChecked = 0;
+    //     this.selectedTag = undefined;
+    //     this.allDatas.forEach(m => m.checked = false);
+    //   });
+    // } else {
+    //   this.toast.open(Level.warning, 'toast.already_added');
+    //   this.nbChecked = 0;
+    //   this.selectedTag = undefined;
+    //   this.allDatas.forEach(m => m.checked = false);
+    // }
   }
 
   onTop(): void {

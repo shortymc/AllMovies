@@ -29,7 +29,8 @@ export class AddCollectionDirective<T extends Data> implements OnInit, OnChanges
   isMovie: boolean;
 
   tags: Tag[];
-  myDatas: T[];
+  mySeries: T[];
+  myMovies: T[];
   isAlreadyAdded: boolean;
 
   subs = [];
@@ -80,10 +81,17 @@ export class AddCollectionDirective<T extends Data> implements OnInit, OnChanges
   initBtnIcon(): void {
     const cmpFactory = this.cfr.resolveComponentFactory(FaIconComponent);
     const component = this.vcRef.createComponent(cmpFactory);
-    this.subs.push(this.myDatasService.myDatas$.subscribe(myDatas => {
-      this.myDatas = myDatas;
-      if (myDatas && myDatas.length > 0) {
-        this.isAlreadyAdded = this.datas.every(data => myDatas.map(m => m.id).includes(data.id));
+    this.subs.push(this.myDatasService.mySeries$.subscribe(myDatas => {
+      this.mySeries = myDatas;
+      if (!this.isMovie && this.mySeries && this.mySeries.length > 0) {
+        this.isAlreadyAdded = this.datas.every(data => this.mySeries.map(m => m.id).includes(data.id));
+      }
+      this.insertIconAndText(component);
+    }));
+    this.subs.push(this.myDatasService.myMovies$.subscribe(myDatas => {
+      this.myMovies = myDatas;
+      if (this.isMovie && this.myMovies && this.myMovies.length > 0) {
+        this.isAlreadyAdded = this.datas.every(data => this.myMovies.map(m => m.id).includes(data.id));
       }
       this.insertIconAndText(component);
     }));
@@ -122,7 +130,7 @@ export class AddCollectionDirective<T extends Data> implements OnInit, OnChanges
 
   remove(): void {
     if (this.isSingleData) {
-      const dataRemoved = this.myDatas.find(m => m.id === this.datas[0].id).id;
+      const dataRemoved = (this.isMovie ? this.myMovies : this.mySeries).find(m => m.id === this.datas[0].id).id;
       if (this.isMovie) {
         const tagsToReplace = this.tags.filter(t => t.movies.map(m => m.id).includes(dataRemoved));
         tagsToReplace.forEach(t => t.movies = t.movies.filter(data => dataRemoved !== data.id));

@@ -14,12 +14,23 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { MyPaginator } from './component/my-paginator';
-import { SharedModule } from './../../shared/shared.module';
-import { MoviesComponent } from './component/movies/movies.component';
+import { DatasResolver } from './resolver/datas.resolver';
+import { SharedModule } from '../../shared/shared.module';
+import { DatasComponent } from './component/datas/datas.component';
 
 const childRoutes: Routes = [
   {
-    path: '', component: MoviesComponent
+    path: '',
+    children: [
+      {
+        path: 'movies', component: DatasComponent, data: { isMovie: true },
+        runGuardsAndResolvers: 'always', resolve: { dataList: DatasResolver }
+      },
+      {
+        path: 'series', component: DatasComponent, data: { isMovie: false },
+        runGuardsAndResolvers: 'always', resolve: { dataList: DatasResolver }
+      }
+    ],
   },
 ];
 
@@ -42,11 +53,12 @@ const childRoutes: Routes = [
   ],
   providers: [
     TranslateService,
+    DatasResolver,
     {
-      provide: MatPaginatorIntl, useFactory: (translate: TranslateService): MyPaginator => new MyPaginator(translate, 'movies'),
+      provide: MatPaginatorIntl, useFactory: (translate: TranslateService): MyPaginator => new MyPaginator(translate, 'datas'),
       deps: [TranslateService]
     }
   ],
-  declarations: [MoviesComponent]
+  declarations: [DatasComponent]
 })
-export class MoviesModule { }
+export class DatasModule { }
