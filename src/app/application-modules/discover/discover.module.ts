@@ -12,7 +12,7 @@ import {
 } from '@angular/material';
 
 import { SearchBoxComponent } from './component/search-box/search-box.component';
-// import { MyPaginator } from './../movies/component/my-paginator';
+import { MyPaginator } from './../../shared/my-paginator';
 import { DiscoverComponent } from './component/discover.component';
 import { SharedModule } from './../../shared/shared.module';
 
@@ -46,10 +46,10 @@ const childRoutes: Routes = [
   ],
   providers: [
     TranslateService,
-    // {
-      // provide: MatPaginatorIntl, useFactory: (translate: TranslateService): MyPaginator => new MyPaginator(translate, 'movies'),
-      // deps: [TranslateService]
-    // }
+    {
+      provide: MatPaginatorIntl, useFactory: (translate: TranslateService): MyPaginator => new MyPaginator(translate, 'movies'),
+      deps: [TranslateService]
+    }
   ],
   declarations: [DiscoverComponent, SearchBoxComponent]
 })
