@@ -193,7 +193,7 @@
           {{data.language | uppercase}}
         </ng-container>
         <ng-template #langSerie>
-            {{data.originLang | uppercase}}
+          {{data.originLang | uppercase}}
         </ng-template>
       </mat-cell>
     </ng-container>
@@ -232,10 +232,9 @@
         <fa-icon class="mat-icon" [icon]="['far', 'clock']"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let data">
-        <div *ngFor="let time of data.runtimes;let last=last;">
-          <span>{{time | convertToHHmm:'true'}}</span>
-          <span *ngIf="!last">/</span>
-        </div>
+        <ng-container *ngIf="data.runtimes && data.runtimes.length > 0">
+          {{data.runtimes[0] | convertToHHmm:'true'}}
+        </ng-container>
       </mat-cell>
     </ng-container>
 
