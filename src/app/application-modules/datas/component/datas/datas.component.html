@@ -27,7 +27,7 @@
     <!-- Tags Filter -->
     <div class="filter-item">
       <mat-form-field>
-        <mat-select placeholder="{{'data.tagged' | translate}}" multiple [(value)]="filteredTags" (selectionChange)="paginator.firstPage(); filteredTags = $event.value; onFilterTags($event.value)">
+        <mat-select placeholder="{{'movie.tagged' | translate}}" multiple [(value)]="filteredTags" (selectionChange)="paginator.firstPage(); filteredTags = $event.value; onFilterTags($event.value)">
           <mat-option *ngFor="let tag of tags" [value]="tag">{{tag.label}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -113,7 +113,7 @@
     <!-- SEASON COUNT -->
     <ng-container matColumnDef="seasonCount">
       <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'global.seasonCount'|translate }}">
-        <span class="mat-text">{{ 'global.seasonCount'|translate }}</span>
+        <span class="mat-text">{{ 'serie.seasonCount'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faFlag"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let data">
@@ -134,8 +134,8 @@
 
     <!-- FIRST AIRED -->
     <ng-container matColumnDef="firstAired">
-      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'datas.firstAired'|translate }}">
-        <span class="mat-text">{{ 'datas.firstAired'|translate }}</span>
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'serie.firstAired'|translate }}">
+        <span class="mat-text">{{ 'serie.firstAired'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faCalendar"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let data">
@@ -173,8 +173,8 @@
 
     <!-- IN PROD -->
     <ng-container matColumnDef="inProduction">
-      <mat-header-cell *matHeaderCellDef start='desc' matTooltip="{{ 'datas.inProduction'|translate }}">
-        <span class="mat-text">{{ 'datas.inProduction'|translate }}</span>
+      <mat-header-cell *matHeaderCellDef start='desc' matTooltip="{{ 'serie.inProduction'|translate }}">
+        <span class="mat-text">{{ 'serie.inProduction'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faStar"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let data">
