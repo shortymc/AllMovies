@@ -88,7 +88,6 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.title.setTitle('title.datas');
     this.breakpointObserver.observe([
       Constants.MEDIA_MAX_700,
       Constants.MEDIA_MAX_1000
@@ -108,6 +107,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     this.subs.push(this.activeRoute.data.subscribe(data => {
       console.log('data', data);
       this.isMovie = data.isMovie;
+      this.title.setTitle('title.' + (this.isMovie ? 'movies' : 'series'));
       this.sort = { active: this.isMovie ? 'date' : 'firstAired', direction: 'desc' };
       this.init_columns = ['id', 'thumbnail', 'name', this.isMovie ? 'original_title' : 'seasonCount', this.isMovie ? 'date' : 'firstAired', 'vote',
         this.isMovie ? 'meta' : 'inProduction', 'language', 'genres', this.isMovie ? 'time' : 'runtimes', 'added', 'select', 'details', 'tag-icon'];
