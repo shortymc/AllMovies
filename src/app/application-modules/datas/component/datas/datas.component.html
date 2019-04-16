@@ -112,7 +112,7 @@
 
     <!-- SEASON COUNT -->
     <ng-container matColumnDef="seasonCount">
-      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'global.seasonCount'|translate }}">
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'serie.seasonCount'|translate }}">
         <span class="mat-text">{{ 'serie.seasonCount'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faFlag"></fa-icon>
       </mat-header-cell>
@@ -156,8 +156,8 @@
 
     <!-- METACRITIC -->
     <ng-container matColumnDef="meta">
-      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'datas.rating'|translate }}">
-        <span class="mat-text">{{ 'datas.rating'|translate }}</span>
+      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'meta.metacritic'|translate }}">
+        <span class="mat-text">{{ 'meta.metacritic'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faStar"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let data">
@@ -286,7 +286,7 @@
     <ng-container matColumnDef="tag-icon">
       <mat-header-cell *matHeaderCellDef>
       </mat-header-cell>
-      <mat-cell *matCellDef="let data" class="tag-icon bounce">
+      <mat-cell *matCellDef="let data" class="tag-icon bounce pointer">
         <fa-icon [icon]="faAngleDown" size="3x"></fa-icon>
       </mat-cell>
     </ng-container>
