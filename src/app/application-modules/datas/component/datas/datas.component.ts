@@ -306,23 +306,23 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   }
 
   addTag(): void {
-    // let selectedDatasIds = this.allDatas.filter(data => data.checked).map(data => data.id);
-    // selectedDatasIds = selectedDatasIds.filter(id => !this.selectedTag.movies.map(m => m.id).includes(id));
-    // if (selectedDatasIds.length > 0) {
-    //   this.selectedTag.movies.push(...selectedDatasIds.map(id =>
-    //     TagMovie.fromMovie(this.allDatas.find(m => m.id === id))
-    //   ));
-    //   this.myTagsService.updateTag(this.selectedTag).then(() => {
-    //     this.nbChecked = 0;
-    //     this.selectedTag = undefined;
-    //     this.allDatas.forEach(m => m.checked = false);
-    //   });
-    // } else {
-    //   this.toast.open(Level.warning, 'toast.already_added');
-    //   this.nbChecked = 0;
-    //   this.selectedTag = undefined;
-    //   this.allDatas.forEach(m => m.checked = false);
-    // }
+    let selectedDatasIds = this.allDatas.filter(data => data.checked).map(data => data.id);
+    selectedDatasIds = selectedDatasIds.filter(id => !this.selectedTag.movies.map(m => m.id).includes(id));
+    if (selectedDatasIds.length > 0) {
+      this.selectedTag.movies.push(...selectedDatasIds.map(id =>
+        TagMovie.fromMovie(this.allDatas.find(m => m.id === id))
+      ));
+      this.myTagsService.updateTag(this.selectedTag).then(() => {
+        this.nbChecked = 0;
+        this.selectedTag = undefined;
+        this.allDatas.forEach(m => m.checked = false);
+      });
+    } else {
+      this.toast.open(Level.warning, 'toast.already_added');
+      this.nbChecked = 0;
+      this.selectedTag = undefined;
+      this.allDatas.forEach(m => m.checked = false);
+    }
   }
 
   onTop(): void {
