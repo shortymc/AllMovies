@@ -16,7 +16,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 import { Constants } from '../../../../constant/constants';
 import { Utils } from '../../../../shared/utils';
-import { TitleService, MovieService, MyDatasService, MyTagsService, ToastService } from '../../../../shared/shared.module';
+import { SerieService, TitleService, MovieService, MyDatasService, MyTagsService, ToastService } from '../../../../shared/shared.module';
+import { Serie } from './../../../../model/serie';
+import { Movie } from './../../../../model/movie';
 import { Tag, TagMovie } from '../../../../model/tag';
 import { Data } from '../../../../model/data';
 import { Genre, DetailConfig, Level } from '../../../../model/model';
@@ -77,6 +79,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
 
   constructor(
     private movieService: MovieService,
+    private serieService: SerieService,
     private breakpointObserver: BreakpointObserver,
     private myDatasService: MyDatasService<T>,
     private myTagsService: MyTagsService,
@@ -212,7 +215,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
 
   filterTags(list: T[]): T[] {
     if (this.filteredTags && this.filteredTags.length > 0) {
-      const ids = Utils.unique(Utils.flatMap<Tag, TagMovie>(this.filteredTags, 'datas').map(data => data.id));
+      const ids = Utils.unique(Utils.flatMap<Tag, TagMovie>(this.filteredTags, 'movies').map(data => data.id));
       return list.filter((m: T) => ids.includes(m.id));
     } else {
       return list;
@@ -239,11 +242,16 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     try {
       for (const data of datas) {
         const tr = data.translation.get(lang);
-        // TODO if a map is empty for a lang
-        // if (data.time === undefined || tr.category === undefined || data.score === undefined ||
-        //   data.updated === undefined || moment(data.updated).isBefore(twoMonthsAgo)) {
-        //   incomplete.push(data.id);
-        // }
+        let isNoTime = false;
+        if (data instanceof Movie) {
+          isNoTime = (<Movie>data).time === undefined;
+        } else if (data instanceof Serie) {
+          isNoTime = (<Serie>data).runtimes === undefined;
+        }
+        if (isNoTime || tr.category === undefined || data.score === undefined ||
+          data.updated === undefined || moment(data.updated).isBefore(twoMonthsAgo)) {
+          incomplete.push(data.id);
+        }
       }
     } catch (err) {
       console.error(err);
@@ -251,11 +259,17 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     incomplete = incomplete.slice(0, 15);
     const obs = [];
     const otherLang = lang === 'fr' ? 'en' : 'fr';
+    const conf1 = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, lang);
+    const conf2 = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, otherLang);
     incomplete.forEach((id: number) => {
-      obs.push(this.movieService.getMovie(id, new DetailConfig(false, false, false, false, false, false, false, false, false, lang), false));
-      obs.push(this.movieService.getMovie(id, new DetailConfig(false, false, false, false, false, false, false, false, false, otherLang), false));
+      if (this.isMovie) {
+        obs.push(this.movieService.getMovie(id, conf1, false));
+        obs.push(this.movieService.getMovie(id, conf2, false));
+      } else {
+        obs.push(this.serieService.getSerie(id, conf1, false));
+        obs.push(this.serieService.getSerie(id, conf2, false));
+      }
     });
-
     try {
       forkJoin(obs).subscribe(
         (data: T[]) => {
@@ -265,7 +279,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
               m.score = {};
             }
           });
-          this.myDatasService.update(data, true);
+          this.myDatasService.update(data, this.isMovie);
         },
         err => console.error(err)
       );
