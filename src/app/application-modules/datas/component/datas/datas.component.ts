@@ -1,5 +1,4 @@
 import { ActivatedRoute } from '@angular/router';
-import { filter, take } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { forkJoin, BehaviorSubject } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
