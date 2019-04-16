@@ -19,7 +19,7 @@
       </div>
       <div class="datas-params datas-search">
         <mat-form-field>
-          <input matInput type="search" placeholder="{{'movies.filter.placeholder' | translate}}" [(ngModel)]="research"
+          <input matInput type="search" placeholder="{{'datas.filter.placeholder' | translate}}" [(ngModel)]="research"
             (keyup)="sortOrSearchChanged(true);" />
         </mat-form-field>
         <span *ngIf="research" (click)="research=''; sortOrSearchChanged(true);" class="pointer clear-btn">

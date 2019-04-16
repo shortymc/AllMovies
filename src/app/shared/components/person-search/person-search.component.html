@@ -2,7 +2,7 @@
   <div class="form-check form-check-inline">
     <div class="search-box">
       <fa-icon [icon]="faSearch"></fa-icon>
-      <input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="{{'person-search.placeholder' | translate}}"
+      <input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="{{'search.persons' | translate}}"
         (click)="showPerson = true" />
       <a class="icon pointer" (click)="showPerson = !showPerson; searchBox.value=''">
         <img src="./assets/exit.png" />
