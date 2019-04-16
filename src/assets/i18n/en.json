@@ -72,8 +72,8 @@
         "discover": "Discover",
         "change_language": "Change Language",
         "tags": "My Tags"
-      },
-      "title": {
+    },
+    "title": {
         "dashboard": "Dashboard",
         "movies": "My Movies",
         "series": "My Series",
@@ -91,6 +91,11 @@
         "movie_removed": "Movie removed !",
         "movies_removed": "{{size}} Movie(s) removed !",
         "movies_updated": "{{size}} Movie(s) updated !",
+        "serie_added": "Serie added !",
+        "series_added": "{{size}} Serie(s) added !",
+        "serie_removed": "Serie removed !",
+        "series_removed": "{{size}} Serie(s) removed !",
+        "series_updated": "{{size}} Serie(s) updated !",
         "already_added": "Already added !",
         "user_added": "User added !",
         "user_changed": "User changed !",
@@ -126,10 +131,6 @@
         "revenu": "Revenu",
         "image": "Movie images",
         "tagged": "Tagged"
-    },
-    "movie-search": {
-        "header": "Movie Search",
-        "placeholder": "Search movies"
     },
     "score": {
         "source": "Site",
@@ -168,9 +169,10 @@
             "Crew": "Technician"
         }
     },
-    "person-search": {
-        "header": "Person Search",
-        "placeholder": "Search people"
+    "search": {
+        "series": "Search series",
+        "movies": "Search movies",
+        "persons": "Search people"
     },
     "person-list": {
         "hide": "Hide",
