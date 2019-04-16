@@ -1,5 +1,5 @@
+import { Data } from './data';
 import { Utils } from '../shared/utils';
-import { Movie } from './movie';
 
 export class TagMovie {
   id: number;
@@ -13,7 +13,7 @@ export class TagMovie {
     return json.replace('"titles":{}', '"titles":' + titles);
   }
 
-  static fromMovie(movie: Movie[] | Movie): TagMovie {
+  static fromMovie(movie: Data[] | Data): TagMovie {
     const tagMovie = new TagMovie();
     tagMovie.titles = new Map();
     if (Array.isArray(movie)) {
