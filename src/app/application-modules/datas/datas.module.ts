@@ -13,10 +13,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { MyPaginator } from './component/my-paginator';
 import { DatasResolver } from './resolver/datas.resolver';
 import { SharedModule } from '../../shared/shared.module';
 import { DatasComponent } from './component/datas/datas.component';
+import { MyPaginator } from './../../shared/my-paginator';
 
 const childRoutes: Routes = [
   {
