@@ -270,7 +270,7 @@
       <mat-cell *matCellDef="let data" class="toto">
         <div class="cell-content">
           <button class="btn btn-outline-primary btn-detail" appOpenLink [label]="data.translation?.get(translate.currentLang)?.name"
-            url="/data/{{data.id}}" matTooltip="{{'global.go_detail' | translate}}">
+            url="{{ isMovie ? '/movie/':'/serie/'}}{{data.id}}" matTooltip="{{'global.go_detail' | translate}}">
             <span class="btn-text">
               <fa-icon [icon]="faChevronCircleRight"></fa-icon>
               {{'global.go_detail' | translate}}
