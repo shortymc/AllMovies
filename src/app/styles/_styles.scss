@@ -214,13 +214,54 @@ input[type='checkbox'] {
 }
 
 /* stylelint-disable selector-pseudo-element-no-unknown */
-::ng-deep.mat-checkbox-checked.mat-accent .mat-checkbox-background,
-::ng-deep.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
-::ng-deep.mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element,
-::ng-deep.mat-checkbox-checked.mat-primary .mat-checkbox-background,
-::ng-deep.mat-checkbox-indeterminate.mat-primary .mat-checkbox-background,
-::ng-deep.mat-checkbox:not(.mat-checkbox-disabled).mat-primary .mat-checkbox-ripple .mat-ripple-element {
-  background-color: $blue !important;
+@each $theme in accent, primary {
+  ::ng-deep.mat-checkbox-checked.mat-#{$theme} .mat-checkbox-background,
+  ::ng-deep.mat-checkbox-indeterminate.mat-#{$theme} .mat-checkbox-background,
+  ::ng-deep.mat-checkbox:not(.mat-checkbox-disabled).mat-#{$theme} .mat-checkbox-ripple .mat-ripple-element {
+    background-color: $blue !important;
+  }
+
+  ::ng-deep.mat-#{$theme} {
+    & .mat-pseudo-checkbox-checked {
+      background-color: $blue !important;
+    }
+
+    & .mat-option.mat-selected:not(.mat-option-disabled),
+    & .mat-pseudo-checkbox-indeterminate {
+      color: $blue !important;
+    }
+  }
+
+  ::ng-deep.mat-tab-group.mat-#{$theme} .mat-ink-bar,
+  ::ng-deep.mat-tab-nav-bar.mat-#{$theme} .mat-ink-bar {
+    background-color: $blue !important;
+  }
+
+  ::ng-deep.mat-form-field.mat-focused.mat-#{$theme} .mat-select-arrow {
+    color: $blue !important;
+  }
+}
+
+::ng-deep.mat-form-field.mat-focused {
+  .mat-form-field-label,
+  .mat-form-field-ripple {
+    color: $blue !important;
+  }
+
+  .mat-form-field-ripple {
+    background-color: $blue !important;
+  }
+}
+
+::ng-deep.mat-slide-toggle.mat-checked  {
+  & .mat-slide-toggle-thumb,
+  & .mat-ripple-element {
+    background-color: $blue !important;
+  }
+
+  & .mat-slide-toggle-bar {
+    background-color: $light_blue !important;
+  }
 }
 
 @mixin full_width {
