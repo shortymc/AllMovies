@@ -1,7 +1,12 @@
 @import "../../../../styles/styles";
+/* stylelint-disable selector-type-no-unknown */
 
 .mat-form-field {
   width: 20vw;
+}
+
+mat-slide-toggle {
+  align-self: center;
 }
 
 @include media(#{$smallscreen}) {

@@ -11,19 +11,21 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatAutocompleteModule } from '@angular/material';
 
+import { SerieService } from './../../../../shared/service/serie.service';
 import { SharedModule } from './../../../../shared/shared.module';
 import { MovieService } from './../../../../shared/service/movie.service';
 import { MovieSearchService } from './../../../../shared/service/movie-search.service';
-import { SearchMovieComponent } from './search-movie.component';
+import { Data } from './../../../../model/data';
+import { SearchDataComponent } from './search-data.component';
 
-describe('SearchMovieComponent', () => {
-  let component: SearchMovieComponent;
-  let fixture: ComponentFixture<SearchMovieComponent>;
+describe('SearchDataComponent', () => {
+  let component: SearchDataComponent<Data>;
+  let fixture: ComponentFixture<SearchDataComponent<Data>>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SearchMovieComponent],
-      providers: [MovieSearchService, MovieService, TranslateService],
+      declarations: [SearchDataComponent],
+      providers: [MovieService, MovieSearchService, SerieService, TranslateService],
       imports: [ReactiveFormsModule, BrowserAnimationsModule, FormsModule, TranslateModule.forRoot(), HttpClientModule, MatSnackBarModule,
         RouterTestingModule, SharedModule.forRoot(), FontAwesomeModule, MatInputModule, MatFormFieldModule, MatAutocompleteModule]
     })
@@ -31,7 +33,7 @@ describe('SearchMovieComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchMovieComponent);
+    fixture = TestBed.createComponent(SearchDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

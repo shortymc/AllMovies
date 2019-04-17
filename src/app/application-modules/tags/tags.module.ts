@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatAutocompleteModule } from '@angular/material';
+import { MatAutocompleteModule, MatSlideToggleModule } from '@angular/material';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
@@ -15,7 +15,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ColorPickerModule } from 'ngx-color-picker';
 
-import { SearchMovieComponent } from './components/search-movie/search-movie.component';
+import { SearchDataComponent } from './components/search-data/search-data.component';
 import { TagsComponent } from './components/tags/tags.component';
 import { SharedModule } from './../../shared/shared.module';
 import { MyPaginator } from '../../shared/my-paginator';
@@ -44,10 +44,15 @@ const childRoutes: Routes = [
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatSlideToggleModule,
     MatAutocompleteModule,
     MatCheckboxModule
   ],
-  declarations: [TagsComponent, TagMoviesComponent, SearchMovieComponent],
+  declarations: [
+    TagsComponent,
+    TagMoviesComponent,
+    SearchDataComponent
+  ],
   providers: [
     TranslateService,
     {

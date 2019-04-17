@@ -248,7 +248,7 @@ input[type='checkbox'] {
   }
 }
 
-::ng-deep.mat-slide-toggle.mat-checked  {
+::ng-deep.mat-slide-toggle.mat-checked {
   & .mat-slide-toggle-thumb,
   & .mat-ripple-element {
     background-color: $blue !important;
