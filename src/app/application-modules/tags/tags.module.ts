@@ -19,7 +19,7 @@ import { SearchDataComponent } from './components/search-data/search-data.compon
 import { TagsComponent } from './components/tags/tags.component';
 import { SharedModule } from './../../shared/shared.module';
 import { MyPaginator } from '../../shared/my-paginator';
-import { TagMoviesComponent } from './components/tag-movies/tag-movies.component';
+import { TagDatasComponent } from './components/tag-datas/tag-datas.component';
 
 const childRoutes: Routes = [
   {
@@ -50,7 +50,7 @@ const childRoutes: Routes = [
   ],
   declarations: [
     TagsComponent,
-    TagMoviesComponent,
+    TagDatasComponent,
     SearchDataComponent
   ],
   providers: [
