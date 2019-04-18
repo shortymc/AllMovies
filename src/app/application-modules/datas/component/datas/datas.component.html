@@ -295,7 +295,7 @@
       <td mat-cell *matCellDef="let data" class="tag-detail" [attr.colspan]="displayedColumns.length" [@detailExpand]="data == expandedElement ? 'expanded' : 'collapsed'">
         <ng-container *ngIf="data == expandedElement">
           <h5 class="tags-header">{{'tags.header'|translate}}:</h5>
-          <app-list-tags [tags]="displayedTags | async" [movieId]="data.id"></app-list-tags>
+          <app-list-tags [tags]="displayedTags | async" [dataId]="data.id" [isMovie]="isMovie"></app-list-tags>
         </ng-container>
       </td>
     </ng-container>

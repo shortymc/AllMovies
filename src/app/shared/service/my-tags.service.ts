@@ -137,7 +137,7 @@ export class MyTagsService {
         // Find tag to update and replace its movies
         let toUpdate = tagList.find(t => t.id === tag.id);
         toUpdate = Tag.clone(tag);
-        toUpdate.movies.sort(Utils.compareObject);
+        toUpdate.datas.sort(Utils.compareObject);
         tagList.splice(tagList.map(t => t.id).indexOf(tag.id), 1, tag);
         tempTagList = tagList;
         return this.dropboxService.uploadFile(MyTagsService.tagsToBlob(tagList), fileName);

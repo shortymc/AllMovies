@@ -86,8 +86,8 @@
         <fa-icon class="mat-icon" [icon]="faStar"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let tag">
-        <ng-container *ngIf="tag.movies; else zero">
-          {{tag.movies.length}}
+        <ng-container *ngIf="tag.datas; else zero">
+          {{tag.datas.length}}
         </ng-container>
         <ng-template #zero>0</ng-template>
       </mat-cell>
