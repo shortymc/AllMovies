@@ -41,6 +41,7 @@
         "popularity": "Popularity",
         "vote": "Rating",
         "vote_count": "Vote count",
+        "tagged": "Tagged",
         "placeholder": "Search",
         "true": "Yes",
         "false": "No",
@@ -129,8 +130,7 @@
         "budget": "Budget",
         "spoken_langs": "Spoken Languages",
         "revenu": "Revenu",
-        "image": "Movie images",
-        "tagged": "Tagged"
+        "image": "Movie images"
     },
     "score": {
         "source": "Site",
@@ -318,7 +318,7 @@
         "required": "Please enter a tag name",
         "maxlength": "{{current}} is greater than the maximum length ({{maxSize}})",
         "unique": "The tag name must be unique",
-        "remove_movies": "Remove the selected movies ({{size}})",
+        "remove_datas": "Remove the selected datas ({{size}})",
         "mat-table": {
             "itemsPerPageLabel": "Tags per page: "
         }

@@ -41,6 +41,7 @@
         "popularity": "Popularité",
         "vote": "Note",
         "vote_count": "Nombre de vote",
+        "tagged": "Tags",
         "placeholder": "Rechercher",
         "true": "Oui",
         "false": "Non",
@@ -129,8 +130,7 @@
         "budget": "Budget",
         "spoken_langs": "Langues Parlées",
         "revenu": "Recette",
-        "image": "Images du film",
-        "tagged": "Tags"
+        "image": "Images du film"
     },
     "score": {
         "source": "Site",
@@ -318,7 +318,7 @@
         "required": "Veuillez renseigner un nom de tag",
         "maxlength": "{{current}} est supérieur à longueure maximale ({{maxSize}})",
         "unique": "Le nom du tag doit être unique",
-        "remove_movies": "Retirer les films sélectionnés ({{size}})",
+        "remove_datas": "Retirer les données sélectionnées ({{size}})",
         "mat-table": {
             "itemsPerPageLabel": "Tags par Page: "
         }
