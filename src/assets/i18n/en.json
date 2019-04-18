@@ -197,23 +197,29 @@
         "imdb": "IMDB",
         "links": "Open the 4 links"
     },
-    "datas": {
+    "movies": {
         "header": "My Movies",
+        "remove": "Remove selected movies ({{size}})",
+        "add_tag": "Add the tag {{tag}} to selected movies ({{size}})"
+    },
+    "series": {
+        "header": "My Series",
+        "remove": "Remove selected series ({{size}})",
+        "add_tag": "Add the tag {{tag}} to selected series ({{size}})"
+    },
+    "datas": {
         "poster": "Poster",
         "title": "Title",
         "date": "Release Date",
         "rating": "Ratings",
         "length": "Running Time",
         "added": "Added",
-        "remove": "Remove the selected movies ({{size}})",
-        "search_title": "Search in {{param}}s",
-        "add_tag": "Add the tag {{tag}} to selected movies ({{size}})",
         "filter": {
             "placeholder": "Search",
             "genres": "Genres"
         },
         "mat-table": {
-            "itemsPerPageLabel": "Movies per page: "
+            "itemsPerPageLabel": "Datas per page: "
         }
     },
     "release": {

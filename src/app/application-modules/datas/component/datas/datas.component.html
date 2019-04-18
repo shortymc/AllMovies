@@ -1,4 +1,4 @@
-<h2>{{'datas.header' | translate}}:</h2>
+<h2>{{(isMovie ? 'movies' : 'series') + '.header' | translate}}:</h2>
 
 <ng-container *ngIf="allDatas">
   <div class="filters">
@@ -40,7 +40,7 @@
     <app-search-tag (selected)="selectedTag = $event"></app-search-tag>
     <button type="button" class="btn btn-outline-primary" [style.background]="selectedTag.color" *ngIf="selectedTag"
       (click)="addTag()">
-      {{'datas.add_tag' |translate:{tag: selectedTag.label, size: nbChecked} }}
+      {{(isMovie ? 'movies' : 'series') + '.add_tag' |translate:{tag: selectedTag.label, size: nbChecked} }}
     </button>
     <span *ngIf="selectedTag" class="pointer clear-btn" (click)="selectedTag = undefined">
       <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
@@ -49,8 +49,8 @@
 
   <!-- Delete -->
   <div class="delete-btn">
-    <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="remove()">{{'datas.remove' |
-      translate:{size: nbChecked} }}
+    <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="remove()">{{(isMovie ? 'movies' : 'series')
+      + '.remove' |translate:{size: nbChecked} }}
       <fa-icon [icon]="faTrash"></fa-icon>
     </button>
   </div>
