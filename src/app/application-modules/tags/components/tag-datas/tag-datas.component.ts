@@ -12,11 +12,11 @@ import { Level } from './../../../../model/model';
 import { Tag, TagData } from './../../../../model/tag';
 
 @Component({
-  selector: 'app-tag-movies',
-  templateUrl: './tag-movies.component.html',
-  styleUrls: ['./tag-movies.component.scss']
+  selector: 'app-tag-datas',
+  templateUrl: './tag-datas.component.html',
+  styleUrls: ['./tag-datas.component.scss']
 })
-export class TagMoviesComponent implements OnInit, OnChanges, OnDestroy {
+export class TagDatasComponent implements OnInit, OnChanges, OnDestroy {
   @Input() tag: Tag;
   @Input() visible: boolean;
   displayedColumns = ['poster', 'title', 'select'];
