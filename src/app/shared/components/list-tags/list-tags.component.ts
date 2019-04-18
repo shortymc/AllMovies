@@ -2,8 +2,8 @@ import { faSave } from '@fortawesome/free-regular-svg-icons';
 import { faTimes, faPen } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnChanges, Input, SimpleChanges, OnDestroy, OnInit } from '@angular/core';
 
-import { Movie } from './../../../model/movie';
-import { Tag, TagMovie } from './../../../model/tag';
+import { Data } from './../../../model/data';
+import { Tag, TagData } from './../../../model/tag';
 import { MyDatasService } from '../../service/my-datas.service';
 import { Level } from './../../../model/model';
 import { ToastService } from '../../service/toast.service';
@@ -18,9 +18,12 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   tags: Tag[] = [];
   @Input()
-  movieId: number;
+  dataId: number;
+  @Input()
+  isMovie: boolean;
   isBtnSaveDisabled = true;
-  allMovies: Movie[];
+  allSeries: Data[];
+  allMovies: Data[];
   tagsDisplayed: Tag[] = [];
   tagsToSave: Tag[] = [];
   editing = false;
@@ -31,18 +34,27 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   faSave = faSave;
 
   constructor(
-    private myDatasService: MyDatasService<Movie>,
+    private myDatasService: MyDatasService<Data>,
     private myTagsService: MyTagsService,
     private toast: ToastService
   ) { }
 
   ngOnInit(): void {
-    this.subs.push(this.myDatasService.myMovies$.subscribe(movies => this.allMovies = movies));
+    this.subs.push(this.myDatasService.myMovies$.subscribe(movies => {
+      if (movies) {
+        this.allMovies = movies;
+      }
+    }));
+    this.subs.push(this.myDatasService.mySeries$.subscribe(series => {
+      if (series) {
+        this.allSeries = series;
+      }
+    }));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.movieId) {
-      this.movieId = changes.movieId.currentValue;
+    if (changes.dataId) {
+      this.dataId = changes.dataId.currentValue;
       this.editing = false;
       this.tags = changes.tags ? changes.tags.currentValue.map(tag => Tag.clone(<Tag>tag)) : this.tags;
       this.tagsDisplayed = this.getTags();
@@ -58,7 +70,8 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
     if (this.tagsDisplayed.map(t => t.id).includes(tag.id)) {
       this.toast.open(Level.warning, 'toast.already_added');
     } else {
-      tag.movies.push(TagMovie.fromMovie(this.allMovies.find(m => m.id === this.movieId)));
+      const data = (this.isMovie ? this.allMovies : this.allSeries).find(m => m.id === this.dataId);
+      tag.datas.push(TagData.fromData(data, this.isMovie));
       this.tagsDisplayed.push(tag);
       this.tagsToSave.push(tag);
       this.isTagsChanged();
@@ -66,7 +79,7 @@ export class ListTagsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   remove(tag: Tag): void {
-    this.tagsToSave.find(t => t.id === tag.id).movies = tag.movies.filter(m => m.id !== this.movieId);
+    this.tagsToSave.find(t => t.id === tag.id).datas = tag.datas.filter(d => d.id !== this.dataId || d.movie !== this.isMovie);
     this.tagsDisplayed = this.tagsDisplayed.filter(t => t.id !== tag.id);
     this.isTagsChanged();
   }

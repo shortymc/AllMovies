@@ -14,10 +14,10 @@
       <fa-icon [icon]="faEdit"></fa-icon>
     </span>
   </div>
-  <app-search-data [adult]="adult" (selected)="addMovie($event)"></app-search-data>
+  <app-search-data [adult]="adult" (selected)="addData($event)" (movie)="isMovie = $event"></app-search-data>
   <!-- Buttons -->
   <div class="tag-btn">
-    <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="removeMovie()">{{'tags.remove_movies' |
+    <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="removeData()">{{'tags.remove_datas' |
       translate:{size: nbChecked} }}
       <fa-icon [icon]="faTrash"></fa-icon>
     </button>
@@ -52,8 +52,8 @@
         <span class="mat-text">{{ 'datas.poster'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faImage"></fa-icon>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-          <img class="movie-poster" src="{{movie.poster | image:'medium'}}" />
+      <mat-cell *matCellDef="let data">
+          <img class="data-poster" src="{{data.poster | image:'medium'}}" />
       </mat-cell>
     </ng-container>
 
@@ -63,8 +63,8 @@
         <span class="mat-text">{{ 'movie.title'|translate }}</span>
         <fa-icon class="mat-icon" [icon]="faList"></fa-icon>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie">
-        {{movie.titles?.get(translate.currentLang)}}
+      <mat-cell *matCellDef="let data">
+        {{data.titles?.get(translate.currentLang)}}
       </mat-cell>
     </ng-container>
 
@@ -72,9 +72,9 @@
     <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef>
       </mat-header-cell>
-      <mat-cell *matCellDef="let movie" class="cell-checkbox">
+      <mat-cell *matCellDef="let data" class="cell-checkbox">
         <div class="cell-content">
-          <mat-checkbox (change)="movie.checked = !movie.checked; updateSize()" [checked]="movie.checked">
+          <mat-checkbox (change)="data.checked = !data.checked; updateSize()" [checked]="data.checked">
           </mat-checkbox>
         </div>
       </mat-cell>

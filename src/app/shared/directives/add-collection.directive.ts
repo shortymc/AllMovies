@@ -131,14 +131,10 @@ export class AddCollectionDirective<T extends Data> implements OnInit, OnChanges
   remove(): void {
     if (this.isSingleData) {
       const dataRemoved = (this.isMovie ? this.myMovies : this.mySeries).find(m => m.id === this.datas[0].id).id;
-      if (this.isMovie) {
-        const tagsToReplace = this.tags.filter(t => t.movies.map(m => m.id).includes(dataRemoved));
-        tagsToReplace.forEach(t => t.movies = t.movies.filter(data => dataRemoved !== data.id));
-        this.myDatasService.remove([dataRemoved], this.isMovie)
-          .then(() => this.myTagsService.replaceTags(tagsToReplace));
-      } else {
-        this.myDatasService.remove([dataRemoved], this.isMovie);
-      }
+      const tagsToReplace = this.tags.filter(t => t.datas.filter(d => d.movie === this.isMovie).map(m => m.id).includes(dataRemoved));
+      tagsToReplace.forEach(t => t.datas = t.datas.filter(data => dataRemoved !== data.id || data.movie !== this.isMovie));
+      this.myDatasService.remove([dataRemoved], this.isMovie)
+        .then(() => this.myTagsService.replaceTags(tagsToReplace));
     }
   }
 

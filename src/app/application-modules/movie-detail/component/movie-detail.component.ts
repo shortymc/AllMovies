@@ -93,7 +93,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
           this.tags = [];
           if (movies.map(m => m.id).includes(this.id)) {
             this.showTags = true;
-            this.tags = tags.filter(t => t.movies.map(m => m.id).includes(this.id));
+            this.tags = tags.filter(t => t.datas.filter(d => d.movie).map(m => m.id).includes(this.id));
           }
         }));
     }

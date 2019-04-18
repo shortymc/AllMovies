@@ -18,7 +18,7 @@ import { Utils } from '../../../../shared/utils';
 import { SerieService, TitleService, MovieService, MyDatasService, MyTagsService, ToastService } from '../../../../shared/shared.module';
 import { Serie } from './../../../../model/serie';
 import { Movie } from './../../../../model/movie';
-import { Tag, TagMovie } from '../../../../model/tag';
+import { Tag, TagData } from '../../../../model/tag';
 import { Data } from '../../../../model/data';
 import { Genre, DetailConfig, Level } from '../../../../model/model';
 
@@ -214,7 +214,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
 
   filterTags(list: T[]): T[] {
     if (this.filteredTags && this.filteredTags.length > 0) {
-      const ids = Utils.unique(Utils.flatMap<Tag, TagMovie>(this.filteredTags, 'movies').map(data => data.id));
+      const ids = Utils.unique(Utils.flatMap<Tag, TagData>(this.filteredTags, 'datas').filter(d => d.movie === this.isMovie).map(data => data.id));
       return list.filter((m: T) => ids.includes(m.id));
     } else {
       return list;
@@ -289,9 +289,9 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
 
   remove(): void {
     const datasToRemove = this.allDatas.filter(data => data.checked).map(m => m.id);
-    const tagsToReplace = this.tags.filter(t => t.movies.map(m => m.id).some(id => datasToRemove.includes(id)));
-    tagsToReplace.forEach(t => t.movies = t.movies.filter(data => !datasToRemove.includes(data.id)));
-    this.myDatasService.remove(datasToRemove, true)
+    const tagsToReplace = this.tags.filter(t => t.datas.filter(d => d.movie === this.isMovie).map(m => m.id).some(id => datasToRemove.includes(id)));
+    tagsToReplace.forEach(t => t.datas = t.datas.filter(data => !datasToRemove.includes(data.id) || data.movie !== this.isMovie));
+    this.myDatasService.remove(datasToRemove, this.isMovie)
       .then(() => this.myTagsService.replaceTags(tagsToReplace));
     this.nbChecked = 0;
     this.onTop();
@@ -300,16 +300,16 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   expand(element: T): void {
     this.expandedElement = this.expandedElement === element ? undefined : element;
     if (this.expandedElement) {
-      this.displayedTags.next(this.tags.filter(t => t.movies.map(m => m.id).includes(this.expandedElement.id)));
+      this.displayedTags.next(this.tags.filter(t => t.datas.filter(d => d.movie === this.isMovie).map(m => m.id).includes(this.expandedElement.id)));
     }
   }
 
   addTag(): void {
     let selectedDatasIds = this.allDatas.filter(data => data.checked).map(data => data.id);
-    selectedDatasIds = selectedDatasIds.filter(id => !this.selectedTag.movies.map(m => m.id).includes(id));
+    selectedDatasIds = selectedDatasIds.filter(id => !this.selectedTag.datas.filter(d => d.movie === this.isMovie).map(m => m.id).includes(id));
     if (selectedDatasIds.length > 0) {
-      this.selectedTag.movies.push(...selectedDatasIds.map(id =>
-        TagMovie.fromMovie(this.allDatas.find(m => m.id === id))
+      this.selectedTag.datas.push(...selectedDatasIds.map(id =>
+        TagData.fromData(this.allDatas.find(m => m.id === id), this.isMovie)
       ));
       this.myTagsService.updateTag(this.selectedTag).then(() => {
         this.nbChecked = 0;
