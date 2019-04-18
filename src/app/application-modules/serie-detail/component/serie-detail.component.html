@@ -104,6 +104,11 @@
       </div>
       <ng-template #originLang>{{serie.originLang}}</ng-template>
     </div>
+    <!-- Tags -->
+    <div class="serie-tags" *ngIf="showTags">
+      <label>{{'serie.tagged' | translate}}: </label>
+      <app-list-tags [tags]="tags" [dataId]="serie.id" [isMovie]="false"></app-list-tags>
+    </div>
     <!-- Genre -->
     <div *ngIf="serie.genres && serie.genres.length > 0">
       <label>{{'global.genres' | translate}}: </label>

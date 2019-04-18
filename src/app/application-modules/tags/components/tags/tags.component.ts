@@ -126,7 +126,7 @@ export class TagsComponent implements OnInit, OnDestroy {
   addTag(): void {
     const tag = new Tag();
     tag.label = this.toAdd.value;
-    tag.movies = [];
+    tag.datas = [];
     tag.color = this.color;
     this.myTagsService.add(tag);
     this.color = Utils.randomColor();

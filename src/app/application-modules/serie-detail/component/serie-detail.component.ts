@@ -1,13 +1,14 @@
+import { filter } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { faChevronCircleLeft, faImage, faChevronCircleRight, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
-import { TitleService, MenuService, TabsService } from './../../../shared/shared.module';
+import { SerieService, TitleService, MenuService, TabsService, MyDatasService, MyTagsService } from './../../../shared/shared.module';
 import { Tag } from './../../../model/tag';
 import { DuckDuckGo } from './../../../constant/duck-duck-go';
-import { SerieService } from '../../../shared/shared.module';
 import { Serie } from '../../../model/serie';
 import { Keyword, Genre, DetailConfig } from '../../../model/model';
 
@@ -42,6 +43,8 @@ export class SerieDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     public tabsService: TabsService,
     private menuService: MenuService,
+    private myTagsService: MyTagsService,
+    private myDatasService: MyDatasService<Serie>,
   ) { }
 
   ngOnInit(): void {
@@ -68,6 +71,15 @@ export class SerieDetailComponent implements OnInit, OnDestroy {
         this.title.setTitle(serie.title);
         this.menuService.scrollTo$.next(0);
       });
+      this.subs.push(combineLatest(this.myTagsService.myTags$, this.myDatasService.mySeries$)
+        .pipe(filter(([tags, series]) => tags !== undefined && series !== undefined))
+        .subscribe(([tags, series]) => {
+          this.tags = [];
+          if (series.map(m => m.id).includes(this.id)) {
+            this.showTags = true;
+            this.tags = tags.filter(t => t.datas.filter(d => !d.movie).map(d => d.id).includes(this.id));
+          }
+        }));
     }
   }
 

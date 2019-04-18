@@ -217,7 +217,7 @@ export class Utils {
           case 'label':
             return Utils.compare(a.label, b.label, isAsc);
           case 'count':
-            return Utils.compare(a.movies.length, b.movies.length, isAsc);
+            return Utils.compare(a.datas.length, b.datas.length, isAsc);
           default:
             return 0;
         }
@@ -227,9 +227,9 @@ export class Utils {
     }
   }
 
-  static sortTagMovies(tag: Tag, sort: Sort, lang: string = 'fr'): Tag {
+  static sortTagDatas(tag: Tag, sort: Sort, lang: string = 'fr'): Tag {
     if (sort && sort.active && sort.direction !== '') {
-      tag.movies.sort((a, b) => {
+      tag.datas.sort((a, b) => {
         const isAsc: boolean = sort.direction === 'asc';
         switch (sort.active) {
           case 'id':

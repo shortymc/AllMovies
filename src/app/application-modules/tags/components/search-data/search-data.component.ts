@@ -17,6 +17,7 @@ import { SerieService, MovieService, MovieSearchService } from './../../../../sh
 export class SearchDataComponent<T extends Data> implements OnInit {
   @Input() adult: boolean;
   @Output() selected = new EventEmitter<T[]>();
+  @Output() movie = new EventEmitter<boolean>();
   filteredDatas: Observable<T[]>;
   dataCtrl: FormControl;
   faRemove = faTimes;
@@ -62,6 +63,7 @@ export class SearchDataComponent<T extends Data> implements OnInit {
       }
     }).then((data: T) => {
       data.lang_version = lang;
+      this.movie.emit(this.isMovie);
       this.selected.emit([item, data]);
     });
   }
