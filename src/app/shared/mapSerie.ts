@@ -139,20 +139,22 @@ export class MapSerie {
     return serie;
   }
 
-  // static toSerie(r: any): Serie {
-  //   return <Serie>({
-  //     id: r.id,
-  //     title: r.title,
-  //     original_title: Utils.getTitle(r),
-  //     date: r.release_date,
-  //     overview: r.overview,
-  //     affiche: r.poster_path,
-  //     adult: r.adult,
-  //     vote: r.vote_average,
-  //     vote_count: r.vote_count,
-  //     language: r.original_language,
-  //     popularity: r.popularity,
-  //     character: r.character
-  //   });
-  // }
+  static toSerie(r: any): Serie {
+    return <Serie>({
+      id: r.id,
+      title: r.name,
+      original_title: r.original_name,
+      firstAired: r.first_air_date,
+      overview: r.overview,
+      affiche: r.poster_path,
+      vote: r.vote_average,
+      vote_count: r.vote_count,
+      originLang: r.original_language,
+      popularity: r.popularity,
+      character: r.character,
+      episodeCount: r.number_of_episodes,
+      originCountries: r.origin_country,
+      isMovie: false
+    });
+  }
 }

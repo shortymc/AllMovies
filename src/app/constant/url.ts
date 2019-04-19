@@ -25,6 +25,7 @@ export class Url {
   static readonly APPEND = '&append_to_response=';
   static readonly APPEND_VIDEOS = 'videos';
   static readonly APPEND_CREDITS = 'credits';
+  static readonly APPEND_COMBINED_CREDITS = 'combined_credits';
   static readonly APPEND_IMAGES = 'images';
   static readonly APPEND_KEYWORDS = 'keywords';
   static readonly APPEND_ALTERNATIVE_TITLES = 'alternative_titles';
