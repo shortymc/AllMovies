@@ -29,6 +29,7 @@ export class Data {
   updated: Date = new Date();
   added: Date = new Date();
   lang_version = 'fr';
+  isMovie: boolean;
   checked: boolean;
 
   constructor() { }

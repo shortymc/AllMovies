@@ -21,8 +21,8 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
   isImagesVisible = false;
   scrollTo: HTMLElement;
   listMoviesOrder: DropDownChoice[];
-  subs = [];
 
+  subs = [];
   Url = Url;
   DuckDuckGo = DuckDuckGo;
   faAtom = faAtom;
@@ -53,53 +53,67 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
     this.personService.getPerson(id, language, true)
       .then(person => {
         this.person = person;
+        const actor = new DropDownChoice(Job.actor, this.groupByType(person.asActor));
+        const director = new DropDownChoice(Job.director, this.groupByType(person.asDirector));
+        const producer = new DropDownChoice(Job.producer, this.groupByType(person.asProducer));
+        const screenplay = new DropDownChoice(Job.screenwriter, this.groupByType(person.asScreenplay));
+        const compositor = new DropDownChoice(Job.composer, this.groupByType(person.asCompositors));
+        const novel = new DropDownChoice(Job.novelist, this.groupByType(person.asNovel));
+        const other = new DropDownChoice(Job.other, this.groupByType(person.asOther));
         switch (person.knownFor) {
           case 'Acting':
-            this.listMoviesOrder = [
-              new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.director, person.asDirector),
-              new DropDownChoice(Job.producer, person.asProducer), new DropDownChoice(Job.screenwriter, person.asScreenplay),
-              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors),
-              new DropDownChoice(Job.other, person.asOther)];
+            const clonedActor = { ...actor };
+            clonedActor.value.set('show', ['both']);
+            this.listMoviesOrder = [clonedActor, director, producer, screenplay, novel, compositor, other];
             break;
           case 'Directing':
-            this.listMoviesOrder = [
-              new DropDownChoice(Job.director, person.asDirector), new DropDownChoice(Job.producer, person.asProducer),
-              new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.screenwriter, person.asScreenplay),
-              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors),
-              new DropDownChoice(Job.other, person.asOther)];
+            const clonedDirector = { ...director };
+            clonedDirector.value.set('show', ['both']);
+            this.listMoviesOrder = [clonedDirector, producer, actor, screenplay, novel, compositor, other];
             break;
           case 'Sound':
-            this.listMoviesOrder = [
-              new DropDownChoice(Job.composer, person.asCompositors), new DropDownChoice(Job.actor, person.asActor),
-              new DropDownChoice(Job.director, person.asDirector), new DropDownChoice(Job.producer, person.asProducer),
-              new DropDownChoice(Job.screenwriter, person.asScreenplay), new DropDownChoice(Job.novelist, person.asNovel),
-              new DropDownChoice(Job.other, person.asOther)];
+            const clonedCompositor = { ...compositor };
+            clonedCompositor.value.set('show', ['both']);
+            this.listMoviesOrder = [clonedCompositor, actor, director, producer, screenplay, novel, other];
             break;
           case 'Writing':
-            this.listMoviesOrder = [
-              new DropDownChoice(Job.screenwriter, person.asScreenplay), new DropDownChoice(Job.novelist, person.asNovel),
-              new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.director, person.asDirector),
-              new DropDownChoice(Job.producer, person.asProducer), new DropDownChoice(Job.composer, person.asCompositors),
-              new DropDownChoice(Job.other, person.asOther)];
+            const clonedScreenplay = { ...screenplay };
+            clonedScreenplay.value.set('show', ['both']);
+            this.listMoviesOrder = [clonedScreenplay, novel, director, producer, compositor, other];
             break;
           case 'Production':
-            this.listMoviesOrder = [
-              new DropDownChoice(Job.producer, person.asProducer), new DropDownChoice(Job.director, person.asDirector),
-              new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.screenwriter, person.asScreenplay),
-              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors),
-              new DropDownChoice(Job.other, person.asOther)];
+            const clonedProducer = { ...producer };
+            clonedProducer.value.set('show', ['both']);
+            this.listMoviesOrder = [clonedProducer, director, actor, screenplay, novel, compositor, other];
             break;
           default:
             console.log('default');
-            this.listMoviesOrder = [
-              new DropDownChoice(Job.actor, person.asActor), new DropDownChoice(Job.director, person.asDirector),
-              new DropDownChoice(Job.producer, person.asProducer), new DropDownChoice(Job.screenwriter, person.asScreenplay),
-              new DropDownChoice(Job.novelist, person.asNovel), new DropDownChoice(Job.composer, person.asCompositors),
-              new DropDownChoice(Job.other, person.asOther)];
+            this.listMoviesOrder = [clonedActor, director, producer, screenplay, novel, compositor, other];
             break;
         }
+        console.log('listMoviesOrder', this.listMoviesOrder);
         this.title.setTitle(person.name);
       });
+  }
+
+  groupByType(credits: any[]): Map<string, any[]> {
+    const result = new Map<string, any[]>();
+    result.set('serie', []);
+    result.set('movie', []);
+    result.set('show', ['movie']);
+    credits.forEach(c => {
+      if (c.isMovie) {
+        result.get('movie').push(c);
+      } else {
+        result.get('serie').push(c);
+      }
+    });
+    if (result.get('movie').length === 0 && result.get('serie').length > 0) {
+      result.set('show', ['serie']);
+    } else {
+      result.set('show', ['none']);
+    }
+    return result;
   }
 
   discover(): void {

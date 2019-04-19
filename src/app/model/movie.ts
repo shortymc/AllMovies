@@ -21,7 +21,7 @@ export class Movie extends Data {
   removeFields(key: string, value: string): string {
     if (
       ['title', 'overview', 'actors', 'crew', 'recommendations', 'videos', 'images', 'checked', 'similars', 'affiche',
-        'alternativeTitles', 'character', 'keywords', 'production_countries', 'releaseDates', 'spokenLangs', 'genres']
+        'alternativeTitles', 'character', 'keywords', 'production_countries', 'releaseDates', 'spokenLangs', 'genres', 'isMovie']
         .includes(key)
     ) {
       return undefined;
