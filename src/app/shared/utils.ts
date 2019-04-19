@@ -45,6 +45,10 @@ export class Utils {
     return job.toLowerCase() === filter.toLowerCase();
   }
 
+  static jobContains(job: string, jobList: string[]): boolean {
+    return jobList.some(j => j.toLowerCase() === job.toLowerCase());
+  }
+
   static sortCast(a1: any, a2: any): any {
     if (a1.order < a2.order) {
       return -1;

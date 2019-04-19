@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Job } from './../../../constant/job';
 
 @Component({
   selector: 'app-credit-list',
@@ -14,6 +15,7 @@ export class CreditListComponent implements OnInit {
   crew: any[];
   @Input()
   isDetail: boolean;
+  Job = Job;
 
   constructor() { }
 
