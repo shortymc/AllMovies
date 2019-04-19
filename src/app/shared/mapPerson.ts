@@ -24,14 +24,19 @@ export class MapPerson {
       const asActor = credits.cast.filter(c => c.media_type === 'movie').map((r: any) => MapMovie.toMovie(r));
       asActor.push(...credits.cast.filter(c => c.media_type === 'tv').map((r: any) => MapSerie.toSerie(r)));
       const asDirector = this.getCrewCredits(credits.crew, [Job.director]);
-      const asProducer = this.getCrewCredits(credits.crew, [Job.producer]);
-      const asCompositors = this.getCrewCredits(credits.crew, ['Compositors', 'Original Music Composer']);
-      const asScreenplay = this.getCrewCredits(credits.crew, ['Screenplay', 'Writer']);
-      const asNovel = this.getCrewCredits(credits.crew, ['Novel']);
-      const asOtherRaw = credits.crew.filter((r: any) =>
-        !Utils.jobEquals(r.job, Job.director) && !Utils.jobEquals(r.job, 'Compositors') && !Utils.jobEquals(r.job, 'Original Music Composer') &&
-        !Utils.jobEquals(r.job, 'Novel') && !Utils.jobEquals(r.job, Job.producer) && !Utils.jobEquals(r.job, 'Screenplay') &&
-        !Utils.jobEquals(r.job, 'Writer'));
+      const asProducer = this.getCrewCredits(credits.crew, Job.producer);
+      const asCompositors = this.getCrewCredits(credits.crew, Job.compositor);
+      const asScreenplay = this.getCrewCredits(credits.crew, Job.screenwriter);
+      const asNovel = this.getCrewCredits(credits.crew, Job.novelist);
+      const asOtherRaw = credits.crew.filter((r: any) => {
+        if (!Utils.jobEquals(r.job, Job.director) && !Utils.jobContains(r.job, Job.producer) && !Utils.jobContains(r.job, Job.compositor) &&
+          !Utils.jobContains(r.job, Job.screenwriter) && !Utils.jobContains(r.job, Job.novelist)) {
+          console.log('job:', r.job);
+          return true;
+        } else {
+          return false;
+        }
+      });
       const asOther = asOtherRaw.filter(c => c.media_type === 'movie').map((r: any) => MapMovie.toMovie(r));
       asOther.push(...asOtherRaw.filter(c => c.media_type === 'tv').map((r: any) => MapSerie.toSerie(r)));
 
