@@ -3,16 +3,16 @@ import { Url } from './../constant/url';
 
 export class UrlBuilder {
 
-  static personUrlBuilder(id: number, language: string, images: boolean, movies: boolean): string {
+  static personUrlBuilder(id: number, language: string, images: boolean, credits: boolean): string {
     let url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}`;
-    if (images || movies) {
+    if (images || credits) {
       url += `${Url.APPEND}`;
       const parametres: string[] = [];
       if (images) {
         parametres.push(`${Url.APPEND_IMAGES}`);
       }
-      if (movies) {
-        parametres.push(`${Url.APPEND_CREDITS}`);
+      if (credits) {
+        parametres.push(`${Url.APPEND_COMBINED_CREDITS}`);
       }
       url += parametres.join(',');
     }
@@ -118,7 +118,7 @@ export class UrlBuilder {
     return url;
   }
 
-  static runtimeUrlBuilder(parametres: string[], criteria: DiscoverCriteria): void {
+  private static runtimeUrlBuilder(parametres: string[], criteria: DiscoverCriteria): void {
     if (criteria.runtimeMin) {
       parametres.push(`${Url.WITH_RUNTIME_GTE_URL}${criteria.runtimeMin}`);
     }
@@ -127,7 +127,7 @@ export class UrlBuilder {
     }
   }
 
-  static voteUrlBuilder(parametres: string[], criteria: DiscoverCriteria): void {
+  private static voteUrlBuilder(parametres: string[], criteria: DiscoverCriteria): void {
     if (criteria.voteAvergeMin) {
       parametres.push(`${Url.VOTE_AVERAGE_GTE_URL}${criteria.voteAvergeMin}`);
     }
@@ -139,21 +139,21 @@ export class UrlBuilder {
     }
   }
 
-  static genresUrlBuilder(parametres: string[], genre: number[], genresWithout: boolean): void {
+  private static genresUrlBuilder(parametres: string[], genre: number[], genresWithout: boolean): void {
     if (genre && genre.length > 0) {
       const genreUrl = genresWithout ? Url.WITHOUT_GENRES_URL : Url.WITH_GENRES_URL;
       parametres.push(`${genreUrl}${genre.join(Url.AND_URL)}`);
     }
   }
 
-  static keywordsUrlBuilder(parametres: string[], keyword: number[], keywordsWithout: boolean): void {
+  private static keywordsUrlBuilder(parametres: string[], keyword: number[], keywordsWithout: boolean): void {
     if (keyword && keyword.length > 0) {
       const keywordUrl = keywordsWithout ? Url.WITHOUT_KEYWORDS_URL : Url.WITH_KEYWORDS_URL;
       parametres.push(`${keywordUrl}${keyword.join(Url.AND_URL)}`);
     }
   }
 
-  static langUrlBuilder(url: string, language: string): string {
+  private static langUrlBuilder(url: string, language: string): string {
     let result = url;
     if (language) {
       result += `${Url.LANGUE}${language}`;
