@@ -55,10 +55,10 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
         this.person = person;
         const actor = new DropDownChoice(Job.actor, this.groupByType(person.asActor));
         const director = new DropDownChoice(Job.director, this.groupByType(person.asDirector));
-        const producer = new DropDownChoice(Job.producer, this.groupByType(person.asProducer));
-        const screenplay = new DropDownChoice(Job.screenwriter, this.groupByType(person.asScreenplay));
-        const compositor = new DropDownChoice(Job.composer, this.groupByType(person.asCompositors));
-        const novel = new DropDownChoice(Job.novelist, this.groupByType(person.asNovel));
+        const producer = new DropDownChoice(Job.producer[0], this.groupByType(person.asProducer));
+        const screenplay = new DropDownChoice(Job.screenwriter[0], this.groupByType(person.asScreenplay));
+        const compositor = new DropDownChoice(Job.compositor[0], this.groupByType(person.asCompositors));
+        const novel = new DropDownChoice(Job.novelist[0], this.groupByType(person.asNovel));
         const other = new DropDownChoice(Job.other, this.groupByType(person.asOther));
         switch (person.knownFor) {
           case 'Acting':
@@ -79,7 +79,7 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
           case 'Writing':
             const clonedScreenplay = { ...screenplay };
             clonedScreenplay.value.set('show', ['both']);
-            this.listMoviesOrder = [clonedScreenplay, novel, director, producer, compositor, other];
+            this.listMoviesOrder = [clonedScreenplay, novel, director, producer, actor, compositor, other];
             break;
           case 'Production':
             const clonedProducer = { ...producer };
@@ -100,7 +100,6 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
     const result = new Map<string, any[]>();
     result.set('serie', []);
     result.set('movie', []);
-    result.set('show', ['movie']);
     credits.forEach(c => {
       if (c.isMovie) {
         result.get('movie').push(c);
@@ -108,7 +107,9 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
         result.get('serie').push(c);
       }
     });
-    if (result.get('movie').length === 0 && result.get('serie').length > 0) {
+    if (result.get('movie').length > 0) {
+      result.set('show', ['movie']);
+    } else if (result.get('serie').length > 0) {
       result.set('show', ['serie']);
     } else {
       result.set('show', ['none']);
