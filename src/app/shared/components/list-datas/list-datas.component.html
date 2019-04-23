@@ -1,10 +1,15 @@
 <div class="card-deck" *ngIf="datas.length > 0">
   <div class="card card-outline-primary">
     <div class="card-header">
+      <label>{{label}}</label>
       <div class="datas-params datas-sorting">
-        <mat-select placeholder="{{'global.sort' | translate}}" [(value)]="sortChosen" (selectionChange)="sortOrSearchChanged(true)">
-          <mat-option *ngFor="let sort of sortChoices" [value]="sort">{{sort.label_key | translate}}</mat-option>
-        </mat-select>
+        <mat-form-field>
+          <mat-select placeholder="{{'global.sort' | translate}}" [(value)]="sortChosen" (selectionChange)="sortOrSearchChanged(true)">
+            <mat-option *ngFor="let sort of sortChoices" [value]="sort">{{sort.label_key | translate}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="datas-params datas-sorting">
         <mat-button-toggle-group [(value)]="sortDir" (change)="sortDir = $event.value; sortOrSearchChanged(true)">
           <div class="toogleHeader">
             {{'global.sort_direction'|translate}}:
@@ -26,35 +31,38 @@
           <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
         </span>
       </div>
-      <label>{{label}}</label>
+      <div class="datas-params">
+        <button class="btn btn-outline-primary" appAddCollection [datas]="datas" [label]="isMovie ? 'data-list.add_movies' : 'data-list.add_series'"
+          [isSingleData]="false" [isMovie]="isMovie">
+        </button>
+      </div>
     </div>
-    <div class="d-flex justify-content-center">
-      <ngb-pagination (pageChange)="pageChanged($event)" [collectionSize]="resultLength" [(page)]="page" [maxSize]="3"
-        [rotate]="true" [boundaryLinks]="true" [pageSize]="pageSize"></ngb-pagination>
-      <span><span class="total">{{'data-list.total' | translate}}: {{resultLength}}</span></span>
+    <div class="mobile">
+      <div class="d-flex justify-content-center mobile">
+        <ngb-pagination (pageChange)="pageChanged($event)" [collectionSize]="resultLength" [(page)]="page" [maxSize]="3"
+          [rotate]="true" [boundaryLinks]="true" [pageSize]="pageSize"></ngb-pagination>
+        <span><span class="total">{{'data-list.total' | translate}}: {{resultLength}}</span></span>
+      </div>
     </div>
     <div class="card-body">
-      <div *ngFor="let data of datasToShow;" class="data-item">
-        <img class="frame center pointer" src="{{data.affiche | image:'small'}}" alt="{{data.title| capitalizeWord}}"
-          appOpenLink [label]="data.title" url="{{ isMovie ? '/movie/':'/serie/'}}{{data.id}}" matTooltip="{{data.character}}">
-        <p class="data-infos center" [ngClass]="{'adult': data.adult}">{{data.title | capitalizeWord}} -
-          <ng-container *ngIf="isMovie; else serie">{{ data.date| date : 'MMM yyyy':'':translate.currentLang |
-            capitalizeWord}}</ng-container>
-          <ng-template #serie>{{ data.firstAired| date : 'MMM yyyy':'':translate.currentLang | capitalizeWord}}</ng-template>
-          - {{data.vote}} / 10 ({{data.vote_count}}) - {{data.popularity | number:'1.0-2':translate.currentLang}}
-        </p>
-        <input [(ngModel)]="data.checked" type="checkbox">
+      <div class="data">
+        <div *ngFor="let data of datasToShow;" class="data-item">
+          <img class="frame center pointer" src="{{data.affiche | image:'small'}}" alt="{{data.title| capitalizeWord}}"
+            appOpenLink [label]="data.title" url="{{ isMovie ? '/movie/':'/serie/'}}{{data.id}}" matTooltip="{{data.character}}">
+          <p class="data-infos center" [ngClass]="{'adult': data.adult}">{{data.title | capitalizeWord}} -
+            <ng-container *ngIf="isMovie; else serie">{{ data.date| date : 'MMM yyyy':'':translate.currentLang |
+              capitalizeWord}}</ng-container>
+            <ng-template #serie>{{ data.firstAired| date : 'yyyy':'':translate.currentLang | capitalizeWord}}</ng-template>
+            - {{data.vote}}/10 ({{data.vote_count}}) - {{data.popularity | number:'1.0-0':translate.currentLang}}
+          </p>
+          <input [(ngModel)]="data.checked" type="checkbox">
+        </div>
       </div>
     </div>
     <div class="d-flex justify-content-center bottom-page">
       <ngb-pagination (pageChange)="pageChanged($event)" [collectionSize]="resultLength" [(page)]="page" [maxSize]="3"
         [rotate]="true" [boundaryLinks]="true" [pageSize]="pageSize"></ngb-pagination>
       <span><span class="total">{{'data-list.total' | translate}}: {{resultLength}}</span></span>
-    </div>
-    <div class="card-footer text-center">
-      <button class="btn btn-outline-primary" appAddCollection [datas]="datas" [label]="isMovie ? 'data-list.add_movies' : 'data-list.add_series'"
-        [isSingleData]="false" [isMovie]="isMovie">
-      </button>
     </div>
   </div>
 </div>
