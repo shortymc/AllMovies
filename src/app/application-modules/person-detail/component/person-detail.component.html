@@ -61,17 +61,20 @@
       <label id="person-film">{{'person.films' | translate}}:</label>
       <div *ngFor="let list of listMoviesOrder">
         <ng-container *ngIf="list.value.get('show')[0] !== 'none'">
-          <mat-button-toggle-group [value]="list.value.get('show')[0]" #show="matButtonToggleGroup">
-            <mat-button-toggle value="movie" [disabled]="list.value.get('movie').length === 0">
-              Movie
-            </mat-button-toggle>
-            <mat-button-toggle value="serie" [disabled]="list.value.get('serie').length === 0">
-              Serie
-            </mat-button-toggle>
-            <mat-button-toggle value="both" [disabled]="list.value.get('serie').length === 0 || list.value.get('movie').length === 0">
-              Both
-            </mat-button-toggle>
-          </mat-button-toggle-group>
+          <div class="toogle-display">
+            <div>{{'person.display.title'|translate}} :</div>
+            <mat-button-toggle-group [value]="list.value.get('show')[0]" #show="matButtonToggleGroup">
+              <mat-button-toggle value="movie" [disabled]="list.value.get('movie').length === 0">
+                {{'person.display.movie'|translate}}
+              </mat-button-toggle>
+              <mat-button-toggle value="serie" [disabled]="list.value.get('serie').length === 0">
+                {{'person.display.serie'|translate}}
+              </mat-button-toggle>
+              <mat-button-toggle value="both" [disabled]="list.value.get('serie').length === 0 || list.value.get('movie').length === 0">
+                {{'person.display.both'|translate}}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
           <app-list-datas [datas]="list.value.get('movie')" [isMovie]="true" *ngIf="['movie', 'both'].includes(show.value)"
             [label]="('data-list.' + list.label_key | translate).concat(':')"></app-list-datas>
           <app-list-datas [datas]="list.value.get('serie')" [isMovie]="false" *ngIf="['serie', 'both'].includes(show.value)"
