@@ -7,13 +7,22 @@
   margin-left: 0 !important;
 }
 
-.card-body {
+.card-header {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 !important;
+
+  & label {
+    align-self: center;
+    margin: 0 !important;
+  }
 }
 
 .datas-params {
-  display: inline-flex;
-  flex-wrap: wrap;
+  padding: 0 10px;
 }
 
 .datas-sorting {
@@ -23,6 +32,19 @@
 
   & .mat-select {
     width: calc(100% - 20px) !important;
+  }
+}
+
+.card-body {
+  display: flex;
+  padding-bottom: 0.25rem !important;
+}
+
+.data {
+  display: flex;
+
+  & input {
+    width: 100% !important;
   }
 }
 
@@ -51,13 +73,6 @@
   }
 }
 
-.data-infos {
-  width: 75%;
-  margin: auto;
-  margin-top: 15px;
-  text-align: center;
-}
-
 .total {
   position: relative;
   display: block;
@@ -72,7 +87,20 @@
   margin-bottom: 0 !important;
 }
 
+@include media(#{$smallscreen}, false) {
+  .data-infos {
+    width: 75%;
+    margin: auto;
+    margin-top: 15px;
+    text-align: center;
+  }
+}
+
 @include media(#{$smallscreen}) {
+  .card-body {
+    padding: 0 !important;
+  }
+
   .data {
     display: inline-flex !important;
     flex-wrap: wrap;
@@ -80,8 +108,21 @@
   }
 
   .data-item {
+    flex-direction: row;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 13px !important;
+
+    & input {
+      width: 0 !important;
+      margin: 10px !important;
+    }
+
+    &,
+    & p {
+      padding-left: 10px;
+    }
   }
 
   .card-deck,
