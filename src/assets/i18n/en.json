@@ -157,6 +157,12 @@
         "bio": "Biography",
         "image": "Images",
         "films": "Filmography",
+        "display": {
+            "title": "Displays",
+            "movie": "Movies",
+            "serie": "Series",
+            "both": "Both"
+        },
         "known_for": {
             "title": "Known for",
             "Acting": "Acting",

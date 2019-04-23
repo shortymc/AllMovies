@@ -156,7 +156,13 @@
         "death": "Mort",
         "bio": "Biographie",
         "image": "Images",
-        "films": "Films notables",
+        "films": "Filmographie",
+        "display": {
+            "title": "Afficher",
+            "movie": "Les films",
+            "serie": "Les séries",
+            "both": "Les deux"
+        },
         "known_for": {
             "title": "Connu comme",
             "Acting": "Acteur",
