@@ -6,8 +6,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { SerieDetailComponent } from './component/serie-detail.component';
+import { SerieDetailComponent } from './serie-detail/serie-detail.component';
 import { SharedModule } from '../../shared/shared.module';
+import { SeasonsComponent } from './seasons/seasons.component';
 
 const childRoutes: Routes = [
   {
@@ -25,8 +26,10 @@ const childRoutes: Routes = [
     TranslateModule.forChild(),
     RouterModule.forChild(childRoutes),
   ],
-  exports: [SerieDetailComponent],
-  declarations: [SerieDetailComponent],
+  declarations: [
+    SerieDetailComponent,
+    SeasonsComponent
+  ],
   providers: [
     TranslateService
   ]

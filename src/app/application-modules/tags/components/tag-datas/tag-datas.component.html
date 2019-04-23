@@ -6,7 +6,7 @@
         <input matInput type="search" [(ngModel)]="editedLabel" (keyup.enter)="editTag()" />
       </mat-form-field>
     </h2>
-    <span class="tag-color pointer" [(colorPicker)]="editedColor" [style.background]="editedColor" [cpOutputFormat]="'hex'"
+    <span class="tag-color pointer mat-elevation-z4" [(colorPicker)]="editedColor" [style.background]="editedColor" [cpOutputFormat]="'hex'"
       [cpDisabled]="!edit">
       <fa-icon [icon]="faBrush" size="lg" *ngIf="edit"></fa-icon>
     </span>
