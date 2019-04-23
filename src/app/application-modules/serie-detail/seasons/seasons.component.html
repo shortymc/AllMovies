@@ -1,0 +1,24 @@
+<ng-container *ngIf="seasons">
+  <div>
+    <label>{{'serie.seasons' | translate}}s: </label>
+    <button class="btn btn-outline-primary" *ngIf="!opened" (click)="opened=!opened">
+      <fa-icon [icon]="faPlus" size="xs"></fa-icon>
+    </button>
+    <button class="btn btn-outline-primary" *ngIf="opened" (click)="opened=!opened">
+      <fa-icon [icon]="faMinus" size="xs"></fa-icon>
+    </button>
+  </div>
+  <div *ngIf="opened">
+    <div class="wrapper">
+      <swiper [config]="swiperConfig">
+        <div *ngFor="let season of seasons">
+          <div class="season-slide">
+            <img class="season-poster" [src]="season.poster | image:'small'" (click)="setOverview(season)" [ngClass]="{'pointer': season.overview}" />
+            <p>{{season.name}} ({{season.episodeCount}}) - {{season.airDate | date:'yyyy'}}</p>
+          </div>
+        </div>
+      </swiper>
+    </div>
+    <ng-container *ngIf="overview">{{overview}}</ng-container>
+  </div>
+</ng-container>
