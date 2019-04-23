@@ -40,6 +40,14 @@ figure {
   flex-flow: column;
 }
 
+.toogle-display {
+  display: flex;
+  flex-direction: column;
+  width: min-content;
+  margin: auto;
+  text-align: center;
+}
+
 @include media(#{$desktop}, false) {
   .person-title {
     font-size: 3em;
