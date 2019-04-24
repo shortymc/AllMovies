@@ -43,12 +43,12 @@ export class MapPerson {
       result = new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, resp.profile_path, resp.biography, resp.adult,
         resp.place_of_birth, img, asActor, asDirector, asProducer, asCompositors, asScreenplay, asNovel, asOther, resp.known_for_department,
         resp.popularity, resp.imdb_id);
+      console.log('mapPerson', result);
     } else {
       result = new Person(resp.id, resp.name, resp.gender, resp.birthday, resp.deathday, resp.profile_path, resp.biography, resp.adult,
         resp.place_of_birth, img, undefined, undefined, undefined, undefined, undefined, undefined, undefined, resp.known_for_department,
         resp.popularity, resp.imdb_id);
     }
-    console.log('mapPerson', result);
     return result;
   }
 

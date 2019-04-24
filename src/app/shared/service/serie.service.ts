@@ -6,6 +6,7 @@ import { MapSerie } from '../mapSerie';
 import { Utils } from './../utils';
 import { Url } from '../../constant/url';
 import { UrlBuilder } from './../urlBuilder';
+import { MapSeason } from './../mapSeason';
 import { DetailConfig } from './../../model/model';
 import { Serie } from '../../model/serie';
 import { ToastService } from './toast.service';
@@ -57,6 +58,22 @@ export class SerieService {
         resolve(serie);
       });
     }
+  }
+
+  getSeason(id: number, seasonNumber: number, language: string, detail: boolean): Promise<Serie> {
+    return this.serviceUtils.getPromise(UrlBuilder.seasonUrlBuilder(id, seasonNumber, language, detail, detail, detail))
+      .then(response => {
+        const season = MapSeason.mapForSeasonDetail(response);
+        if (detail && (!season.overview || !season.videos)) {
+          return this.getSeason(id, seasonNumber, 'en', true).then(enSeason => {
+            season.overview = Utils.isBlank(season.overview) ? enSeason.overview : season.overview;
+            season.videos = season.videos && season.videos.length > 0 ? season.videos : enSeason.videos;
+            return season;
+          });
+        } else {
+          return season;
+        }
+      }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   search(term: string, language: string): Observable<Serie[]> {
