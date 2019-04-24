@@ -21,6 +21,27 @@ export class UrlBuilder {
     return url;
   }
 
+  static seasonUrlBuilder(id: number, season: number, language: string, images: boolean, credits: boolean, videos: boolean): string {
+    let url = `${Url.SERIE_URl}/${id}${Url.SERIE_URl}${season}?${Url.API_KEY}`;
+    if (images || credits) {
+      url += `${Url.APPEND}`;
+      const parametres: string[] = [];
+      if (images) {
+        parametres.push(`${Url.APPEND_IMAGES}`);
+      }
+      if (credits) {
+        parametres.push(`${Url.APPEND_COMBINED_CREDITS}`);
+      }
+      if (videos) {
+        parametres.push(`${Url.APPEND_VIDEOS}`);
+      }
+      url += parametres.join(',');
+    }
+    url = UrlBuilder.langUrlBuilder(url, language);
+    console.log('seasonUrlBuilder', url);
+    return url;
+  }
+
   static detailUrlBuilder(isMovie: boolean, id: number, video: boolean, credit: boolean, reco: boolean, release: boolean, keywords: boolean,
     similar: boolean, image: boolean, titles: boolean, external: boolean, language: string): string {
     let url = isMovie ? Url.MOVIE_URl : Url.SERIE_URl;
