@@ -59,11 +59,6 @@ label {
   word-break: break-word;
 }
 
-.season-aired {
-  display: inline-flex;
-  flex-direction: column;
-}
-
 @include media(#{$desktop}, false) {
   .season-content {
     display: table;
@@ -94,10 +89,5 @@ label {
 
   .overview {
     width: 95vw !important;
-  }
-
-  .season-aired {
-    display: flex;
-    flex-wrap: wrap;
   }
 }
