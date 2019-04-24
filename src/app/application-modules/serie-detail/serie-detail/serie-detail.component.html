@@ -42,10 +42,10 @@
     <div *ngIf="serie.alternativeTitles && serie.alternativeTitles.length > 0" class="d-inline-flex flex-column">
       <div>
         <label>{{'global.alternative_title' | translate}}: </label>
-        <button class="btn btn-outline-primary alternative-btn" *ngIf="!showTitles" (click)="showTitles=!showTitles">
+        <button class="btn btn-outline-primary small-btn" *ngIf="!showTitles" (click)="showTitles=!showTitles">
           <fa-icon [icon]="faPlus" size="xs"></fa-icon>
         </button>
-        <button class="btn btn-outline-primary alternative-btn" *ngIf="showTitles" (click)="showTitles=!showTitles">
+        <button class="btn btn-outline-primary small-btn" *ngIf="showTitles" (click)="showTitles=!showTitles">
           <fa-icon [icon]="faMinus" size="xs"></fa-icon>
         </button>
       </div>
