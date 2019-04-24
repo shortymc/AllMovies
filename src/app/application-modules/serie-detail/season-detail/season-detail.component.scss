@@ -59,6 +59,16 @@ label {
   word-break: break-word;
 }
 
+.season-episodes {
+  display: flex;
+  width: 99vw;
+  justify-content: center;
+
+  & > * {
+    min-width: 60vw;
+  }
+}
+
 @include media(#{$desktop}, false) {
   .season-content {
     display: table;
@@ -68,7 +78,6 @@ label {
     font-size: 3em;
   }
 
-  label,
   .pad-left {
     margin-left: 20px !important;
   }
@@ -87,7 +96,16 @@ label {
     font-size: 1.5em;
   }
 
-  .overview {
-    width: 95vw !important;
+  .mat-expansion-panel-header-description,
+  .mat-expansion-panel-header-title {
+    margin-right: 0 !important;
+  }
+
+  .mat-expansion-panel-header {
+    padding-left: 12px !important;
+  }
+
+  .season-episodes ::ng-deep app-list-persons {
+    width: 90vw !important;
   }
 }

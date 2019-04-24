@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { SerieDetailComponent } from './serie-detail/serie-detail.component';
 import { SeasonDetailComponent } from './season-detail/season-detail.component';
@@ -27,6 +28,7 @@ const childRoutes: Routes = [
     SharedModule.forChild(),
     FontAwesomeModule,
     MatTableModule,
+    MatExpansionModule,
     TranslateModule.forChild(),
     RouterModule.forChild(childRoutes),
   ],
