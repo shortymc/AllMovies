@@ -65,7 +65,7 @@ export class SerieService {
     return this.serviceUtils.getPromise(UrlBuilder.seasonUrlBuilder(id, seasonNumber, language, detail, detail, detail))
       .then(response => {
         const season = MapSeason.mapForSeasonDetail(response);
-        if (detail && (!season.overview || !season.videos)) {
+        if (detail && (!season.overview || !season.videos) && language !== 'en') {
           return this.getSeason(id, seasonNumber, 'en', true).then(enSeason => {
             season.overview = Utils.isBlank(season.overview) ? enSeason.overview : season.overview;
             season.videos = season.videos && season.videos.length > 0 ? season.videos : enSeason.videos;

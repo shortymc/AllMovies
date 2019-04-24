@@ -5,9 +5,17 @@
   <div class="season-header">
     <h1 class="season-title">{{season.name}} ({{season.airDate | date:'yyyy'}})</h1>
     <div class="season-btn">
+      <!-- Go Prev Season -->
+      <button class="btn btn-outline-primary" (click)="goPrev()" *ngIf="season.seasonNumber !== 0">
+        <fa-icon [icon]="faArrowCircleLeft"></fa-icon>{{'season.previous' | translate}}
+      </button>
       <!-- Go Back Btn -->
       <button class="btn btn-outline-primary" (click)="goBack()">
-        <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'global.previous' | translate}}
+        <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'season.go_back' | translate}}
+      </button>
+      <!-- Go Next Season -->
+      <button class="btn btn-outline-primary" (click)="goNext()">
+        {{'season.next' | translate}}<fa-icon [icon]="faArrowCircleRight"></fa-icon>
       </button>
     </div>
   </div>
@@ -16,18 +24,13 @@
     <div>
       <label>{{'global.id' | translate}}:</label>{{season.id}}
     </div>
-    <div *ngIf="season.seasonCount">
-      <label>{{'season.seasonCount' | translate}}: </label>{{season.seasonCount}}
-    </div>
     <div *ngIf="season.episodeCount">
       <label>{{'season.episodeCount' | translate}}: </label>{{season.episodeCount}}
     </div>
     <!-- Aired Date -->
-    <div class="season-aired" *ngIf="season.airDate">
-      <label>{{'season.dates' | translate}}: </label>
-      <div class="pad-left">
-        {{season.airDate | date:'dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}
-      </div>
+    <div *ngIf="season.airDate">
+      <label>{{'season.dates' | translate}}: </label>{{season.airDate | date:'dd MMMM yyyy':'':translate.currentLang |
+      capitalizeWord}}
     </div>
     <!-- Overview -->
     <div *ngIf="season.overview">
