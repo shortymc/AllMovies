@@ -59,6 +59,14 @@ $levels: (
   @include mat-elevation(2);
 }
 
+.small-btn {
+  padding: 4px 8px;
+
+  & fa-icon {
+    display: flex;
+  }
+}
+
 .card-deck {
   display: inline-flex !important;
   flex-wrap: wrap !important;
