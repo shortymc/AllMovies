@@ -23,7 +23,7 @@ export class UrlBuilder {
 
   static seasonUrlBuilder(id: number, season: number, language: string, images: boolean, credits: boolean, videos: boolean): string {
     let url = `${Url.SERIE_URl}/${id}${Url.SEASON_URL}${season}?${Url.API_KEY}`;
-    if (images || credits) {
+    if (images || credits || videos) {
       url += `${Url.APPEND}`;
       const parametres: string[] = [];
       if (images) {
