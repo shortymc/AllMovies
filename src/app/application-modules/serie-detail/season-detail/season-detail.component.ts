@@ -1,4 +1,5 @@
-import { ParamMap, ActivatedRoute } from '@angular/router';
+import { faChevronCircleLeft, faImage } from '@fortawesome/free-solid-svg-icons';
+import { ParamMap, ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
@@ -11,21 +12,28 @@ import { SerieService } from './../../../shared/service/serie.service';
   styleUrls: ['./season-detail.component.scss']
 })
 export class SeasonDetailComponent implements OnInit, OnDestroy {
+  serieId: number;
   season: Season;
+  isImagesVisible = false;
+
+  faChevronCircleLeft = faChevronCircleLeft;
+  faImage = faImage;
   subs = [];
 
   constructor(
     private serieService: SerieService,
     private translate: TranslateService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
-      this.getSeason(+params.get('id'), +params.get('season'), this.translate.currentLang);
+      this.serieId = +params.get('id');
+      this.getSeason(this.serieId, +params.get('season'), this.translate.currentLang);
     });
     this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.getSeason(this.season.id, this.season.id, event.lang);
+      this.getSeason(this.serieId, this.season.seasonNumber, event.lang);
     }));
   }
 
@@ -34,6 +42,10 @@ export class SeasonDetailComponent implements OnInit, OnDestroy {
       .then(res => {
         this.season = res;
       });
+  }
+
+  goBack(): void {
+    this.router.navigate(['serie/' + this.serieId]);
   }
 
   ngOnDestroy(): void {

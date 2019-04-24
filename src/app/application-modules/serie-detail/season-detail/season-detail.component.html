@@ -1,3 +1,48 @@
-<p>
-  season-detail works!
-</p>
+<div *ngIf="season">
+  <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
+    <app-image-viewer [images]="season.images" [thumbnails]="season.images" [visible]="isImagesVisible"></app-image-viewer>
+  </app-modal>
+  <div class="season-header">
+    <h1 class="season-title">{{season.name}} ({{season.airDate | date:'yyyy'}})</h1>
+    <div class="season-btn">
+      <!-- Go Back Btn -->
+      <button class="btn btn-outline-primary" (click)="goBack()">
+        <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'global.previous' | translate}}
+      </button>
+    </div>
+  </div>
+  <div class="season-content">
+    <app-image-viewer class="season-poster" [images]="season.poster" [thumbnails]="season.poster" [visible]="true"></app-image-viewer>
+    <div>
+      <label>{{'global.id' | translate}}:</label>{{season.id}}
+    </div>
+    <div *ngIf="season.seasonCount">
+      <label>{{'season.seasonCount' | translate}}: </label>{{season.seasonCount}}
+    </div>
+    <div *ngIf="season.episodeCount">
+      <label>{{'season.episodeCount' | translate}}: </label>{{season.episodeCount}}
+    </div>
+    <!-- Aired Date -->
+    <div class="season-aired" *ngIf="season.airDate">
+      <label>{{'season.dates' | translate}}: </label>
+      <div class="pad-left">
+        {{season.airDate | date:'dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}
+      </div>
+    </div>
+    <!-- Overview -->
+    <div *ngIf="season.overview">
+      <label>{{'global.overview' | translate}}: </label>
+      <div class="overview text-justify">{{season.overview}}</div>
+    </div>
+    <!-- Pictures -->
+    <div class="pad-left" *ngIf="season.images">
+      <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible">
+        <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'season.images' | translate}}
+      </button>
+    </div>
+    <!-- Credits -->
+    <app-credit-list class="pad-left" [crew]="season.crew" [actors]="season.actors" [isDetail]="true"></app-credit-list>
+    <!-- Videos -->
+    <app-videos [videos]="season.videos" *ngIf="season.videos"></app-videos>
+  </div>
+</div>
