@@ -47,5 +47,38 @@
     <app-credit-list class="pad-left" [crew]="season.crew" [actors]="season.actors" [isDetail]="true"></app-credit-list>
     <!-- Videos -->
     <app-videos [videos]="season.videos" *ngIf="season.videos"></app-videos>
+    <!-- Episodes -->
+    <div class="season-episodes">
+      <mat-accordion displayMode="flat">
+        <mat-expansion-panel *ngFor="let episode of season.episodes">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="desktop">{{episode.name}}: {{episode.airDate | date:'dd MMMM
+                yyyy':'':translate.currentLang|capitalizeWord}}</div>
+              <div class="mobile">{{episode.name}}: {{episode.airDate | date:'dd/MM/yyyy':'':translate.currentLang
+                |capitalizeWord}}</div>
+            </mat-panel-title>
+            <mat-panel-description>
+              S{{episode.seasonNumber | number:'2.0-0'}}E{{episode.episodeNumber | number:'2.0-0'}} -
+              {{episode.vote}}/10
+              ({{episode.vote_count}})
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <ng-template matExpansionPanelContent>
+            <div class="episode-content">
+              <app-image-viewer class="episode-poster" [images]="episode.poster" [thumbnails]="episode.poster"
+                [visible]="true"></app-image-viewer>
+              <!-- Overview -->
+              <div *ngIf="episode.overview">
+                <label>{{'global.overview' | translate}}: </label>
+                <div class="text-justify">{{episode.overview}}</div>
+              </div>
+              <app-credit-list class="pad-left" [crew]="episode.crew" [actors]="episode.guestStars" [isDetail]="true"></app-credit-list>
+            </div>
+          </ng-template>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
   </div>
 </div>
