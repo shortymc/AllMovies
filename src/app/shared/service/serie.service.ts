@@ -7,6 +7,7 @@ import { Utils } from './../utils';
 import { Url } from '../../constant/url';
 import { UrlBuilder } from './../urlBuilder';
 import { MapSeason } from './../mapSeason';
+import { Season } from './../../model/season';
 import { DetailConfig } from './../../model/model';
 import { Serie } from '../../model/serie';
 import { ToastService } from './toast.service';
@@ -60,7 +61,7 @@ export class SerieService {
     }
   }
 
-  getSeason(id: number, seasonNumber: number, language: string, detail: boolean): Promise<Serie> {
+  getSeason(id: number, seasonNumber: number, language: string, detail: boolean): Promise<Season> {
     return this.serviceUtils.getPromise(UrlBuilder.seasonUrlBuilder(id, seasonNumber, language, detail, detail, detail))
       .then(response => {
         const season = MapSeason.mapForSeasonDetail(response);

@@ -9,12 +9,12 @@ export class Url {
   static readonly MOVIE_URl = Url.MOVIE_DB_API_URL + 'movie';
   static readonly SERIE_URl = Url.MOVIE_DB_API_URL + 'tv';
   static readonly PERSON_URL = Url.MOVIE_DB_API_URL + 'person';
-  static readonly SEASON_URL = Url.MOVIE_DB_API_URL + '/season/';
   static readonly MOVIE_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/movie?';
   static readonly SERIE_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/tv?';
   static readonly PERSON_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/person?';
   static readonly KEYWORD_SEARCH_URL = Url.MOVIE_DB_API_URL + 'search/keyword?';
   static readonly KEYWORD_URL = Url.MOVIE_DB_API_URL + 'keyword/';
+  static readonly SEASON_URL = '/season/';
   static readonly MOVIE_CREDITS_URL = 'movie_credits';
   static readonly REGION = '&region=';
   static readonly LANGUE = '&language=';
