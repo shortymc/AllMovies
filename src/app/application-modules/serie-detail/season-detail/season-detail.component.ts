@@ -1,4 +1,4 @@
-import { faChevronCircleLeft, faImage } from '@fortawesome/free-solid-svg-icons';
+import { faChevronCircleLeft, faImage, faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { ParamMap, ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -18,6 +18,8 @@ export class SeasonDetailComponent implements OnInit, OnDestroy {
 
   faChevronCircleLeft = faChevronCircleLeft;
   faImage = faImage;
+  faArrowCircleLeft = faArrowCircleLeft;
+  faArrowCircleRight = faArrowCircleRight;
   subs = [];
 
   constructor(
@@ -46,6 +48,14 @@ export class SeasonDetailComponent implements OnInit, OnDestroy {
 
   goBack(): void {
     this.router.navigate(['serie/' + this.serieId]);
+  }
+
+  goPrev(): void {
+    this.router.navigate(['serie/' + this.serieId + '/' + (this.season.seasonNumber - 1)]);
+  }
+
+  goNext(): void {
+    this.router.navigate(['serie/' + this.serieId + '/' + (this.season.seasonNumber + 1)]);
   }
 
   ngOnDestroy(): void {
