@@ -26,11 +26,11 @@ pinch-zoom {
 }
 
 .frame-viewer {
-  object-fit: contain;
-  height: auto !important;
   float: left;
+  height: auto !important;
   margin: 0 20px 10px 15px;
   border: 3px solid $black;
+  object-fit: contain;
   @include box-shadow;
 
   &:hover::after {
