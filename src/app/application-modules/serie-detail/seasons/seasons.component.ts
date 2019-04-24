@@ -1,6 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
@@ -30,12 +31,15 @@ export class SeasonsComponent implements OnInit, OnChanges {
     zoom: false,
     touchEventsTarget: 'wrapper'
   };
+  faChevronCircleRight = faChevronCircleRight;
   faPlus = faPlus;
   faMinus = faMinus;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +65,10 @@ export class SeasonsComponent implements OnInit, OnChanges {
     } else {
       this.seasons = undefined;
     }
+  }
+
+  goToSeasonDetail(season: number): void {
+    this.router.navigate(['./' + season], { relativeTo: this.route });
   }
 
   setOverview(season: Season): void {
