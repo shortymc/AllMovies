@@ -1,0 +1,103 @@
+@import "../../../styles/styles";
+
+.season-header {
+  flex: 1 100%;
+
+  & .season-title {
+    font-weight: 550;
+  }
+
+  & .season-btn {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+label {
+  display: inline !important;
+}
+
+.season-content {
+  &,
+  & > * {
+    padding: 0 5px;
+  }
+}
+
+/* stylelint-disable selector-pseudo-element-no-unknown */
+/* stylelint-disable selector-type-no-unknown */
+.season-poster ::ng-deep.frame-viewer {
+  height: 100% !important;
+  margin: 20px !important;
+}
+
+.gallery-top {
+  height: 80% !important;
+}
+
+.gallery-thumbs {
+  & .swiper-slide {
+    box-sizing: border-box;
+    width: 25% !important;
+    padding: 10px 0;
+    overflow: hidden !important;
+    opacity: 0.4;
+  }
+
+  & img {
+    height: auto;
+    width: auto;
+    max-width: 20vw;
+  }
+
+  & .swiper-slide-active {
+    opacity: 1;
+  }
+}
+
+.break-word {
+  word-break: break-word;
+}
+
+.season-aired {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+@include media(#{$desktop}, false) {
+  .season-content {
+    display: table;
+  }
+
+  .season-title {
+    font-size: 3em;
+  }
+
+  label,
+  .pad-left {
+    margin-left: 20px !important;
+  }
+
+  label ~ div {
+    display: inline;
+
+    & > span {
+      display: table-cell;
+    }
+  }
+}
+
+@include media(#{$smallscreen}) {
+  .season-title {
+    font-size: 1.5em;
+  }
+
+  .overview {
+    width: 95vw !important;
+  }
+
+  .season-aired {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
