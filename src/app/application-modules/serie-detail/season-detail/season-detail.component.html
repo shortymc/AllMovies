@@ -38,6 +38,7 @@
     <div class="pad-left" *ngIf="season.images">
       <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible">
         <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'season.images' | translate}}
+        ({{season.images.length}})
       </button>
     </div>
     <!-- Credits -->

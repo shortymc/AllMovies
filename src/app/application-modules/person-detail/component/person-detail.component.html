@@ -50,6 +50,7 @@
       <div class="pad-left d-inline" *ngIf="person.images && person.images.length > 0">
         <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible">
           <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'person.image' | translate}}
+          ({{person.images.length}})
         </button>
       </div>
       <div *ngIf="person.biography">
