@@ -25,7 +25,7 @@ export class MovieService {
   ) { }
 
   getPopularMovies(language: string): Promise<Movie[]> {
-    return this.serviceUtils.getPromise(`${Url.MOST_POPULAR_URL}${Url.LANGUE}${language}`)
+    return this.serviceUtils.getPromise(`${Url.MOST_POPULAR_MOVIE_URL}${Url.LANGUE}${language}`)
       .then(response => MapMovie.mapForPopularMovies(response))
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
@@ -81,7 +81,7 @@ export class MovieService {
     criteria.yearMax = fin;
     criteria.releaseType = [3, 2];
     criteria.runtimeMin = 60;
-    const url = UrlBuilder.discoverUrlBuilder(criteria, undefined, undefined, undefined);
+    const url = UrlBuilder.discoverUrlBuilder(criteria, undefined, undefined, undefined, true);
     return this.serviceUtils.getPromise(url)
       .then(response => MapMovie.mapForMoviesByReleaseDates(response))
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
@@ -89,7 +89,7 @@ export class MovieService {
 
   getMoviesDiscover(criteria: DiscoverCriteria, people: number[], genre: number[], keyword: number[]): Promise<Discover> {
     return this.serviceUtils.getPromise(
-      UrlBuilder.discoverUrlBuilder(criteria, people, genre, keyword))
+      UrlBuilder.discoverUrlBuilder(criteria, people, genre, keyword, true))
       .then((response: any) => {
         const discover = MapMovie.mapForDiscover(response);
         // discover.movies.forEach((movie) => this.omdb.getMovie(movie.imdb_id).then(score => movie.score = score));

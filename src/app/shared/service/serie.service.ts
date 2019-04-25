@@ -5,6 +5,8 @@ import { map, catchError } from 'rxjs/operators';
 import { MapSerie } from '../mapSerie';
 import { Utils } from './../utils';
 import { Url } from '../../constant/url';
+import { DiscoverCriteria } from './../../model/discover-criteria';
+import { Discover } from './../../model/discover';
 import { UrlBuilder } from './../urlBuilder';
 import { MapSeason } from './../mapSeason';
 import { Season } from './../../model/season';
@@ -86,5 +88,15 @@ export class SerieService {
         map(response => MapSerie.mapForSearchSeries(response)),
         catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast))
       );
+  }
+
+  getSeriesDiscover(criteria: DiscoverCriteria, people: number[], genre: number[], keyword: number[]): Promise<Discover> {
+    return this.serviceUtils.getPromise(
+      UrlBuilder.discoverUrlBuilder(criteria, people, genre, keyword, false))
+      .then((response: any) => {
+        const discover = MapSerie.mapForDiscover(response);
+        // discover.movies.forEach((movie) => this.omdb.getMovie(movie.imdb_id).then(score => movie.score = score));
+        return discover;
+      }).catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 }
