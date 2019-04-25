@@ -21,15 +21,12 @@
   </div>
   <div class="season-content">
     <app-image-viewer class="season-poster" [images]="season.poster" [thumbnails]="season.poster" [visible]="true"></app-image-viewer>
-    <div>
-      <label>{{'global.id' | translate}}:</label>{{season.id}}
-    </div>
     <div *ngIf="season.episodeCount">
-      <label>{{'season.episodeCount' | translate}}: </label>{{season.episodeCount}}
+      <label>{{'serie.episodeCount' | translate}}: </label>{{season.episodeCount}}
     </div>
     <!-- Aired Date -->
     <div *ngIf="season.airDate">
-      <label>{{'season.dates' | translate}}: </label>{{season.airDate | date:'dd MMMM yyyy':'':translate.currentLang |
+      <label>{{'serie.dates' | translate}}: </label>{{season.airDate | date:'dd MMMM yyyy':'':translate.currentLang |
       capitalizeWord}}
     </div>
     <!-- Overview -->
