@@ -26,7 +26,7 @@
         "id": "Id",
         "video": "Video(s)",
         "reco": "You should also like",
-        "similar": "Similar Movies",
+        "similar": "Similar",
         "overview": "Overview",
         "alternative_title": "Alternative Titles",
         "country": "Country",
@@ -130,7 +130,7 @@
         "budget": "Budget",
         "spoken_langs": "Spoken Languages",
         "revenu": "Revenu",
-        "image": "Movie images"
+        "image": "movie images"
     },
     "score": {
         "source": "Site",
@@ -155,7 +155,7 @@
         "birth": "Birth",
         "death": "Death",
         "bio": "Biography",
-        "image": "Images",
+        "image": "images",
         "films": "Filmography",
         "display": {
             "title": "Displays",
