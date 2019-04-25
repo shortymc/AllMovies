@@ -26,7 +26,7 @@
         "id": "Id",
         "video": "Vidéo(s)",
         "reco": "Vous aimerez aussi",
-        "similar": "Films similaires",
+        "similar": "Similaires",
         "overview": "Synopsis",
         "alternative_title": "Titres Alternatif",
         "country": "Pays",
@@ -130,7 +130,7 @@
         "budget": "Budget",
         "spoken_langs": "Langues Parlées",
         "revenu": "Recette",
-        "image": "Images du film"
+        "image": "les images du film"
     },
     "score": {
         "source": "Site",
@@ -155,7 +155,7 @@
         "birth": "Naissance",
         "death": "Mort",
         "bio": "Biographie",
-        "image": "Images",
+        "image": "ses images",
         "films": "Filmographie",
         "display": {
             "title": "Afficher",
