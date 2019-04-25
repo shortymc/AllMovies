@@ -163,14 +163,14 @@ export class UrlBuilder {
   private static genresUrlBuilder(parametres: string[], genre: number[], genresWithout: boolean): void {
     if (genre && genre.length > 0) {
       const genreUrl = genresWithout ? Url.WITHOUT_GENRES_URL : Url.WITH_GENRES_URL;
-      parametres.push(`${genreUrl}${genre.join(Url.AND_URL)}`);
+      parametres.push(`${genreUrl}${genre.join(Url.OR_URL)}`);
     }
   }
 
   private static keywordsUrlBuilder(parametres: string[], keyword: number[], keywordsWithout: boolean): void {
     if (keyword && keyword.length > 0) {
       const keywordUrl = keywordsWithout ? Url.WITHOUT_KEYWORDS_URL : Url.WITH_KEYWORDS_URL;
-      parametres.push(`${keywordUrl}${keyword.join(Url.AND_URL)}`);
+      parametres.push(`${keywordUrl}${keyword.join(Url.OR_URL)}`);
     }
   }
 
