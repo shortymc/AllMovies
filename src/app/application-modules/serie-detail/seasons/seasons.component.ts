@@ -19,7 +19,6 @@ export class SeasonsComponent implements OnInit, OnChanges {
   seasons: Season[] = [];
   overviewId: number;
   overview: string;
-  opened = false;
   swiperConfig: SwiperConfigInterface = {
     a11y: true,
     keyboard: true,
@@ -59,12 +58,7 @@ export class SeasonsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.seasons) {
-      this.seasons = changes.seasons.currentValue.sort((a, b) => Utils.compare(a.seasonNumber, b.seasonNumber, true));
-      this.opened = false;
-    } else {
-      this.seasons = undefined;
-    }
+    this.seasons = changes.seasons ? changes.seasons.currentValue.sort((a, b) => Utils.compare(a.seasonNumber, b.seasonNumber, true)) : undefined;
   }
 
   goToSeasonDetail(season: number): void {
