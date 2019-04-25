@@ -331,7 +331,7 @@
     },
     "serie": {
         "dates": "Aired dates",
-        "images": "Serie image",
+        "images": "serie images",
         "creators": "Creators",
         "inProduction": "In production",
         "network": "Network",
@@ -341,5 +341,11 @@
         "seasons": "Season",
         "status": "Status",
         "type": "Type"
+    },
+    "season": {
+        "images": "season images",
+        "previous": "Previous season",
+        "next": "Next season",
+        "go_back": "Returns to the serie"
     }
 }
