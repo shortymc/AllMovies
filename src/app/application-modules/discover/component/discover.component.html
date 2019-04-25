@@ -15,6 +15,8 @@
       {{'global.sort_down'|translate}}
     </mat-button-toggle>
   </mat-button-toggle-group>
+  <mat-slide-toggle [(ngModel)]="isMovie" (change)="initParams()">{{(isMovie ? 'search.movies' : 'search.series') |
+    translate}}</mat-slide-toggle>
 </div>
 <div class="params">
   <!-- Person search -->
@@ -32,14 +34,14 @@
   </mat-form-field>
   <mat-slide-toggle [color]="'primary'" [(checked)]="isWithoutGenre" (change)="isWithoutGenre = !isWithoutGenre">{{'discover.without'|translate}}</mat-slide-toggle>
   <!-- Certification Filter -->
-  <mat-form-field>
+  <mat-form-field *ngIf="isMovie">
     <mat-select placeholder="{{'discover.certification' | translate}}" [(value)]="selectedCertif">
       <mat-option>{{'discover.none'|translate}}</mat-option>
       <mat-option *ngFor="let certif of allCertif" [value]="certif">{{certif.label_key}}</mat-option>
     </mat-select>
   </mat-form-field>
   <!-- Release type filter -->
-  <mat-form-field>
+  <mat-form-field *ngIf="isMovie">
     <mat-select placeholder="{{'discover.release_type' | translate}}" [(value)]="selectedReleaseType" multiple>
       <mat-option *ngFor="let type of allReleaseType" [value]="type">{{type.label_key | translate}}</mat-option>
     </mat-select>
@@ -50,7 +52,7 @@
   [tooltips]="[true, true]" id="runtime-slider"></nouislider>
 <!-- Year range -->
 <nouislider [connect]="true" [min]="minYear" [max]="maxYear" [step]="1" [(ngModel)]="yearRange" [tooltips]="[true, true]"
-  [disabled]="playing" style="margin-top: 4em;"></nouislider>
+  [disabled]="playing && isMovie" style="margin-top: 4em;"></nouislider>
 <!-- Vote range -->
 <div class="vote">
   <nouislider [connect]="true" [min]="minVote" [max]="maxVote" [step]="0.1" [(ngModel)]="voteRange" [tooltips]="[true, true]"
@@ -61,14 +63,14 @@
     </mat-select>
   </mat-form-field>
 </div>
-<div class="params">
+<div class="params" *ngIf="isMovie">
   <!-- Playing Slider -->
   <mat-slide-toggle [color]="'primary'" [(checked)]="playing" (change)="playing = !playing">{{'discover.playing'|translate}}</mat-slide-toggle>
 </div>
 <div class="params">
   <!-- Add to Collection Btn -->
-  <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" appAddCollection [datas]="discover.movies"
-    [label]="'global.add_collection'" [isSingleData]="false" [isMovie]="true">
+  <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" appAddCollection [datas]="discover.datas"
+    [label]="'global.add_collection'" [isSingleData]="false" [isMovie]="isMovie">
   </button>
   <!-- Init Btn -->
   <button type="button" class="btn btn-outline-primary" (click)="clear()">{{'global.clear'|translate}}</button>
@@ -82,27 +84,35 @@
     (page)="page = $event; search(false);" [showFirstLastButtons]="true">
   </mat-paginator>
   <h3 mat-subheader>{{'discover.result'|translate}}:</h3>
-  <mat-list-item *ngFor="let movie of discover.movies" [ngClass]="{'selected':movie.checked, 'adult': movie.adult}">
-    <img src="{{movie.affiche | image:'small'}}" />
-    <p matLine appOpenLink [label]="movie.title" url="/movie/{{movie.id}}" class="result-title">{{movie.title}}</p>
-    <p matLine>{{movie.original_title}}</p>
-    <p matLine>{{movie.language | uppercase}}</p>
-    <p matLine>{{movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang | capitalizeWord}}</p>
+  <mat-list-item *ngFor="let data of discover.datas" [ngClass]="{'selected':data.checked, 'adult': data.adult}">
+    <img src="{{data.affiche | image:'small'}}" />
+    <p matLine appOpenLink [label]="data.title" url="{{ isMovie ? '/movie/':'/serie/'}}{{data.id}}" class="result-title">{{data.title}}</p>
+    <p matLine>{{data.original_title}}</p>
+    <p matLine *ngIf="isMovie">{{data.language | uppercase}}</p>
+    <p matLine *ngIf="!isMovie">
+      <ng-container *ngIf="data.originCountries && data.originCountries.length > 0; else origLang">
+        <span *ngFor="let country of data.originCountries; let last=last;"><span>{{country | uppercase}}</span><span
+            *ngIf="!last">/</span></span>
+      </ng-container>
+      <ng-template #origLang>{{data.originLang | uppercase}}</ng-template>
+    </p>
+    <p matLine>{{(isMovie ? data.date : data.firstAired) | date:'EEEE dd MMMM yyyy':'':translate.currentLang |
+      capitalizeWord}}</p>
     <p matLine>
-      <span>{{movie.vote}} / 10 </span>
-      <span>({{movie.vote_count}})</span>
-      <span> - {{movie.popularity | number:'1.0-2':translate.currentLang}}</span>
+      <span>{{data.vote}} / 10 </span>
+      <span>({{data.vote_count}})</span>
+      <span> - {{data.popularity | number:'1.0-2':translate.currentLang}}</span>
     </p>
     <p matLine *ngIf="(genresLoaded$ | async)">
-      <span class="block" *ngIf="movie.genres && movie.genres.length > 0">
-        <span *ngFor="let genre of movie.genres; let last=last;">
+      <span class="block" *ngIf="data.genres && data.genres.length > 0">
+        <span *ngFor="let genre of data.genres; let last=last;">
           <span class="pointer" (click)="filterGenre(genre.id)">{{getGenre(genre.id)|
             capitalizeWord}}</span>
           <span *ngIf="!last">/</span>
         </span>
       </span>
     </p>
-    <mat-checkbox class="result-checkbox" [(ngModel)]="movie.checked" (change)="updateSize()"></mat-checkbox>
+    <mat-checkbox class="result-checkbox" [(ngModel)]="data.checked" (change)="updateSize()"></mat-checkbox>
   </mat-list-item>
   <mat-paginator class="mat-elevation-z4" [length]="discover.total_results" [pageIndex]="page.pageIndex" [pageSize]="20"
     (page)="page = $event; search(false);" [showFirstLastButtons]="true">

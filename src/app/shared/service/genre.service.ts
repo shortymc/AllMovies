@@ -12,8 +12,8 @@ export class GenreService {
 
   constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 
-  getAllGenre(language: string): Observable<Genre[]> {
-    const url = `${Url.GET_ALL_GENRES_URL}${Url.API_KEY}${Url.LANGUE}${language}`;
+  getAllGenre(isMovie: boolean, language: string): Observable<Genre[]> {
+    const url = `${isMovie ? Url.GET_MOVIE_GENRES_URL : Url.GET_SERIE_GENRES_URL}${Url.API_KEY}${Url.LANGUE}${language}`;
     return this.serviceUtils
       .getObservable(url, this.serviceUtils.getHeaders())
       .pipe(

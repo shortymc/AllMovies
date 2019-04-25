@@ -1,3 +1,5 @@
+import { Genre } from './../model/model';
+import { Discover } from './../model/discover';
 import { MapSeason } from './mapSeason';
 import { AlternativeTitle } from '../model/model';
 import { Utils } from './utils';
@@ -17,31 +19,31 @@ export class MapSerie {
   //   }));
   // }
 
-  // static mapForDiscover(response: any): Discover {
-  //   const discover = new Discover();
-  //   discover.series = response.results.map((r: any) => <Serie>({
-  //     id: r.id,
-  //     title: r.title,
-  //     date: r.release_date,
-  //     vote: r.vote_average,
-  //     language: r.original_language,
-  //     affiche: r.poster_path,
-  //     adult: r.adult,
-  //     original_title: Utils.getTitle(r),
-  //     popularity: r.popularity,
-  //     vote_count: r.vote_count,
-  //     genres: r.genre_ids.map(g => {
-  //       const genre = new Genre();
-  //       genre.id = g;
-  //       return genre;
-  //     })
-  //   }));
-  //   discover.total_pages = response.total_pages;
-  //   discover.page = response.page;
-  //   discover.total_results = response.total_results;
-  //   console.log('discover', discover);
-  //   return discover;
-  // }
+  static mapForDiscover(response: any): Discover {
+    const discover = new Discover();
+    discover.datas = response.results.map((r: any) => <Serie>({
+      id: r.id,
+      title: r.name,
+      firstAired: r.first_air_date,
+      vote: r.vote_average,
+      originLang: r.original_language,
+      originCountries: r.origin_country,
+      affiche: r.poster_path,
+      original_title: Utils.getTitle(r, false),
+      popularity: r.popularity,
+      vote_count: r.vote_count,
+      genres: r.genre_ids.map(g => {
+        const genre = new Genre();
+        genre.id = g;
+        return genre;
+      })
+    }));
+    discover.total_pages = response.total_pages;
+    discover.page = response.page;
+    discover.total_results = response.total_results;
+    console.log('discover', discover);
+    return discover;
+  }
 
   static mapForSearchSeries(response: any): Serie[] {
     console.log(response.results);
@@ -60,7 +62,7 @@ export class MapSerie {
       title: r.name,
       firstAired: r.first_air_date,
       affiche: r.poster_path,
-      original_title: Utils.getTitle(r),
+      original_title: Utils.getTitle(r, false),
       vote: r.vote_average,
       vote_count: r.vote_count,
       originLang: r.original_language,
