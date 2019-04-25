@@ -130,6 +130,7 @@
     <div class="pad-left" *ngIf="config.img">
       <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible" *ngIf="movie.images">
         <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'movie.image' | translate}}
+        ({{movie.images.length}})
       </button>
     </div>
     <!-- Credits -->

@@ -7,7 +7,7 @@
     <!-- Networks -->
     <span class="serie-networks">
       <img class="network-img" [src]="network.logo_path | image:'small'" *ngFor="let network of serie.networks;"
-      matTooltip="{{network.origin_country ? network.name + ' (' + network.origin_country + ')' : network.name}}">
+        matTooltip="{{network.origin_country ? network.name + ' (' + network.origin_country + ')' : network.name}}">
     </span>
     <!-- Time -->
     <span class="serie-time">
@@ -146,6 +146,7 @@
     <div class="pad-left" *ngIf="config.img">
       <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible" *ngIf="serie.images">
         <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'serie.images' | translate}}
+        ({{serie.images.length}})
       </button>
     </div>
     <!-- Credits -->
