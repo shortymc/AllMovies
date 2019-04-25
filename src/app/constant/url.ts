@@ -39,12 +39,16 @@ export class Url {
   static readonly INCLUDE_IMAGE_LANGUAGE = '&include_image_language=';
   static readonly RELEASE_DATE_GTE_URL = '&release_date.gte=';
   static readonly RELEASE_DATE_LTE_URL = '&release_date.lte=';
+  static readonly FIRST_AIR_DATE_GTE_URL = '&first_air_date.gte=';
+  static readonly FIRST_AIR_DATE_LTE_URL = '&first_air_date.lte=';
   static readonly RELEASE_TYPE_URL = '&with_release_type=3|2';
-  static readonly DISCOVER_URL =
+  static readonly DISCOVER_MOVIE_URL =
     Url.MOVIE_DB_API_URL + 'discover/movie?' + Url.API_KEY;
+  static readonly DISCOVER_SERIE_URL =
+    Url.MOVIE_DB_API_URL + 'discover/tv?' + Url.API_KEY;
   static readonly PLAYING_URL =
     Url.MOVIE_DB_API_URL + 'movie/now_playing?' + Url.API_KEY;
-  static readonly MOST_POPULAR_URL = Url.DISCOVER_URL + '&sort_by=popularity.desc';
+  static readonly MOST_POPULAR_MOVIE_URL = Url.DISCOVER_MOVIE_URL + '&sort_by=popularity.desc';
   static readonly SORT_BY_URL = '&sort_by=';
   static readonly PAGE_URL = '&page=';
   static readonly VOTE_COUNT_GTE_URL = '&vote_count.gte=';
@@ -63,7 +67,8 @@ export class Url {
   static readonly WITH_PEOPLE_URL = '&with_people=';
   static readonly WITHOUT_GENRES_URL = '&without_genres=';
   static readonly WITHOUT_KEYWORDS_URL = '&without_keywords=';
-  static readonly GET_ALL_GENRES_URL = Url.MOVIE_DB_API_URL + 'genre/movie/list?';
+  static readonly GET_MOVIE_GENRES_URL = Url.MOVIE_DB_API_URL + 'genre/movie/list?';
+  static readonly GET_SERIE_GENRES_URL = Url.MOVIE_DB_API_URL + 'genre/tv/list?';
   static readonly GET_ALL_CERTIFICATIONS_URL = Url.MOVIE_DB_API_URL + 'certification/movie/list?';
   static readonly GET_POPULAR_PERSON = Url.MOVIE_DB_API_URL + 'person/popular?' + Url.API_KEY;
 }

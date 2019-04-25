@@ -98,8 +98,8 @@ export class UrlBuilder {
     return url;
   }
 
-  static discoverUrlBuilder(criteria: DiscoverCriteria, people: number[], genre: number[], keyword: number[]): string {
-    let url = `${Url.DISCOVER_URL}`;
+  static discoverUrlBuilder(criteria: DiscoverCriteria, people: number[], genre: number[], keyword: number[], isMovie: boolean): string {
+    let url = `${isMovie ? Url.DISCOVER_MOVIE_URL : Url.DISCOVER_SERIE_URL}`;
     const parametres = [];
     if (criteria.sortField && criteria.sortDir) {
       parametres.push(`${Url.SORT_BY_URL}${criteria.sortField}.${criteria.sortDir}`);
@@ -111,21 +111,21 @@ export class UrlBuilder {
       parametres.push(`${Url.REGION}${criteria.region.toUpperCase()}`);
     }
     if (criteria.yearMin) {
-      parametres.push(`${Url.RELEASE_DATE_GTE_URL}${criteria.yearMin}`);
+      parametres.push(`${isMovie ? Url.RELEASE_DATE_GTE_URL : Url.FIRST_AIR_DATE_GTE_URL}${criteria.yearMin}`);
     }
     if (criteria.yearMax) {
-      parametres.push(`${Url.RELEASE_DATE_LTE_URL}${criteria.yearMax}`);
+      parametres.push(`${isMovie ? Url.RELEASE_DATE_LTE_URL : Url.FIRST_AIR_DATE_LTE_URL}${criteria.yearMax}`);
     }
-    if (criteria.adult) {
+    if (criteria.adult && isMovie) {
       parametres.push(`${Url.ADULT_URL}`);
     }
     UrlBuilder.voteUrlBuilder(parametres, criteria);
-    if (criteria.certification) {
+    if (criteria.certification && isMovie) {
       parametres.push(`${Url.CERTIFICATION_COUNTRY_URL}`);
       parametres.push(`${Url.CERTIFICATION_URL}${criteria.certification}`);
     }
     UrlBuilder.runtimeUrlBuilder(parametres, criteria);
-    if (criteria.releaseType) {
+    if (criteria.releaseType && isMovie) {
       parametres.push(`${Url.WITH_RELEASE_TYPE_URL}${criteria.releaseType.join(Url.OR_URL)}`);
     }
     if (people && people.length > 0) {

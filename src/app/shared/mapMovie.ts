@@ -39,7 +39,7 @@ export class MapMovie {
 
   static mapForDiscover(response: any): Discover {
     const discover = new Discover();
-    discover.movies = response.results.map((r: any) => <Movie>({
+    discover.datas = response.results.map((r: any) => <Movie>({
       id: r.id,
       title: r.title,
       date: r.release_date,
