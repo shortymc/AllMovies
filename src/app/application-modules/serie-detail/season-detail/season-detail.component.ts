@@ -4,7 +4,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { Season } from './../../../model/season';
-import { SerieService } from './../../../shared/service/serie.service';
+import { SerieService } from './../../../shared/shared.module';
 
 @Component({
   selector: 'app-season-detail',
