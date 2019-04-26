@@ -18,7 +18,8 @@ export class MetaService {
     if (site === DuckDuckGo.SEARCH_BANG_WIKI_EN.site || site === DuckDuckGo.SEARCH_BANG_WIKI_FR.site) {
       return this.wikisearch(title, site).toPromise();
     } else if (site === DuckDuckGo.SEARCH_BANG_IMDB.site && imdbId) {
-      return new Promise(resolve => resolve(Constants.IMDB_URL + (isMovie ? Constants.IMDB_MOVIE_SUFFIX : Constants.IMDB_PERSON_SUFFIX) + imdbId));
+      return new Promise(resolve =>
+        resolve(Constants.IMDB_URL + ((isMovie || isSerie) ? Constants.IMDB_MOVIE_SUFFIX : Constants.IMDB_PERSON_SUFFIX) + imdbId));
     } else {
       let url = DuckDuckGo.DUCKDUCKGO_URL + site + '+';
       url += UtilsService.encodeQueryUrl(title) + '&format=json&no_redirect=1';
