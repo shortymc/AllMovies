@@ -9,9 +9,8 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimesCircle, faStar } from '@fortawesome/free-regular-svg-icons';
 import { FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 
-import { MyTagsService } from './../../../../shared/service/my-tags.service';
+import { MyTagsService, TitleService } from './../../../../shared/shared.module';
 import { Utils } from './../../../../shared/utils';
-import { TitleService } from './../../../../shared/service/title.service';
 import { Tag } from './../../../../model/tag';
 
 library.add(faTimesCircle);
@@ -127,7 +126,7 @@ export class TagsComponent implements OnInit, OnDestroy {
   addTag(): void {
     const tag = new Tag();
     tag.label = this.toAdd.value;
-    tag.movies = [];
+    tag.datas = [];
     tag.color = this.color;
     this.myTagsService.add(tag);
     this.color = Utils.randomColor();

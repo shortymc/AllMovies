@@ -7,10 +7,10 @@ import { Person } from './../../model/person';
 import { Url } from './../../constant/url';
 import { UtilsService } from './utils.service';
 import { ToastService } from './toast.service';
-import { SearchServiceService } from './searchService.service';
+import { SearchService } from './search.service';
 
 @Injectable()
-export class PersonSearchService implements SearchServiceService<Person> {
+export class PersonSearchService implements SearchService<Person> {
 
   constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 

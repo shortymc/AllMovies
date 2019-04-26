@@ -15,6 +15,10 @@ swiper {
   z-index: 99;
 }
 
+#swiper-middle {
+  z-index: 49;
+}
+
 #swiper-bottom {
   z-index: 1;
 }
@@ -72,25 +76,37 @@ swiper {
     margin: auto !important;
   }
 
+  #swiper-middle {
+    top: 385px;
+  }
+
   #swiper-bottom {
-    top: 485px;
+    top: 580px;
   }
 
   ::ng-deep.swiper-button-next,
   ::ng-deep.swiper-button-prev {
-    #swiper-top & {
-      top: 70px !important;
+    #swiper-top &,
+    #swiper-middle & {
+      top: 54px !important;
     }
 
     #swiper-bottom & {
-      top: 50px !important;
+      top: 40px !important;
     }
   }
 
-  #person_title {
+  .title:not(#movie_title) {
     position: fixed;
-    top: 410px;
     width: 100vw;
+
+    &#person_title {
+      top: 490px;
+    }
+
+    &#serie_title {
+      top: 300px;
+    }
   }
 }
 

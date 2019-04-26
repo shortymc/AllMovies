@@ -14,11 +14,11 @@
       </button>
     </div>
   </div>
-  <app-meta class="person-meta" [entry]="person" [orientation]="'vertical'" [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR, DuckDuckGo.SEARCH_BANG_IMDB]"></app-meta>
+  <app-meta class="person-meta" [entry]="person" [isMovie]="false" [isSerie]="false" [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR, DuckDuckGo.SEARCH_BANG_IMDB]"></app-meta>
   <div class="person-content">
     <app-image-viewer class="person-profile" [images]="person.profile" [thumbnails]="person.profile" [visible]="true"></app-image-viewer>
     <div>
-      <label>{{'person.id' | translate}}:</label>{{person.id}}
+      <label>{{'global.id' | translate}}:</label>{{person.id}}
     </div>
     <div>
       <label>{{'person.name' | translate}}: </label>
@@ -44,22 +44,44 @@
         <label>{{'person.known_for.title' | translate}}:</label>{{'person.known_for.'+person.knownFor|translate}}
       </div>
       <div>
-        <label>{{'person.popularity' | translate}}:</label>{{person.popularity |
+        <label>{{'global.popularity' | translate}}:</label>{{person.popularity |
         number:'1.0-2':translate.currentLang}}
       </div>
       <div class="pad-left d-inline" *ngIf="person.images && person.images.length > 0">
         <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible">
           <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'person.image' | translate}}
+          ({{person.images.length}})
         </button>
       </div>
       <div *ngIf="person.biography">
         <label>{{'person.bio' | translate}}: </label>
-        <div class="synopsis d-inline-block">{{person.biography}}</div>
+        <div class="overview d-inline-block">{{person.biography}}</div>
       </div>
     </div>
     <figure>
       <label id="person-film">{{'person.films' | translate}}:</label>
-      <app-list-movies [movies]="list.value" [label]="('movie-list.' + list.label_key | translate).concat(':')" *ngFor="let list of listMoviesOrder"></app-list-movies>
+      <div *ngFor="let list of listMoviesOrder">
+        <ng-container *ngIf="list.value.get('show')[0] !== 'none'">
+          <div class="toogle-display">
+            <div>{{'person.display.title'|translate}} :</div>
+            <mat-button-toggle-group [value]="list.value.get('show')[0]" #show="matButtonToggleGroup">
+              <mat-button-toggle value="movie" [disabled]="list.value.get('movie').length === 0">
+                {{'person.display.movie'|translate}}
+              </mat-button-toggle>
+              <mat-button-toggle value="serie" [disabled]="list.value.get('serie').length === 0">
+                {{'person.display.serie'|translate}}
+              </mat-button-toggle>
+              <mat-button-toggle value="both" [disabled]="list.value.get('serie').length === 0 || list.value.get('movie').length === 0">
+                {{'person.display.both'|translate}}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+          <app-list-datas [datas]="list.value.get('movie')" [isMovie]="true" *ngIf="['movie', 'both'].includes(show.value)"
+            [label]="('data-list.' + list.label_key | translate).concat(':')"></app-list-datas>
+          <app-list-datas [datas]="list.value.get('serie')" [isMovie]="false" *ngIf="['serie', 'both'].includes(show.value)"
+            [label]="('data-list.' + list.label_key | translate).concat(':')"></app-list-datas>
+        </ng-container>
+      </div>
     </figure>
   </div>
 </div>

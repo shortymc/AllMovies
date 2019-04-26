@@ -1,0 +1,132 @@
+@import "../../../styles/styles";
+/* stylelint-disable selector-pseudo-element-no-unknown */
+/* stylelint-disable selector-type-no-unknown */
+
+.card-deck {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  text-align: center;
+
+  & label {
+    align-self: center;
+    margin: 0 !important;
+  }
+}
+
+.datas-params {
+  padding: 0 10px;
+}
+
+.datas-sorting {
+  & .toogleHeader {
+    margin: auto;
+  }
+
+  & .mat-select {
+    width: calc(100% - 20px) !important;
+  }
+}
+
+.card-body {
+  display: flex;
+  padding-bottom: 0.25rem !important;
+}
+
+.data {
+  display: flex;
+
+  & input {
+    width: 100% !important;
+  }
+}
+
+.datas-search {
+  padding-right: 15px;
+
+  & .pointer {
+    margin: auto;
+  }
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: unset !important;
+  margin: auto;
+}
+
+.data-item {
+  display: inline-flex;
+  flex-direction: column;
+
+  & input {
+    width: 100% !important;
+  }
+}
+
+.total {
+  position: relative;
+  display: block;
+  margin-left: -1px;
+  padding: 0.5rem 0.75rem;
+  line-height: 1.25;
+  color: $blue;
+  border: 1px solid #dee2e6;
+}
+
+.bottom-page ::ng-deep ngb-pagination ul {
+  margin-bottom: 0 !important;
+}
+
+@include media(#{$smallscreen}, false) {
+  .data-infos {
+    width: 75%;
+    margin: auto;
+    margin-top: 15px;
+    text-align: center;
+  }
+}
+
+@include media(#{$smallscreen}) {
+  .card-body {
+    padding: 0 !important;
+  }
+
+  .data {
+    display: inline-flex !important;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .data-item {
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 15px;
+    font-size: 13px !important;
+    text-align: center;
+
+    & input {
+      width: 0 !important;
+      margin: 10px !important;
+    }
+
+    &,
+    & p {
+      padding-left: 10px;
+    }
+  }
+
+  .card-deck,
+  .card {
+    @include full_width;
+  }
+}

@@ -24,6 +24,13 @@
         "show": "Show",
         "hide": "Hide",
         "id": "Id",
+        "video": "Video(s)",
+        "reco": "You should also like",
+        "similar": "Similar",
+        "overview": "Overview",
+        "alternative_title": "Alternative Titles",
+        "country": "Country",
+        "languages": "Languages",
         "clear": "Reset",
         "sort": "Sort",
         "sort_direction": "Direction",
@@ -31,7 +38,13 @@
         "sort_down": "Down",
         "keyword": "Keywords",
         "genres": "Genres",
+        "popularity": "Popularity",
+        "vote": "Rating",
+        "vote_count": "Vote count",
+        "tagged": "Tagged",
         "placeholder": "Search",
+        "true": "Yes",
+        "false": "No",
         "mat-table": {
             "of": " of ",
             "no_result": "No Data",
@@ -52,6 +65,7 @@
     "nav_bar": {
         "dashboard": "Dashboard",
         "movies": "My Movies",
+        "series": "My Series",
         "release": "Movie Releases",
         "playing": "Now Playing",
         "profile": "My Profile",
@@ -63,6 +77,7 @@
     "title": {
         "dashboard": "Dashboard",
         "movies": "My Movies",
+        "series": "My Series",
         "release": "Movie Releases",
         "profile": "My Profile",
         "discover": "Explore",
@@ -77,6 +92,11 @@
         "movie_removed": "Movie removed !",
         "movies_removed": "{{size}} Movie(s) removed !",
         "movies_updated": "{{size}} Movie(s) updated !",
+        "serie_added": "Serie added !",
+        "series_added": "{{size}} Serie(s) added !",
+        "serie_removed": "Serie removed !",
+        "series_removed": "{{size}} Serie(s) removed !",
+        "series_updated": "{{size}} Serie(s) updated !",
         "already_added": "Already added !",
         "user_added": "User added !",
         "user_changed": "User changed !",
@@ -101,34 +121,23 @@
     },
     "dashboard": {
         "movies": "Popular movies",
+        "series": "Popular series",
         "persons": "Trending people"
     },
     "movie": {
-        "id": "Id",
         "title": "Title",
-        "country": "Country",
-        "alternative_title": "Alternative Titles",
         "date": "Release Date",
         "length": "Running Time",
-        "synopsis": "Synopsis",
         "budget": "Budget",
         "spoken_langs": "Spoken Languages",
         "revenu": "Revenu",
-        "video": "Videos",
-        "image": "Movie Images",
-        "reco": "You should like also",
-        "similar": "Similar Movies",
-        "tagged": "Tagged",
-        "score": {
-            "source": "Site",
-            "value": "Rating"
-        }
+        "image": "movie images"
     },
-    "movie-search": {
-        "header": "Movie Search",
-        "placeholder": "Search movies"
+    "score": {
+        "source": "Site",
+        "value": "Rating"
     },
-    "movie-list": {
+    "data-list": {
         "actor": "As actors",
         "director": "As director",
         "producer": "As producer",
@@ -136,20 +145,25 @@
         "screenwriter": "As screenwriter",
         "novelist": "As novelist",
         "technician": "As technician",
-        "add": "Add Selected Movies To Collection",
+        "add_movies": "Add selected movies",
+        "add_series": "Add Selected series",
         "total": "Total"
     },
     "person": {
-        "id": "Id",
         "name": "Name",
         "birthplace": "Birthplace",
         "age": "Age",
         "birth": "Birth",
         "death": "Death",
         "bio": "Biography",
-        "popularity": "Popularity",
-        "image": "Images",
+        "image": "images",
         "films": "Filmography",
+        "display": {
+            "title": "Displays",
+            "movie": "Movies",
+            "serie": "Series",
+            "both": "Both"
+        },
         "known_for": {
             "title": "Known for",
             "Acting": "Acting",
@@ -162,19 +176,21 @@
             "Crew": "Technician"
         }
     },
-    "person-search": {
-        "header": "Person Search",
-        "placeholder": "Search people"
+    "search": {
+        "series": "Search series",
+        "movies": "Search movies",
+        "persons": "Search people"
     },
     "person-list": {
         "hide": "Hide",
         "show": "Show all",
+        "creators": "Creators",
         "actors": "Actors",
         "directors": "Directors",
         "producers": "Producers",
         "composers": "Composers",
         "screenwriters": "Screenwriters",
-        "novelists": "Novelists",
+        "authors": "Original authors",
         "cameos": "Cameos",
         "guests": "Guests",
         "song": "Songs",
@@ -190,23 +206,27 @@
     },
     "movies": {
         "header": "My Movies",
-        "id": "Id",
+        "remove": "Remove selected movies ({{size}})",
+        "add_tag": "Add the tag {{tag}} to selected movies ({{size}})"
+    },
+    "series": {
+        "header": "My Series",
+        "remove": "Remove selected series ({{size}})",
+        "add_tag": "Add the tag {{tag}} to selected series ({{size}})"
+    },
+    "datas": {
         "poster": "Poster",
         "title": "Title",
         "date": "Release Date",
         "rating": "Ratings",
-        "language": "Languages",
         "length": "Running Time",
         "added": "Added",
-        "remove": "Remove the selected movies ({{size}})",
-        "search_title": "Search in {{param}}s",
-        "add_tag": "Add the tag {{tag}} to selected movies ({{size}})",
         "filter": {
             "placeholder": "Search",
             "genres": "Genres"
         },
         "mat-table": {
-            "itemsPerPageLabel": "Movies per page: "
+            "itemsPerPageLabel": "Datas per page: "
         }
     },
     "release": {
@@ -277,6 +297,7 @@
             "release_date": "Release date",
             "revenue": "Revenue",
             "original_title": "Title",
+            "first_aired": "First aired",
             "vote_average": "Vote",
             "vote_count": "Vote count"
         },
@@ -287,7 +308,6 @@
         "release_type": "Release type",
         "runtime": "Runtime",
         "year": "Release year",
-        "vote": "Rating",
         "search": "Search",
         "result": "Results",
         "vote_count_min": "Vote count minimum",
@@ -305,9 +325,28 @@
         "required": "Please enter a tag name",
         "maxlength": "{{current}} is greater than the maximum length ({{maxSize}})",
         "unique": "The tag name must be unique",
-        "remove_movies": "Remove the selected movies ({{size}})",
+        "remove_datas": "Remove the selected datas ({{size}})",
         "mat-table": {
             "itemsPerPageLabel": "Tags per page: "
         }
+    },
+    "serie": {
+        "dates": "Aired dates",
+        "images": "serie images",
+        "creators": "Creators",
+        "inProduction": "In production",
+        "network": "Network",
+        "seasonCount": "Season count",
+        "firstAired": "First aired",
+        "episodeCount": "Episode Count",
+        "seasons": "Season",
+        "status": "Status",
+        "type": "Type"
+    },
+    "season": {
+        "images": "season images",
+        "previous": "Previous season",
+        "next": "Next season",
+        "go_back": "Returns to the serie"
     }
 }

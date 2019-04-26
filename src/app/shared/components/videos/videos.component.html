@@ -1,0 +1,9 @@
+<div *ngIf="videos && videos.length > 0">
+  <label>{{'global.video' | translate}}:</label>
+  <ul class="videos">
+    <li *ngFor="let video of videos">
+      <a href="https://www.youtube.com/watch?v={{video.key}}" class="badge" target="_blank">{{video.name |
+        capitalizeWord}}</a>
+    </li>
+  </ul>
+</div>

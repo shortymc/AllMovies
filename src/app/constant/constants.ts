@@ -12,4 +12,5 @@ export class Constants {
   // Media Matchers
   static readonly MEDIA_MAX_700 = '(max-width: 700px)';
   static readonly MEDIA_MAX_1000 = '(max-width: 1000px)';
+  static readonly MEDIA_MAX_1200 = '(max-width: 1200px)';
 }

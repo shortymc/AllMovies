@@ -47,7 +47,7 @@ export class SearchTagComponent implements OnInit {
   add(item: string): void {
     const tag = new Tag();
     tag.label = item;
-    tag.movies = [];
+    tag.datas = [];
     tag.color = Utils.randomColor();
     this.myTagsService.add(tag).then((added) => {
       this.selected.emit(added);

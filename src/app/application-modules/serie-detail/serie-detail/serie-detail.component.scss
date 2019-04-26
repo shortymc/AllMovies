@@ -1,0 +1,140 @@
+@import "../../../styles/styles";
+
+.serie-header {
+  flex: 1 100%;
+
+  & .serie-title {
+    font-weight: 550;
+  }
+
+  & .serie-time,
+  & .serie-time div {
+    display: flex;
+    justify-content: center;
+  }
+
+  & .serie-networks {
+    display: flex;
+    justify-content: center;
+
+    & .network-img {
+      margin: 0 0 10px 0;
+      padding: 3px;
+      border: 2px solid $black;
+      border-radius: 5px;
+      box-shadow: 1px 1px 10px $black;
+    }
+  }
+
+  & .serie-btn {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+label {
+  display: inline !important;
+}
+
+.serie-content {
+  &,
+  & > * {
+    padding: 0 5px;
+  }
+}
+
+.serie-meta {
+  float: left;
+  margin: 20px 10px 0 20px;
+}
+
+.media-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* stylelint-disable selector-pseudo-element-no-unknown */
+/* stylelint-disable selector-type-no-unknown */
+.serie-poster ::ng-deep.frame-viewer {
+  height: 100% !important;
+  margin: 20px !important;
+}
+
+.gallery-top {
+  height: 80% !important;
+}
+
+.gallery-thumbs {
+  & .swiper-slide {
+    box-sizing: border-box;
+    width: 25% !important;
+    padding: 10px 0;
+    overflow: hidden !important;
+    opacity: 0.4;
+  }
+
+  & img {
+    height: auto;
+    width: auto;
+    max-width: 20vw;
+  }
+
+  & .swiper-slide-active {
+    opacity: 1;
+  }
+}
+
+.break-word {
+  word-break: break-word;
+}
+
+.serie-aired {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+@include media(#{$desktop}, false) {
+  .serie-content {
+    display: table;
+  }
+
+  .serie-title {
+    font-size: 3em;
+  }
+
+  label,
+  .pad-left {
+    margin-left: 20px !important;
+  }
+
+  label ~ div {
+    display: inline;
+
+    & > span:not(.serie-keyword) {
+      display: table-cell;
+    }
+  }
+
+  .serie-tags {
+    display: flex !important;
+  }
+}
+
+@include media(#{$smallscreen}) {
+  .serie-title {
+    font-size: 1.5em;
+  }
+
+  .overview {
+    width: 95vw !important;
+  }
+
+  .serie-genre,
+  .serie-aired {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
