@@ -15,7 +15,8 @@
       {{'global.sort_down'|translate}}
     </mat-button-toggle>
   </mat-button-toggle-group>
-  <mat-slide-toggle [(ngModel)]="isMovie" (change)="initParams()">{{(isMovie ? 'search.movies' : 'search.series') |
+  <mat-slide-toggle [(checked)]="isMovie" (change)="initParams($event.checked)">{{(isMovie ? 'search.movies' :
+    'search.series') |
     translate}}</mat-slide-toggle>
 </div>
 <div class="params">
@@ -36,7 +37,6 @@
   <!-- Networks Filter -->
   <app-search-box *ngIf="!isMovie" (items)="networks = $event" [service]="networkService" placeholder="{{'serie.network'|translate}}"
     [initList]="networks" [clear]="clean" [hasImage]="false"></app-search-box>
-  <mat-slide-toggle [color]="'primary'" [(checked)]="isWithoutNetwork" (change)="isWithoutNetwork = !isWithoutNetwork">{{'discover.without'|translate}}</mat-slide-toggle>
   <!-- Certification Filter -->
   <mat-form-field *ngIf="isMovie">
     <mat-select placeholder="{{'discover.certification' | translate}}" [(value)]="selectedCertif">

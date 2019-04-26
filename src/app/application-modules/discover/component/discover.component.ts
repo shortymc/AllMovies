@@ -52,10 +52,9 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   playing = false;
   playingDate: string[];
   networks: number[] = [];
-  isWithoutNetwork = false;
   clean = false;
   genresLoaded$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  isMovie = true;
+  isMovie: boolean;
   subs = [];
 
   constructor(
@@ -98,7 +97,6 @@ export class DiscoverComponent implements OnInit, OnDestroy {
         return res;
       }
     };
-    this.initParams();
     this.initPlayingDate();
 
     this.subs.push(this.translate.onLangChange.subscribe(() => {
@@ -110,22 +108,25 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     // Stored research
     this.subs.push(this.route.queryParams.subscribe(
       params => {
+        this.isMovie = params.isMovie ? Utils.parseJson(params.isMovie) : true;
         this.people = Utils.parseJson(params.people);
         this.selectedGenres = Utils.parseJson(params.genre);
         this.keyword = Utils.parseJson(params.keyword);
+        this.networks = Utils.parseJson(params.networks);
+        this.isWithoutGenre = Utils.parseJson(params.isWithoutGenre);
+        this.isWithoutKeyword = Utils.parseJson(params.isWithoutKeyword);
       }
     ));
     const criteria = <DiscoverCriteria>Utils.parseJson(sessionStorage.getItem('criteria'));
     const certif = <DropDownChoice>Utils.parseJson(sessionStorage.getItem('certif'));
-    if (criteria || this.people || this.keyword || this.selectedGenres || certif) {
-      this.initFromCriteria(criteria, certif);
-      this.search(false);
-    }
-    this.getAllGenres(this.selectedGenres ? this.selectedGenres : []);
+    this.initParams(this.isMovie);
+    this.initFromCriteria(criteria, certif);
+    this.search(false);
     this.getAllCertification(criteria ? criteria.certification : '');
   }
 
-  initParams(): void {
+  initParams(isMovie: boolean): void {
+    this.isMovie = isMovie;
     this.sortDir.value = 'desc';
     if (this.isMovie) {
       this.sortChoices = [new DropDownChoice('discover.sort_field.popularity', 'popularity'),
@@ -137,12 +138,11 @@ export class DiscoverComponent implements OnInit, OnDestroy {
       new DropDownChoice('discover.sort_field.first_aired', 'first_aired'), new DropDownChoice('discover.sort_field.vote_average', 'vote_average')];
     }
     this.sortChosen = this.sortChoices[0];
-    this.getAllGenres([]);
+    this.getAllGenres(this.selectedGenres ? this.selectedGenres : []);
     this.max = this.isMovie ? 300 : 150;
     this.runtimeRange = [0, this.max];
     this.minYear = this.isMovie ? 1890 : 1940;
     this.yearRange = [this.minYear, this.maxYear];
-    this.clear();
   }
 
   getAllGenres(genresId: number[]): void {
@@ -172,8 +172,6 @@ export class DiscoverComponent implements OnInit, OnDestroy {
       criteria.voteAvergeMax ? criteria.voteAvergeMax : this.maxVote];
       this.runtimeRange = [criteria.runtimeMin ? criteria.runtimeMin : 0, criteria.runtimeMax ? criteria.runtimeMax : this.max];
       this.voteCountMin = criteria.voteCountMin;
-      this.isWithoutGenre = criteria.genresWithout;
-      this.isWithoutKeyword = criteria.keywordsWithout;
       this.playing = criteria.playing;
       if (criteria.playingDate && criteria.playingDate.length !== 0) {
         this.playingDate = criteria.playingDate;
@@ -194,10 +192,11 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     crit.sortDir = 'desc';
     crit.page = 0;
     crit.voteCountMin = 10;
-    crit.genresWithout = false;
-    crit.keywordsWithout = false;
+    this.isWithoutGenre = false;
+    this.isWithoutKeyword = false;
     this.people = [];
     this.keyword = [];
+    this.networks = [];
     this.selectedGenres = [];
     this.playing = false;
     this.initFromCriteria(crit, undefined);
@@ -209,7 +208,9 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     this.router.navigate(['.'], {
       relativeTo: this.route,
       queryParams: {
-        people: JSON.stringify(this.people), keyword: JSON.stringify(this.keyword), genre: JSON.stringify(this.selectedGenres)
+        people: JSON.stringify(this.people), keyword: JSON.stringify(this.keyword),
+        genre: JSON.stringify(this.selectedGenres), networks: JSON.stringify(this.networks),
+        isMovie: this.isMovie, isWithoutGenre: this.isWithoutGenre, isWithoutKeyword: this.isWithoutKeyword
       }
     });
     const criteria = new DiscoverCriteria();
@@ -233,8 +234,6 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     criteria.page = this.page.pageIndex + 1;
     criteria.adult = this.adult;
     criteria.voteCountMin = this.voteCountMin;
-    criteria.genresWithout = this.isWithoutGenre;
-    criteria.keywordsWithout = this.isWithoutKeyword;
     criteria.playing = this.playing;
     criteria.playingDate = this.playingDate;
     sessionStorage.setItem('criteria', Utils.stringifyJson(criteria));
@@ -284,8 +283,10 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     }
     new Promise(resolve =>
       this.isMovie ?
-        resolve(this.movieService.getMoviesDiscover(criteria, this.people, this.selectedGenres, this.keyword)) :
-        resolve(this.serieService.getSeriesDiscover(criteria, this.people, this.selectedGenres, this.keyword)))
+        resolve(this.movieService.getMoviesDiscover(criteria, this.people, this.selectedGenres, this.keyword,
+          this.isWithoutGenre, this.isWithoutKeyword)) :
+        resolve(this.serieService.getSeriesDiscover(criteria, this.people, this.selectedGenres, this.keyword, this.networks,
+          this.isWithoutGenre, this.isWithoutKeyword)))
       .then(result => {
         this.discover = result;
         // this.elemRef.nativeElement.querySelector('#searchBtn').scrollIntoView();

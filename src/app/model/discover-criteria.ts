@@ -14,8 +14,6 @@ export class DiscoverCriteria {
   runtimeMin: number;
   runtimeMax: number;
   releaseType: number[];
-  genresWithout: boolean;
-  keywordsWithout: boolean;
   playing: boolean;
   playingDate: string[];
 }
