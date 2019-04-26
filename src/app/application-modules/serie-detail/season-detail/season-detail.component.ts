@@ -4,7 +4,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { Season } from './../../../model/season';
-import { SerieService } from './../../../shared/shared.module';
+import { SerieService, TitleService } from './../../../shared/shared.module';
 
 @Component({
   selector: 'app-season-detail',
@@ -14,6 +14,8 @@ import { SerieService } from './../../../shared/shared.module';
 export class SeasonDetailComponent implements OnInit, OnDestroy {
   serieId: number;
   season: Season;
+  maxSeason: number;
+  serie: string;
   isImagesVisible = false;
 
   faChevronCircleLeft = faChevronCircleLeft;
@@ -26,10 +28,14 @@ export class SeasonDetailComponent implements OnInit, OnDestroy {
     private serieService: SerieService,
     private translate: TranslateService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private title: TitleService
   ) { }
 
   ngOnInit(): void {
+    this.maxSeason = +sessionStorage.getItem('season_max');
+    this.serie = sessionStorage.getItem('serie');
+    this.title.setTitle(this.serie);
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.serieId = +params.get('id');
       this.getSeason(this.serieId, +params.get('season'), this.translate.currentLang);
@@ -59,6 +65,8 @@ export class SeasonDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    sessionStorage.removeItem('serie');
+    sessionStorage.removeItem('season_max');
     this.subs.forEach((subscription) => subscription.unsubscribe());
   }
 }
