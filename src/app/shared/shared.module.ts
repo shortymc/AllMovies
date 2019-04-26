@@ -216,3 +216,4 @@ export { TabsService } from './service/tabs.service';
 export { SerieService } from './service/serie.service';
 export { MyDatasService } from './service/my-datas.service';
 export { MyTagsService } from './service/my-tags.service';
+export { MockService } from './service/mock.service';

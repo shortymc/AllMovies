@@ -33,6 +33,10 @@
     </mat-select>
   </mat-form-field>
   <mat-slide-toggle [color]="'primary'" [(checked)]="isWithoutGenre" (change)="isWithoutGenre = !isWithoutGenre">{{'discover.without'|translate}}</mat-slide-toggle>
+  <!-- Networks Filter -->
+  <app-search-box *ngIf="!isMovie" (items)="networks = $event" [service]="networkService" placeholder="{{'serie.network'|translate}}"
+    [initList]="networks" [clear]="clean" [hasImage]="false"></app-search-box>
+  <mat-slide-toggle [color]="'primary'" [(checked)]="isWithoutNetwork" (change)="isWithoutNetwork = !isWithoutNetwork">{{'discover.without'|translate}}</mat-slide-toggle>
   <!-- Certification Filter -->
   <mat-form-field *ngIf="isMovie">
     <mat-select placeholder="{{'discover.certification' | translate}}" [(value)]="selectedCertif">
