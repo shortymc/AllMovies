@@ -296,7 +296,7 @@
             "release_date": "Date de sortie",
             "revenue": "Recette",
             "original_title": "Titre",
-            "first_air_date": "Première diffusion",
+            "first_aired": "Première diffusion",
             "vote_average": "Note",
             "vote_count": "Nombre de vote"
         },
