@@ -3,7 +3,7 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 import { Observable } from 'rxjs';
 import { map, take, filter } from 'rxjs/operators';
 
-import { MyDatasService } from './../../../shared/service/my-datas.service';
+import { MyDatasService } from './../../../shared/shared.module';
 import { Data } from './../../../model/data';
 
 @Injectable()
