@@ -25,6 +25,12 @@ export class SerieService {
     private toast: ToastService
   ) { }
 
+  getPopularSeries(language: string): Promise<Serie[]> {
+    return this.serviceUtils.getPromise(`${Url.MOST_POPULAR_SERIE_URL}${Url.LANGUE}${language}`)
+      .then(response => MapSerie.mapForPopularSeries(response))
+      .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
+  }
+
   getSerie(id: number, config: DetailConfig, detail: boolean): Promise<Serie> {
     return this.serviceUtils.getPromise(UrlBuilder.detailUrlBuilder(false, id, config.video, config.credit, config.reco, config.release,
       config.keywords, config.similar, config.img, config.titles, config.external, config.lang))

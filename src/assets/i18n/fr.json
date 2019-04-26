@@ -121,6 +121,7 @@
     },
     "dashboard": {
         "movies": "Films du moment",
+        "series": "Séries du moment",
         "persons": "Personnes populaires"
     },
     "movie": {

@@ -49,6 +49,7 @@ export class Url {
   static readonly PLAYING_URL =
     Url.MOVIE_DB_API_URL + 'movie/now_playing?' + Url.API_KEY;
   static readonly MOST_POPULAR_MOVIE_URL = Url.DISCOVER_MOVIE_URL + '&sort_by=popularity.desc';
+  static readonly MOST_POPULAR_SERIE_URL = Url.DISCOVER_SERIE_URL + '&sort_by=popularity.desc';
   static readonly SORT_BY_URL = '&sort_by=';
   static readonly PAGE_URL = '&page=';
   static readonly VOTE_COUNT_GTE_URL = '&vote_count.gte=';
