@@ -98,7 +98,8 @@ export class UrlBuilder {
     return url;
   }
 
-  static discoverUrlBuilder(criteria: DiscoverCriteria, people: number[], genre: number[], keyword: number[], isMovie: boolean): string {
+  static discoverUrlBuilder(isMovie: boolean, criteria: DiscoverCriteria, people: number[], genre: number[], keyword: number[],
+    networks?: number[], isWithoutGenre: boolean = false, isWithoutKeyword: boolean = false): string {
     let url = `${isMovie ? Url.DISCOVER_MOVIE_URL : Url.DISCOVER_SERIE_URL}`;
     const parametres = [];
     if (criteria.sortField && criteria.sortDir) {
@@ -131,8 +132,9 @@ export class UrlBuilder {
     if (people && people.length > 0) {
       parametres.push(`${Url.WITH_PEOPLE_URL}${people.join(Url.AND_URL)}`);
     }
-    UrlBuilder.genresUrlBuilder(parametres, genre, criteria.genresWithout);
-    UrlBuilder.keywordsUrlBuilder(parametres, keyword, criteria.keywordsWithout);
+    UrlBuilder.genresUrlBuilder(parametres, genre, isWithoutGenre);
+    UrlBuilder.keywordsUrlBuilder(parametres, keyword, isWithoutKeyword);
+    UrlBuilder.networksUrlBuilder(parametres, networks);
     url += parametres.join('');
     url = UrlBuilder.langUrlBuilder(url, criteria.language);
     console.log('discoverUrlBuilder', url);
@@ -171,6 +173,12 @@ export class UrlBuilder {
     if (keyword && keyword.length > 0) {
       const keywordUrl = keywordsWithout ? Url.WITHOUT_KEYWORDS_URL : Url.WITH_KEYWORDS_URL;
       parametres.push(`${keywordUrl}${keyword.join(Url.OR_URL)}`);
+    }
+  }
+
+  private static networksUrlBuilder(parametres: string[], networks: number[]): void {
+    if (networks && networks.length > 0) {
+      parametres.push(`${Url.WITH_NETWORKS_URL}${networks.join(Url.OR_URL)}`);
     }
   }
 
