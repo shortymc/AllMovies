@@ -40,6 +40,13 @@ export class Genre {
   name: string;
 }
 
+export class Network {
+  id: number;
+  name: string;
+  logo_path: string;
+  origin_country: string;
+}
+
 export class Certification {
   certification: string;
   meaning: string;
@@ -78,8 +85,8 @@ export class AlternativeTitle {
   }
 }
 
-export class MovieDetailConfig {
-  constructor(public img?: boolean, public credit?: boolean, public similar?: boolean, public keywords?: boolean,
-    public video?: boolean, public reco?: boolean, public release?: boolean, public titles?: boolean, public lang?: string) {
+export class DetailConfig {
+  constructor(public img?: boolean, public credit?: boolean, public similar?: boolean, public keywords?: boolean, public video?: boolean,
+    public reco?: boolean, public release?: boolean, public titles?: boolean, public external?: boolean, public lang?: string) {
   }
 }

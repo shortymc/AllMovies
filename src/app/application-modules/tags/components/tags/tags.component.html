@@ -9,7 +9,7 @@
       <span *ngIf="toAdd.value" (click)="tagForm.reset()" class="pointer clear-btn">
         <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
       </span>
-      <span class="tag-color pointer" [(colorPicker)]="color" [style.background]="color" [cpOutputFormat]="'hex'">
+      <span class="tag-color pointer mat-elevation-z4" [(colorPicker)]="color" [style.background]="color" [cpOutputFormat]="'hex'">
         <fa-icon [icon]="faBrush" size="lg"></fa-icon>
       </span>
       <button type="submit" class="btn btn-outline-primary" [disabled]="tagForm.invalid">
@@ -26,7 +26,7 @@
 </div>
 <ng-container>
   <app-modal [visible]="isMoviesVisible" (update)="updateModal($event)">
-    <app-tag-movies [tag]="selectedTag" [visible]="isMoviesVisible"></app-tag-movies>
+    <app-tag-datas [tag]="selectedTag" [visible]="isMoviesVisible"></app-tag-datas>
   </app-modal>
   <!-- Input Filter -->
   <div class="tags-filter">
@@ -86,8 +86,8 @@
         <fa-icon class="mat-icon" [icon]="faStar"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let tag">
-        <ng-container *ngIf="tag.movies; else zero">
-          {{tag.movies.length}}
+        <ng-container *ngIf="tag.datas; else zero">
+          {{tag.datas.length}}
         </ng-container>
         <ng-template #zero>0</ng-template>
       </mat-cell>

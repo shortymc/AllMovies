@@ -7,7 +7,7 @@ import { Movie } from '../../../model/movie';
 import { MovieService, TitleService } from '../../../shared/shared.module';
 import { MyNgbDate } from '../../../shared/my-ngb-date';
 import { DuckDuckGo } from '../../../constant/duck-duck-go';
-import { MovieDetailConfig } from '../../../model/model';
+import { DetailConfig } from '../../../model/model';
 
 const now: Date = new Date();
 
@@ -58,7 +58,7 @@ export class ReleaseComponent implements OnInit, OnDestroy {
   monday: Date;
   sunday: Date;
   language: string;
-  config: MovieDetailConfig;
+  config: DetailConfig;
   subs = [];
 
   Url = DuckDuckGo;
@@ -83,7 +83,7 @@ export class ReleaseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.title.setTitle('title.release');
     this.language = this.translate.currentLang;
-    this.config = new MovieDetailConfig(true, true, false, false, false, false, true, false, this.language);
+    this.config = new DetailConfig(true, true, false, false, false, false, true, false, false, this.language);
     this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.language = event.lang;
       this.getMoviesByReleaseDates();
@@ -178,11 +178,11 @@ export class ReleaseComponent implements OnInit, OnDestroy {
   }
 
   isSuccess(movie: Movie): boolean {
-    return movie.note >= 7 && movie.vote_count >= 10;
+    return movie.vote >= 7 && movie.vote_count >= 10;
   }
 
   isDanger(movie: Movie): boolean {
-    return movie.note < 5 && movie.vote_count >= 10;
+    return movie.vote < 5 && movie.vote_count >= 10;
   }
 
   ngOnDestroy(): void {

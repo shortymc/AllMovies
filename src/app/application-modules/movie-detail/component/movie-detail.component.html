@@ -18,53 +18,18 @@
         <fa-icon [icon]="faChevronCircleRight"></fa-icon> {{'global.go_detail' | translate}}
       </button>
       <!-- Add to collection btn -->
-      <button class="btn btn-outline-primary" appAddCollection [movies]="[movie]" [label]="'global.add_collection'" [isSingleMovie]="true">
+      <button class="btn btn-outline-primary" appAddCollection [datas]="[movie]" [label]="'global.add_collection'"
+        [isSingleData]="true" [isMovie]="true">
       </button>
     </div>
   </div>
-  <app-meta class="movie-meta" [entry]="movie" [orientation]="'vertical'" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
+  <app-meta class="movie-meta" [entry]="movie" [isMovie]="true" [isSerie]="false" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
   <div class="movie-content">
     <app-image-viewer class="movie-poster" [images]="movie.affiche" [thumbnails]="movie.affiche" [visible]="true"></app-image-viewer>
     <!-- Score -->
-    <div class="movie-score" *ngIf="movie.score as score">
-      <mat-table class="mat-elevation-z4" [dataSource]="score.ratings">
-
-        <ng-container matColumnDef="source">
-          <mat-header-cell *matHeaderCellDef>
-            <span class="mat-text">{{'movie.score.source' | translate}}</span>
-          </mat-header-cell>
-          <mat-cell *matCellDef="let rating">
-            {{rating.Source}}
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="value">
-          <mat-header-cell *matHeaderCellDef>
-            <span class="mat-text">{{'movie.score.value' | translate}}</span>
-          </mat-header-cell>
-          <mat-cell *matCellDef="let rating">
-            <ng-container *ngIf="rating.Source != 'Popularity'; else popularity">
-              {{rating.Value}}
-            </ng-container>
-            <ng-template #popularity>
-              {{rating.Value|number:'1.0-2':translate.currentLang}}
-            </ng-template>
-            <ng-container [ngSwitch]="rating.Source">
-              <ng-container *ngSwitchCase="'IMDb'">
-                ({{score.imdb_votes|number:'1.0-2':translate.currentLang}})
-              </ng-container>
-              <ng-container *ngSwitchCase="'MovieDB'">
-                ({{score.moviedb_votes|number:'1.0-2':translate.currentLang}})
-              </ng-container>
-            </ng-container>
-          </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="['source', 'value']"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: ['source', 'value'];"></mat-row>
-      </mat-table>
-    </div>
+    <app-score [score]="movie.score"></app-score>
     <div>
-      <label>{{'movie.id' | translate}}:</label>{{movie.id}}
+      <label>{{'global.id' | translate}}:</label>{{movie.id}}
     </div>
     <!-- Title -->
     <div *ngIf="movie.title !== movie.original_title">
@@ -72,11 +37,11 @@
     </div>
     <div *ngIf="movie.alternativeTitles && movie.alternativeTitles.length > 0" class="d-inline-flex flex-column">
       <div>
-        <label>{{'movie.alternative_title' | translate}}: </label>
-        <button class="btn btn-outline-primary alternative-btn" *ngIf="!showTitles" (click)="showTitles=!showTitles">
+        <label>{{'global.alternative_title' | translate}}: </label>
+        <button class="btn btn-outline-primary small-btn" *ngIf="!showTitles" (click)="showTitles=!showTitles">
           <fa-icon [icon]="faPlus" size="xs"></fa-icon>
         </button>
-        <button class="btn btn-outline-primary alternative-btn" *ngIf="showTitles" (click)="showTitles=!showTitles">
+        <button class="btn btn-outline-primary small-btn" *ngIf="showTitles" (click)="showTitles=!showTitles">
           <fa-icon [icon]="faMinus" size="xs"></fa-icon>
         </button>
       </div>
@@ -88,7 +53,7 @@
     </div>
     <!-- Country -->
     <div *ngIf="movie.production_countries && movie.production_countries.length > 0">
-      <label>{{'movie.country' | translate}}: </label>
+      <label>{{'global.country' | translate}}: </label>
       <span *ngFor="let country of movie.production_countries">
         <h1 class="flag-icon flag-icon-{{country.iso_3166_1 | lowercase}}" matTooltip="{{country.name}}"></h1>
       </span>
@@ -131,8 +96,8 @@
     </div>
     <!-- Tags -->
     <div class="movie-tags" *ngIf="showTags">
-      <label>{{'movie.tagged' | translate}}: </label>
-      <app-list-tags [tags]="tags" [movieId]="movie.id"></app-list-tags>
+      <label>{{'global.tagged' | translate}}: </label>
+      <app-list-tags [tags]="tags" [dataId]="movie.id" [isMovie]="true"></app-list-tags>
     </div>
     <!-- Genre -->
     <div *ngIf="movie.genres && movie.genres.length > 0">
@@ -148,7 +113,7 @@
     <!-- Keyword -->
     <div *ngIf="movie.keywords && movie.keywords.length > 0">
       <label>{{'global.keyword' | translate}}: </label>
-      <div class="synopsis break-word">
+      <div class="overview break-word">
         <span *ngFor="let keyword of movie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)" class="movie-keyword">
           <span class="pointer" appOpenLink [label]="keyword.name" url="/discover?keyword=[{{keyword.id}}]">{{keyword.name|
             capitalizeWord}}</span>
@@ -157,80 +122,30 @@
       </div>
     </div>
     <!-- Overview -->
-    <div *ngIf="movie.synopsis">
-      <label>{{'movie.synopsis' | translate}}: </label>
-      <div class="synopsis text-justify">{{movie.synopsis}}</div>
+    <div *ngIf="movie.overview">
+      <label>{{'global.overview' | translate}}: </label>
+      <div class="overview text-justify">{{movie.overview}}</div>
     </div>
     <!-- Pictures -->
     <div class="pad-left" *ngIf="config.img">
       <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible" *ngIf="movie.images">
         <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'movie.image' | translate}}
+        ({{movie.images.length}})
       </button>
     </div>
-    <div class="pad-left" *ngIf="config.credit">
-      <!-- Actors -->
-      <app-list-persons [persons]="movie.actors" [label]="'person-list.actors' | translate"></app-list-persons>
-      <!-- Crew -->
-      <div *ngIf="isDetail && movie.crew && movie.crew.length > 0">
-        <div *ngIf="(movie.crew | filterCrew:'director') as director">
-          <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
-        </div>
-        <div *ngIf="(movie.crew | filterCrew:'producer') as producer">
-          <app-list-persons [persons]="producer" [label]="'person-list.producers' | translate"></app-list-persons>
-        </div>
-        <div *ngIf="(movie.crew | filterCrew:'Original Music Composer') as composer">
-          <app-list-persons [persons]="composer" [label]="'person-list.composers' | translate"></app-list-persons>
-        </div>
-        <div *ngIf="(movie.crew | filterCrew:'Compositors') as compositors">
-          <app-list-persons [persons]="compositors" [label]="'person-list.composers' | translate"></app-list-persons>
-        </div>
-        <div *ngIf="(movie.crew | filterCrew:'screenplay') as screenplay">
-          <app-list-persons [persons]="screenplay" [label]="'person-list.screenwriters' | translate"></app-list-persons>
-        </div>
-        <div *ngIf="(movie.crew | filterCrew:'writer') as screenplay">
-          <app-list-persons [persons]="screenplay" [label]="'person-list.screenwriters' | translate"></app-list-persons>
-        </div>
-        <div *ngIf="(movie.crew | filterCrew:'novel') as novel">
-          <app-list-persons [persons]="novel" [label]="'person-list.novelists' | translate"></app-list-persons>
-        </div>
-        <div *ngIf="(movie.crew | filterCrew:'cameo') as cameo">
-          <app-list-persons [persons]="cameo" [label]="'person-list.cameos' | translate"></app-list-persons>
-        </div>
-        <div *ngIf="(movie.crew | filterCrew:'special Guest') as guest">
-          <app-list-persons [persons]="guest" [label]="'person-list.guests' | translate"></app-list-persons>
-        </div>
-        <div *ngIf="(movie.crew | filterCrew:'songs') as songs">
-          <app-list-persons [persons]="songs" [label]="'person-list.song' | translate"></app-list-persons>
-        </div>
-        <div *ngIf="(movie.crew | filterCrew:'music') as music">
-          <app-list-persons [persons]="music" [label]="'person-list.music' | translate"></app-list-persons>
-        </div>
-      </div>
-      <div *ngIf="!isDetail && (movie.crew | filterCrew:'director') as director">
-        <app-list-persons [persons]="director" [label]="'person-list.directors' | translate"></app-list-persons>
-      </div>
-    </div>
-    <!-- Video -->
-    <ng-container *ngIf="config.video">
-      <div *ngIf="movie.videos && movie.videos.length > 0">
-        <label>{{'movie.video' | translate}}:</label>
-        <ul class="videos">
-          <li *ngFor="let video of movie.videos">
-            <a href="https://www.youtube.com/watch?v={{video.key}}" class="badge" target="_blank">{{video.name |
-              capitalizeWord}}</a>
-          </li>
-        </ul>
-      </div>
-    </ng-container>
+    <!-- Credits -->
+    <app-credit-list class="pad-left" *ngIf="config.credit" [crew]="movie.crew" [actors]="movie.actors" [isDetail]="isDetail"></app-credit-list>
+    <!-- Videos -->
+    <app-videos [videos]="movie.videos" *ngIf="config.video"></app-videos>
   </div>
   <div class="media-content">
     <!-- recommendations -->
     <ng-container *ngIf="movie.recommendations">
-      <app-list-movies [movies]="movie.recommendations" [label]="('movie.reco' | translate).concat(':')"></app-list-movies>
+      <app-list-datas [datas]="movie.recommendations" [isMovie]="true" [label]="('global.reco' | translate).concat(':')"></app-list-datas>
     </ng-container>
     <!-- Similar movies -->
     <ng-container *ngIf="movie.similars">
-      <app-list-movies [movies]="movie.similars" [label]="('movie.similar' | translate).concat(':')"></app-list-movies>
+      <app-list-datas [datas]="movie.similars" [isMovie]="true" [label]="('global.similar' | translate).concat(':')"></app-list-datas>
     </ng-container>
   </div>
 </div>

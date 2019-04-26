@@ -1,16 +1,17 @@
 import { Sort } from '@angular/material/sort';
 
 import { GroupBy } from './../model/model';
-import { Movie } from './../model/movie';
 import { Tag } from './../model/tag';
+import { Data } from '../model/data';
 
 export class Utils {
   static isBlank(str: string): boolean {
     return str === undefined || str === null || str.trim() === '';
   }
 
-  static getTitle(r: any): string {
-    return r.original_title === r.title ? ' ' : r.original_title;
+  static getTitle(r: any, isMovie: boolean = true): string {
+    const field = isMovie ? 'title' : 'name';
+    return r['original_' + field] === r[field] ? ' ' : r['original_' + field];
   }
 
   static convertTimeStringToNumber(time: string): number {
@@ -44,10 +45,14 @@ export class Utils {
     return job.toLowerCase() === filter.toLowerCase();
   }
 
+  static jobContains(job: string, jobList: string[]): boolean {
+    return jobList.some(j => j.toLowerCase() === job.toLowerCase());
+  }
+
   static sortCast(a1: any, a2: any): any {
-    if (a1.cast_id < a2.cast_id) {
+    if (a1.order < a2.order) {
       return -1;
-    } else if (a1.cast_id > a2.cast_id) {
+    } else if (a1.order > a2.order) {
       return 1;
     } else {
       return 0;
@@ -82,7 +87,7 @@ export class Utils {
     return result * (isAsc ? 1 : -1);
   }
 
-  static compareMetaScore(a: Movie, b: Movie, isAsc: boolean): number {
+  static compareMetaScore<T extends Data>(a: T, b: T, isAsc: boolean): number {
     let c = a.score.ratings ? a.score.ratings.find(rating => rating.Source === 'Metacritic') : undefined;
     let d = b.score.ratings ? b.score.ratings.find(rating => rating.Source === 'Metacritic') : undefined;
     c = c ? c.Value : '';
@@ -178,35 +183,27 @@ export class Utils {
   }
 
   /* tslint:disable cyclomatic-complexity */
-  static sortMovie(list: Movie[], sort: Sort, lang: string = 'fr'): Movie[] {
+  static sortData<T extends Data>(list: T[], sort: Sort, lang: string = 'fr'): T[] {
     if (sort && sort.active && sort.direction !== '') {
       return list.sort((a, b) => {
         const isAsc: boolean = sort.direction === 'asc';
-        switch (sort.active) {
-          case 'id':
-            return Utils.compare(+a.id, +b.id, isAsc);
-          case 'title':
-            return Utils.compare(a.translation.get(lang).name, b.translation.get(lang).name, isAsc);
-          case 'original_title':
-            return Utils.compare(a.original_title, b.original_title, isAsc);
-          case 'note':
-            return Utils.compare(+a.note, +b.note, isAsc);
-          case 'vote_count':
-            return Utils.compare(+a.vote_count, +b.vote_count, isAsc);
-          case 'popularity':
-            return Utils.compare(+a.popularity, +b.popularity, isAsc);
-          case 'meta':
-            return this.compareMetaScore(a, b, isAsc);
-          case 'language':
-            return Utils.compare(a.language, b.language, isAsc);
-          case 'added':
-            return Utils.compare(new Date(a.added), new Date(b.added), isAsc);
-          case 'date':
-            return Utils.compareDate(a.date, b.date, isAsc);
-          case 'time':
-            return Utils.compare(+a.time, +b.time, isAsc);
-          default:
-            return 0;
+        const field = sort.active;
+        if (['original_title', 'language', 'title'].includes(field)) {
+          return Utils.compare(a[field], b[field], isAsc);
+        } else if (['date', 'firstAired'].includes(sort.active)) {
+          return Utils.compareDate(a[field], b[field], isAsc);
+        } else if (['added'].includes(sort.active)) {
+          return Utils.compare(new Date(a[field]), new Date(b[field]), isAsc);
+        } else if (['meta'].includes(sort.active)) {
+          return this.compareMetaScore(a, b, isAsc);
+        } else if (['id', 'vote', 'vote_count', 'popularity', 'time', 'seasonCount'].includes(sort.active)) {
+          return Utils.compare(+a[field], +b[field], isAsc);
+        } else if (['runtimes'].includes(sort.active)) {
+          return Utils.compare(+a[field][0], +b[field][0], isAsc);
+        } else if (['name'].includes(sort.active)) {
+          return Utils.compare(a.translation.get(lang).name, b.translation.get(lang).name, isAsc);
+        } else {
+          return 0;
         }
       });
     } else {
@@ -224,7 +221,7 @@ export class Utils {
           case 'label':
             return Utils.compare(a.label, b.label, isAsc);
           case 'count':
-            return Utils.compare(a.movies.length, b.movies.length, isAsc);
+            return Utils.compare(a.datas.length, b.datas.length, isAsc);
           default:
             return 0;
         }
@@ -234,9 +231,9 @@ export class Utils {
     }
   }
 
-  static sortTagMovies(tag: Tag, sort: Sort, lang: string = 'fr'): Tag {
+  static sortTagDatas(tag: Tag, sort: Sort, lang: string = 'fr'): Tag {
     if (sort && sort.active && sort.direction !== '') {
-      tag.movies.sort((a, b) => {
+      tag.datas.sort((a, b) => {
         const isAsc: boolean = sort.direction === 'asc';
         switch (sort.active) {
           case 'id':

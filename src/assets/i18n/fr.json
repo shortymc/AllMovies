@@ -24,6 +24,13 @@
         "show": "Afficher",
         "hide": "Cacher",
         "id": "Id",
+        "video": "Vidéo(s)",
+        "reco": "Vous aimerez aussi",
+        "similar": "Similaires",
+        "overview": "Synopsis",
+        "alternative_title": "Titres Alternatif",
+        "country": "Pays",
+        "languages": "Langues",
         "clear": "Rénitialiser",
         "sort": "Trier",
         "sort_direction": "Direction",
@@ -31,7 +38,13 @@
         "sort_down": "Décroissant",
         "keyword": "Mots Clés",
         "genres": "Genres",
+        "popularity": "Popularité",
+        "vote": "Note",
+        "vote_count": "Nombre de vote",
+        "tagged": "Tags",
         "placeholder": "Rechercher",
+        "true": "Oui",
+        "false": "Non",
         "mat-table": {
             "of": " sur ",
             "no_result": "Aucune Donnée",
@@ -52,6 +65,7 @@
     "nav_bar": {
         "dashboard": "Tableau de Bord",
         "movies": "Mes Films",
+        "series": "Mes Séries",
         "release": "Sorties Cinéma",
         "playing": "À l'Affiche",
         "profile": "Mon Profil",
@@ -63,6 +77,7 @@
     "title": {
         "dashboard": "Tableau de Bord",
         "movies": "Mes Films",
+        "series": "Mes Séries",
         "release": "Sorties Cinéma",
         "profile": "Mon Profil",
         "discover": "Explorer",
@@ -77,6 +92,11 @@
         "movie_removed": "Film supprimé !",
         "movies_removed": "{{size}} Film(s) supprimés !",
         "movies_updated": "{{size}} Film(s) mis à jour !",
+        "serie_added": "Série ajouté !",
+        "series_added": "{{size}} Série(s) ajoutés !",
+        "serie_removed": "Série supprimé !",
+        "series_removed": "{{size}} Série(s) supprimés !",
+        "series_updated": "{{size}} Série(s) mis à jour !",
         "already_added": "Déjà ajouté !",
         "user_added": "Utilisateur ajouté !",
         "user_changed": "Utilisateur modifié !",
@@ -101,34 +121,23 @@
     },
     "dashboard": {
         "movies": "Films du moment",
+        "series": "Séries du moment",
         "persons": "Personnes populaires"
     },
     "movie": {
-        "id": "Id",
         "title": "Titre",
-        "alternative_title": "Titres Alternatif",
-        "country": "Pays",
         "date": "Date de Sortie",
         "length": "Durée",
-        "synopsis": "Synopsis",
         "budget": "Budget",
         "spoken_langs": "Langues Parlées",
         "revenu": "Recette",
-        "video": "Vidéo(s)",
-        "image": "Images du film",
-        "reco": "Vous aimerez aussi",
-        "similar": "Films similaires",
-        "tagged": "Tags",
-        "score": {
-            "source": "Site",
-            "value": "Note"
-        }
+        "image": "les images du film"
     },
-    "movie-search": {
-        "header": "Recherche de films",
-        "placeholder": "Chercher des films"
+    "score": {
+        "source": "Site",
+        "value": "Note"
     },
-    "movie-list": {
+    "data-list": {
         "actor": "En tant qu'acteur",
         "director": "En tant que réalisateur",
         "producer": "En tant que producteur",
@@ -136,20 +145,25 @@
         "screenwriter": "En tant que scénariste",
         "novelist": "En tant qu'écrivain",
         "technician": "En tant que technicien",
-        "add": "Ajouter les films sélectionnés à la Collection",
+        "add_movies": "Ajouter les films sélectionnés",
+        "add_series": "Ajouter les séries sélectionnées",
         "total": "Total"
     },
     "person": {
-        "id": "Id",
         "name": "Nom",
         "birthplace": "Lieu de naissance",
         "age": "Age",
         "birth": "Naissance",
         "death": "Mort",
         "bio": "Biographie",
-        "popularity": "Popularité",
-        "image": "Images",
-        "films": "Films notables",
+        "image": "ses images",
+        "films": "Filmographie",
+        "display": {
+            "title": "Afficher",
+            "movie": "Les films",
+            "serie": "Les séries",
+            "both": "Les deux"
+        },
         "known_for": {
             "title": "Connu comme",
             "Acting": "Acteur",
@@ -162,19 +176,21 @@
             "Crew": "Technicien"
         }
     },
-    "person-search": {
-        "header": "Recherche de personnes",
-        "placeholder": "Chercher des personnes"
+    "search": {
+        "series": "Chercher des séries",
+        "movies": "Chercher des films",
+        "persons": "Chercher des personnes"
     },
     "person-list": {
         "hide": "Cacher les",
         "show": "Afficher tous les",
+        "creators": "Créateurs",
         "actors": "Acteurs",
         "directors": "Réalisateur",
         "producers": "Producteur",
         "composers": "Compositeur",
         "screenwriters": "Scénariste",
-        "novelists": "Romancier",
+        "authors": "Auteurs original",
         "cameos": "Cameo",
         "guests": "Guest-Star",
         "song": "Chansons",
@@ -190,23 +206,27 @@
     },
     "movies": {
         "header": "Mes Films",
-        "id": "Id",
+        "remove": "Retirer les films sélectionnés ({{size}})",
+        "add_tag": "Ajouter le tag {{tag}} aux films sélectionnés ({{size}})"
+    },
+    "series": {
+        "header": "Mes Séries",
+        "remove": "Retirer les séries sélectionnées ({{size}})",
+        "add_tag": "Ajouter le tag {{tag}} aux séries sélectionnées ({{size}})"
+    },
+    "datas": {
         "poster": "Affiche",
         "title": "Titre",
         "date": "Date",
         "rating": "Note",
-        "language": "Langues",
         "length": "Durée",
         "added": "Ajouté",
-        "remove": "Retirer les films sélectionnés ({{size}})",
-        "search_title": "Rechercher dans les {{param}}s",
-        "add_tag": "Ajouter le tag {{tag}} aux films sélectionnés ({{size}})",
         "filter": {
             "placeholder": "Rechercher",
             "genres": "Genres"
         },
         "mat-table": {
-            "itemsPerPageLabel": "Films par Page: "
+            "itemsPerPageLabel": "Objets par Page: "
         }
     },
     "release": {
@@ -277,6 +297,7 @@
             "release_date": "Date de sortie",
             "revenue": "Recette",
             "original_title": "Titre",
+            "first_aired": "Première diffusion",
             "vote_average": "Note",
             "vote_count": "Nombre de vote"
         },
@@ -287,7 +308,6 @@
         "release_type": "Type de sortie",
         "runtime": "Durée",
         "year": "Année de sortie",
-        "vote": "Note",
         "search": "Rechercher",
         "result": "Résultats",
         "vote_count_min": "Nombre de vote minimum",
@@ -305,9 +325,28 @@
         "required": "Veuillez renseigner un nom de tag",
         "maxlength": "{{current}} est supérieur à longueure maximale ({{maxSize}})",
         "unique": "Le nom du tag doit être unique",
-        "remove_movies": "Retirer les films sélectionnés ({{size}})",
+        "remove_datas": "Retirer les données sélectionnées ({{size}})",
         "mat-table": {
             "itemsPerPageLabel": "Tags par Page: "
         }
+    },
+    "serie": {
+        "dates": "Dates de diffusion",
+        "images": "les images de la série",
+        "creators": "Créateurs",
+        "inProduction": "En production",
+        "network": "Diffuseur",
+        "seasonCount": "Nombre de saison",
+        "episodeCount": "Nombre d'épisode",
+        "firstAired": "Début de diffusion",
+        "seasons": "Saison",
+        "status": "Statut",
+        "type": "Type"
+    },
+    "season": {
+        "images": "les images de la saison",
+        "previous": "Saison précedente",
+        "next": "Saison suivante",
+        "go_back": "Retourner à la série"
     }
 }

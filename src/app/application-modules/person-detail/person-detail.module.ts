@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatButtonToggleModule } from '@angular/material';
 
 import { PersonDetailComponent } from './component/person-detail.component';
 import { SharedModule } from '../../shared/shared.module';
@@ -19,6 +20,7 @@ const childRoutes: Routes = [
     CommonModule,
     FontAwesomeModule,
     FormsModule,
+    MatButtonToggleModule,
     SharedModule.forChild(),
     TranslateModule.forChild(),
     RouterModule.forChild(childRoutes),

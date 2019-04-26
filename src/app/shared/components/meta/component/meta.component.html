@@ -1,4 +1,4 @@
-<nav class="nav nav-pills nav-fill" [ngClass]="{'vertical': orientation === 'vertical', 'horizontal': orientation === 'horizontal'}">
+<nav class="nav nav-pills nav-fill">
   <ng-container *ngFor="let link of links; let i = index">
     <a class="nav-item nav-link" href="{{link.site}}" target="_blank" *ngIf="link.site">
       <fa-icon [icon]="link.icon" size="3x" class="desktop"></fa-icon>

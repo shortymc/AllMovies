@@ -5,6 +5,7 @@
     </button>
     <div class="search-boxes">
       <app-movie-search></app-movie-search>
+      <app-serie-search></app-serie-search>
       <app-person-search></app-person-search>
     </div>
   </mat-toolbar>
@@ -22,9 +23,13 @@
         <fa-icon [icon]="faUser"></fa-icon>
         {{'nav_bar.profile'| translate}} ({{user?.name}})
       </a>
-      <a mat-list-item appOpenLink url="/movies" label="nav_bar.movies">
+      <a mat-list-item appOpenLink url="/datas/movies" label="nav_bar.movies">
         <fa-icon [icon]="faBookmark"></fa-icon>
         {{'nav_bar.movies'|translate}}
+      </a>
+      <a mat-list-item appOpenLink url="/datas/series" label="nav_bar.series">
+        <fa-icon [icon]="faBookmark"></fa-icon>
+        {{'nav_bar.series'|translate}}
       </a>
       <a mat-list-item appOpenLink url="/tags" label="nav_bar.tags">
         <fa-icon [icon]="faTags "></fa-icon>
