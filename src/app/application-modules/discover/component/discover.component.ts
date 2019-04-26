@@ -12,6 +12,7 @@ import {
 } from './../../../shared/shared.module';
 import { DropDownChoice } from '../../../model/model';
 import { Utils } from '../../../shared/utils';
+import { NetworkService } from './../network.service';
 import { ReleaseType } from '../../../constant/release-type';
 
 @Component({
@@ -50,6 +51,8 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   selectedReleaseType: DropDownChoice[];
   playing = false;
   playingDate: string[];
+  networks: number[] = [];
+  isWithoutNetwork = false;
   clean = false;
   genresLoaded$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isMovie = true;
@@ -61,12 +64,13 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     public personService: PersonSearchService,
     public keywordService: KeywordSearchService,
+    public networkService: NetworkService,
     private genreService: GenreService,
     private certifService: CertificationService,
     private route: ActivatedRoute,
     private title: TitleService,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
   ) { }
 
   ngOnInit(): void {
