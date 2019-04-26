@@ -3,7 +3,7 @@
     <app-image-viewer [images]="season.images" [thumbnails]="season.images" [visible]="isImagesVisible"></app-image-viewer>
   </app-modal>
   <div class="season-header">
-    <h1 class="season-title">{{season.name}} ({{season.airDate | date:'yyyy'}})</h1>
+    <h1 class="season-title">{{serie}} - {{season.name}} ({{season.airDate | date:'yyyy'}})</h1>
     <div class="season-btn">
       <!-- Go Prev Season -->
       <button class="btn btn-outline-primary" (click)="goPrev()" *ngIf="season.seasonNumber !== 0">
@@ -14,7 +14,7 @@
         <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'season.go_back' | translate}}
       </button>
       <!-- Go Next Season -->
-      <button class="btn btn-outline-primary" (click)="goNext()">
+      <button class="btn btn-outline-primary" (click)="goNext()" *ngIf="(season.seasonNumber + 1) < maxSeason">
         {{'season.next' | translate}}<fa-icon [icon]="faArrowCircleRight"></fa-icon>
       </button>
     </div>
