@@ -1,4 +1,4 @@
-<div class="title">{{'dashboard.movies' | translate}}:</div>
+<div class="title" id="movie_title">{{'dashboard.movies' | translate}}:</div>
 <div class="wrapper">
   <swiper [config]="swiperConfig" id="swiper-top">
     <a *ngFor="let movie of movies" class="movie-link myTooltip">
@@ -10,10 +10,22 @@
     </a>
   </swiper>
 </div>
+<div class="title" id="serie_title">{{'dashboard.series' | translate}}:</div>
+<div class="wrapper">
+  <swiper [config]="swiperConfig" id="swiper-middle">
+    <a *ngFor="let serie of series" class="movie-link myTooltip">
+      <div class="module mat-elevation-z4" appOpenLink [label]="serie.title" url="/serie/{{serie.id}}">
+        <h5>{{serie.title | capitalizeWord}} - {{serie.firstAired | date : "dd/MM/yyyy"}} - {{serie.vote}} / 10 -
+          {{serie.popularity | number:'1.0-2':translate.currentLang}}</h5>
+      </div>
+      <img class="frame profile" [src]="serie.affiche | image:'medium'" *ngIf="serie.affiche" />
+    </a>
+  </swiper>
+</div>
 <div class="title" id="person_title">{{'dashboard.persons' | translate}}:</div>
 <div class="wrapper">
   <swiper [config]="swiperConfig" id="swiper-bottom">
-    <a *ngFor="let person of persons" class="movie-link myTooltip" [ngClass]="{'woman': person.gender === 1, 'men': person.gender === 2, 'unknown': person.gender === 0}">
+    <a *ngFor="let person of persons" class="movie-link myTooltip">
       <div class="module mat-elevation-z4" appOpenLink [label]="person.name" url="/person/{{person.id}}">
         <h5>{{person.name | capitalizeWord}} - {{person.popularity | number:'1.0-2':translate.currentLang}}</h5>
       </div>
