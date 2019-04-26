@@ -8,6 +8,7 @@ import { faChevronCircleLeft, faImage, faChevronCircleRight, faPlus, faMinus } f
 
 import { SerieService, TitleService, MenuService, TabsService, MyDatasService, MyTagsService } from './../../../shared/shared.module';
 import { Tag } from './../../../model/tag';
+import { Network } from './../../../model/model';
 import { DuckDuckGo } from './../../../constant/duck-duck-go';
 import { Serie } from '../../../model/serie';
 import { Keyword, Genre, DetailConfig } from '../../../model/model';
@@ -84,11 +85,15 @@ export class SerieDetailComponent implements OnInit, OnDestroy {
   }
 
   redirectGenreToDiscover(genre: Genre): void {
-    this.router.navigate(['discover'], { queryParams: { genre: JSON.stringify([genre.id]) } });
+    this.router.navigate(['discover'], { queryParams: { genre: JSON.stringify([genre.id]), isMovie: 'false' } });
   }
 
   redirectKeywordToDiscover(keyword: Keyword): void {
-    this.router.navigate(['discover'], { queryParams: { keyword: JSON.stringify([keyword.id]) } });
+    this.router.navigate(['discover'], { queryParams: { keyword: JSON.stringify([keyword.id]), isMovie: 'false' } });
+  }
+
+  redirectNetworkToDiscover(network: Network): void {
+    this.router.navigate(['discover'], { queryParams: { networks: JSON.stringify([network.id]), isMovie: 'false' } });
   }
 
   goBack(): void {
