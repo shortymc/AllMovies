@@ -35,6 +35,14 @@ app-search-data,
   box-shadow: 1px 1px 10px #000;
 }
 
+.movie {
+  background-color: #e8dbd1;
+}
+
+.serie {
+  background-color: #d1dee8;
+}
+
 @keyframes pulse {
   0% {
     transform: scale(1);
