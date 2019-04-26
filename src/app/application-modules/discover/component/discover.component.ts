@@ -285,7 +285,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
       this.isMovie ?
         resolve(this.movieService.getMoviesDiscover(criteria, this.people, this.selectedGenres, this.keyword,
           this.isWithoutGenre, this.isWithoutKeyword)) :
-        resolve(this.serieService.getSeriesDiscover(criteria, this.people, this.selectedGenres, this.keyword, this.networks,
+        resolve(this.serieService.getSeriesDiscover(criteria, this.selectedGenres, this.keyword, this.networks,
           this.isWithoutGenre, this.isWithoutKeyword)))
       .then(result => {
         this.discover = result;
