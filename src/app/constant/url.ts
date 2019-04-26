@@ -64,6 +64,7 @@ export class Url {
   static readonly WITH_RELEASE_TYPE_URL = '&with_release_type=';
   static readonly WITH_GENRES_URL = '&with_genres=';
   static readonly WITH_KEYWORDS_URL = '&with_keywords=';
+  static readonly WITH_NETWORKS_URL = '&with_networks=';
   static readonly WITH_PEOPLE_URL = '&with_people=';
   static readonly WITHOUT_GENRES_URL = '&without_genres=';
   static readonly WITHOUT_KEYWORDS_URL = '&without_keywords=';

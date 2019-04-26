@@ -1,4 +1,4 @@
-import { Observable, of } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { Utils } from './../../shared/utils';
@@ -14,15 +14,23 @@ export class NetworkService implements SearchService<Network> {
 
   constructor(
     private mockService: MockService<Network>,
-  ) {
-    this.mockService.getAll('networks.json').then(networks => this.networks = networks.sort((a, b) => Utils.compare(a.name, b.name, true)));
+  ) { }
+
+  getAll(): Promise<Network[]> {
+    return new Promise(resolve =>
+      this.networks ?
+        resolve(this.networks) :
+        resolve(this.mockService.getAll('networks.json').then(networks => {
+          this.networks = networks.sort((a, b) => Utils.compare(a.name, b.name, true));
+          return this.networks;
+        })));
   }
 
   search(term: string): Observable<Network[]> {
-    return of(this.networks.filter(net => net.name.toLowerCase().startsWith(term.toLowerCase())).slice(0, 10));
+    return from(this.getAll().then(networks => networks.filter(net => net.name.toLowerCase().startsWith(term.toLowerCase())).slice(0, 10)));
   }
 
   byId(id: number): Observable<Network> {
-    return of(this.networks.find(net => net.id === id));
+    return from(this.getAll().then(networks => networks.find(net => net.id === id)));
   }
 }
