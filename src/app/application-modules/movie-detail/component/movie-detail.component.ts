@@ -6,14 +6,11 @@ import { combineLatest } from 'rxjs';
 import { Location } from '@angular/common';
 import { faChevronCircleLeft, faImage, faChevronCircleRight, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
-import { TitleService, MenuService, MyMoviesService } from './../../../shared/shared.module';
-import { TabsService } from './../../../shared/service/tabs.service';
+import { TitleService, MenuService, MyDatasService, MyTagsService, TabsService, MovieService } from './../../../shared/shared.module';
 import { Tag } from './../../../model/tag';
-import { MyTagsService } from './../../../shared/service/my-tags.service';
 import { DuckDuckGo } from './../../../constant/duck-duck-go';
-import { MovieService } from '../../../shared/shared.module';
 import { Movie } from '../../../model/movie';
-import { Keyword, Genre, MovieDetailConfig } from '../../../model/model';
+import { Keyword, Genre, DetailConfig } from '../../../model/model';
 
 @Component({
   selector: 'app-movie-detail',
@@ -22,7 +19,7 @@ import { Keyword, Genre, MovieDetailConfig } from '../../../model/model';
 })
 export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
   @Input() id: number;
-  @Input() config: MovieDetailConfig;
+  @Input() config: DetailConfig;
   @Output() loaded = new EventEmitter<boolean>();
   movie: Movie;
   tags: Tag[];
@@ -49,7 +46,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
     public tabsService: TabsService,
     private menuService: MenuService,
     private myTagsService: MyTagsService,
-    private myMoviesService: MyMoviesService,
+    private myDatasService: MyDatasService<Movie>,
   ) { }
 
   ngOnInit(): void {
@@ -81,7 +78,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
     if (this.id && this.id !== 0) {
       this.loaded.emit(false);
       this.config = this.config === undefined ?
-        new MovieDetailConfig(true, true, true, true, true, true, true, true, this.translate.currentLang) : this.config;
+        new DetailConfig(true, true, true, true, true, true, true, true, false, this.translate.currentLang) : this.config;
       this.movieService.getMovie(id, this.config, true).then((movie) => {
         this.movie = movie;
         this.loaded.emit(true);
@@ -90,13 +87,13 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
           this.menuService.scrollTo$.next(0);
         }
       });
-      this.subs.push(combineLatest(this.myTagsService.myTags$, this.myMoviesService.myMovies$)
+      this.subs.push(combineLatest(this.myTagsService.myTags$, this.myDatasService.myMovies$)
         .pipe(filter(([tags, movies]) => tags !== undefined && movies !== undefined))
         .subscribe(([tags, movies]) => {
           this.tags = [];
           if (movies.map(m => m.id).includes(this.id)) {
             this.showTags = true;
-            this.tags = tags.filter(t => t.movies.map(m => m.id).includes(this.id));
+            this.tags = tags.filter(t => t.datas.filter(d => d.movie).map(m => m.id).includes(this.id));
           }
         }));
     }

@@ -29,29 +29,6 @@ label {
   margin: 20px 10px 0 20px;
 }
 
-.movie-score {
-  position: relative;
-  float: right;
-
-  .mat-cell,
-  .mat-header-cell {
-    justify-content: center;
-    overflow: visible !important;
-
-    &:first-of-type {
-      padding: 10px !important;
-    }
-
-    &:last-of-type {
-      padding-right: 15px !important;
-    }
-  }
-
-  .mat-row {
-    min-height: 0;
-  }
-}
-
 .media-content {
   display: flex;
   flex-direction: column;
@@ -91,56 +68,6 @@ label {
   }
 }
 
-.videos {
-  width: 30em;
-  margin: 10px 0 0 0;
-  padding: 0;
-  list-style-type: none;
-
-  & li {
-    position: relative;
-    left: 0;
-    width: 100%;
-    height: 1.6em;
-    margin: 0.5em;
-    padding: 0.3em 0;
-    border-radius: 4px;
-    cursor: pointer;
-
-    &:hover {
-      left: 0.1em;
-      color: $blue_hover !important;
-    }
-  }
-
-  & .text {
-    position: relative;
-    top: -3px;
-  }
-
-  & .badge {
-    position: relative;
-    left: -1px;
-    top: -4px;
-    display: inline-block;
-    height: 1.8em;
-    margin-right: 0.8em;
-    font-size: small;
-    line-height: 1em;
-    text-align: center;
-    background-color: $light_blue;
-    border-radius: 4px 4px 4px 4px;
-  }
-}
-
-.alternative-btn {
-  padding: 0 7px;
-}
-
-.mat-table {
-  width: min-content;
-}
-
 .break-word {
   word-break: break-word;
 }
@@ -151,6 +78,10 @@ label {
 }
 
 @include media(#{$desktop}, false) {
+  .movie-content {
+    display: table;
+  }
+
   .movie-title {
     font-size: 3em;
   }
@@ -179,7 +110,7 @@ label {
     font-size: 1.5em;
   }
 
-  .synopsis {
+  .overview {
     width: 95vw !important;
   }
 
@@ -187,25 +118,5 @@ label {
   .movie-release {
     display: flex;
     flex-wrap: wrap;
-  }
-
-  .videos {
-    @include full_width;
-
-    & li {
-      width: 90vw;
-      margin-bottom: 1em;
-    }
-
-    & .badge {
-      height: auto;
-      white-space: normal;
-    }
-  }
-}
-
-@include media(#{$big_screen}, false) {
-  .movie-score {
-    width: 25vw;
   }
 }

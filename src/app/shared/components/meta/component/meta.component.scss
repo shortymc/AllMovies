@@ -1,6 +1,9 @@
 @import "../../../../styles/styles";
 
 :host > nav {
+  flex-direction: column;
+  width: min-content;
+
   & > a {
     border: 1px solid $blue;
     border-radius: 8px !important;
@@ -10,28 +13,9 @@
       background-color: $blue;
     }
   }
-
-  &.horizontal {
-    width: 80%;
-
-    & > a {
-      margin-bottom: 6px !important;
-    }
-  }
-
-  &.vertical {
-    flex-direction: column;
-    width: min-content;
-  }
 }
 
 @include media(#{$smallscreen}) {
-  :host > nav {
-    &.horizontal {
-      @include full_width;
-    }
-  }
-
   .nav-link {
     padding: 0.2rem 0.2rem !important;
     font-size: 0.8em !important;

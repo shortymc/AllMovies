@@ -1,0 +1,35 @@
+@import "../../../styles/styles";
+
+.score {
+  position: relative;
+  float: right;
+  padding: 0 5px;
+
+  .mat-cell,
+  .mat-header-cell {
+    justify-content: center;
+    overflow: visible !important;
+
+    &:first-of-type {
+      padding: 10px !important;
+    }
+
+    &:last-of-type {
+      padding-right: 15px !important;
+    }
+  }
+
+  .mat-table {
+    width: min-content;
+  }
+
+  .mat-row {
+    min-height: 0;
+  }
+}
+
+@include media(#{$big_screen}, false) {
+  .score {
+    width: 25vw;
+  }
+}

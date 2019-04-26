@@ -1,3 +1,4 @@
+import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -22,9 +23,12 @@ import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/d
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { MetaComponent } from './components/meta/component/meta.component';
+import { MyDatasService } from './service/my-datas.service';
 import { GoToTopComponent } from './components/go-to-top/go-to-top.component';
 import { ListPersonsComponent } from './components/list-persons/list-persons.component';
-import { ListMoviesComponent } from './components/list-movies/list-movies.component';
+import { ScoreComponent } from './components/score/score.component';
+import { SerieService } from './service/serie.service';
+import { ListDatasComponent } from './components/list-datas/list-datas.component';
 import { UtilsService } from './service/utils.service';
 import { AddCollectionDirective } from './directives/add-collection.directive';
 import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
@@ -57,11 +61,13 @@ import { TabsService } from './service/tabs.service';
 import { OpenLinkDialogComponent } from './components/open-link-dialog/open-link-dialog.component';
 import { OpenLinkDirective } from './directives/open-link.directive';
 import { TruncatePipe } from './pipes/truncate.pipe';
-import { MyMoviesService } from './service/my-movies.service';
 import { MyTagsService } from './service/my-tags.service';
 import { SearchTagComponent } from './components/search-tag/search-tag.component';
 import { ListTagsComponent } from './components/list-tags/list-tags.component';
 import { ImagePipe } from './pipes/image.pipe';
+import { SerieSearchComponent } from './components/serie-search/serie-search.component';
+import { VideosComponent } from './components/videos/videos.component';
+import { CreditListComponent } from './components/credit-list/credit-list.component';
 
 @NgModule({
   declarations: [
@@ -71,17 +77,21 @@ import { ImagePipe } from './pipes/image.pipe';
     FilterCrewPipe,
     TruncatePipe,
     ImagePipe,
-    ListMoviesComponent,
+    VideosComponent,
+    ListDatasComponent,
     MetaComponent,
     ListPersonsComponent,
     DropdownLanguageComponent,
+    ScoreComponent,
     GoToTopComponent,
     AddCollectionDirective,
     ListTagsComponent,
     ModalComponent,
+    SerieSearchComponent,
     MovieSearchComponent,
     OpenLinkDirective,
     SearchTagComponent,
+    CreditListComponent,
     PersonSearchComponent,
     OpenLinkDialogComponent,
     MenuComponent,
@@ -95,6 +105,7 @@ import { ImagePipe } from './pipes/image.pipe';
     MatStepperModule,
     FontAwesomeModule,
     MatSidenavModule,
+    MatTableModule,
     MatToolbarModule,
     MatSelectModule,
     MatButtonToggleModule,
@@ -122,8 +133,10 @@ import { ImagePipe } from './pipes/image.pipe';
     FilterCrewPipe,
     ImagePipe,
     GoToTopComponent,
-    ListMoviesComponent,
+    ListDatasComponent,
+    VideosComponent,
     MetaComponent,
+    CreditListComponent,
     OpenLinkDirective,
     SearchTagComponent,
     ListPersonsComponent,
@@ -131,6 +144,7 @@ import { ImagePipe } from './pipes/image.pipe';
     ListTagsComponent,
     AddCollectionDirective,
     TabsComponent,
+    ScoreComponent,
     NgbModule,
     MatTooltipModule,
     MatStepperModule,
@@ -157,15 +171,16 @@ export class SharedModule {
         TranslateService,
         MovieService,
         OmdbService,
+        SerieService,
         DropboxService,
         AuthService,
         TitleService,
         PersonService,
-        MyMoviesService,
         MyTagsService,
         GenreService,
         MockService,
         TabsService,
+        MyDatasService,
         PersonSearchService,
         MovieSearchService,
         CertificationService,
@@ -187,7 +202,6 @@ export class SharedModule {
 
 export { UtilsService } from './service/utils.service';
 export { MovieService } from './service/movie.service';
-export { DropboxService } from './service/dropbox.service';
 export { AuthService } from './service/auth.service';
 export { TitleService } from './service/title.service';
 export { PersonService } from './service/person.service';
@@ -199,4 +213,7 @@ export { KeywordSearchService } from './service/keyword-search.service';
 export { ToastService } from './service/toast.service';
 export { MenuService } from './service/menu.service';
 export { TabsService } from './service/tabs.service';
-export { MyMoviesService } from './service/my-movies.service';
+export { SerieService } from './service/serie.service';
+export { MyDatasService } from './service/my-datas.service';
+export { MyTagsService } from './service/my-tags.service';
+export { MockService } from './service/mock.service';

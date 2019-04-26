@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChange, OnChanges } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import { SearchServiceService } from './../../../../shared/service/searchService.service';
+import { SearchService } from './../../../../shared/service/search.service';
 
 interface IdClass {
   id: number;
@@ -17,7 +17,7 @@ interface IdClass {
 })
 export class SearchBoxComponent<T extends IdClass> implements OnInit, OnChanges {
   @Input() adult: boolean;
-  @Input() service: SearchServiceService<T>;
+  @Input() service: SearchService<T>;
   @Input() placeholder: string;
   @Input() initList: number[];
   @Input() clear: boolean;

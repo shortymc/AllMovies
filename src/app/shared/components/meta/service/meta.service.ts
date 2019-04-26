@@ -14,11 +14,12 @@ export class MetaService {
 
   constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 
-  getLinkScore(title: string, site: any, imdbId: string, isMovie: boolean): Promise<string> {
+  getLinkScore(title: string, site: any, imdbId: string, isMovie: boolean, isSerie: boolean): Promise<string> {
     if (site === DuckDuckGo.SEARCH_BANG_WIKI_EN.site || site === DuckDuckGo.SEARCH_BANG_WIKI_FR.site) {
       return this.wikisearch(title, site).toPromise();
     } else if (site === DuckDuckGo.SEARCH_BANG_IMDB.site && imdbId) {
-      return new Promise(resolve => resolve(Constants.IMDB_URL + (isMovie ? Constants.IMDB_MOVIE_SUFFIX : Constants.IMDB_PERSON_SUFFIX) + imdbId));
+      return new Promise(resolve =>
+        resolve(Constants.IMDB_URL + ((isMovie || isSerie) ? Constants.IMDB_MOVIE_SUFFIX : Constants.IMDB_PERSON_SUFFIX) + imdbId));
     } else {
       let url = DuckDuckGo.DUCKDUCKGO_URL + site + '+';
       url += UtilsService.encodeQueryUrl(title) + '&format=json&no_redirect=1';
@@ -26,9 +27,21 @@ export class MetaService {
         .then((data: any) => {
           let result = <string>data.Redirect;
           if (site === DuckDuckGo.SEARCH_BANG_METACRITIC.site) {
-            result = isMovie ? result.replace('/all/', '/movie/') : result.replace('/all/', '/person/');
+            if (isMovie) {
+              result = result.replace('/all/', '/movie/');
+            } else if (isSerie) {
+              result = result.replace('/all/', '/tv/');
+            } else {
+              result = result.replace('/all/', '/person/');
+            }
           } else if (site === DuckDuckGo.SEARCH_BANG_SENSCRITIQUE.site) {
-            result += isMovie ? '&filter=movies' : '&filter=contacts';
+            if (isMovie) {
+              result += '&filter=movies';
+            } else if (isSerie) {
+              result += '&filter=tvshows';
+            } else {
+              result += '&filter=contacts';
+            }
           }
           return result;
         })

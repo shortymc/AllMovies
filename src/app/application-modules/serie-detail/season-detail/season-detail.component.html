@@ -1,0 +1,82 @@
+<div *ngIf="season">
+  <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
+    <app-image-viewer [images]="season.images" [thumbnails]="season.images" [visible]="isImagesVisible"></app-image-viewer>
+  </app-modal>
+  <div class="season-header">
+    <h1 class="season-title">{{serie}} - {{season.name}} ({{season.airDate | date:'yyyy'}})</h1>
+    <div class="season-btn">
+      <!-- Go Prev Season -->
+      <button class="btn btn-outline-primary" (click)="goPrev()" *ngIf="season.seasonNumber !== 0">
+        <fa-icon [icon]="faArrowCircleLeft"></fa-icon>{{'season.previous' | translate}}
+      </button>
+      <!-- Go Back Btn -->
+      <button class="btn btn-outline-primary" (click)="goBack()">
+        <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'season.go_back' | translate}}
+      </button>
+      <!-- Go Next Season -->
+      <button class="btn btn-outline-primary" (click)="goNext()" *ngIf="(season.seasonNumber + 1) < maxSeason">
+        {{'season.next' | translate}}<fa-icon [icon]="faArrowCircleRight"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <div class="season-content">
+    <app-image-viewer class="season-poster" [images]="season.poster" [thumbnails]="season.poster" [visible]="true"></app-image-viewer>
+    <div *ngIf="season.episodeCount">
+      <label>{{'serie.episodeCount' | translate}}: </label>{{season.episodeCount}}
+    </div>
+    <!-- Aired Date -->
+    <div *ngIf="season.airDate">
+      <label>{{'serie.dates' | translate}}: </label>{{season.airDate | date:'dd MMMM yyyy':'':translate.currentLang |
+      capitalizeWord}}
+    </div>
+    <!-- Overview -->
+    <div *ngIf="season.overview">
+      <label>{{'global.overview' | translate}}: </label>
+      <div class="overview text-justify">{{season.overview}}</div>
+    </div>
+    <!-- Pictures -->
+    <div class="pad-left" *ngIf="season.images">
+      <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible">
+        <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'season.images' | translate}}
+        ({{season.images.length}})
+      </button>
+    </div>
+    <!-- Credits -->
+    <app-credit-list class="pad-left" [crew]="season.crew" [actors]="season.actors" [isDetail]="true"></app-credit-list>
+    <!-- Videos -->
+    <app-videos [videos]="season.videos" *ngIf="season.videos"></app-videos>
+    <!-- Episodes -->
+    <div class="season-episodes">
+      <mat-accordion displayMode="flat">
+        <mat-expansion-panel *ngFor="let episode of season.episodes">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="desktop">{{episode.name}}: {{episode.airDate | date:'dd MMMM
+                yyyy':'':translate.currentLang|capitalizeWord}}</div>
+              <div class="mobile">{{episode.name}}: {{episode.airDate | date:'dd/MM/yyyy':'':translate.currentLang
+                |capitalizeWord}}</div>
+            </mat-panel-title>
+            <mat-panel-description>
+              S{{episode.seasonNumber | number:'2.0-0'}}E{{episode.episodeNumber | number:'2.0-0'}} -
+              {{episode.vote}}/10
+              ({{episode.vote_count}})
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <ng-template matExpansionPanelContent>
+            <div class="episode-content">
+              <app-image-viewer class="episode-poster" [images]="episode.poster" [thumbnails]="episode.poster"
+                [visible]="true"></app-image-viewer>
+              <!-- Overview -->
+              <div *ngIf="episode.overview">
+                <label>{{'global.overview' | translate}}: </label>
+                <div class="text-justify">{{episode.overview}}</div>
+              </div>
+              <app-credit-list class="pad-left" [crew]="episode.crew" [actors]="episode.guestStars" [isDetail]="true"></app-credit-list>
+            </div>
+          </ng-template>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>

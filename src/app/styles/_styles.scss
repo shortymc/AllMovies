@@ -1,5 +1,7 @@
 @import './imports.scss';
 
+/* stylelint-disable selector-type-no-unknown */
+
 body {
   margin-bottom: 50vh;
   font-family: $font-family !important;
@@ -57,6 +59,14 @@ $levels: (
 
 .btn {
   @include mat-elevation(2);
+}
+
+.small-btn {
+  padding: 4px 8px;
+
+  & fa-icon {
+    display: flex;
+  }
 }
 
 .card-deck {
@@ -175,12 +185,6 @@ input[type='checkbox'] {
   margin-left: 20px;
 }
 
-.reco a {
-  float: none;
-  margin: 20px 8px 10px 8px;
-}
-
-.adultBox,
 .hide {
   display: none !important;
 }
@@ -209,7 +213,7 @@ input[type='checkbox'] {
   opacity: 0;
 }
 
-.synopsis {
+.overview {
   width: 80% !important;
 }
 
@@ -326,7 +330,7 @@ input[type='checkbox'] {
     margin-left: 0 !important;
   }
 
-  .synopsis {
+  .overview {
     @include full_width;
 
     padding: 0 5px;
