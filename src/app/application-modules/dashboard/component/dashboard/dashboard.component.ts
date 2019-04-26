@@ -3,9 +3,9 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { TitleService, PersonService } from './../../../../shared/shared.module';
 import { Movie } from '../../../../model/movie';
-import { MovieService } from '../../../../shared/shared.module';
+import { TitleService, PersonService, MovieService, SerieService } from '../../../../shared/shared.module';
+import { Serie } from './../../../../model/serie';
 import { Person } from '../../../../model/person';
 import { Url } from '../../../../constant/url';
 import { Constants } from './../../../../constant/constants';
@@ -17,6 +17,7 @@ import { Constants } from './../../../../constant/constants';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   movies: Movie[] = [];
+  series: Serie[] = [];
   persons: Person[] = [];
   swiperConfig: SwiperConfigInterface = {
     a11y: true,
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private movieService: MovieService,
+    private serieService: SerieService,
     private personService: PersonService,
     private translate: TranslateService,
     private title: TitleService,
@@ -44,9 +46,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.title.setTitle('');
     this.getTopMovies(this.translate.currentLang);
+    this.getTopSeries(this.translate.currentLang);
     this.getToPersons(this.translate.currentLang);
     this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.getTopMovies(event.lang);
+      this.getTopSeries(event.lang);
       this.getToPersons(event.lang);
     }));
     this.breakpointObserver.observe([Constants.MEDIA_MAX_700])
@@ -56,13 +60,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getTopMovies(language: string): void {
-    this.movieService.getPopularMovies(language)
-      .then(movies => this.movies = movies);
+    this.movieService.getPopularMovies(language).then(movies => this.movies = movies);
+  }
+
+  getTopSeries(language: string): void {
+    this.serieService.getPopularSeries(language).then(series => this.series = series);
   }
 
   getToPersons(language: string): void {
-    this.personService.getPopularPersons(language)
-      .then(persons => this.persons = persons);
+    this.personService.getPopularPersons(language).then(persons => this.persons = persons);
   }
 
   ngOnDestroy(): void {

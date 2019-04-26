@@ -7,17 +7,17 @@ import { Serie } from '../model/serie';
 
 export class MapSerie {
 
-  // static mapForPopularSeries(response: any): Serie[] {
-  //   return response.results.map((r: any) => <Serie>({
-  //     id: r.id,
-  //     title: r.title,
-  //     date: r.release_date,
-  //     vote: r.vote_average,
-  //     language: r.original_language,
-  //     affiche: r.poster_path,
-  //     popularity: r.popularity
-  //   }));
-  // }
+  static mapForPopularSeries(response: any): Serie[] {
+    return response.results.map((r: any) => <Serie>({
+      id: r.id,
+      title: r.name,
+      firstAired: r.first_air_date,
+      vote: r.vote_average,
+      originLang: r.original_language,
+      affiche: r.poster_path,
+      popularity: r.popularity
+    }));
+  }
 
   static mapForDiscover(response: any): Discover {
     const discover = new Discover();

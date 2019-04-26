@@ -121,6 +121,7 @@
     },
     "dashboard": {
         "movies": "Popular movies",
+        "series": "Popular series",
         "persons": "Trending people"
     },
     "movie": {
