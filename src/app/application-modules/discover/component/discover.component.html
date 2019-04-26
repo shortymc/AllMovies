@@ -21,7 +21,7 @@
 </div>
 <div class="params">
   <!-- Person search -->
-  <app-search-box [adult]="adult" (items)="people = $event" [service]="personService" placeholder="{{'discover.people'|translate}}"
+  <app-search-box *ngIf="isMovie" [adult]="adult" (items)="people = $event" [service]="personService" placeholder="{{'discover.people'|translate}}"
     [initList]="people" [clear]="clean" [hasImage]="true"></app-search-box>
   <!-- Keyword search -->
   <app-search-box [adult]="adult" (items)="keyword = $event" [service]="keywordService" placeholder="{{'global.keyword'|translate}}"
