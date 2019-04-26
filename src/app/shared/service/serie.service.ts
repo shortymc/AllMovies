@@ -90,10 +90,10 @@ export class SerieService {
       );
   }
 
-  getSeriesDiscover(criteria: DiscoverCriteria, people: number[], genre: number[], keyword: number[],
+  getSeriesDiscover(criteria: DiscoverCriteria, genre: number[], keyword: number[],
     networks: number[], isWithoutGenre: boolean, isWithoutKeyword: boolean): Promise<Discover> {
     return this.serviceUtils.getPromise(
-      UrlBuilder.discoverUrlBuilder(false, criteria, people, genre, keyword, networks, isWithoutGenre, isWithoutKeyword))
+      UrlBuilder.discoverUrlBuilder(false, criteria, undefined, genre, keyword, networks, isWithoutGenre, isWithoutKeyword))
       .then((response: any) => {
         const discover = MapSerie.mapForDiscover(response);
         // discover.movies.forEach((movie) => this.omdb.getMovie(movie.imdb_id).then(score => movie.score = score));
