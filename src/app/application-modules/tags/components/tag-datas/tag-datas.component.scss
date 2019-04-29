@@ -1,9 +1,8 @@
 @import "../../../../styles/styles";
 
 .tag-label {
-  display: inline-flex;
+  display: flex;
   justify-content: center;
-  width: 100vw;
 
   & .edit {
     display: block;
