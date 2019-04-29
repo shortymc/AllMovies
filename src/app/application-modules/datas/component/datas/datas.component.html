@@ -27,7 +27,7 @@
     <!-- Tags Filter -->
     <div class="filter-item">
       <mat-form-field>
-        <mat-select placeholder="{{'movie.tagged' | translate}}" multiple [(value)]="filteredTags" (selectionChange)="paginator.firstPage(); filteredTags = $event.value; onFilterTags($event.value)">
+        <mat-select placeholder="{{'global.tagged' | translate}}" multiple [(value)]="filteredTags" (selectionChange)="paginator.firstPage(); filteredTags = $event.value; onFilterTags($event.value)">
           <mat-option *ngFor="let tag of tags" [value]="tag">{{tag.label}}</mat-option>
         </mat-select>
       </mat-form-field>
