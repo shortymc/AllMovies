@@ -12,10 +12,10 @@
 </mat-form-field>
 <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption class="{{hasImage ? 'big-autocomplete': ''}}">
   <mat-option *ngFor="let item of filteredItems | async" (onSelectionChange)="addItem(item); inputSearch.value = ''">
-    <div class="media">
+    <div class="result-content" [ngClass]="{'adult': item.adult}">
       <img class="align-self-center" *ngIf="hasImage" src="{{item.profile | image:'small':'true'}}">
-      <div class="media-body">
-        <p class="mt-0" [ngClass]="{'adult': item.adult}">{{item.name | capitalizeWord}}</p>
+      <div class="result-body">
+        <span>{{item.name | capitalizeWord}}</span>
       </div>
     </div>
   </mat-option>
