@@ -79,12 +79,6 @@
         </div>
       </ng-container>
     </div>
-    <div *ngIf="serie.popularity">
-      <label>{{'global.popularity' | translate}}: </label>{{serie.popularity}}
-    </div>
-    <div *ngIf="serie.vote">
-      <label>{{'global.vote' | translate}}: </label>{{serie.vote}} ({{serie.vote_count}})
-    </div>
     <!-- Country -->
     <div *ngIf="serie.originCountries && serie.originCountries.length > 0">
       <label>{{'global.country' | translate}}: </label>
