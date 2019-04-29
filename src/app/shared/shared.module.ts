@@ -19,6 +19,7 @@ import {
   MatButtonToggleModule, MatFormFieldModule, MatButtonModule, MatAutocompleteModule, MatChipsModule
 } from '@angular/material';
 import { MatListModule } from '@angular/material/list';
+import { ClickOutsideModule } from 'ng-click-outside';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 
@@ -105,6 +106,7 @@ import { CreditListComponent } from './components/credit-list/credit-list.compon
     MatStepperModule,
     FontAwesomeModule,
     MatSidenavModule,
+    ClickOutsideModule,
     MatTableModule,
     MatToolbarModule,
     MatSelectModule,

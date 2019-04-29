@@ -1,16 +1,16 @@
 <div id="search-component">
-  <div class="form-check form-check-inline">
+  <div class="form-check form-check-inline" (clickOutside)="showSerie = false">
     <div class="search-box">
       <fa-icon [icon]="faSearch"></fa-icon>
       <input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="{{'search.series'|translate}}"
         (click)="showSerie = true" />
-      <a class="icon pointer" (click)="showSerie = !showSerie; searchBox.value=''">
+      <a class="icon pointer" (click)="search(''); showSerie = false; searchBox.value=''">
         <img src="./assets/exit.png" />
       </a>
     </div>
   </div>
-  <div id="res" *ngIf="showSerie">
-    <div *ngFor="let serie of series | async" (click)="searchBox.value='';showSerie = false;" appOpenLink [label]="serie.title"
+  <div id="res" [ngClass]="{'hide': !showSerie}">
+    <div *ngFor="let serie of series | async" (click)="searchBox.value=''" appOpenLink [label]="serie.title"
       url="/serie/{{serie.id}}" class="search-result">
       <div class="media">
         <img class="mr-2 thumbnail-result" *ngIf="serie.affiche" src="{{serie.affiche | image:'small'}}">
