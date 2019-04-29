@@ -1,1 +1,19 @@
 @import "../../../../styles/styles";
+
+.mat-option {
+  padding: 0 !important;
+}
+
+.result-content {
+  display: flex;
+  align-items: center;
+
+  & img {
+    padding: 0 5px;
+  }
+}
+
+.result-body {
+  white-space: pre-line;
+  line-height: 24px !important;
+}
