@@ -6237,6 +6237,11 @@ ng-bootstrap@^1.6.3:
   dependencies:
     moment "2.18.1"
 
+ng-click-outside@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/ng-click-outside/-/ng-click-outside-4.0.0.tgz#73e2a072c8dac0622c0f46763439cdc345479bd3"
+  integrity sha512-b5JIWKjaALmKWmy8SXQjxrRIaPqExmqktcZXRwHflzR0UqUKKBT/2C33jBMI425QD75BPqpAiGq5xujzEybkUw==
+
 ng2-nouislider@^1.7.7:
   version "1.7.13"
   resolved "https://registry.yarnpkg.com/ng2-nouislider/-/ng2-nouislider-1.7.13.tgz#65ad53f34f3efc39bb654f1ae85aa1d8b458a718"

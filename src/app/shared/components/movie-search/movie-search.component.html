@@ -1,17 +1,17 @@
 <div id="search-component">
-  <div class="form-check form-check-inline">
+  <div class="form-check form-check-inline" (clickOutside)="showMovie = false">
     <div class="search-box">
       <fa-icon [icon]="faSearch"></fa-icon>
       <input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="{{'search.movies'|translate}}"
         (click)="showMovie = true" />
-      <a class="icon pointer" (click)="showMovie = !showMovie; searchBox.value=''">
+      <a class="icon pointer" (click)="search(''); showMovie = false; searchBox.value=''">
         <img src="./assets/exit.png" />
       </a>
     </div>
   </div>
-  <div id="res" *ngIf="showMovie">
-    <div *ngFor="let movie of movies | async" (click)="searchBox.value='';showMovie = false;" appOpenLink [label]="movie.title"
-      url="/movie/{{movie.id}}" class="search-result" [ngClass]="{'adult': movie.adult}">
+  <div id="res" [ngClass]="{'hide': !showMovie}">
+    <div *ngFor="let movie of movies | async" (click)="searchBox.value=''" appOpenLink [label]="movie.title" url="/movie/{{movie.id}}"
+      class="search-result" [ngClass]="{'adult': movie.adult}">
       <div class="media">
         <img class="mr-2 thumbnail-result" *ngIf="movie.affiche" src="{{movie.affiche | image:'small'}}">
         <div class="media-body">
