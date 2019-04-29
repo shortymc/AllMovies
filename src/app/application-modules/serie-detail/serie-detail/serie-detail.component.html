@@ -137,18 +137,19 @@
       <label>{{'serie.type' | translate}}: </label>{{serie.type}}
     </div>
     <!-- Pictures -->
-    <div class="pad-left" *ngIf="config.img">
+    <div class="pad-left">
       <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible" *ngIf="serie.images">
         <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'serie.images' | translate}}
         ({{serie.images.length}})
       </button>
     </div>
     <!-- Credits -->
-    <app-credit-list class="pad-left" *ngIf="config.credit" [creators]="serie.creators" [crew]="serie.crew" [actors]="serie.actors"
+    <app-credit-list class="pad-left" [creators]="serie.creators" [crew]="serie.crew" [actors]="serie.actors"
       [isDetail]="true"></app-credit-list>
     <!-- Videos -->
-    <app-videos [videos]="serie.videos" *ngIf="config.video"></app-videos>
-    <app-seasons [serie]="serie.title" [seasons]="serie.seasons"></app-seasons>
+    <app-videos [videos]="serie.videos"></app-videos>
+    <!-- Seasons -->
+    <app-seasons class="pad-left" [serie]="serie.title" [seasons]="serie.seasons"></app-seasons>
   </div>
   <div class="media-content">
     <!-- recommendations -->

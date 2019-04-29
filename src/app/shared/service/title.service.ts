@@ -10,7 +10,8 @@ export class TitleService {
   constructor(private title: Title, private translate: TranslateService) { }
 
   setTitle(title: string): void {
-    this.title.setTitle(title || title.trim() !== '' ? 'AllMovies | ' + this.translate.instant(title) : 'AllMovies');
-    this.header.next(title || title.trim() !== '' ? this.translate.instant(title) : 'AllMovies');
+    const isEmpty = title === undefined || title === null || title.trim() === '';
+    this.title.setTitle(!isEmpty ? ('AllMovies | ' + this.translate.instant(title)) : 'AllMovies');
+    this.header.next(!isEmpty ? this.translate.instant(title) : 'AllMovies');
   }
 }

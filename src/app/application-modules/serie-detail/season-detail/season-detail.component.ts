@@ -65,8 +65,6 @@ export class SeasonDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    sessionStorage.removeItem('serie');
-    sessionStorage.removeItem('season_max');
     this.subs.forEach((subscription) => subscription.unsubscribe());
   }
 }
