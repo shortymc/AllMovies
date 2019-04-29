@@ -46,12 +46,12 @@ export class SeasonsComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.breakpointObserver.observe([
       Constants.MEDIA_MAX_700,
-      Constants.MEDIA_MAX_1200])
+      Constants.MEDIA_MAX_1400])
       .subscribe(result => {
         this.swiperConfig.direction = result.breakpoints[Constants.MEDIA_MAX_700] ? 'vertical' : 'horizontal';
-        if (result.breakpoints[Constants.MEDIA_MAX_1200] && result.breakpoints[Constants.MEDIA_MAX_700]) {
+        if (result.breakpoints[Constants.MEDIA_MAX_1400] && result.breakpoints[Constants.MEDIA_MAX_700]) {
           this.swiperConfig.slidesPerView = 1;
-        } else if (result.breakpoints[Constants.MEDIA_MAX_1200] && !result.breakpoints[Constants.MEDIA_MAX_700]) {
+        } else if (result.breakpoints[Constants.MEDIA_MAX_1400] && !result.breakpoints[Constants.MEDIA_MAX_700]) {
           this.swiperConfig.slidesPerView = 4;
         } else {
           this.swiperConfig.slidesPerView = 8;
