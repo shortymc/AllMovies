@@ -1,8 +1,4 @@
 export class Url {
-  // Image
-  static readonly IMAGE_URL = 'https://image.tmdb.org/t/p/';
-  static readonly IMAGE_URL_EMPTY = './assets/empty.jpg';
-
   // API MovieDB request
   static readonly API_KEY = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
   static readonly MOVIE_DB_API_URL = 'https://api.themoviedb.org/3/';
