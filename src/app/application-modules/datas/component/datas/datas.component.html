@@ -189,12 +189,18 @@
         <fa-icon class="mat-icon" [icon]="faGlobe"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let data">
-        <ng-container *ngIf="isMovie; else langSerie">
-          {{data.language | uppercase}}
-        </ng-container>
-        <ng-template #langSerie>
-          {{data.originLang | uppercase}}
-        </ng-template>
+        {{data.language | uppercase}}
+      </mat-cell>
+    </ng-container>
+
+    <!-- ORIGIN LANG -->
+    <ng-container matColumnDef="originLang">
+      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'global.languages'|translate }}">
+        <span class="mat-text">{{ 'global.languages'|translate }}</span>
+        <fa-icon class="mat-icon" [icon]="faGlobe"></fa-icon>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let data">
+        {{data.originLang | uppercase}}
       </mat-cell>
     </ng-container>
 
