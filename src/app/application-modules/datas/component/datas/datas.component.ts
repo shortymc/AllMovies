@@ -111,19 +111,33 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
       this.isMovie = data.isMovie;
       this.title.setTitle('title.' + (this.isMovie ? 'movies' : 'series'));
       this.sort = { active: this.isMovie ? 'date' : 'firstAired', direction: 'desc' };
-      this.init_columns = ['id', 'thumbnail', 'name', this.isMovie ? 'original_title' : 'seasonCount', this.isMovie ? 'date' : 'firstAired', 'vote',
-        this.isMovie ? 'meta' : 'inProduction', 'language', 'genres', this.isMovie ? 'time' : 'runtimes', 'added', 'select', 'details', 'tag-icon'];
-      this.medium_columns = ['thumbnail', 'name', this.isMovie ? 'date' : 'firstAired', 'vote', this.isMovie ? 'meta' : 'inProduction', 'language',
-        'genres', this.isMovie ? 'time' : 'runtimes', 'added', 'select', 'details', 'tag-icon'];
-      this.mobile_columns = ['thumbnail', 'name', this.isMovie ? 'date' : 'firstAired', this.isMovie ? 'meta' : 'inProduction', 'language',
-        this.isMovie ? 'time' : 'runtimes', 'genres', 'select', 'details', 'tag-icon'];
-      this.displayedColumns = this.init_columns;
+      this.initColumns();
       this.getDatas(this.translate.currentLang, data.dataList);
       this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
         this.getDatas(event.lang, data.dataList);
       }));
     }));
     this.getTags();
+  }
+
+  initColumns(): void {
+    const init_columns_series = ['id', 'thumbnail', 'name', 'seasonCount', 'firstAired', 'vote', 'inProduction', 'originLang', 'genres', 'runtimes',
+      'added', 'select', 'details', 'tag-icon'];
+    const init_columns_movies = ['id', 'thumbnail', 'name', 'original_title', 'date', 'vote', 'meta', 'language', 'genres', 'time', 'added',
+      'select', 'details', 'tag-icon'];
+    this.init_columns = this.isMovie ? init_columns_movies : init_columns_series;
+
+    const medium_columns_series = ['thumbnail', 'name', 'firstAired', 'vote', 'inProduction', 'originLang', 'genres', 'runtimes', 'added',
+      'select', 'details', 'tag-icon'];
+    const medium_columns_movies = ['thumbnail', 'name', 'date', 'vote', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details',
+      'tag-icon'];
+    this.medium_columns = this.isMovie ? medium_columns_movies : medium_columns_series;
+
+    const mobile_columns_series = ['thumbnail', 'name', 'firstAired', 'inProduction', 'originLang', 'runtimes', 'genres', 'select', 'details',
+      'tag-icon'];
+    const mobile_columns_movies = ['thumbnail', 'name', 'date', 'meta', 'language', 'time', 'genres', 'select', 'details', 'tag-icon'];
+    this.mobile_columns = this.isMovie ? mobile_columns_movies : mobile_columns_series;
+    this.displayedColumns = this.init_columns;
   }
 
   getDatas(lang: string, datas: T[]): void {
