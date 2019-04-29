@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable, Subject, of } from 'rxjs';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { switchMap, debounceTime, catchError } from 'rxjs/operators';
@@ -13,32 +13,13 @@ import { AuthService } from '../../service/auth.service';
   styleUrls: ['./person-search.component.scss'],
 })
 export class PersonSearchComponent implements OnInit {
-  @ViewChild('searchBox')
-  inputSearch: HTMLFormElement;
   persons: Observable<Person[]>;
   private searchTerms = new Subject<string>();
   showPerson = false;
-  pseudo: string;
   adult: boolean;
   faSearch = faSearch;
-  @HostListener('document:click', ['$event']) onMousClicked(event: any): void {
-    let result = false;
-    let clickedComponent = event.target;
-    do {
-      if (clickedComponent === this.elemRef.nativeElement) {
-        result = true;
-        break;
-      }
-      clickedComponent = clickedComponent.parentNode;
-    } while (clickedComponent);
-    this.showPerson = result;
-    if (this.showPerson) {
-      this.search(this.inputSearch.nativeElement.value);
-    }
-  }
 
   constructor(
-    private elemRef: ElementRef,
     private personSearchService: PersonSearchService,
     private auth: AuthService
   ) { }

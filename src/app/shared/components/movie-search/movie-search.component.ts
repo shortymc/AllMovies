@@ -1,5 +1,5 @@
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Component, OnInit, ViewChild, HostListener, ElementRef, OnDestroy } from '@angular/core';
+import { TranslateService} from '@ngx-translate/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subject, of } from 'rxjs';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { switchMap, debounceTime, catchError } from 'rxjs/operators';
@@ -15,35 +15,14 @@ import { AuthService } from '../../service/auth.service';
   providers: [MovieSearchService]
 })
 export class MovieSearchComponent implements OnInit, OnDestroy {
-  @ViewChild('searchBox')
-  inputSearch: HTMLFormElement;
   movies: Observable<Movie[]>;
   private searchTerms = new Subject<string>();
   showMovie = false;
-  language: string;
-  pseudo: string;
   adult: boolean;
   subs = [];
   faSearch = faSearch;
 
-  @HostListener('document:click', ['$event']) onMousClicked(event: any): void {
-    let result = false;
-    let clickedComponent = event.target;
-    do {
-      if (clickedComponent === this.elemRef.nativeElement) {
-        result = true;
-        break;
-      }
-      clickedComponent = clickedComponent.parentNode;
-    } while (clickedComponent);
-    this.showMovie = result;
-    if (this.showMovie) {
-      this.search(this.inputSearch.nativeElement.value);
-    }
-  }
-
   constructor(
-    private elemRef: ElementRef,
     private movieSearchService: MovieSearchService,
     private translate: TranslateService,
     private auth: AuthService
@@ -60,18 +39,13 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
         this.adult = user.adult;
       }
     });
-    this.language = this.translate.currentLang;
-    this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.language = event.lang;
-      this.search(this.inputSearch.nativeElement.value);
-    }));
     this.movies = this.searchTerms
       .pipe(
         debounceTime(300),        // wait 300ms after each keystroke before considering the term
         // .distinctUntilChanged()   // ignore if next search term is same as previous
         switchMap(term => term   // switch to new observable each time the term changes
           // return the http search observable
-          ? this.movieSearchService.search(term, this.adult, this.language)
+          ? this.movieSearchService.search(term, this.adult, this.translate.currentLang)
           // or the observable of empty movies if there was no search term
           : of<Movie[]>([])),
         catchError(error => {
