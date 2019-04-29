@@ -188,7 +188,7 @@ export class Utils {
       return list.sort((a, b) => {
         const isAsc: boolean = sort.direction === 'asc';
         const field = sort.active;
-        if (['original_title', 'language', 'title'].includes(field)) {
+        if (['original_title', 'language', 'title', 'inProduction'].includes(field)) {
           return Utils.compare(a[field], b[field], isAsc);
         } else if (['date', 'firstAired'].includes(sort.active)) {
           return Utils.compareDate(a[field], b[field], isAsc);
