@@ -15,9 +15,9 @@ export class DatasResolver<T extends Data> implements Resolve<T[]> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<T[]> {
     if (route.data.isMovie) {
-      return this.myDatasService.myMovies$.pipe(map(x => x), filter(y => y !== undefined && y.length > 0), take(1));
+      return this.myDatasService.myMovies$.pipe(take(1));
     } else {
-      return this.myDatasService.mySeries$.pipe(map(x => x), filter(y => y !== undefined && y.length > 0), take(1));
+      return this.myDatasService.mySeries$.pipe(take(1));
     }
   }
 }
