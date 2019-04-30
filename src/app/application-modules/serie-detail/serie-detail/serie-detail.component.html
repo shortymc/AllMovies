@@ -2,8 +2,8 @@
   <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
     <app-image-viewer [images]="serie.images" [thumbnails]="serie.images" [visible]="isImagesVisible"></app-image-viewer>
   </app-modal>
-  <div class="serie-header">
-    <h1 class="serie-title">{{serie.title}} ({{serie.firstAired | date:'yyyy'}})</h1>
+  <div class="detail-header">
+    <h1 class="detail-title">{{serie.title}} ({{serie.firstAired | date:'yyyy'}})</h1>
     <!-- Networks -->
     <span class="serie-networks">
       <img class="network-img pointer" [src]="network.logo_path | image:'small'" *ngFor="let network of serie.networks;"
@@ -16,7 +16,7 @@
         <h3 *ngIf="!last">/</h3>
       </div>
     </span>
-    <div class="serie-btn">
+    <div class="detail-btn">
       <!-- Go Back Btn -->
       <button class="btn btn-outline-primary" (click)="goBack()">
         <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'global.previous' | translate}}
@@ -28,8 +28,8 @@
     </div>
   </div>
   <app-meta class="serie-meta" [entry]="serie" [isMovie]="false" [isSerie]="true" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
-  <div class="serie-content">
-    <app-image-viewer class="serie-poster" [images]="serie.affiche" [thumbnails]="serie.affiche" [visible]="true"></app-image-viewer>
+  <div class="detail-content">
+    <app-image-viewer class="detail-poster" [images]="serie.affiche" [thumbnails]="serie.affiche" [visible]="true"></app-image-viewer>
     <!-- Score -->
     <app-score [score]="serie.score"></app-score>
     <div>

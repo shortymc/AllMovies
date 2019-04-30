@@ -1,0 +1,82 @@
+.detail-header {
+  flex: 1 100%;
+
+  & .detail-title {
+    font-weight: 550;
+  }
+
+  & .detail-btn {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.detail-content {
+  &,
+  & > * {
+    padding: 0 5px;
+  }
+}
+
+.media-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* stylelint-disable selector-pseudo-element-no-unknown */
+/* stylelint-disable selector-type-no-unknown */
+.detail-poster ::ng-deep.frame-viewer {
+  height: 100% !important;
+  margin: 20px !important;
+}
+
+.break-word {
+  word-break: break-word;
+}
+
+.gallery-top {
+  height: 80% !important;
+}
+
+.gallery-thumbs {
+  & .swiper-slide {
+    box-sizing: border-box;
+    width: 25% !important;
+    padding: 10px 0;
+    overflow: hidden !important;
+    opacity: 0.4;
+  }
+
+  & img {
+    height: auto;
+    width: auto;
+    max-width: 20vw;
+  }
+
+  & .swiper-slide-active {
+    opacity: 1;
+  }
+}
+
+@include media(#{$desktop}, false) {
+  .detail-content {
+    display: table;
+  }
+
+  .detail-title {
+    font-size: 3em;
+  }
+}
+
+@include media(#{$smallscreen}) {
+  .detail-title {
+    font-size: 1.5em;
+  }
+
+  .overview {
+    width: 95vw !important;
+  }
+}
