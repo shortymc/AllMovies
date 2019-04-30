@@ -91,6 +91,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
         .pipe(filter(([tags, movies]) => tags !== undefined && movies !== undefined))
         .subscribe(([tags, movies]) => {
           this.tags = [];
+          this.showTags = false;
           if (movies.map(m => m.id).includes(this.id)) {
             this.showTags = true;
             this.tags = tags.filter(t => t.datas.filter(d => d.movie).map(m => m.id).includes(this.id));
