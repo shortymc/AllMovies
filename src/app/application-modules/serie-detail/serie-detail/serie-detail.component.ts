@@ -78,6 +78,7 @@ export class SerieDetailComponent implements OnInit, OnDestroy {
         .pipe(filter(([tags, series]) => tags !== undefined && series !== undefined))
         .subscribe(([tags, series]) => {
           this.tags = [];
+          this.showTags = false;
           if (series.map(m => m.id).includes(this.id)) {
             this.showTags = true;
             this.tags = tags.filter(t => t.datas.filter(d => !d.movie).map(d => d.id).includes(this.id));
