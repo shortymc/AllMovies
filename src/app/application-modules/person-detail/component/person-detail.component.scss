@@ -1,28 +1,9 @@
 @import "../../../styles/styles";
-
-.person-header {
-  flex: 1 100%;
-
-  & .person-title {
-    font-weight: 550;
-  }
-
-  & .person-btn {
-    display: flex;
-    justify-content: center;
-  }
-}
+@import "../../../styles/detail";
 
 .person-meta {
   float: left;
   margin: 0 10px 20px 20px;
-}
-
-.person-content {
-  &,
-  & > * {
-    padding: 0 5px;
-  }
 }
 
 label:not(#person-film) {
@@ -49,10 +30,6 @@ figure {
 }
 
 @include media(#{$desktop}, false) {
-  .person-title {
-    font-size: 3em;
-  }
-
   label,
   .pad-left,
   label ~ div {
@@ -63,10 +40,6 @@ figure {
 @include media(#{$smallscreen}) {
   .person-meta {
     margin: 20px 10px 0 20px;
-  }
-
-  .overview {
-    width: 95vw !important;
   }
 
   figure {

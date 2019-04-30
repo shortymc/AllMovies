@@ -2,9 +2,9 @@
   <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
     <app-image-viewer [images]="person.images" [thumbnails]="person.images" [visible]="isImagesVisible"></app-image-viewer>
   </app-modal>
-  <div class="person-header">
-    <h1 class="person-title" [ngClass]="{'adult': person.adult}">{{person.name}}</h1>
-    <div class="person-btn">
+  <div class="detail-header">
+    <h1 class="detail-title" [ngClass]="{'adult': person.adult}">{{person.name}}</h1>
+    <div class="detail-btn">
       <button class="btn btn-outline-primary" (click)="goBack()">
         <fa-icon [icon]="faChevronCircleLeft"></fa-icon> {{'global.previous' | translate}}
       </button>
@@ -15,7 +15,7 @@
     </div>
   </div>
   <app-meta class="person-meta" [entry]="person" [isMovie]="false" [isSerie]="false" [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR, DuckDuckGo.SEARCH_BANG_IMDB]"></app-meta>
-  <div class="person-content">
+  <div class="detail-content">
     <app-image-viewer class="person-profile" [images]="person.profile" [thumbnails]="person.profile" [visible]="true"></app-image-viewer>
     <div>
       <label>{{'global.id' | translate}}:</label>{{person.id}}
@@ -55,7 +55,7 @@
       </div>
       <div *ngIf="person.biography">
         <label>{{'person.bio' | translate}}: </label>
-        <div class="overview d-inline-block">{{person.biography}}</div>
+        <div class="overview text-justify">{{person.biography}}</div>
       </div>
     </div>
     <figure>
