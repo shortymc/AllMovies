@@ -169,7 +169,7 @@ export class MyDatasService<T extends Data> {
    * @param  {T[]} datasToUpdate the datas replacing
    * @returns void
    */
-  update(datasToUpdate: T[], isMovie: boolean): Promise<boolean> {
+  update(datasToUpdate: T[], isMovie: boolean): Promise<T[]> {
     let tempDataList: T[] = [];
     let fileName;
     let mapped = datasToUpdate;
@@ -181,7 +181,7 @@ export class MyDatasService<T extends Data> {
       return this.dropboxService.downloadFile(fileName);
     }).then(file => {
       let dataList = this.fromJson(file);
-      // Keeps added and tags fields from being replaced
+      // Keeps added date field from being replaced
       const idList = dataList.map(m => m.id);
       mapped.forEach(data => {
         if (idList.includes(data.id)) {
@@ -200,10 +200,10 @@ export class MyDatasService<T extends Data> {
       console.log(res);
       this.next(tempDataList, isMovie);
       this.toast.open(Level.success, isMovie ? 'toast.movies_updated' : 'toast.series_updated', { size: mapped.length });
-      return true;
+      return mapped;
     }).catch((err) => {
       this.serviceUtils.handleError(err, this.toast);
-      return false;
+      return [];
     });
   }
 

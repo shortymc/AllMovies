@@ -292,7 +292,14 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
               m.score = {};
             }
           });
-          this.myDatasService.update(data, this.isMovie);
+          this.myDatasService.update(data, this.isMovie).then((updated) => {
+            updated.forEach(up => {
+              const index = this.allDatas.map(a => a.id).indexOf(up.id);
+              up.added = this.allDatas[index].added;
+              this.allDatas[index] = up;
+            });
+            this.initPagination(this.refreshData());
+          });
         },
         err => console.error(err)
       );
@@ -306,7 +313,11 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     const tagsToReplace = this.tags.filter(t => t.datas.filter(d => d.movie === this.isMovie).map(m => m.id).some(id => datasToRemove.includes(id)));
     tagsToReplace.forEach(t => t.datas = t.datas.filter(data => !datasToRemove.includes(data.id) || data.movie !== this.isMovie));
     this.myDatasService.remove(datasToRemove, this.isMovie)
-      .then(() => this.myTagsService.replaceTags(tagsToReplace));
+      .then(() => {
+        this.allDatas = this.allDatas.filter(data => !data.checked);
+        this.initPagination(this.refreshData());
+        this.myTagsService.replaceTags(tagsToReplace);
+      });
     this.nbChecked = 0;
     this.onTop();
   }
