@@ -1,8 +1,8 @@
 import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, catchError } from 'rxjs/operators';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { debounceTime, switchMap, catchError } from 'rxjs/operators';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { Data } from './../../../../model/data';
@@ -15,6 +15,8 @@ import { SerieService, MovieService, MovieSearchService } from './../../../../sh
   styleUrls: ['./search-data.component.scss']
 })
 export class SearchDataComponent<T extends Data> implements OnInit {
+  @ViewChild('inputSearch')
+  inputSearch: ElementRef;
   @Input() adult: boolean;
   @Output() selected = new EventEmitter<T[]>();
   @Output() movie = new EventEmitter<boolean>();
@@ -35,7 +37,6 @@ export class SearchDataComponent<T extends Data> implements OnInit {
     this.filteredDatas = this.dataCtrl.valueChanges
       .pipe(
         debounceTime(300),
-        distinctUntilChanged(),
         switchMap(term => {
           if (term) {
             return this.isMovie ?
@@ -49,6 +50,11 @@ export class SearchDataComponent<T extends Data> implements OnInit {
           console.error(error);
           return of([]);
         }));
+  }
+
+  switch(): void {
+    this.dataCtrl.setValue(this.inputSearch.nativeElement.value);
+    this.inputSearch.nativeElement.click();
   }
 
   add(item: T): void {

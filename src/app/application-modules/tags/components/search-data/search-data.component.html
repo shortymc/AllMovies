@@ -1,13 +1,13 @@
 <mat-form-field>
   <input #inputSearch matInput placeholder="{{'global.add'|translate}}" [matAutocomplete]="auto" [formControl]="dataCtrl">
 </mat-form-field>
-<mat-slide-toggle [(ngModel)]="isMovie">{{(isMovie ? 'search.movies' : 'search.series') | translate}}</mat-slide-toggle>
+<mat-slide-toggle [(ngModel)]="isMovie" (change)="switch()">{{(isMovie ? 'search.movies' : 'search.series') | translate}}</mat-slide-toggle>
 <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption class="big-autocomplete">
   <mat-option *ngFor="let data of filteredDatas | async" (onSelectionChange)="add(data); inputSearch.value = ''">
-    <div class="media">
+    <div class="result-content" [ngClass]="{'adult': data.adult}">
       <img class="align-self-center" *ngIf="data.affiche" src="{{data.affiche | image:'small'}}">
-      <div class="media-body">
-        <p class="mt-0" [ngClass]="{'adult': data.adult}">{{data.title | capitalizeWord}}</p>
+      <div class="result-body">
+        <span>{{data.title | capitalizeWord}}</span>
       </div>
     </div>
   </mat-option>
