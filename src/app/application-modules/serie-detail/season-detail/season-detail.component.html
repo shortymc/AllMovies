@@ -2,11 +2,11 @@
   <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
     <app-image-viewer [images]="season.images" [thumbnails]="season.images" [visible]="isImagesVisible"></app-image-viewer>
   </app-modal>
-  <div class="season-header">
-    <h1 class="season-title">
+  <div class="detail-header">
+    <h1 class="detail-title">
       <ng-container *ngIf="serie">{{serie}} - </ng-container>{{season.name}} ({{season.airDate | date:'yyyy'}})
     </h1>
-    <div class="season-btn">
+    <div class="detail-btn">
       <!-- Go Prev Season -->
       <button class="btn btn-outline-primary" (click)="goPrev()" *ngIf="season.seasonNumber !== 0">
         <fa-icon [icon]="faArrowCircleLeft"></fa-icon>{{'season.previous' | translate}}
@@ -21,8 +21,8 @@
       </button>
     </div>
   </div>
-  <div class="season-content">
-    <app-image-viewer class="season-poster" [images]="season.poster" [thumbnails]="season.poster" [visible]="true"></app-image-viewer>
+  <div class="detail-content">
+    <app-image-viewer class="detail-poster" [images]="season.poster" [thumbnails]="season.poster" [visible]="true"></app-image-viewer>
     <div *ngIf="season.episodeCount">
       <label>{{'serie.episodeCount' | translate}}: </label>{{season.episodeCount}}
     </div>

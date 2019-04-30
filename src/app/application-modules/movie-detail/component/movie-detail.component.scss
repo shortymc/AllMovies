@@ -1,75 +1,13 @@
 @import "../../../styles/styles";
-
-.movie-header {
-  flex: 1 100%;
-
-  & .movie-title {
-    font-weight: 550;
-  }
-
-  & .movie-btn {
-    display: flex;
-    justify-content: center;
-  }
-}
+@import "../../../styles/detail";
 
 label {
   display: inline !important;
 }
 
-.movie-content {
-  &,
-  & > * {
-    padding: 0 5px;
-  }
-}
-
 .movie-meta {
   float: left;
   margin: 20px 10px 0 20px;
-}
-
-.media-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-/* stylelint-disable selector-pseudo-element-no-unknown */
-/* stylelint-disable selector-type-no-unknown */
-.movie-poster ::ng-deep.frame-viewer {
-  height: 100% !important;
-  margin: 20px !important;
-}
-
-.gallery-top {
-  height: 80% !important;
-}
-
-.gallery-thumbs {
-  & .swiper-slide {
-    box-sizing: border-box;
-    width: 25% !important;
-    padding: 10px 0;
-    overflow: hidden !important;
-    opacity: 0.4;
-  }
-
-  & img {
-    height: auto;
-    width: auto;
-    max-width: 20vw;
-  }
-
-  & .swiper-slide-active {
-    opacity: 1;
-  }
-}
-
-.break-word {
-  word-break: break-word;
 }
 
 .movie-release {
@@ -78,14 +16,6 @@ label {
 }
 
 @include media(#{$desktop}, false) {
-  .movie-content {
-    display: table;
-  }
-
-  .movie-title {
-    font-size: 3em;
-  }
-
   label,
   .pad-left {
     margin-left: 20px !important;
@@ -106,14 +36,6 @@ label {
 }
 
 @include media(#{$smallscreen}) {
-  .movie-title {
-    font-size: 1.5em;
-  }
-
-  .overview {
-    width: 95vw !important;
-  }
-
   .movie-genre,
   .movie-release {
     display: flex;

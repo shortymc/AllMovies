@@ -2,13 +2,13 @@
   <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
     <app-image-viewer [images]="movie.images" [thumbnails]="movie.images" [visible]="isImagesVisible"></app-image-viewer>
   </app-modal>
-  <div class="movie-header">
-    <h1 class="movie-title" [ngClass]="{'adult': movie.adult}">{{movie.title}} ({{movie.date | date:'yyyy'}})</h1>
+  <div class="detail-header">
+    <h1 class="detail-title" [ngClass]="{'adult': movie.adult}">{{movie.title}} ({{movie.date | date:'yyyy'}})</h1>
     <!-- Time -->
     <h3 class="movie-time" *ngIf="movie.time > 0">
       {{movie.time | convertToHHmm:'true'}}
     </h3>
-    <div class="movie-btn">
+    <div class="detail-btn">
       <!-- Go Back Btn -->
       <button class="btn btn-outline-primary" (click)="goBack()" *ngIf="isDetail">
         <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'global.previous' | translate}}
@@ -24,8 +24,8 @@
     </div>
   </div>
   <app-meta class="movie-meta" [entry]="movie" [isMovie]="true" [isSerie]="false" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
-  <div class="movie-content">
-    <app-image-viewer class="movie-poster" [images]="movie.affiche" [thumbnails]="movie.affiche" [visible]="true"></app-image-viewer>
+  <div class="detail-content">
+    <app-image-viewer class="detail-poster" [images]="movie.affiche" [thumbnails]="movie.affiche" [visible]="true"></app-image-viewer>
     <!-- Score -->
     <app-score [score]="movie.score"></app-score>
     <div>
