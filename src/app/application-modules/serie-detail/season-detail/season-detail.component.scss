@@ -1,6 +1,8 @@
 @import "../../../styles/styles";
 @import "../../../styles/detail";
 
+/* stylelint-disable selector-pseudo-element-no-unknown */
+
 label {
   display: inline !important;
 }
