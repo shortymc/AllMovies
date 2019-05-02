@@ -1,9 +1,8 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { forkJoin, BehaviorSubject } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Sort } from '@angular/material/sort';
-import { PageEvent } from '@angular/material/paginator';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import {
   faTrash, faHashtag, faImage, faFilm, faFlag, faCalendar, faStar, faGlobeAmericas, faList, faChevronCircleRight, faAngleDown
@@ -45,14 +44,13 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   isMovie: boolean;
   allDatas: T[];
   tags: Tag[];
-  filteredTags: Tag[];
+  filteredTags: number[];
   length: number;
   displayedData: T[];
   filter: string;
-  pageSize = 25;
-  pageIndex = 0;
+  pageSize;
+  pageIndex;
   pageSizeOptions = [10, 25, 50, 100];
-  page: PageEvent;
   sort: Sort;
   nbChecked = 0;
   genres: Genre[];
@@ -84,6 +82,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     private myTagsService: MyTagsService,
     public translate: TranslateService,
     private toast: ToastService,
+    private router: Router,
     private elemRef: ElementRef,
     private title: TitleService,
     private activeRoute: ActivatedRoute
@@ -102,20 +101,25 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
         this.displayedColumns = this.init_columns;
       }
     });
-    if (this.page) {
-      this.page.pageIndex = 0;
-      this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
-    }
     this.subs.push(this.activeRoute.data.subscribe(data => {
       console.log('data', data);
       this.isMovie = data.isMovie;
       this.title.setTitle('title.' + (this.isMovie ? 'movies' : 'series'));
-      this.sort = { active: this.isMovie ? 'date' : 'firstAired', direction: 'desc' };
       this.initColumns();
       this.getDatas(this.translate.currentLang, data.dataList);
       this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
         this.getDatas(event.lang, data.dataList);
       }));
+      this.subs.push(this.activeRoute.queryParams.subscribe(
+        params => {
+          this.sort = params.sort ? Utils.parseJson(params.sort) : { active: this.isMovie ? 'date' : 'firstAired', direction: 'desc' };
+          this.filteredTags = Utils.parseJson(params.tags);
+          this.pageIndex = params.pageIndex ? params.pageIndex : 0;
+          this.pageSize = params.pageSize ? params.pageSize : 25;
+          this.filter = params.search;
+          this.filteredGenres = Utils.parseJson(params.genres);
+          this.paginate(this.refreshData());
+        }));
     }));
     this.getTags();
   }
@@ -143,7 +147,6 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   getDatas(lang: string, datas: T[]): void {
     this.allDatas = datas;
     this.length = this.allDatas.length;
-    this.paginate(this.refreshData());
     this.getAllGenres(lang);
     this.checkAndFixData(datas, lang);
   }
@@ -181,32 +184,8 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     return list;
   }
 
-  onSearch(): void {
-    this.initPagination(this.refreshData());
-    this.onTop();
-  }
-
-  onSort(): void {
-    this.initPagination(this.refreshData());
-    this.onTop();
-  }
-
-  onPaginateChange(): void {
-    this.paginate(this.refreshData());
-    this.onTop();
-  }
-
   paginate(data: T[]): void {
-    this.displayedData = this.page ?
-      data.slice(this.page.pageIndex * this.page.pageSize, (this.page.pageIndex + 1) * this.page.pageSize) : data.slice(0, this.pageSize);
-  }
-
-  initPagination(list: T[]): void {
-    if (this.page) {
-      this.page.pageIndex = 0;
-      this.page.pageSize = this.page ? this.page.pageSize : this.pageSize;
-    }
-    this.paginate(list);
+    this.displayedData = data.slice(this.pageIndex * this.pageSize, (this.pageIndex + 1) * this.pageSize);
   }
 
   filterGenres(): T[] {
@@ -221,23 +200,24 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     return list;
   }
 
-  onFilterGenres(genres: number[]): void {
-    this.filteredGenres = genres;
-    this.initPagination(this.refreshData());
-  }
-
   filterTags(list: T[]): T[] {
     if (this.filteredTags && this.filteredTags.length > 0) {
-      const ids = Utils.unique(Utils.flatMap<Tag, TagData>(this.filteredTags, 'datas').filter(d => d.movie === this.isMovie).map(data => data.id));
+      const filter = this.tags.filter(tag => this.filteredTags.includes(tag.id));
+      const ids = Utils.unique(Utils.flatMap<Tag, TagData>(filter, 'datas').filter(d => d.movie === this.isMovie).map(data => data.id));
       return list.filter((m: T) => ids.includes(m.id));
     } else {
       return list;
     }
   }
 
-  onFilterTags(tags: Tag[]): void {
-    this.filteredTags = tags;
-    this.initPagination(this.refreshData());
+  onFilterOrPaginate(genres: number[], tags: number[], pageIndex: number, pageSize: number): void {
+    this.router.navigate(['.'], {
+      relativeTo: this.activeRoute,
+      queryParams: {
+        pageIndex: pageIndex, pageSize: pageSize, search: this.filter,
+        genres: JSON.stringify(genres), tags: JSON.stringify(tags), sort: JSON.stringify(this.sort)
+      }
+    });
   }
 
   updateSize(): void {
@@ -298,7 +278,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
               up.added = this.allDatas[index].added;
               this.allDatas[index] = up;
             });
-            this.initPagination(this.refreshData());
+            this.paginate(this.refreshData());
           });
         },
         err => console.error(err)
@@ -315,7 +295,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     this.myDatasService.remove(datasToRemove, this.isMovie)
       .then(() => {
         this.allDatas = this.allDatas.filter(data => !data.checked);
-        this.initPagination(this.refreshData());
+        this.paginate(this.refreshData());
         if (tagsToReplace && tagsToReplace.length > 0) {
           this.myTagsService.replaceTags(tagsToReplace);
         }
