@@ -54,8 +54,8 @@
               capitalizeWord}}</ng-container>
             <ng-template #serie>{{ data.firstAired| date : 'yyyy':'':translate.currentLang | capitalizeWord}}</ng-template>
             - {{data.vote}}/10 ({{data.vote_count}}) - {{data.popularity | number:'1.0-0':translate.currentLang}}
-            <input [(ngModel)]="data.checked" type="checkbox">
           </p>
+          <input [(ngModel)]="data.checked" type="checkbox">
         </div>
       </div>
     </div>

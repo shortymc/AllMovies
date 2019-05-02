@@ -115,13 +115,18 @@
     text-align: center;
 
     & input {
+      align-self: center;
       width: 15px !important;
       margin: 0 5px 0 10px !important;
     }
 
+    & .data-infos {
+      flex-shrink: 10;
+    }
+
     &,
     & p {
-      padding-left: 10px;
+      padding-left: 5px;
     }
   }
 
