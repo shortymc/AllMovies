@@ -316,7 +316,9 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
       .then(() => {
         this.allDatas = this.allDatas.filter(data => !data.checked);
         this.initPagination(this.refreshData());
-        this.myTagsService.replaceTags(tagsToReplace);
+        if (tagsToReplace && tagsToReplace.length > 0) {
+          this.myTagsService.replaceTags(tagsToReplace);
+        }
       });
     this.nbChecked = 0;
     this.onTop();
