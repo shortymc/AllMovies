@@ -41,7 +41,7 @@ export class MovieService {
       .then(response => {
         const movie = MapMovie.mapForMovie(response, this.mockService);
         movie.lang_version = config.lang;
-        if (detail && (!movie.overview || (!movie.videos && config.video) || !movie.original_title)) {
+        if (detail && (!movie.overview || ((movie.videos === undefined || movie.videos.length === 0) && config.video) || !movie.original_title)) {
           return this.getMovie(id,
             new DetailConfig(false, false, false, false, config.video, false, false, false, false, 'en'), false).then(enMovie => {
               movie.overview = Utils.isBlank(movie.overview) ? enMovie.overview : movie.overview;
