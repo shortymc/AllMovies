@@ -6,9 +6,10 @@
     <div class="filter-item">
       <mat-form-field>
         <input matInput type="search" placeholder="{{'datas.filter.placeholder' | translate}}" [(ngModel)]="filter"
-          (keyup)="paginator.firstPage(); onSearch();" />
+          (keyup)="paginator.firstPage(); onFilterOrPaginate(filteredGenres, filteredTags, 0, pageSize);" />
       </mat-form-field>
-      <span *ngIf="filter" (click)="filter=''; paginator.firstPage(); onSearch();" class="pointer clear-btn">
+      <span *ngIf="filter" (click)="filter=''; paginator.firstPage(); onFilterOrPaginate(filteredGenres, filteredTags, 0, pageSize);"
+        class="pointer clear-btn">
         <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
       </span>
     </div>
@@ -16,22 +17,22 @@
     <div class="filter-item">
       <mat-form-field>
         <mat-select placeholder="{{'datas.filter.genres' | translate}}" multiple [(value)]="filteredGenres"
-          (selectionChange)="paginator.firstPage(); filteredGenres = $event.value; onFilterGenres($event.value)">
+          (selectionChange)="paginator.firstPage(); filteredGenres = $event.value; onFilterOrPaginate($event.value, filteredTags, 0, pageSize)">
           <mat-option *ngFor="let genre of genres" [value]="genre.id">{{genre.name}}</mat-option>
         </mat-select>
       </mat-form-field>
-      <span *ngIf="filteredGenres && filteredGenres.length > 0" class="pointer clear-btn" (click)="paginator.firstPage(); filteredGenres = null; onFilterGenres(null)">
+      <span *ngIf="filteredGenres && filteredGenres.length > 0" class="pointer clear-btn" (click)="paginator.firstPage(); filteredGenres = []; onFilterOrPaginate([], filteredTags, 0, pageSize)">
         <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
       </span>
     </div>
     <!-- Tags Filter -->
     <div class="filter-item">
       <mat-form-field>
-        <mat-select placeholder="{{'global.tagged' | translate}}" multiple [(value)]="filteredTags" (selectionChange)="paginator.firstPage(); filteredTags = $event.value; onFilterTags($event.value)">
-          <mat-option *ngFor="let tag of tags" [value]="tag">{{tag.label}}</mat-option>
+        <mat-select placeholder="{{'global.tagged' | translate}}" multiple [(value)]="filteredTags" (selectionChange)="paginator.firstPage(); filteredTags = $event.value; onFilterOrPaginate(filteredGenres, $event.value, 0, pageSize)">
+          <mat-option *ngFor="let tag of tags" [value]="tag.id">{{tag.label}}</mat-option>
         </mat-select>
       </mat-form-field>
-      <span *ngIf="filteredTags && filteredTags.length > 0" class="pointer clear-btn" (click)="paginator.firstPage(); filteredTags = null; onFilterTags(null)">
+      <span *ngIf="filteredTags && filteredTags.length > 0" class="pointer clear-btn" (click)="paginator.firstPage(); filteredTags = []; onFilterOrPaginate(filteredGenres, [], 0, pageSize)">
         <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
       </span>
     </div>
@@ -58,13 +59,14 @@
   <div class="paginator mat-elevation-z4">
     <!-- Paginator -->
     <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-      (page)="page = $event; onPaginateChange();" [showFirstLastButtons]="true">
+      (page)="onFilterOrPaginate(filteredGenres, filteredTags, $event.pageIndex, $event.pageSize);"
+      [showFirstLastButtons]="true">
     </mat-paginator>
   </div>
 
   <!-- Table -->
-  <mat-table class="mat-elevation-z4" [dataSource]="displayedData" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
-    matSort [matSortActive]="isMovie ? 'date' : 'firstAired'" [matSortDirection]="'desc'" multiTemplateDataRows>
+  <mat-table class="mat-elevation-z4" [dataSource]="displayedData" (matSortChange)="paginator.firstPage(); sort = $event; onFilterOrPaginate(filteredGenres, filteredTags, 0, pageSize);"
+    matSort [matSortActive]="sort.active" [matSortDirection]="sort.direction" multiTemplateDataRows>
 
     <!-- ID -->
     <ng-container matColumnDef="id">
