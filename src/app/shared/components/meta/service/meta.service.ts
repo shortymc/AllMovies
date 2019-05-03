@@ -14,15 +14,23 @@ export class MetaService {
 
   constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 
-  getLinkScore(title: string, site: any, imdbId: string, isMovie: boolean, isSerie: boolean): Promise<string> {
+  getLinkScore(title: string, original_title: string, userLang: string, itemLang: string, site: any, imdbId: string, isMovie: boolean,
+    isSerie: boolean): Promise<string> {
+    const workingTitle =
+      (userLang === 'fr' && ['gb', 'en'].includes(itemLang) &&
+        [DuckDuckGo.SEARCH_BANG_METACRITIC.site, DuckDuckGo.SEARCH_BANG_WIKI_EN.site].includes(site)) ||
+        (userLang === 'en' && itemLang === 'fr' &&
+          [DuckDuckGo.SEARCH_BANG_SENSCRITIQUE.site, DuckDuckGo.SEARCH_BANG_WIKI_FR.site].includes(site))
+        ? original_title : title;
+
     if (site === DuckDuckGo.SEARCH_BANG_WIKI_EN.site || site === DuckDuckGo.SEARCH_BANG_WIKI_FR.site) {
-      return this.wikisearch(title, site).toPromise();
+      return this.wikisearch(workingTitle, site).toPromise();
     } else if (site === DuckDuckGo.SEARCH_BANG_IMDB.site && imdbId) {
       return new Promise(resolve =>
         resolve(Constants.IMDB_URL + ((isMovie || isSerie) ? Constants.IMDB_MOVIE_SUFFIX : Constants.IMDB_PERSON_SUFFIX) + imdbId));
     } else {
       let url = DuckDuckGo.DUCKDUCKGO_URL + site + '+';
-      url += UtilsService.encodeQueryUrl(title) + '&format=json&no_redirect=1';
+      url += UtilsService.encodeQueryUrl(workingTitle) + '&format=json&no_redirect=1';
       return this.serviceUtils.jsonpPromise(url, 'callback')
         .then((data: any) => {
           let result = <string>data.Redirect;

@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -28,32 +29,39 @@ export class MetaComponent implements OnInit {
   isSerie: boolean;
   links;
 
-  constructor(private metaService: MetaService) { }
+  constructor(
+    private metaService: MetaService,
+    private translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     this._entry
       .subscribe(x => {
         let term;
+        let original;
+        let itemLang;
         if (this.isMovie || this.isSerie) {
-          // if serie
-          const title = this.entry.title;
-          const original = this.entry.original_title;
-          term = !original || original.trim() === '' ? title : original;
+          // if serie or movie
+          term = this.entry.title;
+          original = this.entry.original_title;
+          itemLang = this.isMovie ? this.entry.spokenLangs[0].code.toLowerCase() : this.entry.originLang.toLowerCase();
         } else {
           // if person
           term = this.entry.name;
         }
         this.links = [];
         this.sites.forEach(site => {
-          this.metaService.getLinkScore(term, site.site, this.entry.imdb_id, this.isMovie, this.isSerie).then(result => {
-            if (!result && (this.isMovie || this.isSerie)) {
-              this.metaService.getLinkScore(this.entry.title, site.site, undefined, this.isMovie, this.isSerie).then(result_2 => {
-                this.handleResult(result_2, site);
-              });
-            } else {
-              this.handleResult(result, site);
-            }
-          });
+          this.metaService.getLinkScore(term, original, this.translate.currentLang, itemLang,
+            site.site, this.entry.imdb_id, this.isMovie, this.isSerie).then(result => {
+              if (!result && (this.isMovie || this.isSerie)) {
+                this.metaService.getLinkScore(original, term, this.translate.currentLang, itemLang,
+                  site.site, undefined, this.isMovie, this.isSerie).then(result_2 => {
+                    this.handleResult(result_2, site);
+                  });
+              } else {
+                this.handleResult(result, site);
+              }
+            });
         });
       });
   }
