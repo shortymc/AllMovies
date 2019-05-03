@@ -1,6 +1,7 @@
 export class DiscoverCriteria {
   language: string;
   region: string;
+  originalLangs: string[];
   sortField: string;
   sortDir: string;
   page: number;

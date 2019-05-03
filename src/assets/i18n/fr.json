@@ -311,7 +311,8 @@
         "search": "Rechercher",
         "result": "Résultats",
         "vote_count_min": "Nombre de vote minimum",
-        "playing": "Films à l'affiche"
+        "playing": "Films à l'affiche",
+        "language": "Langue parlée"
     },
     "tags": {
         "header": "Mes Tags",

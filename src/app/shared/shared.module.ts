@@ -23,6 +23,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 
+import { LangService } from './service/lang.service';
 import { MetaComponent } from './components/meta/component/meta.component';
 import { MyDatasService } from './service/my-datas.service';
 import { GoToTopComponent } from './components/go-to-top/go-to-top.component';
@@ -174,6 +175,7 @@ export class SharedModule {
         MovieService,
         OmdbService,
         SerieService,
+        LangService,
         DropboxService,
         AuthService,
         TitleService,
@@ -211,6 +213,7 @@ export { GenreService } from './service/genre.service';
 export { PersonSearchService } from './service/person-search.service';
 export { MovieSearchService } from './service/movie-search.service';
 export { CertificationService } from './service/certification.service';
+export { LangService } from './service/lang.service';
 export { KeywordSearchService } from './service/keyword-search.service';
 export { ToastService } from './service/toast.service';
 export { MenuService } from './service/menu.service';

@@ -121,16 +121,16 @@ export class UrlBuilder {
       parametres.push(`${Url.ADULT_URL}`);
     }
     UrlBuilder.voteUrlBuilder(parametres, criteria);
-    if (criteria.certification && isMovie) {
-      parametres.push(`${Url.CERTIFICATION_COUNTRY_URL}`);
-      parametres.push(`${Url.CERTIFICATION_URL}${criteria.certification}`);
-    }
+    UrlBuilder.certificationUrlBuilder(parametres, criteria, isMovie);
     UrlBuilder.runtimeUrlBuilder(parametres, criteria);
     if (criteria.releaseType && isMovie) {
       parametres.push(`${Url.WITH_RELEASE_TYPE_URL}${criteria.releaseType.join(Url.OR_URL)}`);
     }
     if (people && people.length > 0) {
       parametres.push(`${Url.WITH_PEOPLE_URL}${people.join(Url.AND_URL)}`);
+    }
+    if (criteria.originalLangs && criteria.originalLangs.length > 0) {
+      parametres.push(`${Url.WITH_ORIGINAL_LANGUAGE}${criteria.originalLangs.join(Url.OR_URL)}`);
     }
     UrlBuilder.genresUrlBuilder(parametres, genre, isWithoutGenre);
     UrlBuilder.keywordsUrlBuilder(parametres, keyword, isWithoutKeyword);
@@ -159,6 +159,13 @@ export class UrlBuilder {
     }
     if (criteria.voteCountMin) {
       parametres.push(`${Url.VOTE_COUNT_GTE_URL}${criteria.voteCountMin}`);
+    }
+  }
+
+  private static certificationUrlBuilder(parametres: string[], criteria: DiscoverCriteria, isMovie: boolean): void {
+    if (criteria.certification && isMovie) {
+      parametres.push(`${Url.CERTIFICATION_COUNTRY_URL}`);
+      parametres.push(`${Url.CERTIFICATION_URL}${criteria.certification}`);
     }
   }
 

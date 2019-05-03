@@ -7,7 +7,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { SearchService } from './../../../../shared/service/search.service';
 
 interface IdClass {
-  id: number;
+  id: any;
 }
 
 @Component({
@@ -19,10 +19,10 @@ export class SearchBoxComponent<T extends IdClass> implements OnInit, OnChanges 
   @Input() adult: boolean;
   @Input() service: SearchService<T>;
   @Input() placeholder: string;
-  @Input() initList: number[];
+  @Input() initList: any[];
   @Input() clear: boolean;
   @Input() hasImage: boolean;
-  @Output() items = new EventEmitter<number[]>();
+  @Output() items = new EventEmitter<any[]>();
   itemCtrl: FormControl;
   filteredItems: Observable<T[]>;
   list: T[] = [];
@@ -49,7 +49,7 @@ export class SearchBoxComponent<T extends IdClass> implements OnInit, OnChanges 
   initValues(): void {
     if (this.initList) {
       const obs = [];
-      this.initList.map((id: number) => {
+      this.initList.map((id: any) => {
         obs.push(this.service.byId(id));
       });
       forkJoin(obs).subscribe(

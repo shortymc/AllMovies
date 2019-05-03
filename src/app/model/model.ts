@@ -58,6 +58,11 @@ export class Flag {
   country: string;
 }
 
+export class LangDb {
+  id: string;
+  name: string;
+}
+
 export class Lang {
   id: number;
   code: string;

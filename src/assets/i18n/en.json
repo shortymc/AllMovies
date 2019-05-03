@@ -311,7 +311,8 @@
         "search": "Search",
         "result": "Results",
         "vote_count_min": "Vote count minimum",
-        "playing": "Movies now playing"
+        "playing": "Movies now playing",
+        "language": "Spoken language"
     },
     "tags": {
         "header": "My Tags",

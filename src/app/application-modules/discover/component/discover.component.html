@@ -50,6 +50,9 @@
       <mat-option *ngFor="let type of allReleaseType" [value]="type">{{type.label_key | translate}}</mat-option>
     </mat-select>
   </mat-form-field>
+  <!-- Lang -->
+  <app-search-box (items)="selectedLangs = $event" [service]="langService" placeholder="{{'discover.language'|translate}}"
+    [initList]="selectedLangs" [clear]="clean" [hasImage]="false"></app-search-box>
 </div>
 <!-- Runtime range -->
 <nouislider [connect]="true" [min]="0" [max]="max" [step]="1" [(ngModel)]="runtimeRange" [format]="formatter"
