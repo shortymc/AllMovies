@@ -88,15 +88,15 @@ export class SerieDetailComponent implements OnInit, OnDestroy {
   }
 
   redirectGenreToDiscover(genre: Genre): void {
-    this.router.navigate(['discover'], { queryParams: { genre: JSON.stringify([genre.id]), isMovie: 'false' } });
+    this.router.navigate(['discover'], { queryParams: { genre: JSON.stringify([genre.id]), isMovie: false } });
   }
 
   redirectKeywordToDiscover(keyword: Keyword): void {
-    this.router.navigate(['discover'], { queryParams: { keyword: JSON.stringify([keyword.id]), isMovie: 'false' } });
+    this.router.navigate(['discover'], { queryParams: { keyword: JSON.stringify([keyword.id]), isMovie: false } });
   }
 
   redirectNetworkToDiscover(network: Network): void {
-    this.router.navigate(['discover'], { queryParams: { networks: JSON.stringify([network.id]), isMovie: 'false' } });
+    this.router.navigate(['discover'], { queryParams: { networks: JSON.stringify([network.id]), isMovie: false } });
   }
 
   goBack(): void {
