@@ -1,0 +1,29 @@
+@mixin mq ($type, $value) {
+  @media only screen and (#{$type}-width: #{$value}) {
+    @content;
+  }
+}
+
+@mixin max-screen($value) {
+  @include mq(max, $value) {
+    @content;
+  }
+}
+
+@mixin min-screen($value) {
+  @include mq(min, $value) {
+    @content;
+  }
+}
+
+@mixin max-height($value) {
+  @media only screen and (max-height: #{$value}) {
+    @content;
+  }
+}
+
+@mixin between($max, $min) {
+  @media (max-width: $max) and (min-width: $min) {
+    @content;
+  }
+}

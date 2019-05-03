@@ -8,7 +8,7 @@ import { NouiFormatter } from 'ng2-nouislider';
 import { DiscoverCriteria } from './../../../model/discover-criteria';
 import { Discover } from './../../../model/discover';
 import {
-  KeywordSearchService, SerieService, CertificationService, GenreService, PersonSearchService, TitleService, AuthService, MovieService
+  KeywordSearchService, SerieService, CertificationService, LangService, GenreService, PersonSearchService, TitleService, AuthService, MovieService
 } from './../../../shared/shared.module';
 import { DropDownChoice } from '../../../model/model';
 import { Utils } from '../../../shared/utils';
@@ -47,6 +47,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   isWithoutGenre = false;
   allCertif: DropDownChoice[];
   selectedCertif: DropDownChoice;
+  selectedLangs: string[] = [];
   allReleaseType: DropDownChoice[];
   selectedReleaseType: DropDownChoice[];
   playing = false;
@@ -66,6 +67,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     public networkService: NetworkService,
     private genreService: GenreService,
     private certifService: CertificationService,
+    public langService: LangService,
     private route: ActivatedRoute,
     private title: TitleService,
     private router: Router,
@@ -119,8 +121,9 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     ));
     const criteria = <DiscoverCriteria>Utils.parseJson(sessionStorage.getItem('criteria'));
     const certif = <DropDownChoice>Utils.parseJson(sessionStorage.getItem('certif'));
+    const langs = <string[]>Utils.parseJson(sessionStorage.getItem('lang'));
     this.initParams(this.isMovie);
-    this.initFromCriteria(criteria, certif);
+    this.initFromCriteria(criteria, certif, langs);
     this.search(false);
     this.getAllCertification(criteria ? criteria.certification : '');
   }
@@ -161,7 +164,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     }));
   }
 
-  initFromCriteria(criteria: DiscoverCriteria, certif: DropDownChoice): void {
+  initFromCriteria(criteria: DiscoverCriteria, certif: DropDownChoice, langs: string[]): void {
     if (criteria) {
       this.sortDir.value = criteria.sortDir;
       this.sortChosen = this.sortChoices.find(sort => sort.value === criteria.sortField);
@@ -181,11 +184,13 @@ export class DiscoverComponent implements OnInit, OnDestroy {
       }
     }
     this.selectedCertif = certif;
+    this.selectedLangs = langs;
   }
 
   clear(): void {
     sessionStorage.removeItem('criteria');
     sessionStorage.removeItem('certif');
+    sessionStorage.removeItem('lang');
     const crit = new DiscoverCriteria();
     crit.language = this.translate.currentLang;
     crit.sortField = this.sortChoices[0].value;
@@ -199,7 +204,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     this.networks = [];
     this.selectedGenres = [];
     this.playing = false;
-    this.initFromCriteria(crit, undefined);
+    this.initFromCriteria(crit, undefined, []);
     this.search(true);
     this.clean = true;
   }
@@ -225,6 +230,9 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     if (this.selectedCertif) {
       criteria.certification = this.selectedCertif.value;
     }
+    if (this.selectedLangs) {
+      criteria.originalLangs = this.selectedLangs;
+    }
     if (this.selectedReleaseType && this.selectedReleaseType.length > 0) {
       criteria.releaseType = this.selectedReleaseType.map(type => type.value);
     }
@@ -238,6 +246,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     criteria.playingDate = this.playingDate;
     sessionStorage.setItem('criteria', Utils.stringifyJson(criteria));
     sessionStorage.setItem('certif', Utils.stringifyJson(this.selectedCertif));
+    sessionStorage.setItem('lang', Utils.stringifyJson(this.selectedLangs));
     return criteria;
   }
 

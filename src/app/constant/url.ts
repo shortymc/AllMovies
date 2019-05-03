@@ -63,10 +63,12 @@ export class Url {
   static readonly WITH_KEYWORDS_URL = '&with_keywords=';
   static readonly WITH_NETWORKS_URL = '&with_networks=';
   static readonly WITH_PEOPLE_URL = '&with_people=';
+  static readonly WITH_ORIGINAL_LANGUAGE = '&with_original_language=';
   static readonly WITHOUT_GENRES_URL = '&without_genres=';
   static readonly WITHOUT_KEYWORDS_URL = '&without_keywords=';
   static readonly GET_MOVIE_GENRES_URL = Url.MOVIE_DB_API_URL + 'genre/movie/list?';
   static readonly GET_SERIE_GENRES_URL = Url.MOVIE_DB_API_URL + 'genre/tv/list?';
   static readonly GET_ALL_CERTIFICATIONS_URL = Url.MOVIE_DB_API_URL + 'certification/movie/list?';
+  static readonly GET_ALL_LANGS_URL = Url.MOVIE_DB_API_URL + 'configuration/languages?';
   static readonly GET_POPULAR_PERSON = Url.MOVIE_DB_API_URL + 'person/popular?' + Url.API_KEY;
 }
