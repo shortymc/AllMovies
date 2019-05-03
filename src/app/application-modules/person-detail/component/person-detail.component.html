@@ -61,7 +61,7 @@
     <figure>
       <label id="person-film">{{'person.films' | translate}}:</label>
       <div *ngFor="let list of listMoviesOrder">
-        <ng-container *ngIf="list.value.get('show')[0] !== 'none'">
+        <ng-container *ngIf="list && list.value && list.value.get('show')[0] !== 'none'">
           <div class="toogle-display">
             <div>{{'person.display.title'|translate}} :</div>
             <mat-button-toggle-group [value]="list.value.get('show')[0]" #show="matButtonToggleGroup">
