@@ -2,7 +2,7 @@
 
 * Install [node.js](https://www.npmjs.com/get-npm), [npm](https://www.npmjs.com/get-npm), [git](https://git-scm.com/downloads) and [http-server](https://github.com/indexzero/http-server) (`npm i -g http-server`). 
 
-  If you want you can install [yarn](https://yarnpkg.com/en/docs/install).
+  If you want you can install [yarn](https://yarnpkg.com/en/docs/install) (`npm i -g yarn`).
 
 * In your workspace: 
 
