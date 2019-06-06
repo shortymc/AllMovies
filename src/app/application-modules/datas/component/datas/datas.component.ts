@@ -181,7 +181,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     let list = this.filterGenres();
     list = this.filterTags(list);
     list = list.filter(data => {
-      const time = this.isMovie ? (<Movie>data).time : (<Serie>data).runtimes[0];
+      const time = this.isMovie ? data['time'] : data['runtimes'][0];
       return time > this.runtimeRange[0] && time < this.runtimeRange[1];
     });
     const byFields = Utils.filterByFields(list,
