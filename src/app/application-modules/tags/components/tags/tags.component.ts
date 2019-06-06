@@ -8,6 +8,7 @@ import {
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimesCircle, faStar } from '@fortawesome/free-regular-svg-icons';
 import { FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 
 import { MyTagsService, TitleService } from './../../../../shared/shared.module';
 import { Utils } from './../../../../shared/utils';
@@ -50,7 +51,9 @@ export class TagsComponent implements OnInit, OnDestroy {
   constructor(
     private myTagsService: MyTagsService,
     public translate: TranslateService,
-    private title: TitleService
+    private title: TitleService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -87,6 +90,10 @@ export class TagsComponent implements OnInit, OnDestroy {
       });
       this.length = this.tableTags.length;
       this.paginate(this.refreshData());
+      this.subs.push(this.route.queryParams.subscribe((params: Params) => {
+        this.selectedTag = tags.find(tag => tag.id === Utils.parseJson(params.selected));
+        this.isMoviesVisible = this.selectedTag !== undefined;
+      }));
     });
   }
 
@@ -133,8 +140,12 @@ export class TagsComponent implements OnInit, OnDestroy {
   }
 
   selectTag(selected: Tag): void {
-    this.selectedTag = this.tags.find(tag => tag.id === selected.id);
-    this.isMoviesVisible = true;
+    this.router.navigate(['.'], {
+      relativeTo: this.route,
+      queryParams: {
+        selected: JSON.stringify(selected ? selected.id : undefined)
+      }
+    });
   }
 
   remove(): void {
@@ -148,10 +159,7 @@ export class TagsComponent implements OnInit, OnDestroy {
   }
 
   updateModal(visible: boolean): void {
-    this.isMoviesVisible = visible;
-    if (!visible) {
-      this.selectedTag = undefined;
-    }
+    this.selectTag(visible ? this.selectedTag : undefined);
   }
 
   ngOnDestroy(): void {
