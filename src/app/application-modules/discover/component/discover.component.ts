@@ -87,18 +87,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     new DropDownChoice('release_type.' + ReleaseType.RELEASE_DIGITAL, ReleaseType.RELEASE_DIGITAL),
     new DropDownChoice('release_type.' + ReleaseType.RELEASE_PHYSICAL, ReleaseType.RELEASE_PHYSICAL),
     new DropDownChoice('release_type.' + ReleaseType.RELEASE_TV, ReleaseType.RELEASE_TV)];
-    this.formatter = {
-      to(minutes: any): any {
-        return Utils.convertTimeNumberToString(minutes);
-      },
-      from(time: any): any {
-        const res = Utils.convertTimeStringToNumber(time);
-        if (isNaN(res)) {
-          return time;
-        }
-        return res;
-      }
-    };
+    this.formatter = Utils.timeSliderFormatter;
     this.initPlayingDate();
 
     this.subs.push(this.translate.onLangChange.subscribe(() => {

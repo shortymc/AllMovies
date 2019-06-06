@@ -11,6 +11,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import * as moment from 'moment-mini-ts';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { NouiFormatter } from 'ng2-nouislider';
 
 import { Constants } from '../../../../constant/constants';
 import { Utils } from '../../../../shared/utils';
@@ -46,6 +47,10 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   tags: Tag[];
   filteredTags: number[];
   length: number;
+  maxRuntimeMovie = 300;
+  maxRuntimeSerie = 150;
+  runtimeRange: any[] = [0, 1];
+  formatter: NouiFormatter;
   displayedData: T[];
   filter: string;
   pageSize;
@@ -101,9 +106,11 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
         this.displayedColumns = this.init_columns;
       }
     });
+    this.formatter = Utils.timeSliderFormatter;
     this.subs.push(this.activeRoute.data.subscribe(data => {
       console.log('data', data);
       this.isMovie = data.isMovie;
+      this.runtimeRange = [0, this.isMovie ? this.maxRuntimeMovie : this.maxRuntimeSerie];
       this.title.setTitle('title.' + (this.isMovie ? 'movies' : 'series'));
       this.initColumns();
       this.getDatas(this.translate.currentLang, data.dataList);
@@ -118,6 +125,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
           this.pageSize = params.pageSize ? params.pageSize : 25;
           this.filter = params.search;
           this.filteredGenres = Utils.parseJson(params.genres);
+          this.runtimeRange = params.runtime ? Utils.parseJson(params.runtime) : [0, this.isMovie ? this.maxRuntimeMovie : this.maxRuntimeSerie];
           this.paginate(this.refreshData());
         }));
     }));
@@ -172,6 +180,10 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   refreshData(): T[] {
     let list = this.filterGenres();
     list = this.filterTags(list);
+    list = list.filter(data => {
+      const time = this.isMovie ? (<Movie>data).time : (<Serie>data).runtimes[0];
+      return time > this.runtimeRange[0] && time < this.runtimeRange[1];
+    });
     const byFields = Utils.filterByFields(list,
       this.displayedColumns.filter(col => !['added', 'select', 'details', 'genres', 'meta', 'thumbnail', 'tag-icon', 'name'].includes(col)),
       this.filter);
@@ -210,11 +222,11 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     }
   }
 
-  onFilterOrPaginate(genres: number[], tags: number[], pageIndex: number, pageSize: number): void {
+  onFilterOrPaginate(genres: number[], tags: number[], pageIndex: number, pageSize: number, runtimeRange: any[]): void {
     this.router.navigate(['.'], {
       relativeTo: this.activeRoute,
       queryParams: {
-        pageIndex: pageIndex, pageSize: pageSize, search: this.filter,
+        pageIndex: pageIndex, pageSize: pageSize, search: this.filter, runtime: JSON.stringify(runtimeRange),
         genres: JSON.stringify(genres), tags: JSON.stringify(tags), sort: JSON.stringify(this.sort)
       }
     });

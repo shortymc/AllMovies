@@ -5,6 +5,20 @@ import { Tag } from './../model/tag';
 import { Data } from '../model/data';
 
 export class Utils {
+
+  static timeSliderFormatter = {
+    to(minutes: any): any {
+      return Utils.convertTimeNumberToString(minutes);
+    },
+    from(time: any): any {
+      const res = Utils.convertTimeStringToNumber(time);
+      if (isNaN(res)) {
+        return time;
+      }
+      return res;
+    }
+  };
+
   static isBlank(str: string): boolean {
     return str === undefined || str === null || str.trim() === '';
   }
