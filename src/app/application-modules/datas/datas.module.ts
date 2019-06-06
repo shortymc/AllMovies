@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NouisliderModule } from 'ng2-nouislider';
 
 import { DatasResolver } from './resolver/datas.resolver';
 import { SharedModule } from '../../shared/shared.module';
@@ -43,6 +44,7 @@ const childRoutes: Routes = [
     TranslateModule.forChild(),
     FontAwesomeModule,
     MatTableModule,
+    NouisliderModule,
     LayoutModule,
     MatSortModule,
     MatPaginatorModule,
