@@ -6,8 +6,8 @@
         <input matInput type="search" [(ngModel)]="editedLabel" (keyup.enter)="editTag()" />
       </mat-form-field>
     </h2>
-    <span class="tag-color pointer mat-elevation-z4" [(colorPicker)]="editedColor" [style.background]="editedColor" [cpOutputFormat]="'hex'"
-      [cpDisabled]="!edit">
+    <span class="tag-color pointer mat-elevation-z4" [(colorPicker)]="editedColor" [style.background]="editedColor"
+      [cpOutputFormat]="'hex'" [cpDisabled]="!edit">
       <fa-icon [icon]="faBrush" size="lg" *ngIf="edit"></fa-icon>
     </span>
     <span class="edit pointer" (click)="toogleEdit()">
@@ -27,7 +27,8 @@
     </button>
     <div class="tags-filter">
       <mat-form-field>
-        <input matInput type="search" placeholder="{{'tags.filter' | translate}}" [(ngModel)]="search" (keyup)="paginator.firstPage(); onSearch();" />
+        <input matInput type="search" placeholder="{{'tags.filter' | translate}}" [(ngModel)]="search"
+          (keyup)="paginator.firstPage(); onSearch();" />
       </mat-form-field>
       <span *ngIf="search" (click)="search=''; paginator.firstPage(); onSearch();" class="pointer clear-btn">
         <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
@@ -37,14 +38,15 @@
 
   <div class="paginator mat-elevation-z4">
     <!-- Paginator -->
-    <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-      (page)="page = $event; onPaginateChange();" [showFirstLastButtons]="true">
+    <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions" (page)="page = $event; onPaginateChange();" [showFirstLastButtons]="true">
     </mat-paginator>
   </div>
 
   <!-- Table -->
-  <mat-table class="mat-elevation-z4" [dataSource]="displayedData" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
-    matSort [matSortActive]="'title'" [matSortDirection]="'asc'">
+  <mat-table class="mat-elevation-z4" [dataSource]="displayedData"
+    (matSortChange)="paginator.firstPage(); sort = $event; onSort();" matSort [matSortActive]="'title'"
+    [matSortDirection]="'asc'">
 
     <!-- POSTER -->
     <ng-container matColumnDef="poster">
@@ -53,7 +55,8 @@
         <fa-icon class="mat-icon" [icon]="faImage"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let data">
-          <img class="data-poster" src="{{data.poster | image:'medium'}}" />
+        <img class="data-poster pointer" src="{{data.poster | image:'medium'}}" appOpenLink
+          [label]="data.titles?.get(translate.currentLang)" url="{{data.movie ? '/movie/' : '/serie/'}}{{data.id}}" />
       </mat-cell>
     </ng-container>
 
@@ -81,6 +84,7 @@
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'movie': row.movie, 'serie': !row.movie}"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'movie': row.movie, 'serie': !row.movie}">
+    </mat-row>
   </mat-table>
 </ng-container>
