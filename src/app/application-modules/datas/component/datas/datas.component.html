@@ -43,7 +43,7 @@
   </div>
   <!-- Runtime range -->
   <div class="filter-item">
-    <nouislider [connect]="true" [min]="0" [max]="isMovie ? maxRuntimeMovie : maxRuntimeSerie" [step]="1"
+    <nouislider [connect]="true" [min]="0" [max]="maxRuntime" [step]="1"
       [(ngModel)]="runtimeRange" [format]="formatter"
       (end)="onFilterOrPaginate(filteredGenres, filteredTags, 0, pageSize, $event)"
       [tooltips]="[true, true]" id="runtime-slider"></nouislider>

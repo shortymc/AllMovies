@@ -47,8 +47,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   tags: Tag[];
   filteredTags: number[];
   length: number;
-  maxRuntimeMovie = 300;
-  maxRuntimeSerie = 150;
+  maxRuntime = 1;
   runtimeRange: any[] = [0, 1];
   formatter: NouiFormatter;
   displayedData: T[];
@@ -110,7 +109,9 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     this.subs.push(this.activeRoute.data.subscribe(data => {
       console.log('data', data);
       this.isMovie = data.isMovie;
-      this.runtimeRange = [0, this.isMovie ? this.maxRuntimeMovie : this.maxRuntimeSerie];
+      const times = data.dataList.map(d => this.isMovie ? d['time'] : d['runtimes'][0]).filter(d => d !== undefined && d !== null);
+      this.maxRuntime = times.reduce((a, b) => a > b ? a : b)
+      this.runtimeRange = [0, this.maxRuntime];
       this.title.setTitle('title.' + (this.isMovie ? 'movies' : 'series'));
       this.initColumns();
       this.getDatas(this.translate.currentLang, data.dataList);
@@ -125,7 +126,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
           this.pageSize = params.pageSize ? params.pageSize : 25;
           this.filter = params.search;
           this.filteredGenres = Utils.parseJson(params.genres);
-          this.runtimeRange = params.runtime ? Utils.parseJson(params.runtime) : [0, this.isMovie ? this.maxRuntimeMovie : this.maxRuntimeSerie];
+          this.runtimeRange = params.runtime ? Utils.parseJson(params.runtime) : [0, this.maxRuntime];
           this.paginate(this.refreshData());
         }));
     }));
@@ -182,7 +183,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     list = this.filterTags(list);
     list = list.filter(data => {
       const time = this.isMovie ? data['time'] : data['runtimes'][0];
-      return time > this.runtimeRange[0] && time < this.runtimeRange[1];
+      return (time >= this.runtimeRange[0] && time <= this.runtimeRange[1]) || (this.runtimeRange[0] === 0 && !time);
     });
     const byFields = Utils.filterByFields(list,
       this.displayedColumns.filter(col => !['added', 'select', 'details', 'genres', 'meta', 'thumbnail', 'tag-icon', 'name'].includes(col)),
