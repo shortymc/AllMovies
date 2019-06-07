@@ -1,6 +1,7 @@
 <div *ngIf="person">
   <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
-    <app-image-viewer [images]="person.images" [thumbnails]="person.images" [visible]="isImagesVisible"></app-image-viewer>
+    <app-image-viewer [images]="person.images" [thumbnails]="person.images" [visible]="isImagesVisible">
+    </app-image-viewer>
   </app-modal>
   <div class="detail-header">
     <h1 class="detail-title" [ngClass]="{'adult': person.adult}">{{person.name}}</h1>
@@ -14,9 +15,12 @@
       </button>
     </div>
   </div>
-  <app-meta class="person-meta" [entry]="person" [isMovie]="false" [isSerie]="false" [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR, DuckDuckGo.SEARCH_BANG_IMDB]"></app-meta>
+  <app-meta class="person-meta" [entry]="person" [isMovie]="false" [isSerie]="false"
+    [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR, DuckDuckGo.SEARCH_BANG_IMDB]">
+  </app-meta>
   <div class="detail-content">
-    <app-image-viewer class="person-profile" [images]="person.profile" [thumbnails]="person.profile" [visible]="true"></app-image-viewer>
+    <app-image-viewer class="person-profile" [images]="person.profile" [thumbnails]="person.profile" [visible]="true">
+    </app-image-viewer>
     <div>
       <label>{{'global.id' | translate}}:</label>{{person.id}}
     </div>
@@ -60,6 +64,29 @@
     </div>
     <figure>
       <label id="person-film">{{'person.films' | translate}}:</label>
+      <div class="d-flex flex-row">
+        <div *ngFor="let known of knownFor" class="d-flex flex-column center">
+          <img class="frame pointer mr-auto" src="{{known.affiche | image:'small'}}"
+            alt="{{known.title| capitalizeWord}}" appOpenLink [label]="known.title"
+            url="{{ known.isMovie ? '/movie/':'/serie/'}}{{known.id}}" matTooltip="{{known.character}}">
+          <div class="" [ngClass]="{'adult': known.adult}">
+            <div [matTooltip]="known.title">
+              {{known.title | truncate:20 | capitalizeWord}}
+            </div>
+            <div>
+              <ng-container *ngIf="known.isMovie; else serie">
+                ({{ known.date| date : 'yyyy'}})</ng-container>
+              <ng-template #serie>({{ known.firstAired| date : 'yyyy'}})</ng-template>
+              - {{known.popularity | number:'1.0-0'}}
+            </div>
+            <div>
+              {{known.vote}}/10 ({{known.vote_count}})
+            </div>
+            <div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div *ngFor="let list of listMoviesOrder">
         <ng-container *ngIf="list && list.value && list.value.get('show')[0] !== 'none'">
           <div class="toogle-display">
@@ -71,14 +98,17 @@
               <mat-button-toggle value="serie" [disabled]="list.value.get('serie').length === 0">
                 {{'person.display.serie'|translate}}
               </mat-button-toggle>
-              <mat-button-toggle value="both" [disabled]="list.value.get('serie').length === 0 || list.value.get('movie').length === 0">
+              <mat-button-toggle value="both"
+                [disabled]="list.value.get('serie').length === 0 || list.value.get('movie').length === 0">
                 {{'person.display.both'|translate}}
               </mat-button-toggle>
             </mat-button-toggle-group>
           </div>
-          <app-list-datas [datas]="list.value.get('movie')" [isMovie]="true" *ngIf="['movie', 'both'].includes(show.value)"
+          <app-list-datas [datas]="list.value.get('movie')" [isMovie]="true"
+            *ngIf="['movie', 'both'].includes(show.value)"
             [label]="('data-list.' + list.label_key | translate).concat(':')"></app-list-datas>
-          <app-list-datas [datas]="list.value.get('serie')" [isMovie]="false" *ngIf="['serie', 'both'].includes(show.value)"
+          <app-list-datas [datas]="list.value.get('serie')" [isMovie]="false"
+            *ngIf="['serie', 'both'].includes(show.value)"
             [label]="('data-list.' + list.label_key | translate).concat(':')"></app-list-datas>
         </ng-container>
       </div>
