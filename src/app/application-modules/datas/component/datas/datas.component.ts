@@ -1,3 +1,4 @@
+/* tslint:disable:no-string-literal */
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { forkJoin, BehaviorSubject } from 'rxjs';
@@ -110,7 +111,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
       console.log('data', data);
       this.isMovie = data.isMovie;
       const times = data.dataList.map(d => this.isMovie ? d['time'] : d['runtimes'][0]).filter(d => d !== undefined && d !== null);
-      this.maxRuntime = times.reduce((a, b) => a > b ? a : b)
+      this.maxRuntime = times.reduce((a, b) => a > b ? a : b);
       this.runtimeRange = [0, this.maxRuntime];
       this.title.setTitle('title.' + (this.isMovie ? 'movies' : 'series'));
       this.initColumns();
