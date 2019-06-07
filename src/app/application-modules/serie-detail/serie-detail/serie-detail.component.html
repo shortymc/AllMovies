@@ -108,7 +108,7 @@
       <label>{{'global.genres' | translate}}: </label>
       <div class="serie-genre">
         <span *ngFor="let genre of serie.genres; let last=last;" (click)="redirectGenreToDiscover(genre)">
-          <span class="pointer" appOpenLink [label]="genre.name" url="/discover?genre=[{{genre.id}}]">{{genre.name|
+          <span class="pointer" appOpenLink [label]="genre.name" url="/discover?genre=[{{genre.id}}]&isMovie=false">{{genre.name|
             capitalizeWord}}</span>
           <span *ngIf="!last">/</span>
         </span>
@@ -119,7 +119,7 @@
       <label>{{'global.keyword' | translate}}: </label>
       <div class="overview break-word">
         <span *ngFor="let keyword of serie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)" class="serie-keyword">
-          <span class="pointer" appOpenLink [label]="keyword.name" url="/discover?keyword=[{{keyword.id}}]">{{keyword.name|
+          <span class="pointer" appOpenLink [label]="keyword.name" url="/discover?keyword=[{{keyword.id}}]&isMovie=false">{{keyword.name|
             capitalizeWord}}</span>
           <span *ngIf="!last">/</span>
         </span>
