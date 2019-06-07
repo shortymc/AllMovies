@@ -29,6 +29,13 @@ figure {
   text-align: center;
 }
 
+.center {
+  &,
+  & > * {
+    text-align: center;
+  }
+}
+
 @include media(#{$desktop}, false) {
   label,
   .pad-left,
