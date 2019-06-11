@@ -24,8 +24,8 @@ export class MovieService {
     private mockService: MockService<Flag>
   ) { }
 
-  getPopularMovies(language: string): Promise<Movie[]> {
-    return this.serviceUtils.getPromise(`${Url.MOST_POPULAR_MOVIE_URL}${Url.LANGUE}${language}`)
+  getPopularMovies(language: string, page: number = 1): Promise<Movie[]> {
+    return this.serviceUtils.getPromise(`${Url.MOST_POPULAR_MOVIE_URL}${Url.LANGUE}${language}&page=${page}`)
       .then(response => MapMovie.mapForPopularMovies(response))
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }

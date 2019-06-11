@@ -1,6 +1,6 @@
 <div class="title" id="movie_title">{{'dashboard.movies' | translate}}:</div>
 <div class="wrapper">
-  <swiper [config]="swiperConfig" id="swiper-top">
+  <swiper [config]="swiperConfig" id="swiper-top" (reachEnd)="nextMovies()">
     <a *ngFor="let movie of movies" class="movie-link myTooltip">
       <div class="module mat-elevation-z4" appOpenLink [label]="movie.title" url="/movie/{{movie.id}}">
         <h5>{{movie.title | capitalizeWord}} - {{movie.date | date : "dd/MM/yyyy"}} - {{movie.vote}} / 10 -
@@ -12,7 +12,7 @@
 </div>
 <div class="title" id="serie_title">{{'dashboard.series' | translate}}:</div>
 <div class="wrapper">
-  <swiper [config]="swiperConfig" id="swiper-middle">
+  <swiper [config]="swiperConfig" id="swiper-middle" (reachEnd)="nextSeries()">
     <a *ngFor="let serie of series" class="movie-link myTooltip">
       <div class="module mat-elevation-z4" appOpenLink [label]="serie.title" url="/serie/{{serie.id}}">
         <h5>{{serie.title | capitalizeWord}} - {{serie.firstAired | date : "dd/MM/yyyy"}} - {{serie.vote}} / 10 -
@@ -24,7 +24,7 @@
 </div>
 <div class="title" id="person_title">{{'dashboard.persons' | translate}}:</div>
 <div class="wrapper">
-  <swiper [config]="swiperConfig" id="swiper-bottom">
+  <swiper [config]="swiperConfig" id="swiper-bottom" (reachEnd)="nextPersons()">
     <a *ngFor="let person of persons" class="movie-link myTooltip">
       <div class="module mat-elevation-z4" appOpenLink [label]="person.name" url="/person/{{person.id}}">
         <h5>{{person.name | capitalizeWord}} - {{person.popularity | number:'1.0-2':translate.currentLang}}</h5>

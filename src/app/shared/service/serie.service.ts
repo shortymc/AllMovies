@@ -25,8 +25,8 @@ export class SerieService {
     private toast: ToastService
   ) { }
 
-  getPopularSeries(language: string): Promise<Serie[]> {
-    return this.serviceUtils.getPromise(`${Url.MOST_POPULAR_SERIE_URL}${Url.LANGUE}${language}`)
+  getPopularSeries(language: string, page: number = 1): Promise<Serie[]> {
+    return this.serviceUtils.getPromise(`${Url.MOST_POPULAR_SERIE_URL}${Url.LANGUE}${language}&page=${page}`)
       .then(response => MapSerie.mapForPopularSeries(response))
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
