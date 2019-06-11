@@ -33,6 +33,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   };
   subs = [];
   Url = Url;
+  pageMovies = 1;
+  pageSeries = 1;
+  pagePersons = 1;
 
   constructor(
     private movieService: MovieService,
@@ -49,6 +52,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.getTopSeries(this.translate.currentLang);
     this.getToPersons(this.translate.currentLang);
     this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.pageMovies = 1;
+      this.pageSeries = 1;
+      this.pagePersons = 1;
       this.getTopMovies(event.lang);
       this.getTopSeries(event.lang);
       this.getToPersons(event.lang);
@@ -69,6 +75,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getToPersons(language: string): void {
     this.personService.getPopularPersons(language).then(persons => this.persons = persons);
+  }
+
+  nextMovies(): void {
+    this.pageMovies += 1;
+    this.movieService.getPopularMovies(this.translate.currentLang, this.pageMovies).then(movies => this.movies = this.movies.concat(movies));
+  }
+
+  nextSeries(): void {
+    this.pageSeries += 1;
+    this.serieService.getPopularSeries(this.translate.currentLang, this.pageSeries).then(series => this.series = this.series.concat(series));
+  }
+
+  nextPersons(): void {
+    this.pagePersons += 1;
+    this.personService.getPopularPersons(this.translate.currentLang, this.pagePersons).then(persons => this.persons = this.persons.concat(persons));
   }
 
   ngOnDestroy(): void {
