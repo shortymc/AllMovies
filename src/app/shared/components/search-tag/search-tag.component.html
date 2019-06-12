@@ -1,10 +1,10 @@
 <mat-form-field>
-  <input #inputSearch matInput placeholder="{{'tags.select'|translate}}" [matAutocomplete]="auto" [formControl]="tagCtrl">
+  <input #trigger="matAutocompleteTrigger" #inputSearch matInput placeholder="{{'tags.select'|translate}}" [matAutocomplete]="auto" [formControl]="tagCtrl">
 </mat-form-field>
-<button type="button" class="btn btn-outline-primary" (click)="add(inputSearch.value)" *ngIf="inputSearch.value !== '' && !alreadyExist">
+<button type="button" class="btn btn-outline-primary" (click)="add(inputSearch.value, trigger, auto)" *ngIf="inputSearch.value !== '' && !alreadyExist">
   <fa-icon [icon]="faPlus" size="xs"></fa-icon>
 </button>
-<mat-autocomplete #auto="matAutocomplete" (optionSelected)="select($event.option.value)">
+<mat-autocomplete #auto="matAutocomplete" (optionSelected)="select($event.option.value, trigger, auto);">
   <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
     {{tag.label}}
   </mat-option>
