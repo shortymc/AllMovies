@@ -44,12 +44,8 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      this.getPerson(+params.get('id'), this.translate.currentLang);
-    });
-    this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.getPerson(this.person.id, event.lang);
-    }));
+    this.route.paramMap.subscribe((params: ParamMap) => this.getPerson(+params.get('id'), this.translate.currentLang));
+    this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => this.getPerson(this.person.id, event.lang)));
   }
 
   getPerson(id: number, language: string): void {

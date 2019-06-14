@@ -165,7 +165,8 @@
             "both": "Both"
         },
         "known_for": {
-            "title": "Known for",
+            "title": "Known as",
+            "detail": "Known for",
             "Acting": "Acting",
             "Directing": "Directing",
             "Sound": "Composer",

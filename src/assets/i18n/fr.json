@@ -166,6 +166,7 @@
         },
         "known_for": {
             "title": "Connu comme",
+            "detail": "Connu pour",
             "Acting": "Acteur",
             "Directing": "Réalisateur",
             "Sound": "Compositeur",
