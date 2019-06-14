@@ -1,5 +1,5 @@
-import { SwiperConfigInterface, SwiperComponent } from 'ngx-swiper-wrapper';
-import { Component, ViewChild, Input, OnChanges, SimpleChanges, AfterViewChecked } from '@angular/core';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { faExpand, IconDefinition, faCompress } from '@fortawesome/free-solid-svg-icons';
 import { MenuService } from '../../service/menu.service';
 
@@ -8,14 +8,11 @@ import { MenuService } from '../../service/menu.service';
   templateUrl: './image-viewer.component.html',
   styleUrls: ['./image-viewer.component.scss']
 })
-export class ImageViewerComponent implements OnChanges, AfterViewChecked {
+export class ImageViewerComponent implements OnChanges {
   @Input() visible: boolean;
   @Input() images: string[] | string;
   @Input() thumbnails: string[] | string;
-  @ViewChild('galleryThumbs') swiperThumb: SwiperComponent;
-  @ViewChild('galleryTop') swiperTop: SwiperComponent;
-  indexThumb: number;
-  indexTop: number;
+  index: number;
   nextBtn: HTMLButtonElement;
   prevBtn: HTMLButtonElement;
   config: SwiperConfigInterface = {
@@ -25,13 +22,12 @@ export class ImageViewerComponent implements OnChanges, AfterViewChecked {
     keyboard: true,
     mousewheel: true,
     scrollbar: false,
-    navigation: false,
+    navigation: true,
     pagination: {
       el: '.swiper-pagination',
       type: 'custom'
     },
     spaceBetween: 30,
-    centeredSlides: true,
     zoom: false,
     slideToClickedSlide: true,
     touchEventsTarget: 'wrapper',
@@ -40,6 +36,7 @@ export class ImageViewerComponent implements OnChanges, AfterViewChecked {
     observer: true,
     slidesPerView: 4,
     slideToClickedSlide: true,
+    mousewheel: true,
   };
   isOnePicture: boolean;
   faExpand = faExpand;
@@ -57,8 +54,7 @@ export class ImageViewerComponent implements OnChanges, AfterViewChecked {
     this.thumbnails = changes.thumbnails ? changes.thumbnails.currentValue : this.thumbnails;
     if (this.visible) {
       this.isOnePicture = typeof this.images === 'string' || this.images === undefined || this.images === null;
-      this.indexThumb = 0;
-      this.indexTop = 0;
+      this.index = 0;
       if (!this.isOnePicture) {
         this.closeBtn = faCompress;
       }
@@ -68,34 +64,9 @@ export class ImageViewerComponent implements OnChanges, AfterViewChecked {
     }
   }
 
-  ngAfterViewChecked(): void {
-    if (!this.isOnePicture && this.visible !== undefined && this.visible) {
-      this.swiperTop.indexChange.subscribe(index => {
-        this.indexThumb = index;
-      });
-      this.swiperThumb.indexChange.subscribe(index => {
-        this.indexTop = index;
-      });
-    }
-  }
-
-  next(): void {
-    if (this.indexTop < this.images.length) {
-      this.indexTop = this.indexTop + 1;
-      this.indexThumb = this.indexTop;
-    }
-  }
-
-  prev(): void {
-    if (this.indexTop > 0) {
-      this.indexTop = this.indexTop - 1;
-      this.indexThumb = this.indexTop;
-    }
-  }
-
   fullscreen(): void {
     this.isFullscreen = true;
-    this.fullScreenImg = this.isOnePicture ? <string>this.images : this.images[this.indexTop];
+    this.fullScreenImg = this.isOnePicture ? <string>this.images : this.images[this.index];
     this.menuService.visible$.next(this.isOnePicture && !this.isFullscreen);
   }
 

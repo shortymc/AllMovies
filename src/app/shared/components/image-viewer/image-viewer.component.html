@@ -9,7 +9,7 @@
   <ng-container *ngIf="!isOnePicture && !isFullscreen">
     <!-- Full size gallery -->
     <div class="gallery-top">
-      <swiper [config]="config" [(index)]="indexTop" #galleryTop>
+      <swiper [config]="config" [(index)]="index">
         <div *ngFor="let img of images">
           <pinch-zoom [zoom-button]="false">
             <img src="{{img | image:'original'}}">
@@ -19,12 +19,10 @@
       <span (click)="fullscreen()" class="expand">
         <fa-icon [icon]="faExpand"></fa-icon>
       </span>
-      <div class="swiper-button-prev" (click)="prev()"></div>
-      <div class="swiper-button-next" (click)="next()"></div>
     </div>
     <!-- Thumbnails gallery -->
     <div class="gallery-thumbs">
-      <swiper [config]="thumbs" [(index)]="indexThumb" #galleryThumbs>
+      <swiper [config]="thumbs" [(index)]="index">
         <div *ngFor="let thumb of thumbnails">
           <img src="{{thumb | image:'medium'}}">
         </div>
