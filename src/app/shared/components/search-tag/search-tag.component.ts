@@ -19,7 +19,7 @@ export class SearchTagComponent implements OnInit {
   @ViewChild('inputSearch') inputSearch: ElementRef;
   filteredTags: Observable<Tag[]>;
   tagCtrl: FormControl;
-  sort: Sort = { active: 'label', direction: 'asc' };
+  sort: Sort = { active: 'count', direction: 'desc' };
   alreadyExist = false;
 
   faRemove = faTimes;
