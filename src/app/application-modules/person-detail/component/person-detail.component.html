@@ -63,9 +63,9 @@
       </div>
     </div>
     <figure>
-      <label id="person-film">{{'person.films' | translate}}:</label>
-      <div class="d-flex flex-row">
-        <div *ngFor="let known of knownFor" class="d-flex flex-column center">
+      <label id="person-film">{{'person.known_for.detail' | translate}}:</label>
+      <div class="known-for">
+        <div *ngFor="let known of knownFor" class="known-for-detail center">
           <img class="frame pointer mr-auto" src="{{known.affiche | image:'small'}}"
             alt="{{known.title| capitalizeWord}}" appOpenLink [label]="known.title"
             url="{{ known.isMovie ? '/movie/':'/serie/'}}{{known.id}}" matTooltip="{{known.character}}">

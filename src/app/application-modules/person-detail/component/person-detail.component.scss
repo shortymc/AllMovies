@@ -36,6 +36,23 @@ figure {
   }
 }
 
+.known-for {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.known-for-detail {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  & > * {
+    margin: auto;
+  }
+}
+
 @include media(#{$desktop}, false) {
   label,
   .pad-left,
