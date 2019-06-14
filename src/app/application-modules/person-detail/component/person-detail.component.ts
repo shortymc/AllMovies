@@ -127,7 +127,7 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
   }
 
   getKnownFor(data: Data[]): void {
-    this.knownFor = Utils.sortData(data, { active: 'vote_count', direction: 'desc' }).slice(0, 6);
+    this.knownFor = Utils.sortData(data.filter(d => !d.character || d.character.trim() !== ''), { active: 'vote_count', direction: 'desc' }).slice(0, 6);
   }
 
   discover(): void {
