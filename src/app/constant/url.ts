@@ -1,7 +1,9 @@
 export class Url {
   // API MovieDB request
   static readonly API_KEY = 'api_key=81c50d6514fbd578f0c796f8f6ecdafd';
-  static readonly MOVIE_DB_API_URL = 'https://api.themoviedb.org/3/';
+  static readonly MOVIE_DB_API_BASE_URL = 'https://api.themoviedb.org/';
+  static readonly MOVIE_DB_API_URL = Url.MOVIE_DB_API_BASE_URL + '3/';
+  static readonly MOVIE_DB_API_URL_4 = Url.MOVIE_DB_API_BASE_URL + '4/';
   static readonly MOVIE_URl = Url.MOVIE_DB_API_URL + 'movie';
   static readonly SERIE_URl = Url.MOVIE_DB_API_URL + 'tv';
   static readonly PERSON_URL = Url.MOVIE_DB_API_URL + 'person';
@@ -71,4 +73,7 @@ export class Url {
   static readonly GET_ALL_CERTIFICATIONS_URL = Url.MOVIE_DB_API_URL + 'certification/movie/list?';
   static readonly GET_ALL_LANGS_URL = Url.MOVIE_DB_API_URL + 'configuration/languages?';
   static readonly GET_POPULAR_PERSON = Url.MOVIE_DB_API_URL + 'person/popular?' + Url.API_KEY;
+
+  static readonly GET_MOVIE_LISTS = 'lists';
+  static readonly GET_LISTS_DETAILS = Url.MOVIE_DB_API_URL_4 + 'list/';
 }
