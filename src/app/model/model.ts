@@ -40,6 +40,20 @@ export class Genre {
   name: string;
 }
 
+export class List {
+  id: number;
+  name: string;
+  description: string;
+  list_type: 'movie' | 'tv';
+  poster_path: string;
+  item_count: number;
+  favorite_count: number;
+}
+
+export class PaginateList {
+  constructor(public page: number, public results: List[], public total_pages: number, public total_results: number) { }
+}
+
 export class Network {
   id: number;
   name: string;

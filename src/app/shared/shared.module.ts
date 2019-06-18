@@ -70,6 +70,7 @@ import { ImagePipe } from './pipes/image.pipe';
 import { SerieSearchComponent } from './components/serie-search/serie-search.component';
 import { VideosComponent } from './components/videos/videos.component';
 import { CreditListComponent } from './components/credit-list/credit-list.component';
+import { ListService } from './service/list.service';
 
 @NgModule({
   declarations: [
@@ -178,6 +179,7 @@ export class SharedModule {
         LangService,
         DropboxService,
         AuthService,
+        ListService,
         TitleService,
         PersonService,
         MyTagsService,
@@ -220,5 +222,6 @@ export { MenuService } from './service/menu.service';
 export { TabsService } from './service/tabs.service';
 export { SerieService } from './service/serie.service';
 export { MyDatasService } from './service/my-datas.service';
+export { ListService } from './service/list.service';
 export { MyTagsService } from './service/my-tags.service';
 export { MockService } from './service/mock.service';

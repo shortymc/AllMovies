@@ -5,8 +5,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { MovieDetailComponent } from './component/movie-detail.component';
+import { MovieDetailComponent } from './component/movie-detail/movie-detail.component';
 import { SharedModule } from '../../shared/shared.module';
+import { ListsComponent } from './component/lists/lists.component';
 
 const childRoutes: Routes = [
   {
@@ -24,7 +25,7 @@ const childRoutes: Routes = [
     RouterModule.forChild(childRoutes),
   ],
   exports: [MovieDetailComponent],
-  declarations: [MovieDetailComponent],
+  declarations: [MovieDetailComponent, ListsComponent],
   providers: [
     TranslateService
   ]

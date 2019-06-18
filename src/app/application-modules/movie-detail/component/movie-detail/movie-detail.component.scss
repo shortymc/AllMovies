@@ -1,0 +1,44 @@
+@import "../../../../styles/styles";
+@import "../../../../styles/detail";
+
+label {
+  display: inline !important;
+}
+
+.movie-meta {
+  float: left;
+  margin: 20px 10px 0 20px;
+}
+
+.movie-release {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+@include media(#{$desktop}, false) {
+  label,
+  .pad-left {
+    margin-left: 20px !important;
+  }
+
+  label ~ div {
+    display: inline;
+
+    & > span:not(.movie-keyword) {
+      display: table-cell;
+    }
+  }
+
+  .movie-langs,
+  .movie-tags {
+    display: flex !important;
+  }
+}
+
+@include media(#{$smallscreen}) {
+  .movie-genre,
+  .movie-release {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
