@@ -1,3 +1,5 @@
+import { Movie } from "./movie";
+
 export enum Direction {
   Up = 'Up',
   Down = 'Down'
@@ -50,8 +52,21 @@ export class List {
   favorite_count: number;
 }
 
-export class PaginateList {
-  constructor(public page: number, public results: List[], public total_pages: number, public total_results: number) { }
+export class Paginate<T> {
+  constructor(public page: number, public results: T[], public total_pages: number, public total_results: number) { }
+}
+
+export class FullList {
+  id: number;
+  name: string;
+  poster_path: string;
+  description: string;
+  paginate: Paginate<Movie>;
+  lang: string;
+  country: string;
+  average_rating: number;
+  runtime: number;
+  revenue: string;
 }
 
 export class Network {
