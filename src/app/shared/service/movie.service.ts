@@ -25,7 +25,7 @@ export class MovieService {
   ) { }
 
   getPopularMovies(language: string, page: number = 1): Promise<Movie[]> {
-    return this.serviceUtils.getPromise(`${Url.MOST_POPULAR_MOVIE_URL}${Url.LANGUE}${language}&page=${page}`)
+    return this.serviceUtils.getPromise(`${Url.MOST_POPULAR_MOVIE_URL}${Url.LANGUE}${language}${Url.PAGE_URL}${page}`)
       .then(response => MapMovie.mapForPopularMovies(response))
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
