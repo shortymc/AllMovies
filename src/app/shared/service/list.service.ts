@@ -1,4 +1,4 @@
-import { Observable, forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 
@@ -11,6 +11,19 @@ import { UtilsService } from './utils.service';
 export class ListService {
 
   constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
+
+  private static mapLists(resp: any[]): List[] {
+    return resp.map(r => {
+      const list = new List();
+      const keys = Object.keys(r);
+      keys.forEach(key => {
+        r[key] === null ? list[key] = undefined : list[key] = r[key];
+      });
+      return list;
+    }).filter((list: List) =>
+      list.poster_path && list.description.trim() !== ''
+    );
+  }
 
   getDataLists(dataId: number, language: string): Promise<List[]> {
     const url = `${Url.MOVIE_URl}/${dataId}/${Url.GET_MOVIE_LISTS}?${Url.API_KEY}${Url.LANGUE}${language}`;
@@ -29,7 +42,7 @@ export class ListService {
           }
           const obs = [];
           for (let page = 2; page < lists.total_pages; page++) {
-            obs.push(this.serviceUtils.getPromise(url + '&page=' + page, this.serviceUtils.getHeaders()))
+            obs.push(this.serviceUtils.getPromise(url + '&page=' + page, this.serviceUtils.getHeaders()));
           }
           try {
             return forkJoin(obs).toPromise().then((data: any[]) => {
@@ -43,22 +56,4 @@ export class ListService {
         }
       });
   }
-
-  private static mapLists(resp: any[]): List[] {
-    return resp.map(r => {
-      const list = new List();
-      const keys = Object.keys(r);
-      keys.forEach(key => {
-        if (r[key] === null) {
-          list[key] = undefined;
-        } else {
-          list[key] = r[key];
-        }
-      });
-      return list;
-    }).filter((list: List) =>
-      list.poster_path && list.description.trim() !== ''
-    );
-  }
-
 }

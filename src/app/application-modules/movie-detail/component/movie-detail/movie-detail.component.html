@@ -138,18 +138,7 @@
     <!-- Videos -->
     <app-videos [videos]="movie.videos" *ngIf="config.video"></app-videos>
     <!-- Lists -->
-    <div>
-      <label>{{'global.lists' | translate}}: </label>
-      <button class="btn btn-outline-primary small-btn" *ngIf="!showLists" (click)="getLists()">
-        <fa-icon [icon]="faPlus" size="xs"></fa-icon>
-      </button>
-      <button class="btn btn-outline-primary small-btn" *ngIf="showLists" (click)="showLists = false">
-        <fa-icon [icon]="faMinus" size="xs"></fa-icon>
-      </button>
-      <div *ngIf="showLists">
-        <app-lists [lists]="lists"></app-lists>
-      </div>
-    </div>
+    <app-lists class="pad-left" [id]="id"></app-lists>
   </div>
   <div class="media-content">
     <!-- recommendations -->
