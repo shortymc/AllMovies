@@ -198,4 +198,26 @@ export class MapMovie {
       isMovie: true
     });
   }
+
+  static mapForList(resp: any): Movie[] {
+    return resp.map((r: any) => <Movie>({
+      affiche: r.poster_path,
+      adult: r.adult,
+      overview: r.overview,
+      date: r.release_date,
+      original_title: Utils.getTitle(r),
+      genres: r.genre_ids.map(g => {
+        const genre = new Genre();
+        genre.id = g;
+        return genre;
+      }),
+      id: r.id,
+      language: r.original_language,
+      title: r.title,
+      popularity: r.popularity,
+      vote_count: r.vote_count,
+      videos: r.video,
+      vote: r.vote_average,
+    }));
+  }
 }
