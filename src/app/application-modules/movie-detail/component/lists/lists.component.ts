@@ -7,6 +7,7 @@ import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 import { Constants } from './../../../../constant/constants';
 import { Utils } from './../../../../shared/utils';
+import { ListService } from './../../../../shared/shared.module';
 import { List } from './../../../../model/model';
 
 @Component({
@@ -15,10 +16,11 @@ import { List } from './../../../../model/model';
   styleUrls: ['./lists.component.scss']
 })
 export class ListsComponent implements OnInit, OnChanges {
-  @Input()
-  lists: List[] = [];
+  @Input() id: number;
   overviewId: number;
   overview: string;
+  showLists = false;
+  lists: List[] = [];
   swiperConfig: SwiperConfigInterface = {
     a11y: true,
     keyboard: true,
@@ -38,7 +40,8 @@ export class ListsComponent implements OnInit, OnChanges {
     private breakpointObserver: BreakpointObserver,
     public translate: TranslateService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private listService: ListService,
   ) { }
 
   ngOnInit(): void {
@@ -57,8 +60,21 @@ export class ListsComponent implements OnInit, OnChanges {
       });
   }
 
+  getLists(): void {
+    this.showLists = false;
+    this.listService.getDataLists(this.id, this.translate.currentLang).then((lists: List[]) => {
+      this.showLists = true;
+      console.log('list', lists);
+      this.lists = lists.sort((a, b) => Utils.compare(a.id, b.id, true));
+    });
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
-    this.lists = changes.lists ? changes.lists.currentValue.sort((a, b) => Utils.compare(a.id, b.id, true)) : undefined;
+    if (changes.id) {
+      this.id = changes.id.currentValue;
+      this.showLists = false;
+      this.lists = [];
+    }
   }
 
   goToListDetail(list: number): void {

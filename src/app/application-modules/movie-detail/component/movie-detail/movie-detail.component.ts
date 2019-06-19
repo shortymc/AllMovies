@@ -2,15 +2,15 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { combineLatest, Subject } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { Location } from '@angular/common';
-import { faChevronCircleLeft, faImage, faChevronCircleRight, faPlus, faMinus, faAtom } from '@fortawesome/free-solid-svg-icons';
+import { faChevronCircleLeft, faImage, faChevronCircleRight, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
-import { TitleService, MenuService, MyDatasService, MyTagsService, TabsService, MovieService, ListService } from './../../../../shared/shared.module';
+import { TitleService, MenuService, MyDatasService, MyTagsService, TabsService, MovieService } from './../../../../shared/shared.module';
 import { Tag } from './../../../../model/tag';
 import { DuckDuckGo } from './../../../../constant/duck-duck-go';
 import { Movie } from '../../../../model/movie';
-import { List, Keyword, Genre, DetailConfig } from '../../../../model/model';
+import { Keyword, Genre, DetailConfig } from '../../../../model/model';
 
 @Component({
   selector: 'app-movie-detail',
@@ -27,8 +27,6 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
   isImagesVisible = false;
   isDetail: boolean;
   showTitles = false;
-  showLists = false;
-  lists: List[] = [];
   Url = DuckDuckGo;
   subs = [];
 
@@ -37,7 +35,6 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
   faImage = faImage;
   faPlus = faPlus;
   faMinus = faMinus;
-  faAtom = faAtom;
 
   constructor(
     private movieService: MovieService,
@@ -49,8 +46,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
     public tabsService: TabsService,
     private menuService: MenuService,
     private myTagsService: MyTagsService,
-    private myDatasService: MyDatasService<Movie>,
-    private listService: ListService,
+    private myDatasService: MyDatasService<Movie>
   ) { }
 
   ngOnInit(): void {
@@ -117,15 +113,6 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
     if (back === undefined) {
       this.router.navigate(['/']);
     }
-  }
-
-  getLists(): void {
-    this.showLists = false;
-    this.listService.getDataLists(this.id, this.translate.currentLang).then((lists: List[]) => {
-      this.showLists = true;
-      console.log('list', lists);
-      this.lists = lists;
-    });
   }
 
   ngOnDestroy(): void {
