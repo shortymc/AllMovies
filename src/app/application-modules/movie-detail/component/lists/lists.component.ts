@@ -77,19 +77,7 @@ export class ListsComponent implements OnInit, OnChanges {
     }
   }
 
-  goToListDetail(list: number): void {
-    // sessionStorage.setItem('serie', this.serie);
-    // sessionStorage.setItem('list_max', '' + this.lists.length);
-    // this.router.navigate(['./' + list], { relativeTo: this.route });
-  }
-
-  setOverview(list: List): void {
-    // if (!this.overviewId || !this.overview || (this.overviewId !== list.id && this.overview !== list.overview)) {
-    //   this.overview = list.overview;
-    //   this.overviewId = list.id;
-    // } else {
-    //   this.overviewId = undefined;
-    //   this.overview = undefined;
-    // }
+  goToListDetail(id: number): void {
+    this.router.navigate(['list/' + id]);
   }
 }

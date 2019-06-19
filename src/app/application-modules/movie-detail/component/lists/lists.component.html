@@ -11,16 +11,14 @@
     <swiper [config]="swiperConfig">
       <div *ngFor="let list of lists">
         <div class="list-slide">
-          <img class="list-poster" [src]="list.poster_path | image:'small'" (click)="setOverview(list)"
-            [ngClass]="{'pointer': list.overview}" />
+          <img class="list-poster" [src]="list.poster_path | image:'small'" />
           <p [matTooltip]="list.description">{{list.name}} ({{list.item_count}}) - {{list.description | truncate:30}}
           </p>
-          <button class="btn btn-outline-primary small-btn" (click)="goToSeasonDetail(list.listNumber)">
+          <button class="btn btn-outline-primary small-btn" (click)="goToListDetail(list.listNumber)">
             <fa-icon [icon]="faChevronCircleRight" size="xs"></fa-icon>
           </button>
         </div>
       </div>
     </swiper>
   </div>
-  <ng-container *ngIf="overview">{{overview}}</ng-container>
 </ng-container>
