@@ -32,7 +32,7 @@ export class PersonService {
   }
 
   getPopularPersons(language: string, page: number = 1): Promise<Person[]> {
-    return this.serviceUtils.getPromise(`${Url.GET_POPULAR_PERSON}${Url.LANGUE}${language}&page=${page}`)
+    return this.serviceUtils.getPromise(`${Url.GET_POPULAR_PERSON}${Url.LANGUE}${language}${Url.PAGE_URL}${page}`)
       .then((response: any) => response.results.map(res => MapPerson.mapForPerson(res)))
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
