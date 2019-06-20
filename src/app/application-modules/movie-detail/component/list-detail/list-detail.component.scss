@@ -1,0 +1,80 @@
+@import "../../../../styles/styles";
+
+.params {
+  display: flex !important;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  & > *:not(button) {
+    padding: 0 10px 0 10px;
+  }
+}
+
+.mat-line {
+    margin-left: 85px !important;
+    margin-bottom: 2px !important;
+}
+
+.mat-button-toggle,
+.toogleHeader {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.mat-paginator {
+    display: flex;
+    justify-content: center;
+}
+
+.selected {
+    background-color: $light_gray;
+}
+
+.result-list {
+    width: calc(50vw + 20px);
+    margin-left: 25vw;
+
+    & img {
+        position: absolute;
+        float: left;
+        height: 100px;
+        border: 3px solid $black;
+        box-shadow: 4px 6px 15px #000;
+    }
+}
+
+.result-title {
+    color: $blue;
+    text-decoration: underline;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.result-checkbox {
+    position: absolute;
+    right: 10px;
+}
+
+@include media(#{$smallscreen}) {
+    .result-list {
+        width: 100vw;
+        margin-left: 0;
+
+        & img {
+            height: 25vw;
+            max-height: 100px;
+        }
+    }
+
+    .mat-line {
+        margin-bottom: 1vw !important;
+    }
+
+    /* stylelint-disable selector-pseudo-element-no-unknown */
+    ::ng-deep.mat-list-item-content {
+        padding: 0 0 8px 16px !important;
+    }
+}
