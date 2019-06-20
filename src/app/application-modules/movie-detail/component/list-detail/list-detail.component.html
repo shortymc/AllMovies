@@ -1,0 +1,59 @@
+<div class="params">
+  <!-- Sort field -->
+  <mat-form-field>
+    <mat-select placeholder="{{'global.sort' | translate}}" [(value)]="sortChosen"
+      (selectionChange)="query(page.pageIndex, $event.value.value, sortDir.value)">
+      <mat-option *ngFor="let sort of sortChoices" [value]="sort">{{sort.label_key | translate}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- Sort direction -->
+  <mat-button-toggle-group #sortDir="matButtonToggleGroup"
+    (change)="query(page.pageIndex, sortChosen.value, $event.value)">
+    <div class="toogleHeader">{{'global.sort_direction'|translate}}:</div>
+    <mat-button-toggle value="asc">
+      {{'global.sort_up'|translate}}
+    </mat-button-toggle>
+    <mat-button-toggle value="desc">
+      {{'global.sort_down'|translate}}
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+  <!-- Add to Collection Btn -->
+  <button type="button" class="btn btn-outline-primary" *ngIf="nbChecked > 0" appAddCollection
+    [datas]="list.paginate.results" [label]="'global.add_collection'" [isSingleData]="false" [isMovie]="true">
+  </button>
+</div>
+
+<!-- Result list -->
+<mat-list dense *ngIf="list" class="result-list">
+  <mat-paginator class="mat-elevation-z4" [length]="list.paginate.total_results" [pageIndex]="page.pageIndex"
+    [pageSize]="20" (page)="page = $event; query(page.pageIndex, sortChosen.value, sortDir.value);"
+    [showFirstLastButtons]="true">
+  </mat-paginator>
+  <h3 mat-subheader>{{'list.result'|translate}}:</h3>
+  <mat-list-item *ngFor="let movie of list.paginate.results"
+    [ngClass]="{'selected':movie.checked, 'adult': movie.adult}">
+    <img src="{{movie.affiche | image:'small'}}" />
+    <p matLine appOpenLink [label]="movie.title" url="'/movie/'+{{movie.id}}" class="result-title">{{movie.title}}</p>
+    <p matLine>{{movie.original_title}}</p>
+    <p matLine>{{movie.language | uppercase}}</p>
+    <p matLine>{{ movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang |
+        capitalizeWord}}</p>
+    <p matLine>
+      <span>{{movie.vote}} / 10 </span>
+      <span>({{movie.vote_count}})</span>
+      <span> - {{movie.popularity | number:'1.0-2':translate.currentLang}}</span>
+    </p>
+    <p matLine *ngIf="(genresLoaded$ | async)">
+      <span class="block" *ngIf="movie.genres && movie.genres.length > 0">
+        <span *ngFor="let genre of movie.genres; let last=last;">
+          <span>{{getGenre(genre.id)|capitalizeWord}}</span>
+          <span *ngIf="!last">/</span>
+        </span>
+      </span>
+    </p>
+    <mat-checkbox class="result-checkbox" [(ngModel)]="movie.checked" (change)="updateSize()"></mat-checkbox>
+  </mat-list-item>
+  <mat-paginator class="mat-elevation-z4" [length]="list.total_results" [pageIndex]="page.pageIndex" [pageSize]="20"
+    (page)="page = $event; query();" [showFirstLastButtons]="true">
+  </mat-paginator>
+</mat-list>

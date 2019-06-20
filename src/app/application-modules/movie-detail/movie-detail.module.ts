@@ -4,15 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatListModule, MatPaginatorModule, MatSelectModule, MatPaginatorIntl, MatButtonToggleModule, MatCheckboxModule } from '@angular/material';
 
 import { MovieDetailComponent } from './component/movie-detail/movie-detail.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ListsComponent } from './component/lists/lists.component';
+import { ListDetailComponent } from './component/list-detail/list-detail.component';
+import { MyPaginator } from '../../shared/my-paginator';
 
 const childRoutes: Routes = [
-  {
-    path: ':id', component: MovieDetailComponent
-  },
+  { path: ':id', component: MovieDetailComponent },
+  { path: 'list/:id', component: ListDetailComponent }
 ];
 
 @NgModule({
@@ -23,11 +25,20 @@ const childRoutes: Routes = [
     FontAwesomeModule,
     TranslateModule.forChild(),
     RouterModule.forChild(childRoutes),
+    MatListModule,
+    MatButtonToggleModule,
+    MatCheckboxModule,
+    MatPaginatorModule,
+    MatSelectModule,
   ],
   exports: [MovieDetailComponent],
-  declarations: [MovieDetailComponent, ListsComponent],
+  declarations: [MovieDetailComponent, ListsComponent, ListDetailComponent],
   providers: [
-    TranslateService
+    TranslateService,
+    {
+      provide: MatPaginatorIntl, useFactory: (translate: TranslateService): MyPaginator => new MyPaginator(translate, 'movies'),
+      deps: [TranslateService]
+    }
   ]
 })
 export class MovieDetailModule { }

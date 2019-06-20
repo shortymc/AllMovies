@@ -45,9 +45,10 @@ export class ListService {
       });
   }
 
-  getListDetail(id: number, language: string, page: number = 1): Promise<FullList> {
-    return this.serviceUtils.getPromise(`${Url.GET_LISTS_DETAILS}${id}?${Url.API_KEY}${Url.LANGUE}${language}${Url.PAGE_URL}${page}&original_order.desc`)
-      .then((response: any) => response.results.map(res => MapList.mapFullList(res)))
+  getListDetail(id: number, language: string, sort: string, page: number = 1): Promise<FullList> {
+    return this.serviceUtils.getPromise(
+      `${Url.GET_LISTS_DETAILS}${id}?${Url.API_KEY}${Url.LANGUE}${language}${Url.PAGE_URL}${page}${Url.SORT_BY_URL}${sort}`)
+      .then((response: any) => MapList.mapFullList(response))
       .catch((err) => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 }
