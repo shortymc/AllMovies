@@ -1,4 +1,4 @@
-<label>{{'global.lists' | translate}} <ng-container *ngIf="showLists && lists">({{lists.length}})</ng-container>:
+<label>{{'global.list' | translate}}s <ng-container *ngIf="showLists && lists">({{lists.length}})</ng-container>:
 </label>
 <button class="btn btn-outline-primary small-btn" *ngIf="!showLists || !lists" (click)="getLists()">
   <fa-icon [icon]="faPlus" size="xs"></fa-icon>

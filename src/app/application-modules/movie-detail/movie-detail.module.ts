@@ -36,7 +36,7 @@ const childRoutes: Routes = [
   providers: [
     TranslateService,
     {
-      provide: MatPaginatorIntl, useFactory: (translate: TranslateService): MyPaginator => new MyPaginator(translate, 'movies'),
+      provide: MatPaginatorIntl, useFactory: (translate: TranslateService): MyPaginator => new MyPaginator(translate, 'datas'),
       deps: [TranslateService]
     }
   ]
