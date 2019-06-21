@@ -26,13 +26,6 @@
   text-align: center;
 }
 
-/* stylelint-disable selector-pseudo-element-no-unknown */
-/* stylelint-disable selector-type-no-unknown */
-.detail-poster ::ng-deep.frame-viewer {
-  height: 100% !important;
-  margin: 20px !important;
-}
-
 .break-word {
   word-break: break-word;
 }
