@@ -1,18 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { PageEvent } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject, combineLatest } from 'rxjs';
 
 import { FullList, DropDownChoice, Genre } from '../../../../model/model';
 import { ListService, TitleService, GenreService } from '../../../../shared/shared.module';
-import { BehaviorSubject, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-list-detail',
   templateUrl: './list-detail.component.html',
   styleUrls: ['./list-detail.component.scss']
 })
-export class ListDetailComponent implements OnInit {
+export class ListDetailComponent implements OnInit, OnDestroy {
   @ViewChild('sortDir') sortDir: any;
   id: number;
   list: FullList;
@@ -33,7 +33,7 @@ export class ListDetailComponent implements OnInit {
     private router: Router,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.sortChoices = [new DropDownChoice('list.sort_field.original_order', 'original_order'),
     new DropDownChoice('list.sort_field.release_date', 'release_date'), new DropDownChoice('list.sort_field.vote_average', 'vote_average'),
     new DropDownChoice('list.sort_field.title', 'title')];

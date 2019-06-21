@@ -1,7 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { faPlus, faMinus, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
@@ -39,8 +38,6 @@ export class ListsComponent implements OnInit, OnChanges {
   constructor(
     private breakpointObserver: BreakpointObserver,
     public translate: TranslateService,
-    private router: Router,
-    private route: ActivatedRoute,
     private listService: ListService,
   ) { }
 

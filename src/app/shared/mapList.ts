@@ -1,4 +1,3 @@
-import { Utils } from './utils';
 import { List, FullList, Paginate } from '../model/model';
 import { MapMovie } from './mapMovie';
 
