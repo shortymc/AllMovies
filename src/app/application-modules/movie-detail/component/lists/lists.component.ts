@@ -76,8 +76,4 @@ export class ListsComponent implements OnInit, OnChanges {
       this.lists = [];
     }
   }
-
-  goToListDetail(id: number): void {
-    this.router.navigateByUrl('/movie/list/' + id);
-  }
 }
