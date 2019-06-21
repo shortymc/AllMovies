@@ -1,5 +1,17 @@
 @import "../../../../styles/styles";
 
+.header {
+    max-width: 90vw;
+
+    &::ng-deep.frame-viewer {
+        height: 154px !important;
+    }
+
+    & .mat-line {
+        margin-left: 0 !important;
+    }
+}
+
 .params {
   display: flex !important;
   justify-content: center;
@@ -34,14 +46,14 @@
 .result-list {
     width: calc(50vw + 20px);
     margin-left: 25vw;
+}
 
-    & img {
-        position: absolute;
-        float: left;
-        height: 100px;
-        border: 3px solid $black;
-        box-shadow: 4px 6px 15px #000;
-    }
+.poster {
+    position: absolute;
+    float: left;
+    height: 100px;
+    border: 3px solid $black;
+    box-shadow: 4px 6px 15px #000;
 }
 
 .result-title {
@@ -62,11 +74,11 @@
     .result-list {
         width: 100vw;
         margin-left: 0;
+    }
 
-        & img {
-            height: 25vw;
-            max-height: 100px;
-        }
+    .poster {
+        height: 25vw;
+        max-height: 100px;
     }
 
     .mat-line {

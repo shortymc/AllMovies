@@ -1,14 +1,25 @@
+<div class="params header">
+  <app-image-viewer [images]="list.poster_path" [thumbnails]="list.poster_path" [visible]="true"></app-image-viewer>
+  <mat-list-item>
+    <h4 matLine>{{list.name}}</h4>
+    <!-- <img class="poster" src="{{list.poster_path | image:'small'}}" /> -->
+    <p matLine>{{list.description}}</p>
+    <p matLine>{{list.lang}} - {{list.country}}</p>
+    <p matLine>{{list.average_rating|number:'1.0-2':translate.currentLang}}/10</p>
+    <p matLine>{{list.runtime | convertToHHmm:'false'}}</p>
+    <p matLine>{{list.revenue | currency:'USD':'':'1.0-0':translate.currentLang}}</p>
+  </mat-list-item>
+</div>
 <div class="params">
   <!-- Sort field -->
   <mat-form-field>
     <mat-select placeholder="{{'global.sort' | translate}}" [(value)]="sortChosen"
-      (selectionChange)="query(page.pageIndex, $event.value.value, sortDir.value)">
+      (selectionChange)="query(0, $event.value.value, sortDir.value)">
       <mat-option *ngFor="let sort of sortChoices" [value]="sort">{{sort.label_key | translate}}</mat-option>
     </mat-select>
   </mat-form-field>
   <!-- Sort direction -->
-  <mat-button-toggle-group #sortDir="matButtonToggleGroup"
-    (change)="query(page.pageIndex, sortChosen.value, $event.value)">
+  <mat-button-toggle-group #sortDir="matButtonToggleGroup" (change)="query(0, sortChosen.value, $event.value)">
     <div class="toogleHeader">{{'global.sort_direction'|translate}}:</div>
     <mat-button-toggle value="asc">
       {{'global.sort_up'|translate}}
@@ -29,15 +40,13 @@
     [pageSize]="20" (page)="page = $event; query(page.pageIndex, sortChosen.value, sortDir.value);"
     [showFirstLastButtons]="true">
   </mat-paginator>
-  <h3 mat-subheader>{{'list.result'|translate}}:</h3>
   <mat-list-item *ngFor="let movie of list.paginate.results"
     [ngClass]="{'selected':movie.checked, 'adult': movie.adult}">
-    <img src="{{movie.affiche | image:'small'}}" />
-    <p matLine appOpenLink [label]="movie.title" url="'/movie/'+{{movie.id}}" class="result-title">{{movie.title}}</p>
+    <img class="poster" src="{{movie.affiche | image:'small'}}" />
+    <p matLine appOpenLink [label]="movie.title" url="/movie/{{movie.id}}" class="result-title">{{movie.title}}</p>
     <p matLine>{{movie.original_title}}</p>
     <p matLine>{{movie.language | uppercase}}</p>
-    <p matLine>{{ movie.date | date:'EEEE dd MMMM yyyy':'':translate.currentLang |
-        capitalizeWord}}</p>
+    <p matLine>{{ movie.date | date:'dd MMMM yyyy'}}</p>
     <p matLine>
       <span>{{movie.vote}} / 10 </span>
       <span>({{movie.vote_count}})</span>
