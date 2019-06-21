@@ -28,6 +28,7 @@
         "reco": "You should also like",
         "similar": "Similar",
         "overview": "Overview",
+        "list": "List",
         "alternative_title": "Alternative Titles",
         "country": "Country",
         "languages": "Languages",
@@ -350,5 +351,13 @@
         "previous": "Previous season",
         "next": "Next season",
         "go_back": "Returns to the serie"
+    },
+    "list": {
+        "sort_field": {
+            "original_order": "Original order",
+            "release_date": "Release date",
+            "vote_average": "Vote average",
+            "title": "Title"
+        }
     }
 }

@@ -28,6 +28,7 @@
         "reco": "Vous aimerez aussi",
         "similar": "Similaires",
         "overview": "Synopsis",
+        "list": "Liste",
         "alternative_title": "Titres Alternatif",
         "country": "Pays",
         "languages": "Langues",
@@ -350,5 +351,13 @@
         "previous": "Saison précedente",
         "next": "Saison suivante",
         "go_back": "Retourner à la série"
+    },
+    "list": {
+        "sort_field": {
+            "original_order": "Ordre original",
+            "release_date": "Date de sortie",
+            "vote_average": "Note",
+            "title": "Titre"
+        }
     }
 }
