@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { FullList, DropDownChoice, Genre } from '../../../../model/model';
 import { ListService, TitleService, GenreService } from '../../../../shared/shared.module';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-list-detail',
@@ -34,24 +34,21 @@ export class ListDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.title.setTitle('title.list');
     this.sortChoices = [new DropDownChoice('list.sort_field.original_order', 'original_order'),
     new DropDownChoice('list.sort_field.release_date', 'release_date'), new DropDownChoice('list.sort_field.vote_average', 'vote_average'),
     new DropDownChoice('list.sort_field.title', 'title')];
-    this.id = +this.route.snapshot.paramMap.get('id');
     this.getAllGenres();
     this.subs.push(this.translate.onLangChange.subscribe(() => {
-      console.log('trd');
       this.getAllGenres();
-      // this.search();
+      this.search();
     }));
     // Stored params
-    this.subs.push(this.route.queryParams.subscribe(
-      params => {
-        console.log('params', params);
+    this.subs.push(combineLatest(this.route.queryParams, this.route.paramMap).subscribe(
+      ([params, paramMap]) => {
+        this.id = +paramMap.get('id');
         this.nbChecked = 0;
         this.sortChosen = this.sortChoices.find(choice => choice.value === (params.sortField ? params.sortField : 'original_order'));
-        this.sortDir.value = params.sortDir ? params.sortDir : 'desc';
+        this.sortDir.value = params.sortDir ? params.sortDir : 'asc';
         this.page = new PageEvent();
         this.page.pageIndex = params.page ? params.page : 0;
         this.search();
@@ -59,7 +56,6 @@ export class ListDetailComponent implements OnInit {
   }
 
   search(): void {
-    console.log('search');
     this.listService.getListDetail(this.id, this.translate.currentLang, this.sortChosen.value + '.' + this.sortDir.value, +this.page.pageIndex + 1)
       .then(result => {
         this.list = result;
@@ -68,8 +64,6 @@ export class ListDetailComponent implements OnInit {
   }
 
   query(page: number, sortField: string, sortDir: string): void {
-    console.log(sortField);
-    console.log(sortDir);
     this.router.navigate(['.'], {
       relativeTo: this.route,
       queryParams: {
@@ -79,7 +73,7 @@ export class ListDetailComponent implements OnInit {
   }
 
   updateSize(): void {
-    // this.nbChecked = this.discover.datas.filter(d => d.checked).length;
+    this.nbChecked = this.list.paginate.results.filter(d => d.checked).length;
   }
 
   getAllGenres(): void {
