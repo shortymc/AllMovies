@@ -1,6 +1,6 @@
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable, of, merge } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, flatMap, delay } from 'rxjs/operators';
 
 import { Url } from './../../constant/url';
 import { Paginate, List, FullList } from './../../model/model';
@@ -10,6 +10,8 @@ import { MapList } from '../mapList';
 
 @Injectable()
 export class ListService {
+
+  static readonly PAGES_BY = 19;
 
   constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 
@@ -24,25 +26,40 @@ export class ListService {
       .toPromise()
       .then((lists: Paginate<List>) => {
         if (lists.total_pages > 1) {
-          if (lists.total_pages >= 20) {
-            console.log('Too many pages');
-            lists.total_pages = 20;
+          const max = Math.floor(lists.total_pages / ListService.PAGES_BY);
+          let obs: Observable<number> = of(0);
+          for (let index = 1; index <= max; index++) {
+            obs = merge(obs, of(index).pipe(delay(10000 * index)));
           }
-          const obs = [];
-          for (let page = 2; page < lists.total_pages; page++) {
-            obs.push(this.serviceUtils.getPromise(`${url}${Url.PAGE_URL}${page}`, this.serviceUtils.getHeaders()));
-          }
-          try {
-            return forkJoin(obs).toPromise().then((data: any[]) => {
-              return lists.results.concat(...data.map(d => MapList.mapLists(d.results)));
-            });
-          } catch (err) {
-            console.error(err);
-          }
-        } else {
-          return lists.results;
+
+          const result: List[] = [];
+          return obs.pipe(
+            flatMap((x: number) => this.getPages(x, lists.total_pages, url)),
+            map(data => {
+              result.push(...data);
+              return result;
+            }),
+            catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast))
+          ).toPromise();
         }
       });
+  }
+
+  getPages(index: number, total_pages: number, url: string): Observable<List[]> {
+    const result: List[] = [];
+    const obs = [];
+    for (let page = 1 + index * ListService.PAGES_BY; page <= (index + 1) * ListService.PAGES_BY; page++) {
+      if (page < total_pages) {
+        obs.push(this.serviceUtils.getPromise(`${url}${Url.PAGE_URL}${page}`, this.serviceUtils.getHeaders()));
+      }
+    }
+    try {
+      return forkJoin(obs).pipe(map((data: any[]) => {
+        return result.concat(...data.map(d => MapList.mapLists(d.results)));
+      }));
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   getListDetail(id: number, language: string, sort: string, page: number = 1): Promise<FullList> {
