@@ -25,7 +25,7 @@ export class ListDetailComponent implements OnInit, OnDestroy {
   subs = [];
 
   constructor(
-    private translate: TranslateService,
+    public translate: TranslateService,
     private listService: ListService,
     private genreService: GenreService,
     private route: ActivatedRoute,
