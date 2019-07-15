@@ -14,7 +14,7 @@ IF /i "%answer%"=="1" (
 	call yarn build
 	goto debut
 ) else IF /i "%answer%"=="5" (
-	call http-server .\dist -o
+	call live-server dist
 ) else (
  goto debut
 )
