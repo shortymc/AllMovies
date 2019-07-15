@@ -56,7 +56,7 @@
     "popper.js": "^1.14.5",
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.4.0",
-    "yarn": "^1.12.3",
+    "yarn": "^1.16.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
