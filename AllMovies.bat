@@ -11,6 +11,7 @@ IF /i "%answer%"=="1" (
 	call "AllMovies - Update.bat"
 	goto debut
 ) else IF /i "%answer%"=="4" (
+	call yarn
 	call yarn build
 	goto debut
 ) else IF /i "%answer%"=="5" (
