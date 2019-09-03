@@ -143,6 +143,8 @@ export class AddCollectionDirective<T extends Data> implements OnInit, OnChanges
     const confFr = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, 'fr');
     const confEn = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, 'en');
     datasToAdd.forEach(data => {
+      const confFr = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, false, 'fr');
+      const confEn = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, false, 'en');
       if (this.isMovie) {
         prom.push(this.movieService.getMovie(data.id, confFr, false));
         prom.push(this.movieService.getMovie(data.id, confEn, false));

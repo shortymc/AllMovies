@@ -6,11 +6,12 @@ import { combineLatest } from 'rxjs';
 import { Location } from '@angular/common';
 import { faChevronCircleLeft, faImage, faChevronCircleRight, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
-import { TitleService, MenuService, MyDatasService, MyTagsService, TabsService, MovieService } from './../../../../shared/shared.module';
+import { TitleService, MenuService, MyDatasService, MyTagsService, TabsService, MovieService, ListService } from './../../../../shared/shared.module';
 import { Tag } from './../../../../model/tag';
 import { DuckDuckGo } from './../../../../constant/duck-duck-go';
 import { Movie } from '../../../../model/movie';
 import { Keyword, Genre, DetailConfig } from '../../../../model/model';
+import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-movie-detail',
@@ -27,7 +28,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
   isImagesVisible = false;
   isDetail: boolean;
   showTitles = false;
-  sc: string;
+  progressRef: NgProgressRef;
   Url = DuckDuckGo;
   subs = [];
 
@@ -47,7 +48,8 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
     public tabsService: TabsService,
     private menuService: MenuService,
     private myTagsService: MyTagsService,
-    private myDatasService: MyDatasService<Movie>
+    private myDatasService: MyDatasService<Movie>,
+    private progress: NgProgress
   ) { }
 
   ngOnInit(): void {
@@ -65,6 +67,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
       this.config.lang = event.lang;
       this.getMovie(this.id);
     }));
+    this.progressRef = this.progress.ref('progressBar');
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -79,7 +82,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
     if (this.id && this.id !== 0) {
       this.loaded.emit(false);
       this.config = this.config === undefined ?
-        new DetailConfig(true, true, true, true, true, true, true, true, false, this.translate.currentLang) : this.config;
+        new DetailConfig(true, true, true, true, true, true, true, true, false, true, this.translate.currentLang) : this.config;
       this.movieService.getMovie(id, this.config, true).then((movie) => {
         this.movie = movie;
         this.loaded.emit(true);
@@ -107,6 +110,25 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   redirectKeywordToDiscover(keyword: Keyword): void {
     this.router.navigate(['discover'], { queryParams: { keyword: JSON.stringify([keyword.id]) } });
+  }
+
+  onLoadingList(loading: boolean) {
+    if (loading) {
+      this.progressRef.start();
+      const max = Math.floor(this.movie.list_count / ListService.PAGES_BY);
+      if (max > 1) {
+        const duration = (max - 1) * 10000 + 2000;
+        let remaining = duration;
+        setInterval(() => {
+          if (remaining > 0) {
+            remaining--;
+            this.progressRef.set(100 * remaining / duration);
+          }
+        }, remaining / 100);
+      }
+    } else {
+      this.progressRef.complete();
+    }
   }
 
   goBack(): void {

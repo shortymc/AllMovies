@@ -127,6 +127,6 @@ export class AlternativeTitle {
 
 export class DetailConfig {
   constructor(public img?: boolean, public credit?: boolean, public similar?: boolean, public keywords?: boolean, public video?: boolean,
-    public reco?: boolean, public release?: boolean, public titles?: boolean, public external?: boolean, public lang?: string) {
+    public reco?: boolean, public release?: boolean, public titles?: boolean, public external?: boolean, public list?: boolean, public lang?: string) {
   }
 }

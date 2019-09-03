@@ -52,7 +52,7 @@ export class SerieDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     sessionStorage.removeItem('serie');
     sessionStorage.removeItem('season_max');
-    this.config = new DetailConfig(true, true, true, true, true, true, true, true, true, this.translate.currentLang);
+    this.config = new DetailConfig(true, true, true, true, true, true, true, true, true, false, this.translate.currentLang);
     this.subs.push(this.route.paramMap.subscribe((params: ParamMap) => {
       if (params) {
         const idParam = +params.get('id');

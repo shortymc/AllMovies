@@ -33,13 +33,13 @@ export class SerieService {
 
   getSerie(id: number, config: DetailConfig, detail: boolean): Promise<Serie> {
     return this.serviceUtils.getPromise(UrlBuilder.detailUrlBuilder(false, id, config.video, config.credit, config.reco, config.release,
-      config.keywords, config.similar, config.img, config.titles, config.external, config.lang))
+      config.keywords, config.similar, config.img, config.titles, config.external, false, config.lang))
       .then(response => {
         const serie = MapSerie.mapForSerie(response);
         serie.lang_version = config.lang;
         if (detail && (!serie.overview || (!serie.videos && config.video) || !serie.original_title)) {
           return this.getSerie(id,
-            new DetailConfig(false, false, false, false, config.video, false, false, false, false, 'en'), false).then(enSerie => {
+            new DetailConfig(false, false, false, false, config.video, false, false, false, false, false, 'en'), false).then(enSerie => {
               serie.overview = Utils.isBlank(serie.overview) ? enSerie.overview : serie.overview;
               serie.videos = serie.videos && serie.videos.length > 0 ? serie.videos : enSerie.videos;
               serie.original_title = Utils.isBlank(serie.original_title) ? enSerie.overview : serie.original_title;

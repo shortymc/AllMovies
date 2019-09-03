@@ -1,7 +1,7 @@
 /* tslint:disable:no-string-literal */
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import { forkJoin, BehaviorSubject, Observable } from 'rxjs';
+import { forkJoin, BehaviorSubject } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Sort } from '@angular/material/sort';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -21,9 +21,7 @@ import { Serie } from './../../../../model/serie';
 import { Movie } from './../../../../model/movie';
 import { Tag, TagData } from '../../../../model/tag';
 import { Data } from '../../../../model/data';
-import { Genre, DetailConfig, Level, ImageSize } from '../../../../model/model';
-import { DatasConstants } from './datas.constants';
-import { ImagePipe } from '../../../../shared/pipes/image.pipe';
+import { Genre, DetailConfig, Level } from '../../../../model/model';
 
 library.add(faClock);
 library.add(faTimesCircle);
@@ -41,7 +39,6 @@ library.add(faTimesCircle);
   ]
 })
 export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
-  imageSize = ImageSize;
   init_columns: string[];
   medium_columns: string[];
   mobile_columns: string[];
@@ -54,15 +51,13 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   maxRuntime = 1;
   runtimeRange: any[] = [0, 1];
   formatter: NouiFormatter;
-  displayedData: T[] = [];
+  displayedData: T[];
   filter: string;
-  pageSize: number;
-  pageIndex: number;
+  pageSize;
+  pageIndex;
   pageSizeOptions = [10, 25, 50, 100];
   sort: Sort;
   nbChecked = 0;
-  checkHeader = false;
-  isIndeterminate = false;
   genres: Genre[];
   filteredGenres: number[];
   expandedElement: T;
@@ -91,7 +86,6 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     private myDatasService: MyDatasService<T>,
     private myTagsService: MyTagsService,
     public translate: TranslateService,
-    private imagePipe: ImagePipe,
     private toast: ToastService,
     private router: Router,
     private elemRef: ElementRef,
@@ -100,36 +94,6 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.formatter = Utils.timeSliderFormatter;
-    this.subs.push(this.activeRoute.data.subscribe(data => {
-      this.isMovie = data.isMovie;
-      this.initColumns();
-      this.observeScreenSize();
-      const times = data.dataList.map(d => this.isMovie ? d['time'] : d['runtimes'][0]).filter(d => d !== undefined && d !== null);
-      this.maxRuntime = times.reduce((a, b) => a > b ? a : b);
-      this.runtimeRange = [0, this.maxRuntime];
-      this.title.setTitle('title.' + (this.isMovie ? 'movies' : 'series'));
-      this.sort = { active: this.isMovie ? 'added' : 'firstAired', direction: 'desc' };
-      this.getDatas(this.translate.currentLang, data.dataList);
-      this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-        this.getDatas(event.lang, data.dataList);
-      }));
-      this.subs.push(this.activeRoute.queryParams.subscribe(
-        params => {
-          this.sort = params.sort ? Utils.parseJson(params.sort) : { active: this.isMovie ? 'added' : 'firstAired', direction: 'desc' };
-          this.filteredTags = Utils.parseJson(params.tags);
-          this.pageIndex = params.pageIndex ? params.pageIndex : 0;
-          this.pageSize = params.pageSize ? params.pageSize : 25;
-          this.filter = params.search;
-          this.filteredGenres = Utils.parseJson(params.genres);
-          this.runtimeRange = params.runtime ? Utils.parseJson(params.runtime) : [0, this.maxRuntime];
-          this.paginate(this.refreshData());
-        }));
-    }));
-    this.getTags();
-  }
-
-  private observeScreenSize(): void {
     this.breakpointObserver.observe([
       Constants.MEDIA_MAX_700,
       Constants.MEDIA_MAX_1000
@@ -142,12 +106,51 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
         this.displayedColumns = this.init_columns;
       }
     });
+    this.formatter = Utils.timeSliderFormatter;
+    this.subs.push(this.activeRoute.data.subscribe(data => {
+      console.log('data', data);
+      this.isMovie = data.isMovie;
+      const times = data.dataList.map(d => this.isMovie ? d['time'] : d['runtimes'][0]).filter(d => d !== undefined && d !== null);
+      this.maxRuntime = times.reduce((a, b) => a > b ? a : b);
+      this.runtimeRange = [0, this.maxRuntime];
+      this.title.setTitle('title.' + (this.isMovie ? 'movies' : 'series'));
+      this.initColumns();
+      this.getDatas(this.translate.currentLang, data.dataList);
+      this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+        this.getDatas(event.lang, data.dataList);
+      }));
+      this.subs.push(this.activeRoute.queryParams.subscribe(
+        params => {
+          this.sort = params.sort ? Utils.parseJson(params.sort) : { active: this.isMovie ? 'date' : 'firstAired', direction: 'desc' };
+          this.filteredTags = Utils.parseJson(params.tags);
+          this.pageIndex = params.pageIndex ? params.pageIndex : 0;
+          this.pageSize = params.pageSize ? params.pageSize : 25;
+          this.filter = params.search;
+          this.filteredGenres = Utils.parseJson(params.genres);
+          this.runtimeRange = params.runtime ? Utils.parseJson(params.runtime) : [0, this.maxRuntime];
+          this.paginate(this.refreshData());
+        }));
+    }));
+    this.getTags();
   }
 
   initColumns(): void {
-    this.init_columns = this.isMovie ? DatasConstants.INIT_COLUMNS_MOVIES : DatasConstants.INIT_COLUMNS_SERIES;
-    this.medium_columns = this.isMovie ? DatasConstants.MEDIUM_COLUMNS_MOVIES : DatasConstants.MEDIUM_COLUMNS_SERIES;
-    this.mobile_columns = this.isMovie ? DatasConstants.MOBILE_COLUMNS_MOVIES : DatasConstants.MOBILE_COLUMNS_SERIES;
+    const init_columns_series = ['id', 'thumbnail', 'name', 'seasonCount', 'firstAired', 'vote', 'inProduction', 'originLang', 'genres', 'runtimes',
+      'added', 'select', 'details', 'tag-icon'];
+    const init_columns_movies = ['id', 'thumbnail', 'name', 'original_title', 'date', 'vote', 'meta', 'language', 'genres', 'time', 'added',
+      'select', 'details', 'tag-icon'];
+    this.init_columns = this.isMovie ? init_columns_movies : init_columns_series;
+
+    const medium_columns_series = ['thumbnail', 'name', 'firstAired', 'vote', 'inProduction', 'originLang', 'genres', 'runtimes', 'added',
+      'select', 'details', 'tag-icon'];
+    const medium_columns_movies = ['thumbnail', 'name', 'date', 'vote', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details',
+      'tag-icon'];
+    this.medium_columns = this.isMovie ? medium_columns_movies : medium_columns_series;
+
+    const mobile_columns_series = ['thumbnail', 'name', 'firstAired', 'inProduction', 'originLang', 'runtimes', 'genres', 'select', 'details',
+      'tag-icon'];
+    const mobile_columns_movies = ['thumbnail', 'name', 'date', 'meta', 'language', 'time', 'genres', 'select', 'details', 'tag-icon'];
+    this.mobile_columns = this.isMovie ? mobile_columns_movies : mobile_columns_series;
     this.displayedColumns = this.init_columns;
   }
 
@@ -155,6 +158,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     this.allDatas = datas;
     this.length = this.allDatas.length;
     this.getAllGenres(lang);
+    this.checkAndFixData(datas, lang);
   }
 
   getTags(): void {
@@ -163,7 +167,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
 
   getAllGenres(lang: string): void {
     const all: Genre[] = [];
-    this.allDatas.filter(d => d.translation.get(lang).category).forEach((data: T) => {
+    this.allDatas.forEach((data: T) => {
       all.push(...data.translation.get(lang).category);
     });
     this.genres = [];
@@ -191,16 +195,11 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     }
     list = Utils.sortData(Utils.unique(byFields.concat(byTitle)), this.sort, this.translate.currentLang);
     this.length = list.length;
-    this.displayedData.forEach(d => d.checked = false);
-    this.checkHeader = false;
-    this.isIndeterminate = false;
-    this.updateSizeChecked();
     return list;
   }
 
   paginate(data: T[]): void {
-    this.displayedData = data.slice(this.pageIndex * this.pageSize, (+this.pageIndex + 1) * this.pageSize);
-    this.checkAndFixData(this.displayedData, this.translate.currentLang);
+    this.displayedData = data.slice(this.pageIndex * this.pageSize, (this.pageIndex + 1) * this.pageSize);
   }
 
   filterGenres(): T[] {
@@ -218,7 +217,8 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   filterTags(list: T[]): T[] {
     if (this.filteredTags && this.filteredTags.length > 0) {
       const filter = this.tags.filter(tag => this.filteredTags.includes(tag.id));
-      return list.filter((m: T) => filter.every(t => t.datas.filter(d => d.movie === this.isMovie).map(data => data.id).includes(m.id)));
+      const ids = Utils.unique(Utils.flatMap<Tag, TagData>(filter, 'datas').filter(d => d.movie === this.isMovie).map(data => data.id));
+      return list.filter((m: T) => ids.includes(m.id));
     } else {
       return list;
     }
@@ -234,29 +234,8 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     });
   }
 
-  updateCheck(): void {
-    this.updateSizeChecked();
-    if (this.displayedData.every(data => data.checked)) {
-      this.checkHeader = true;
-      this.isIndeterminate = false;
-    } else if (this.displayedData.every(data => !data.checked)) {
-      this.checkHeader = false;
-      this.isIndeterminate = false;
-    } else if (this.displayedData.some(data => data.checked)) {
-      this.checkHeader = true;
-      this.isIndeterminate = true;
-    }
-  }
-
-  updateSizeChecked(): void {
-    this.nbChecked = this.displayedData.filter(data => data.checked).length;
-  }
-
-  headerChecked(check: boolean): void {
-    this.checkHeader = this.isIndeterminate ? false : check;
-    this.isIndeterminate = false;
-    this.displayedData.forEach(d => d.checked = this.checkHeader);
-    this.updateSizeChecked();
+  updateSize(): void {
+    this.nbChecked = this.allDatas.filter(data => data.checked).length;
   }
 
   /**
@@ -276,37 +255,38 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
         } else if (data instanceof Serie) {
           isNoTime = (<Serie>data).runtimes === undefined;
         }
-        if ((isNoTime || tr.category === undefined || data.score === undefined) &&
-          (data.updated === undefined || moment(data.updated).isBefore(twoMonthsAgo))) {
+        if (isNoTime || tr.category === undefined || data.score === undefined ||
+          data.updated === undefined || moment(data.updated).isBefore(twoMonthsAgo)) {
           incomplete.push(data.id);
         }
       }
     } catch (err) {
       console.error(err);
     }
-    forkJoin(datas.map(d => Utils.imageExists(d.id, this.imagePipe.transform(d.translation.get(lang).poster, ImageSize.small))))
-      .subscribe((exists: any[]) => {
-        exists.forEach(e => {
-          if (e.result === false && !incomplete.includes(e.id)) {
-            incomplete.push(e.id);
-          }
-        });
-        incomplete = incomplete.slice(0, 15);
-        this.updateDatas(incomplete, lang);
-      });
-  }
-
-  updateDatas(toUpdate: number[], lang: string): void {
+    incomplete = incomplete.slice(0, 15);
+    const obs = [];
+    const otherLang = lang === 'fr' ? 'en' : 'fr';
+    const conf1 = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, false, lang);
+    const conf2 = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, false, otherLang);
+    incomplete.forEach((id: number) => {
+      if (this.isMovie) {
+        obs.push(this.movieService.getMovie(id, conf1, false));
+        obs.push(this.movieService.getMovie(id, conf2, false));
+      } else {
+        obs.push(this.serieService.getSerie(id, conf1, false));
+        obs.push(this.serieService.getSerie(id, conf2, false));
+      }
+    });
     try {
-      forkJoin(this.download(toUpdate, lang)).subscribe(
-        (datas: T[]) => {
-          datas.forEach(m => {
+      forkJoin(obs).subscribe(
+        (data: T[]) => {
+          data.forEach(m => {
             m.updated = new Date();
             if (m.score === undefined) {
               m.score = {};
             }
           });
-          this.myDatasService.update(datas, this.isMovie).then((updated) => {
+          this.myDatasService.update(data, this.isMovie).then((updated) => {
             updated.forEach(up => {
               const index = this.allDatas.map(a => a.id).indexOf(up.id);
               up.added = this.allDatas[index].added;
@@ -320,23 +300,6 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     } catch (err) {
       console.error(err);
     }
-  }
-
-  download(toDownload: number[], lang: string): Observable<T>[] {
-    const obs = [];
-    const otherLang = lang === 'fr' ? 'en' : 'fr';
-    const conf1 = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, lang);
-    const conf2 = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, otherLang);
-    toDownload.forEach((id: number) => {
-      if (this.isMovie) {
-        obs.push(this.movieService.getMovie(id, conf1, false));
-        obs.push(this.movieService.getMovie(id, conf2, false));
-      } else {
-        obs.push(this.serieService.getSerie(id, conf1, false));
-        obs.push(this.serieService.getSerie(id, conf2, false));
-      }
-    });
-    return obs;
   }
 
   remove(): void {

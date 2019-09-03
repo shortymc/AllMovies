@@ -60,17 +60,9 @@ export class SearchDataComponent<T extends Data> implements OnInit {
 
   add(item: T): void {
     const lang = this.translate.currentLang === 'fr' ? 'en' : 'fr';
-    forkJoin([this.fetchData(item.id, lang, this.isMovie),
-    this.fetchData(item.id, this.translate.currentLang, this.isMovie)])
-      .subscribe((data: T[]) => {
-        this.movie.emit(this.isMovie);
-        this.selected.emit(data);
-      });
-  }
-
-  fetchData(id: number, lang: string, isMovie: boolean): Promise<any> {
-    const config = new DetailConfig(false, false, false, false, false, false, false, false, !isMovie, lang);
-    return new Promise(resolve => {
+    item.lang_version = this.translate.currentLang;
+    const config = new DetailConfig(false, false, false, false, false, false, false, false, false, false, lang);
+    new Promise(resolve => {
       if (this.isMovie) {
         this.movieService.getMovie(id, config, false).then(resolve);
       } else {

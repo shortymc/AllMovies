@@ -1,7 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { faPlus, faMinus, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
-import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 import { Constants } from './../../../../constant/constants';
@@ -16,6 +16,7 @@ import { List, ImageSize } from './../../../../model/model';
 })
 export class ListsComponent implements OnInit, OnChanges {
   @Input() id: number;
+  @Output() loading = new EventEmitter<boolean>();
   overviewId: number;
   overview: string;
   showLists = false;
@@ -60,11 +61,13 @@ export class ListsComponent implements OnInit, OnChanges {
 
   getLists(): void {
     this.showLists = false;
-    this.listService.getDataLists(this.id, this.translate.currentLang).then((lists: List[]) => {
-      this.showLists = true;
-      console.log('list', lists);
-      this.lists = lists.sort((a, b) => Utils.compare(a.id, b.id, true));
-    });
+    this.loading.emit(true);
+      this.listService.getDataLists(this.id, this.translate.currentLang).then((lists: List[]) => {
+        this.showLists = true;
+        console.log('list', lists);
+        this.loading.emit(false);
+        this.lists = lists.sort((a, b) => Utils.compare(a.id, b.id, true));
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

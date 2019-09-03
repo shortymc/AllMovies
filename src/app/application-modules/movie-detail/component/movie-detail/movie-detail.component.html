@@ -1,6 +1,8 @@
+<ng-progress id="progressBar" [color]="'blue'"></ng-progress>
 <div *ngIf="movie">
   <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
-    <app-image-viewer [images]="movie.images" [thumbnails]="movie.images" [visible]="isImagesVisible"></app-image-viewer>
+    <app-image-viewer [images]="movie.images" [thumbnails]="movie.images" [visible]="isImagesVisible">
+    </app-image-viewer>
   </app-modal>
   <div class="detail-header">
     <h1 class="detail-title" [ngClass]="{'adult': movie.adult}">{{movie.title}} ({{movie.date | date:'yyyy'}})</h1>
@@ -14,7 +16,8 @@
         <fa-icon [icon]="faChevronCircleLeft"></fa-icon>{{'global.previous' | translate}}
       </button>
       <!-- Detail Btn -->
-      <button class="btn btn-outline-primary" appOpenLink [label]="movie.title" url="/movie/{{movie.id}}" *ngIf="!isDetail">
+      <button class="btn btn-outline-primary" appOpenLink [label]="movie.title" url="/movie/{{movie.id}}"
+        *ngIf="!isDetail">
         <fa-icon [icon]="faChevronCircleRight"></fa-icon> {{'global.go_detail' | translate}}
       </button>
       <!-- Add to collection btn -->
@@ -24,10 +27,11 @@
     </div>
   </div>
   <app-meta class="movie-meta" [entry]="movie" [isMovie]="true" [isSerie]="false"
-    [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"
-    (sensCritique)="sc = $event"></app-meta>
+    [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]">
+  </app-meta>
   <div class="detail-content">
-    <app-image-viewer class="detail-poster" [images]="movie.affiche" [thumbnails]="movie.affiche" [visible]="true"></app-image-viewer>
+    <app-image-viewer class="detail-poster" [images]="movie.affiche" [thumbnails]="movie.affiche" [visible]="true">
+    </app-image-viewer>
     <!-- Score -->
     <app-score [score]="movie.score" [scScore]="sc"></app-score>
     <div>
@@ -116,7 +120,8 @@
     <div *ngIf="movie.keywords && movie.keywords.length > 0">
       <label>{{'global.keyword' | translate}}: </label>
       <div class="overview break-word">
-        <span *ngFor="let keyword of movie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)" class="movie-keyword">
+        <span *ngFor="let keyword of movie.keywords; let last=last;" (click)="redirectKeywordToDiscover(keyword)"
+          class="movie-keyword">
           <span class="pointer" appOpenLink [label]="keyword.name" url="/discover?keyword=[{{keyword.id}}]">{{keyword.name|
             capitalizeWord}}</span>
           <span *ngIf="!last">/</span>
@@ -130,26 +135,30 @@
     </div>
     <!-- Pictures -->
     <div class="pad-left" *ngIf="config.img">
-      <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible" *ngIf="movie.images">
+      <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible"
+        *ngIf="movie.images">
         <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'movie.image' | translate}}
         ({{movie.images.length}})
       </button>
     </div>
     <!-- Credits -->
-    <app-credit-list class="pad-left" *ngIf="config.credit" [crew]="movie.crew" [actors]="movie.actors" [isDetail]="isDetail"></app-credit-list>
+    <app-credit-list class="pad-left" *ngIf="config.credit" [crew]="movie.crew" [actors]="movie.actors"
+      [isDetail]="isDetail"></app-credit-list>
     <!-- Videos -->
     <app-videos [videos]="movie.videos" *ngIf="config.video"></app-videos>
     <!-- Lists -->
-    <app-lists class="pad-left" [id]="id"></app-lists>
+    <app-lists class="pad-left" [id]="id" (loading)="onLoadingList($event)"></app-lists>
   </div>
   <div class="media-content">
     <!-- recommendations -->
     <ng-container *ngIf="movie.recommendations">
-      <app-list-datas [datas]="movie.recommendations" [isMovie]="true" [label]="('global.reco' | translate).concat(':')"></app-list-datas>
+      <app-list-datas [datas]="movie.recommendations" [isMovie]="true"
+        [label]="('global.reco' | translate).concat(':')"></app-list-datas>
     </ng-container>
     <!-- Similar movies -->
     <ng-container *ngIf="movie.similars">
-      <app-list-datas [datas]="movie.similars" [isMovie]="true" [label]="('global.similar' | translate).concat(':')"></app-list-datas>
+      <app-list-datas [datas]="movie.similars" [isMovie]="true" [label]="('global.similar' | translate).concat(':')">
+      </app-list-datas>
     </ng-container>
   </div>
 </div>

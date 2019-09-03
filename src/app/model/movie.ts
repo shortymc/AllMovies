@@ -13,6 +13,7 @@ export class Movie extends Data {
   similars: Movie[];
   releaseDates: ReleaseDate[];
   spokenLangs: Lang[];
+  list_count: number;
 
   constructor() {
     super();
@@ -20,7 +21,7 @@ export class Movie extends Data {
 
   removeFields(key: string, value: string): string {
     if (
-      ['title', 'overview', 'actors', 'crew', 'recommendations', 'videos', 'images', 'checked', 'similars', 'affiche',
+      ['title', 'overview', 'actors', 'crew', 'recommendations', 'videos', 'images', 'checked', 'similars', 'affiche', 'list_count',
         'alternativeTitles', 'character', 'keywords', 'production_countries', 'releaseDates', 'spokenLangs', 'genres', 'isMovie']
         .includes(key)
     ) {

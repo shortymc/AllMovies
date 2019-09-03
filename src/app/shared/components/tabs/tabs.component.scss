@@ -2,8 +2,7 @@
 
 :host {
   position: absolute;
-  top: 62px;
-  overflow-x: hidden;
+  top: $offset_toolbar_desktop;
 }
 
 .mat-tab-link {
@@ -62,6 +61,6 @@
 
 @include media(#{$smallscreen}) {
   :host {
-    top: 110px;
+    top: $offset_toolbar_mobile;
   }
 }

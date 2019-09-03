@@ -1,4 +1,5 @@
-import { TranslateService } from '@ngx-translate/core';
+import { NgProgressModule } from '@ngx-progressbar/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -27,6 +28,8 @@ const childRoutes: Routes = [
     FormsModule,
     SharedModule.forChild(),
     FontAwesomeModule,
+    NgProgressModule,
+    TranslateModule.forChild(),
     RouterModule.forChild(childRoutes),
     MatListModule,
     MatButtonToggleModule,

@@ -15,6 +15,15 @@ label {
   flex-direction: column;
 }
 
+#progressBar {
+  ::ng-deep.ng-progress-bar {
+    top: #{$offset_toolbar_desktop + 2};
+  }
+  ::ng-deep.ng-spinner {
+    top: #{$offset_toolbar_desktop + 10};
+  }
+}
+
 @include media(#{$desktop}, false) {
   label,
   .pad-left {
@@ -40,5 +49,14 @@ label {
   .movie-release {
     display: flex;
     flex-wrap: wrap;
+  }
+
+  #progressBar {
+    ::ng-deep.ng-progress-bar {
+      top: #{$offset_toolbar_mobile + 2};
+    }
+    ::ng-deep.ng-spinner {
+      top: #{$offset_toolbar_mobile + 10};
+    }
   }
 }

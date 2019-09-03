@@ -33,6 +33,10 @@ $gender: (
 $bezier: cubic-bezier(0.86, 0, 0.07, 1);
 $border_radius: 3px;
 
+/* Offset toolbar */
+$offset_toolbar_desktop: 62px;
+$offset_toolbar_mobile: 110px;
+
 /* zindex */
 $depth: (
   'content': 1,
