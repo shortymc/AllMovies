@@ -43,7 +43,7 @@ export class ListDetailComponent implements OnInit, OnDestroy {
       this.search();
     }));
     // Stored params
-    this.subs.push(combineLatest(this.route.queryParams, this.route.paramMap).subscribe(
+    this.subs.push(combineLatest([this.route.queryParams, this.route.paramMap]).subscribe(
       ([params, paramMap]) => {
         this.id = +paramMap.get('id');
         this.nbChecked = 0;
