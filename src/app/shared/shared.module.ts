@@ -14,10 +14,15 @@ import {
   SWIPER_CONFIG
 } from 'ngx-swiper-wrapper';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
-import {
-  MatSidenavModule, MatToolbarModule, MatIconModule, MatSelectModule,
-  MatButtonToggleModule, MatFormFieldModule, MatButtonModule, MatAutocompleteModule, MatChipsModule
-} from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';

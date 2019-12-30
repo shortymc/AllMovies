@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, HostListener, ElementRef } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-open-link-dialog',

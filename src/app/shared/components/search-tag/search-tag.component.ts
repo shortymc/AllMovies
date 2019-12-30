@@ -3,7 +3,8 @@ import { Observable } from 'rxjs';
 import { switchMap, map, startWith } from 'rxjs/operators';
 import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Sort, MatAutocomplete, MatAutocompleteTrigger } from '@angular/material';
+import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { Sort } from '@angular/material/sort';
 
 import { Utils } from './../../utils';
 import { Tag } from './../../../model/tag';
@@ -16,7 +17,7 @@ import { MyTagsService } from '../../service/my-tags.service';
 })
 export class SearchTagComponent implements OnInit {
   @Output() selected = new EventEmitter<Tag>();
-  @ViewChild('inputSearch') inputSearch: ElementRef;
+  @ViewChild('inputSearch', { static: true }) inputSearch: ElementRef;
   filteredTags: Observable<Tag[]>;
   tagCtrl: FormControl;
   sort: Sort = { active: 'count', direction: 'desc' };

@@ -21,7 +21,7 @@ import { ReleaseType } from '../../../constant/release-type';
   styleUrls: ['./discover.component.scss']
 })
 export class DiscoverComponent implements OnInit, OnDestroy {
-  @ViewChild('sortDir') sortDir: any;
+  @ViewChild('sortDir', { static: true }) sortDir: any;
   discover: Discover;
   sortChoices: DropDownChoice[];
   sortChosen: DropDownChoice;

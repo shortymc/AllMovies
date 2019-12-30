@@ -4,15 +4,51 @@ import { AuthGard } from './app.gards';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', loadChildren: './application-modules/dashboard/dashboard.module#DashboardModule', canActivate: [AuthGard] },
-  { path: 'movie', loadChildren: './application-modules/movie-detail/movie-detail.module#MovieDetailModule', canActivate: [AuthGard] },
-  { path: 'serie', loadChildren: './application-modules/serie-detail/serie-detail.module#SerieDetailModule', canActivate: [AuthGard] },
-  { path: 'person', loadChildren: './application-modules/person-detail/person-detail.module#PersonDetailModule', canActivate: [AuthGard] },
-  { path: 'release', loadChildren: './application-modules/release/release.module#ReleaseModule', canActivate: [AuthGard] },
-  { path: 'datas', loadChildren: './application-modules/datas/datas.module#DatasModule', canActivate: [AuthGard] },
-  { path: 'discover', loadChildren: './application-modules/discover/discover.module#DiscoverModule', canActivate: [AuthGard] },
-  { path: 'tags', loadChildren: './application-modules/tags/tags.module#TagsModule', canActivate: [AuthGard] },
-  { path: 'login', loadChildren: './application-modules/login/login.module#LoginModule' },
+  {
+    path: 'dashboard', loadChildren:
+      () => import('./application-modules/dashboard/dashboard.module')
+        .then(m => m.DashboardModule), canActivate: [AuthGard]
+  },
+  {
+    path: 'movie', loadChildren:
+      () => import('./application-modules/movie-detail/movie-detail.module')
+        .then(m => m.MovieDetailModule), canActivate: [AuthGard]
+  },
+  {
+    path: 'serie', loadChildren:
+      () => import('./application-modules/serie-detail/serie-detail.module')
+        .then(m => m.SerieDetailModule), canActivate: [AuthGard]
+  },
+  {
+    path: 'person', loadChildren:
+      () => import('./application-modules/person-detail/person-detail.module')
+        .then(m => m.PersonDetailModule), canActivate: [AuthGard]
+  },
+  {
+    path: 'release', loadChildren:
+      () => import('./application-modules/release/release.module')
+        .then(m => m.ReleaseModule), canActivate: [AuthGard]
+  },
+  {
+    path: 'datas', loadChildren:
+      () => import('./application-modules/datas/datas.module')
+        .then(m => m.DatasModule), canActivate: [AuthGard]
+  },
+  {
+    path: 'discover', loadChildren:
+      () => import('./application-modules/discover/discover.module')
+        .then(m => m.DiscoverModule), canActivate: [AuthGard]
+  },
+  {
+    path: 'tags', loadChildren:
+      () => import('./application-modules/tags/tags.module')
+        .then(m => m.TagsModule), canActivate: [AuthGard]
+  },
+  {
+    path: 'login', loadChildren:
+      () => import('./application-modules/login/login.module')
+        .then(m => m.LoginModule)
+  },
   { path: '**', redirectTo: '' }
 ];
 

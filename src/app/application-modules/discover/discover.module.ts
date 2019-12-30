@@ -6,10 +6,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NouisliderModule } from 'ng2-nouislider';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {
-  MatListModule, MatIconModule, MatButtonToggleModule, MatSelectModule,
-  MatFormFieldModule, MatPaginatorModule, MatPaginatorIntl, MatInputModule, MatAutocompleteModule, MatChipsModule, MatSlideToggleModule
-} from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { SearchBoxComponent } from './component/search-box/search-box.component';
 import { MyPaginator } from './../../shared/my-paginator';

@@ -1,7 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Directive, HostListener, Input, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { Link } from './../../model/model';
 import { OpenLinkDialogComponent } from '../components/open-link-dialog/open-link-dialog.component';
 import { TabsService } from '../service/tabs.service';

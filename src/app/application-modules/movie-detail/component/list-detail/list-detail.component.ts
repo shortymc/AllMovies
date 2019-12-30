@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { PageEvent } from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest } from 'rxjs';
@@ -13,7 +13,7 @@ import { ListService, TitleService, GenreService } from '../../../../shared/shar
   styleUrls: ['./list-detail.component.scss']
 })
 export class ListDetailComponent implements OnInit, OnDestroy {
-  @ViewChild('sortDir') sortDir: any;
+  @ViewChild('sortDir', { static: true }) sortDir: any;
   id: number;
   list: FullList;
   sortChoices: DropDownChoice[];
