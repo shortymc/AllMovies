@@ -74,7 +74,7 @@ export class SerieDetailComponent implements OnInit, OnDestroy {
         this.title.setTitle(serie.title);
         this.menuService.scrollTo$.next(0);
       });
-      this.subs.push(combineLatest(this.myTagsService.myTags$, this.myDatasService.mySeries$)
+      this.subs.push(combineLatest([this.myTagsService.myTags$, this.myDatasService.mySeries$])
         .pipe(filter(([tags, series]) => tags !== undefined && series !== undefined))
         .subscribe(([tags, series]) => {
           this.tags = [];

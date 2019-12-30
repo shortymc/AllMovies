@@ -1,9 +1,9 @@
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import localeEn from '@angular/common/locales/en';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule, HttpClientJsonpModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import 'bootstrap';
@@ -14,6 +14,8 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGard } from './app.gards';
+import { GlobalErrorHandler } from './shared/service/global-error-handler';
+import { ServerErrorInterceptor } from './shared/service/server-error.interceptor';
 
 @NgModule({
   imports: [
@@ -40,6 +42,8 @@ import { AuthGard } from './app.gards';
   ],
   providers: [
     AuthGard,
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -87,7 +87,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
           this.menuService.scrollTo$.next(0);
         }
       });
-      this.subs.push(combineLatest(this.myTagsService.myTags$, this.myDatasService.myMovies$)
+      this.subs.push(combineLatest([this.myTagsService.myTags$, this.myDatasService.myMovies$])
         .pipe(filter(([tags, movies]) => tags !== undefined && movies !== undefined))
         .subscribe(([tags, movies]) => {
           this.tags = [];
