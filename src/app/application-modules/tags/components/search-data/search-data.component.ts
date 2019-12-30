@@ -15,7 +15,7 @@ import { SerieService, MovieService, MovieSearchService } from './../../../../sh
   styleUrls: ['./search-data.component.scss']
 })
 export class SearchDataComponent<T extends Data> implements OnInit {
-  @ViewChild('inputSearch')
+  @ViewChild('inputSearch', { static: true })
   inputSearch: ElementRef;
   @Input() adult: boolean;
   @Output() selected = new EventEmitter<T[]>();

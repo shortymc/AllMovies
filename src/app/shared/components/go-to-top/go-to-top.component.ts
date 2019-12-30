@@ -8,7 +8,7 @@ import {
   throttleTime
 } from 'rxjs/operators';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
-import { MatButton } from '@angular/material';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-go-to-top',
@@ -16,7 +16,7 @@ import { MatButton } from '@angular/material';
   styleUrls: ['./go-to-top.component.scss']
 })
 export class GoToTopComponent implements OnInit, AfterViewInit {
-  @ViewChild('goToTop') goToTop: MatButton;
+  @ViewChild('goToTop', { static: true }) goToTop: MatButton;
   isVisible = false;
   faAngleUp = faAngleUp;
 

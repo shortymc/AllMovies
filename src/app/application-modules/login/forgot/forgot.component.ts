@@ -12,9 +12,9 @@ import { User } from './../../../model/user';
   styleUrls: ['./forgot.component.scss']
 })
 export class ForgotComponent implements OnInit, OnDestroy {
-  @ViewChild('nameNext') nameNext: ElementRef;
-  @ViewChild('answerNext') answerNext: ElementRef;
-  @ViewChild('passwordNext') passwordNext: ElementRef;
+  @ViewChild('nameNext', { static: true }) nameNext: ElementRef;
+  @ViewChild('answerNext', { static: true }) answerNext: ElementRef;
+  @ViewChild('passwordNext', { static: true }) passwordNext: ElementRef;
   question: string;
   answer: string;
   name: string;

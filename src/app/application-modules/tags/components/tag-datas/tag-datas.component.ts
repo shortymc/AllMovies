@@ -1,6 +1,7 @@
 import { FormGroup } from '@angular/forms';
 import { faTrash, faList, faPen, faPaintBrush, faImage } from '@fortawesome/free-solid-svg-icons';
-import { PageEvent, Sort } from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnChanges, Input, SimpleChanges, OnInit, OnDestroy } from '@angular/core';
 import { faSave } from '@fortawesome/free-regular-svg-icons';

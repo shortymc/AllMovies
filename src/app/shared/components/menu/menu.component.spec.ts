@@ -6,7 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { MatToolbarModule, MatSidenavModule, MatListModule, MatSnackBarModule } from '@angular/material';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { CapitalizeWordPipe } from './../../pipes/capitalizeWord.pipe';
 import { MenuComponent } from './menu.component';

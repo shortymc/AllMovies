@@ -4,7 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MatListModule, MatPaginatorModule, MatSelectModule, MatPaginatorIntl, MatButtonToggleModule, MatCheckboxModule } from '@angular/material';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
 
 import { MovieDetailComponent } from './component/movie-detail/movie-detail.component';
 import { SharedModule } from '../../shared/shared.module';

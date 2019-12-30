@@ -1,6 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, ElementRef, OnChanges, SimpleChange } from '@angular/core';
-import { SortDirection } from '@angular/material';
+import { SortDirection } from '@angular/material/sort';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 

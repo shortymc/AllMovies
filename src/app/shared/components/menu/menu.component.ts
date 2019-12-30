@@ -3,7 +3,7 @@ import { Component, OnInit, HostListener, OnDestroy, ChangeDetectorRef, ViewChil
 import { BehaviorSubject } from 'rxjs';
 import { faUser, faBars, faAtom, faPowerOff, faHome, faBoxOpen, faBookmark, faTags } from '@fortawesome/free-solid-svg-icons';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { MatSidenav, MatSidenavContent } from '@angular/material';
+import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 
 import { TabsService } from './../../service/tabs.service';
 import { Constants } from './../../../constant/constants';
@@ -33,8 +33,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   faPowerOff = faPowerOff;
 
   private _mobileQueryListener: () => void;
-  @ViewChild('sidenav') sidenav: MatSidenav;
-  @ViewChild('content') content: MatSidenavContent;
+  @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
+  @ViewChild('content', { static: true }) content: MatSidenavContent;
   @HostListener('document:click', ['$event']) onClick(event: Event): void {
     this.handleClick(event);
   }

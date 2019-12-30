@@ -51,7 +51,7 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   providers: [I18n, NgbDatepickerConfig, { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }]
 })
 export class ReleaseComponent implements OnInit, OnDestroy {
-  @ViewChild('dp') dp: NgbDatepicker;
+  @ViewChild('dp', { static: true }) dp: NgbDatepicker;
   movies: Movie[];
   selectedId: number;
   model: NgbDateStruct;

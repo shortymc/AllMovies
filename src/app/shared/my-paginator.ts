@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import { MatPaginatorIntl } from '@angular/material';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { DecimalPipe } from '@angular/common';
 
 export class MyPaginator extends MatPaginatorIntl {
