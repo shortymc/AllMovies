@@ -22,7 +22,7 @@ export class UtilsService {
     } else if (error.message) {
       message = error.message;
     } else {
-      message = error;
+      message = 'Unknown Error';
     }
     return message;
   }
