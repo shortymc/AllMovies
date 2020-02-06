@@ -1,7 +1,7 @@
 export class Constants {
   // API OMDB_API
   static readonly OMDB_API_KEY = '&apikey=5dc08d05';
-  static readonly OMDB_URL = 'http://www.omdbapi.com/';
+  static readonly OMDB_URL = 'https://www.omdbapi.com/';
   static readonly OMDB_ID = '?i=';
 
   // IMDB
