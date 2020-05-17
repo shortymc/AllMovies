@@ -114,6 +114,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
       this.maxRuntime = times.reduce((a, b) => a > b ? a : b);
       this.runtimeRange = [0, this.maxRuntime];
       this.title.setTitle('title.' + (this.isMovie ? 'movies' : 'series'));
+      this.sort = { active: this.isMovie ? 'date' : 'firstAired', direction: 'desc' };
       this.initColumns();
       this.getDatas(this.translate.currentLang, data.dataList);
       this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -167,7 +168,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
 
   getAllGenres(lang: string): void {
     const all: Genre[] = [];
-    this.allDatas.forEach((data: T) => {
+    this.allDatas.filter(d => d.translation.get(lang).category).forEach((data: T) => {
       all.push(...data.translation.get(lang).category);
     });
     this.genres = [];
