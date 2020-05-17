@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, forkJoin } from 'rxjs';
 import { debounceTime, switchMap, catchError } from 'rxjs/operators';
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -59,18 +59,25 @@ export class SearchDataComponent<T extends Data> implements OnInit {
 
   add(item: T): void {
     const lang = this.translate.currentLang === 'fr' ? 'en' : 'fr';
-    item.lang_version = this.translate.currentLang;
-    const config = new DetailConfig(false, false, false, false, false, false, false, false, false, lang);
-    new Promise(resolve => {
+    forkJoin([this.fetchData(item.id, lang, this.isMovie),
+    this.fetchData(item.id, this.translate.currentLang, this.isMovie)])
+      .subscribe((data: T[]) => {
+        this.movie.emit(this.isMovie);
+        this.selected.emit(data);
+      });
+  }
+
+  fetchData(id: number, lang: string, isMovie: boolean): Promise<any> {
+    const config = new DetailConfig(false, false, false, false, false, false, false, false, !isMovie, lang);
+    return new Promise(resolve => {
       if (this.isMovie) {
-        this.movieService.getMovie(item.id, config, false).then(resolve);
+        this.movieService.getMovie(id, config, false).then(resolve);
       } else {
-        this.serieService.getSerie(item.id, config, false).then(resolve);
+        this.serieService.getSerie(id, config, false).then(resolve);
       }
-    }).then((data: T) => {
-      data.lang_version = lang;
-      this.movie.emit(this.isMovie);
-      this.selected.emit([item, data]);
+    }).then((d: Data) => {
+      d.lang_version = lang;
+      return d;
     });
   }
 }
