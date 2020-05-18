@@ -114,7 +114,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
       this.maxRuntime = times.reduce((a, b) => a > b ? a : b);
       this.runtimeRange = [0, this.maxRuntime];
       this.title.setTitle('title.' + (this.isMovie ? 'movies' : 'series'));
-      this.sort = { active: this.isMovie ? 'date' : 'firstAired', direction: 'desc' };
+      this.sort = { active: this.isMovie ? 'added' : 'firstAired', direction: 'desc' };
       this.initColumns();
       this.getDatas(this.translate.currentLang, data.dataList);
       this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -122,7 +122,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
       }));
       this.subs.push(this.activeRoute.queryParams.subscribe(
         params => {
-          this.sort = params.sort ? Utils.parseJson(params.sort) : { active: this.isMovie ? 'date' : 'firstAired', direction: 'desc' };
+          this.sort = params.sort ? Utils.parseJson(params.sort) : { active: this.isMovie ? 'added' : 'firstAired', direction: 'desc' };
           this.filteredTags = Utils.parseJson(params.tags);
           this.pageIndex = params.pageIndex ? params.pageIndex : 0;
           this.pageSize = params.pageSize ? params.pageSize : 25;
@@ -256,8 +256,8 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
         } else if (data instanceof Serie) {
           isNoTime = (<Serie>data).runtimes === undefined;
         }
-        if (isNoTime || tr.category === undefined || data.score === undefined ||
-          data.updated === undefined || moment(data.updated).isBefore(twoMonthsAgo)) {
+        if ((isNoTime || tr.category === undefined || data.score === undefined) &&
+          (data.updated === undefined || moment(data.updated).isBefore(twoMonthsAgo))) {
           incomplete.push(data.id);
         }
       }
