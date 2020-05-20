@@ -46,7 +46,7 @@
     <nouislider [connect]="true" [min]="0" [max]="maxRuntime" [step]="1"
       [(ngModel)]="runtimeRange" [format]="formatter"
       (end)="onFilterOrPaginate(filteredGenres, filteredTags, 0, pageSize, $event)"
-      [tooltips]="[true, true]" id="runtime-slider"></nouislider>
+      [tooltips]="[true, true]"></nouislider>
   </div>
   <div class="tags-search">
     <app-search-tag (selected)="selectedTag = $event"></app-search-tag>
