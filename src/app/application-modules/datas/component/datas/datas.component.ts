@@ -218,8 +218,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   filterTags(list: T[]): T[] {
     if (this.filteredTags && this.filteredTags.length > 0) {
       const filter = this.tags.filter(tag => this.filteredTags.includes(tag.id));
-      const ids = Utils.unique(Utils.flatMap<Tag, TagData>(filter, 'datas').filter(d => d.movie === this.isMovie).map(data => data.id));
-      return list.filter((m: T) => ids.includes(m.id));
+      return list.filter((m: T) => filter.every(t => t.datas.filter(d => d.movie === this.isMovie).map(data => data.id).includes(m.id)));
     } else {
       return list;
     }
