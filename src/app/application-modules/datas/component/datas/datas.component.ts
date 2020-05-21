@@ -148,9 +148,9 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
       'tag-icon'];
     this.medium_columns = this.isMovie ? medium_columns_movies : medium_columns_series;
 
-    const mobile_columns_series = ['thumbnail', 'name', 'firstAired', 'inProduction', 'originLang', 'runtimes', 'genres', 'select', 'details',
+    const mobile_columns_series = ['thumbnail', 'name', 'details', 'firstAired', 'inProduction', 'originLang', 'runtimes', 'genres', 'select',
       'tag-icon'];
-    const mobile_columns_movies = ['thumbnail', 'name', 'date', 'meta', 'language', 'time', 'genres', 'select', 'details', 'tag-icon'];
+    const mobile_columns_movies = ['thumbnail', 'name', 'details', 'date', 'meta', 'language', 'time', 'genres', 'select', 'tag-icon'];
     this.mobile_columns = this.isMovie ? mobile_columns_movies : mobile_columns_series;
     this.displayedColumns = this.init_columns;
   }

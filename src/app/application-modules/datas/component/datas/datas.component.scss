@@ -90,7 +90,7 @@ mat-row {
 
 .tag-detail {
   display: flex;
-  margin: auto;
+  margin: 15px auto;
   overflow: hidden;
 }
 
@@ -103,20 +103,20 @@ mat-row {
 }
 
 .tag-icon {
-  display: none;
+  padding-bottom: 0;
+
+  & fa-icon {
+    position: relative;
+    right: -12vw;
+    width: 100vw;
+  }
+
+  & ::ng-deep.fa-angle-down {
+    color: $blue;
+  }
 
   .data-row:hover & {
-    position: absolute;
-    left: 50%;
-    display: flex;
-    align-self: end;
-    flex-grow: 0;
-    margin-bottom: -5px;
     animation: 1s bounce;
-
-    & ::ng-deep.fa-angle-down {
-      color: $blue;
-    }
   }
 }
 
@@ -244,7 +244,7 @@ mat-row {
     }
 
     &.toto {
-      height: 32px;
+      height: 34px;
     }
 
     &:not(:first-of-type) {
@@ -252,7 +252,7 @@ mat-row {
 
       & > .cell-content {
         position: absolute;
-        right: -15vw;
+        right: -12vw;
         bottom: 6%;
         width: 100vw;
       }
