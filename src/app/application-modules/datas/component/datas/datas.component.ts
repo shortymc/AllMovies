@@ -22,6 +22,7 @@ import { Movie } from './../../../../model/movie';
 import { Tag, TagData } from '../../../../model/tag';
 import { Data } from '../../../../model/data';
 import { Genre, DetailConfig, Level } from '../../../../model/model';
+import { DatasConstants } from './datas.constants';
 
 library.add(faClock);
 library.add(faTimesCircle);
@@ -94,28 +95,16 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.breakpointObserver.observe([
-      Constants.MEDIA_MAX_700,
-      Constants.MEDIA_MAX_1000
-    ]).subscribe(result => {
-      if (result.breakpoints[Constants.MEDIA_MAX_1000] && result.breakpoints[Constants.MEDIA_MAX_700]) {
-        this.displayedColumns = this.mobile_columns;
-      } else if (result.breakpoints[Constants.MEDIA_MAX_1000] && !result.breakpoints[Constants.MEDIA_MAX_700]) {
-        this.displayedColumns = this.medium_columns;
-      } else {
-        this.displayedColumns = this.init_columns;
-      }
-    });
     this.formatter = Utils.timeSliderFormatter;
     this.subs.push(this.activeRoute.data.subscribe(data => {
-      console.log('data', data);
       this.isMovie = data.isMovie;
+      this.initColumns();
+      this.observeScreenSize();
       const times = data.dataList.map(d => this.isMovie ? d['time'] : d['runtimes'][0]).filter(d => d !== undefined && d !== null);
       this.maxRuntime = times.reduce((a, b) => a > b ? a : b);
       this.runtimeRange = [0, this.maxRuntime];
       this.title.setTitle('title.' + (this.isMovie ? 'movies' : 'series'));
       this.sort = { active: this.isMovie ? 'added' : 'firstAired', direction: 'desc' };
-      this.initColumns();
       this.getDatas(this.translate.currentLang, data.dataList);
       this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
         this.getDatas(event.lang, data.dataList);
@@ -135,23 +124,25 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     this.getTags();
   }
 
+  private observeScreenSize(): void {
+    this.breakpointObserver.observe([
+      Constants.MEDIA_MAX_700,
+      Constants.MEDIA_MAX_1000
+    ]).subscribe(result => {
+      if (result.breakpoints[Constants.MEDIA_MAX_1000] && result.breakpoints[Constants.MEDIA_MAX_700]) {
+        this.displayedColumns = this.mobile_columns;
+      } else if (result.breakpoints[Constants.MEDIA_MAX_1000] && !result.breakpoints[Constants.MEDIA_MAX_700]) {
+        this.displayedColumns = this.medium_columns;
+      } else {
+        this.displayedColumns = this.init_columns;
+      }
+    });
+  }
+
   initColumns(): void {
-    const init_columns_series = ['id', 'thumbnail', 'name', 'seasonCount', 'firstAired', 'vote', 'inProduction', 'originLang', 'genres', 'runtimes',
-      'added', 'select', 'details', 'tag-icon'];
-    const init_columns_movies = ['id', 'thumbnail', 'name', 'original_title', 'date', 'vote', 'meta', 'language', 'genres', 'time', 'added',
-      'select', 'details', 'tag-icon'];
-    this.init_columns = this.isMovie ? init_columns_movies : init_columns_series;
-
-    const medium_columns_series = ['thumbnail', 'name', 'firstAired', 'vote', 'inProduction', 'originLang', 'genres', 'runtimes', 'added',
-      'select', 'details', 'tag-icon'];
-    const medium_columns_movies = ['thumbnail', 'name', 'date', 'vote', 'meta', 'language', 'genres', 'time', 'added', 'select', 'details',
-      'tag-icon'];
-    this.medium_columns = this.isMovie ? medium_columns_movies : medium_columns_series;
-
-    const mobile_columns_series = ['thumbnail', 'name', 'details', 'firstAired', 'inProduction', 'originLang', 'runtimes', 'genres', 'select',
-      'tag-icon'];
-    const mobile_columns_movies = ['thumbnail', 'name', 'details', 'date', 'meta', 'language', 'time', 'genres', 'select', 'tag-icon'];
-    this.mobile_columns = this.isMovie ? mobile_columns_movies : mobile_columns_series;
+    this.init_columns = this.isMovie ? DatasConstants.INIT_COLUMNS_MOVIES : DatasConstants.INIT_COLUMNS_SERIES;
+    this.medium_columns = this.isMovie ? DatasConstants.MEDIUM_COLUMNS_MOVIES : DatasConstants.MEDIUM_COLUMNS_SERIES;
+    this.mobile_columns = this.isMovie ? DatasConstants.MOBILE_COLUMNS_MOVIES : DatasConstants.MOBILE_COLUMNS_SERIES;
     this.displayedColumns = this.init_columns;
   }
 
