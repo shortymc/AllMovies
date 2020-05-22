@@ -5,10 +5,12 @@ import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '
 import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { Sort } from '@angular/material/sort';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 import { Utils } from './../../utils';
 import { Tag } from './../../../model/tag';
 import { MyTagsService } from '../../service/my-tags.service';
+import { Constants } from '../../../constant/constants';
 
 @Component({
   selector: 'app-search-tag',
@@ -22,15 +24,21 @@ export class SearchTagComponent implements OnInit {
   tagCtrl: FormControl;
   sort: Sort = { active: 'count', direction: 'desc' };
   alreadyExist = false;
+  isMobile: boolean;
 
   faRemove = faTimes;
   faPlus = faPlus;
 
   constructor(
     private myTagsService: MyTagsService,
+    private breakpointObserver: BreakpointObserver
   ) { }
 
   ngOnInit(): void {
+    this.breakpointObserver.observe(
+      Constants.MEDIA_MAX_700).subscribe(result => {
+        this.isMobile = result.breakpoints[Constants.MEDIA_MAX_700];
+      });
     this.tagCtrl = new FormControl();
     this.filteredTags = this.tagCtrl.valueChanges.
       pipe(
@@ -63,12 +71,16 @@ export class SearchTagComponent implements OnInit {
   }
 
   resetAutoInput(trigger: MatAutocompleteTrigger, auto: MatAutocomplete): void {
-    setTimeout(_ => {
-      auto.options.forEach(item => {
-        item.deselect();
-      });
-      this.tagCtrl.reset('');
-      trigger.openPanel();
-    }, 50);
+    if (!this.isMobile) {
+      setTimeout(_ => {
+        auto.options.forEach(item => {
+          item.deselect();
+        });
+        this.tagCtrl.reset('');
+        trigger.openPanel();
+      }, 50);
+    } else {
+      this.tagCtrl.reset();
+    }
   }
 }
