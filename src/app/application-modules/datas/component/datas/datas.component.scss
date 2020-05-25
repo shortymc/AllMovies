@@ -233,6 +233,17 @@ mat-row {
     display: initial !important;
   }
 
+  .mat-header-cell {
+    &.mat-column-details,
+    &.mat-column-tag-icon {
+      display: none;
+    }
+  }
+
+  .mat-header-cell.mat-column-select {
+    display: inline-grid;
+  }
+
   mat-cell {
     /* Behave  like a "row" */
     position: relative !important;
