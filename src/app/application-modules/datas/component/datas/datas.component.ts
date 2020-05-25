@@ -52,13 +52,15 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   maxRuntime = 1;
   runtimeRange: any[] = [0, 1];
   formatter: NouiFormatter;
-  displayedData: T[];
+  displayedData: T[] = [];
   filter: string;
   pageSize;
   pageIndex;
   pageSizeOptions = [10, 25, 50, 100];
   sort: Sort;
   nbChecked = 0;
+  checkHeader = false;
+  isIndeterminate = false;
   genres: Genre[];
   filteredGenres: number[];
   expandedElement: T;
@@ -187,6 +189,10 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     }
     list = Utils.sortData(Utils.unique(byFields.concat(byTitle)), this.sort, this.translate.currentLang);
     this.length = list.length;
+    this.displayedData.forEach(d => d.checked = false);
+    this.checkHeader = false;
+    this.isIndeterminate = false;
+    this.updateSizeChecked();
     return list;
   }
 
@@ -225,8 +231,29 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     });
   }
 
-  updateSize(): void {
-    this.nbChecked = this.allDatas.filter(data => data.checked).length;
+  updateCheck(): void {
+    this.updateSizeChecked();
+    if (this.displayedData.every(data => data.checked)) {
+      this.checkHeader = true;
+      this.isIndeterminate = false;
+    } else if (this.displayedData.every(data => !data.checked)) {
+      this.checkHeader = false;
+      this.isIndeterminate = false;
+    } else if (this.displayedData.some(data => data.checked)) {
+      this.checkHeader = true;
+      this.isIndeterminate = true;
+    }
+  }
+
+  updateSizeChecked(): void {
+    this.nbChecked = this.displayedData.filter(data => data.checked).length;
+  }
+
+  headerChecked(check: boolean): void {
+    this.checkHeader = this.isIndeterminate ? false : check;
+    this.isIndeterminate = false;
+    this.displayedData.forEach(d => d.checked = this.checkHeader);
+    this.updateSizeChecked();
   }
 
   /**

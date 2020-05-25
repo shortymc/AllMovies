@@ -43,10 +43,9 @@
   </div>
   <!-- Runtime range -->
   <div class="filter-item">
-    <nouislider [connect]="true" [min]="0" [max]="maxRuntime" [step]="1"
-      [(ngModel)]="runtimeRange" [format]="formatter"
-      (end)="onFilterOrPaginate(filteredGenres, filteredTags, 0, pageSize, $event)"
-      [tooltips]="[true, true]"></nouislider>
+    <nouislider [connect]="true" [min]="0" [max]="maxRuntime" [step]="1" [(ngModel)]="runtimeRange" [format]="formatter"
+      (end)="onFilterOrPaginate(filteredGenres, filteredTags, 0, pageSize, $event)" [tooltips]="[true, true]">
+    </nouislider>
   </div>
   <div class="tags-search">
     <app-search-tag (selected)="selectedTag = $event"></app-search-tag>
@@ -273,10 +272,13 @@
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="headerChecked($event.checked)" (click)="$event.stopPropagation()"
+          [indeterminate]="isIndeterminate" [checked]="checkHeader">
+        </mat-checkbox>
       </mat-header-cell>
       <mat-cell *matCellDef="let data" class="toto">
         <div class="cell-content">
-          <mat-checkbox (change)="data.checked = !data.checked; updateSize()" (click)="$event.stopPropagation()"
+          <mat-checkbox (change)="data.checked = !data.checked; updateCheck()" (click)="$event.stopPropagation()"
             [checked]="data.checked">
           </mat-checkbox>
         </div>
