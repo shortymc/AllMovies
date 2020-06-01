@@ -65,10 +65,6 @@ export class UtilsService {
     return headers ? this.http.get<T>(url, { headers: headers }) : this.http.get<T>(url);
   }
 
-  jsonpPromise<T>(url: string, callback: any): Promise<T> {
-    return this.jsonpObservable<T>(url, callback).toPromise();
-  }
-
   jsonpObservable<T>(url: string, callback: any): Observable<T> {
     return this.http.jsonp<T>(url, callback);
   }

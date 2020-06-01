@@ -31,7 +31,7 @@ export class MetaService {
     } else {
       let url = DuckDuckGo.DUCKDUCKGO_URL + site + '+';
       url += UtilsService.encodeQueryUrl(workingTitle) + '&format=json&no_redirect=1';
-      return this.serviceUtils.jsonpPromise(url, 'callback')
+      return this.serviceUtils.getPromise(url)
         .then((data: any) => {
           let result = <string>data.Redirect;
           if (site === DuckDuckGo.SEARCH_BANG_METACRITIC.site) {
