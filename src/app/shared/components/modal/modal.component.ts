@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChange, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, Output, EventEmitter, OnChanges, HostListener } from '@angular/core';
 import { faTimes, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -10,6 +10,11 @@ export class ModalComponent implements OnInit, OnChanges {
   @Input() visible: boolean;
   @Input() closeBtn: IconDefinition;
   @Output() update = new EventEmitter<boolean>();
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent): void {
+    if (this.visible) {
+      this.close();
+    }
+  }
 
   constructor() { }
 
@@ -32,5 +37,4 @@ export class ModalComponent implements OnInit, OnChanges {
     this.visible = false;
     this.update.emit(this.visible);
   }
-
 }
