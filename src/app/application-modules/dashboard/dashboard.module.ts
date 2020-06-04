@@ -1,4 +1,3 @@
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -19,13 +18,10 @@ const childRoutes: Routes = [
     FormsModule,
     RouterModule.forChild(childRoutes),
     SharedModule.forChild(),
-    TranslateModule.forChild(),
   ],
   declarations: [
     DashboardComponent,
   ],
-  providers: [
-    TranslateService,
-  ]
+  providers: []
 })
 export class DashboardModule { }

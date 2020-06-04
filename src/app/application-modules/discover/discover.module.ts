@@ -1,6 +1,6 @@
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgModule } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -34,7 +34,6 @@ const childRoutes: Routes = [
     FormsModule,
     RouterModule.forChild(childRoutes),
     SharedModule.forChild(),
-    TranslateModule.forChild(),
     MatListModule,
     FontAwesomeModule,
     MatIconModule,

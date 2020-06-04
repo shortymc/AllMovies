@@ -6,7 +6,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Routes, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { RegisterComponent } from './register/register.component';
 import { ChangeQuestionComponent } from './change-question/change-question.component';
@@ -36,7 +35,6 @@ const childRoutes: Routes = [
     CommonModule,
     FormsModule,
     MatInputModule,
-    TranslateModule.forChild(),
     SharedModule.forChild(),
     FontAwesomeModule,
     MatSlideToggleModule,
@@ -51,6 +49,6 @@ const childRoutes: Routes = [
     ChangePasswordComponent,
     ChangeQuestionComponent
   ],
-  providers: [TranslateService]
+  providers: []
 })
 export class LoginModule { }
