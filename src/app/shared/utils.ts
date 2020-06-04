@@ -20,7 +20,11 @@ export class Utils {
   };
 
   static isBlank(str: string): boolean {
-    return str === undefined || str === null || str.trim() === '';
+    return str === undefined || str === null || (typeof str === 'string' && str.trim() === '');
+  }
+
+  static isNotBlank(str: string): boolean {
+    return !Utils.isBlank(str);
   }
 
   static getTitle(r: any, isMovie: boolean = true): string {

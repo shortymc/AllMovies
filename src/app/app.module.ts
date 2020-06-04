@@ -4,7 +4,7 @@ import localeEn from '@angular/common/locales/en';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HttpClientJsonpModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, MissingTranslationHandler } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import 'bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +16,7 @@ import { AppComponent } from './app.component';
 import { AuthGard } from './app.gards';
 import { GlobalErrorHandler } from './shared/service/global-error-handler';
 import { ServerErrorInterceptor } from './shared/service/server-error.interceptor';
+import { MyMissingTranslationHandler } from './shared/my-missing-translation-handler';
 
 @NgModule({
   imports: [
@@ -27,6 +28,9 @@ import { ServerErrorInterceptor } from './shared/service/server-error.intercepto
     SharedModule.forRoot(),
     MatSnackBarModule,
     TranslateModule.forRoot({
+      useDefaultLang: false,
+      defaultLanguage: 'en',
+      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MyMissingTranslationHandler },
       loader: {
         provide: TranslateLoader,
         useFactory: (http: HttpClient): TranslateHttpLoader => {
@@ -49,9 +53,7 @@ import { ServerErrorInterceptor } from './shared/service/server-error.intercepto
 })
 
 export class AppModule {
-  constructor(translate: TranslateService) {
-    translate.setDefaultLang('en');
-    translate.use(translate.getBrowserLang());
+  constructor() {
     registerLocaleData(localeFr);
     registerLocaleData(localeEn);
   }

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
+import { Utils } from '../utils';
+
 @Injectable()
 export class TitleService {
   header = new BehaviorSubject<string>('');
@@ -10,8 +12,8 @@ export class TitleService {
   constructor(private title: Title, private translate: TranslateService) { }
 
   setTitle(title: string): void {
-    const isEmpty = title === undefined || title === null || title.trim() === '';
-    this.title.setTitle(!isEmpty ? ('AllMovies | ' + this.translate.instant(title)) : 'AllMovies');
+    const isEmpty = Utils.isBlank(title);
+    this.title.setTitle('AllMovies' + (isEmpty ? '' : (' | ' + this.translate.instant(title))));
     this.header.next(!isEmpty ? this.translate.instant(title) : 'AllMovies');
   }
 }

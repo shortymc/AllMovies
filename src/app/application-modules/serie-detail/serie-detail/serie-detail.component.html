@@ -56,13 +56,13 @@
       </ng-container>
     </div>
     <div *ngIf="serie.seasonCount">
-      <label>{{'serie.seasonCount' | translate}}: </label>{{serie.seasonCount}}
+      <label>{{'serie.season_count' | translate}}: </label>{{serie.seasonCount}}
     </div>
     <div *ngIf="serie.episodeCount">
-      <label>{{'serie.episodeCount' | translate}}: </label>{{serie.episodeCount}}
+      <label>{{'serie.episode_count' | translate}}: </label>{{serie.episodeCount}}
     </div>
     <div>
-      <label>{{'serie.inProduction' | translate}}: </label>{{'global.' + serie.inProduction | translate}}
+      <label>{{'serie.in_production' | translate}}: </label>{{'global.' + serie.inProduction | translate}}
     </div>
     <!-- Aired Date -->
     <div class="serie-aired" *ngIf="serie.firstAired || serie.lastAired">
