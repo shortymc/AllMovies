@@ -1,6 +1,6 @@
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -130,11 +130,12 @@ import { ListService } from './service/list.service';
     PinchZoomModule,
     MatTabsModule,
     NgbModule,
-    TranslateModule.forChild(),
+    TranslateModule,
     MatTooltipModule,
     RouterModule.forChild([])
   ],
   exports: [
+    TranslateModule,
     ConvertToHHmmPipe,
     SubstractDatePipe,
     TruncatePipe,
@@ -177,7 +178,6 @@ export class SharedModule {
         { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, closeOnNavigation: true } },
         MetaService,
         UtilsService,
-        TranslateService,
         MovieService,
         OmdbService,
         SerieService,

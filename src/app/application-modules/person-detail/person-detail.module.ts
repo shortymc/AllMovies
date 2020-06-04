@@ -1,4 +1,3 @@
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -22,12 +21,9 @@ const childRoutes: Routes = [
     FormsModule,
     MatButtonToggleModule,
     SharedModule.forChild(),
-    TranslateModule.forChild(),
     RouterModule.forChild(childRoutes),
   ],
   declarations: [PersonDetailComponent],
-  providers: [
-    TranslateService,
-  ]
+  providers: []
 })
 export class PersonDetailModule { }

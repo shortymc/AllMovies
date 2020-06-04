@@ -1,4 +1,4 @@
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -35,7 +35,6 @@ const childRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(childRoutes),
     SharedModule.forChild(),
-    TranslateModule.forChild(),
     FontAwesomeModule,
     MatTableModule,
     LayoutModule,
