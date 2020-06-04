@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.translate.use(this.translate.getBrowserLang());
     this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe((event: NavigationStart) => {
       this.tabsService.onNavigation(event);
     });

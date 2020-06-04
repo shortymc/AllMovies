@@ -45,7 +45,7 @@
         | capitalizeWord}}
       </div>
       <div>
-        <label>{{'person.known_for.title' | translate}}:</label>{{'person.known_for.'+person.knownFor|translate}}
+        <label>{{'person.known_for.title' | translate}}:</label>{{('person.known_for.'+person.knownFor| lowercase)|translate}}
       </div>
       <div>
         <label>{{'global.popularity' | translate}}:</label>{{person.popularity |

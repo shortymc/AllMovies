@@ -168,14 +168,14 @@
         "known_for": {
             "title": "Known as",
             "detail": "Known for",
-            "Acting": "Acting",
-            "Directing": "Directing",
-            "Sound": "Composer",
-            "Writing": "Screenwriter",
-            "Production": "Productor",
-            "Editing": "Editor",
-            "Art": "Decorator",
-            "Crew": "Technician"
+            "acting": "Acting",
+            "directing": "Directing",
+            "sound": "Composer",
+            "writing": "Screenwriter",
+            "production": "Productor",
+            "editing": "Editor",
+            "art": "Decorator",
+            "crew": "Technician"
         }
     },
     "search": {
@@ -337,11 +337,11 @@
         "dates": "Aired dates",
         "images": "serie images",
         "creators": "Creators",
-        "inProduction": "In production",
+        "in_production": "In production",
         "network": "Network",
-        "seasonCount": "Season count",
-        "firstAired": "First aired",
-        "episodeCount": "Episode Count",
+        "season_count": "Season count",
+        "first_aired": "First aired",
+        "episode_count": "Episode Count",
         "seasons": "Season",
         "status": "Status",
         "type": "Type"

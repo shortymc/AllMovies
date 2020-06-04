@@ -76,6 +76,7 @@ import { SerieSearchComponent } from './components/serie-search/serie-search.com
 import { VideosComponent } from './components/videos/videos.component';
 import { CreditListComponent } from './components/credit-list/credit-list.component';
 import { ListService } from './service/list.service';
+import { MyMissingTranslationHandler } from './my-missing-translation-handler';
 
 @NgModule({
   declarations: [
@@ -181,6 +182,7 @@ export class SharedModule {
         MovieService,
         OmdbService,
         SerieService,
+        MyMissingTranslationHandler,
         LangService,
         DropboxService,
         AuthService,
@@ -230,3 +232,4 @@ export { MyDatasService } from './service/my-datas.service';
 export { ListService } from './service/list.service';
 export { MyTagsService } from './service/my-tags.service';
 export { MockService } from './service/mock.service';
+export { MyMissingTranslationHandler } from './my-missing-translation-handler';

@@ -24,7 +24,7 @@
   <div class="detail-content">
     <app-image-viewer class="detail-poster" [images]="season.poster" [thumbnails]="season.poster" [visible]="true"></app-image-viewer>
     <div *ngIf="season.episodeCount">
-      <label>{{'serie.episodeCount' | translate}}: </label>{{season.episodeCount}}
+      <label>{{'serie.episode_count' | translate}}: </label>{{season.episodeCount}}
     </div>
     <!-- Aired Date -->
     <div *ngIf="season.airDate">
