@@ -27,7 +27,7 @@ export class MetaComponent implements OnInit {
   isMovie: boolean;
   @Input()
   isSerie: boolean;
-  links;
+  links: any[];
 
   constructor(
     private metaService: MetaService,

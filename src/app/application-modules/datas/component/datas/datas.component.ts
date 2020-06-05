@@ -54,8 +54,8 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   formatter: NouiFormatter;
   displayedData: T[] = [];
   filter: string;
-  pageSize;
-  pageIndex;
+  pageSize: number;
+  pageIndex: number;
   pageSizeOptions = [10, 25, 50, 100];
   sort: Sort;
   nbChecked = 0;
@@ -197,7 +197,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
   }
 
   paginate(data: T[]): void {
-    this.displayedData = data.slice(this.pageIndex * this.pageSize, (this.pageIndex + 1) * this.pageSize);
+    this.displayedData = data.slice(this.pageIndex * this.pageSize, (+this.pageIndex + 1) * this.pageSize);
   }
 
   filterGenres(): T[] {
