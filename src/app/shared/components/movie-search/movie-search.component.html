@@ -13,7 +13,7 @@
     <div *ngFor="let movie of movies | async" (click)="searchBox.value=''" appOpenLink [label]="movie.title" url="/movie/{{movie.id}}"
       class="search-result" [ngClass]="{'adult': movie.adult}">
       <div class="media">
-        <img class="mr-2 thumbnail-result" *ngIf="movie.affiche" src="{{movie.affiche | image:'small'}}">
+        <img class="mr-2 thumbnail-result" *ngIf="movie.affiche" src="{{movie.affiche | image:imageSize.small}}">
         <div class="media-body">
           <div class="mt-0 title-result" [ngClass]="{'item-result' : !movie.original_title}">{{movie.title |
             capitalizeWord | truncate:20}}

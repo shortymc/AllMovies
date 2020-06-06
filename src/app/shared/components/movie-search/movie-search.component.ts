@@ -5,6 +5,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { switchMap, debounceTime, catchError } from 'rxjs/operators';
 
 import { Movie } from '../../../model/movie';
+import { ImageSize } from '../../../model/model';
 import { MovieSearchService } from '../../service/movie-search.service';
 import { AuthService } from '../../service/auth.service';
 
@@ -20,6 +21,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   showMovie = false;
   adult: boolean;
   subs = [];
+  imageSize = ImageSize;
   faSearch = faSearch;
 
   constructor(

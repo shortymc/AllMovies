@@ -6,7 +6,7 @@
     <h1 class="detail-title">{{serie.title}} ({{serie.firstAired | date:'yyyy'}})</h1>
     <!-- Networks -->
     <span class="serie-networks">
-      <img class="network-img pointer" [src]="network.logo_path | image:'small'" *ngFor="let network of serie.networks;"
+      <img class="network-img pointer" [src]="network.logo_path | image:imageSize.small" *ngFor="let network of serie.networks;"
         (click)="redirectNetworkToDiscover(network)" matTooltip="{{network.origin_country ? network.name + ' (' + network.origin_country + ')' : network.name}}">
     </span>
     <!-- Time -->

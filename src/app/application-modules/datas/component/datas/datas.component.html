@@ -98,7 +98,7 @@
         <fa-icon class="mat-icon" [icon]="faImage"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let data">
-        <img class="data-poster" src="{{data.translation?.get(translate.currentLang)?.poster | image:'medium'}}" />
+        <img class="data-poster" src="{{data.translation?.get(translate.currentLang)?.poster | image:imageSize.medium}}" />
       </mat-cell>
     </ng-container>
 

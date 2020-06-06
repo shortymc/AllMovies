@@ -12,6 +12,12 @@ export enum Level {
   error = 'error'
 }
 
+export enum ImageSize {
+  full = 'original',
+  medium = 'medium',
+  small = 'small'
+}
+
 export class DropDownChoice {
   label_key: string;
   value: any;

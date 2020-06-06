@@ -5,7 +5,7 @@
 <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption class="big-autocomplete">
   <mat-option *ngFor="let data of filteredDatas | async" (onSelectionChange)="add(data); inputSearch.value = ''">
     <div class="result-content" [ngClass]="{'adult': data.adult}">
-      <img class="align-self-center" *ngIf="data.affiche" src="{{data.affiche | image:'small'}}">
+      <img class="align-self-center" *ngIf="data.affiche" src="{{data.affiche | image:imageSize.small}}">
       <div class="result-body">
         <span>{{data.title | capitalizeWord}}</span>
       </div>

@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef }
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { Data } from './../../../../model/data';
-import { DetailConfig } from './../../../../model/model';
+import { DetailConfig, ImageSize } from './../../../../model/model';
 import { SerieService, MovieService, MovieSearchService } from './../../../../shared/shared.module';
 
 @Component({
@@ -22,6 +22,7 @@ export class SearchDataComponent<T extends Data> implements OnInit {
   @Output() movie = new EventEmitter<boolean>();
   filteredDatas: Observable<T[]>;
   dataCtrl: FormControl;
+  imageSize = ImageSize;
   faRemove = faTimes;
   isMovie = true;
 

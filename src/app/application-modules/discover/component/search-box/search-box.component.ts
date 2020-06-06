@@ -5,6 +5,7 @@ import { Component, OnInit, Input, Output, EventEmitter, SimpleChange, OnChanges
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { SearchService } from './../../../../shared/service/search.service';
+import { ImageSize } from '../../../../model/model';
 
 interface IdClass {
   id: any;
@@ -23,6 +24,7 @@ export class SearchBoxComponent<T extends IdClass> implements OnInit, OnChanges 
   @Input() clear: boolean;
   @Input() hasImage: boolean;
   @Output() items = new EventEmitter<any[]>();
+  imageSize = ImageSize;
   itemCtrl: FormControl;
   filteredItems: Observable<T[]>;
   list: T[] = [];

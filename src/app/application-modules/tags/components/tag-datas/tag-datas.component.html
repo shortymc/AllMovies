@@ -55,7 +55,7 @@
         <fa-icon class="mat-icon" [icon]="faImage"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let data">
-        <img class="data-poster pointer" src="{{data.poster | image:'medium'}}" appOpenLink
+        <img class="data-poster pointer" src="{{data.poster | image:imageSize.medium}}" appOpenLink
           [label]="data.titles?.get(translate.currentLang)" url="{{data.movie ? '/movie/' : '/serie/'}}{{data.id}}" />
       </mat-cell>
     </ng-container>

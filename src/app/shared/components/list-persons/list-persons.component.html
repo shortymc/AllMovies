@@ -6,7 +6,7 @@
         <span appOpenLink [label]="person.name" url="/person/{{person.id}}" class="myTooltip" [ngClass]="{'woman': person.gender === 1, 'men': person.gender === 2, 'unknown': person.gender === 0, 'unknown': !person.gender}">
           <span class="pointer block">{{person.name| capitalizeWord}}
             <div class="character" *ngIf="person.character"> ({{person.character| capitalizeWord}})</div>
-            <img class="frame profile" [src]="person.profile_path | image:'small'" *ngIf="person.profile_path" /></span></span>
+            <img class="frame profile" [src]="person.profile_path | image:imageSize.small" *ngIf="person.profile_path" /></span></span>
         <span *ngIf="(((i !== limit && !showAll) || (!last && showAll)) && persons.length >= limit) || (persons.length < limit && !last)">/
         </span>
       </span>

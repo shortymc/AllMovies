@@ -6,7 +6,7 @@ import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 
 import { Data } from '../../../model/data';
 import { Utils } from '../../utils';
-import { DropDownChoice } from '../../../model/model';
+import { DropDownChoice, ImageSize } from '../../../model/model';
 
 library.add(faTimesCircle);
 
@@ -23,6 +23,7 @@ export class ListDatasComponent<T extends Data> implements OnChanges {
   @Input()
   label: string;
 
+  imageSize = ImageSize;
   page: number;
   research: string;
   resultLength: number;

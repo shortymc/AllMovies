@@ -5,6 +5,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { switchMap, debounceTime, catchError } from 'rxjs/operators';
 
 import { Serie } from '../../../model/serie';
+import { ImageSize } from '../../../model/model';
 import { SerieService } from '../../service/serie.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class SerieSearchComponent implements OnInit, OnDestroy {
   private searchTerms = new Subject<string>();
   showSerie = false;
   subs = [];
+  imageSize = ImageSize;
   faSearch = faSearch;
 
   constructor(

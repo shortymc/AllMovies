@@ -8,10 +8,9 @@ import { faChevronCircleLeft, faImage, faChevronCircleRight, faPlus, faMinus } f
 
 import { SerieService, TitleService, MenuService, TabsService, MyDatasService, MyTagsService } from './../../../shared/shared.module';
 import { Tag } from './../../../model/tag';
-import { Network } from './../../../model/model';
 import { DuckDuckGo } from './../../../constant/duck-duck-go';
 import { Serie } from '../../../model/serie';
-import { Keyword, Genre, DetailConfig } from '../../../model/model';
+import { Keyword, Genre, DetailConfig, Network, ImageSize } from '../../../model/model';
 
 @Component({
   selector: 'app-serie-detail',
@@ -27,6 +26,7 @@ export class SerieDetailComponent implements OnInit, OnDestroy {
   isImagesVisible = false;
   showTitles = false;
   Url = DuckDuckGo;
+  imageSize = ImageSize;
   subs = [];
 
   faChevronCircleLeft = faChevronCircleLeft;

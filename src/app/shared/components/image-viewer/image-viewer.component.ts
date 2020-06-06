@@ -1,7 +1,9 @@
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { faExpand, IconDefinition, faCompress } from '@fortawesome/free-solid-svg-icons';
+
 import { MenuService } from '../../service/menu.service';
+import { ImageSize } from '../../../model/model';
 
 @Component({
   selector: 'app-image-viewer',
@@ -13,6 +15,7 @@ export class ImageViewerComponent implements OnChanges {
   @Input() images: string[] | string;
   @Input() thumbnails: string[] | string;
   index: number;
+  imageSize = ImageSize;
   nextBtn: HTMLButtonElement;
   prevBtn: HTMLButtonElement;
   config: SwiperConfigInterface = {

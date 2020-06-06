@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+
 import { Person } from '../../../model/person';
+import { ImageSize } from '../../../model/model';
 import { Url } from '../../../constant/url';
 
 @Component({
@@ -13,6 +15,7 @@ export class ListPersonsComponent implements OnInit {
   @Input()
   label: string;
   Url = Url;
+  imageSize = ImageSize;
   limit = 6;
   showAll = false;
 

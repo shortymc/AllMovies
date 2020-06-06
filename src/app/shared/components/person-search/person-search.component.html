@@ -13,7 +13,7 @@
     <div *ngFor="let person of persons | async" (click)="searchBox.value=''" appOpenLink [label]="person.name" url="/person/{{person.id}}"
       class="search-result" [ngClass]="{'adult': person.adult}">
       <div class="media">
-        <img class="mr-2 thumbnail-result" *ngIf="person.profile" src="{{person.profile | image:'small'}}">
+        <img class="mr-2 thumbnail-result" *ngIf="person.profile" src="{{person.profile | image:imageSize.small}}">
         <div class="media-body person-result">
           {{person.name | capitalizeWord}}
         </div>

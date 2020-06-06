@@ -92,7 +92,7 @@
   </mat-paginator>
   <h3 mat-subheader>{{'discover.result'|translate}}:</h3>
   <mat-list-item *ngFor="let data of discover.datas" [ngClass]="{'selected':data.checked, 'adult': data.adult}">
-    <img src="{{data.affiche | image:'small'}}" />
+    <img src="{{data.affiche | image:imageSize.small}}" />
     <p matLine appOpenLink [label]="data.title" url="{{ isMovie ? '/movie/':'/serie/'}}{{data.id}}" class="result-title">{{data.title}}</p>
     <p matLine>{{data.original_title}}</p>
     <p matLine *ngIf="isMovie">{{data.language | uppercase}}</p>

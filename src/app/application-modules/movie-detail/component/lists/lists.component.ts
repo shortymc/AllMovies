@@ -7,7 +7,7 @@ import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Constants } from './../../../../constant/constants';
 import { Utils } from './../../../../shared/utils';
 import { ListService } from './../../../../shared/shared.module';
-import { List } from './../../../../model/model';
+import { List, ImageSize } from './../../../../model/model';
 
 @Component({
   selector: 'app-lists',
@@ -31,6 +31,7 @@ export class ListsComponent implements OnInit, OnChanges {
     zoom: false,
     touchEventsTarget: 'wrapper'
   };
+  imageSize = ImageSize;
   faChevronCircleRight = faChevronCircleRight;
   faPlus = faPlus;
   faMinus = faMinus;

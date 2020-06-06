@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 
-import { FullList, DropDownChoice, Genre } from '../../../../model/model';
+import { FullList, DropDownChoice, Genre, ImageSize } from '../../../../model/model';
 import { ListService, TitleService, GenreService } from '../../../../shared/shared.module';
 
 @Component({
@@ -22,6 +22,7 @@ export class ListDetailComponent implements OnInit, OnDestroy {
   allGenres: Genre[];
   genresLoaded$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   nbChecked = 0;
+  imageSize = ImageSize;
   subs = [];
 
   constructor(
