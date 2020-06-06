@@ -7,6 +7,7 @@ import { Movie } from '../../../../model/movie';
 import { TitleService, PersonService, MovieService, SerieService } from '../../../../shared/shared.module';
 import { Serie } from './../../../../model/serie';
 import { Person } from '../../../../model/person';
+import { ImageSize } from '../../../../model/model';
 import { Url } from '../../../../constant/url';
 import { Constants } from './../../../../constant/constants';
 
@@ -16,6 +17,7 @@ import { Constants } from './../../../../constant/constants';
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit, OnDestroy {
+  imageSize = ImageSize;
   movies: Movie[] = [];
   series: Serie[] = [];
   persons: Person[] = [];

@@ -21,7 +21,7 @@ import { Serie } from './../../../../model/serie';
 import { Movie } from './../../../../model/movie';
 import { Tag, TagData } from '../../../../model/tag';
 import { Data } from '../../../../model/data';
-import { Genre, DetailConfig, Level } from '../../../../model/model';
+import { Genre, DetailConfig, Level, ImageSize } from '../../../../model/model';
 import { DatasConstants } from './datas.constants';
 import { ImagePipe } from '../../../../shared/pipes/image.pipe';
 
@@ -41,6 +41,7 @@ library.add(faTimesCircle);
   ]
 })
 export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
+  imageSize = ImageSize;
   init_columns: string[];
   medium_columns: string[];
   mobile_columns: string[];
@@ -283,7 +284,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     } catch (err) {
       console.error(err);
     }
-    forkJoin(datas.map(d => Utils.imageExists(d.id, this.imagePipe.transform(d.translation.get(lang).poster, 'medium'))))
+    forkJoin(datas.map(d => Utils.imageExists(d.id, this.imagePipe.transform(d.translation.get(lang).poster, ImageSize.small))))
       .subscribe((exists: any[]) => {
         exists.forEach(e => {
           if (e.result === false && !incomplete.includes(e.id)) {

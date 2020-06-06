@@ -47,7 +47,7 @@
     <div class="card-body">
       <div class="data">
         <div *ngFor="let data of datasToShow;" class="data-item">
-          <img class="frame center pointer" src="{{data.affiche | image:'small'}}" alt="{{data.title| capitalizeWord}}"
+          <img class="frame center pointer" src="{{data.affiche | image:imageSize.small}}" alt="{{data.title| capitalizeWord}}"
             appOpenLink [label]="data.title" url="{{ isMovie ? '/movie/':'/serie/'}}{{data.id}}" matTooltip="{{data.character}}">
           <p class="data-infos center" [ngClass]="{'adult': data.adult}">{{data.title | capitalizeWord}} -
             <ng-container *ngIf="isMovie; else serie">{{ data.date| date : 'MMM yyyy':'':translate.currentLang |

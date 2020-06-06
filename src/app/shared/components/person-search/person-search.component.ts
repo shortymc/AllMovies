@@ -4,6 +4,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { switchMap, debounceTime, catchError } from 'rxjs/operators';
 
 import { Person } from '../../../model/person';
+import { ImageSize } from '../../../model/model';
 import { PersonSearchService } from '../../service/person-search.service';
 import { AuthService } from '../../service/auth.service';
 
@@ -17,6 +18,7 @@ export class PersonSearchComponent implements OnInit {
   private searchTerms = new Subject<string>();
   showPerson = false;
   adult: boolean;
+  imageSize = ImageSize;
   faSearch = faSearch;
 
   constructor(

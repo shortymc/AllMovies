@@ -2,7 +2,7 @@
   <!-- Modal for fullscreen -->
   <app-modal [visible]="isFullscreen" (update)="closeFullscreen($event)" [closeBtn]="closeBtn">
     <pinch-zoom>
-      <img src="{{fullScreenImg | image:'original'}}" class="fullscreen">
+      <img src="{{fullScreenImg | image:imageSize.full}}" class="fullscreen">
     </pinch-zoom>
   </app-modal>
   <!-- Swiper for gallery of images -->
@@ -12,7 +12,7 @@
       <swiper [config]="config" [(index)]="index">
         <div *ngFor="let img of images">
           <pinch-zoom [zoom-button]="false">
-            <img src="{{img | image:'original'}}">
+            <img src="{{img | image:imageSize.full}}">
           </pinch-zoom>
         </div>
       </swiper>
@@ -24,7 +24,7 @@
     <div class="gallery-thumbs">
       <swiper [config]="thumbs" [(index)]="index">
         <div *ngFor="let thumb of thumbnails">
-          <img src="{{thumb | image:'medium'}}">
+          <img src="{{thumb | image:imageSize.medium}}">
         </div>
       </swiper>
     </div>
@@ -32,7 +32,7 @@
   <!-- One picture display -->
   <ng-container *ngIf="isOnePicture">
     <pinch-zoom [zoom-button]="false" class="frame-viewer pointer">
-      <img src="{{thumbnails | image:'medium'}}" (click)="fullscreen(images)">
+      <img src="{{thumbnails | image:imageSize.medium}}" (click)="fullscreen(images)">
     </pinch-zoom>
   </ng-container>
 </ng-container>

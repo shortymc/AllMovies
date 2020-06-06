@@ -13,7 +13,7 @@
     <div *ngFor="let serie of series | async" (click)="searchBox.value=''" appOpenLink [label]="serie.title"
       url="/serie/{{serie.id}}" class="search-result">
       <div class="media">
-        <img class="mr-2 thumbnail-result" *ngIf="serie.affiche" src="{{serie.affiche | image:'small'}}">
+        <img class="mr-2 thumbnail-result" *ngIf="serie.affiche" src="{{serie.affiche | image:imageSize.small}}">
         <div class="media-body">
           <div class="mt-0 title-result" [ngClass]="{'item-result' : !serie.original_title}">{{serie.title |
             capitalizeWord | truncate:20}}

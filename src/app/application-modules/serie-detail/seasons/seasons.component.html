@@ -4,7 +4,7 @@
     <swiper [config]="swiperConfig">
       <div *ngFor="let season of seasons">
         <div class="season-slide">
-          <img class="season-poster" [src]="season.poster | image:'small'" (click)="setOverview(season)" [ngClass]="{'pointer': season.overview}" />
+          <img class="season-poster" [src]="season.poster | image:imageSize.small" (click)="setOverview(season)" [ngClass]="{'pointer': season.overview}" />
           <p>{{season.name}} ({{season.episodeCount}}) - {{season.airDate | date:'yyyy'}}
             <button class="btn btn-outline-primary small-btn" (click)="goToSeasonDetail(season.seasonNumber)">
               <fa-icon [icon]="faChevronCircleRight" size="xs"></fa-icon>

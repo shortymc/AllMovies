@@ -2,7 +2,7 @@
   <app-image-viewer [images]="list.poster_path" [thumbnails]="list.poster_path" [visible]="true"></app-image-viewer>
   <mat-list-item>
     <h4 matLine>{{list.name}}</h4>
-    <!-- <img class="poster" src="{{list.poster_path | image:'small'}}" /> -->
+    <!-- <img class="poster" src="{{list.poster_path | image:imageSize.small}}" /> -->
     <p matLine>{{list.description}}</p>
     <p matLine>{{list.lang}} - {{list.country}}</p>
     <p matLine>{{list.average_rating|number:'1.0-2':translate.currentLang}}/10</p>
@@ -42,7 +42,7 @@
   </mat-paginator>
   <mat-list-item *ngFor="let movie of list.paginate.results"
     [ngClass]="{'selected':movie.checked, 'adult': movie.adult}">
-    <img class="poster" src="{{movie.affiche | image:'small'}}" />
+    <img class="poster" src="{{movie.affiche | image:imageSize.small}}" />
     <p matLine appOpenLink [label]="movie.title" url="/movie/{{movie.id}}" class="result-title">{{movie.title}}</p>
     <p matLine>{{movie.original_title}}</p>
     <p matLine>{{movie.language | uppercase}}</p>

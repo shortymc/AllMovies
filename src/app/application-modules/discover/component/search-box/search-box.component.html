@@ -13,7 +13,7 @@
 <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption class="{{hasImage ? 'big-autocomplete': ''}}">
   <mat-option *ngFor="let item of filteredItems | async" (onSelectionChange)="addItem(item); inputSearch.value = ''">
     <div class="result-content" [ngClass]="{'adult': item.adult}">
-      <img class="align-self-center" *ngIf="hasImage" src="{{item.profile | image:'small':'true'}}">
+      <img class="align-self-center" *ngIf="hasImage" src="{{item.profile | image:imageSize.small:'true'}}">
       <div class="result-body">
         <span>{{item.name | capitalizeWord}}</span>
       </div>

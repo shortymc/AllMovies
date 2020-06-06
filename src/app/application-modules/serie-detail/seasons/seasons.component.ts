@@ -8,6 +8,7 @@ import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Constants } from './../../../constant/constants';
 import { Utils } from './../../../shared/utils';
 import { Season } from './../../../model/season';
+import { ImageSize } from './../../../model/model';
 
 @Component({
   selector: 'app-seasons',
@@ -32,6 +33,7 @@ export class SeasonsComponent implements OnInit, OnChanges {
     zoom: false,
     touchEventsTarget: 'wrapper'
   };
+  imageSize = ImageSize;
   faChevronCircleRight = faChevronCircleRight;
   faPlus = faPlus;
   faMinus = faMinus;

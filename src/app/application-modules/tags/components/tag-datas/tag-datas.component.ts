@@ -9,7 +9,7 @@ import { faSave } from '@fortawesome/free-regular-svg-icons';
 import { Utils } from './../../../../shared/utils';
 import { MyDatasService, MyTagsService, AuthService, MenuService, ToastService } from './../../../../shared/shared.module';
 import { Data } from './../../../../model/data';
-import { Level } from './../../../../model/model';
+import { Level, ImageSize } from './../../../../model/model';
 import { Tag, TagData } from './../../../../model/tag';
 
 @Component({
@@ -43,6 +43,7 @@ export class TagDatasComponent implements OnInit, OnChanges, OnDestroy {
   seriesToAdd: Data[] = [];
   subs = [];
 
+  imageSize = ImageSize;
   faTrash = faTrash;
   faImage = faImage;
   faList = faList;

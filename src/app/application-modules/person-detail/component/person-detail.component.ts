@@ -5,7 +5,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { faAtom, faChevronCircleLeft, faPlusSquare, faMinusSquare, faImage } from '@fortawesome/free-solid-svg-icons';
 
 import { PersonService, TitleService } from '../../../shared/shared.module';
-import { DropDownChoice } from './../../../model/model';
+import { DropDownChoice, ImageSize } from './../../../model/model';
 import { Person } from '../../../model/person';
 import { Job } from './../../../constant/job';
 import { Url } from '../../../constant/url';
@@ -27,6 +27,7 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
 
   subs = [];
   Url = Url;
+  imageSize = ImageSize;
   DuckDuckGo = DuckDuckGo;
   faAtom = faAtom;
   faChevronCircleLeft = faChevronCircleLeft;

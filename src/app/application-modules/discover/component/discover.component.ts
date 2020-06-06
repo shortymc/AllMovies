@@ -10,7 +10,7 @@ import { Discover } from './../../../model/discover';
 import {
   KeywordSearchService, SerieService, CertificationService, LangService, GenreService, PersonSearchService, TitleService, AuthService, MovieService
 } from './../../../shared/shared.module';
-import { DropDownChoice } from '../../../model/model';
+import { DropDownChoice, ImageSize } from '../../../model/model';
 import { Utils } from '../../../shared/utils';
 import { NetworkService } from './../network.service';
 import { ReleaseType } from '../../../constant/release-type';
@@ -22,6 +22,7 @@ import { ReleaseType } from '../../../constant/release-type';
 })
 export class DiscoverComponent implements OnInit, OnDestroy {
   @ViewChild('sortDir', { static: true }) sortDir: any;
+  imageSize = ImageSize;
   discover: Discover;
   sortChoices: DropDownChoice[];
   sortChosen: DropDownChoice;

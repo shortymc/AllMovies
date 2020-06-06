@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { ImageSize } from '../../model/model';
 
 @Pipe({
   name: 'image'
@@ -10,13 +11,13 @@ export class ImagePipe implements PipeTransform {
   static readonly EMPTY_IMAGE_URL = './assets/empty_';
   static readonly MOVIE_DB_IMAGE_URL = 'https://image.tmdb.org/t/p/';
   static readonly settings = new Map()
-    .set('original', ImagePipe.ORIGINAL_IMG_SIZE)
-    .set('medium', ImagePipe.MEDIUM_IMG_SIZE)
-    .set('small', ImagePipe.SMALL_IMG_SIZE);
+    .set(ImageSize.full, ImagePipe.ORIGINAL_IMG_SIZE)
+    .set(ImageSize.medium, ImagePipe.MEDIUM_IMG_SIZE)
+    .set(ImageSize.small, ImagePipe.SMALL_IMG_SIZE);
 
-  transform(path: any, size: 'original' | 'medium' | 'small', noEmpty?: boolean): string {
+  transform(path: any, size: ImageSize, noEmpty?: boolean): string {
     const width = ImagePipe.settings.get(size);
-    if (path === undefined || path === null && noEmpty) {
+    if ((path === undefined || path === null || path.trim() === '') && noEmpty) {
       return undefined;
     } else if (path === undefined || path === null) {
       return ImagePipe.EMPTY_IMAGE_URL + width + '.jpg';
