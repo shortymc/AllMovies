@@ -201,6 +201,7 @@ export class SharedModule {
         MenuService,
         ToastService,
         CapitalizeWordPipe,
+        ImagePipe,
         {
           provide: SWIPER_CONFIG,
           useValue: {}

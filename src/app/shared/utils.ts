@@ -296,7 +296,7 @@ export class Utils {
       return prev;
     }, {
 
-      });
+    });
     return Object.keys(groupedObj).map(key => new GroupBy(key, <T[]>groupedObj[key]));
   }
 
@@ -308,4 +308,12 @@ export class Utils {
     return new Map(JSON.parse(json));
   }
 
+  static imageExists(id: number, url: string): Promise<any> {
+    const img = new Image();
+    return new Promise(resolve => {
+      img.onload = () => resolve({ id: id, result: true });
+      img.onerror = () => resolve({ id: id, result: false });
+      img.src = url;
+    });
+  }
 }
