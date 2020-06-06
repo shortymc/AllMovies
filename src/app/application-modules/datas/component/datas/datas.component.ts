@@ -1,7 +1,7 @@
 /* tslint:disable:no-string-literal */
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import { forkJoin, BehaviorSubject } from 'rxjs';
+import { forkJoin, BehaviorSubject, Observable } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Sort } from '@angular/material/sort';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -23,6 +23,7 @@ import { Tag, TagData } from '../../../../model/tag';
 import { Data } from '../../../../model/data';
 import { Genre, DetailConfig, Level } from '../../../../model/model';
 import { DatasConstants } from './datas.constants';
+import { ImagePipe } from '../../../../shared/pipes/image.pipe';
 
 library.add(faClock);
 library.add(faTimesCircle);
@@ -89,6 +90,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     private myDatasService: MyDatasService<T>,
     private myTagsService: MyTagsService,
     public translate: TranslateService,
+    private imagePipe: ImagePipe,
     private toast: ToastService,
     private router: Router,
     private elemRef: ElementRef,
@@ -152,7 +154,6 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     this.allDatas = datas;
     this.length = this.allDatas.length;
     this.getAllGenres(lang);
-    this.checkAndFixData(datas, lang);
   }
 
   getTags(): void {
@@ -198,6 +199,7 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
 
   paginate(data: T[]): void {
     this.displayedData = data.slice(this.pageIndex * this.pageSize, (+this.pageIndex + 1) * this.pageSize);
+    this.checkAndFixData(this.displayedData, this.translate.currentLang);
   }
 
   filterGenres(): T[] {
@@ -281,30 +283,29 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     } catch (err) {
       console.error(err);
     }
-    incomplete = incomplete.slice(0, 15);
-    const obs = [];
-    const otherLang = lang === 'fr' ? 'en' : 'fr';
-    const conf1 = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, lang);
-    const conf2 = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, otherLang);
-    incomplete.forEach((id: number) => {
-      if (this.isMovie) {
-        obs.push(this.movieService.getMovie(id, conf1, false));
-        obs.push(this.movieService.getMovie(id, conf2, false));
-      } else {
-        obs.push(this.serieService.getSerie(id, conf1, false));
-        obs.push(this.serieService.getSerie(id, conf2, false));
-      }
-    });
+    forkJoin(datas.map(d => Utils.imageExists(d.id, this.imagePipe.transform(d.translation.get(lang).poster, 'medium'))))
+      .subscribe((exists: any[]) => {
+        exists.forEach(e => {
+          if (e.result === false && !incomplete.includes(e.id)) {
+            incomplete.push(e.id);
+          }
+        });
+        incomplete = incomplete.slice(0, 15);
+        this.updateDatas(incomplete, lang);
+      });
+  }
+
+  updateDatas(toUpdate: number[], lang: string): void {
     try {
-      forkJoin(obs).subscribe(
-        (data: T[]) => {
-          data.forEach(m => {
+      forkJoin(this.download(toUpdate, lang)).subscribe(
+        (datas: T[]) => {
+          datas.forEach(m => {
             m.updated = new Date();
             if (m.score === undefined) {
               m.score = {};
             }
           });
-          this.myDatasService.update(data, this.isMovie).then((updated) => {
+          this.myDatasService.update(datas, this.isMovie).then((updated) => {
             updated.forEach(up => {
               const index = this.allDatas.map(a => a.id).indexOf(up.id);
               up.added = this.allDatas[index].added;
@@ -318,6 +319,23 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  download(toDownload: number[], lang: string): Observable<T>[] {
+    const obs = [];
+    const otherLang = lang === 'fr' ? 'en' : 'fr';
+    const conf1 = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, lang);
+    const conf2 = new DetailConfig(false, false, false, false, false, false, false, false, !this.isMovie, otherLang);
+    toDownload.forEach((id: number) => {
+      if (this.isMovie) {
+        obs.push(this.movieService.getMovie(id, conf1, false));
+        obs.push(this.movieService.getMovie(id, conf2, false));
+      } else {
+        obs.push(this.serieService.getSerie(id, conf1, false));
+        obs.push(this.serieService.getSerie(id, conf2, false));
+      }
+    });
+    return obs;
   }
 
   remove(): void {
