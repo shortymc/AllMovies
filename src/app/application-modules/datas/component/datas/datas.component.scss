@@ -7,7 +7,7 @@
 .paginator {
   position: sticky;
   position: -webkit-sticky;
-  z-index: 99;
+  z-index: map-get($depth, tooltip);
   background: rgba(255, 255, 255, 1);
 }
 

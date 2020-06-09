@@ -12,7 +12,7 @@ swiper {
 }
 
 #swiper-top {
-  z-index: 99;
+  z-index: map-get($depth, tooltip);
 }
 
 #swiper-middle {
@@ -55,7 +55,7 @@ swiper {
 
 .profile {
   position: fixed;
-  z-index: 99;
+  z-index: map-get($depth, tooltip);
   display: none;
   margin: 5px 0 0 4vw;
   border: 3px solid $black;

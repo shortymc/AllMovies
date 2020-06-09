@@ -2,7 +2,7 @@
 
 .profile {
   position: absolute;
-  z-index: 99;
+  z-index: map-get($depth, tooltip);
   display: none;
 
   & img {
@@ -17,7 +17,7 @@
 }
 
 .character {
-  z-index: 99;
+  z-index: map-get($depth, tooltip);
 
   .myTooltip & {
     display: contents;
