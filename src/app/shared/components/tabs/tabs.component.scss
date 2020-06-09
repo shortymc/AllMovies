@@ -19,6 +19,8 @@
 }
 
 .tabs-content {
+  z-index: map-get($depth, content);
+  position: relative;
   width: 100vw;
 }
 
