@@ -63,9 +63,9 @@ export class MetaService {
       .set('search', term)
       .set('format', 'json');
 
-    const url = site === DuckDuckGo.SEARCH_BANG_WIKI_EN.site ? `http://en.wikipedia.org/w/api.php?${params.toString()}`
-      : `http://fr.wikipedia.org/w/api.php?${params.toString()}`;
+    const url = `https://${site === DuckDuckGo.SEARCH_BANG_WIKI_EN.site ? 'en' : 'fr'}.wikipedia.org/w/api.php?${params.toString()}`;
 
+    console.log('meta', url);
     return this.serviceUtils.jsonpObservable(url, 'callback')
       .pipe(
         map(response => response[3][0]),
