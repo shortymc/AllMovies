@@ -7,7 +7,7 @@
     "start": "ng serve --port 4242",
     "mobile": "ng serve --host 0.0.0.0",
     "build": "ng build --prod",
-    "cordova": "ng build --prod --base-href file:///android_asset/www/",
+    "cordova": "ng build --prod --base-href file:///android_asset/www/ --progress false",
     "test": "ng test",
     "lint": "run-p lint:**",
     "lint:ts": "ng lint",
