@@ -27,6 +27,7 @@ export class SerieDetailComponent implements OnInit, OnDestroy {
   showTitles = false;
   Url = DuckDuckGo;
   imageSize = ImageSize;
+  sc: string;
   subs = [];
 
   faChevronCircleLeft = faChevronCircleLeft;

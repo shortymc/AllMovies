@@ -23,11 +23,13 @@
       </button>
     </div>
   </div>
-  <app-meta class="movie-meta" [entry]="movie" [isMovie]="true" [isSerie]="false" [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"></app-meta>
+  <app-meta class="movie-meta" [entry]="movie" [isMovie]="true" [isSerie]="false"
+    [sites]="[Url.SEARCH_BANG_METACRITIC, Url.SEARCH_BANG_SENSCRITIQUE, Url.SEARCH_BANG_WIKI_EN, Url.SEARCH_BANG_WIKI_FR, Url.SEARCH_BANG_IMDB]"
+    (sensCritique)="sc = $event"></app-meta>
   <div class="detail-content">
     <app-image-viewer class="detail-poster" [images]="movie.affiche" [thumbnails]="movie.affiche" [visible]="true"></app-image-viewer>
     <!-- Score -->
-    <app-score [score]="movie.score"></app-score>
+    <app-score [score]="movie.score" [scScore]="sc"></app-score>
     <div>
       <label>{{'global.id' | translate}}:</label>{{movie.id}}
     </div>
