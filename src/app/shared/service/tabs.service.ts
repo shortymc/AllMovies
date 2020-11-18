@@ -55,11 +55,11 @@ export class TabsService {
     this.storeTabs();
   }
 
-  closeTab(link: Link): void {
-    const index = this.liens.map(l => l.url).indexOf(link.url);
-    this.liens = this.liens.filter(lien => lien.url !== link.url);
+  closeTab(closedLink: Link): void {
+    const index = this.liens.map(l => l.url).indexOf(closedLink.url);
+    this.liens = this.liens.filter(lien => lien.url !== closedLink.url);
     this.links.next(this.liens);
-    if (this.activeLink === link) {
+    if (this.activeLink.url === closedLink.url) {
       if (index < this.liens.length) {
         this.changeTab(this.liens[index]);
       } else {
