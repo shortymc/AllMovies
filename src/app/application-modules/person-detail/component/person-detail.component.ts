@@ -65,36 +65,36 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
             const clonedActor = { ...actor };
             clonedActor.value.set('show', ['both']);
             this.listMoviesOrder = [clonedActor, director, producer, screenplay, novel, compositor, other];
-            this.getKnownFor(person.asActor);
+            this.getKnownFor(person.asActor, true);
             break;
           case 'Directing':
             const clonedDirector = { ...director };
             clonedDirector.value.set('show', ['both']);
             this.listMoviesOrder = [clonedDirector, producer, actor, screenplay, novel, compositor, other];
-            this.getKnownFor(person.asDirector);
+            this.getKnownFor(person.asDirector, false);
             break;
           case 'Sound':
             const clonedCompositor = { ...compositor };
             clonedCompositor.value.set('show', ['both']);
             this.listMoviesOrder = [clonedCompositor, actor, director, producer, screenplay, novel, other];
-            this.getKnownFor(person.asCompositors);
+            this.getKnownFor(person.asCompositors, false);
             break;
           case 'Writing':
             const clonedScreenplay = { ...screenplay };
             clonedScreenplay.value.set('show', ['both']);
             this.listMoviesOrder = [clonedScreenplay, novel, director, producer, actor, compositor, other];
-            this.getKnownFor([...person.asScreenplay, ...person.asNovel]);
+            this.getKnownFor([...person.asScreenplay, ...person.asNovel], false);
             break;
           case 'Production':
             const clonedProducer = { ...producer };
             clonedProducer.value.set('show', ['both']);
             this.listMoviesOrder = [clonedProducer, director, actor, screenplay, novel, compositor, other];
-            this.getKnownFor(person.asProducer);
+            this.getKnownFor(person.asProducer, false);
             break;
           default:
             console.log('default');
             this.listMoviesOrder = [clonedActor, director, producer, screenplay, novel, compositor, other];
-            this.getKnownFor(person.asOther);
+            this.getKnownFor(person.asOther, false);
             break;
         }
         console.log('listMoviesOrder', this.listMoviesOrder);
@@ -123,8 +123,8 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  getKnownFor(data: Data[]): void {
-    this.knownFor = Utils.sortData(data.filter(d => Utils.isNotBlank(d.character)),
+  getKnownFor(data: Data[], removeBlankCharacter: boolean): void {
+    this.knownFor = Utils.sortData(data.filter(d => Utils.isNotBlank(d.affiche) && (!removeBlankCharacter || Utils.isNotBlank(d.character))),
       { active: 'vote_count', direction: 'desc' }).slice(0, 6);
   }
 
