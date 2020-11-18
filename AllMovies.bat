@@ -6,9 +6,10 @@ set "result=nothing"
 IF /i "%answer%"=="1" (
 	cmd.exe /K "cd ."
 ) else IF /i "%answer%"=="2" (
-	code .
+	START /MIN code .
+	goto debut
 ) else IF /i "%answer%"=="3" (
-	call "AllMovies - Update.bat"
+	call git pull --rebase --autostash
 	goto debut
 ) else IF /i "%answer%"=="4" (
 	call yarn
