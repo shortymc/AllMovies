@@ -1,9 +1,12 @@
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { parse } from 'node-html-parser';
 
 import { Utils } from './../../../utils';
 import { MetaService } from './../service/meta.service';
+import { DuckDuckGo, Search } from '../../../../constant/duck-duck-go';
+import { Score } from '../../../../model/score';
 
 @Component({
   selector: 'app-meta',
@@ -22,12 +25,14 @@ export class MetaComponent implements OnInit {
   }
 
   @Input()
-  sites: any[];
+  sites: Search[];
   @Input()
   isMovie: boolean;
   @Input()
   isSerie: boolean;
-  links: any[];
+  @Output()
+  sensCritique = new EventEmitter<Score>();
+  links: Search[];
 
   constructor(
     private metaService: MetaService,
@@ -66,9 +71,30 @@ export class MetaComponent implements OnInit {
       });
   }
 
+  scSeach(url: string): void {
+    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error fetching url: ' + url);
+        }
+      })
+      .then(data => {
+        const link = parse(data.contents).querySelector('.erra-global');
+        const title = link.getAttribute('title');
+        const votes = title.slice(title.indexOf(' : ') + 2, title.indexOf(' avis')).trim();
+        const score = link.rawText.replace(/(\r\n|\n|\r|\t|\n\t)/gm, '');
+        this.sensCritique.emit(new Score([{ Source: 'SensCritique', Value: score }], undefined, undefined, +votes));
+      });
+  }
+
   handleResult(result: any, site: any): void {
     this.links.push({ site: result, icon: site.icon, key: site.site });
     this.links.sort((a, b) => Utils.compare(a.key, b.key, false));
+    if (site.site === DuckDuckGo.SEARCH_BANG_SENSCRITIQUE.site && (this.isMovie || this.isSerie)) {
+      this.scSeach(result);
+    }
   }
 
   openAll(): void {

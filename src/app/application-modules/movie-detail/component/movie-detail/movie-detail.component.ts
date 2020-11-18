@@ -27,6 +27,7 @@ export class MovieDetailComponent implements OnInit, OnChanges, OnDestroy {
   isImagesVisible = false;
   isDetail: boolean;
   showTitles = false;
+  sc: string;
   Url = DuckDuckGo;
   subs = [];
 

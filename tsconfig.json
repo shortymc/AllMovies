@@ -9,6 +9,7 @@
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
+    "skipLibCheck": true,
     "target": "es5",
     "types": [
       "node"

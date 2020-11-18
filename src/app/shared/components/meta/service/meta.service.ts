@@ -10,7 +10,6 @@ import { ToastService } from '../../../service/toast.service';
 
 @Injectable()
 export class MetaService {
-  private score: string;
 
   constructor(private serviceUtils: UtilsService, private toast: ToastService) { }
 
@@ -70,9 +69,5 @@ export class MetaService {
       .pipe(
         map(response => response[3][0]),
         catchError((err) => this.serviceUtils.handlePromiseError(err, this.toast)));
-  }
-
-  public getScore(): string {
-    return this.score;
   }
 }
