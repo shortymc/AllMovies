@@ -1,5 +1,7 @@
 import { ErrorHandler, Injectable, Injector } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 import { ErrorService } from './error.service';
 import { ToastService } from './toast.service';
@@ -18,6 +20,8 @@ export class GlobalErrorHandler implements ErrorHandler {
         const errorService = this.injector.get(ErrorService);
         const notifier = this.injector.get(ToastService);
         const dropbox = this.injector.get(DropboxService);
+        const router = this.injector.get(Router);
+        const datePipe = this.injector.get(DatePipe);
 
         let message;
         let stackTrace;
@@ -39,7 +43,9 @@ export class GlobalErrorHandler implements ErrorHandler {
         console.error('stackTrace', stackTrace);
 
         console.error('error', error);
+        
+        console.error('url', router.url);
 
-        dropbox.uploadNewFile([message, stackTrace, error], 'error' + new Date().getTime() + '.txt');
+        dropbox.uploadNewFile([router.url, message, stackTrace, error], 'logs/error-' + datePipe.transform(new Date(), 'yyyy.MM.dd-HH.mm.ss.SSS') + '.txt');
     }
 }
