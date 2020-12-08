@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "array-flatten": "^2.1.2",
+    "array-flatten": "^3.0.0",
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "finalhandler": "^1.1.2",
