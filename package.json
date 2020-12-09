@@ -85,7 +85,7 @@
     "stylelint-config-standard": "18.3.0",
     "stylelint-order": "1.0.0",
     "ts-node": "7.0.1",
-    "tslint": "5.11.0",
+    "tslint": "5.20.1",
     "tslint-eslint-rules": "5.4.0",
     "tslint-origin-ordered-imports-rule": "1.2.2",
     "typescript": "3.9.7",
