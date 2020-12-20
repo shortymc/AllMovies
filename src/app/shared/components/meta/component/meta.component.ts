@@ -81,12 +81,21 @@ export class MetaComponent implements OnInit {
         }
       })
       .then(data => {
-        const link = parse(data.contents).querySelector('.erra-global');
-        const title = link.getAttribute('title');
-        const votes = title.slice(title.indexOf(' : ') + 2, title.indexOf(' avis')).trim();
-        const score = link.rawText.replace(/(\r\n|\n|\r|\t|\n\t)/gm, '');
-        this.sensCritique.emit(new Score([{ Source: 'SensCritique', Value: score }], undefined, undefined, +votes));
+        const score = this.scrapping(data.contents, '.gOdLCC');
+        const vote = this.scrapping(data.contents, '.lhjmGg, .iqaSNz');
+        if (score) {
+          this.sensCritique.emit(new Score([{ Source: 'SensCritique', Value: score }], undefined, undefined, vote));
+        }
       });
+  }
+
+  scrapping(html: string, selector: string): string {
+    const selected = parse(html).querySelector(selector);
+    let data;
+    if (selected) {
+      data = selected.rawText.replace(/(\r\n|\n|\r|\t|\n\t)/gm, '');
+    }
+    return data;
   }
 
   handleResult(result: any, site: any): void {

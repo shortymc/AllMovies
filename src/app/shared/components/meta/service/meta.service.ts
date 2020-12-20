@@ -43,11 +43,13 @@ export class MetaService {
             }
           } else if (site === DuckDuckGo.SEARCH_BANG_SENSCRITIQUE.site) {
             if (isMovie) {
-              result += '&filter=movies';
+              result = result.replace('recherche?query', 'search?q');
+              result += '&categories[0][0]=Films';
             } else if (isSerie) {
-              result += '&filter=tvshows';
+              result = result.replace('recherche?query', 'search?q');
+              result += '&categories[0][0]=Séries';
             } else {
-              result += '&filter=contacts';
+              result = result.replace('recherche?query', 'searchArtist?q');
             }
           }
           return result;
