@@ -4,13 +4,13 @@
       <label>{{label}}</label>
       <div class="datas-params datas-sorting">
         <mat-form-field>
-          <mat-select placeholder="{{'global.sort' | translate}}" [(value)]="sortChosen" (selectionChange)="sortOrSearchChanged(true)">
+          <mat-select placeholder="{{'global.sort' | translate}}" [(value)]="sortChosen" (selectionChange)="sortOrSearchChanged()">
             <mat-option *ngFor="let sort of sortChoices" [value]="sort">{{sort.label_key | translate}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="datas-params datas-sorting">
-        <mat-button-toggle-group [(value)]="sortDir" (change)="sortDir = $event.value; sortOrSearchChanged(true)">
+        <mat-button-toggle-group [(value)]="sortDir" (change)="sortDir = $event.value; sortOrSearchChanged()">
           <div class="toogleHeader">
             {{'global.sort_direction'|translate}}:
           </div>
@@ -25,9 +25,9 @@
       <div class="datas-params datas-search">
         <mat-form-field>
           <input matInput type="search" placeholder="{{'datas.filter.placeholder' | translate}}" [(ngModel)]="research"
-            (keyup)="sortOrSearchChanged(true);" />
+            (keyup)="sortOrSearchChanged();" />
         </mat-form-field>
-        <span *ngIf="research" (click)="research=''; sortOrSearchChanged(true);" class="pointer clear-btn">
+        <span *ngIf="research" (click)="research=''; sortOrSearchChanged();" class="pointer clear-btn">
           <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
         </span>
       </div>
@@ -39,7 +39,7 @@
     </div>
     <div class="mobile">
       <div class="d-flex justify-content-center mobile">
-        <ngb-pagination (pageChange)="pageChanged($event)" [collectionSize]="resultLength" [(page)]="page" [maxSize]="3"
+        <ngb-pagination (pageChange)="getDatasToShow(datas, $event)" [collectionSize]="resultLength" [(page)]="page" [maxSize]="3"
           [rotate]="true" [boundaryLinks]="true" [pageSize]="pageSize"></ngb-pagination>
         <span><span class="total">{{'data-list.total' | translate}}: {{resultLength}}</span></span>
       </div>
@@ -60,7 +60,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-center bottom-page">
-      <ngb-pagination (pageChange)="pageChanged($event)" [collectionSize]="resultLength" [(page)]="page" [maxSize]="3"
+      <ngb-pagination (pageChange)="getDatasToShow(datas, $event)" [collectionSize]="resultLength" [(page)]="page" [maxSize]="3"
         [rotate]="true" [boundaryLinks]="true" [pageSize]="pageSize"></ngb-pagination>
       <span><span class="total">{{'data-list.total' | translate}}: {{resultLength}}</span></span>
     </div>

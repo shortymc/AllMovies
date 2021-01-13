@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import { Component, Input, ElementRef, OnChanges, SimpleChange } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChange } from '@angular/core';
 import { SortDirection } from '@angular/material/sort';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
@@ -34,8 +34,7 @@ export class ListDatasComponent<T extends Data> implements OnChanges {
   pageSize = 5;
 
   constructor(
-    public translate: TranslateService,
-    private elemRef: ElementRef
+    public translate: TranslateService
   ) { }
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }): void {
@@ -43,7 +42,7 @@ export class ListDatasComponent<T extends Data> implements OnChanges {
       if (field === 'datas') {
         this.datas = changes[field].currentValue;
         this.initSortProperties();
-        this.sortOrSearchChanged(false);
+        this.sortOrSearchChanged();
       }
     }
   }
@@ -57,13 +56,10 @@ export class ListDatasComponent<T extends Data> implements OnChanges {
     this.datasToShow = list.slice((page - 1) * this.pageSize, page * this.pageSize);
   }
 
-  sortOrSearchChanged(scroll: boolean): void {
+  sortOrSearchChanged(): void {
     this.datas = Utils.sortData(this.datas, { active: this.sortChosen.value, direction: this.sortDir });
     this.page = 1;
     this.getDatasToShow(this.datas, this.page);
-    if (scroll) {
-      this.elemRef.nativeElement.scrollIntoView({ block: 'center', inline: 'center' });
-    }
   }
 
   initSortProperties(): void {
@@ -81,10 +77,5 @@ export class ListDatasComponent<T extends Data> implements OnChanges {
     if (!this.sortChosen) {
       this.sortChosen = this.sortChoices[0];
     }
-  }
-
-  pageChanged(event: any): void {
-    this.getDatasToShow(this.datas, event);
-    this.elemRef.nativeElement.scrollIntoView({ block: 'center', inline: 'center' });
   }
 }
