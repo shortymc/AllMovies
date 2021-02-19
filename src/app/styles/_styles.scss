@@ -189,6 +189,10 @@ input[type='checkbox'] {
   display: none !important;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .woman {
   color: map-get($gender, 'woman');
 }

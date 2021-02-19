@@ -77,6 +77,7 @@ import { VideosComponent } from './components/videos/videos.component';
 import { CreditListComponent } from './components/credit-list/credit-list.component';
 import { ListService } from './service/list.service';
 import { MyMissingTranslationHandler } from './my-missing-translation-handler';
+import { BookmarkedComponent } from './components/bookmarked/bookmarked.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { MyMissingTranslationHandler } from './my-missing-translation-handler';
     OpenLinkDialogComponent,
     MenuComponent,
     TabsComponent,
-    ImageViewerComponent
+    ImageViewerComponent,
+    BookmarkedComponent
   ],
   imports: [
     CommonModule,
@@ -164,7 +166,8 @@ import { MyMissingTranslationHandler } from './my-missing-translation-handler';
     PersonSearchComponent,
     ImageViewerComponent,
     MenuComponent,
-    SwiperModule
+    SwiperModule,
+    BookmarkedComponent
   ],
   entryComponents: [OpenLinkDialogComponent, FaIconComponent]
 })

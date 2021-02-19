@@ -31,6 +31,7 @@ export class Data {
   lang_version = 'fr';
   isMovie: boolean;
   checked: boolean;
+  isBookmarked: boolean;
 
   constructor() { }
 

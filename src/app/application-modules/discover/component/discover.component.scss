@@ -73,6 +73,13 @@
   }
 }
 
+app-bookmarked {
+  position: absolute;
+  top: 0;
+  float: left;
+  padding-left: 25px;
+}
+
 .result-title {
   color: $blue;
   text-decoration: underline;
