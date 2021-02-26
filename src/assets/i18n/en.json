@@ -11,6 +11,7 @@
         "cancel": "Cancel",
         "done": "Done",
         "username": "Username",
+        "username_required": "Username is required",
         "original_title": "Original Title",
         "add": "Add",
         "already_added": "Already Added",

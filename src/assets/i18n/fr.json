@@ -11,6 +11,7 @@
         "cancel": "Annuler",
         "done": "Terminer",
         "username": "Pseudo",
+        "username_required": "Veuillez renseigner votre pseudo",
         "original_title": "Titre Original",
         "add": "Ajouter",
         "already_added": "Déjà Ajouté",
