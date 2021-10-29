@@ -7905,10 +7905,10 @@ node-forge@0.9.0:
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.9.0.tgz#d624050edbb44874adca12bb9a52ec63cb782579"
   integrity sha512-7ASaDa3pD+lJ3WvXFsxekJQelBKRpne+GOVbLbtHYdd7pFspyeuJHnWfLplGf3SwKGbfs/aYl5V/JCIaHVUKKQ==
 
-node-html-parser@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-2.0.1.tgz#66e3a6178f5fbf345f5e0e7522d36af7625a3346"
-  integrity sha512-CE0K6zALs+pS+SsQd8oKKF51cNrpwZ6gj/8OSzjhQ2vTfCOnlNtZakgv0MKuEOAZ4kBiKRgJBUicvjAxaFM4Hw==
+node-html-parser@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-2.2.1.tgz#6507a8658810d1612890a8ddd534e01b2f97e07e"
+  integrity sha512-Vccqb62t6t7DkMVwqPQgb0NWO+gUMMDm+1X3LzqbtXLqjilCTtUYTlniKk08yuA1zIhEFVzu/dozpqs5KZbRFQ==
   dependencies:
     he "1.2.0"
 
