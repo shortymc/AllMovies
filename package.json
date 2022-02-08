@@ -44,7 +44,7 @@
     "dropbox": "4.0.30",
     "flag-icon-css": "3.5.0",
     "jquery": "3.5.1",
-    "jsrsasign": "8.0.19",
+    "jsrsasign": "10.2.0",
     "jwt-decode": "2.2.0",
     "moment-mini-ts": "2.20.1",
     "ng-click-outside": "4.0.0",
