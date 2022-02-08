@@ -21,7 +21,7 @@ export class ListsComponent implements OnInit, OnChanges {
   showLists = false;
   lists: List[] = [];
   swiperConfig: SwiperConfigInterface = {
-    a11y: true,
+    a11y: { enabled: true },
     keyboard: true,
     mousewheel: true,
     scrollbar: false,

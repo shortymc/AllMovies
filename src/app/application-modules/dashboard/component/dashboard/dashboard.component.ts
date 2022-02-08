@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   series: Serie[] = [];
   persons: Person[] = [];
   swiperConfig: SwiperConfigInterface = {
-    a11y: true,
+    a11y: { enabled: true },
     keyboard: true,
     mousewheel: true,
     slidesPerView: 5,

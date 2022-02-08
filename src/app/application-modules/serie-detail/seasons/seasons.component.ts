@@ -23,7 +23,7 @@ export class SeasonsComponent implements OnInit, OnChanges {
   overviewId: number;
   overview: string;
   swiperConfig: SwiperConfigInterface = {
-    a11y: true,
+    a11y: { enabled: true },
     keyboard: true,
     mousewheel: true,
     scrollbar: false,

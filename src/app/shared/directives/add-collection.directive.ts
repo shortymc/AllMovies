@@ -101,18 +101,21 @@ export class AddCollectionDirective<T extends Data> implements OnInit, OnChanges
     if (this.isAlreadyAdded) {
       if (!this.isSingleData) {
         // Datas list -> already added
-        component.instance.iconProp = faStar;
-        this.el.nativeElement.innerText = this.translate.instant('global.already_added');
-        this.el.nativeElement.style.pointerEvents = 'none';
+        component.instance.icon = faStar;
+        this.el.nativeElement.innerText = this.translate.instant(
+          "global.already_added"
+        );
+        this.el.nativeElement.style.pointerEvents = "none";
       } else {
         // Single data -> remove
-        component.instance.iconProp = faTrash;
-        this.el.nativeElement.innerText = this.translate.instant('global.delete');
-        this.el.nativeElement.style.pointerEvents = 'all';
+        component.instance.icon = faTrash;
+        this.el.nativeElement.innerText =
+          this.translate.instant("global.delete");
+        this.el.nativeElement.style.pointerEvents = "all";
       }
     } else {
       // Add datas
-      component.instance.iconProp = faBookmark;
+      component.instance.icon = faBookmark;
       this.el.nativeElement.innerText = this.translate.instant(this.label);
       this.el.nativeElement.style.pointerEvents = 'all';
     }

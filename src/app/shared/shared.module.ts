@@ -169,7 +169,6 @@ import { BookmarkedComponent } from './components/bookmarked/bookmarked.componen
     SwiperModule,
     BookmarkedComponent
   ],
-  entryComponents: [OpenLinkDialogComponent, FaIconComponent]
 })
 
 export class SharedModule {
