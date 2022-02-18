@@ -20,6 +20,7 @@
     "@angular-devkit/build-angular": "0.901.15",
     "@angular/animations": "9.1.13",
     "@angular/cdk": "9.2.4",
+    "@angular/compiler-cli": "9.1.13",
     "@angular/common": "9.1.13",
     "@angular/compiler": "9.1.13",
     "@angular/core": "9.1.13",
@@ -58,11 +59,11 @@
     "popper.js": "1.16.1",
     "rxjs": "6.6.7",
     "swiper": "6.8.4",
+    "typescript": "3.8.3",
     "zone.js": "0.10.3"
   },
   "devDependencies": {
     "@angular/cli": "9.1.15",
-    "@angular/compiler-cli": "9.1.13",
     "@angular/language-service": "9.1.13",
     "@types/crypto-js": "3.1.47",
     "@types/jasmine": "3.10.0",
@@ -87,7 +88,6 @@
     "tslint": "5.20.1",
     "tslint-eslint-rules": "5.4.0",
     "tslint-origin-ordered-imports-rule": "1.2.2",
-    "typescript": "3.8.3",
     "webpack-bundle-analyzer": "3.9.0"
   }
 }
