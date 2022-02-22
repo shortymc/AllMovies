@@ -6,6 +6,6 @@
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <a *ngFor="let lang of langList" class="pointer dropdown-item" [ngClass]="{'active': language.code === lang.code}"
       (click)="change(lang)">
-      <span class="flag-icon flag-icon-{{lang.icon}}"></span> {{lang.label}}</a>
+      <span class="fi fi-{{lang.icon}}"></span> {{lang.label}}</a>
   </div>
 </div>

@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import * as jwtDecode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 import * as KJUR from 'jsrsasign';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -32,7 +32,7 @@ export class AuthService {
   private static decodeToken(): User {
     const token = localStorage.getItem('token');
     if (token && token.trim() !== '') {
-      return jwtDecode(token);
+      return jwt_decode(token);
     } else {
       return undefined;
     }

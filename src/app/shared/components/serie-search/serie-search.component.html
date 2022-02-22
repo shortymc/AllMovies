@@ -1,5 +1,5 @@
 <div id="search-component">
-  <div class="form-check form-check-inline" (clickOutside)="showSerie = false">
+  <div class="form-check form-check-inline" appClickOutside (outside)="showSerie = false">
     <div class="search-box">
       <fa-icon [icon]="faSearch"></fa-icon>
       <input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="{{'search.series'|translate}}"

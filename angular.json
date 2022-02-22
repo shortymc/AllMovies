@@ -22,9 +22,9 @@
             ],
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/flag-icon-css/css/flag-icon.css",
+              "node_modules/flag-icons/css/flag-icons.css",
               "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "node_modules/nouislider/distribute/nouislider.min.css",
+              "node_modules/nouislider/dist/nouislider.min.css",
               "src/app/styles/_styles.scss"
             ],
             "scripts": []
@@ -76,9 +76,9 @@
             "scripts": [],
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/flag-icon-css/css/flag-icon.css",
+              "node_modules/flag-icons/css/flag-icons.css",
               "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "node_modules/nouislider/distribute/nouislider.min.css",
+              "node_modules/nouislider/dist/nouislider.min.css",
               "src/app/styles/_styles.scss"
             ],
             "assets": [
@@ -133,7 +133,7 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
-      "styleext": "scss"
+      "style": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "app"

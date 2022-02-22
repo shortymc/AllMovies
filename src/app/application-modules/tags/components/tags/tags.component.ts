@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   faTrash, faHashtag, faList, faChevronCircleRight, faPlus, faPaintBrush
 } from '@fortawesome/free-solid-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faTimesCircle, faStar } from '@fortawesome/free-regular-svg-icons';
 import { FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
@@ -13,8 +13,6 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { MyTagsService, TitleService } from './../../../../shared/shared.module';
 import { Utils } from './../../../../shared/utils';
 import { Tag } from './../../../../model/tag';
-
-library.add(faTimesCircle);
 
 @Component({
   selector: 'app-tags',
@@ -53,8 +51,10 @@ export class TagsComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private title: TitleService,
     private route: ActivatedRoute,
-    private router: Router
-  ) { }
+    private router: Router, library: FaIconLibrary
+  ) {
+    library.addIcons(faTimesCircle);
+  }
 
   ngOnInit(): void {
     this.title.setTitle('title.tags');

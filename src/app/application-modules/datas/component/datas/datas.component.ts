@@ -8,11 +8,11 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import {
   faTrash, faHashtag, faImage, faFilm, faFlag, faCalendar, faStar, faGlobeAmericas, faList, faChevronCircleRight, faAngleDown
 } from '@fortawesome/free-solid-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import * as moment from 'moment-mini-ts';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { NouiFormatter } from 'ng2-nouislider';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 import { Constants } from '../../../../constant/constants';
 import { Utils } from '../../../../shared/utils';
@@ -24,9 +24,6 @@ import { Data } from '../../../../model/data';
 import { Genre, DetailConfig, Level, ImageSize } from '../../../../model/model';
 import { DatasConstants } from './datas.constants';
 import { ImagePipe } from '../../../../shared/pipes/image.pipe';
-
-library.add(faClock);
-library.add(faTimesCircle);
 
 @Component({
   selector: 'app-my-datas',
@@ -96,8 +93,11 @@ export class DatasComponent<T extends Data> implements OnInit, OnDestroy {
     private router: Router,
     private elemRef: ElementRef,
     private title: TitleService,
-    private activeRoute: ActivatedRoute
-  ) { }
+    private activeRoute: ActivatedRoute, library: FaIconLibrary
+  ) {
+    library.addIcons(faClock);
+    library.addIcons(faTimesCircle);
+  }
 
   ngOnInit(): void {
     this.formatter = Utils.timeSliderFormatter;

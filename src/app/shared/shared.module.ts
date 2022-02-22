@@ -24,7 +24,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
-import { ClickOutsideModule } from 'ng-click-outside';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 
@@ -78,6 +77,7 @@ import { CreditListComponent } from './components/credit-list/credit-list.compon
 import { ListService } from './service/list.service';
 import { MyMissingTranslationHandler } from './my-missing-translation-handler';
 import { BookmarkedComponent } from './components/bookmarked/bookmarked.component';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
 
 @NgModule({
   declarations: [
@@ -85,6 +85,7 @@ import { BookmarkedComponent } from './components/bookmarked/bookmarked.componen
     SubstractDatePipe,
     CapitalizeWordPipe,
     FilterCrewPipe,
+    ClickOutsideDirective,
     TruncatePipe,
     ImagePipe,
     VideosComponent,
@@ -116,7 +117,6 @@ import { BookmarkedComponent } from './components/bookmarked/bookmarked.componen
     MatStepperModule,
     FontAwesomeModule,
     MatSidenavModule,
-    ClickOutsideModule,
     MatTableModule,
     MatToolbarModule,
     MatSelectModule,
@@ -174,7 +174,7 @@ import { BookmarkedComponent } from './components/bookmarked/bookmarked.componen
 export class SharedModule {
   constructor() { }
 
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<SharedModule> {
     return {
       ngModule: SharedModule,
       providers: [
@@ -212,7 +212,7 @@ export class SharedModule {
       ]
     };
   }
-  static forChild(): ModuleWithProviders {
+  static forChild(): ModuleWithProviders<SharedModule> {
     return { ngModule: SharedModule };
   }
 }
