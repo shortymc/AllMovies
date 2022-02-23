@@ -26,7 +26,7 @@ describe('ListTagsComponent', () => {
   let component: ListTagsComponent;
   let fixture: ComponentFixture<ListTagsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ListTagsComponent, SearchTagComponent],
       providers: [

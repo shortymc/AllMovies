@@ -26,7 +26,7 @@ describe('DatasComponent', () => {
   let component: DatasComponent;
   let fixture: ComponentFixture<DatasComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [DatasComponent],
       providers: [TranslateService, MatPaginatorIntl],

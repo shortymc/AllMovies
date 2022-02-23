@@ -23,7 +23,7 @@ describe('SearchTagComponent', () => {
   let component: SearchTagComponent;
   let fixture: ComponentFixture<SearchTagComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [SearchTagComponent, CapitalizeWordPipe],
       providers: [

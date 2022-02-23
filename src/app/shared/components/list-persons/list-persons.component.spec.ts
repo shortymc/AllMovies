@@ -12,7 +12,7 @@ describe('ListPersonsComponent', () => {
   let component: ListPersonsComponent;
   let fixture: ComponentFixture<ListPersonsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       providers: [TranslateService],
       imports: [

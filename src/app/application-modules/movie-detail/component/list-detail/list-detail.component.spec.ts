@@ -6,7 +6,7 @@ describe('ListDetailComponent', () => {
   let component: ListDetailComponent;
   let fixture: ComponentFixture<ListDetailComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ListDetailComponent],
     }).compileComponents();

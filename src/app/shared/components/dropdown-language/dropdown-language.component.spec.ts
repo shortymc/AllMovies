@@ -11,7 +11,7 @@ describe('DropdownLanguageComponent', () => {
   let component: DropdownLanguageComponent;
   let fixture: ComponentFixture<DropdownLanguageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [DropdownLanguageComponent],
       providers: [TranslateService, MockService],

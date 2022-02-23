@@ -9,7 +9,7 @@ describe('CreditListComponent', () => {
   let component: CreditListComponent;
   let fixture: ComponentFixture<CreditListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [CreditListComponent],
     }).compileComponents();

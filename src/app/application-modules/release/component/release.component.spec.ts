@@ -18,7 +18,7 @@ describe('ReleaseComponent', () => {
   let component: ReleaseComponent;
   let fixture: ComponentFixture<ReleaseComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ReleaseComponent],
       providers: [

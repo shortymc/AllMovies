@@ -16,7 +16,7 @@ describe('MetaComponent', () => {
   let component: MetaComponent;
   let fixture: ComponentFixture<MetaComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [MetaComponent],
       providers: [TranslateService, MetaService, UtilsService, ToastService],

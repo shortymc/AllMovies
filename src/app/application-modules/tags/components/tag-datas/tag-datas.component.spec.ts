@@ -29,7 +29,7 @@ describe('TagMoviesComponent', () => {
   let component: TagMoviesComponent;
   let fixture: ComponentFixture<TagMoviesComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TagMoviesComponent, SearchMovieComponent],
       providers: [

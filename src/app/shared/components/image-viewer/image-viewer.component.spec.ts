@@ -16,7 +16,7 @@ describe('ImageViewerComponent', () => {
   let component: ImageViewerComponent;
   let fixture: ComponentFixture<ImageViewerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ImageViewerComponent, ModalComponent, ImagePipe],
       providers: [TranslateService, MenuService],

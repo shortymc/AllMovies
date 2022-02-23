@@ -18,7 +18,7 @@ describe('SearchBoxComponent', () => {
   let component: SearchBoxComponent<any>;
   let fixture: ComponentFixture<SearchBoxComponent<any>>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [SearchBoxComponent],
       providers: [TranslateService],

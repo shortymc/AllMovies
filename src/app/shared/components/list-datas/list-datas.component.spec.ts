@@ -20,7 +20,7 @@ describe('ListMoviesComponent', () => {
   let component: ListDatasComponent;
   let fixture: ComponentFixture<ListDatasComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         ListDatasComponent,

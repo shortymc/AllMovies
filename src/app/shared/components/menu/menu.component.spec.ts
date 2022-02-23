@@ -33,7 +33,7 @@ describe('MenuComponent', () => {
   @Component({selector: 'app-tabs', template: ''})
   class TabsStubComponent {}
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         MenuComponent,

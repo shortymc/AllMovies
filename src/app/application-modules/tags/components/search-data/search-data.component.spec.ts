@@ -22,7 +22,7 @@ describe('SearchDataComponent', () => {
   let component: SearchDataComponent<Data>;
   let fixture: ComponentFixture<SearchDataComponent<Data>>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [SearchDataComponent],
       providers: [

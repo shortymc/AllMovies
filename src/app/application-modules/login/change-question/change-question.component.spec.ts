@@ -18,7 +18,7 @@ describe('ChangeQuestionComponent', () => {
   let component: ChangeQuestionComponent;
   let fixture: ComponentFixture<ChangeQuestionComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ChangeQuestionComponent],
       providers: [TranslateService],

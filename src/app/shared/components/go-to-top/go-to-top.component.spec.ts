@@ -10,7 +10,7 @@ describe('GoToTopComponent', () => {
   let component: GoToTopComponent;
   let fixture: ComponentFixture<GoToTopComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [GoToTopComponent],
       providers: [TranslateService],
