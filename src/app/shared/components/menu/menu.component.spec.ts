@@ -33,43 +33,45 @@ describe('MenuComponent', () => {
   @Component({selector: 'app-tabs', template: ''})
   class TabsStubComponent {}
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        MenuComponent,
-        PersonSearchComponent,
-        MovieSearchComponent,
-        DropdownLanguageComponent,
-        GoToTopComponent,
-        TabsStubComponent,
-        OpenLinkDirective,
-        CapitalizeWordPipe,
-        TruncatePipe,
-        ImagePipe,
-      ],
-      providers: [
-        TranslateService,
-        AuthService,
-        TabsService,
-        MenuService,
-        DropboxService,
-        ToastService,
-        UtilsService,
-      ],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        RouterTestingModule,
-        FontAwesomeModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatSnackBarModule,
-        HttpClientModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [
+          MenuComponent,
+          PersonSearchComponent,
+          MovieSearchComponent,
+          DropdownLanguageComponent,
+          GoToTopComponent,
+          TabsStubComponent,
+          OpenLinkDirective,
+          CapitalizeWordPipe,
+          TruncatePipe,
+          ImagePipe,
+        ],
+        providers: [
+          TranslateService,
+          AuthService,
+          TabsService,
+          MenuService,
+          DropboxService,
+          ToastService,
+          UtilsService,
+        ],
+        imports: [
+          BrowserModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          RouterTestingModule,
+          FontAwesomeModule,
+          MatToolbarModule,
+          MatSidenavModule,
+          MatListModule,
+          MatSnackBarModule,
+          HttpClientModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MenuComponent);

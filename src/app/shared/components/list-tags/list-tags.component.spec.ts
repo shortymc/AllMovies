@@ -26,35 +26,37 @@ describe('ListTagsComponent', () => {
   let component: ListTagsComponent;
   let fixture: ComponentFixture<ListTagsComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ListTagsComponent, SearchTagComponent],
-      providers: [
-        MenuService,
-        MyTagsService,
-        MyMoviesService,
-        AuthService,
-        TranslateService,
-        ToastService,
-        DropboxService,
-        UtilsService,
-        CapitalizeWordPipe,
-      ],
-      imports: [
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        HttpClientModule,
-        MatSnackBarModule,
-        RouterTestingModule,
-        FontAwesomeModule,
-        MatAutocompleteModule,
-        MatFormFieldModule,
-        MatChipsModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ListTagsComponent, SearchTagComponent],
+        providers: [
+          MenuService,
+          MyTagsService,
+          MyMoviesService,
+          AuthService,
+          TranslateService,
+          ToastService,
+          DropboxService,
+          UtilsService,
+          CapitalizeWordPipe,
+        ],
+        imports: [
+          ReactiveFormsModule,
+          BrowserAnimationsModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          HttpClientModule,
+          MatSnackBarModule,
+          RouterTestingModule,
+          FontAwesomeModule,
+          MatAutocompleteModule,
+          MatFormFieldModule,
+          MatChipsModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ListTagsComponent);

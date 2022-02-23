@@ -1,4 +1,3 @@
-/* tslint:disable:no-string-literal */
 import {ActivatedRoute, Router} from '@angular/router';
 import {Component, OnInit, OnDestroy, ElementRef} from '@angular/core';
 import {forkJoin, BehaviorSubject, Observable, Subscription} from 'rxjs';

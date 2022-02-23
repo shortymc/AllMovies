@@ -18,24 +18,26 @@ describe('ChangeQuestionComponent', () => {
   let component: ChangeQuestionComponent;
   let fixture: ComponentFixture<ChangeQuestionComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ChangeQuestionComponent],
-      providers: [TranslateService],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        HttpClientModule,
-        RouterTestingModule,
-        SharedModule.forRoot(),
-        MatSnackBarModule,
-        BrowserAnimationsModule,
-        MatFormFieldModule,
-        MatInputModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ChangeQuestionComponent],
+        providers: [TranslateService],
+        imports: [
+          BrowserModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          HttpClientModule,
+          RouterTestingModule,
+          SharedModule.forRoot(),
+          MatSnackBarModule,
+          BrowserAnimationsModule,
+          MatFormFieldModule,
+          MatInputModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ChangeQuestionComponent);

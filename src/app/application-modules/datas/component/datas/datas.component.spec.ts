@@ -26,31 +26,33 @@ describe('DatasComponent', () => {
   let component: DatasComponent;
   let fixture: ComponentFixture<DatasComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [DatasComponent],
-      providers: [TranslateService, MatPaginatorIntl],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        HttpClientModule,
-        FontAwesomeModule,
-        BrowserAnimationsModule,
-        MatTableModule,
-        LayoutModule,
-        MatSortModule,
-        MatPaginatorModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatCheckboxModule,
-        RouterTestingModule,
-        SharedModule.forRoot(),
-        MatSnackBarModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [DatasComponent],
+        providers: [TranslateService, MatPaginatorIntl],
+        imports: [
+          BrowserModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          HttpClientModule,
+          FontAwesomeModule,
+          BrowserAnimationsModule,
+          MatTableModule,
+          LayoutModule,
+          MatSortModule,
+          MatPaginatorModule,
+          MatInputModule,
+          MatFormFieldModule,
+          MatSelectModule,
+          MatCheckboxModule,
+          RouterTestingModule,
+          SharedModule.forRoot(),
+          MatSnackBarModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DatasComponent);

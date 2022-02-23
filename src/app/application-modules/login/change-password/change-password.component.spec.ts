@@ -18,24 +18,26 @@ describe('ChangePasswordComponent', () => {
   let component: ChangePasswordComponent;
   let fixture: ComponentFixture<ChangePasswordComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ChangePasswordComponent],
-      providers: [TranslateService],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        HttpClientModule,
-        RouterTestingModule,
-        SharedModule.forRoot(),
-        MatSnackBarModule,
-        BrowserAnimationsModule,
-        MatFormFieldModule,
-        MatInputModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ChangePasswordComponent],
+        providers: [TranslateService],
+        imports: [
+          BrowserModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          HttpClientModule,
+          RouterTestingModule,
+          SharedModule.forRoot(),
+          MatSnackBarModule,
+          BrowserAnimationsModule,
+          MatFormFieldModule,
+          MatInputModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ChangePasswordComponent);

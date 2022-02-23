@@ -9,11 +9,13 @@ describe('SeasonDetailComponent', () => {
   let component: SeasonDetailComponent;
   let fixture: ComponentFixture<SeasonDetailComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [SeasonDetailComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [SeasonDetailComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SeasonDetailComponent);

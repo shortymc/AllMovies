@@ -22,31 +22,33 @@ describe('SearchDataComponent', () => {
   let component: SearchDataComponent<Data>;
   let fixture: ComponentFixture<SearchDataComponent<Data>>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [SearchDataComponent],
-      providers: [
-        MovieService,
-        MovieSearchService,
-        SerieService,
-        TranslateService,
-      ],
-      imports: [
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        HttpClientModule,
-        MatSnackBarModule,
-        RouterTestingModule,
-        SharedModule.forRoot(),
-        FontAwesomeModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatAutocompleteModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [SearchDataComponent],
+        providers: [
+          MovieService,
+          MovieSearchService,
+          SerieService,
+          TranslateService,
+        ],
+        imports: [
+          ReactiveFormsModule,
+          BrowserAnimationsModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          HttpClientModule,
+          MatSnackBarModule,
+          RouterTestingModule,
+          SharedModule.forRoot(),
+          FontAwesomeModule,
+          MatInputModule,
+          MatFormFieldModule,
+          MatAutocompleteModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchDataComponent);

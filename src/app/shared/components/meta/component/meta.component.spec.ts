@@ -16,21 +16,23 @@ describe('MetaComponent', () => {
   let component: MetaComponent;
   let fixture: ComponentFixture<MetaComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [MetaComponent],
-      providers: [TranslateService, MetaService, UtilsService, ToastService],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        RouterTestingModule,
-        FontAwesomeModule,
-        HttpClientModule,
-        MatSnackBarModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [MetaComponent],
+        providers: [TranslateService, MetaService, UtilsService, ToastService],
+        imports: [
+          BrowserModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          RouterTestingModule,
+          FontAwesomeModule,
+          HttpClientModule,
+          MatSnackBarModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MetaComponent);

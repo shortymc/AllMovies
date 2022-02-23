@@ -12,19 +12,21 @@ describe('ListPersonsComponent', () => {
   let component: ListPersonsComponent;
   let fixture: ComponentFixture<ListPersonsComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      providers: [TranslateService],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        RouterTestingModule,
-        FontAwesomeModule,
-        SharedModule.forChild(),
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        providers: [TranslateService],
+        imports: [
+          BrowserModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          RouterTestingModule,
+          FontAwesomeModule,
+          SharedModule.forChild(),
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ListPersonsComponent);

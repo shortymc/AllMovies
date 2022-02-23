@@ -18,34 +18,38 @@ describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [DashboardComponent],
-      providers: [
-        TranslateService,
-        {
-          provide: MovieService,
-          useValue: jasmine.createSpyObj('MovieService', ['getPopularMovies']),
-        },
-        {
-          provide: PersonService,
-          useValue: jasmine.createSpyObj('PersonService', [
-            'getPopularPersons',
-          ]),
-        },
-      ],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        HttpClientModule,
-        RouterTestingModule,
-        SharedModule.forRoot(),
-        MatSnackBarModule,
-        SwiperModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [DashboardComponent],
+        providers: [
+          TranslateService,
+          {
+            provide: MovieService,
+            useValue: jasmine.createSpyObj('MovieService', [
+              'getPopularMovies',
+            ]),
+          },
+          {
+            provide: PersonService,
+            useValue: jasmine.createSpyObj('PersonService', [
+              'getPopularPersons',
+            ]),
+          },
+        ],
+        imports: [
+          BrowserModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          HttpClientModule,
+          RouterTestingModule,
+          SharedModule.forRoot(),
+          MatSnackBarModule,
+          SwiperModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardComponent);

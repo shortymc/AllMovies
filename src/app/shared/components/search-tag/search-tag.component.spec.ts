@@ -23,32 +23,34 @@ describe('SearchTagComponent', () => {
   let component: SearchTagComponent;
   let fixture: ComponentFixture<SearchTagComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [SearchTagComponent, CapitalizeWordPipe],
-      providers: [
-        MyTagsService,
-        DropboxService,
-        ToastService,
-        UtilsService,
-        AuthService,
-        CapitalizeWordPipe,
-      ],
-      imports: [
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        RouterTestingModule,
-        FontAwesomeModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatAutocompleteModule,
-        MatSnackBarModule,
-        HttpClientModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [SearchTagComponent, CapitalizeWordPipe],
+        providers: [
+          MyTagsService,
+          DropboxService,
+          ToastService,
+          UtilsService,
+          AuthService,
+          CapitalizeWordPipe,
+        ],
+        imports: [
+          ReactiveFormsModule,
+          BrowserAnimationsModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          RouterTestingModule,
+          FontAwesomeModule,
+          MatInputModule,
+          MatFormFieldModule,
+          MatAutocompleteModule,
+          MatSnackBarModule,
+          HttpClientModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchTagComponent);

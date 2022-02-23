@@ -18,32 +18,34 @@ describe('PersonDetailComponent', () => {
   let component: PersonDetailComponent;
   let fixture: ComponentFixture<PersonDetailComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [PersonDetailComponent],
-      providers: [
-        TranslateService,
-        {
-          provide: ActivatedRoute,
-          useValue: {paramMap: of(convertToParamMap({id: 5}))},
-        },
-        {
-          provide: PersonService,
-          useValue: jasmine.createSpyObj('PersonService', ['getPerson']),
-        },
-      ],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        HttpClientModule,
-        RouterTestingModule,
-        SharedModule.forRoot(),
-        MatSnackBarModule,
-        FontAwesomeModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [PersonDetailComponent],
+        providers: [
+          TranslateService,
+          {
+            provide: ActivatedRoute,
+            useValue: {paramMap: of(convertToParamMap({id: 5}))},
+          },
+          {
+            provide: PersonService,
+            useValue: jasmine.createSpyObj('PersonService', ['getPerson']),
+          },
+        ],
+        imports: [
+          BrowserModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          HttpClientModule,
+          RouterTestingModule,
+          SharedModule.forRoot(),
+          MatSnackBarModule,
+          FontAwesomeModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PersonDetailComponent);

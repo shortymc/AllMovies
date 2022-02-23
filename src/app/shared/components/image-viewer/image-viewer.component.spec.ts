@@ -16,21 +16,23 @@ describe('ImageViewerComponent', () => {
   let component: ImageViewerComponent;
   let fixture: ComponentFixture<ImageViewerComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ImageViewerComponent, ModalComponent, ImagePipe],
-      providers: [TranslateService, MenuService],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        RouterTestingModule,
-        FontAwesomeModule,
-        PinchZoomModule,
-        SwiperModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ImageViewerComponent, ModalComponent, ImagePipe],
+        providers: [TranslateService, MenuService],
+        imports: [
+          BrowserModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          RouterTestingModule,
+          FontAwesomeModule,
+          PinchZoomModule,
+          SwiperModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ImageViewerComponent);

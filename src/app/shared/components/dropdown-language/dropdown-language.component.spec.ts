@@ -11,18 +11,20 @@ describe('DropdownLanguageComponent', () => {
   let component: DropdownLanguageComponent;
   let fixture: ComponentFixture<DropdownLanguageComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [DropdownLanguageComponent],
-      providers: [TranslateService, MockService],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        RouterTestingModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [DropdownLanguageComponent],
+        providers: [TranslateService, MockService],
+        imports: [
+          BrowserModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          RouterTestingModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DropdownLanguageComponent);

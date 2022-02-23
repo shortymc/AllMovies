@@ -9,11 +9,13 @@ describe('CreditListComponent', () => {
   let component: CreditListComponent;
   let fixture: ComponentFixture<CreditListComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [CreditListComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [CreditListComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CreditListComponent);

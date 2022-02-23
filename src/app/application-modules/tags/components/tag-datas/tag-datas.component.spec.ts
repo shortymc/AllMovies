@@ -29,38 +29,40 @@ describe('TagMoviesComponent', () => {
   let component: TagMoviesComponent;
   let fixture: ComponentFixture<TagMoviesComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [TagMoviesComponent, SearchMovieComponent],
-      providers: [
-        MenuService,
-        MyTagsService,
-        MyMoviesService,
-        AuthService,
-        TranslateService,
-        ToastService,
-      ],
-      imports: [
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        HttpClientModule,
-        MatSnackBarModule,
-        RouterTestingModule,
-        SharedModule.forRoot(),
-        FontAwesomeModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatTableModule,
-        ColorPickerModule,
-        MatSortModule,
-        MatPaginatorModule,
-        MatCheckboxModule,
-        MatAutocompleteModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [TagMoviesComponent, SearchMovieComponent],
+        providers: [
+          MenuService,
+          MyTagsService,
+          MyMoviesService,
+          AuthService,
+          TranslateService,
+          ToastService,
+        ],
+        imports: [
+          ReactiveFormsModule,
+          BrowserAnimationsModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          HttpClientModule,
+          MatSnackBarModule,
+          RouterTestingModule,
+          SharedModule.forRoot(),
+          FontAwesomeModule,
+          MatInputModule,
+          MatFormFieldModule,
+          MatTableModule,
+          ColorPickerModule,
+          MatSortModule,
+          MatPaginatorModule,
+          MatCheckboxModule,
+          MatAutocompleteModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TagMoviesComponent);

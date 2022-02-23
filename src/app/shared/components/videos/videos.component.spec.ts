@@ -9,11 +9,13 @@ describe('VideosComponent', () => {
   let component: VideosComponent;
   let fixture: ComponentFixture<VideosComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [VideosComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [VideosComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(VideosComponent);

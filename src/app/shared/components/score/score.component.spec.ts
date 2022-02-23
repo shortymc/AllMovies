@@ -9,11 +9,13 @@ describe('ScoreComponent', () => {
   let component: ScoreComponent;
   let fixture: ComponentFixture<ScoreComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ScoreComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ScoreComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ScoreComponent);

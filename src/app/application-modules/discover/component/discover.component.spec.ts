@@ -49,68 +49,72 @@ describe('DiscoverComponent', () => {
   let component: DiscoverComponent;
   let fixture: ComponentFixture<DiscoverComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        DiscoverComponent,
-        SearchBoxComponent,
-        AddCollectionDirective,
-        OpenLinkDirective,
-        CapitalizeWordPipe,
-        ImagePipe,
-      ],
-      providers: [
-        TranslateService,
-        MetaService,
-        UtilsService,
-        OmdbService,
-        DropboxService,
-        AuthService,
-        TitleService,
-        PersonService,
-        {
-          provide: MovieService,
-          useValue: jasmine.createSpyObj('MovieService', ['getMoviesPlaying']),
-        },
-        {
-          provide: MyMoviesService,
-          useValue: jasmine.createSpyObj('MyMoviesService', ['getAll']),
-        },
-        GenreService,
-        MockService,
-        TabsService,
-        PersonSearchService,
-        MovieSearchService,
-        CertificationService,
-        KeywordSearchService,
-        MenuService,
-        ToastService,
-      ],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        TranslateModule.forRoot(),
-        MatListModule,
-        FontAwesomeModule,
-        MatIconModule,
-        MatPaginatorModule,
-        MatInputModule,
-        MatCheckboxModule,
-        MatAutocompleteModule,
-        MatSlideToggleModule,
-        NouisliderModule,
-        MatSelectModule,
-        MatFormFieldModule,
-        MatChipsModule,
-        MatButtonToggleModule,
-        HttpClientModule,
-        MatSnackBarModule,
-        RouterTestingModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [
+          DiscoverComponent,
+          SearchBoxComponent,
+          AddCollectionDirective,
+          OpenLinkDirective,
+          CapitalizeWordPipe,
+          ImagePipe,
+        ],
+        providers: [
+          TranslateService,
+          MetaService,
+          UtilsService,
+          OmdbService,
+          DropboxService,
+          AuthService,
+          TitleService,
+          PersonService,
+          {
+            provide: MovieService,
+            useValue: jasmine.createSpyObj('MovieService', [
+              'getMoviesPlaying',
+            ]),
+          },
+          {
+            provide: MyMoviesService,
+            useValue: jasmine.createSpyObj('MyMoviesService', ['getAll']),
+          },
+          GenreService,
+          MockService,
+          TabsService,
+          PersonSearchService,
+          MovieSearchService,
+          CertificationService,
+          KeywordSearchService,
+          MenuService,
+          ToastService,
+        ],
+        imports: [
+          BrowserModule,
+          FormsModule,
+          BrowserAnimationsModule,
+          ReactiveFormsModule,
+          TranslateModule.forRoot(),
+          MatListModule,
+          FontAwesomeModule,
+          MatIconModule,
+          MatPaginatorModule,
+          MatInputModule,
+          MatCheckboxModule,
+          MatAutocompleteModule,
+          MatSlideToggleModule,
+          NouisliderModule,
+          MatSelectModule,
+          MatFormFieldModule,
+          MatChipsModule,
+          MatButtonToggleModule,
+          HttpClientModule,
+          MatSnackBarModule,
+          RouterTestingModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DiscoverComponent);

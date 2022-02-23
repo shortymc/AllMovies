@@ -20,30 +20,32 @@ describe('ListMoviesComponent', () => {
   let component: ListDatasComponent;
   let fixture: ComponentFixture<ListDatasComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        ListDatasComponent,
-        OpenLinkDirective,
-        CapitalizeWordPipe,
-        AddCollectionDirective,
-        ImagePipe,
-      ],
-      providers: [TranslateService],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        RouterTestingModule,
-        FontAwesomeModule,
-        MatButtonToggleModule,
-        MatSelectModule,
-        MatFormFieldModule,
-        NgbModule,
-        MatTooltipModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [
+          ListDatasComponent,
+          OpenLinkDirective,
+          CapitalizeWordPipe,
+          AddCollectionDirective,
+          ImagePipe,
+        ],
+        providers: [TranslateService],
+        imports: [
+          BrowserModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          RouterTestingModule,
+          FontAwesomeModule,
+          MatButtonToggleModule,
+          MatSelectModule,
+          MatFormFieldModule,
+          NgbModule,
+          MatTooltipModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ListDatasComponent);

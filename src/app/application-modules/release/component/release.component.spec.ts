@@ -18,33 +18,35 @@ describe('ReleaseComponent', () => {
   let component: ReleaseComponent;
   let fixture: ComponentFixture<ReleaseComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ReleaseComponent],
-      providers: [
-        {
-          provide: MovieService,
-          useValue: jasmine.createSpyObj('MovieService', [
-            'getMoviesByReleaseDates',
-          ]),
-        },
-        TranslateService,
-        MyNgbDate,
-        DatePipe,
-      ],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        TranslateModule.forRoot(),
-        HttpClientModule,
-        MovieDetailModule,
-        RouterTestingModule,
-        SharedModule.forRoot(),
-        MatSnackBarModule,
-        FontAwesomeModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ReleaseComponent],
+        providers: [
+          {
+            provide: MovieService,
+            useValue: jasmine.createSpyObj('MovieService', [
+              'getMoviesByReleaseDates',
+            ]),
+          },
+          TranslateService,
+          MyNgbDate,
+          DatePipe,
+        ],
+        imports: [
+          BrowserModule,
+          FormsModule,
+          TranslateModule.forRoot(),
+          HttpClientModule,
+          MovieDetailModule,
+          RouterTestingModule,
+          SharedModule.forRoot(),
+          MatSnackBarModule,
+          FontAwesomeModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ReleaseComponent);

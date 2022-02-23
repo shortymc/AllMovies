@@ -18,27 +18,29 @@ describe('SearchBoxComponent', () => {
   let component: SearchBoxComponent<any>;
   let fixture: ComponentFixture<SearchBoxComponent<any>>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [SearchBoxComponent],
-      providers: [TranslateService],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        TranslateModule.forRoot(),
-        HttpClientModule,
-        FontAwesomeModule,
-        MatChipsModule,
-        RouterTestingModule,
-        SharedModule.forRoot(),
-        MatSnackBarModule,
-        MatAutocompleteModule,
-        MatFormFieldModule,
-        BrowserAnimationsModule,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [SearchBoxComponent],
+        providers: [TranslateService],
+        imports: [
+          BrowserModule,
+          FormsModule,
+          ReactiveFormsModule,
+          TranslateModule.forRoot(),
+          HttpClientModule,
+          FontAwesomeModule,
+          MatChipsModule,
+          RouterTestingModule,
+          SharedModule.forRoot(),
+          MatSnackBarModule,
+          MatAutocompleteModule,
+          MatFormFieldModule,
+          BrowserAnimationsModule,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchBoxComponent);
