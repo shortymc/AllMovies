@@ -1,4 +1,4 @@
-<h2>{{'login.forgot.title'|translate}}:</h2>
+<h2>{{ 'login.forgot.title' | translate }}:</h2>
 <div class="forgot-content">
   <mat-vertical-stepper [linear]="true">
     <ng-template matStepperIcon="edit">
@@ -6,58 +6,140 @@
     </ng-template>
     <mat-step>
       <form #nameForm="ngForm">
-        <ng-template matStepLabel>{{'login.forgot.name'|translate}}</ng-template>
+        <ng-template matStepLabel>{{
+          'login.forgot.name' | translate
+        }}</ng-template>
         <mat-form-field>
-          <input matInput [(ngModel)]="name" placeholder="{{'global.username'|translate}}" type="text" #inputName="ngModel" name="inputName"
-            required/>
+          <input
+            matInput
+            [(ngModel)]="name"
+            placeholder="{{ 'global.username' | translate }}"
+            type="text"
+            #inputName="ngModel"
+            name="inputName"
+            required
+          />
         </mat-form-field>
-        <mat-error *ngIf="messageName">{{messageName | translate}}</mat-error>
+        <mat-error *ngIf="messageName">{{ messageName | translate }}</mat-error>
         <div>
-          <button type="button" class="btn btn-outline-primary" routerLink="/login">{{'global.cancel'|translate}}</button>
-          <button class="btn btn-outline-primary" [disabled]="nameForm.invalid" (click)="loadQuestion()">{{'global.next'|translate}}</button>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            routerLink="/login"
+          >
+            {{ 'global.cancel' | translate }}
+          </button>
+          <button
+            class="btn btn-outline-primary"
+            [disabled]="nameForm.invalid"
+            (click)="loadQuestion()"
+          >
+            {{ 'global.next' | translate }}
+          </button>
           <button class="hide" #nameNext matStepperNext></button>
         </div>
       </form>
     </mat-step>
     <mat-step>
       <form #forgotForm="ngForm">
-        <ng-template matStepLabel>{{'login.forgot.answer'|translate}}</ng-template>
-        <label>{{'login.question'|translate}}:</label>{{question}}
+        <ng-template matStepLabel>{{
+          'login.forgot.answer' | translate
+        }}</ng-template>
+        <label>{{ 'login.question' | translate }}:</label>{{ question }}
         <mat-form-field>
-          <input matInput [(ngModel)]="answer" placeholder="{{'login.answer'|translate}}" type="password" #inputAnswer="ngModel" name="inputAnswer"
-            required/>
+          <input
+            matInput
+            [(ngModel)]="answer"
+            placeholder="{{ 'login.answer' | translate }}"
+            type="password"
+            #inputAnswer="ngModel"
+            name="inputAnswer"
+            required
+          />
         </mat-form-field>
-        <mat-error *ngIf="messageAnswer">{{messageAnswer | translate}}</mat-error>
+        <mat-error *ngIf="messageAnswer">{{
+          messageAnswer | translate
+        }}</mat-error>
         <div>
-          <button type="button" class="btn btn-outline-primary" matStepperPrevious>{{'global.return'|translate}}</button>
-          <button type="submit" class="btn btn-outline-primary" (click)="forgot()" [disabled]="forgotForm.invalid">{{'global.next'|translate}}</button>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            matStepperPrevious
+          >
+            {{ 'global.return' | translate }}
+          </button>
+          <button
+            type="submit"
+            class="btn btn-outline-primary"
+            (click)="forgot()"
+            [disabled]="forgotForm.invalid"
+          >
+            {{ 'global.next' | translate }}
+          </button>
           <button class="hide" #answerNext matStepperNext></button>
         </div>
       </form>
     </mat-step>
     <mat-step>
       <form #passForm="ngForm">
-        <ng-template matStepLabel>{{'login.forgot.password'|translate}}</ng-template>
+        <ng-template matStepLabel>{{
+          'login.forgot.password' | translate
+        }}</ng-template>
         <mat-form-field>
-          <input matInput [(ngModel)]="password1" placeholder="{{'login.password'|translate}}" type="password" #inputPass1="ngModel"
-            name="inputPass1" required/>
+          <input
+            matInput
+            [(ngModel)]="password1"
+            placeholder="{{ 'login.password' | translate }}"
+            type="password"
+            #inputPass1="ngModel"
+            name="inputPass1"
+            required
+          />
         </mat-form-field>
         <mat-form-field>
-          <input matInput [(ngModel)]="password2" placeholder="{{'login.password'|translate}}" type="password" #inputPass2="ngModel"
-            name="inputPass2" required/>
+          <input
+            matInput
+            [(ngModel)]="password2"
+            placeholder="{{ 'login.password' | translate }}"
+            type="password"
+            #inputPass2="ngModel"
+            name="inputPass2"
+            required
+          />
         </mat-form-field>
-        <mat-error *ngIf="messagePassword">{{messagePassword | translate}}</mat-error>
+        <mat-error *ngIf="messagePassword">{{
+          messagePassword | translate
+        }}</mat-error>
         <div>
-          <button type="button" class="btn btn-outline-primary" matStepperPrevious>{{'global.return'|translate}}</button>
-          <button type="submit" class="btn btn-outline-primary" (click)="changePassword()" [disabled]="passForm.invalid">{{'global.next'|translate}}</button>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            matStepperPrevious
+          >
+            {{ 'global.return' | translate }}
+          </button>
+          <button
+            type="submit"
+            class="btn btn-outline-primary"
+            (click)="changePassword()"
+            [disabled]="passForm.invalid"
+          >
+            {{ 'global.next' | translate }}
+          </button>
           <button class="hide" #passwordNext matStepperNext></button>
         </div>
       </form>
     </mat-step>
     <mat-step>
-      {{'login.forgot.password_changed' |translate}}
+      {{ 'login.forgot.password_changed' | translate }}
       <div>
-        <button type="button" class="btn btn-outline-primary" routerLink="/dashboard">{{'global.done'|translate}}</button>
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          routerLink="/dashboard"
+        >
+          {{ 'global.done' | translate }}
+        </button>
       </div>
     </mat-step>
   </mat-vertical-stepper>

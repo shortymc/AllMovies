@@ -1,21 +1,43 @@
 <mat-form-field>
   <mat-chip-list #chipList>
-    <mat-chip *ngFor="let p of list" [selectable]="true" [removable]="true" (removed)="removeItem(p)">
-      {{p.name}}
+    <mat-chip
+      *ngFor="let p of list"
+      [selectable]="true"
+      [removable]="true"
+      (removed)="removeItem(p)"
+    >
+      {{ p.name }}
       <span matChipRemove>
         <fa-icon [icon]="faRemove"></fa-icon>
       </span>
     </mat-chip>
-    <input #inputSearch matInput placeholder="{{placeholder|translate}}" [matAutocomplete]="auto" [formControl]="itemCtrl"
-      [matChipInputFor]="chipList">
+    <input
+      #inputSearch
+      matInput
+      placeholder="{{ placeholder | translate }}"
+      [matAutocomplete]="auto"
+      [formControl]="itemCtrl"
+      [matChipInputFor]="chipList"
+    />
   </mat-chip-list>
 </mat-form-field>
-<mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption class="{{hasImage ? 'big-autocomplete': ''}}">
-  <mat-option *ngFor="let item of filteredItems | async" (onSelectionChange)="addItem(item); inputSearch.value = ''">
-    <div class="result-content" [ngClass]="{'adult': item.adult}">
-      <img class="align-self-center" *ngIf="hasImage" src="{{item.profile | image:imageSize.small:'true'}}">
+<mat-autocomplete
+  #auto="matAutocomplete"
+  autoActiveFirstOption
+  class="{{ hasImage ? 'big-autocomplete' : '' }}"
+>
+  <mat-option
+    *ngFor="let item of filteredItems | async"
+    (onSelectionChange)="addItem(item); inputSearch.value = ''"
+  >
+    <div class="result-content" [ngClass]="{adult: item.adult}">
+      <img
+        class="align-self-center"
+        *ngIf="hasImage"
+        src="{{ item.profile | image: imageSize.small:'true' }}"
+      />
       <div class="result-body">
-        <span>{{item.name | capitalizeWord}}</span>
+        <span>{{ item.name | capitalizeWord }}</span>
       </div>
     </div>
   </mat-option>

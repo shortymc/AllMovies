@@ -1,0 +1,14 @@
+{
+  "extends": "./node_modules/gts/",
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true,
+        "allowedNames": ["ngOnInit", "ngOnDestroy", "ngOnChanges"]
+      }
+    ],
+    "complexity": ["error", 18]
+  }
+}

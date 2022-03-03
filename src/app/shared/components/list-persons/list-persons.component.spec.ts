@@ -1,12 +1,12 @@
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserModule } from '@angular/platform-browser/';
-import { FormsModule } from '@angular/forms';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {RouterTestingModule} from '@angular/router/testing';
+import {BrowserModule} from '@angular/platform-browser/';
+import {FormsModule} from '@angular/forms';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
-import { SharedModule } from './../../shared.module';
-import { ListPersonsComponent } from './list-persons.component';
+import {SharedModule} from './../../shared.module';
+import {ListPersonsComponent} from './list-persons.component';
 
 describe('ListPersonsComponent', () => {
   let component: ListPersonsComponent;
@@ -15,9 +15,15 @@ describe('ListPersonsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [TranslateService],
-      imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), RouterTestingModule, FontAwesomeModule, SharedModule.forChild()]
-    })
-      .compileComponents();
+      imports: [
+        BrowserModule,
+        FormsModule,
+        TranslateModule.forRoot(),
+        RouterTestingModule,
+        FontAwesomeModule,
+        SharedModule.forChild(),
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

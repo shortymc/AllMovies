@@ -1,11 +1,22 @@
 <div class="dropdown" *ngIf="language">
-  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-    aria-haspopup="true" aria-expanded="false">
-    {{language.label}}
+  <button
+    class="btn btn-outline-primary dropdown-toggle"
+    type="button"
+    id="dropdownMenuButton"
+    data-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    {{ language.label }}
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a *ngFor="let lang of langList" class="pointer dropdown-item" [ngClass]="{'active': language.code === lang.code}"
-      (click)="change(lang)">
-      <span class="fi fi-{{lang.icon}}"></span> {{lang.label}}</a>
+    <a
+      *ngFor="let lang of langList"
+      class="pointer dropdown-item"
+      [ngClass]="{active: language.code === lang.code}"
+      (click)="change(lang)"
+    >
+      <span class="fi fi-{{ lang.icon }}"></span> {{ lang.label }}</a
+    >
   </div>
 </div>

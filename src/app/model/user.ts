@@ -1,4 +1,4 @@
-import { Lang } from './model';
+import {Lang} from './model';
 
 export class User {
   constructor(
@@ -9,5 +9,5 @@ export class User {
     public question?: string,
     public answer?: string,
     public lang?: Lang
-  ) { }
+  ) {}
 }

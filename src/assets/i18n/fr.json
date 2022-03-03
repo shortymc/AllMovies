@@ -1,364 +1,364 @@
 {
-    "global": {
-        "previous": "Page précédente",
-        "add_collection": "Ajouter à la collection",
-        "go_detail": "Voir Détails",
-        "remove": "Supprimer",
-        "continue": "Continuer",
-        "activate": "Activer",
-        "deactivate": "Désactiver",
-        "delete": "Supprimer",
-        "cancel": "Annuler",
-        "done": "Terminer",
-        "username": "Pseudo",
-        "username_required": "Veuillez renseigner votre pseudo",
-        "original_title": "Titre Original",
-        "add": "Ajouter",
-        "already_added": "Déjà Ajouté",
-        "next": "Suivant",
-        "edit": "Modifier",
-        "save": "Sauvegarder",
-        "finish": "Terminer",
-        "download": "Télécharger",
-        "return": "Retour",
-        "pageNotFound": "Page introuvable",
-        "show": "Afficher",
-        "hide": "Cacher",
-        "id": "Id",
-        "video": "Vidéo(s)",
-        "reco": "Vous aimerez aussi",
-        "similar": "Similaires",
-        "overview": "Synopsis",
-        "list": "Liste",
-        "alternative_title": "Titres Alternatif",
-        "country": "Pays",
-        "languages": "Langues",
-        "clear": "Rénitialiser",
-        "sort": "Trier",
-        "sort_direction": "Direction",
-        "sort_up": "Croissant",
-        "sort_down": "Décroissant",
-        "keyword": "Mots Clés",
-        "genres": "Genres",
-        "popularity": "Popularité",
-        "vote": "Note",
-        "vote_count": "Nombre de vote",
-        "tagged": "Tags",
-        "placeholder": "Rechercher",
-        "true": "Oui",
-        "false": "Non",
-        "mat-table": {
-            "of": " sur ",
-            "no_result": "Aucune Donnée",
-            "nextPageLabel": "Page Suivante",
-            "previousPageLabel": "Page Précédente",
-            "lastPageLabel": "Dernière Page",
-            "firstPageLabel": "Première Page"
-        }
-    },
-    "time": {
-        "now": "maintenant",
-        "hour": "heure",
-        "minute": "minute",
-        "day": "jour",
-        "week": "semaine",
-        "month": "mois"
-    },
-    "nav_bar": {
-        "dashboard": "Tableau de Bord",
-        "movies": "Mes Films",
-        "series": "Mes Séries",
-        "release": "Sorties Cinéma",
-        "playing": "À l'Affiche",
-        "profile": "Mon Profil",
-        "logout": "Déconnexion",
-        "discover": "Explorer",
-        "change_language": "Changer de Langue",
-        "tags": "Mes Tags"
-    },
-    "title": {
-        "dashboard": "Tableau de Bord",
-        "movies": "Mes Films",
-        "series": "Mes Séries",
-        "release": "Sorties Cinéma",
-        "profile": "Mon Profil",
-        "discover": "Explorer",
-        "playing": "À l'Affiche",
-        "login": "Connection",
-        "register": "Inscription",
-        "tags": "Mes Tags"
-    },
-    "toast": {
-        "movie_added": "Film ajouté !",
-        "movies_added": "{{size}} Film(s) ajoutés !",
-        "movie_removed": "Film supprimé !",
-        "movies_removed": "{{size}} Film(s) supprimés !",
-        "movies_updated": "{{size}} Film(s) mis à jour !",
-        "serie_added": "Série ajouté !",
-        "series_added": "{{size}} Série(s) ajoutés !",
-        "serie_removed": "Série supprimé !",
-        "series_removed": "{{size}} Série(s) supprimés !",
-        "series_updated": "{{size}} Série(s) mis à jour !",
-        "already_added": "Déjà ajouté !",
-        "user_added": "Utilisateur ajouté !",
-        "user_changed": "Utilisateur modifié !",
-        "tags_added": "Tag ajouté !",
-        "tags_updated": "Tag mis à jour !",
-        "tags_removed": "{{size}} Tag(s) supprimés !"
-    },
-    "tabs": {
-        "open_link": {
-            "title": "Ouvrir le lien",
-            "open_background": "En arrière plan",
-            "open_new": "Dans un nouvel onglet"
-        }
-    },
-    "release_type": {
-        "1": "Première",
-        "2": "Sortie limitée",
-        "3": "Cinéma",
-        "4": "Numérique",
-        "5": "Physique",
-        "6": "Télé"
-    },
-    "dashboard": {
-        "movies": "Films du moment",
-        "series": "Séries du moment",
-        "persons": "Personnes populaires"
-    },
-    "movie": {
-        "title": "Titre",
-        "date": "Date de Sortie",
-        "length": "Durée",
-        "budget": "Budget",
-        "spoken_langs": "Langues Parlées",
-        "revenu": "Recette",
-        "image": "les images du film"
-    },
-    "score": {
-        "source": "Site",
-        "value": "Note"
-    },
-    "data-list": {
-        "actor": "En tant qu'acteur",
-        "director": "En tant que réalisateur",
-        "producer": "En tant que producteur",
-        "composer": "En tant que compositeur",
-        "screenwriter": "En tant que scénariste",
-        "novelist": "En tant qu'écrivain",
-        "technician": "En tant que technicien",
-        "add_movies": "Ajouter les films sélectionnés",
-        "add_series": "Ajouter les séries sélectionnées",
-        "total": "Total"
-    },
-    "person": {
-        "name": "Nom",
-        "birthplace": "Lieu de naissance",
-        "age": "Age",
-        "birth": "Naissance",
-        "death": "Mort",
-        "bio": "Biographie",
-        "image": "ses images",
-        "films": "Filmographie",
-        "display": {
-            "title": "Afficher",
-            "movie": "Les films",
-            "serie": "Les séries",
-            "both": "Les deux"
-        },
-        "known_for": {
-            "title": "Connu comme",
-            "detail": "Connu pour",
-            "acting": "Acteur",
-            "directing": "Réalisateur",
-            "sound": "Compositeur",
-            "writing": "Scénariste",
-            "production": "Producteur",
-            "editing": "Monteur",
-            "art": "Décorateur",
-            "crew": "Technicien"
-        }
-    },
-    "search": {
-        "series": "Chercher des séries",
-        "movies": "Chercher des films",
-        "persons": "Chercher des personnes"
-    },
-    "person-list": {
-        "hide": "Cacher les",
-        "show": "Afficher tous les",
-        "creators": "Créateurs",
-        "actors": "Acteurs",
-        "directors": "Réalisateur",
-        "producers": "Producteur",
-        "composers": "Compositeur",
-        "screenwriters": "Scénariste",
-        "authors": "Auteurs original",
-        "cameos": "Cameo",
-        "guests": "Guest-Star",
-        "song": "Chansons",
-        "music": "Musique"
-    },
-    "meta": {
-        "metacritic": "Metacritic",
-        "scq": "SensCritique",
-        "wikifr": "FR",
-        "wen": "EN",
-        "imdb": "IMDB",
-        "links": "Ouvrir les 4 liens"
-    },
-    "movies": {
-        "header": "Mes Films",
-        "remove": "Retirer les films sélectionnés ({{size}})",
-        "add_tag": "Ajouter le tag {{tag}} aux films sélectionnés ({{size}})"
-    },
-    "series": {
-        "header": "Mes Séries",
-        "remove": "Retirer les séries sélectionnées ({{size}})",
-        "add_tag": "Ajouter le tag {{tag}} aux séries sélectionnées ({{size}})"
-    },
-    "datas": {
-        "poster": "Affiche",
-        "title": "Titre",
-        "date": "Date",
-        "rating": "Note",
-        "length": "Durée",
-        "added": "Ajouté",
-        "filter": {
-            "placeholder": "Rechercher",
-            "genres": "Genres"
-        },
-        "mat-table": {
-            "itemsPerPageLabel": "Objets par Page: "
-        }
-    },
-    "release": {
-        "header": "Films sortis du {{begin}} au {{end}}",
-        "date": {
-            "previous": "Semaine précédente",
-            "next": "Semaine suivante",
-            "current": "Semaine courante"
-        }
-    },
-    "login": {
-        "name_required": "Veuillez renseigner votre pseudo",
-        "password": "Mot de passe",
-        "password_required": "Veuillez renseigner votre mot de passe",
-        "answer": "Réponse",
-        "answer_required": "La réponse est obligatoire",
-        "question": "Question secrète",
-        "question_required": "La question est obligatoire",
-        "error_password": "Mots de passe différents",
-        "error_question": "Questions différentes",
-        "wrong_answer": "Réponse incorrecte",
-        "lang": "Langue",
-        "connect": {
-            "title": "S'IDENTIFIER",
-            "log_in": "Se connecter",
-            "sign_up": "S'inscrire",
-            "connected": "Connecté !!",
-            "forgot": "Mot de passe oublié",
-            "wrong": "Saisie incorrecte.."
-        },
-        "register": {
-            "title": "S'inscrire",
-            "validation": "S'inscrire",
-            "already_exist": "Un utilisateur avec ce pseudo existe déjà"
-        },
-        "forgot": {
-            "title": "Mot de passe oublié",
-            "wrong_name": "Pseudo inconnu",
-            "name": "Remplissez votre nom",
-            "answer": "Répondez à la question",
-            "password": "Changer le mot de passe",
-            "password_changed": "Mot de passe modifié !"
-        },
-        "profile": {
-            "title": "Mon profil",
-            "change_password": "Changer de mot de passe",
-            "change_question": "Changer de question secrète",
-            "change_language": "Changer de langue",
-            "adult": "Contenu adulte"
-        },
-        "change_password": {
-            "title": "Changer de mot de passe",
-            "old": "Ancien mot de passe",
-            "new": "Nouveau mot de passe",
-            "wrong": "Mot de passe incorrect"
-        },
-        "change_question": {
-            "title": "Changer de question secrète",
-            "old_answer": "Ancienne réponse",
-            "new_answer": "Nouvelle réponse",
-            "old_question": "Ancienne question",
-            "new_question": "Nouvelle question"
-        }
-    },
-    "discover": {
-        "sort_field": {
-            "popularity": "Popularité",
-            "release_date": "Date de sortie",
-            "revenue": "Recette",
-            "original_title": "Titre",
-            "first_aired": "Première diffusion",
-            "vote_average": "Note",
-            "vote_count": "Nombre de vote"
-        },
-        "people": "Personnes",
-        "certification": "Certifications",
-        "without": "Sans",
-        "none": "Aucun",
-        "release_type": "Type de sortie",
-        "runtime": "Durée",
-        "year": "Année de sortie",
-        "search": "Rechercher",
-        "result": "Résultats",
-        "vote_count_min": "Nombre de vote minimum",
-        "playing": "Films à l'affiche",
-        "language": "Langue parlée"
-    },
-    "tags": {
-        "header": "Mes Tags",
-        "new": "Ajouter un tag",
-        "filter": "Filtrer",
-        "remove": "Supprimer les tags sélectionnés ({{size}})",
-        "label": "Label",
-        "count": "Taille",
-        "color": "Couleur",
-        "select": "Sélectionner un tag",
-        "required": "Veuillez renseigner un nom de tag",
-        "maxlength": "{{current}} est supérieur à longueure maximale ({{maxSize}})",
-        "unique": "Le nom du tag doit être unique",
-        "remove_datas": "Retirer les données sélectionnées ({{size}})",
-        "mat-table": {
-            "itemsPerPageLabel": "Tags par Page: "
-        }
-    },
-    "serie": {
-        "dates": "Dates de diffusion",
-        "images": "les images de la série",
-        "creators": "Créateurs",
-        "in_production": "En production",
-        "network": "Diffuseur",
-        "season_count": "Nombre de saison",
-        "episode_count": "Nombre d'épisode",
-        "first_aired": "Début de diffusion",
-        "seasons": "Saison",
-        "status": "Statut",
-        "type": "Type"
-    },
-    "season": {
-        "images": "les images de la saison",
-        "previous": "Saison précedente",
-        "next": "Saison suivante",
-        "go_back": "Retourner à la série"
-    },
-    "list": {
-        "sort_field": {
-            "original_order": "Ordre original",
-            "release_date": "Date de sortie",
-            "vote_average": "Note",
-            "title": "Titre"
-        }
+  "global": {
+    "previous": "Page précédente",
+    "add_collection": "Ajouter à la collection",
+    "go_detail": "Voir Détails",
+    "remove": "Supprimer",
+    "continue": "Continuer",
+    "activate": "Activer",
+    "deactivate": "Désactiver",
+    "delete": "Supprimer",
+    "cancel": "Annuler",
+    "done": "Terminer",
+    "username": "Pseudo",
+    "username_required": "Veuillez renseigner votre pseudo",
+    "original_title": "Titre Original",
+    "add": "Ajouter",
+    "already_added": "Déjà Ajouté",
+    "next": "Suivant",
+    "edit": "Modifier",
+    "save": "Sauvegarder",
+    "finish": "Terminer",
+    "download": "Télécharger",
+    "return": "Retour",
+    "pageNotFound": "Page introuvable",
+    "show": "Afficher",
+    "hide": "Cacher",
+    "id": "Id",
+    "video": "Vidéo(s)",
+    "reco": "Vous aimerez aussi",
+    "similar": "Similaires",
+    "overview": "Synopsis",
+    "list": "Liste",
+    "alternative_title": "Titres Alternatif",
+    "country": "Pays",
+    "languages": "Langues",
+    "clear": "Rénitialiser",
+    "sort": "Trier",
+    "sort_direction": "Direction",
+    "sort_up": "Croissant",
+    "sort_down": "Décroissant",
+    "keyword": "Mots Clés",
+    "genres": "Genres",
+    "popularity": "Popularité",
+    "vote": "Note",
+    "vote_count": "Nombre de vote",
+    "tagged": "Tags",
+    "placeholder": "Rechercher",
+    "true": "Oui",
+    "false": "Non",
+    "mat-table": {
+      "of": " sur ",
+      "no_result": "Aucune Donnée",
+      "nextPageLabel": "Page Suivante",
+      "previousPageLabel": "Page Précédente",
+      "lastPageLabel": "Dernière Page",
+      "firstPageLabel": "Première Page"
     }
+  },
+  "time": {
+    "now": "maintenant",
+    "hour": "heure",
+    "minute": "minute",
+    "day": "jour",
+    "week": "semaine",
+    "month": "mois"
+  },
+  "nav_bar": {
+    "dashboard": "Tableau de Bord",
+    "movies": "Mes Films",
+    "series": "Mes Séries",
+    "release": "Sorties Cinéma",
+    "playing": "À l'Affiche",
+    "profile": "Mon Profil",
+    "logout": "Déconnexion",
+    "discover": "Explorer",
+    "change_language": "Changer de Langue",
+    "tags": "Mes Tags"
+  },
+  "title": {
+    "dashboard": "Tableau de Bord",
+    "movies": "Mes Films",
+    "series": "Mes Séries",
+    "release": "Sorties Cinéma",
+    "profile": "Mon Profil",
+    "discover": "Explorer",
+    "playing": "À l'Affiche",
+    "login": "Connection",
+    "register": "Inscription",
+    "tags": "Mes Tags"
+  },
+  "toast": {
+    "movie_added": "Film ajouté !",
+    "movies_added": "{{size}} Film(s) ajoutés !",
+    "movie_removed": "Film supprimé !",
+    "movies_removed": "{{size}} Film(s) supprimés !",
+    "movies_updated": "{{size}} Film(s) mis à jour !",
+    "serie_added": "Série ajouté !",
+    "series_added": "{{size}} Série(s) ajoutés !",
+    "serie_removed": "Série supprimé !",
+    "series_removed": "{{size}} Série(s) supprimés !",
+    "series_updated": "{{size}} Série(s) mis à jour !",
+    "already_added": "Déjà ajouté !",
+    "user_added": "Utilisateur ajouté !",
+    "user_changed": "Utilisateur modifié !",
+    "tags_added": "Tag ajouté !",
+    "tags_updated": "Tag mis à jour !",
+    "tags_removed": "{{size}} Tag(s) supprimés !"
+  },
+  "tabs": {
+    "open_link": {
+      "title": "Ouvrir le lien",
+      "open_background": "En arrière plan",
+      "open_new": "Dans un nouvel onglet"
+    }
+  },
+  "release_type": {
+    "1": "Première",
+    "2": "Sortie limitée",
+    "3": "Cinéma",
+    "4": "Numérique",
+    "5": "Physique",
+    "6": "Télé"
+  },
+  "dashboard": {
+    "movies": "Films du moment",
+    "series": "Séries du moment",
+    "persons": "Personnes populaires"
+  },
+  "movie": {
+    "title": "Titre",
+    "date": "Date de Sortie",
+    "length": "Durée",
+    "budget": "Budget",
+    "spoken_langs": "Langues Parlées",
+    "revenu": "Recette",
+    "image": "les images du film"
+  },
+  "score": {
+    "source": "Site",
+    "value": "Note"
+  },
+  "data-list": {
+    "actor": "En tant qu'acteur",
+    "director": "En tant que réalisateur",
+    "producer": "En tant que producteur",
+    "composer": "En tant que compositeur",
+    "screenwriter": "En tant que scénariste",
+    "novelist": "En tant qu'écrivain",
+    "technician": "En tant que technicien",
+    "add_movies": "Ajouter les films sélectionnés",
+    "add_series": "Ajouter les séries sélectionnées",
+    "total": "Total"
+  },
+  "person": {
+    "name": "Nom",
+    "birthplace": "Lieu de naissance",
+    "age": "Age",
+    "birth": "Naissance",
+    "death": "Mort",
+    "bio": "Biographie",
+    "image": "ses images",
+    "films": "Filmographie",
+    "display": {
+      "title": "Afficher",
+      "movie": "Les films",
+      "serie": "Les séries",
+      "both": "Les deux"
+    },
+    "known_for": {
+      "title": "Connu comme",
+      "detail": "Connu pour",
+      "acting": "Acteur",
+      "directing": "Réalisateur",
+      "sound": "Compositeur",
+      "writing": "Scénariste",
+      "production": "Producteur",
+      "editing": "Monteur",
+      "art": "Décorateur",
+      "crew": "Technicien"
+    }
+  },
+  "search": {
+    "series": "Chercher des séries",
+    "movies": "Chercher des films",
+    "persons": "Chercher des personnes"
+  },
+  "person-list": {
+    "hide": "Cacher les",
+    "show": "Afficher tous les",
+    "creators": "Créateurs",
+    "actors": "Acteurs",
+    "directors": "Réalisateur",
+    "producers": "Producteur",
+    "composers": "Compositeur",
+    "screenwriters": "Scénariste",
+    "authors": "Auteurs original",
+    "cameos": "Cameo",
+    "guests": "Guest-Star",
+    "song": "Chansons",
+    "music": "Musique"
+  },
+  "meta": {
+    "metacritic": "Metacritic",
+    "scq": "SensCritique",
+    "wikifr": "FR",
+    "wen": "EN",
+    "imdb": "IMDB",
+    "links": "Ouvrir les 4 liens"
+  },
+  "movies": {
+    "header": "Mes Films",
+    "remove": "Retirer les films sélectionnés ({{size}})",
+    "add_tag": "Ajouter le tag {{tag}} aux films sélectionnés ({{size}})"
+  },
+  "series": {
+    "header": "Mes Séries",
+    "remove": "Retirer les séries sélectionnées ({{size}})",
+    "add_tag": "Ajouter le tag {{tag}} aux séries sélectionnées ({{size}})"
+  },
+  "datas": {
+    "poster": "Affiche",
+    "title": "Titre",
+    "date": "Date",
+    "rating": "Note",
+    "length": "Durée",
+    "added": "Ajouté",
+    "filter": {
+      "placeholder": "Rechercher",
+      "genres": "Genres"
+    },
+    "mat-table": {
+      "itemsPerPageLabel": "Objets par Page: "
+    }
+  },
+  "release": {
+    "header": "Films sortis du {{begin}} au {{end}}",
+    "date": {
+      "previous": "Semaine précédente",
+      "next": "Semaine suivante",
+      "current": "Semaine courante"
+    }
+  },
+  "login": {
+    "name_required": "Veuillez renseigner votre pseudo",
+    "password": "Mot de passe",
+    "password_required": "Veuillez renseigner votre mot de passe",
+    "answer": "Réponse",
+    "answer_required": "La réponse est obligatoire",
+    "question": "Question secrète",
+    "question_required": "La question est obligatoire",
+    "error_password": "Mots de passe différents",
+    "error_question": "Questions différentes",
+    "wrong_answer": "Réponse incorrecte",
+    "lang": "Langue",
+    "connect": {
+      "title": "S'IDENTIFIER",
+      "log_in": "Se connecter",
+      "sign_up": "S'inscrire",
+      "connected": "Connecté !!",
+      "forgot": "Mot de passe oublié",
+      "wrong": "Saisie incorrecte.."
+    },
+    "register": {
+      "title": "S'inscrire",
+      "validation": "S'inscrire",
+      "already_exist": "Un utilisateur avec ce pseudo existe déjà"
+    },
+    "forgot": {
+      "title": "Mot de passe oublié",
+      "wrong_name": "Pseudo inconnu",
+      "name": "Remplissez votre nom",
+      "answer": "Répondez à la question",
+      "password": "Changer le mot de passe",
+      "password_changed": "Mot de passe modifié !"
+    },
+    "profile": {
+      "title": "Mon profil",
+      "change_password": "Changer de mot de passe",
+      "change_question": "Changer de question secrète",
+      "change_language": "Changer de langue",
+      "adult": "Contenu adulte"
+    },
+    "change_password": {
+      "title": "Changer de mot de passe",
+      "old": "Ancien mot de passe",
+      "new": "Nouveau mot de passe",
+      "wrong": "Mot de passe incorrect"
+    },
+    "change_question": {
+      "title": "Changer de question secrète",
+      "old_answer": "Ancienne réponse",
+      "new_answer": "Nouvelle réponse",
+      "old_question": "Ancienne question",
+      "new_question": "Nouvelle question"
+    }
+  },
+  "discover": {
+    "sort_field": {
+      "popularity": "Popularité",
+      "release_date": "Date de sortie",
+      "revenue": "Recette",
+      "original_title": "Titre",
+      "first_aired": "Première diffusion",
+      "vote_average": "Note",
+      "vote_count": "Nombre de vote"
+    },
+    "people": "Personnes",
+    "certification": "Certifications",
+    "without": "Sans",
+    "none": "Aucun",
+    "release_type": "Type de sortie",
+    "runtime": "Durée",
+    "year": "Année de sortie",
+    "search": "Rechercher",
+    "result": "Résultats",
+    "vote_count_min": "Nombre de vote minimum",
+    "playing": "Films à l'affiche",
+    "language": "Langue parlée"
+  },
+  "tags": {
+    "header": "Mes Tags",
+    "new": "Ajouter un tag",
+    "filter": "Filtrer",
+    "remove": "Supprimer les tags sélectionnés ({{size}})",
+    "label": "Label",
+    "count": "Taille",
+    "color": "Couleur",
+    "select": "Sélectionner un tag",
+    "required": "Veuillez renseigner un nom de tag",
+    "maxlength": "{{current}} est supérieur à longueure maximale ({{maxSize}})",
+    "unique": "Le nom du tag doit être unique",
+    "remove_datas": "Retirer les données sélectionnées ({{size}})",
+    "mat-table": {
+      "itemsPerPageLabel": "Tags par Page: "
+    }
+  },
+  "serie": {
+    "dates": "Dates de diffusion",
+    "images": "les images de la série",
+    "creators": "Créateurs",
+    "in_production": "En production",
+    "network": "Diffuseur",
+    "season_count": "Nombre de saison",
+    "episode_count": "Nombre d'épisode",
+    "first_aired": "Début de diffusion",
+    "seasons": "Saison",
+    "status": "Statut",
+    "type": "Type"
+  },
+  "season": {
+    "images": "les images de la saison",
+    "previous": "Saison précedente",
+    "next": "Saison suivante",
+    "go_back": "Retourner à la série"
+  },
+  "list": {
+    "sort_field": {
+      "original_order": "Ordre original",
+      "release_date": "Date de sortie",
+      "vote_average": "Note",
+      "title": "Titre"
+    }
+  }
 }

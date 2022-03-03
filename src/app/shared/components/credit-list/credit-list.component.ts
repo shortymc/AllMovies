@@ -1,25 +1,24 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Job } from './../../../constant/job';
+import {Component, OnInit, Input} from '@angular/core';
+import {Job} from './../../../constant/job';
+import {Person} from '../../../model/person';
 
 @Component({
   selector: 'app-credit-list',
   templateUrl: './credit-list.component.html',
-  styleUrls: ['./credit-list.component.scss']
+  styleUrls: ['./credit-list.component.scss'],
 })
 export class CreditListComponent implements OnInit {
   @Input()
-  creators: any[];
+  creators: Person[] = [];
   @Input()
-  actors: any[];
+  actors: Person[] = [];
   @Input()
-  crew: any[];
+  crew: Person[] = [];
   @Input()
-  isDetail: boolean;
+  isDetail!: boolean;
   Job = Job;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

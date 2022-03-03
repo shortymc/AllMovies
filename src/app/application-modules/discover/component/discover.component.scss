@@ -1,4 +1,4 @@
-@import "../../../styles/styles";
+@import '../../../styles/styles';
 
 .mat-line {
   margin-left: 85px !important;
@@ -52,7 +52,7 @@
   margin-top: 2.25em;
 }
 
-::ng-deep .noUi-handle {/* stylelint-disable-line */
+::ng-deep .noUi-handle {
   cursor: grab;
 }
 

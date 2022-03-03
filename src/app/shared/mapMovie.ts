@@ -1,61 +1,69 @@
-import { AlternativeTitle, Lang, Flag, Genre } from './../model/model';
-import { Utils } from './utils';
-import { Movie } from './../model/movie';
-import { Discover } from '../model/discover';
-import { ReleaseDate } from '../model/model';
-import { MockService } from './service/mock.service';
+import {AlternativeTitle, Lang, Flag, Genre} from './../model/model';
+import {Utils} from './utils';
+import {Movie} from './../model/movie';
+import {Discover} from '../model/discover';
+import {ReleaseDate} from '../model/model';
+import {MockService} from './service/mock.service';
 
 export class MapMovie {
-
   private static flags: Flag[] = [];
 
   static mapForMoviesByReleaseDates(response: any): Movie[] {
     console.log(response.results);
-    return response.results.map((r: any) => <Movie>({
-      id: r.id,
-      title: r.title,
-      date: r.release_date,
-      vote: r.vote_average,
-      language: r.original_language,
-      affiche: r.poster_path,
-      overview: r.overview,
-      time: r.runtime,
-      popularity: r.popularity,
-      vote_count: r.vote_count
-    }));
+    return response.results.map(
+      (r: any) =>
+        <Movie>{
+          id: r.id,
+          title: r.title,
+          date: r.release_date,
+          vote: r.vote_average,
+          language: r.original_language,
+          affiche: r.poster_path,
+          overview: r.overview,
+          time: r.runtime,
+          popularity: r.popularity,
+          vote_count: r.vote_count,
+        }
+    );
   }
 
   static mapForPopularMovies(response: any): Movie[] {
-    return response.results.map((r: any) => <Movie>({
-      id: r.id,
-      title: r.title,
-      date: r.release_date,
-      vote: r.vote_average,
-      language: r.original_language,
-      affiche: r.poster_path,
-      popularity: r.popularity
-    }));
+    return response.results.map(
+      (r: any) =>
+        <Movie>{
+          id: r.id,
+          title: r.title,
+          date: r.release_date,
+          vote: r.vote_average,
+          language: r.original_language,
+          affiche: r.poster_path,
+          popularity: r.popularity,
+        }
+    );
   }
 
   static mapForDiscover(response: any): Discover {
     const discover = new Discover();
-    discover.datas = response.results.map((r: any) => <Movie>({
-      id: r.id,
-      title: r.title,
-      date: r.release_date,
-      vote: r.vote_average,
-      language: r.original_language,
-      affiche: r.poster_path,
-      adult: r.adult,
-      original_title: Utils.getTitle(r),
-      popularity: r.popularity,
-      vote_count: r.vote_count,
-      genres: r.genre_ids.map(g => {
-        const genre = new Genre();
-        genre.id = g;
-        return genre;
-      })
-    }));
+    discover.datas = response.results.map(
+      (r: any) =>
+        <Movie>{
+          id: r.id,
+          title: r.title,
+          date: r.release_date,
+          vote: r.vote_average,
+          language: r.original_language,
+          affiche: r.poster_path,
+          adult: r.adult,
+          original_title: Utils.getTitle(r),
+          popularity: r.popularity,
+          vote_count: r.vote_count,
+          genres: r.genre_ids.map(g => {
+            const genre = new Genre();
+            genre.id = g;
+            return genre;
+          }),
+        }
+    );
     discover.total_pages = response.total_pages;
     discover.page = response.page;
     discover.total_results = response.total_results;
@@ -65,32 +73,38 @@ export class MapMovie {
 
   static mapForSearchMovies(response: any): Movie[] {
     console.log(response.results);
-    return response.results.slice(0, 6).map((r: any) => <Movie>({
-      id: r.id,
-      title: r.title,
-      date: r.release_date,
-      adult: r.adult,
-      original_title: Utils.getTitle(r),
-      affiche: r.poster_path,
-    }));
+    return response.results.slice(0, 6).map(
+      (r: any) =>
+        <Movie>{
+          id: r.id,
+          title: r.title,
+          date: r.release_date,
+          adult: r.adult,
+          original_title: Utils.getTitle(r),
+          affiche: r.poster_path,
+        }
+    );
   }
 
   static mapForRecommendationsMovies(reco: any): Movie[] {
-    return reco.map((r: any) => <Movie>({
-      id: r.id,
-      title: r.title,
-      date: r.release_date,
-      affiche: r.poster_path,
-      original_title: Utils.getTitle(r),
-      adult: r.adult,
-      time: r.runtime,
-      vote: r.vote_average,
-      vote_count: r.vote_count,
-      budget: r.budget,
-      recette: r.revenue,
-      language: r.original_language,
-      popularity: r.popularity
-    }));
+    return reco.map(
+      (r: any) =>
+        <Movie>{
+          id: r.id,
+          title: r.title,
+          date: r.release_date,
+          affiche: r.poster_path,
+          original_title: Utils.getTitle(r),
+          adult: r.adult,
+          time: r.runtime,
+          vote: r.vote_average,
+          vote_count: r.vote_count,
+          budget: r.budget,
+          recette: r.revenue,
+          language: r.original_language,
+          popularity: r.popularity,
+        }
+    );
   }
 
   static mapForMovie(r: any, mockService: MockService<Flag>): Movie {
@@ -108,7 +122,9 @@ export class MapMovie {
       movie.videos = r.videos.results;
     }
     if (r.recommendations) {
-      movie.recommendations = MapMovie.mapForRecommendationsMovies(r.recommendations.results);
+      movie.recommendations = MapMovie.mapForRecommendationsMovies(
+        r.recommendations.results
+      );
     }
     if (r.similar) {
       movie.similars = MapMovie.mapForRecommendationsMovies(r.similar.results);
@@ -123,15 +139,21 @@ export class MapMovie {
       movie.keywords = r.keywords.keywords;
     }
     if (r.release_dates && r.release_dates.results) {
-      const release = r.release_dates.results.find(date => date.iso_3166_1 === 'FR');
+      const release = r.release_dates.results.find(
+        date => date.iso_3166_1 === 'FR'
+      );
       if (release && release.release_dates) {
-        movie.releaseDates = release.release_dates.map(date => new ReleaseDate(date.release_date, date.type));
+        movie.releaseDates = release.release_dates.map(
+          date => new ReleaseDate(date.release_date, date.type)
+        );
       }
     }
     if (r.spoken_languages) {
       movie.spokenLangs = r.spoken_languages.map(spoken => {
         const lang = new Lang();
-        MapMovie.convertLangToCountry(spoken.iso_639_1, mockService).then(code => lang.code = code);
+        MapMovie.convertLangToCountry(spoken.iso_639_1, mockService).then(
+          code => (lang.code = code)
+        );
         lang.label = spoken.name;
         return lang;
       });
@@ -139,7 +161,9 @@ export class MapMovie {
     movie.title = r.title;
     if (r.alternative_titles && r.alternative_titles.titles) {
       movie.alternativeTitles = r.alternative_titles.titles
-        .filter(title => title.title.toLowerCase() !== movie.title.toLowerCase())
+        .filter(
+          title => title.title.toLowerCase() !== movie.title.toLowerCase()
+        )
         .map(title => new AlternativeTitle(title.iso_3166_1, title.title));
     }
     movie.id = r.id;
@@ -153,7 +177,9 @@ export class MapMovie {
     movie.vote_count = r.vote_count;
     movie.budget = r.budget;
     movie.recette = r.revenue;
-    MapMovie.convertLangToCountry(r.original_language, mockService).then(code => movie.language = code);
+    MapMovie.convertLangToCountry(r.original_language, mockService).then(
+      code => (movie.language = code)
+    );
     movie.imdb_id = r.imdb_id;
     movie.checked = false;
     movie.production_countries = r.production_countries;
@@ -162,14 +188,17 @@ export class MapMovie {
     return movie;
   }
 
-  static convertLangToCountry(code: string, mockService: MockService<Flag>): Promise<string> {
+  static convertLangToCountry(
+    code: string,
+    mockService: MockService<Flag>
+  ): Promise<string> {
     if (!MapMovie.flags || MapMovie.flags.length === 0) {
       return mockService.getAll('flags.json').then(flags => {
         MapMovie.flags = flags;
         return MapMovie.getFlag(code);
       });
     } else {
-      return new Promise((resolve) => resolve(MapMovie.getFlag(code)));
+      return new Promise(resolve => resolve(MapMovie.getFlag(code)));
     }
   }
 
@@ -182,7 +211,7 @@ export class MapMovie {
   }
 
   static toMovie(r: any): Movie {
-    return <Movie>({
+    return <Movie>{
       id: r.id,
       title: r.title,
       original_title: Utils.getTitle(r),
@@ -195,29 +224,32 @@ export class MapMovie {
       language: r.original_language,
       popularity: r.popularity,
       character: r.character,
-      isMovie: true
-    });
+      isMovie: true,
+    };
   }
 
   static mapForList(resp: any): Movie[] {
-    return resp.map((r: any) => <Movie>({
-      affiche: r.poster_path,
-      adult: r.adult,
-      overview: r.overview,
-      date: r.release_date,
-      original_title: Utils.getTitle(r),
-      genres: r.genre_ids.map(g => {
-        const genre = new Genre();
-        genre.id = g;
-        return genre;
-      }),
-      id: r.id,
-      language: r.original_language,
-      title: r.title,
-      popularity: r.popularity,
-      vote_count: r.vote_count,
-      videos: r.video,
-      vote: r.vote_average,
-    }));
+    return resp.map(
+      (r: any) =>
+        <Movie>{
+          affiche: r.poster_path,
+          adult: r.adult,
+          overview: r.overview,
+          date: r.release_date,
+          original_title: Utils.getTitle(r),
+          genres: r.genre_ids.map(g => {
+            const genre = new Genre();
+            genre.id = g;
+            return genre;
+          }),
+          id: r.id,
+          language: r.original_language,
+          title: r.title,
+          popularity: r.popularity,
+          vote_count: r.vote_count,
+          videos: r.video,
+          vote: r.vote_average,
+        }
+    );
   }
 }

@@ -225,7 +225,9 @@ input[type='checkbox'] {
 @each $theme in accent, primary {
   ::ng-deep.mat-checkbox-checked.mat-#{$theme} .mat-checkbox-background,
   ::ng-deep.mat-checkbox-indeterminate.mat-#{$theme} .mat-checkbox-background,
-  ::ng-deep.mat-checkbox:not(.mat-checkbox-disabled).mat-#{$theme} .mat-checkbox-ripple .mat-ripple-element {
+  ::ng-deep.mat-checkbox:not(.mat-checkbox-disabled).mat-#{$theme}
+  .mat-checkbox-ripple
+  .mat-ripple-element {
     background-color: $blue !important;
   }
 
@@ -355,10 +357,10 @@ input[type='checkbox'] {
     flex-wrap: inherit !important;
   }
 
-  .page-link[aria-label="Next"],
-  .page-link[aria-label="Previous"],
-  .page-link[aria-label="First"],
-  .page-link[aria-label="Last"] {
+  .page-link[aria-label='Next'],
+  .page-link[aria-label='Previous'],
+  .page-link[aria-label='First'],
+  .page-link[aria-label='Last'] {
     display: none !important;
   }
 

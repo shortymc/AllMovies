@@ -1,115 +1,196 @@
 <div *ngIf="person">
   <app-modal [visible]="isImagesVisible" (update)="isImagesVisible = $event">
-    <app-image-viewer [images]="person.images" [thumbnails]="person.images" [visible]="isImagesVisible">
+    <app-image-viewer
+      [images]="person.images"
+      [thumbnails]="person.images"
+      [visible]="isImagesVisible"
+    >
     </app-image-viewer>
   </app-modal>
   <div class="detail-header">
-    <h1 class="detail-title" [ngClass]="{'adult': person.adult}">{{person.name}}</h1>
+    <h1 class="detail-title" [ngClass]="{adult: person.adult}">
+      {{ person.name }}
+    </h1>
     <div class="detail-btn">
       <button class="btn btn-outline-primary" (click)="goBack()">
-        <fa-icon [icon]="faChevronCircleLeft"></fa-icon> {{'global.previous' | translate}}
+        <fa-icon [icon]="faChevronCircleLeft"></fa-icon>
+        {{ 'global.previous' | translate }}
       </button>
-      <button class="btn btn-outline-primary" appOpenLink [label]="person.name" url="/discover?people=[{{person.id}}]"
-        (click)="discover()">
-        <fa-icon [icon]="faAtom"></fa-icon> {{'title.discover' | translate}}
+      <button
+        class="btn btn-outline-primary"
+        appOpenLink
+        [label]="person.name"
+        url="/discover?people=[{{ person.id }}]"
+        (click)="discover()"
+      >
+        <fa-icon [icon]="faAtom"></fa-icon> {{ 'title.discover' | translate }}
       </button>
     </div>
   </div>
-  <app-meta class="person-meta" [entry]="person" [isMovie]="false" [isSerie]="false"
-    [sites]="[DuckDuckGo.SEARCH_BANG_METACRITIC, DuckDuckGo.SEARCH_BANG_SENSCRITIQUE, DuckDuckGo.SEARCH_BANG_WIKI_EN, DuckDuckGo.SEARCH_BANG_WIKI_FR, DuckDuckGo.SEARCH_BANG_IMDB]">
+  <app-meta
+    class="person-meta"
+    [entry]="person"
+    [isMovie]="false"
+    [isSerie]="false"
+    [sites]="[
+      DuckDuckGo.SEARCH_BANG_METACRITIC,
+      DuckDuckGo.SEARCH_BANG_SENSCRITIQUE,
+      DuckDuckGo.SEARCH_BANG_WIKI_EN,
+      DuckDuckGo.SEARCH_BANG_WIKI_FR,
+      DuckDuckGo.SEARCH_BANG_IMDB
+    ]"
+  >
   </app-meta>
   <div class="detail-content">
-    <app-image-viewer class="person-profile" [images]="person.profile" [thumbnails]="person.profile" [visible]="true">
+    <app-image-viewer
+      class="person-profile"
+      [images]="person.profile"
+      [thumbnails]="person.profile"
+      [visible]="true"
+    >
     </app-image-viewer>
     <div>
-      <label>{{'global.id' | translate}}:</label>{{person.id}}
+      <label>{{ 'global.id' | translate }}:</label>{{ person.id }}
     </div>
     <div>
-      <label>{{'person.name' | translate}}: </label>
-      <span [ngClass]="{'woman': person.gender === 1, 'men': person.gender === 2, 'unknown': person.gender === 0}">{{person.name
-        | capitalizeWord}}</span>
+      <label>{{ 'person.name' | translate }}: </label>
+      <span
+        [ngClass]="{
+          woman: person.gender === 1,
+          men: person.gender === 2,
+          unknown: person.gender === 0
+        }"
+        >{{ person.name | capitalizeWord }}</span
+      >
       <div *ngIf="person.birthPlace">
-        <label>{{'person.birthplace' | translate}}: </label>{{person.birthPlace | capitalizeWord}}
+        <label>{{ 'person.birthplace' | translate }}: </label
+        >{{ person.birthPlace | capitalizeWord }}
       </div>
       <div *ngIf="person.birthday">
-        <label>{{'person.birth' | translate}}: </label>{{person.birthday | date:'dd MMMM
+        <label>{{ 'person.birth' | translate }}: </label
+        >{{
+          person.birthday
+            | date: 'dd MMMM
         yyyy':'':translate.currentLang
-        | capitalizeWord}}
+            | capitalizeWord
+        }}
       </div>
-      <div *ngIf="person.birthday | substractDate:person.deathday as age">
-        <label>{{'person.age' | translate}}: </label>{{age}}
+      <div *ngIf="person.birthday | substractDate: person.deathday as age">
+        <label>{{ 'person.age' | translate }}: </label>{{ age }}
       </div>
       <div *ngIf="person.deathday">
-        <label>{{'person.death' | translate}}: </label>{{person.deathday | date:'dd MMMM
+        <label>{{ 'person.death' | translate }}: </label
+        >{{
+          person.deathday
+            | date: 'dd MMMM
         yyyy':'':translate.currentLang
-        | capitalizeWord}}
+            | capitalizeWord
+        }}
       </div>
       <div>
-        <label>{{'person.known_for.title' | translate}}:</label>{{('person.known_for.'+person.knownFor| lowercase)|translate}}
+        <label>{{ 'person.known_for.title' | translate }}:</label
+        >{{ 'person.known_for.' + person.knownFor | lowercase | translate }}
       </div>
       <div>
-        <label>{{'global.popularity' | translate}}:</label>{{person.popularity |
-        number:'1.0-2':translate.currentLang}}
+        <label>{{ 'global.popularity' | translate }}:</label
+        >{{ person.popularity | number: '1.0-2':translate.currentLang }}
       </div>
-      <div class="pad-left d-inline" *ngIf="person.images && person.images.length > 0">
-        <button type="button" class="btn btn-outline-primary" (click)="isImagesVisible = !isImagesVisible">
-          <fa-icon [icon]="faImage"></fa-icon>{{'global.show' | translate}} {{'person.image' | translate}}
-          ({{person.images.length}})
+      <div
+        class="pad-left d-inline"
+        *ngIf="person.images && person.images.length > 0"
+      >
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="isImagesVisible = !isImagesVisible"
+        >
+          <fa-icon [icon]="faImage"></fa-icon>{{ 'global.show' | translate }}
+          {{ 'person.image' | translate }} ({{ person.images.length }})
         </button>
       </div>
       <div *ngIf="person.biography">
-        <label>{{'person.bio' | translate}}: </label>
-        <div class="overview text-justify">{{person.biography}}</div>
+        <label>{{ 'person.bio' | translate }}: </label>
+        <div class="overview text-justify">{{ person.biography }}</div>
       </div>
     </div>
     <figure>
-      <label id="person-film">{{'person.known_for.detail' | translate}}:</label>
+      <label id="person-film"
+        >{{ 'person.known_for.detail' | translate }}:</label
+      >
       <div class="known-for">
         <div *ngFor="let known of knownFor" class="known-for-detail center">
-          <img class="frame pointer mr-auto" src="{{known.affiche | image:imageSize.small}}"
-            alt="{{known.title| capitalizeWord}}" appOpenLink [label]="known.title"
-            url="{{ known.isMovie ? '/movie/':'/serie/'}}{{known.id}}" matTooltip="{{known.character}}">
-          <div class="" [ngClass]="{'adult': known.adult}">
+          <img
+            class="frame pointer mr-auto"
+            src="{{ known.affiche | image: imageSize.small }}"
+            alt="{{ known.title | capitalizeWord }}"
+            appOpenLink
+            [label]="known.title"
+            url="{{ known.isMovie ? '/movie/' : '/serie/' }}{{ known.id }}"
+            matTooltip="{{ known.character }}"
+          />
+          <div class="" [ngClass]="{adult: known.adult}">
             <div [matTooltip]="known.title">
-              {{known.title | truncate:20 | capitalizeWord}}
+              {{ known.title | truncate: 20 | capitalizeWord }}
             </div>
             <div>
               <ng-container *ngIf="known.isMovie; else serie">
-                ({{ known.date| date : 'yyyy'}})</ng-container>
-              <ng-template #serie>({{ known.firstAired| date : 'yyyy'}})</ng-template>
-              - {{known.popularity | number:'1.0-0'}}
+                ({{ known.date | date: 'yyyy' }})</ng-container
+              >
+              <ng-template #serie
+                >({{ known.firstAired | date: 'yyyy' }})</ng-template
+              >
+              - {{ known.popularity | number: '1.0-0' }}
             </div>
-            <div>
-              {{known.vote}}/10 ({{known.vote_count}})
-            </div>
-            <div>
-            </div>
+            <div>{{ known.vote }}/10 ({{ known.vote_count }})</div>
+            <div></div>
           </div>
         </div>
       </div>
       <div *ngFor="let list of listMoviesOrder">
-        <ng-container *ngIf="list && list.value && list.value.get('show')[0] !== 'none'">
+        <ng-container
+          *ngIf="list && list.value && list.value.get('show')[0] !== 'none'"
+        >
           <div class="toogle-display">
-            <div>{{'person.display.title'|translate}} :</div>
-            <mat-button-toggle-group [value]="list.value.get('show')[0]" #show="matButtonToggleGroup">
-              <mat-button-toggle value="movie" [disabled]="list.value.get('movie').length === 0">
-                {{'person.display.movie'|translate}}
+            <div>{{ 'person.display.title' | translate }} :</div>
+            <mat-button-toggle-group
+              [value]="list.value.get('show')[0]"
+              #show="matButtonToggleGroup"
+            >
+              <mat-button-toggle
+                value="movie"
+                [disabled]="list.value.get('movie').length === 0"
+              >
+                {{ 'person.display.movie' | translate }}
               </mat-button-toggle>
-              <mat-button-toggle value="serie" [disabled]="list.value.get('serie').length === 0">
-                {{'person.display.serie'|translate}}
+              <mat-button-toggle
+                value="serie"
+                [disabled]="list.value.get('serie').length === 0"
+              >
+                {{ 'person.display.serie' | translate }}
               </mat-button-toggle>
-              <mat-button-toggle value="both"
-                [disabled]="list.value.get('serie').length === 0 || list.value.get('movie').length === 0">
-                {{'person.display.both'|translate}}
+              <mat-button-toggle
+                value="both"
+                [disabled]="
+                  list.value.get('serie').length === 0 ||
+                  list.value.get('movie').length === 0
+                "
+              >
+                {{ 'person.display.both' | translate }}
               </mat-button-toggle>
             </mat-button-toggle-group>
           </div>
-          <app-list-datas [datas]="list.value.get('movie')" [isMovie]="true"
+          <app-list-datas
+            [datas]="list.value.get('movie')"
+            [isMovie]="true"
             *ngIf="['movie', 'both'].includes(show.value)"
-            [label]="('data-list.' + list.label_key | translate).concat(':')"></app-list-datas>
-          <app-list-datas [datas]="list.value.get('serie')" [isMovie]="false"
+            [label]="('data-list.' + list.label_key | translate).concat(':')"
+          ></app-list-datas>
+          <app-list-datas
+            [datas]="list.value.get('serie')"
+            [isMovie]="false"
             *ngIf="['serie', 'both'].includes(show.value)"
-            [label]="('data-list.' + list.label_key | translate).concat(':')"></app-list-datas>
+            [label]="('data-list.' + list.label_key | translate).concat(':')"
+          ></app-list-datas>
         </ng-container>
       </div>
     </figure>

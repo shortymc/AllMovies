@@ -1,42 +1,53 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Sort } from '@angular/material/sort';
-import { PageEvent } from '@angular/material/paginator';
-import { TranslateService } from '@ngx-translate/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Sort} from '@angular/material/sort';
+import {PageEvent} from '@angular/material/paginator';
+import {TranslateService} from '@ngx-translate/core';
 import {
-  faTrash, faHashtag, faList, faChevronCircleRight, faPlus, faPaintBrush
+  faTrash,
+  faHashtag,
+  faList,
+  faChevronCircleRight,
+  faPlus,
+  faPaintBrush,
 } from '@fortawesome/free-solid-svg-icons';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faTimesCircle, faStar } from '@fortawesome/free-regular-svg-icons';
-import { FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import {faTimesCircle, faStar} from '@fortawesome/free-regular-svg-icons';
+import {
+  FormGroup,
+  Validators,
+  FormControl,
+  AbstractControl,
+} from '@angular/forms';
+import {ActivatedRoute, Router, Params} from '@angular/router';
 
-import { MyTagsService, TitleService } from './../../../../shared/shared.module';
-import { Utils } from './../../../../shared/utils';
-import { Tag } from './../../../../model/tag';
+import {MyTagsService, TitleService} from './../../../../shared/shared.module';
+import {Utils} from './../../../../shared/utils';
+import {Tag} from './../../../../model/tag';
+import {Subscription} from 'rxjs';
+import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-tags',
   templateUrl: './tags.component.html',
-  styleUrls: ['./tags.component.scss']
+  styleUrls: ['./tags.component.scss'],
 })
 export class TagsComponent implements OnInit, OnDestroy {
   displayedColumns = ['id', 'label', 'count', 'color', 'select', 'details'];
-  tags: Tag[];
-  tableTags: Tag[];
-  length: number;
-  displayedTags: Tag[];
+  tags: Tag[] = [];
+  tableTags: Tag[] = [];
+  length!: number;
+  displayedTags: Tag[] = [];
   search = '';
   pageSize = 25;
   pageIndex = 0;
   pageSizeOptions = [10, 25, 50, 100];
-  page: PageEvent;
-  sort: Sort;
+  page!: PageEvent;
+  sort!: Sort;
   nbChecked = 0;
-  tagForm: FormGroup;
+  tagForm!: FormGroup;
   isMoviesVisible = false;
-  selectedTag: Tag;
-  color: string;
-  subs = [];
+  selectedTag?: Tag;
+  color!: string;
+  subs: Subscription[] = [];
 
   faTrash = faTrash;
   faHashtag = faHashtag;
@@ -51,7 +62,8 @@ export class TagsComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private title: TitleService,
     private route: ActivatedRoute,
-    private router: Router, library: FaIconLibrary
+    private router: Router,
+    library: FaIconLibrary
   ) {
     library.addIcons(faTimesCircle);
   }
@@ -68,17 +80,25 @@ export class TagsComponent implements OnInit, OnDestroy {
       toAdd: new FormControl('', {
         validators: [Validators.required, Validators.maxLength(20)],
         asyncValidators: [this.isTagUnique.bind(this)],
-        updateOn: 'change'
-      })
+        updateOn: 'change',
+      }),
     });
   }
 
-  get toAdd(): AbstractControl { return this.tagForm.get('toAdd'); }
+  get toAdd(): AbstractControl {
+    return this.tagForm.get('toAdd');
+  }
 
   isTagUnique(control: AbstractControl): Promise<any> {
     return new Promise(resolve =>
-      resolve(this.tableTags.map(tag => tag.label.toLowerCase()).find(label => label === control.value.toLowerCase())
-        ? { unique: true } : undefined));
+      resolve(
+        this.tableTags
+          .map(tag => tag.label.toLowerCase())
+          .find(label => label === control.value.toLowerCase())
+          ? {unique: true}
+          : undefined
+      )
+    );
   }
 
   getTags(): void {
@@ -90,17 +110,26 @@ export class TagsComponent implements OnInit, OnDestroy {
       });
       this.length = this.tableTags.length;
       this.paginate(this.refreshData());
-      this.subs.push(this.route.queryParams.subscribe((params: Params) => {
-        this.selectedTag = tags.find(tag => tag.id === Utils.parseJson(params.selected));
-        this.isMoviesVisible = this.selectedTag !== undefined;
-      }));
+      this.subs.push(
+        this.route.queryParams.subscribe((params: Params) => {
+          this.selectedTag = tags.find(
+            tag => tag.id === Utils.parseJson(params.selected)
+          );
+          this.isMoviesVisible = this.selectedTag !== undefined;
+        })
+      );
     });
   }
 
   refreshData(): Tag[] {
     const list = Utils.sortTags(
-      Utils.filterByFields(this.tableTags, ['id', 'label', 'count'], this.search),
-      this.sort);
+      Utils.filterByFields(
+        this.tableTags,
+        ['id', 'label', 'count'],
+        this.search
+      ),
+      this.sort
+    );
     this.length = list.length;
     return list;
   }
@@ -118,8 +147,12 @@ export class TagsComponent implements OnInit, OnDestroy {
   }
 
   paginate(data: Tag[]): void {
-    this.displayedTags = this.page ?
-      data.slice(this.page.pageIndex * this.page.pageSize, (this.page.pageIndex + 1) * this.page.pageSize) : data.slice(0, this.pageSize);
+    this.displayedTags = this.page
+      ? data.slice(
+          this.page.pageIndex * this.page.pageSize,
+          (this.page.pageIndex + 1) * this.page.pageSize
+        )
+      : data.slice(0, this.pageSize);
   }
 
   initPagination(list: Tag[]): void {
@@ -139,12 +172,12 @@ export class TagsComponent implements OnInit, OnDestroy {
     this.color = Utils.randomColor();
   }
 
-  selectTag(selected: Tag): void {
+  selectTag(selected?: Tag): void {
     this.router.navigate(['.'], {
       relativeTo: this.route,
       queryParams: {
-        selected: JSON.stringify(selected ? selected.id : undefined)
-      }
+        selected: JSON.stringify(selected ? selected.id : undefined),
+      },
     });
   }
 
@@ -163,7 +196,6 @@ export class TagsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.forEach((subscription) => subscription.unsubscribe());
+    this.subs.forEach(subscription => subscription.unsubscribe());
   }
-
 }

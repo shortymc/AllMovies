@@ -1,13 +1,21 @@
-import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 
-import { MockService } from '../../service/mock.service';
-import { Lang } from '../../../model/model';
+import {MockService} from '../../service/mock.service';
+import {Lang} from '../../../model/model';
 
 @Component({
   selector: 'app-dropdown-language',
   templateUrl: './dropdown-language.component.html',
-  styleUrls: ['./dropdown-language.component.scss']
+  styleUrls: ['./dropdown-language.component.scss'],
 })
 export class DropdownLanguageComponent implements OnInit, OnChanges {
   @Input()
@@ -19,19 +27,23 @@ export class DropdownLanguageComponent implements OnInit, OnChanges {
 
   constructor(
     private translate: TranslateService,
-    private mockService: MockService<Lang>,
-  ) { }
+    private mockService: MockService<Lang>
+  ) {}
 
   ngOnInit(): void {
     this.mockService.getAll('langs.json').then(langs => {
       this.langList = langs;
-      this.updateLang(this.userLang ? this.userLang.code : this.translate.getBrowserLang());
+      this.updateLang(
+        this.userLang ? this.userLang.code : this.translate.getBrowserLang()
+      );
     });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.langList) {
-      const code = changes.userLang.currentValue ? changes.userLang.currentValue.code : this.translate.getBrowserLang();
+      const code = changes.userLang.currentValue
+        ? changes.userLang.currentValue.code
+        : this.translate.getBrowserLang();
       this.updateLang(code);
     }
   }
@@ -46,5 +58,4 @@ export class DropdownLanguageComponent implements OnInit, OnChanges {
     this.translate.use(language.code);
     this.lang.emit(language);
   }
-
 }

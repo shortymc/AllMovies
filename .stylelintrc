@@ -1,8 +1,6 @@
 {
   "extends": "stylelint-config-standard",
-  "plugins": [
-    "stylelint-order"
-  ],
+  "plugins": ["stylelint-order"],
   "ignoreFiles": ["./src/app/styles/font-awesome.min.scss"],
   "rules": {
     "indentation": 2,
@@ -14,8 +12,12 @@
       "ignoreTypes": [
         "/^app-/",
         "/^ng-/",
-        "/^ng2-/"
+        "/^ng2-/", 
+        "/^ngb-/"
       ]
+    }],
+    "selector-pseudo-element-no-unknown": [true, {
+      "ignorePseudoElements": ["ng-deep"]
     }],
     "order/properties-order": [
       {
@@ -25,19 +27,14 @@
           "content",
           "appearance",
           "counter-increment",
-          "counter-reset",
+          "counter-reset"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
-        "properties": [
-          "position",
-          "z-index",
-          "top",
-          "right",
-          "bottom",
-          "left",
-        ]
-      }, {
+        "properties": ["position", "z-index", "top", "right", "bottom", "left"]
+      },
+      {
         "order": "flexible",
         "properties": [
           "display",
@@ -54,9 +51,10 @@
           "align-self",
           "align-content",
           "justify-content",
-          "float",
+          "float"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "grid",
@@ -76,9 +74,10 @@
           "grid-template",
           "grid-template-areas",
           "grid-template-columns",
-          "grid-template-rows",
+          "grid-template-rows"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "columns",
@@ -90,9 +89,10 @@
           "column-rule-width",
           "column-rule-style",
           "column-rule-color",
-          "column-span",
+          "column-span"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "max-width",
@@ -100,35 +100,39 @@
           "min-width",
           "max-height",
           "height",
-          "min-height",
+          "min-height"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "margin",
           "margin-top",
           "margin-right",
           "margin-bottom",
-          "margin-left",
+          "margin-left"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "padding",
           "padding-top",
           "padding-right",
           "padding-bottom",
-          "padding-left",
+          "padding-left"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "list-style",
           "list-style-type",
           "list-style-image",
-          "list-style-position",
+          "list-style-position"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "font",
@@ -139,9 +143,10 @@
           "font-style",
           "font-weight",
           "font-stretch",
-          "font-variant",
+          "font-variant"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "color",
@@ -151,9 +156,10 @@
           "word-spacing",
           "word-break",
           "word-wrap",
-          "white-space",
+          "white-space"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "direction",
@@ -166,9 +172,10 @@
           "text-transform",
           "text-justify",
           "text-overflow",
-          "text-shadow",
+          "text-shadow"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "background",
@@ -179,9 +186,10 @@
           "background-position",
           "background-size",
           "background-attachment",
-          "background-clip",
+          "background-clip"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "border",
@@ -205,40 +213,38 @@
           "border-bottom-color",
           "border-left-width",
           "border-left-style",
-          "border-left-color",
+          "border-left-color"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "border-radius",
           "border-top-left-radius",
           "border-top-right-radius",
           "border-bottom-left-radius",
-          "border-bottom-right-radius",
+          "border-bottom-right-radius"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "outline",
           "outline-color",
           "outline-offset",
           "outline-style",
-          "outline-width",
+          "outline-width"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
-        "properties": [
-          "box-shadow",
-          "object-fit",
-        ]
-      }, {
+        "properties": ["box-shadow", "object-fit"]
+      },
+      {
         "order": "flexible",
-        "properties": [
-          "overflow",
-          "overflow-x",
-          "overflow-y",
-        ]
-      }, {
+        "properties": ["overflow", "overflow-x", "overflow-y"]
+      },
+      {
         "order": "flexible",
         "properties": [
           "perspective",
@@ -247,9 +253,10 @@
           "transform-box",
           "transform-style",
           "transform-origin",
-          "backface-visibility",
+          "backface-visibility"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "animation",
@@ -260,9 +267,10 @@
           "animation-duration",
           "animation-fill-mode",
           "animation-iteration-count",
-          "animation-timing-function",
+          "animation-timing-function"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "transition",
@@ -270,16 +278,17 @@
           "transition-duration",
           "transition-property",
           "transition-timing-function",
-          "will-change",
+          "will-change"
         ]
-      }, {
+      },
+      {
         "order": "flexible",
         "properties": [
           "opacity",
           "filter",
           "visibility",
           "user-select",
-          "cursor",
+          "cursor"
         ]
       }
     ]

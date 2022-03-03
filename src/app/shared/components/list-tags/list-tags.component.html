@@ -1,24 +1,38 @@
 <ng-container *ngIf="tagsDisplayed && tagsDisplayed.length > 0; else noTags">
   <mat-chip-list #chipList>
-    <mat-chip *ngFor="let tag of tagsDisplayed" [selectable]="true" [removable]="editing" (removed)="remove(tag)"
-      [style.background]="tag.color">
-      {{tag.label}}
+    <mat-chip
+      *ngFor="let tag of tagsDisplayed"
+      [selectable]="true"
+      [removable]="editing"
+      (removed)="remove(tag)"
+      [style.background]="tag.color"
+    >
+      {{ tag.label }}
       <span matChipRemove *ngIf="editing">
         <fa-icon [icon]="faRemove"></fa-icon>
       </span>
     </mat-chip>
   </mat-chip-list>
 </ng-container>
-<ng-template #noTags>
-  Pas de tags
-</ng-template>
+<ng-template #noTags> Pas de tags </ng-template>
 <app-search-tag *ngIf="editing" (selected)="add($event)"></app-search-tag>
-<button class="btn btn-outline-primary" (click)="editing = true" *ngIf="!editing">
+<button
+  class="btn btn-outline-primary"
+  (click)="editing = true"
+  *ngIf="!editing"
+>
   <fa-icon [icon]="faEdit"></fa-icon>
-  {{'global.edit' |translate}}
+  {{ 'global.edit' | translate }}
 </button>
-<button class="btn btn-outline-primary" (click)="cancel()" *ngIf="editing">{{'global.cancel' |translate}}</button>
-<button class="btn btn-outline-primary" (click)="save()" *ngIf="editing" [disabled]="isBtnSaveDisabled">
+<button class="btn btn-outline-primary" (click)="cancel()" *ngIf="editing">
+  {{ 'global.cancel' | translate }}
+</button>
+<button
+  class="btn btn-outline-primary"
+  (click)="save()"
+  *ngIf="editing"
+  [disabled]="isBtnSaveDisabled"
+>
   <fa-icon [icon]="faSave"></fa-icon>
-  {{'global.save' |translate}}
+  {{ 'global.save' | translate }}
 </button>

@@ -1,11 +1,24 @@
-import { Observable, of, forkJoin } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, catchError } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
-import { Component, OnInit, Input, Output, EventEmitter, SimpleChange, OnChanges } from '@angular/core';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import {Observable, of, forkJoin} from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  catchError,
+} from 'rxjs/operators';
+import {FormControl} from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  SimpleChange,
+  OnChanges,
+} from '@angular/core';
+import {faTimes} from '@fortawesome/free-solid-svg-icons';
 
-import { SearchService } from './../../../../shared/service/search.service';
-import { ImageSize } from '../../../../model/model';
+import {SearchService} from './../../../../shared/service/search.service';
+import {ImageSize} from '../../../../model/model';
 
 interface IdClass {
   id: any;
@@ -14,9 +27,11 @@ interface IdClass {
 @Component({
   selector: 'app-search-box',
   templateUrl: './search-box.component.html',
-  styleUrls: ['./search-box.component.scss']
+  styleUrls: ['./search-box.component.scss'],
 })
-export class SearchBoxComponent<T extends IdClass> implements OnInit, OnChanges {
+export class SearchBoxComponent<T extends IdClass>
+  implements OnInit, OnChanges
+{
   @Input() adult: boolean;
   @Input() service: SearchService<T>;
   @Input() placeholder: string;
@@ -30,22 +45,22 @@ export class SearchBoxComponent<T extends IdClass> implements OnInit, OnChanges 
   list: T[] = [];
   faRemove = faTimes;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.initValues();
     this.itemCtrl = new FormControl();
-    this.filteredItems = this.itemCtrl.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap(term => term
-          ? this.service.search(term, this.adult)
-          : of<T[]>([])),
-        catchError(error => {
-          console.error(error);
-          return of<T[]>([]);
-        }));
+    this.filteredItems = this.itemCtrl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(term =>
+        term ? this.service.search(term, this.adult) : of<T[]>([])
+      ),
+      catchError(error => {
+        console.error(error);
+        return of<T[]>([]);
+      })
+    );
   }
 
   initValues(): void {
@@ -54,14 +69,13 @@ export class SearchBoxComponent<T extends IdClass> implements OnInit, OnChanges 
       this.initList.map((id: any) => {
         obs.push(this.service.byId(id));
       });
-      forkJoin(obs).subscribe(
-        (data: T[]) => {
-          this.list = data;
-        });
+      forkJoin(obs).subscribe((data: T[]) => {
+        this.list = data;
+      });
     }
   }
 
-  ngOnChanges(changes: { [propKey: string]: SimpleChange }): void {
+  ngOnChanges(changes: {[propKey: string]: SimpleChange}): void {
     for (const field of Object.keys(changes)) {
       if (field === 'clear') {
         const changedProp = changes[field];
@@ -89,5 +103,4 @@ export class SearchBoxComponent<T extends IdClass> implements OnInit, OnChanges 
     }
     this.items.emit(this.list.map(element => element.id));
   }
-
 }

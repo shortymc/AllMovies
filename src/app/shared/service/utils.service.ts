@@ -1,15 +1,15 @@
-import { Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpHeaders, HttpClient} from '@angular/common/http';
 
-import { ToastService } from './toast.service';
-import { Level } from './../../model/model';
+import {ToastService} from './toast.service';
+import {Level} from './../../model/model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class UtilsService {
-
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   static getErrorMessage(error: any): string {
     let message;
@@ -28,18 +28,19 @@ export class UtilsService {
   }
 
   static encodeQueryUrl(query: string): string {
-    return encodeURIComponent(query).replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16));
+    return encodeURIComponent(query).replace(
+      /[!'()*]/g,
+      c => '%' + c.charCodeAt(0).toString(16)
+    );
   }
 
   getHeaders(): HttpHeaders {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
     // headers.append('Accept', 'application/json');
     return headers;
   }
 
-  handleSuccess(messageKey: string): void {
-
-  }
+  handleSuccess(): void {}
 
   handleError(error: any, toast: ToastService): void {
     console.log('handleError');
@@ -51,8 +52,8 @@ export class UtilsService {
     console.log('handlePromiseError');
     console.error('error', error);
     toast.open(Level.error, UtilsService.getErrorMessage(error));
-    return new Promise<any>((resolve, reject) => {
-      resolve();
+    return new Promise<any>(resolve => {
+      resolve('');
     });
   }
 
@@ -62,11 +63,12 @@ export class UtilsService {
 
   getObservable<T>(url: string, headers?: HttpHeaders): Observable<T> {
     console.log('url', url);
-    return headers ? this.http.get<T>(url, { headers: headers }) : this.http.get<T>(url);
+    return headers
+      ? this.http.get<T>(url, {headers: headers})
+      : this.http.get<T>(url);
   }
 
   jsonpObservable<T>(url: string, callback: any): Observable<T> {
     return this.http.jsonp<T>(url, callback);
   }
-
 }

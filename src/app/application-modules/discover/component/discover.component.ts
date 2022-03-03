@@ -1,27 +1,35 @@
-import { BehaviorSubject } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PageEvent } from '@angular/material/paginator';
-import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { NouiFormatter } from 'ng2-nouislider';
+import {BehaviorSubject, Subscription} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PageEvent} from '@angular/material/paginator';
+import {TranslateService} from '@ngx-translate/core';
+import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
+import {NouiFormatter} from 'ng2-nouislider';
 
-import { DiscoverCriteria } from './../../../model/discover-criteria';
-import { Discover } from './../../../model/discover';
+import {DiscoverCriteria} from './../../../model/discover-criteria';
+import {Discover} from './../../../model/discover';
 import {
-  KeywordSearchService, SerieService, CertificationService, LangService, GenreService, PersonSearchService, TitleService, AuthService, MovieService
+  KeywordSearchService,
+  SerieService,
+  CertificationService,
+  LangService,
+  GenreService,
+  PersonSearchService,
+  TitleService,
+  AuthService,
+  MovieService,
 } from './../../../shared/shared.module';
-import { DropDownChoice, ImageSize } from '../../../model/model';
-import { Utils } from '../../../shared/utils';
-import { NetworkService } from './../network.service';
-import { ReleaseType } from '../../../constant/release-type';
+import {DropDownChoice, ImageSize} from '../../../model/model';
+import {Utils} from '../../../shared/utils';
+import {NetworkService} from './../network.service';
+import {ReleaseType} from '../../../constant/release-type';
 
 @Component({
   selector: 'app-discover',
   templateUrl: './discover.component.html',
-  styleUrls: ['./discover.component.scss']
+  styleUrls: ['./discover.component.scss'],
 })
 export class DiscoverComponent implements OnInit, OnDestroy {
-  @ViewChild('sortDir', { static: true }) sortDir: any;
+  @ViewChild('sortDir', {static: true}) sortDir: any;
   imageSize = ImageSize;
   discover: Discover;
   sortChoices: DropDownChoice[];
@@ -57,7 +65,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   clean = false;
   genresLoaded$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isMovie: boolean;
-  subs = [];
+  subs: Subscription[] = [];
 
   constructor(
     private movieService: MovieService,
@@ -72,8 +80,8 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private title: TitleService,
     private router: Router,
-    private auth: AuthService,
-  ) { }
+    private auth: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.title.setTitle('title.discover');
@@ -82,24 +90,48 @@ export class DiscoverComponent implements OnInit, OnDestroy {
         this.adult = user.adult;
       }
     });
-    this.allReleaseType = [new DropDownChoice('release_type.' + ReleaseType.RELEASE_PREMIERE, ReleaseType.RELEASE_PREMIERE),
-    new DropDownChoice('release_type.' + ReleaseType.RELEASE_THEATRICAL_LIMITED, ReleaseType.RELEASE_THEATRICAL_LIMITED),
-    new DropDownChoice('release_type.' + ReleaseType.RELEASE_THEATRICAL, ReleaseType.RELEASE_THEATRICAL),
-    new DropDownChoice('release_type.' + ReleaseType.RELEASE_DIGITAL, ReleaseType.RELEASE_DIGITAL),
-    new DropDownChoice('release_type.' + ReleaseType.RELEASE_PHYSICAL, ReleaseType.RELEASE_PHYSICAL),
-    new DropDownChoice('release_type.' + ReleaseType.RELEASE_TV, ReleaseType.RELEASE_TV)];
+    this.allReleaseType = [
+      new DropDownChoice(
+        'release_type.' + ReleaseType.RELEASE_PREMIERE,
+        ReleaseType.RELEASE_PREMIERE
+      ),
+      new DropDownChoice(
+        'release_type.' + ReleaseType.RELEASE_THEATRICAL_LIMITED,
+        ReleaseType.RELEASE_THEATRICAL_LIMITED
+      ),
+      new DropDownChoice(
+        'release_type.' + ReleaseType.RELEASE_THEATRICAL,
+        ReleaseType.RELEASE_THEATRICAL
+      ),
+      new DropDownChoice(
+        'release_type.' + ReleaseType.RELEASE_DIGITAL,
+        ReleaseType.RELEASE_DIGITAL
+      ),
+      new DropDownChoice(
+        'release_type.' + ReleaseType.RELEASE_PHYSICAL,
+        ReleaseType.RELEASE_PHYSICAL
+      ),
+      new DropDownChoice(
+        'release_type.' + ReleaseType.RELEASE_TV,
+        ReleaseType.RELEASE_TV
+      ),
+    ];
     this.formatter = Utils.timeSliderFormatter;
     this.initPlayingDate();
 
-    this.subs.push(this.translate.onLangChange.subscribe(() => {
-      this.getAllGenres(this.selectedGenres ? this.selectedGenres : []);
-      this.getAllCertification(this.selectedCertif ? this.selectedCertif.value : '');
-      this.search(false);
-    }));
+    this.subs.push(
+      this.translate.onLangChange.subscribe(() => {
+        this.getAllGenres(this.selectedGenres ? this.selectedGenres : []);
+        this.getAllCertification(
+          this.selectedCertif ? this.selectedCertif.value : ''
+        );
+        this.search(false);
+      })
+    );
 
     // Stored research
-    this.subs.push(this.route.queryParams.subscribe(
-      params => {
+    this.subs.push(
+      this.route.queryParams.subscribe(params => {
         this.isMovie = params.isMovie ? Utils.parseJson(params.isMovie) : true;
         this.people = Utils.parseJson(params.people);
         this.selectedGenres = Utils.parseJson(params.genre);
@@ -107,10 +139,14 @@ export class DiscoverComponent implements OnInit, OnDestroy {
         this.networks = Utils.parseJson(params.networks);
         this.isWithoutGenre = Utils.parseJson(params.isWithoutGenre);
         this.isWithoutKeyword = Utils.parseJson(params.isWithoutKeyword);
-      }
-    ));
-    const criteria = <DiscoverCriteria>Utils.parseJson(sessionStorage.getItem('criteria'));
-    const certif = <DropDownChoice>Utils.parseJson(sessionStorage.getItem('certif'));
+      })
+    );
+    const criteria = <DiscoverCriteria>(
+      Utils.parseJson(sessionStorage.getItem('criteria'))
+    );
+    const certif = <DropDownChoice>(
+      Utils.parseJson(sessionStorage.getItem('certif'))
+    );
     const langs = <string[]>Utils.parseJson(sessionStorage.getItem('lang'));
     this.initParams(this.isMovie);
     this.initFromCriteria(criteria, certif, langs);
@@ -122,13 +158,23 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     this.isMovie = isMovie;
     this.sortDir.value = 'desc';
     if (this.isMovie) {
-      this.sortChoices = [new DropDownChoice('discover.sort_field.popularity', 'popularity'),
-      new DropDownChoice('discover.sort_field.release_date', 'release_date'), new DropDownChoice('discover.sort_field.revenue', 'revenue'),
-      new DropDownChoice('discover.sort_field.vote_average', 'vote_average'), new DropDownChoice('discover.sort_field.vote_count', 'vote_count'),
-      new DropDownChoice('discover.sort_field.original_title', 'original_title')];
+      this.sortChoices = [
+        new DropDownChoice('discover.sort_field.popularity', 'popularity'),
+        new DropDownChoice('discover.sort_field.release_date', 'release_date'),
+        new DropDownChoice('discover.sort_field.revenue', 'revenue'),
+        new DropDownChoice('discover.sort_field.vote_average', 'vote_average'),
+        new DropDownChoice('discover.sort_field.vote_count', 'vote_count'),
+        new DropDownChoice(
+          'discover.sort_field.original_title',
+          'original_title'
+        ),
+      ];
     } else {
-      this.sortChoices = [new DropDownChoice('discover.sort_field.popularity', 'popularity'),
-      new DropDownChoice('discover.sort_field.first_aired', 'first_aired'), new DropDownChoice('discover.sort_field.vote_average', 'vote_average')];
+      this.sortChoices = [
+        new DropDownChoice('discover.sort_field.popularity', 'popularity'),
+        new DropDownChoice('discover.sort_field.first_aired', 'first_aired'),
+        new DropDownChoice('discover.sort_field.vote_average', 'vote_average'),
+      ];
     }
     this.sortChosen = this.sortChoices[0];
     this.getAllGenres(this.selectedGenres ? this.selectedGenres : []);
@@ -140,37 +186,69 @@ export class DiscoverComponent implements OnInit, OnDestroy {
 
   getAllGenres(genresId: number[]): void {
     this.genresLoaded$.next(false);
-    this.subs.push(this.genreService.getAllGenre(this.isMovie, this.translate.currentLang).subscribe(genres => {
-      this.allGenres = genres.map(genre => new DropDownChoice(genre.name, genre.id));
-      this.selectedGenres = genresId ? this.allGenres.filter(genre => genresId.includes(genre.value)).map(genre => genre.value) : [];
-      this.genresLoaded$.next(true);
-    }));
+    this.subs.push(
+      this.genreService
+        .getAllGenre(this.isMovie, this.translate.currentLang)
+        .subscribe(genres => {
+          this.allGenres = genres.map(
+            genre => new DropDownChoice(genre.name, genre.id)
+          );
+          this.selectedGenres = genresId
+            ? this.allGenres
+                .filter(genre => genresId.includes(genre.value))
+                .map(genre => genre.value)
+            : [];
+          this.genresLoaded$.next(true);
+        })
+    );
   }
 
   getAllCertification(certification: string): void {
-    this.subs.push(this.certifService.getAllCertification().subscribe(certif => {
-      this.allCertif = certif.map(c => new DropDownChoice(c.meaning, c.certification));
-      this.selectedCertif = certification ? this.allCertif.find(c => c.value === certification) : undefined;
-    }));
+    this.subs.push(
+      this.certifService.getAllCertification().subscribe(certif => {
+        this.allCertif = certif.map(
+          c => new DropDownChoice(c.meaning, c.certification)
+        );
+        this.selectedCertif = certification
+          ? this.allCertif.find(c => c.value === certification)
+          : undefined;
+      })
+    );
   }
 
-  initFromCriteria(criteria: DiscoverCriteria, certif: DropDownChoice, langs: string[]): void {
+  initFromCriteria(
+    criteria: DiscoverCriteria,
+    certif: DropDownChoice,
+    langs: string[]
+  ): void {
     if (criteria) {
       this.sortDir.value = criteria.sortDir;
-      this.sortChosen = this.sortChoices.find(sort => sort.value === criteria.sortField);
+      this.sortChosen = this.sortChoices.find(
+        sort => sort.value === criteria.sortField
+      );
       this.page = new PageEvent();
       this.page.pageIndex = criteria.page ? criteria.page - 1 : 0;
-      this.yearRange = [criteria.yearMin ? criteria.yearMin : this.minYear, criteria.yearMax ? criteria.yearMax : this.maxYear];
-      this.voteRange = [criteria.voteAvergeMin ? criteria.voteAvergeMin : this.minVote,
-      criteria.voteAvergeMax ? criteria.voteAvergeMax : this.maxVote];
-      this.runtimeRange = [criteria.runtimeMin ? criteria.runtimeMin : 0, criteria.runtimeMax ? criteria.runtimeMax : this.max];
+      this.yearRange = [
+        criteria.yearMin ? criteria.yearMin : this.minYear,
+        criteria.yearMax ? criteria.yearMax : this.maxYear,
+      ];
+      this.voteRange = [
+        criteria.voteAvergeMin ? criteria.voteAvergeMin : this.minVote,
+        criteria.voteAvergeMax ? criteria.voteAvergeMax : this.maxVote,
+      ];
+      this.runtimeRange = [
+        criteria.runtimeMin ? criteria.runtimeMin : 0,
+        criteria.runtimeMax ? criteria.runtimeMax : this.max,
+      ];
       this.voteCountMin = criteria.voteCountMin;
       this.playing = criteria.playing;
       if (criteria.playingDate && criteria.playingDate.length !== 0) {
         this.playingDate = criteria.playingDate;
       }
       if (criteria.releaseType) {
-        this.selectedReleaseType = this.allReleaseType.filter(type => criteria.releaseType.includes(type.value));
+        this.selectedReleaseType = this.allReleaseType.filter(type =>
+          criteria.releaseType.includes(type.value)
+        );
       }
     }
     this.selectedCertif = certif;
@@ -203,10 +281,14 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     this.router.navigate(['.'], {
       relativeTo: this.route,
       queryParams: {
-        people: JSON.stringify(this.people), keyword: JSON.stringify(this.keyword),
-        genre: JSON.stringify(this.selectedGenres), networks: JSON.stringify(this.networks),
-        isMovie: this.isMovie, isWithoutGenre: this.isWithoutGenre, isWithoutKeyword: this.isWithoutKeyword
-      }
+        people: JSON.stringify(this.people),
+        keyword: JSON.stringify(this.keyword),
+        genre: JSON.stringify(this.selectedGenres),
+        networks: JSON.stringify(this.networks),
+        isMovie: this.isMovie,
+        isWithoutGenre: this.isWithoutGenre,
+        isWithoutKeyword: this.isWithoutKeyword,
+      },
     });
     const criteria = new DiscoverCriteria();
     this.buildRuntimeCriteria(criteria);
@@ -281,15 +363,31 @@ export class DiscoverComponent implements OnInit, OnDestroy {
       criteria.yearMax = this.playingDate[1];
     }
     new Promise(resolve =>
-      this.isMovie ?
-        resolve(this.movieService.getMoviesDiscover(criteria, this.people, this.selectedGenres, this.keyword,
-          this.isWithoutGenre, this.isWithoutKeyword)) :
-        resolve(this.serieService.getSeriesDiscover(criteria, this.selectedGenres, this.keyword, this.networks,
-          this.isWithoutGenre, this.isWithoutKeyword)))
-      .then(result => {
-        this.discover = result;
-        // this.elemRef.nativeElement.querySelector('#searchBtn').scrollIntoView();
-      });
+      this.isMovie
+        ? resolve(
+            this.movieService.getMoviesDiscover(
+              criteria,
+              this.people,
+              this.selectedGenres,
+              this.keyword,
+              this.isWithoutGenre,
+              this.isWithoutKeyword
+            )
+          )
+        : resolve(
+            this.serieService.getSeriesDiscover(
+              criteria,
+              this.selectedGenres,
+              this.keyword,
+              this.networks,
+              this.isWithoutGenre,
+              this.isWithoutKeyword
+            )
+          )
+    ).then(result => {
+      this.discover = result;
+      // this.elemRef.nativeElement.querySelector('#searchBtn').scrollIntoView();
+    });
   }
 
   updateSize(): void {
@@ -307,6 +405,6 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.forEach((subscription) => subscription.unsubscribe());
+    this.subs.forEach(subscription => subscription.unsubscribe());
   }
 }

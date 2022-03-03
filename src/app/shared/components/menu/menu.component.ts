@@ -1,27 +1,44 @@
-import { Router } from '@angular/router';
-import { Component, OnInit, HostListener, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { faUser, faBars, faAtom, faPowerOff, faHome, faBoxOpen, faBookmark, faTags } from '@fortawesome/free-solid-svg-icons';
-import { MediaMatcher } from '@angular/cdk/layout';
-import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
+import {Router} from '@angular/router';
+import {
+  Component,
+  OnInit,
+  HostListener,
+  OnDestroy,
+  ChangeDetectorRef,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
+import {BehaviorSubject, Subscription} from 'rxjs';
+import {
+  faUser,
+  faBars,
+  faAtom,
+  faPowerOff,
+  faHome,
+  faBoxOpen,
+  faBookmark,
+  faTags,
+} from '@fortawesome/free-solid-svg-icons';
+import {MediaMatcher} from '@angular/cdk/layout';
+import {MatSidenav, MatSidenavContent} from '@angular/material/sidenav';
 
-import { TabsService } from './../../service/tabs.service';
-import { Constants } from './../../../constant/constants';
-import { AuthService } from '../../service/auth.service';
-import { User } from '../../../model/user';
-import { MenuService } from '../../service/menu.service';
+import {TabsService} from './../../service/tabs.service';
+import {Constants} from './../../../constant/constants';
+import {AuthService} from '../../service/auth.service';
+import {User} from '../../../model/user';
+import {MenuService} from '../../service/menu.service';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
-  user: User;
+  user!: User;
   isLogged$ = new BehaviorSubject<boolean>(false);
-  visible: boolean;
-  subs = [];
+  visible!: boolean;
+  subs: Subscription[] = [];
 
   faUser = faUser;
   faBars = faBars;
@@ -33,8 +50,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   faPowerOff = faPowerOff;
 
   private _mobileQueryListener: () => void;
-  @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
-  @ViewChild('content', { static: true }) content: MatSidenavContent;
+  @ViewChild('sidenav', {static: false}) sidenav!: MatSidenav;
+  @ViewChild('content', {static: true}) content!: MatSidenavContent;
   @HostListener('document:click', ['$event']) onClick(event: Event): void {
     this.handleClick(event);
   }
@@ -54,21 +71,29 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subs.push(this.auth.user$.subscribe(user => {
-      if (user) {
-        this.user = user;
-        this.isLogged$.next(true);
-      } else {
-        this.isLogged$.next(false);
-      }
-    }));
-    this.subs.push(this.menuService.visible$.subscribe((visible) => {
-      this.visible = visible;
-      this.changeDetectorRef.detectChanges();
-    }));
-    this.subs.push(this.menuService.scrollTo$.subscribe((scrollTo: number) => {
-      this.elemRef.nativeElement.querySelector('.mat-sidenav-content').scrollTo(0, scrollTo);
-    }));
+    this.subs.push(
+      this.auth.user$.subscribe(user => {
+        if (user) {
+          this.user = user;
+          this.isLogged$.next(true);
+        } else {
+          this.isLogged$.next(false);
+        }
+      })
+    );
+    this.subs.push(
+      this.menuService.visible$.subscribe(visible => {
+        this.visible = visible;
+        this.changeDetectorRef.detectChanges();
+      })
+    );
+    this.subs.push(
+      this.menuService.scrollTo$.subscribe((scrollTo: number) => {
+        this.elemRef.nativeElement
+          .querySelector('.mat-sidenav-content')
+          .scrollTo(0, scrollTo);
+      })
+    );
   }
 
   handleClick(event: any): void {

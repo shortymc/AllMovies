@@ -1,23 +1,72 @@
-<h2>{{'login.connect.title'|translate}}:</h2>
+<h2>{{ 'login.connect.title' | translate }}:</h2>
 <div class="connect-content">
   <form #connectForm="ngForm">
-    <mat-error>{{message}}</mat-error>
+    <mat-error>{{ message }}</mat-error>
     <mat-form-field>
-      <input matInput [(ngModel)]="name" placeholder="{{'global.username'|translate}}" type="text" #inputName="ngModel" name="inputName"
-        required />
-      <mat-error *ngIf="inputName.errors != null && inputName.errors.required && !inputName.pristine">{{'global.username_required'|translate}}</mat-error>
+      <input
+        matInput
+        [(ngModel)]="name"
+        placeholder="{{ 'global.username' | translate }}"
+        type="text"
+        #inputName="ngModel"
+        name="inputName"
+        required
+      />
+      <mat-error
+        *ngIf="
+          inputName.errors != null &&
+          inputName.errors.required &&
+          !inputName.pristine
+        "
+        >{{ 'global.username_required' | translate }}</mat-error
+      >
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [(ngModel)]="password" placeholder="{{'login.password'|translate}}" type="password"
-        #inputPassword="ngModel" name="inputPassword" required />
-      <mat-error *ngIf="inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine">{{'login.password_required'|translate}}</mat-error>
+      <input
+        matInput
+        [(ngModel)]="password"
+        placeholder="{{ 'login.password' | translate }}"
+        type="password"
+        #inputPassword="ngModel"
+        name="inputPassword"
+        required
+      />
+      <mat-error
+        *ngIf="
+          inputPassword.errors != null &&
+          inputPassword.errors.required &&
+          !inputPassword.pristine
+        "
+        >{{ 'login.password_required' | translate }}</mat-error
+      >
     </mat-form-field>
 
     <div class="connect-footer">
-      <button type="submit" class="btn btn-outline-primary" (click)="login()" [disabled]="connectForm.invalid">{{'login.connect.log_in'|translate}}</button>
-      <button type="button" class="btn btn-outline-primary" routerLink="/login/forgot" [queryParams]="{name: name}">{{'login.connect.forgot'|translate}}</button>
-      <button type="button" class="btn btn-outline-primary" routerLink="/login/register" [queryParams]="{name: name}">{{'login.connect.sign_up'|translate}}</button>
+      <button
+        type="submit"
+        class="btn btn-outline-primary"
+        (click)="login()"
+        [disabled]="connectForm.invalid"
+      >
+        {{ 'login.connect.log_in' | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        routerLink="/login/forgot"
+        [queryParams]="{name: name}"
+      >
+        {{ 'login.connect.forgot' | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        routerLink="/login/register"
+        [queryParams]="{name: name}"
+      >
+        {{ 'login.connect.sign_up' | translate }}
+      </button>
       <app-dropdown-language class="dropdown-center"></app-dropdown-language>
     </div>
   </form>

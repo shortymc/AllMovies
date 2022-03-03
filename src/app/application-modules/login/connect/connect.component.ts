@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import * as crypto from 'crypto-js';
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 
-import { AuthService, TitleService } from './../../../shared/shared.module';
+import {AuthService, TitleService} from './../../../shared/shared.module';
 
 @Component({
   selector: 'app-connect',
   templateUrl: './connect.component.html',
-  styleUrls: ['./connect.component.scss']
+  styleUrls: ['./connect.component.scss'],
 })
 export class ConnectComponent implements OnInit {
   name: string;
@@ -20,7 +20,7 @@ export class ConnectComponent implements OnInit {
     private router: Router,
     private translate: TranslateService,
     private title: TitleService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.title.setTitle('title.login');
@@ -28,15 +28,16 @@ export class ConnectComponent implements OnInit {
 
   login(): void {
     if (this.name && this.password) {
-      this.auth.login(this.name, crypto.SHA512(this.password).toString()).then((isAuth) => {
-        if (isAuth) {
-          this.message = this.translate.instant('login.connect.connected');
-          this.router.navigateByUrl('/');
-        } else {
-          this.message = this.translate.instant('login.connect.wrong');
-        }
-      });
+      this.auth
+        .login(this.name, crypto.SHA512(this.password).toString())
+        .then(isAuth => {
+          if (isAuth) {
+            this.message = this.translate.instant('login.connect.connected');
+            this.router.navigateByUrl('/');
+          } else {
+            this.message = this.translate.instant('login.connect.wrong');
+          }
+        });
     }
   }
-
 }

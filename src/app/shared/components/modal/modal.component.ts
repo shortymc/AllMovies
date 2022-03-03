@@ -1,22 +1,32 @@
-import { Component, OnInit, Input, SimpleChange, Output, EventEmitter, OnChanges, HostListener } from '@angular/core';
-import { faTimes, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import {
+  Component,
+  OnInit,
+  Input,
+  SimpleChange,
+  Output,
+  EventEmitter,
+  OnChanges,
+  HostListener,
+} from '@angular/core';
+import {faTimes, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit, OnChanges {
-  @Input() visible: boolean;
-  @Input() closeBtn: IconDefinition;
+  @Input() visible!: boolean;
+  @Input() closeBtn!: IconDefinition;
   @Output() update = new EventEmitter<boolean>();
-  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent): void {
+  @HostListener('document:keydown.escape', ['$event'])
+  onKeydownHandler(): void {
     if (this.visible) {
       this.close();
     }
   }
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     if (!this.closeBtn) {
@@ -24,7 +34,7 @@ export class ModalComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnChanges(changes: { [propKey: string]: SimpleChange }): void {
+  ngOnChanges(changes: {[propKey: string]: SimpleChange}): void {
     for (const field of Object.keys(changes)) {
       if (field === 'visible') {
         const changedProp = changes[field];

@@ -1,9 +1,21 @@
 <nav class="nav nav-pills nav-fill">
   <ng-container *ngFor="let link of links; let i = index">
-    <a class="nav-item nav-link" href="{{link.site}}" target="_blank" *ngIf="link.site">
+    <a
+      class="nav-item nav-link"
+      href="{{ link.site }}"
+      target="_blank"
+      *ngIf="link.site"
+    >
       <fa-icon [icon]="link.icon" size="3x" class="desktop"></fa-icon>
-      <fa-icon [icon]="link.icon" class="mobile"></fa-icon> {{'meta.'+link.key | translate}}
+      <fa-icon [icon]="link.icon" class="mobile"></fa-icon>
+      {{ 'meta.' + link.key | translate }}
     </a>
-    <button class="btn btn-outline-primary computer" (click)="openAll()" *ngIf="i === 3">{{'meta.links' | translate}}</button>
+    <button
+      class="btn btn-outline-primary computer"
+      (click)="openAll()"
+      *ngIf="i === 3"
+    >
+      {{ 'meta.links' | translate }}
+    </button>
   </ng-container>
 </nav>

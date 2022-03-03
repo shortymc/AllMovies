@@ -1,9 +1,19 @@
-<label>{{'global.list' | translate}}s <ng-container *ngIf="showLists && lists">({{lists.length}})</ng-container>:
+<label
+  >{{ 'global.list' | translate }}s
+  <ng-container *ngIf="showLists && lists">({{ lists.length }})</ng-container>:
 </label>
-<button class="btn btn-outline-primary small-btn" *ngIf="!showLists || !lists" (click)="getLists()">
+<button
+  class="btn btn-outline-primary small-btn"
+  *ngIf="!showLists || !lists"
+  (click)="getLists()"
+>
   <fa-icon [icon]="faPlus" size="xs"></fa-icon>
 </button>
-<button class="btn btn-outline-primary small-btn" *ngIf="showLists && lists" (click)="showLists = false">
+<button
+  class="btn btn-outline-primary small-btn"
+  *ngIf="showLists && lists"
+  (click)="showLists = false"
+>
   <fa-icon [icon]="faMinus" size="xs"></fa-icon>
 </button>
 <ng-container *ngIf="showLists && lists">
@@ -11,10 +21,20 @@
     <swiper [config]="swiperConfig">
       <div *ngFor="let list of lists">
         <div class="list-slide">
-          <img class="list-poster" [src]="list.poster_path | image:imageSize.small" />
-          <p [matTooltip]="list.description">{{list.name}} ({{list.item_count}}) - {{list.description | truncate:30}}
+          <img
+            class="list-poster"
+            [src]="list.poster_path | image: imageSize.small"
+          />
+          <p [matTooltip]="list.description">
+            {{ list.name }} ({{ list.item_count }}) -
+            {{ list.description | truncate: 30 }}
           </p>
-          <button class="btn btn-outline-primary small-btn" appOpenLink [label]="list.name" url="/movie/list/{{list.id}}">
+          <button
+            class="btn btn-outline-primary small-btn"
+            appOpenLink
+            [label]="list.name"
+            url="/movie/list/{{ list.id }}"
+          >
             <fa-icon [icon]="faChevronCircleRight" size="xs"></fa-icon>
           </button>
         </div>

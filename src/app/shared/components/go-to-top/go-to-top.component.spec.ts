@@ -1,10 +1,10 @@
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserModule } from '@angular/platform-browser/';
-import { FormsModule } from '@angular/forms';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { GoToTopComponent } from './go-to-top.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {RouterTestingModule} from '@angular/router/testing';
+import {BrowserModule} from '@angular/platform-browser/';
+import {FormsModule} from '@angular/forms';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {GoToTopComponent} from './go-to-top.component';
 
 describe('GoToTopComponent', () => {
   let component: GoToTopComponent;
@@ -14,9 +14,14 @@ describe('GoToTopComponent', () => {
     TestBed.configureTestingModule({
       declarations: [GoToTopComponent],
       providers: [TranslateService],
-      imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), RouterTestingModule, FontAwesomeModule]
-    })
-      .compileComponents();
+      imports: [
+        BrowserModule,
+        FormsModule,
+        TranslateModule.forRoot(),
+        RouterTestingModule,
+        FontAwesomeModule,
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

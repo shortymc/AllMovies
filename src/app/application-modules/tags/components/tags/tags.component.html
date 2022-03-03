@@ -1,93 +1,168 @@
-<h2>{{'tags.header' | translate}}:</h2>
+<h2>{{ 'tags.header' | translate }}:</h2>
 <!-- Add Tag -->
 <div class="tags-add">
-  <form [formGroup]="tagForm" *ngIf="tagForm" (ngSubmit)="addTag();tagForm.reset()">
+  <form
+    [formGroup]="tagForm"
+    *ngIf="tagForm"
+    (ngSubmit)="addTag(); tagForm.reset()"
+  >
     <mat-form-field>
-      <input matInput placeholder="{{'tags.new'|translate}}" type="text" name="toAdd" formControlName="toAdd" />
+      <input
+        matInput
+        placeholder="{{ 'tags.new' | translate }}"
+        type="text"
+        name="toAdd"
+        formControlName="toAdd"
+      />
     </mat-form-field>
     <div class="tags-btn">
-      <span *ngIf="toAdd.value" (click)="tagForm.reset()" class="pointer clear-btn">
+      <span
+        *ngIf="toAdd.value"
+        (click)="tagForm.reset()"
+        class="pointer clear-btn"
+      >
         <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
       </span>
-      <span class="tag-color pointer mat-elevation-z4" [(colorPicker)]="color" [style.background]="color" [cpOutputFormat]="'hex'">
+      <span
+        class="tag-color pointer mat-elevation-z4"
+        [(colorPicker)]="color"
+        [style.background]="color"
+        [cpOutputFormat]="'hex'"
+      >
         <fa-icon [icon]="faBrush" size="lg"></fa-icon>
       </span>
-      <button type="submit" class="btn btn-outline-primary" [disabled]="tagForm.invalid">
+      <button
+        type="submit"
+        class="btn btn-outline-primary"
+        [disabled]="tagForm.invalid"
+      >
         <fa-icon [icon]="faPlus" size="xs"></fa-icon>
       </button>
     </div>
     <ng-container *ngIf="toAdd.invalid && !toAdd.pristine">
-      <mat-error *ngIf="toAdd.errors.required">{{'tags.required'|translate}}</mat-error>
-      <mat-error *ngIf="toAdd.errors.maxlength">{{'tags.maxlength'|translate:{current:
-        toAdd.errors.maxlength.actualLength, maxSize: toAdd.errors.maxlength.requiredLength} }}</mat-error>
-      <mat-error *ngIf="toAdd.errors.unique">{{'tags.unique'|translate}}</mat-error>
+      <mat-error *ngIf="toAdd.errors.required">{{
+        'tags.required' | translate
+      }}</mat-error>
+      <mat-error *ngIf="toAdd.errors.maxlength">{{
+        'tags.maxlength'
+          | translate
+            : {
+                current: toAdd.errors.maxlength.actualLength,
+                maxSize: toAdd.errors.maxlength.requiredLength
+              }
+      }}</mat-error>
+      <mat-error *ngIf="toAdd.errors.unique">{{
+        'tags.unique' | translate
+      }}</mat-error>
     </ng-container>
   </form>
 </div>
 <ng-container>
   <app-modal [visible]="isMoviesVisible" (update)="updateModal($event)">
-    <app-tag-datas [tag]="selectedTag" [visible]="isMoviesVisible"></app-tag-datas>
+    <app-tag-datas
+      [tag]="selectedTag"
+      [visible]="isMoviesVisible"
+    ></app-tag-datas>
   </app-modal>
   <!-- Input Filter -->
   <div class="tags-filter">
     <mat-form-field>
-      <input matInput type="search" placeholder="{{'tags.filter' | translate}}" [(ngModel)]="search" (keyup)="paginator.firstPage(); onSearch();" />
+      <input
+        matInput
+        type="search"
+        placeholder="{{ 'tags.filter' | translate }}"
+        [(ngModel)]="search"
+        (keyup)="paginator.firstPage(); onSearch()"
+      />
     </mat-form-field>
-    <span *ngIf="search" (click)="search=''; paginator.firstPage(); onSearch();" class="pointer clear-btn">
+    <span
+      *ngIf="search"
+      (click)="search = ''; paginator.firstPage(); onSearch()"
+      class="pointer clear-btn"
+    >
       <fa-icon [icon]="['far', 'times-circle']" size="lg"></fa-icon>
     </span>
   </div>
 
   <!-- Delete -->
   <div class="delete-btn">
-    <button *ngIf="nbChecked > 0" class="btn btn-outline-primary" (click)="remove()">{{'tags.remove' |
-      translate:{size: nbChecked} }}
+    <button
+      *ngIf="nbChecked > 0"
+      class="btn btn-outline-primary"
+      (click)="remove()"
+    >
+      {{ 'tags.remove' | translate: {size: nbChecked} }}
       <fa-icon [icon]="faTrash"></fa-icon>
     </button>
   </div>
 
   <div class="paginator mat-elevation-z4">
     <!-- Paginator -->
-    <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-      (page)="page = $event; onPaginateChange();" [showFirstLastButtons]="true">
+    <mat-paginator
+      #paginator
+      [length]="length"
+      [pageIndex]="pageIndex"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="page = $event; onPaginateChange()"
+      [showFirstLastButtons]="true"
+    >
     </mat-paginator>
   </div>
 
   <!-- Table -->
-  <mat-table class="mat-elevation-z4" [dataSource]="displayedTags" (matSortChange)="paginator.firstPage(); sort = $event; onSort();"
-    matSort [matSortActive]="'label'" [matSortDirection]="'asc'">
-
+  <mat-table
+    class="mat-elevation-z4"
+    [dataSource]="displayedTags"
+    (matSortChange)="paginator.firstPage(); sort = $event; onSort()"
+    matSort
+    [matSortActive]="'label'"
+    [matSortDirection]="'asc'"
+  >
     <!-- ID -->
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'global.id'|translate }}">
-        <span class="mat-text">{{ 'global.id'|translate }}</span>
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        matTooltip="{{ 'global.id' | translate }}"
+      >
+        <span class="mat-text">{{ 'global.id' | translate }}</span>
         <fa-icon class="mat-icon" [icon]="faHashtag"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let tag">
-        {{tag.id}}
+        {{ tag.id }}
       </mat-cell>
     </ng-container>
 
     <!-- LABEL -->
     <ng-container matColumnDef="label">
-      <mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="{{ 'tags.label'|translate }}">
-        <span class="mat-text">{{ 'tags.label'|translate }}</span>
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        matTooltip="{{ 'tags.label' | translate }}"
+      >
+        <span class="mat-text">{{ 'tags.label' | translate }}</span>
         <fa-icon class="mat-icon" [icon]="faList"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let tag">
-        {{tag.label}}
+        {{ tag.label }}
       </mat-cell>
     </ng-container>
 
     <!-- COUNT -->
     <ng-container matColumnDef="count">
-      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'tags.count'|translate }}">
-        <span class="mat-text">{{ 'tags.count'|translate }}</span>
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        start="desc"
+        matTooltip="{{ 'tags.count' | translate }}"
+      >
+        <span class="mat-text">{{ 'tags.count' | translate }}</span>
         <fa-icon class="mat-icon" [icon]="faStar"></fa-icon>
       </mat-header-cell>
       <mat-cell *matCellDef="let tag">
         <ng-container *ngIf="tag.datas; else zero">
-          {{tag.datas.length}}
+          {{ tag.datas.length }}
         </ng-container>
         <ng-template #zero>0</ng-template>
       </mat-cell>
@@ -95,8 +170,13 @@
 
     <!-- COLOR -->
     <ng-container matColumnDef="color">
-      <mat-header-cell *matHeaderCellDef mat-sort-header start='desc' matTooltip="{{ 'tags.color'|translate }}">
-        <span class="mat-text">{{ 'tags.color'|translate }}</span>
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        start="desc"
+        matTooltip="{{ 'tags.color' | translate }}"
+      >
+        <span class="mat-text">{{ 'tags.color' | translate }}</span>
       </mat-header-cell>
       <mat-cell *matCellDef="let tag">
         <span [style.background-color]="tag.color" class="tag-color"></span>
@@ -105,11 +185,13 @@
 
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
-      <mat-header-cell *matHeaderCellDef>
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
       <mat-cell *matCellDef="let tag">
         <div class="cell-content">
-          <mat-checkbox (change)="tag.checked = !tag.checked; updateSize()" [checked]="tag.checked">
+          <mat-checkbox
+            (change)="tag.checked = !tag.checked; updateSize()"
+            [checked]="tag.checked"
+          >
           </mat-checkbox>
         </div>
       </mat-cell>
@@ -117,13 +199,16 @@
 
     <!-- Details Column -->
     <ng-container matColumnDef="details">
-      <mat-header-cell *matHeaderCellDef>
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
       <mat-cell *matCellDef="let tag">
         <div class="cell-content">
-          <button class="btn btn-outline-primary btn-detail" matTooltip="{{'global.go_detail' | translate}}" (click)="selectTag(tag)">
+          <button
+            class="btn btn-outline-primary btn-detail"
+            matTooltip="{{ 'global.go_detail' | translate }}"
+            (click)="selectTag(tag)"
+          >
             <span class="btn-text desktop">
-              {{'global.go_detail' | translate}}
+              {{ 'global.go_detail' | translate }}
               <fa-icon [icon]="faChevronCircleRight"></fa-icon>
             </span>
             <span class="btn-icon mobile">
@@ -135,6 +220,6 @@
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
 </ng-container>

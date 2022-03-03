@@ -1,18 +1,18 @@
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserModule } from '@angular/platform-browser/';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {HttpClientModule} from '@angular/common/http';
+import {RouterTestingModule} from '@angular/router/testing';
+import {BrowserModule} from '@angular/platform-browser/';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { SharedModule } from '../../../../shared/shared.module';
-import { SearchBoxComponent } from './search-box.component';
+import {SharedModule} from '../../../../shared/shared.module';
+import {SearchBoxComponent} from './search-box.component';
 
 describe('SearchBoxComponent', () => {
   let component: SearchBoxComponent<any>;
@@ -22,10 +22,22 @@ describe('SearchBoxComponent', () => {
     TestBed.configureTestingModule({
       declarations: [SearchBoxComponent],
       providers: [TranslateService],
-      imports: [BrowserModule, FormsModule, ReactiveFormsModule, TranslateModule.forRoot(), HttpClientModule, FontAwesomeModule, MatChipsModule,
-        RouterTestingModule, SharedModule.forRoot(), MatSnackBarModule, MatAutocompleteModule, MatFormFieldModule, BrowserAnimationsModule]
-    })
-      .compileComponents();
+      imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TranslateModule.forRoot(),
+        HttpClientModule,
+        FontAwesomeModule,
+        MatChipsModule,
+        RouterTestingModule,
+        SharedModule.forRoot(),
+        MatSnackBarModule,
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        BrowserAnimationsModule,
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

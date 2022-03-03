@@ -1,9 +1,13 @@
-import { DiscoverCriteria } from './../model/discover-criteria';
-import { Url } from './../constant/url';
+import {DiscoverCriteria} from './../model/discover-criteria';
+import {Url} from './../constant/url';
 
 export class UrlBuilder {
-
-  static personUrlBuilder(id: number, language: string, images: boolean, credits: boolean): string {
+  static personUrlBuilder(
+    id: number,
+    language: string,
+    images: boolean,
+    credits: boolean
+  ): string {
     let url = `${Url.PERSON_URL}/${id}?${Url.API_KEY}`;
     if (images || credits) {
       url += `${Url.APPEND}`;
@@ -21,7 +25,14 @@ export class UrlBuilder {
     return url;
   }
 
-  static seasonUrlBuilder(id: number, season: number, language: string, images: boolean, credits: boolean, videos: boolean): string {
+  static seasonUrlBuilder(
+    id: number,
+    season: number,
+    language: string,
+    images: boolean,
+    credits: boolean,
+    videos: boolean
+  ): string {
     let url = `${Url.SERIE_URl}/${id}${Url.SEASON_URL}${season}?${Url.API_KEY}`;
     if (images || credits || videos) {
       url += `${Url.APPEND}`;
@@ -42,8 +53,20 @@ export class UrlBuilder {
     return url;
   }
 
-  static detailUrlBuilder(isMovie: boolean, id: number, video: boolean, credit: boolean, reco: boolean, release: boolean, keywords: boolean,
-    similar: boolean, image: boolean, titles: boolean, external: boolean, language: string): string {
+  static detailUrlBuilder(
+    isMovie: boolean,
+    id: number,
+    video: boolean,
+    credit: boolean,
+    reco: boolean,
+    release: boolean,
+    keywords: boolean,
+    similar: boolean,
+    image: boolean,
+    titles: boolean,
+    external: boolean,
+    language?: string
+  ): string {
     let url = isMovie ? Url.MOVIE_URl : Url.SERIE_URl;
     url += `/${id}?${Url.API_KEY}`;
     if (video || credit || reco || image) {
@@ -98,12 +121,22 @@ export class UrlBuilder {
     return url;
   }
 
-  static discoverUrlBuilder(isMovie: boolean, criteria: DiscoverCriteria, people: number[], genre: number[], keyword: number[],
-    networks?: number[], isWithoutGenre: boolean = false, isWithoutKeyword: boolean = false): string {
+  static discoverUrlBuilder(
+    isMovie: boolean,
+    criteria: DiscoverCriteria,
+    people?: number[],
+    genre?: number[],
+    keyword?: number[],
+    networks?: number[],
+    isWithoutGenre = false,
+    isWithoutKeyword = false
+  ): string {
     let url = `${isMovie ? Url.DISCOVER_MOVIE_URL : Url.DISCOVER_SERIE_URL}`;
     const parametres = [];
     if (criteria.sortField && criteria.sortDir) {
-      parametres.push(`${Url.SORT_BY_URL}${criteria.sortField}.${criteria.sortDir}`);
+      parametres.push(
+        `${Url.SORT_BY_URL}${criteria.sortField}.${criteria.sortDir}`
+      );
     }
     if (criteria.page) {
       parametres.push(`${Url.PAGE_URL}${criteria.page}`);
@@ -112,10 +145,18 @@ export class UrlBuilder {
       parametres.push(`${Url.REGION}${criteria.region.toUpperCase()}`);
     }
     if (criteria.yearMin) {
-      parametres.push(`${isMovie ? Url.RELEASE_DATE_GTE_URL : Url.FIRST_AIR_DATE_GTE_URL}${criteria.yearMin}`);
+      parametres.push(
+        `${isMovie ? Url.RELEASE_DATE_GTE_URL : Url.FIRST_AIR_DATE_GTE_URL}${
+          criteria.yearMin
+        }`
+      );
     }
     if (criteria.yearMax) {
-      parametres.push(`${isMovie ? Url.RELEASE_DATE_LTE_URL : Url.FIRST_AIR_DATE_LTE_URL}${criteria.yearMax}`);
+      parametres.push(
+        `${isMovie ? Url.RELEASE_DATE_LTE_URL : Url.FIRST_AIR_DATE_LTE_URL}${
+          criteria.yearMax
+        }`
+      );
     }
     if (criteria.adult && isMovie) {
       parametres.push(`${Url.ADULT_URL}`);
@@ -124,13 +165,19 @@ export class UrlBuilder {
     UrlBuilder.certificationUrlBuilder(parametres, criteria, isMovie);
     UrlBuilder.runtimeUrlBuilder(parametres, criteria);
     if (criteria.releaseType && isMovie) {
-      parametres.push(`${Url.WITH_RELEASE_TYPE_URL}${criteria.releaseType.join(Url.OR_URL)}`);
+      parametres.push(
+        `${Url.WITH_RELEASE_TYPE_URL}${criteria.releaseType.join(Url.OR_URL)}`
+      );
     }
     if (people && people.length > 0) {
       parametres.push(`${Url.WITH_PEOPLE_URL}${people.join(Url.AND_URL)}`);
     }
     if (criteria.originalLangs && criteria.originalLangs.length > 0) {
-      parametres.push(`${Url.WITH_ORIGINAL_LANGUAGE}${criteria.originalLangs.join(Url.OR_URL)}`);
+      parametres.push(
+        `${Url.WITH_ORIGINAL_LANGUAGE}${criteria.originalLangs.join(
+          Url.OR_URL
+        )}`
+      );
     }
     UrlBuilder.genresUrlBuilder(parametres, genre, isWithoutGenre);
     UrlBuilder.keywordsUrlBuilder(parametres, keyword, isWithoutKeyword);
@@ -141,7 +188,10 @@ export class UrlBuilder {
     return url;
   }
 
-  private static runtimeUrlBuilder(parametres: string[], criteria: DiscoverCriteria): void {
+  private static runtimeUrlBuilder(
+    parametres: string[],
+    criteria: DiscoverCriteria
+  ): void {
     if (criteria.runtimeMin) {
       parametres.push(`${Url.WITH_RUNTIME_GTE_URL}${criteria.runtimeMin}`);
     }
@@ -150,7 +200,10 @@ export class UrlBuilder {
     }
   }
 
-  private static voteUrlBuilder(parametres: string[], criteria: DiscoverCriteria): void {
+  private static voteUrlBuilder(
+    parametres: string[],
+    criteria: DiscoverCriteria
+  ): void {
     if (criteria.voteAvergeMin) {
       parametres.push(`${Url.VOTE_AVERAGE_GTE_URL}${criteria.voteAvergeMin}`);
     }
@@ -162,34 +215,56 @@ export class UrlBuilder {
     }
   }
 
-  private static certificationUrlBuilder(parametres: string[], criteria: DiscoverCriteria, isMovie: boolean): void {
+  private static certificationUrlBuilder(
+    parametres: string[],
+    criteria: DiscoverCriteria,
+    isMovie: boolean
+  ): void {
     if (criteria.certification && isMovie) {
       parametres.push(`${Url.CERTIFICATION_COUNTRY_URL}`);
       parametres.push(`${Url.CERTIFICATION_URL}${criteria.certification}`);
     }
   }
 
-  private static genresUrlBuilder(parametres: string[], genre: number[], genresWithout: boolean): void {
+  private static genresUrlBuilder(
+    parametres: string[],
+    genre?: number[],
+    genresWithout?: boolean
+  ): void {
     if (genre && genre.length > 0) {
-      const genreUrl = genresWithout ? Url.WITHOUT_GENRES_URL : Url.WITH_GENRES_URL;
+      const genreUrl = genresWithout
+        ? Url.WITHOUT_GENRES_URL
+        : Url.WITH_GENRES_URL;
       parametres.push(`${genreUrl}${genre.join(Url.OR_URL)}`);
     }
   }
 
-  private static keywordsUrlBuilder(parametres: string[], keyword: number[], keywordsWithout: boolean): void {
+  private static keywordsUrlBuilder(
+    parametres: string[],
+    keyword?: number[],
+    keywordsWithout?: boolean
+  ): void {
     if (keyword && keyword.length > 0) {
-      const keywordUrl = keywordsWithout ? Url.WITHOUT_KEYWORDS_URL : Url.WITH_KEYWORDS_URL;
+      const keywordUrl = keywordsWithout
+        ? Url.WITHOUT_KEYWORDS_URL
+        : Url.WITH_KEYWORDS_URL;
       parametres.push(`${keywordUrl}${keyword.join(Url.OR_URL)}`);
     }
   }
 
-  private static networksUrlBuilder(parametres: string[], networks: number[]): void {
+  private static networksUrlBuilder(
+    parametres: string[],
+    networks?: number[]
+  ): void {
     if (networks && networks.length > 0) {
       parametres.push(`${Url.WITH_NETWORKS_URL}${networks.join(Url.OR_URL)}`);
     }
   }
 
-  private static langUrlBuilder(url: string, language: string): string {
+  private static langUrlBuilder(
+    url: string,
+    language: string | undefined
+  ): string {
     let result = url;
     if (language) {
       result += `${Url.LANGUE}${language}`;

@@ -46,8 +46,10 @@ export class Url {
     Url.MOVIE_DB_API_URL + 'discover/tv?' + Url.API_KEY;
   static readonly PLAYING_URL =
     Url.MOVIE_DB_API_URL + 'movie/now_playing?' + Url.API_KEY;
-  static readonly MOST_POPULAR_MOVIE_URL = Url.DISCOVER_MOVIE_URL + '&sort_by=popularity.desc';
-  static readonly MOST_POPULAR_SERIE_URL = Url.DISCOVER_SERIE_URL + '&sort_by=popularity.desc';
+  static readonly MOST_POPULAR_MOVIE_URL =
+    Url.DISCOVER_MOVIE_URL + '&sort_by=popularity.desc';
+  static readonly MOST_POPULAR_SERIE_URL =
+    Url.DISCOVER_SERIE_URL + '&sort_by=popularity.desc';
   static readonly SORT_BY_URL = '&sort_by=';
   static readonly PAGE_URL = '&page=';
   static readonly VOTE_COUNT_GTE_URL = '&vote_count.gte=';
@@ -68,11 +70,16 @@ export class Url {
   static readonly WITH_ORIGINAL_LANGUAGE = '&with_original_language=';
   static readonly WITHOUT_GENRES_URL = '&without_genres=';
   static readonly WITHOUT_KEYWORDS_URL = '&without_keywords=';
-  static readonly GET_MOVIE_GENRES_URL = Url.MOVIE_DB_API_URL + 'genre/movie/list?';
-  static readonly GET_SERIE_GENRES_URL = Url.MOVIE_DB_API_URL + 'genre/tv/list?';
-  static readonly GET_ALL_CERTIFICATIONS_URL = Url.MOVIE_DB_API_URL + 'certification/movie/list?';
-  static readonly GET_ALL_LANGS_URL = Url.MOVIE_DB_API_URL + 'configuration/languages?';
-  static readonly GET_POPULAR_PERSON = Url.MOVIE_DB_API_URL + 'person/popular?' + Url.API_KEY;
+  static readonly GET_MOVIE_GENRES_URL =
+    Url.MOVIE_DB_API_URL + 'genre/movie/list?';
+  static readonly GET_SERIE_GENRES_URL =
+    Url.MOVIE_DB_API_URL + 'genre/tv/list?';
+  static readonly GET_ALL_CERTIFICATIONS_URL =
+    Url.MOVIE_DB_API_URL + 'certification/movie/list?';
+  static readonly GET_ALL_LANGS_URL =
+    Url.MOVIE_DB_API_URL + 'configuration/languages?';
+  static readonly GET_POPULAR_PERSON =
+    Url.MOVIE_DB_API_URL + 'person/popular?' + Url.API_KEY;
 
   static readonly GET_MOVIE_LISTS = 'lists';
   static readonly GET_LISTS_DETAILS = Url.MOVIE_DB_API_URL_4 + 'list/';

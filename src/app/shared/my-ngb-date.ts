@@ -1,8 +1,11 @@
-import { Injectable } from '@angular/core';
-import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { DatePipe } from '@angular/common';
+import {Injectable} from '@angular/core';
+import {
+  NgbDateParserFormatter,
+  NgbDateStruct,
+} from '@ng-bootstrap/ng-bootstrap';
+import {DatePipe} from '@angular/common';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class MyNgbDate extends NgbDateParserFormatter {
   constructor(private datePipe: DatePipe) {
     super();
@@ -16,11 +19,11 @@ export class MyNgbDate extends NgbDateParserFormatter {
     }
   }
 
-  isNumber(value: any): boolean {
+  isNumber(value: unknown): boolean {
     return !isNaN(this.toInteger(value));
   }
 
-  toInteger(value: any): number {
+  toInteger(value: unknown): number {
     return parseInt(`${value}`, 10);
   }
 
@@ -28,11 +31,32 @@ export class MyNgbDate extends NgbDateParserFormatter {
     if (value) {
       const dateParts = value.trim().split('/');
       if (dateParts.length === 1 && this.isNumber(dateParts[0])) {
-        return { year: this.toInteger(dateParts[0]), month: undefined, day: undefined };
-      } else if (dateParts.length === 2 && this.isNumber(dateParts[0]) && this.isNumber(dateParts[1])) {
-        return { year: this.toInteger(dateParts[1]), month: this.toInteger(dateParts[0]), day: undefined };
-      } else if (dateParts.length === 3 && this.isNumber(dateParts[0]) && this.isNumber(dateParts[1]) && this.isNumber(dateParts[2])) {
-        return { year: this.toInteger(dateParts[2]), month: this.toInteger(dateParts[1]), day: this.toInteger(dateParts[0]) };
+        return {
+          year: this.toInteger(dateParts[0]),
+          month: undefined,
+          day: undefined,
+        };
+      } else if (
+        dateParts.length === 2 &&
+        this.isNumber(dateParts[0]) &&
+        this.isNumber(dateParts[1])
+      ) {
+        return {
+          year: this.toInteger(dateParts[1]),
+          month: this.toInteger(dateParts[0]),
+          day: undefined,
+        };
+      } else if (
+        dateParts.length === 3 &&
+        this.isNumber(dateParts[0]) &&
+        this.isNumber(dateParts[1]) &&
+        this.isNumber(dateParts[2])
+      ) {
+        return {
+          year: this.toInteger(dateParts[2]),
+          month: this.toInteger(dateParts[1]),
+          day: this.toInteger(dateParts[0]),
+        };
       }
     }
     return undefined;
@@ -42,7 +66,9 @@ export class MyNgbDate extends NgbDateParserFormatter {
     let stringDate = '';
     if (date) {
       stringDate += date.year + '-';
-      stringDate += this.isNumber(date.month) ? this.padNumber(date.month) + '-' : '';
+      stringDate += this.isNumber(date.month)
+        ? this.padNumber(date.month) + '-'
+        : '';
       stringDate += this.isNumber(date.day) ? this.padNumber(date.day) : '';
     }
     return stringDate;
@@ -64,7 +90,7 @@ export class MyNgbDate extends NgbDateParserFormatter {
 
   getPreviousMonday(date: NgbDateStruct): Date {
     const dateD = this.ngbDateToDate(date);
-    dateD.setDate(dateD.getDate() - (dateD.getDay() + 6) % 7);
+    dateD.setDate(dateD.getDate() - ((dateD.getDay() + 6) % 7));
     return dateD;
   }
 
@@ -76,11 +102,15 @@ export class MyNgbDate extends NgbDateParserFormatter {
 
   getFollowingSunday(date: NgbDateStruct): Date {
     const dateD = this.ngbDateToDate(date);
-    dateD.setDate(dateD.getDate() - (dateD.getDay() + 6) % 7);
+    dateD.setDate(dateD.getDate() - ((dateD.getDay() + 6) % 7));
     return this.addDays(dateD, 6);
   }
 
   dateToNgbDateStruct(date: Date): NgbDateStruct {
-    return { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() };
+    return {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate(),
+    };
   }
 }

@@ -1,13 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 
-import { Person } from '../../../model/person';
-import { ImageSize } from '../../../model/model';
-import { Url } from '../../../constant/url';
+import {Person} from '../../../model/person';
+import {ImageSize} from '../../../model/model';
+import {Url} from '../../../constant/url';
 
 @Component({
   selector: 'app-list-persons',
   templateUrl: './list-persons.component.html',
-  styleUrls: ['./list-persons.component.scss']
+  styleUrls: ['./list-persons.component.scss'],
 })
 export class ListPersonsComponent implements OnInit {
   @Input()
@@ -19,9 +19,7 @@ export class ListPersonsComponent implements OnInit {
   limit = 6;
   showAll = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

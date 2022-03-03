@@ -1,23 +1,27 @@
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { faExpand, IconDefinition, faCompress } from '@fortawesome/free-solid-svg-icons';
+import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {
+  faExpand,
+  IconDefinition,
+  faCompress,
+} from '@fortawesome/free-solid-svg-icons';
 
-import { MenuService } from '../../service/menu.service';
-import { ImageSize } from '../../../model/model';
+import {MenuService} from '../../service/menu.service';
+import {ImageSize} from '../../../model/model';
 
 @Component({
   selector: 'app-image-viewer',
   templateUrl: './image-viewer.component.html',
-  styleUrls: ['./image-viewer.component.scss']
+  styleUrls: ['./image-viewer.component.scss'],
 })
 export class ImageViewerComponent implements OnChanges {
-  @Input() visible: boolean;
-  @Input() images: string[] | string;
-  @Input() thumbnails: string[] | string;
-  index: number;
+  @Input() visible!: boolean;
+  @Input() images!: string[] | string;
+  @Input() thumbnails!: string[] | string;
+  index!: number;
   imageSize = ImageSize;
-  nextBtn: HTMLButtonElement;
-  prevBtn: HTMLButtonElement;
+  nextBtn!: HTMLButtonElement;
+  prevBtn!: HTMLButtonElement;
   config: SwiperConfigInterface = {
     observer: true,
     direction: 'horizontal',
@@ -28,7 +32,7 @@ export class ImageViewerComponent implements OnChanges {
     navigation: true,
     pagination: {
       el: '.swiper-pagination',
-      type: 'custom'
+      type: 'custom',
     },
     spaceBetween: 30,
     zoom: false,
@@ -41,22 +45,27 @@ export class ImageViewerComponent implements OnChanges {
     slideToClickedSlide: true,
     mousewheel: true,
   };
-  isOnePicture: boolean;
+  isOnePicture!: boolean;
   faExpand = faExpand;
   isFullscreen = false;
-  fullScreenImg: string;
-  closeBtn: IconDefinition;
+  fullScreenImg!: string;
+  closeBtn!: IconDefinition;
 
-  constructor(
-    private menuService: MenuService
-  ) { }
+  constructor(private menuService: MenuService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.visible = changes.visible ? changes.visible.currentValue : this.visible;
+    this.visible = changes.visible
+      ? changes.visible.currentValue
+      : this.visible;
     this.images = changes.images ? changes.images.currentValue : this.images;
-    this.thumbnails = changes.thumbnails ? changes.thumbnails.currentValue : this.thumbnails;
+    this.thumbnails = changes.thumbnails
+      ? changes.thumbnails.currentValue
+      : this.thumbnails;
     if (this.visible) {
-      this.isOnePicture = typeof this.images === 'string' || this.images === undefined || this.images === null;
+      this.isOnePicture =
+        typeof this.images === 'string' ||
+        this.images === undefined ||
+        this.images === null;
       this.index = 0;
       if (!this.isOnePicture) {
         this.closeBtn = faCompress;
@@ -69,7 +78,9 @@ export class ImageViewerComponent implements OnChanges {
 
   fullscreen(): void {
     this.isFullscreen = true;
-    this.fullScreenImg = this.isOnePicture ? <string>this.images : this.images[this.index];
+    this.fullScreenImg = this.isOnePicture
+      ? <string>this.images
+      : this.images[this.index];
     this.menuService.visible$.next(this.isOnePicture && !this.isFullscreen);
   }
 

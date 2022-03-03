@@ -1,43 +1,48 @@
-import { Genre } from './../model/model';
-import { Discover } from './../model/discover';
-import { MapSeason } from './mapSeason';
-import { AlternativeTitle } from '../model/model';
-import { Utils } from './utils';
-import { Serie } from '../model/serie';
+import {Genre} from './../model/model';
+import {Discover} from './../model/discover';
+import {MapSeason} from './mapSeason';
+import {AlternativeTitle} from '../model/model';
+import {Utils} from './utils';
+import {Serie} from '../model/serie';
 
 export class MapSerie {
-
   static mapForPopularSeries(response: any): Serie[] {
-    return response.results.map((r: any) => <Serie>({
-      id: r.id,
-      title: r.name,
-      firstAired: r.first_air_date,
-      vote: r.vote_average,
-      originLang: r.original_language,
-      affiche: r.poster_path,
-      popularity: r.popularity
-    }));
+    return response.results.map(
+      (r: any) =>
+        <Serie>{
+          id: r.id,
+          title: r.name,
+          firstAired: r.first_air_date,
+          vote: r.vote_average,
+          originLang: r.original_language,
+          affiche: r.poster_path,
+          popularity: r.popularity,
+        }
+    );
   }
 
   static mapForDiscover(response: any): Discover {
     const discover = new Discover();
-    discover.datas = response.results.map((r: any) => <Serie>({
-      id: r.id,
-      title: r.name,
-      firstAired: r.first_air_date,
-      vote: r.vote_average,
-      originLang: r.original_language,
-      originCountries: r.origin_country,
-      affiche: r.poster_path,
-      original_title: Utils.getTitle(r, false),
-      popularity: r.popularity,
-      vote_count: r.vote_count,
-      genres: r.genre_ids.map(g => {
-        const genre = new Genre();
-        genre.id = g;
-        return genre;
-      })
-    }));
+    discover.datas = response.results.map(
+      (r: any) =>
+        <Serie>{
+          id: r.id,
+          title: r.name,
+          firstAired: r.first_air_date,
+          vote: r.vote_average,
+          originLang: r.original_language,
+          originCountries: r.origin_country,
+          affiche: r.poster_path,
+          original_title: Utils.getTitle(r, false),
+          popularity: r.popularity,
+          vote_count: r.vote_count,
+          genres: r.genre_ids.map(g => {
+            const genre = new Genre();
+            genre.id = g;
+            return genre;
+          }),
+        }
+    );
     discover.total_pages = response.total_pages;
     discover.page = response.page;
     discover.total_results = response.total_results;
@@ -47,27 +52,33 @@ export class MapSerie {
 
   static mapForSearchSeries(response: any): Serie[] {
     console.log(response.results);
-    return response.results.slice(0, 6).map((r: any) => <Serie>({
-      id: r.id,
-      title: r.name,
-      firstAired: r.first_air_date,
-      original_title: Utils.getTitle(r, false),
-      affiche: r.poster_path,
-    }));
+    return response.results.slice(0, 6).map(
+      (r: any) =>
+        <Serie>{
+          id: r.id,
+          title: r.name,
+          firstAired: r.first_air_date,
+          original_title: Utils.getTitle(r, false),
+          affiche: r.poster_path,
+        }
+    );
   }
 
   static mapForRecommendationsSeries(reco: any): Serie[] {
-    return reco.map((r: any) => <Serie>({
-      id: r.id,
-      title: r.name,
-      firstAired: r.first_air_date,
-      affiche: r.poster_path,
-      original_title: Utils.getTitle(r, false),
-      vote: r.vote_average,
-      vote_count: r.vote_count,
-      originLang: r.original_language,
-      popularity: r.popularity
-    }));
+    return reco.map(
+      (r: any) =>
+        <Serie>{
+          id: r.id,
+          title: r.name,
+          firstAired: r.first_air_date,
+          affiche: r.poster_path,
+          original_title: Utils.getTitle(r, false),
+          vote: r.vote_average,
+          vote_count: r.vote_count,
+          originLang: r.original_language,
+          popularity: r.popularity,
+        }
+    );
   }
 
   static mapForSerie(r: any): Serie {
@@ -118,7 +129,9 @@ export class MapSerie {
       serie.videos = r.videos.results;
     }
     if (r.recommendations) {
-      serie.recommendations = MapSerie.mapForRecommendationsSeries(r.recommendations.results);
+      serie.recommendations = MapSerie.mapForRecommendationsSeries(
+        r.recommendations.results
+      );
     }
     if (r.similar) {
       serie.similars = MapSerie.mapForRecommendationsSeries(r.similar.results);
@@ -134,7 +147,9 @@ export class MapSerie {
     }
     if (r.alternative_titles && r.alternative_titles.results) {
       serie.alternativeTitles = r.alternative_titles.results
-        .filter(title => title.title.toLowerCase() !== serie.title.toLowerCase())
+        .filter(
+          title => title.title.toLowerCase() !== serie.title.toLowerCase()
+        )
         .map(title => new AlternativeTitle(title.iso_3166_1, title.title));
     }
     console.log('serie', serie);
@@ -142,7 +157,7 @@ export class MapSerie {
   }
 
   static toSerie(r: any): Serie {
-    return <Serie>({
+    return <Serie>{
       id: r.id,
       title: r.name,
       original_title: r.original_name,
@@ -156,7 +171,7 @@ export class MapSerie {
       character: r.character,
       episodeCount: r.number_of_episodes,
       originCountries: r.origin_country,
-      isMovie: false
-    });
+      isMovie: false,
+    };
   }
 }

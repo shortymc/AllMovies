@@ -1,29 +1,55 @@
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Component, Injectable, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgbDateStruct, NgbDatepickerI18n, NgbDatepickerConfig, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
+import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import {
+  Component,
+  Injectable,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {
+  NgbDateStruct,
+  NgbDatepickerI18n,
+  NgbDatepickerConfig,
+  NgbDatepicker,
+} from '@ng-bootstrap/ng-bootstrap';
 
-import { Movie } from '../../../model/movie';
-import { MovieService, TitleService } from '../../../shared/shared.module';
-import { MyNgbDate } from '../../../shared/my-ngb-date';
-import { DuckDuckGo } from '../../../constant/duck-duck-go';
-import { DetailConfig } from '../../../model/model';
+import {Movie} from '../../../model/movie';
+import {MovieService, TitleService} from '../../../shared/shared.module';
+import {MyNgbDate} from '../../../shared/my-ngb-date';
+import {DuckDuckGo} from '../../../constant/duck-duck-go';
+import {DetailConfig} from '../../../model/model';
+import {Subscription} from 'rxjs';
 
 const now: Date = new Date();
 
-const I18N_VALUES = {
-  'fr': {
+const I18N_VALUES: {[key: string]: {weekdays: string[]; months: string[]}} = {
+  fr: {
     weekdays: ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'],
-    months: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Déc'],
-  }
+    months: [
+      'Jan',
+      'Fév',
+      'Mar',
+      'Avr',
+      'Mai',
+      'Juin',
+      'Juil',
+      'Aou',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Déc',
+    ],
+  },
 };
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class I18n {
   language = 'fr';
 }
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class CustomDatepickerI18n extends NgbDatepickerI18n {
   constructor(private _i18n: I18n) {
     super();
@@ -48,18 +74,22 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   selector: 'app-release',
   templateUrl: './release.component.html',
   styleUrls: ['./release.component.scss'],
-  providers: [I18n, NgbDatepickerConfig, { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }]
+  providers: [
+    I18n,
+    NgbDatepickerConfig,
+    {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n},
+  ],
 })
 export class ReleaseComponent implements OnInit, OnDestroy {
-  @ViewChild('dp', { static: true }) dp: NgbDatepicker;
-  movies: Movie[];
-  selectedId: number;
-  model: NgbDateStruct;
-  monday: Date;
-  sunday: Date;
-  language: string;
-  config: DetailConfig;
-  subs = [];
+  @ViewChild('dp', {static: true}) dp!: NgbDatepicker;
+  movies: Movie[] = [];
+  selectedId?: number;
+  model!: NgbDateStruct;
+  monday!: Date;
+  sunday!: Date;
+  language!: string;
+  config!: DetailConfig;
+  subs: Subscription[] = [];
 
   Url = DuckDuckGo;
 
@@ -71,7 +101,7 @@ export class ReleaseComponent implements OnInit, OnDestroy {
     config: NgbDatepickerConfig,
     private translate: TranslateService,
     private title: TitleService,
-    private elemRef: ElementRef,
+    private elemRef: ElementRef
   ) {
     // Other days than wednesday are disabled
     config.markDisabled = (date: NgbDateStruct) => {
@@ -83,40 +113,51 @@ export class ReleaseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.title.setTitle('title.release');
     this.language = this.translate.currentLang;
-    this.config = new DetailConfig(true, true, false, false, false, false, true, false, false, this.language);
-    this.subs.push(this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.language = event.lang;
-      this.getMoviesByReleaseDates();
-    }));
-    this.route.queryParams.subscribe(
-      params => {
-        const date = params.date;
-        if (date === null || date === undefined) {
-          this.selectPreviousWednesday();
-        } else {
-          this.dp.startDate = this.selectDate(date);
-        }
-        if (params.selected) {
-          this.selectedId = parseInt(params.selected, 10);
-        }
-        if (!this.movies) {
-          this.getMoviesByReleaseDates();
-        }
-      }
+    this.config = new DetailConfig(
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      this.language
     );
+    this.subs.push(
+      this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+        this.language = event.lang;
+        this.getMoviesByReleaseDates();
+      })
+    );
+    this.route.queryParams.subscribe(params => {
+      const date = params.date;
+      if (date === null || date === undefined) {
+        this.selectPreviousWednesday();
+      } else {
+        this.dp.startDate = this.selectDate(date);
+      }
+      if (params.selected) {
+        this.selectedId = parseInt(params.selected, 10);
+      }
+      if (!this.movies) {
+        this.getMoviesByReleaseDates();
+      }
+    });
   }
 
   navigate(day: string): void {
     this.model = this.formatter.parse(day);
     this.dp.navigateTo(this.model);
     this.selectedId = undefined;
-    this.movies = undefined;
+    this.movies = [];
     this.router.navigate(['.'], {
       relativeTo: this.route,
       queryParams: {
         date: day,
-        selected: undefined
-      }
+        selected: undefined,
+      },
     });
   }
 
@@ -124,15 +165,19 @@ export class ReleaseComponent implements OnInit, OnDestroy {
     if (this.model !== null && this.model !== undefined) {
       this.monday = this.formatter.getPreviousMonday(this.model);
       this.sunday = this.formatter.getFollowingSunday(this.model);
-      this.movieService.getMoviesByReleaseDates(this.formatter.dateToString(this.monday, 'yyyy-MM-dd'),
-        this.formatter.dateToString(this.sunday, 'yyyy-MM-dd'), this.language)
-        .then(movies => this.movies = movies);
+      this.movieService
+        .getMoviesByReleaseDates(
+          this.formatter.dateToString(this.monday, 'yyyy-MM-dd'),
+          this.formatter.dateToString(this.sunday, 'yyyy-MM-dd'),
+          this.language
+        )
+        .then(movies => (this.movies = movies));
     }
   }
 
   selectPreviousWednesday(): NgbDateStruct {
     const date = now;
-    date.setDate(date.getDate() - (date.getDay() + 4) % 7);
+    date.setDate(date.getDate() - ((date.getDay() + 4) % 7));
     this.model = this.formatter.dateToNgbDateStruct(date);
     return this.model;
   }
@@ -143,7 +188,10 @@ export class ReleaseComponent implements OnInit, OnDestroy {
   }
 
   addDays(days: number): string {
-    return this.formatter.dateToString(this.formatter.addNgbDays(this.model, days), 'dd/MM/yyyy');
+    return this.formatter.dateToString(
+      this.formatter.addNgbDays(this.model, days),
+      'dd/MM/yyyy'
+    );
   }
 
   parseDate(): string {
@@ -157,8 +205,8 @@ export class ReleaseComponent implements OnInit, OnDestroy {
       relativeTo: this.route,
       queryParams: {
         date: this.parseDate(),
-        selected: movie.id
-      }
+        selected: movie.id,
+      },
     });
   }
 
@@ -174,7 +222,12 @@ export class ReleaseComponent implements OnInit, OnDestroy {
   }
 
   isInfo(movie: Movie): boolean {
-    return movie.vote_count > 10 && (movie.popularity >= 40 || movie.vote_count >= 100) && !this.isSuccess(movie) && !this.isDanger(movie);
+    return (
+      movie.vote_count > 10 &&
+      (movie.popularity >= 40 || movie.vote_count >= 100) &&
+      !this.isSuccess(movie) &&
+      !this.isDanger(movie)
+    );
   }
 
   isSuccess(movie: Movie): boolean {
@@ -186,6 +239,6 @@ export class ReleaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.forEach((subscription) => subscription.unsubscribe());
+    this.subs.forEach(subscription => subscription.unsubscribe());
   }
 }

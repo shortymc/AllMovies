@@ -1,9 +1,9 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+import {DebugElement} from '@angular/core';
 
-import { CreditListComponent } from './credit-list.component';
+import {CreditListComponent} from './credit-list.component';
 
 describe('CreditListComponent', () => {
   let component: CreditListComponent;
@@ -11,9 +11,8 @@ describe('CreditListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreditListComponent ]
-    })
-    .compileComponents();
+      declarations: [CreditListComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

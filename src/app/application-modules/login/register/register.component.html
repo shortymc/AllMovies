@@ -1,37 +1,102 @@
-<h2>{{'login.register.title'|translate}}:</h2>
+<h2>{{ 'login.register.title' | translate }}:</h2>
 <div class="register-content">
   <form #registerForm="ngForm">
-    <mat-error *ngIf="message">{{message | translate}}</mat-error>
+    <mat-error *ngIf="message">{{ message | translate }}</mat-error>
     <mat-form-field>
-      <input matInput [(ngModel)]="name" placeholder="{{'global.username'|translate}}" type="text" #inputName="ngModel" name="inputName"
-        required />
-      <mat-error *ngIf="inputName.errors != null && inputName.errors.required && !inputName.pristine">{{'global.username_required'|translate}}</mat-error>
+      <input
+        matInput
+        [(ngModel)]="name"
+        placeholder="{{ 'global.username' | translate }}"
+        type="text"
+        #inputName="ngModel"
+        name="inputName"
+        required
+      />
+      <mat-error
+        *ngIf="
+          inputName.errors != null &&
+          inputName.errors.required &&
+          !inputName.pristine
+        "
+        >{{ 'global.username_required' | translate }}</mat-error
+      >
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [(ngModel)]="password" placeholder="{{'login.password'|translate}}" type="password"
-        #inputPassword="ngModel" name="inputPassword" required />
-      <mat-error *ngIf="inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine">{{'login.password_required'|translate}}</mat-error>
+      <input
+        matInput
+        [(ngModel)]="password"
+        placeholder="{{ 'login.password' | translate }}"
+        type="password"
+        #inputPassword="ngModel"
+        name="inputPassword"
+        required
+      />
+      <mat-error
+        *ngIf="
+          inputPassword.errors != null &&
+          inputPassword.errors.required &&
+          !inputPassword.pristine
+        "
+        >{{ 'login.password_required' | translate }}</mat-error
+      >
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [(ngModel)]="question" placeholder="{{'login.question'|translate}}" type="text" #inputQuestion="ngModel"
-        name="inputQuestion" required />
-      <mat-error *ngIf="inputQuestion.errors != null && inputQuestion.errors.required && !inputQuestion.pristine">{{'login.question_required'|translate}}</mat-error>
+      <input
+        matInput
+        [(ngModel)]="question"
+        placeholder="{{ 'login.question' | translate }}"
+        type="text"
+        #inputQuestion="ngModel"
+        name="inputQuestion"
+        required
+      />
+      <mat-error
+        *ngIf="
+          inputQuestion.errors != null &&
+          inputQuestion.errors.required &&
+          !inputQuestion.pristine
+        "
+        >{{ 'login.question_required' | translate }}</mat-error
+      >
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [(ngModel)]="answer" placeholder="{{'login.answer'|translate}}" type="password" #inputAnswer="ngModel"
-        name="inputAnswer" required />
-      <mat-error *ngIf="inputAnswer.errors != null && inputAnswer.errors.required && !inputAnswer.pristine">{{'login.answer_required'|translate}}</mat-error>
+      <input
+        matInput
+        [(ngModel)]="answer"
+        placeholder="{{ 'login.answer' | translate }}"
+        type="password"
+        #inputAnswer="ngModel"
+        name="inputAnswer"
+        required
+      />
+      <mat-error
+        *ngIf="
+          inputAnswer.errors != null &&
+          inputAnswer.errors.required &&
+          !inputAnswer.pristine
+        "
+        >{{ 'login.answer_required' | translate }}</mat-error
+      >
     </mat-form-field>
 
-    <label>{{'login.lang'|translate}}: </label>
+    <label>{{ 'login.lang' | translate }}: </label>
     <app-dropdown-language (lang)="lang = $event"></app-dropdown-language>
 
     <div class="register-footer">
-      <button type="button" class="btn btn-outline-primary" routerLink="/login">{{'global.cancel'|translate}}</button>
-      <button type="submit" class="btn btn-outline-primary" (click)="register()" [disabled]="registerForm.invalid">{{'login.register.validation'|translate}}</button>
+      <button type="button" class="btn btn-outline-primary" routerLink="/login">
+        {{ 'global.cancel' | translate }}
+      </button>
+      <button
+        type="submit"
+        class="btn btn-outline-primary"
+        (click)="register()"
+        [disabled]="registerForm.invalid"
+      >
+        {{ 'login.register.validation' | translate }}
+      </button>
     </div>
   </form>
 </div>

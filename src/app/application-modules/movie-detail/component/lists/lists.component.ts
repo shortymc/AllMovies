@@ -1,18 +1,28 @@
-import { TranslateService } from '@ngx-translate/core';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { faPlus, faMinus, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
-import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import {TranslateService} from '@ngx-translate/core';
+import {BreakpointObserver} from '@angular/cdk/layout';
+import {
+  faPlus,
+  faMinus,
+  faChevronCircleRight,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  Component,
+  OnInit,
+  Input,
+  SimpleChanges,
+  OnChanges,
+} from '@angular/core';
+import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 
-import { Constants } from './../../../../constant/constants';
-import { Utils } from './../../../../shared/utils';
-import { ListService } from './../../../../shared/shared.module';
-import { List, ImageSize } from './../../../../model/model';
+import {Constants} from './../../../../constant/constants';
+import {Utils} from './../../../../shared/utils';
+import {ListService} from './../../../../shared/shared.module';
+import {List, ImageSize} from './../../../../model/model';
 
 @Component({
   selector: 'app-lists',
   templateUrl: './lists.component.html',
-  styleUrls: ['./lists.component.scss']
+  styleUrls: ['./lists.component.scss'],
 })
 export class ListsComponent implements OnInit, OnChanges {
   @Input() id: number;
@@ -21,7 +31,7 @@ export class ListsComponent implements OnInit, OnChanges {
   showLists = false;
   lists: List[] = [];
   swiperConfig: SwiperConfigInterface = {
-    a11y: { enabled: true },
+    a11y: {enabled: true},
     keyboard: true,
     mousewheel: true,
     scrollbar: false,
@@ -29,7 +39,7 @@ export class ListsComponent implements OnInit, OnChanges {
     pagination: false,
     centeredSlides: false,
     zoom: false,
-    touchEventsTarget: 'wrapper'
+    touchEventsTarget: 'wrapper',
   };
   imageSize = ImageSize;
   faChevronCircleRight = faChevronCircleRight;
@@ -39,18 +49,27 @@ export class ListsComponent implements OnInit, OnChanges {
   constructor(
     private breakpointObserver: BreakpointObserver,
     public translate: TranslateService,
-    private listService: ListService,
-  ) { }
+    private listService: ListService
+  ) {}
 
   ngOnInit(): void {
-    this.breakpointObserver.observe([
-      Constants.MEDIA_MAX_700,
-      Constants.MEDIA_MAX_1400])
+    this.breakpointObserver
+      .observe([Constants.MEDIA_MAX_700, Constants.MEDIA_MAX_1400])
       .subscribe(result => {
-        this.swiperConfig.direction = result.breakpoints[Constants.MEDIA_MAX_700] ? 'vertical' : 'horizontal';
-        if (result.breakpoints[Constants.MEDIA_MAX_1400] && result.breakpoints[Constants.MEDIA_MAX_700]) {
+        this.swiperConfig.direction = result.breakpoints[
+          Constants.MEDIA_MAX_700
+        ]
+          ? 'vertical'
+          : 'horizontal';
+        if (
+          result.breakpoints[Constants.MEDIA_MAX_1400] &&
+          result.breakpoints[Constants.MEDIA_MAX_700]
+        ) {
           this.swiperConfig.slidesPerView = 1;
-        } else if (result.breakpoints[Constants.MEDIA_MAX_1400] && !result.breakpoints[Constants.MEDIA_MAX_700]) {
+        } else if (
+          result.breakpoints[Constants.MEDIA_MAX_1400] &&
+          !result.breakpoints[Constants.MEDIA_MAX_700]
+        ) {
           this.swiperConfig.slidesPerView = 4;
         } else {
           this.swiperConfig.slidesPerView = 8;
@@ -60,11 +79,13 @@ export class ListsComponent implements OnInit, OnChanges {
 
   getLists(): void {
     this.showLists = false;
-    this.listService.getDataLists(this.id, this.translate.currentLang).then((lists: List[]) => {
-      this.showLists = true;
-      console.log('list', lists);
-      this.lists = lists.sort((a, b) => Utils.compare(a.id, b.id, true));
-    });
+    this.listService
+      .getDataLists(this.id, this.translate.currentLang)
+      .then((lists: List[]) => {
+        this.showLists = true;
+        console.log('list', lists);
+        this.lists = lists.sort((a, b) => Utils.compare(a.id, b.id, true));
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

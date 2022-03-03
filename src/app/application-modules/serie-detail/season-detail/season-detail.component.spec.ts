@@ -1,9 +1,9 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+import {DebugElement} from '@angular/core';
 
-import { SeasonDetailComponent } from './season-detail.component';
+import {SeasonDetailComponent} from './season-detail.component';
 
 describe('SeasonDetailComponent', () => {
   let component: SeasonDetailComponent;
@@ -11,9 +11,8 @@ describe('SeasonDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SeasonDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [SeasonDetailComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

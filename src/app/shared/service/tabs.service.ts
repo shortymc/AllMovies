@@ -1,19 +1,19 @@
-import { BehaviorSubject } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
+import {BehaviorSubject} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Router, NavigationStart} from '@angular/router';
 
-import { Link } from './../../model/model';
+import {Link} from './../../model/model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class TabsService {
   private liens = [new Link('AllMovies', '/')];
   links = new BehaviorSubject(this.liens);
   isSelectAfterAdding = new BehaviorSubject(true);
   activeLink = this.liens[0];
 
-  constructor(
-    private router: Router
-  ) {
+  constructor(private router: Router) {
     if (!localStorage.getItem('tabs')) {
       this.storeTabs();
     } else {
@@ -29,7 +29,8 @@ export class TabsService {
   }
 
   onNavigation(event: NavigationStart): void {
-    this.liens[this.liens.map(l => l.url).indexOf(this.activeLink.url)].url = event.url;
+    this.liens[this.liens.map(l => l.url).indexOf(this.activeLink.url)].url =
+      event.url;
     this.activeLink.url = event.url;
     this.links.next(this.liens);
     this.storeTabs();
@@ -49,7 +50,8 @@ export class TabsService {
   }
 
   updateCurTabLabel(label: string): void {
-    this.liens[this.liens.map(l => l.url).indexOf(this.activeLink.url)].label = label;
+    this.liens[this.liens.map(l => l.url).indexOf(this.activeLink.url)].label =
+      label;
     this.activeLink.label = label;
     this.links.next(this.liens);
     this.storeTabs();

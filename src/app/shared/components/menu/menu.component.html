@@ -12,40 +12,46 @@
 </ng-container>
 
 <mat-sidenav-container hasBackdrop="false" fullscreen>
-  <mat-sidenav #sidenav fixedInViewport="true" [disableClose]="false" autoFocus="false" [mode]="mobileQuery.matches ? 'over' : 'push'"
-    *ngIf="isLogged$ | async">
+  <mat-sidenav
+    #sidenav
+    fixedInViewport="true"
+    [disableClose]="false"
+    autoFocus="false"
+    [mode]="mobileQuery.matches ? 'over' : 'push'"
+    *ngIf="isLogged$ | async"
+  >
     <mat-nav-list class="nav-list">
       <a mat-list-item appOpenLink url="/dashboard" label="nav_bar.dashboard">
         <fa-icon [icon]="faHome"></fa-icon>
-        {{'nav_bar.dashboard'|translate}}
+        {{ 'nav_bar.dashboard' | translate }}
       </a>
       <a mat-list-item appOpenLink url="login/profile" label="nav_bar.profile">
         <fa-icon [icon]="faUser"></fa-icon>
-        {{'nav_bar.profile'| translate}} ({{user?.name}})
+        {{ 'nav_bar.profile' | translate }} ({{ user?.name }})
       </a>
       <a mat-list-item appOpenLink url="/datas/movies" label="nav_bar.movies">
         <fa-icon [icon]="faBookmark"></fa-icon>
-        {{'nav_bar.movies'|translate}}
+        {{ 'nav_bar.movies' | translate }}
       </a>
       <a mat-list-item appOpenLink url="/datas/series" label="nav_bar.series">
         <fa-icon [icon]="faBookmark"></fa-icon>
-        {{'nav_bar.series'|translate}}
+        {{ 'nav_bar.series' | translate }}
       </a>
       <a mat-list-item appOpenLink url="/tags" label="nav_bar.tags">
-        <fa-icon [icon]="faTags "></fa-icon>
-        {{'nav_bar.tags'|translate}}
+        <fa-icon [icon]="faTags"></fa-icon>
+        {{ 'nav_bar.tags' | translate }}
       </a>
       <a mat-list-item appOpenLink url="/release" label="nav_bar.release">
         <fa-icon [icon]="faBoxOpen"></fa-icon>
-        {{'nav_bar.release'|translate}}
+        {{ 'nav_bar.release' | translate }}
       </a>
       <a mat-list-item appOpenLink url="/discover" label="nav_bar.discover">
         <fa-icon [icon]="faAtom"></fa-icon>
-        {{'nav_bar.discover'|translate}}
+        {{ 'nav_bar.discover' | translate }}
       </a>
       <a mat-list-item (click)="logout()">
         <fa-icon [icon]="faPowerOff"></fa-icon>
-        {{'nav_bar.logout' | translate}}
+        {{ 'nav_bar.logout' | translate }}
       </a>
       <app-dropdown-language [userLang]="user?.lang"></app-dropdown-language>
     </mat-nav-list>

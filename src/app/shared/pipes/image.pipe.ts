@@ -1,8 +1,8 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { ImageSize } from '../../model/model';
+import {Pipe, PipeTransform} from '@angular/core';
+import {ImageSize} from '../../model/model';
 
 @Pipe({
-  name: 'image'
+  name: 'image',
 })
 export class ImagePipe implements PipeTransform {
   static readonly ORIGINAL_IMG_SIZE = 'original';
@@ -17,7 +17,10 @@ export class ImagePipe implements PipeTransform {
 
   transform(path: any, size: ImageSize, noEmpty?: boolean): string {
     const width = ImagePipe.settings.get(size);
-    if ((path === undefined || path === null || path.trim() === '') && noEmpty) {
+    if (
+      (path === undefined || path === null || path.trim() === '') &&
+      noEmpty
+    ) {
       return undefined;
     } else if (path === undefined || path === null) {
       return ImagePipe.EMPTY_IMAGE_URL + width + '.jpg';

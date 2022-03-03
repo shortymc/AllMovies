@@ -1,24 +1,53 @@
 <div id="search-component">
-  <div class="form-check form-check-inline" appClickOutside (outside)="showSerie = false">
+  <div
+    class="form-check form-check-inline"
+    appClickOutside
+    (outside)="showSerie = false"
+  >
     <div class="search-box">
       <fa-icon [icon]="faSearch"></fa-icon>
-      <input #searchBox class="input-box" (keyup)="search(searchBox.value)" placeholder="{{'search.series'|translate}}"
-        (click)="showSerie = true" />
-      <a class="icon pointer" (click)="search(''); showSerie = false; searchBox.value=''">
+      <input
+        #searchBox
+        class="input-box"
+        (keyup)="search(searchBox.value)"
+        placeholder="{{ 'search.series' | translate }}"
+        (click)="showSerie = true"
+      />
+      <a
+        class="icon pointer"
+        (click)="search(''); showSerie = false; searchBox.value = ''"
+      >
         <img src="./assets/exit.png" />
       </a>
     </div>
   </div>
-  <div id="res" [ngClass]="{'hide': !showSerie}">
-    <div *ngFor="let serie of series | async" (click)="searchBox.value=''" appOpenLink [label]="serie.title"
-      url="/serie/{{serie.id}}" class="search-result">
+  <div id="res" [ngClass]="{hide: !showSerie}">
+    <div
+      *ngFor="let serie of series | async"
+      (click)="searchBox.value = ''"
+      appOpenLink
+      [label]="serie.title"
+      url="/serie/{{ serie.id }}"
+      class="search-result"
+    >
       <div class="media">
-        <img class="mr-2 thumbnail-result" *ngIf="serie.affiche" src="{{serie.affiche | image:imageSize.small}}">
+        <img
+          class="mr-2 thumbnail-result"
+          *ngIf="serie.affiche"
+          src="{{ serie.affiche | image: imageSize.small }}"
+        />
         <div class="media-body">
-          <div class="mt-0 title-result" [ngClass]="{'item-result' : !serie.original_title}">{{serie.title |
-            capitalizeWord | truncate:20}}
-            ({{serie.firstAired | date : "yyyy"}})</div>
-          <div *ngIf="serie.original_title" class="small">{{serie.original_title | truncate:20}}</div>
+          <div
+            class="mt-0 title-result"
+            [ngClass]="{'item-result': !serie.original_title}"
+          >
+            {{ serie.title | capitalizeWord | truncate: 20 }} ({{
+              serie.firstAired | date: 'yyyy'
+            }})
+          </div>
+          <div *ngIf="serie.original_title" class="small">
+            {{ serie.original_title | truncate: 20 }}
+          </div>
         </div>
       </div>
     </div>

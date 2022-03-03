@@ -1,14 +1,14 @@
 [
-    {
-        "id": 1,
-        "code": "fr",
-        "label": "Français",
-        "icon": "fr"
-    },
-    {
-        "id": 2,
-        "code": "en",
-        "label": "English",
-        "icon": "gb"
-    }
+  {
+    "id": 1,
+    "code": "fr",
+    "label": "Français",
+    "icon": "fr"
+  },
+  {
+    "id": 2,
+    "code": "en",
+    "label": "English",
+    "icon": "gb"
+  }
 ]

@@ -1,25 +1,60 @@
 <div>
-  <h2>{{'login.change_question.title'|translate}}:</h2>
+  <h2>{{ 'login.change_question.title' | translate }}:</h2>
   <form #changeForm="ngForm">
-    <label>{{'login.change_question.old_question'|translate}}:</label>{{oldQuestion}}
+    <label>{{ 'login.change_question.old_question' | translate }}:</label
+    >{{ oldQuestion }}
     <mat-form-field>
-      <input matInput [(ngModel)]="oldAnswer" placeholder="{{'login.change_question.old_answer'|translate}}" type="password" #inputOldAnswer="ngModel"
-        name="inputOldAnswer" required/>
+      <input
+        matInput
+        [(ngModel)]="oldAnswer"
+        placeholder="{{ 'login.change_question.old_answer' | translate }}"
+        type="password"
+        #inputOldAnswer="ngModel"
+        name="inputOldAnswer"
+        required
+      />
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [(ngModel)]="newQuestion" placeholder="{{'login.change_question.new_question'|translate}}" type="text" #inputNewQuestion="ngModel"
-        name="inputNewQuestion" required/>
+      <input
+        matInput
+        [(ngModel)]="newQuestion"
+        placeholder="{{ 'login.change_question.new_question' | translate }}"
+        type="text"
+        #inputNewQuestion="ngModel"
+        name="inputNewQuestion"
+        required
+      />
     </mat-form-field>
     <mat-form-field>
-      <input matInput [(ngModel)]="newAnswer" placeholder="{{'login.change_question.new_answer'|translate}}" type="password" #inputNewAnswer="ngModel"
-        name="inputNewAnswer" required/>
+      <input
+        matInput
+        [(ngModel)]="newAnswer"
+        placeholder="{{ 'login.change_question.new_answer' | translate }}"
+        type="password"
+        #inputNewAnswer="ngModel"
+        name="inputNewAnswer"
+        required
+      />
     </mat-form-field>
 
-    <mat-error *ngIf="message">{{message | translate}}</mat-error>
+    <mat-error *ngIf="message">{{ message | translate }}</mat-error>
     <div>
-      <button type="button" class="btn btn-outline-primary" routerLink="/login/profile">{{'global.cancel'|translate}}</button>
-      <button type="submit" class="btn btn-outline-primary" (click)="change()" [disabled]="changeForm.invalid">{{'global.save'|translate}}</button>
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        routerLink="/login/profile"
+      >
+        {{ 'global.cancel' | translate }}
+      </button>
+      <button
+        type="submit"
+        class="btn btn-outline-primary"
+        (click)="change()"
+        [disabled]="changeForm.invalid"
+      >
+        {{ 'global.save' | translate }}
+      </button>
     </div>
   </form>
 </div>

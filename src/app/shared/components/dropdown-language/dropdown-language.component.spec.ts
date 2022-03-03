@@ -1,11 +1,11 @@
-import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserModule } from '@angular/platform-browser/';
-import { FormsModule } from '@angular/forms';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {RouterTestingModule} from '@angular/router/testing';
+import {BrowserModule} from '@angular/platform-browser/';
+import {FormsModule} from '@angular/forms';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
-import { DropdownLanguageComponent } from './dropdown-language.component';
-import { MockService } from './../../service/mock.service';
+import {DropdownLanguageComponent} from './dropdown-language.component';
+import {MockService} from './../../service/mock.service';
 
 describe('DropdownLanguageComponent', () => {
   let component: DropdownLanguageComponent;
@@ -15,9 +15,13 @@ describe('DropdownLanguageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [DropdownLanguageComponent],
       providers: [TranslateService, MockService],
-      imports: [BrowserModule, FormsModule, TranslateModule.forRoot(), RouterTestingModule]
-    })
-      .compileComponents();
+      imports: [
+        BrowserModule,
+        FormsModule,
+        TranslateModule.forRoot(),
+        RouterTestingModule,
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

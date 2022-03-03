@@ -1,21 +1,44 @@
 <div id="search-component">
-  <div class="form-check form-check-inline" appClickOutside (outside)="showPerson = false">
+  <div
+    class="form-check form-check-inline"
+    appClickOutside
+    (outside)="showPerson = false"
+  >
     <div class="search-box">
       <fa-icon [icon]="faSearch"></fa-icon>
-      <input #searchBox class="input-box" (keyup)="search(searchBox.value)"
-        placeholder="{{'search.persons' | translate}}" (focus)="showPerson = true" />
-      <a class="icon pointer" (click)="search(''); showPerson = false; searchBox.value=''">
+      <input
+        #searchBox
+        class="input-box"
+        (keyup)="search(searchBox.value)"
+        placeholder="{{ 'search.persons' | translate }}"
+        (focus)="showPerson = true"
+      />
+      <a
+        class="icon pointer"
+        (click)="search(''); showPerson = false; searchBox.value = ''"
+      >
         <img src="./assets/exit.png" />
       </a>
     </div>
   </div>
-  <div id="res" [ngClass]="{'hide': !showPerson}">
-    <div *ngFor="let person of persons | async" (click)="searchBox.value=''" appOpenLink [label]="person.name"
-      url="/person/{{person.id}}" class="search-result" [ngClass]="{'adult': person.adult}">
+  <div id="res" [ngClass]="{hide: !showPerson}">
+    <div
+      *ngFor="let person of persons | async"
+      (click)="searchBox.value = ''"
+      appOpenLink
+      [label]="person.name"
+      url="/person/{{ person.id }}"
+      class="search-result"
+      [ngClass]="{adult: person.adult}"
+    >
       <div class="media">
-        <img class="mr-2 thumbnail-result" *ngIf="person.profile" src="{{person.profile | image:imageSize.small}}">
+        <img
+          class="mr-2 thumbnail-result"
+          *ngIf="person.profile"
+          src="{{ person.profile | image: imageSize.small }}"
+        />
         <div class="media-body person-result">
-          {{person.name | capitalizeWord}}
+          {{ person.name | capitalizeWord }}
         </div>
       </div>
     </div>

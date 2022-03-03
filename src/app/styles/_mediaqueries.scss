@@ -1,4 +1,4 @@
-@mixin mq ($type, $value) {
+@mixin mq($type, $value) {
   @media only screen and (#{$type}-width: #{$value}) {
     @content;
   }

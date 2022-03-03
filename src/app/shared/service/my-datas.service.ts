@@ -1,38 +1,45 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 
-import { Dropbox } from '../../constant/dropbox';
-import { DropboxService } from './dropbox.service';
-import { Data, DataI18N } from './../../model/data';
-import { AuthService } from './auth.service';
-import { Level } from '../../model/model';
-import { UtilsService } from './utils.service';
-import { ToastService } from './toast.service';
-import { Utils } from '../utils';
+import {Dropbox} from '../../constant/dropbox';
+import {DropboxService} from './dropbox.service';
+import {Data, DataI18N} from './../../model/data';
+import {AuthService} from './auth.service';
+import {Level} from '../../model/model';
+import {UtilsService} from './utils.service';
+import {ToastService} from './toast.service';
+import {Utils} from '../utils';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class MyDatasService<T extends Data> {
-  myMovies$: BehaviorSubject<T[]> = new BehaviorSubject([]);
-  mySeries$: BehaviorSubject<T[]> = new BehaviorSubject([]);
+  myMovies$: BehaviorSubject<T[]> = new BehaviorSubject<T[]>([]);
+  mySeries$: BehaviorSubject<T[]> = new BehaviorSubject<T[]>([]);
 
   constructor(
     private dropboxService: DropboxService,
     private auth: AuthService,
     private serviceUtils: UtilsService,
-    private toast: ToastService,
-  ) { }
+    private toast: ToastService
+  ) {}
 
   private format(datas: T[]): T[] {
     const byId = Utils.groupBy(datas, 'id');
     return byId.map(by => {
       let result: T;
-      datas.filter(m => m.id === +by.key).forEach(data => {
-        if (!result) {
-          result = data;
-          result.translation = new Map();
-        }
-        result.translation.set(data.lang_version, new DataI18N(data.title, data.affiche, data.genres));
-      });
+      datas
+        .filter(m => m.id === +by.key)
+        .forEach(data => {
+          if (!result) {
+            result = data;
+            result.translation = new Map();
+          }
+          result.translation.set(
+            data.lang_version,
+            new DataI18N(data.title, data.affiche, data.genres)
+          );
+        });
       return result;
     });
   }
@@ -52,22 +59,35 @@ export class MyDatasService<T extends Data> {
   }
 
   private toJson(datas: T[]): string {
-    return '[' + datas.map(data => {
-      const translation = Utils.mapToJson(<Map<any, any>>data.translation);
-      const json = JSON.stringify(data, data.removeFields);
-      return json.replace('"translation":{}', '"translation":' + translation);
-    }).join(',') + ']';
+    return (
+      '[' +
+      datas
+        .map(data => {
+          const translation = Utils.mapToJson(<Map<any, any>>data.translation);
+          const json = JSON.stringify(data, data.removeFields);
+          return json.replace(
+            '"translation":{}',
+            '"translation":' + translation
+          );
+        })
+        .join(',') +
+      ']'
+    );
   }
 
   private toBlob(datas: T[]): Blob {
     const theJSON = this.toJson(datas);
-    return new Blob([theJSON], { type: 'text/json' });
+    return new Blob([theJSON], {type: 'text/json'});
   }
 
   getFileName(isMovie: boolean): Promise<string> {
-    return new Promise(resolve => resolve(
-      `${isMovie ? Dropbox.DROPBOX_MOVIE_FILE : Dropbox.DROPBOX_SERIE_FILE}${this.auth.user$.getValue().id}${Dropbox.DROPBOX_FILE_SUFFIX}`
-    ));
+    return new Promise(resolve =>
+      resolve(
+        `${isMovie ? Dropbox.DROPBOX_MOVIE_FILE : Dropbox.DROPBOX_SERIE_FILE}${
+          this.auth.user$.getValue().id
+        }${Dropbox.DROPBOX_FILE_SUFFIX}`
+      )
+    );
   }
 
   getAll(isMovie: boolean): void {
@@ -78,90 +98,116 @@ export class MyDatasService<T extends Data> {
       .then((datas: T[]) => {
         console.log(isMovie ? 'movies' : 'series', datas);
         this.next(datas, isMovie);
-      }).catch(err => this.serviceUtils.handlePromiseError(err, this.toast));
+      })
+      .catch(err => this.serviceUtils.handlePromiseError(err, this.toast));
   }
 
   add(datasToAdd: T[], isMovie: boolean): Promise<boolean> {
-    let tempDataList = [];
+    let tempDataList: T[] = [];
     let tempDatasAdded = [];
-    let fileName;
+    let fileName: string;
     const mapped = this.format(datasToAdd);
-    return this.getFileName(isMovie).then((file: string) => {
-      fileName = file;
-      return this.dropboxService.downloadFile(fileName);
-    }).then((datasFromFile: string) => {
-      // parse datas
-      let dataList = [];
-      if (datasFromFile && datasFromFile.trim().length > 0) {
-        dataList = this.fromJson(datasFromFile);
-      }
-      // filter if not already in collection
-      const found = mapped.filter((add: T) => !dataList.map((data: T) => data.id).includes(add.id));
-      if (found.length > 0) {
-        tempDatasAdded = found;
-        found.forEach((data: T) => {
-          data.added = new Date();
-          dataList.push(data);
-        });
-        dataList.sort(Utils.compareObject);
-        return dataList;
-      } else {
-        this.toast.open(Level.info, 'toast.already_added');
-        return [];
-      }
-    }).then((list: T[]) => {
-      if (list && list.length !== 0) {
-        tempDataList = list;
-        // replace with new array datas
-        return this.dropboxService.uploadFile(this.toBlob(list), fileName);
-      } else {
-        return undefined;
-      }
-    }).then((res: any) => {
-      console.log(res);
-      if (res) {
-        // all good, modifies inner data
-        console.log('myDatas', tempDataList);
-        this.next(tempDataList, isMovie);
-        this.toast.open(Level.success, isMovie ? 'toast.movies_added' : 'toast.series_added', { size: tempDatasAdded.length });
-      }
-      return true;
-    }).catch((err) => {
-      this.serviceUtils.handleError(err, this.toast);
-      return false;
-    });
+    return this.getFileName(isMovie)
+      .then((file: string) => {
+        fileName = file;
+        return this.dropboxService.downloadFile(fileName);
+      })
+      .then((datasFromFile: string) => {
+        // parse datas
+        let dataList: T[] = [];
+        if (datasFromFile && datasFromFile.trim().length > 0) {
+          dataList = this.fromJson(datasFromFile);
+        }
+        // filter if not already in collection
+        const found = mapped.filter(
+          (add: T) => !dataList.map((data: T) => data.id).includes(add.id)
+        );
+        if (found.length > 0) {
+          tempDatasAdded = found;
+          found.forEach((data: T) => {
+            data.added = new Date();
+            dataList.push(data);
+          });
+          dataList.sort(Utils.compareObject);
+          return dataList;
+        } else {
+          this.toast.open(Level.info, 'toast.already_added');
+          return [];
+        }
+      })
+      .then((list: T[]) => {
+        if (list && list.length !== 0) {
+          tempDataList = list;
+          // replace with new array datas
+          return this.dropboxService.uploadFile(this.toBlob(list), fileName);
+        } else {
+          return undefined;
+        }
+      })
+      .then((res: any) => {
+        console.log(res);
+        if (res) {
+          // all good, modifies inner data
+          console.log('myDatas', tempDataList);
+          this.next(tempDataList, isMovie);
+          this.toast.open(
+            Level.success,
+            isMovie ? 'toast.movies_added' : 'toast.series_added',
+            {size: tempDatasAdded.length}
+          );
+        }
+        return true;
+      })
+      .catch(err => {
+        this.serviceUtils.handleError(err, this.toast);
+        return false;
+      });
   }
 
   remove(idToRemove: number[], isMovie: boolean): Promise<boolean> {
     let tempDataList: T[] = [];
-    let fileName;
-    return this.getFileName(isMovie).then((file: string) => {
-      fileName = file;
-      return this.dropboxService.downloadFile(fileName);
-    }).then(datasFromFile => {
-      // parse them
-      let dataList = this.fromJson(datasFromFile);
-      if (idToRemove.length > 0) {
-        // remove given datas
-        idToRemove.forEach((id: number) => dataList = dataList.filter((film: T) => film.id !== id));
-        tempDataList = dataList;
-        // replace file with new data array
-        return this.dropboxService.uploadFile(this.toBlob(dataList), fileName);
-      } else {
-        return undefined;
-      }
-    }).then((res: any) => {
-      console.log(res);
-      if (res) {
-        // if ok, emit new array and toast
-        this.next(tempDataList, isMovie);
-        this.toast.open(Level.success, isMovie ? 'toast.movies_removed' : 'toast.series_removed', { size: idToRemove.length });
-      }
-      return true;
-    }).catch((err) => {
-      this.serviceUtils.handlePromiseError(err, this.toast);
-      return false;
-    });
+    let fileName: string;
+    return this.getFileName(isMovie)
+      .then((file: string) => {
+        fileName = file;
+        return this.dropboxService.downloadFile(fileName);
+      })
+      .then(datasFromFile => {
+        // parse them
+        let dataList = this.fromJson(datasFromFile);
+        if (idToRemove.length > 0) {
+          // remove given datas
+          idToRemove.forEach(
+            (id: number) =>
+              (dataList = dataList.filter((film: T) => film.id !== id))
+          );
+          tempDataList = dataList;
+          // replace file with new data array
+          return this.dropboxService.uploadFile(
+            this.toBlob(dataList),
+            fileName
+          );
+        } else {
+          return undefined;
+        }
+      })
+      .then((res: any) => {
+        console.log(res);
+        if (res) {
+          // if ok, emit new array and toast
+          this.next(tempDataList, isMovie);
+          this.toast.open(
+            Level.success,
+            isMovie ? 'toast.movies_removed' : 'toast.series_removed',
+            {size: idToRemove.length}
+          );
+        }
+        return true;
+      })
+      .catch(err => {
+        this.serviceUtils.handlePromiseError(err, this.toast);
+        return false;
+      });
   }
 
   /**
@@ -171,40 +217,51 @@ export class MyDatasService<T extends Data> {
    */
   update(datasToUpdate: T[], isMovie: boolean): Promise<T[]> {
     let tempDataList: T[] = [];
-    let fileName;
+    let fileName: string;
     let mapped = datasToUpdate;
     if (datasToUpdate.every(m => m.translation === undefined)) {
       mapped = this.format(datasToUpdate);
     }
-    return this.getFileName(isMovie).then((file: string) => {
-      fileName = file;
-      return this.dropboxService.downloadFile(fileName);
-    }).then(file => {
-      let dataList = this.fromJson(file);
-      // Keeps added date field from being replaced
-      const idList = dataList.map(m => m.id);
-      mapped.forEach(data => {
-        if (idList.includes(data.id)) {
-          data.added = dataList.find(m => m.id === data.id).added;
-        }
+    return this.getFileName(isMovie)
+      .then((file: string) => {
+        fileName = file;
+        return this.dropboxService.downloadFile(fileName);
+      })
+      .then(file => {
+        let dataList = this.fromJson(file);
+        // Keeps added date field from being replaced
+        const idList = dataList.map(m => m.id);
+        mapped.forEach(data => {
+          if (idList.includes(data.id)) {
+            data.added = dataList.find(m => m.id === data.id).added;
+          }
+        });
+        // Removes from saved list datas to replaced
+        dataList = dataList.filter(
+          (m: T) =>
+            !mapped.map((data: T) => data.id).includes(m.id) ||
+            !mapped.map((data: T) => data.lang_version).includes(m.lang_version)
+        );
+        // Push in saved list new datas
+        mapped.forEach((data: T) => dataList.push(data));
+        dataList.sort(Utils.compareObject);
+        tempDataList = dataList;
+        return this.dropboxService.uploadFile(this.toBlob(dataList), fileName);
+      })
+      .then((res: any) => {
+        console.log(res);
+        this.next(tempDataList, isMovie);
+        this.toast.open(
+          Level.success,
+          isMovie ? 'toast.movies_updated' : 'toast.series_updated',
+          {size: mapped.length}
+        );
+        return mapped;
+      })
+      .catch(err => {
+        this.serviceUtils.handleError(err, this.toast);
+        return [];
       });
-      // Removes from saved list datas to replaced
-      dataList = dataList.filter((m: T) => !mapped.map((data: T) => data.id).includes(m.id)
-        || !mapped.map((data: T) => data.lang_version).includes(m.lang_version));
-      // Push in saved list new datas
-      mapped.forEach((data: T) => dataList.push(data));
-      dataList.sort(Utils.compareObject);
-      tempDataList = dataList;
-      return this.dropboxService.uploadFile(this.toBlob(dataList), fileName);
-    }).then((res: any) => {
-      console.log(res);
-      this.next(tempDataList, isMovie);
-      this.toast.open(Level.success, isMovie ? 'toast.movies_updated' : 'toast.series_updated', { size: mapped.length });
-      return mapped;
-    }).catch((err) => {
-      this.serviceUtils.handleError(err, this.toast);
-      return [];
-    });
   }
 
   next(datas: T[], isMovie: boolean): void {

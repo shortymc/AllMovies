@@ -1,16 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule, DatePipe} from '@angular/common';
+import {RouterModule, Routes} from '@angular/router';
+import {FormsModule} from '@angular/forms';
 
-import { MyNgbDate } from './../../shared/my-ngb-date';
-import { ReleaseComponent } from './component/release.component';
-import { SharedModule } from '../../shared/shared.module';
-import { MovieDetailModule } from '../movie-detail/movie-detail.module';
+import {MyNgbDate} from './../../shared/my-ngb-date';
+import {ReleaseComponent} from './component/release.component';
+import {SharedModule} from '../../shared/shared.module';
+import {MovieDetailModule} from '../movie-detail/movie-detail.module';
 
 const childRoutes: Routes = [
   {
-    path: '', component: ReleaseComponent
+    path: '',
+    component: ReleaseComponent,
   },
 ];
 
@@ -22,10 +23,7 @@ const childRoutes: Routes = [
     SharedModule.forChild(),
     MovieDetailModule,
   ],
-  providers: [
-    MyNgbDate,
-    DatePipe,
-  ],
+  providers: [MyNgbDate, DatePipe],
   declarations: [ReleaseComponent],
 })
-export class ReleaseModule { }
+export class ReleaseModule {}

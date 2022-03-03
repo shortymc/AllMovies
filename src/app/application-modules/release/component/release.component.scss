@@ -1,4 +1,4 @@
-@import "../../../styles/styles";
+@import '../../../styles/styles';
 
 :host {
   & .release-content {
@@ -36,7 +36,8 @@
     }
   }
 
-  ngb-datepicker {/* stylelint-disable-line */
+  ngb-datepicker {
+    /* stylelint-disable-line */
     ~ .btn {
       @include full_width;
     }

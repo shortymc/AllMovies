@@ -1,33 +1,33 @@
-import { Sort } from '@angular/material/sort';
+import {Sort} from '@angular/material/sort';
 
-import { GroupBy } from './../model/model';
-import { Tag } from './../model/tag';
-import { Data } from '../model/data';
+import {GroupBy} from './../model/model';
+import {Tag} from './../model/tag';
+import {Data} from '../model/data';
 
 export class Utils {
-
   static timeSliderFormatter = {
-    to(minutes: any): any {
+    to(minutes: number): string {
       return Utils.convertTimeNumberToString(minutes);
     },
-    from(time: any): any {
+    from(time: string): number {
       const res = Utils.convertTimeStringToNumber(time);
-      if (isNaN(res)) {
-        return time;
-      }
-      return res;
-    }
+      return isNaN(res) ? 0 : res;
+    },
   };
 
   static isBlank(str: string): boolean {
-    return str === undefined || str === null || (typeof str === 'string' && str.trim() === '');
+    return (
+      str === undefined ||
+      str === null ||
+      (typeof str === 'string' && str.trim() === '')
+    );
   }
 
   static isNotBlank(str: string): boolean {
     return !Utils.isBlank(str);
   }
 
-  static getTitle(r: any, isMovie: boolean = true): string {
+  static getTitle(r: {[key: string]: string}, isMovie = true): string {
     const field = isMovie ? 'title' : 'name';
     return r['original_' + field] === r[field] ? ' ' : r['original_' + field];
   }
@@ -38,7 +38,12 @@ export class Utils {
       if (isNaN(h)) {
         h = 0;
       }
-      const m = parseInt(time.substring(time.lastIndexOf('h') + 1, time.lastIndexOf('min')).trim(), 10);
+      const m = parseInt(
+        time
+          .substring(time.lastIndexOf('h') + 1, time.lastIndexOf('min'))
+          .trim(),
+        10
+      );
       return h * 60 + m;
     } else {
       return 0;
@@ -67,7 +72,7 @@ export class Utils {
     return jobList.some(j => j.toLowerCase() === job.toLowerCase());
   }
 
-  static sortCast(a1: any, a2: any): any {
+  static sortCast(a1: {order: string}, a2: {order: string}): number {
     if (a1.order < a2.order) {
       return -1;
     } else if (a1.order > a2.order) {
@@ -81,7 +86,11 @@ export class Utils {
     return '#' + Math.floor(Math.random() * 16777215).toString(16);
   }
 
-  static compare(a: any, b: any, isAsc: boolean): number {
+  static compare(
+    a: string | number,
+    b: string | number,
+    isAsc: boolean
+  ): number {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
@@ -106,8 +115,12 @@ export class Utils {
   }
 
   static compareMetaScore<T extends Data>(a: T, b: T, isAsc: boolean): number {
-    let c = a.score.ratings ? a.score.ratings.find(rating => rating.Source === 'Metacritic') : undefined;
-    let d = b.score.ratings ? b.score.ratings.find(rating => rating.Source === 'Metacritic') : undefined;
+    let c = a.score.ratings
+      ? a.score.ratings.find(rating => rating.Source === 'Metacritic')
+      : undefined;
+    let d = b.score.ratings
+      ? b.score.ratings.find(rating => rating.Source === 'Metacritic')
+      : undefined;
     c = c ? c.Value : '';
     d = d ? d.Value : '';
     let meta1 = 0;
@@ -121,7 +134,7 @@ export class Utils {
     return Utils.compare(meta1, meta2, isAsc);
   }
 
-  static compareObject(a: any, b: any): number {
+  static compareObject(a: {id: number}, b: {id: number}): number {
     if (a.id < b.id) {
       return -1;
     }
@@ -140,7 +153,12 @@ export class Utils {
   }
 
   static stringifyJson(value: any): string {
-    if (!value || value === undefined || value === '' || value === 'undefined') {
+    if (
+      !value ||
+      value === undefined ||
+      value === '' ||
+      value === 'undefined'
+    ) {
       return '';
     } else {
       return JSON.stringify(value);
@@ -151,14 +169,18 @@ export class Utils {
     if (!list || list === undefined || list.length === 0) {
       return [];
     }
-    if (searchString === undefined || searchString.length === 0 || searchString.trim() === '') {
+    if (
+      searchString === undefined ||
+      searchString.length === 0 ||
+      searchString.trim() === ''
+    ) {
       return list;
     }
 
     return list.filter(Utils.compareWithAllFields, searchString);
   }
 
-  static filterByFields<T>(items: T[], fields: string[], value: any): T[] {
+  static filterByFields<T>(items: T[], fields: string[], value: string): T[] {
     if (!items || items === undefined) {
       return [];
     }
@@ -177,22 +199,31 @@ export class Utils {
     });
   }
 
-  static compareWithAllFields(value: any, index: number): boolean {
+  static compareWithAllFields(value: any): boolean {
     const fields: string[] = Object.keys(value);
     for (let i = 0; i < fields.length; i++) {
       if (value[fields[i]] !== undefined) {
-        if (true) {  // isObject(value[fields[i]])
-          const childFields: string[] = Object.keys(value[fields[i]]);
+        // if (true) {
+        // isObject(value[fields[i]])
+        const childFields: string[] = Object.keys(value[fields[i]]);
 
-          if (childFields.length > 0) {
-            for (let j = 0; j < childFields.length; j++) {
-              if ((value[fields[i]][childFields[j]] + '').toLowerCase().indexOf(this.toString().toLowerCase()) !== -1) {
-                return true;
-              }
+        if (childFields.length > 0) {
+          for (let j = 0; j < childFields.length; j++) {
+            if (
+              (value[fields[i]][childFields[j]] + '')
+                .toLowerCase()
+                .indexOf(this.toString().toLowerCase()) !== -1
+            ) {
+              return true;
             }
           }
         }
-        if ((value[fields[i]] + '').toLowerCase().indexOf(this.toString().toLowerCase()) !== -1) {
+        // }
+        if (
+          (value[fields[i]] + '')
+            .toLowerCase()
+            .indexOf(this.toString().toLowerCase()) !== -1
+        ) {
           return true;
         }
       }
@@ -201,25 +232,44 @@ export class Utils {
   }
 
   /* tslint:disable cyclomatic-complexity */
-  static sortData<T extends Data>(list: T[], sort: Sort, lang: string = 'fr'): T[] {
+  static sortData<T extends Data>(list: T[], sort: Sort, lang = 'fr'): T[] {
     if (sort && sort.active && sort.direction !== '') {
       return list.sort((a, b) => {
         const isAsc: boolean = sort.direction === 'asc';
         const field = sort.active;
-        if (['original_title', 'language', 'title', 'inProduction', 'originLang'].includes(field)) {
+        if (
+          [
+            'original_title',
+            'language',
+            'title',
+            'inProduction',
+            'originLang',
+          ].includes(field)
+        ) {
           return Utils.compare(a[field], b[field], isAsc);
-        } else if (['date', 'firstAired'].includes(sort.active)) {
+        } else if (['date', 'firstAired', 'added'].includes(sort.active)) {
           return Utils.compareDate(a[field], b[field], isAsc);
-        } else if (['added'].includes(sort.active)) {
-          return Utils.compare(new Date(a[field]), new Date(b[field]), isAsc);
         } else if (['meta'].includes(sort.active)) {
           return this.compareMetaScore(a, b, isAsc);
-        } else if (['id', 'vote', 'vote_count', 'popularity', 'time', 'seasonCount'].includes(sort.active)) {
+        } else if (
+          [
+            'id',
+            'vote',
+            'vote_count',
+            'popularity',
+            'time',
+            'seasonCount',
+          ].includes(sort.active)
+        ) {
           return Utils.compare(+a[field], +b[field], isAsc);
         } else if (['runtimes'].includes(sort.active)) {
           return Utils.compare(+a[field][0], +b[field][0], isAsc);
         } else if (['name'].includes(sort.active)) {
-          return Utils.compare(a.translation.get(lang).name, b.translation.get(lang).name, isAsc);
+          return Utils.compare(
+            a.translation.get(lang).name,
+            b.translation.get(lang).name,
+            isAsc
+          );
         } else {
           return 0;
         }
@@ -249,7 +299,7 @@ export class Utils {
     }
   }
 
-  static sortTagDatas(tag: Tag, sort: Sort, lang: string = 'fr'): Tag {
+  static sortTagDatas(tag: Tag, sort: Sort, lang = 'fr'): Tag {
     if (sort && sort.active && sort.direction !== '') {
       tag.datas.sort((a, b) => {
         const isAsc: boolean = sort.direction === 'asc';
@@ -271,13 +321,13 @@ export class Utils {
       return [];
     } else if (!Object.keys(array[0]).includes(field)) {
       console.log('array[0]', array[0]);
-      throw new Error('Given array doesn\'t have the requested field: ' + field);
+      throw new Error("Given array doesn't have the requested field: " + field);
     }
     return array.map(obj => obj[field]).reduce((x, y) => x.concat(y), []);
   }
 
   static unique<T>(array: T[]): T[] {
-    const result = [];
+    const result: T[] = [];
     array.forEach(element => {
       if (!result.includes(element)) {
         result.push(element);
@@ -294,10 +344,10 @@ export class Utils {
         prev[cur[field]].push(cur);
       }
       return prev;
-    }, {
-
-    });
-    return Object.keys(groupedObj).map(key => new GroupBy(key, <T[]>groupedObj[key]));
+    }, {});
+    return Object.keys(groupedObj).map(
+      key => new GroupBy(key, <T[]>groupedObj[key])
+    );
   }
 
   static mapToJson(map: Map<any, any>): string {
@@ -311,8 +361,8 @@ export class Utils {
   static imageExists(id: number, url: string): Promise<any> {
     const img = new Image();
     return new Promise(resolve => {
-      img.onload = () => resolve({ id: id, result: true });
-      img.onerror = () => resolve({ id: id, result: false });
+      img.onload = () => resolve({id: id, result: true});
+      img.onerror = () => resolve({id: id, result: false});
       img.src = url;
     });
   }

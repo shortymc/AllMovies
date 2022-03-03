@@ -1,21 +1,30 @@
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Injectable, OnDestroy } from '@angular/core';
+import {
+  CanActivate,
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {Injectable, OnDestroy} from '@angular/core';
 
-import { AuthService } from './shared/shared.module';
+import {AuthService} from './shared/shared.module';
+import {Subscription} from 'rxjs';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthGard implements CanActivate, OnDestroy {
-  subs = [];
-  constructor(private auth: AuthService, private router: Router) { }
+  subs: Subscription[] = [];
+  constructor(private auth: AuthService, private router: Router) {}
 
   ngOnDestroy(): void {
-    this.subs.forEach((subscription) => subscription.unsubscribe());
+    this.subs.forEach(subscription => subscription.unsubscribe());
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Promise<boolean> {
     console.log('canActivate', state.url);
     try {
-      return this.auth.isAuthenticated().then((isAuth) => {
+      return this.auth.isAuthenticated().then(isAuth => {
         console.log('isAuth', isAuth);
         if (!isAuth) {
           console.log('not isAuthenticated');
@@ -28,7 +37,7 @@ export class AuthGard implements CanActivate, OnDestroy {
       });
     } catch (err) {
       console.log(err);
-      return new Promise((resolve, reject) => { });
+      return new Promise(() => {});
     }
   }
 }

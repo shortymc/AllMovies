@@ -1,6 +1,6 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
-@Pipe({ name: 'convertToHHmm' })
+@Pipe({name: 'convertToHHmm'})
 export class ConvertToHHmmPipe implements PipeTransform {
   transform(minutes: number, args: boolean): string {
     let result = '';
